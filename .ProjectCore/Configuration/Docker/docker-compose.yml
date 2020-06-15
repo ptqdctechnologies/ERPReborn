@@ -1,0 +1,135 @@
+version: '3.5'
+
+
+#---> Docker Services
+services:
+  #---> Services : PHP Apache FrontEnd
+  php-apache-frontend:
+    container_name: 'php-apache-frontend'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile'
+    image: 'erp-reborn-phpapache-frontend'
+    depends_on:
+      - 'php-apache-backend'
+    restart: 'unless-stopped'
+    tty: 'true'
+    ports:
+      - '20080:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.4'
+    volumes:
+      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
+      - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
+
+  #---> Services : PHP Apache BackEnd
+  php-apache-backend:
+    container_name: 'php-apache-backend'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile'
+    image: 'erp-reborn-phpapache-backend'
+    depends_on:
+      - 'db-postgresql'
+      - 'redis'
+      - 'pgadmin4'
+    restart: 'unless-stopped'
+    tty: 'true'
+    ports:
+      - '10080:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.3'
+    volumes:
+      #- './:/var/www/html'
+      #- './Programming/WebBackEnd/:/var/www/html'
+      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
+      - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
+    links:
+      - 'db-postgresql'
+    environment:
+      DB_CONNECTION: 'pgsql'
+      DB_HOST: 'db-postgresql'
+      DB_PORT: 5432
+      DB_DATABASE: 'dbERPReborn'
+      DB_USERNAME: 'SysEngine'
+      DB_PASSWORD: '748159263'
+
+
+  #---> Services : PostgreSQL Database
+  db-postgresql:
+    container_name: 'postgresql'
+    #image: 'postgres'
+    image: 'erp-reborn-postgresql'
+    restart: 'unless-stopped'
+    ports:
+      - '15432:5432'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.2'
+    volumes:
+      - 'volume-postgresql:/var/lib/postgresql/data'
+      - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
+    environment:
+      POSTGRES_DB: 'postgres'
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: '748159263'
+      #PG_MODE=primary
+      #PG_PRIMARY_USER=postgres
+      #PG_PRIMARY_PASSWORD=yoursecurepassword
+      #PG_DATABASE=testdb
+      #PG_USER=yourusername
+      #PG_PASSWORD=yoursecurepassword
+      #PG_ROOT_PASSWORD=yoursecurepassword
+      #PG_PRIMARY_PORT=5432
+
+
+  #---> Services : Redis
+  redis:
+    container_name: 'redis'
+    image: 'redis:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '16379:6379'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.5'
+    volumes:
+      #- './.ZhtData/Redis/data/:/data'
+      - 'volume-redis:/data'
+
+
+  #---> Services : PGAdmin4
+  pgadmin4:
+    container_name: 'pgadmin4'
+    image: 'dpage/pgadmin4:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '15050:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.6'
+    volumes:
+      - 'volume-pgadmin4:/var/lib/pgadmin'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
+
+#---> Docker Volumes
+volumes:
+  volume-postgresql:
+    external: true
+  volume-pgadmin4:
+    external: true
+  volume-redis:
+    external: true
+
+
+#---> Docker Networks
+networks:
+  app-network:
+    ipam:
+      driver: 'default'
+      config:
+       - subnet: '172.28.0.0/16'
