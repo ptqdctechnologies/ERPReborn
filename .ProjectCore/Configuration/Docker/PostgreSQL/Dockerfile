@@ -27,8 +27,7 @@ RUN apt-get install -y lsb-release \
     && wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb \
     && dpkg -i mysql-apt-config_0.8.13-1_all.deb \
     && apt-get update \
-    && apt-get install -y mariadb-server \
-    && service mysql restart
+    && apt-get install -y mariadb-server
 
 RUN wget https://github.com/EnterpriseDB/mysql_fdw/archive/master.zip \
     && unzip master.zip \
@@ -39,3 +38,6 @@ RUN cd /mysql_fdw-master \
     && PATH=/usr/lib/postgresql/12/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
     && cd / \
     && rm -rf /mysql_fdw-master
+
+#ENTRYPOINT ["Script.ServiceRestart.sh"]
+#EXPOSE 3306

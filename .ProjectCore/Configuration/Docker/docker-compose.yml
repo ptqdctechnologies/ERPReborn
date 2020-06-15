@@ -23,6 +23,7 @@ services:
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
 
+
   #---> Services : PHP Apache BackEnd
   php-apache-backend:
     container_name: 'php-apache-backend'
@@ -43,7 +44,6 @@ services:
         ipv4_address: '172.28.0.3'
     volumes:
       #- './:/var/www/html'
-      #- './Programming/WebBackEnd/:/var/www/html'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
     links:
@@ -65,13 +65,16 @@ services:
     restart: 'unless-stopped'
     ports:
       - '15432:5432'
+      - '13306:3306'
     networks:
       app-network:
         ipv4_address: '172.28.0.2'
     volumes:
-      #      - 'volume-mysql:/var/lib/mysql'
+      - 'volume-mysql:/var/lib/mysql'
       - 'volume-postgresql:/var/lib/postgresql/data'
       - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
+      - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+    command: bash -c "Script.ServiceRestart.sh && tail -f /dev/null"
     environment:
       POSTGRES_DB: 'postgres'
       POSTGRES_USER: 'postgres'
@@ -124,6 +127,8 @@ services:
 
 #---> Docker Volumes
 volumes:
+  volume-mysql:
+    external: true
   volume-postgresql:
     external: true
   volume-pgadmin4:

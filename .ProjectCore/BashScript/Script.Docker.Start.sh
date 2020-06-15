@@ -23,3 +23,14 @@ clear;
 sudo docker network prune --force;
 sudo docker container prune --force;
 sudo docker-compose up --remove-orphans;
+
+
+#sudo docker-compose up --remove-orphans \
+#  | parallel sleep 20 \
+#     && sudo docker exec -it postgresql service mysql status;
+
+  
+#   \
+#   && sleep 20 \
+#   && sudo docker exec -it postgresql "/usr/local/bin/Script.ServiceRestart.sh";
+#sudo docker exec -it postgresql -c "";
