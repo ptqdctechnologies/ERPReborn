@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildVolume.All.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-06-11
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2020-06-15
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk membuat semua volume Docker
@@ -12,6 +12,7 @@
 
 #!/bin/bash
 
+sudo docker volume create --driver local --name=volume-mysql;
 sudo docker volume create --driver local --name=volume-postgresql;
 sudo docker volume create --driver local --name=volume-pgadmin4;
 sudo docker volume create --driver local --name=volume-redis;

@@ -69,12 +69,17 @@ services:
       app-network:
         ipv4_address: '172.28.0.2'
     volumes:
+      #      - 'volume-mysql:/var/lib/mysql'
       - 'volume-postgresql:/var/lib/postgresql/data'
       - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
     environment:
       POSTGRES_DB: 'postgres'
       POSTGRES_USER: 'postgres'
       POSTGRES_PASSWORD: '748159263'
+      MYSQL_DATABASE: 'db'
+      MYSQL_USER: 'SysEngine'
+      MYSQL_PASSWORD: '748159263'
+      MYSQL_ROOT_PASSWORD: '748159263'
       #PG_MODE=primary
       #PG_PRIMARY_USER=postgres
       #PG_PRIMARY_PASSWORD=yoursecurepassword

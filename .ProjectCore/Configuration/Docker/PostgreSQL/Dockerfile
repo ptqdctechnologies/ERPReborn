@@ -5,6 +5,13 @@ ENV POSTGRES_USER postgres
 ENV POSTGRES_PASSWORD 748159263
 ENV POSTGRES_DB postgres
 
+ENV MYSQL_USER SysEngine
+ENV MYSQL_PASSWORD 748159263
+ENV MYSQL_ROOT_PASSWORD 748159263
+ENV MYSQL_DATABASE db
+
+COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/.my.cnf /root/
+
 RUN apt-get update \
     && apt-get install -y \
        libpq-dev \
@@ -14,10 +21,10 @@ RUN apt-get update \
        gcc \
        wget \
        unzip \
-       vim \
-       lsb-release
+       vim
 
-RUN wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb \
+RUN apt-get install -y lsb-release \
+    && wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb \
     && dpkg -i mysql-apt-config_0.8.13-1_all.deb \
     && apt-get update \
     && apt-get install -y mariadb-server \
