@@ -1,0 +1,1 @@
+./../.ProjectCore/BashScript/Script.Git.Init.sh

@@ -15,5 +15,5 @@
 clear;
 
 sudo docker pull postgres;
-vim ./.ZhtConf/Docker/PostgreSQL/Dockerfile;
-sudo docker build --file ./.ZhtConf/Docker/PostgreSQL/Dockerfile -t erp-reborn-postgresql .;
+vim ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile;
+sudo docker build --file ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile -t erp-reborn-postgresql .;

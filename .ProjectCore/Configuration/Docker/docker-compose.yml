@@ -116,6 +116,7 @@ services:
       PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
       PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
 
+
 #---> Docker Volumes
 volumes:
   volume-postgresql:
