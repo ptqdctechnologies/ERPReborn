@@ -71,6 +71,7 @@ services:
         ipv4_address: '172.28.0.2'
     volumes:
       - 'volume-mysql:/var/lib/mysql'
+      - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
       - 'volume-postgresql:/var/lib/postgresql/data'
       - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
       - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'

@@ -1,13 +1,13 @@
 #----------------------------------------------------------------------------------------------------
-# ▪ Nama               : Script.Docker.Reinitializing.Database.sh
+# ▪ Nama               : Script.Docker.Reinitializing.Database.PostgreSQL.sh
 # ▪ Versi              : 1.00.0000
 # ▪ Tanggal            : 2020-06-11
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menginisialisasi ulang (Cloning) Database dari 
 #                        Production Server kedalam volume database (volume-postgresql)
-# ▪ Execution Syntax   : ./BashScript/Script.Docker.Reinitializing.Database.sh
-#                        <FullPathFromRoot>/BashScript/Script.Docker.Reinitializing.Database.sh
+# ▪ Execution Syntax   : ./BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
+#                        <FullPathFromRoot>/BashScript/Script.Docker.Reinitializing.Database.PostgreSQL.sh
 # ▪ Copyright          : Zheta © 2020
 #----------------------------------------------------------------------------------------------------
 
