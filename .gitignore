@@ -6,4 +6,5 @@
 /**/storage/*.key
 /**/*.swp
 Programming/.LaravelCore/vendor/
-/.ProjectCore/Temp/PostgreSQL/*
+/.ProjectCore/Temp/PostgreSQL/dump.sql
+/.ProjectCore/Temp/MySQL/dump.sql
