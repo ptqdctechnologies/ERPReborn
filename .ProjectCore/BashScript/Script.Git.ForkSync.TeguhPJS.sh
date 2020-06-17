@@ -1,6 +1,6 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Git.ForkSync.TeguhPJS.sh
-# ▪ Versi              : 1.00.0000
+# ▪ Versi              : 1.00.0001
 # ▪ Tanggal            : 2020-06-17
 # ▪ Input              : -
 # ▪ Output             : -
@@ -18,9 +18,13 @@ varGitHubForkSite='https://github.com/teguhpjs/ERPReborn';
 
 clear;
 
+cp ./.ProjectCore/BashScript/Script.Git.ForkSync.TeguhPJS.sh ./../Script.Git.ForkSync.TeguhPJS.sh;
+cd ..;
+rm -rf ./ERPReborn;
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
 git fetch upstream;
 git pull upstream master;
 git push origin master;
+rm -rf ./../Script.Git.ForkSync.TeguhPJS.sh;
