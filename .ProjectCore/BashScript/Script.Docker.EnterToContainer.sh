@@ -18,7 +18,7 @@ clear;
 if [ $# -eq 0 ]
    then
       echo "Available Container Name : ";
-      sudo docker container ls | cut -c 150-200 | grep -v NAMES | awk '{print "   -> " $1}';
+      sudo docker container ls | cut -c 169-200 | grep -v NAMES | awk '{print "   -> " $1}';
       echo "Please type selected container name : ";
       read varContainerName;
    else

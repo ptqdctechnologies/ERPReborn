@@ -1,7 +1,9 @@
 #!/bin/bash
 
 if [ ! -f .initialized ]; then
-   echo "Initializing PostgreSQL Container";
+   #sleep 30;
+   echo "Initializing MariaDB (MySQL) on PostgreSQL Container";
+   #service postgresql restart;
    service mysql restart;
    touch .initialized;
 fi

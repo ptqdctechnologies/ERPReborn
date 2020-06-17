@@ -22,7 +22,13 @@ clear;
 
 sudo docker network prune --force;
 sudo docker container prune --force;
+#nohup ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh >/dev/null 2>&1;
+#nohup ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh </dev/null >/dev/null 2>&1
+#nohup ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &
+sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &
 sudo docker-compose up --remove-orphans;
+varProcessID=`ps aux | grep BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh | grep /bin/bash | awk '{print $2}'`;
+sudo kill -s 9 $varProcessID;
 
 
 #sudo docker-compose up --remove-orphans \

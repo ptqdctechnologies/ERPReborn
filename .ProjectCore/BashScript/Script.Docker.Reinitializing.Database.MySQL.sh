@@ -5,7 +5,8 @@
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menginisialisasi ulang (Cloning) Database dari 
-#                        Production Server kedalam volume database (volume-mysql)
+#                        Production Server kedalam volume database (volume-mysql) pada Container
+#                        PostgreSQL
 # ▪ Execution Syntax   : ./BashScript/Script.Docker.Reinitializing.Database.MySQL.sh
 #                        <FullPathFromRoot>/BashScript/Script.Docker.Reinitializing.Database.MySQL.sh
 # ▪ Copyright          : Zheta © 2020

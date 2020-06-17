@@ -38,4 +38,4 @@ RUN apt-get install -y lsb-release \
        && rm -rf /mysql_fdw-master
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
-EXPOSE 3306
+#EXPOSE 3306
