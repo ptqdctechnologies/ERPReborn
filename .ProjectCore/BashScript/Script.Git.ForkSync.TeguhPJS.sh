@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Git.ForkSync.TeguhPJS.sh
-# ▪ Versi              : 1.00.0001
-# ▪ Tanggal            : 2020-06-17
+# ▪ Versi              : 1.00.0002
+# ▪ Tanggal            : 2020-06-18
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menyinkronisasikan Fork Repository GitHub dengan
@@ -28,3 +28,6 @@ git fetch upstream;
 git pull upstream master;
 git push origin master;
 rm -rf ./../Script.Git.ForkSync.TeguhPJS.sh;
+
+cd .;
+./BashScript/Script.Laravel.ComposerUpdate.sh;
