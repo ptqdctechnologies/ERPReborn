@@ -16,5 +16,13 @@
 clear;
 
 ./BashScript/Script.Laravel.ComposerUpdate.sh;
+
 ./BashScript/Script.Docker.BuildVolume.All.sh;
+./BashScript/Script.Docker.BuildImage.PostgreSQL.sh;
+./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
+./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
+./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
+
+./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
+
 ./BashScript/Script.Docker.Start.sh;
