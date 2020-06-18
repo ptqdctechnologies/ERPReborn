@@ -19,9 +19,11 @@ clear;
 #sudo echo never > /sys/kernel/mm/transparent_hugepage/enabled;
 
 #---> General
+#./BashScript/Script.Laravel.ComposerUpdate.sh;
+./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
+
 sudo docker network prune --force;
 sudo docker container prune --force;
-./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &
 sudo docker-compose up --remove-orphans;
 varCmdExec="sudo kill -s 9 "`ps aux | grep "Script.System.WatchDog.Docker.ContainerPostgreSQL.sh" | grep -v "\-\-color" | awk '{print $2}'`";";
