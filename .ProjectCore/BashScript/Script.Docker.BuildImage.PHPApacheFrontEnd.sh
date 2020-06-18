@@ -16,5 +16,5 @@
 clear;
 
 sudo docker pull php:7.3-apache;
-vim ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile
+#vim ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile
 sudo docker build --file ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile -t erp-reborn-phpapache-frontend .;
