@@ -3,6 +3,7 @@
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies
 
 <h3>Langkah-Langkah Cloning Repository</h3>
+
 1. Pastikan **docker**, **docker-compose**, dan **composer** sudah terinstall pada perangkat Laptop
 
 2. Pastikan **service docker** sudah berjalan pada perangkat Laptop
@@ -46,4 +47,10 @@
 7. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
 8. Untuk menjalankannnya docker-compose kembali dapat menggunakan **./BashScript/Script.Docker.Start.sh**
+
+
+<h3>Lokasi Script Coding Pemrograman PHP pada Laravel :</h3>
+
+- WebBackEnd : **ERPReborn/Programming/WebBackEnd/**
+- WebFrontEnd : **ERPReborn/Programming/WebFrontEnd/**
  
