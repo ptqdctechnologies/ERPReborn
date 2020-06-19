@@ -2,17 +2,18 @@
 
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies
 
-<h3>Langkah-Langkah Cloning Repository</h3>
+<h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
-1. Pastikan **docker**, **docker-compose**, dan **composer** sudah terinstall pada perangkat Laptop
+1. Pastikan terlebih dahulu hal-hal sebagai berikut :
+   1. User yang anda gunakan saat ini sudah masuk dalam grup **SUODER** pada perangkat komputer, karena semua perintah docker menggunakan mode **Priviliged User (menggunakan mode sudo)**
+   2. Package **docker**, **docker-compose**, dan **composer** sudah terinstall pada perangkat komputer
+   3. Service **docker** sudah berjalan pada perangkat komputer
 
-2. Pastikan **service docker** sudah berjalan pada perangkat Laptop
+2. Jalankan perintah **git clone https://github.com/ptqdctechnologies/ERPReborn ERPReborn**
 
-3. Jalankan perintah **git clone https://github.com/ptqdctechnologies/ERPReborn ERPReborn**
+3. Jalankan perintah **cd ./ERPReborn** untuk masuk kedalam folder ERPReborn
 
-4. Jalankan perintah **cd ./ERPReborn** untuk masuk kedalam folder ERPReborn
-
-5. Jalankan perintah **./BashScript/Script.System.FirstTimeInitRun.sh**. Selama menjalankan perintah berbasis Bash Script, banyak command yang memerlukan instruksi dalam mode **Priviliged User** sehingga harus diisikan password beberapa kali dalam eksekusinya. Bash Script ini menjalankan beberapa instruksi utama diantaranya :
+4. Jalankan perintah **./BashScript/Script.System.FirstTimeInitRun.sh**. Selama menjalankan perintah berbasis Bash Script, banyak command yang memerlukan instruksi dalam mode **Priviliged User** sehingga harus diisikan password beberapa kali dalam eksekusinya. Bash Script ini menjalankan beberapa instruksi utama diantaranya :
    1. Update Laravel Melalui Composer
    2. Rebuild Volume Docker yang terdiri atas :
       1. **volume-postgresql**
@@ -36,7 +37,7 @@
       4. **redis** &rarr; membentuk container bernama **redis**
       5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4**
       
-6. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
+5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
    2. **mysql** &rarr; **http://localhost:13306** (NAT dari 172.28.0.2:3306)
    3. **apache WebBackEnd** &rarr; **http://localhost:10080** (NAT dari 172.28.0.3:80)
@@ -44,9 +45,9 @@
    5. **redis** &rarr; **http://localhost:6379** (NAT dari 172.28.0.5:6379)
    6. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.6:5050)
    
-7. Untuk mematikan docker-composer tekan **[Ctrl+C]**
+6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
-8. Untuk menjalankannnya docker-compose kembali dapat menggunakan **./BashScript/Script.Docker.Start.sh**
+7. Untuk menjalankannnya docker-compose kembali dapat menggunakan **./BashScript/Script.Docker.Start.sh**
 
 
 <h3>Lokasi Script Coding Pemrograman PHP pada Laravel :</h3>
