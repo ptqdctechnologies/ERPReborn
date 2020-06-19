@@ -5,7 +5,7 @@
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
 1. Pastikan terlebih dahulu hal-hal sebagai berikut :
-   1. User yang anda gunakan saat ini sudah masuk dalam grup **SUODER** pada perangkat komputer, karena semua perintah docker menggunakan mode **Priviliged User (menggunakan mode sudo)**
+   1. User yang anda gunakan saat ini sudah masuk dalam grup **SUDOER** pada perangkat komputer, karena semua perintah docker menggunakan mode **Priviliged User (menggunakan mode sudo)**
    2. Package **docker**, **docker-compose**, dan **composer** sudah terinstall pada perangkat komputer
    3. Service **docker** sudah berjalan pada perangkat komputer
 
@@ -31,11 +31,11 @@
       3. **erp-reborn-phpapache-frontend** (turunan dari Image php:7.3-apache)
    4. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
    3. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
-      1. **erp-reborn-postgresql** &rarr; membentuk container bernama **postgresql**
-      2. **erp-reborn-phpapache-backend** &rarr; membentuk container bernama **php-apache-frontend**
-      3. **erp-reborn-phpapache-frontend** &rarr; membentuk container bernama **php-apache-backend**
-      4. **redis** &rarr; membentuk container bernama **redis**
-      5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4**
+      1. **erp-reborn-postgresql** &rarr; membentuk container bernama **postgresql** (Docker IP : 172.28.0.2)
+      2. **erp-reborn-phpapache-frontend** &rarr; membentuk container bernama **php-apache-backend** (Docker IP : 172.28.0.3)
+      3. **erp-reborn-phpapache-backend** &rarr; membentuk container bernama **php-apache-frontend** (Docker IP : 172.28.0.4)
+      4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
+      5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.6)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
