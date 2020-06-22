@@ -1,6 +1,8 @@
 # ERPReborn
 
-**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies
+![LogoERPReborn](https://i.ibb.co/fnL12cm/Logo-Phoenix.png)
+
+**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies yang diinisiasi sejak tahun 2020
 
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
@@ -42,7 +44,7 @@
    2. **mysql** &rarr; **http://localhost:13306** (NAT dari 172.28.0.2:3306)
    3. **apache WebBackEnd** &rarr; **http://localhost:10080** (NAT dari 172.28.0.3:80)
    4. **apache WebFrontEnd** &rarr; **http://localhost:20080** (NAT dari 172.28.0.4:80)
-   5. **redis** &rarr; **http://localhost:6379** (NAT dari 172.28.0.5:6379)
+   5. **redis** &rarr; **http://localhost:16379** (NAT dari 172.28.0.5:6379)
    6. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.6:5050)
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
