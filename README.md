@@ -10,6 +10,7 @@
    1. User yang anda gunakan saat ini sudah masuk dalam grup **SUDOER** pada perangkat komputer, karena semua perintah docker menggunakan mode **Priviliged User (menggunakan mode sudo)**
    2. Package **docker**, **docker-compose**, dan **composer** sudah terinstall pada perangkat komputer
    3. Service **docker** sudah berjalan pada perangkat komputer
+   4. Perangkat komputer sudah terhubung dengan internet
 
 2. Jalankan perintah **git clone https://github.com/ptqdctechnologies/ERPReborn ERPReborn**
 
