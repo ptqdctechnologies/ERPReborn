@@ -21,10 +21,12 @@ clear;
 #---> General
 #./BashScript/Script.Laravel.ComposerUpdate.sh;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
+./BashScript/Script.Laravel.DumpAutoLoad.sh;
 
 sudo docker network prune --force;
 sudo docker container prune --force;
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &
+
 sudo docker-compose up --remove-orphans;
 varCmdExec="sudo kill -s 9 "`ps aux | grep "Script.System.WatchDog.Docker.ContainerPostgreSQL.sh" | grep -v "\-\-color" | awk '{print $2}'`";";
 #varResult=$(eval $varCmdExec) 2>/dev/null
