@@ -5,6 +5,8 @@
 /**/public/storage
 /**/storage/*.key
 /**/*.swp
-Programming/.LaravelCore/vendor/
+#Programming/.LaravelCore/vendor/
 /.ProjectCore/Temp/PostgreSQL/dump.sql
 /.ProjectCore/Temp/MySQL/dump.sql
+/Programming/WebBackEnd/nbproject/private/
+/Programming/WebFrontEnd/nbproject/private/
