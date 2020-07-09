@@ -3,35 +3,25 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Helpers                                                                                                   |
-| ▪ Name Space : \App\Helpers\ZhtHelper\General                                                                                    |
+| ▪ Name Space : \App\Helpers\ZhtHelper\System                                                                                     |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Helpers\ZhtHelper\General
+namespace App\Helpers\ZhtHelper\System
     {
     use Illuminate\Http\Request;
-
+    
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Session                                                                                                      |
-    | ▪ Description : Menangani Session                                                                                            |
+    | ▪ Class Name  : Environment                                                                                                  |
+    | ▪ Description : Menangani segala parameter yang terkait Environment                                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Session
+    class Environment
         {
         private static $varNameSpace;
         
-        public static function isExist($varKey)
-            {
-            $varReturn = false;
-            if((self::get($varKey)!=null))
-                {
-                $varReturn = true;
-                }
-            return $varReturn;
-            }
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
@@ -50,64 +40,89 @@ namespace App\Helpers\ZhtHelper\General
             {
             self::$varNameSpace=get_class();
             }
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : delete                                                                                               |
+        | ▪ Method Name     : getApplicationID                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menghapus session berdasarkan kata kunci (varKey)                                                    |
+        | ▪ Description     : Mendapatkan data Application ID                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey ► Parameter                                                                                       |
-        | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function delete($varKey)
+        public static function getApplicationID()
             {
-            session()->forget($varKey);
+            $varReturn = 'ERPReborn';
+            return $varReturn;
+            }
+        
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationDateTimeTZ       u                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-09                                                                                           |
+        | ▪ Description     : Mendapatkan data waktu sekarang                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationDateTimeTZ()
+            {
+            date_default_timezone_set('Asia/Jakarta');
+            $varDate = date_create(null, timezone_open('Asia/Jakarta'));
+
+            $varMicroDate = microtime();
+            $varDateArray = explode(" ", $varMicroDate);
+            $varMicroSecond = substr($varDateArray[1], 0, 6);
+            
+            $varTimeZoneOffset = str_pad((($varDate->getOffset())/3600), 2, '0', STR_PAD_LEFT);
+                        
+            $varReturn = date("Y-m-d H:i:s.").$varMicroSecond.'+'.$varTimeZoneOffset;
+
+            return $varReturn;
             }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : get                                                                                                  |
+        | ▪ Method Name     : getLaravelEnvironment                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menampilkan data (varReturn) dari session berdasarkan kata kunci (varKey)                            |
+        | ▪ Description     : Mencari nilai dari parameter environment Laravel (.env)                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varKey ► Parameter                                                                                       |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn ► Nilai                                                                                        |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function get($varKey)
+        public static function getLaravelEnvironment($varKey)
             {
-            $varReturn = session($varKey);
+            $varFileContent = \App\Helpers\ZhtHelper\General\File::getFileContent(
+                    \App\Helpers\ZhtHelper\General\File::getAutoMatchSystemFilePath(getcwd(), '.env')
+                    );
+            $varArrayTemp=explode("\n", $varFileContent);
+            for($i=0; $i!=count($varArrayTemp); $i++)
+                {
+                if(strlen($varArrayTemp[$i])>0)
+                    {
+                    $varArrayTemp2=explode("=", $varArrayTemp[$i]);
+                    $varData[$varArrayTemp2[0]]=$varArrayTemp2[1];
+                    }
+                }
+            $varReturn=$varData[$varKey];
             return $varReturn;
-            }
- 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : set                                                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menyimpan data (varValue) kedalam session berdasarkan kata kunci (varKey)                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey ► Parameter                                                                                       |
-        |      ▪ (string) varValue ► Nilai                                                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function set($varKey, $varValue)
-            {
-            session([$varKey => $varValue]);
             }
         }
     }
+
+?>

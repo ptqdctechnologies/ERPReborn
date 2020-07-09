@@ -23,6 +23,8 @@ clear;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 ./BashScript/Script.Laravel.DumpAutoLoad.sh;
 
+sudo systemctl restart docker;
+
 sudo docker network prune --force;
 sudo docker container prune --force;
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &

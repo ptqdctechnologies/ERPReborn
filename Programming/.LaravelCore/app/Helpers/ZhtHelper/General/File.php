@@ -11,27 +11,17 @@
 namespace App\Helpers\ZhtHelper\General
     {
     use Illuminate\Http\Request;
-
+    
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Session                                                                                                      |
-    | ▪ Description : Menangani Session                                                                                            |
+    | ▪ Class Name  : File                                                                                                         |
+    | ▪ Description : Menangani File dan Direktori                                                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Session
+    class File
         {
         private static $varNameSpace;
         
-        public static function isExist($varKey)
-            {
-            $varReturn = false;
-            if((self::get($varKey)!=null))
-                {
-                $varReturn = true;
-                }
-            return $varReturn;
-            }
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
@@ -50,64 +40,60 @@ namespace App\Helpers\ZhtHelper\General
             {
             self::$varNameSpace=get_class();
             }
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : delete                                                                                               |
+        | ▪ Method Name     : getAutoMatchSystemFilePath                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menghapus session berdasarkan kata kunci (varKey)                                                    |
+        | ▪ Description     : Mencari posisi file path varPostfix relatif terhadap varPrefix                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey ► Parameter                                                                                       |
+        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
+        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varPath                                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function delete($varKey)
+        public static function getAutoMatchSystemFilePath($varPrefix, $varPostfix)
             {
-            session()->forget($varKey);
+            $varPath=$varPrefix.$varPostfix;
+            if(is_file($varPath)==0)
+                {
+                for ($i=0; $i!=10; $i++)
+                    {
+                    if(is_file($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix))
+                        {
+                        $varPath = $varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix;
+                        break;
+                        }
+                    }
+                }
+            return $varPath;
             }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : get                                                                                                  |
+        | ▪ Method Name     : getFileContent                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menampilkan data (varReturn) dari session berdasarkan kata kunci (varKey)                            |
+        | ▪ Description     : Mendapatkan isi suatu file berdasarkan path (varPath)                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey ► Parameter                                                                                       |
+        |      ▪ (string) varPath ► Path File                                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn ► Nilai                                                                                        |
+        |      ▪ (string) varFileContent                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function get($varKey)
+        public static function getFileContent($varPath)
             {
-            $varReturn = session($varKey);
-            return $varReturn;
-            }
- 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : set                                                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menyimpan data (varValue) kedalam session berdasarkan kata kunci (varKey)                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey ► Parameter                                                                                       |
-        |      ▪ (string) varValue ► Nilai                                                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function set($varKey, $varValue)
-            {
-            session([$varKey => $varValue]);
+            if(is_file($varPath))
+                {
+                $varFileContent=file_get_contents($varPath);
+                }
+            return $varFileContent;
             }
         }
     }
