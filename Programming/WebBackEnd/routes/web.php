@@ -17,6 +17,17 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//---[ Default ERP Reborn (Front End & Back End) ]---(START)------
+
+Route::get('showLogOutput', function () {
+    return view('zhtHelperLogOutputShow');
+    })->middleware('web');
+    
+Route::get('showLogError', function () {
+    return view('zhtHelperLogErrorShow');
+    })->middleware('web');
+
+//---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
 
 
 Route::get('test', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@init');

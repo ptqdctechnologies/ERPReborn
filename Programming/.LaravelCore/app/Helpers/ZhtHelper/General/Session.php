@@ -20,18 +20,13 @@ namespace App\Helpers\ZhtHelper\General
     */
     class Session
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static $varNameSpace;
         
-        public static function isExist($varKey)
-            {
-            $varReturn = false;
-            if((self::get($varKey)!=null))
-                {
-                $varReturn = true;
-                }
-            return $varReturn;
-            }
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
@@ -90,6 +85,30 @@ namespace App\Helpers\ZhtHelper\General
             return $varReturn;
             }
  
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isExist                                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-09                                                                                           |
+        | ▪ Description     : Mengecek apakah Session sudah ada berdasarkan kata kunci (varKey)                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varKey ► Parameter                                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn ► Nilai                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isExist($varKey)
+            {
+            $varReturn = false;
+            if((self::get($varKey)!=null))
+                {
+                $varReturn = true;
+                }
+            return $varReturn;
+            }
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : set                                                                                                  |

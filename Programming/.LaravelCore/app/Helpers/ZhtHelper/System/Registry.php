@@ -12,7 +12,7 @@
 namespace App\Helpers\ZhtHelper\System
     {
     use Illuminate\Http\Request;
-    
+
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Registry                                                                                                     |
@@ -21,14 +21,19 @@ namespace App\Helpers\ZhtHelper\System
     */
     class Registry
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static $varNameSpace;
         
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
         | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -40,137 +45,111 @@ namespace App\Helpers\ZhtHelper\System
         public static function init()
             {
             self::$varNameSpace=get_class();
-
-            $varDataSession['Registry']['Global']['Environment']['UserSessionList']=[];
-            $varDataSession['Registry']['Global']['Environment']['Application']['Name']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('APP_NAME');
-            $varDataSession['Registry']['Global']['Environment']['Database']['Type']='PostgreSQL';
-            $varDataSession['Registry']['Global']['Environment']['Database']['Host']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_HOST');
-            $varDataSession['Registry']['Global']['Environment']['Database']['Port']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_PORT');
-            $varDataSession['Registry']['Global']['Environment']['Database']['Name']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_DATABASE');
-            $varDataSession['Registry']['Global']['Environment']['Database']['LoginName']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_USERNAME');
-            $varDataSession['Registry']['Global']['Environment']['Database']['LoginPassword']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_PASSWORD');
-            $varDataSession['Registry']['Global']['Environment']['Redis']['Host']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_HOST');
-            $varDataSession['Registry']['Global']['Environment']['Redis']['Port']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_PORT');
-            $varDataSession['Registry']['Global']['Environment']['Redis']['LoginPassword']=\App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_PASSWORD');
-
+            
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('APP_NAME'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::Type', 'PostgreSQL');
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::Host', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_HOST'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::Port', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_PORT'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::Name', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_DATABASE'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::LoginName', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_USERNAME'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Database::LoginPassword', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('DB_PASSWORD'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Redis::Host', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_HOST'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_PORT'));
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Environment::getLaravelEnvironment('REDIS_PASSWORD'));
+            //var_dump($varDataSession);
+            
             \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
             }
             
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSpecificUserSession                                                                               |
+        | ▪ Method Name     : getGlobalRegistry                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Mendapatkan data Registry Spesifik (varValue) berdasarkan Parameter Kunci (varKey), Sub Parameter    |
-        |                     Kunci (varSubKey), dan User Session (varUserSession)                                                 |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mendapatkan data Registry Spesifik (varValue) berdasarkan Sub Kunci (varSubKeyPattern)               |
+        |                                                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey                                                                                                   |
-        |      ▪ (string) varSubKey                                                                                                |
-        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSubKeyPattern                                                                                         |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varValue                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSpecificUserSession($varSubKey, $varUserSession)
+        public static function getGlobalRegistry($varUserSession, $varSubKeyPattern)
             {
             $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-
-            $varArrayTemp=explode('::', $varSubKey);
-            switch(count($varArrayTemp))
-                {
-                case 1:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]];
-                    break;
-                case 2:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]];
-                    break;
-                case 3:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]];
-                    break;
-                case 4:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]];
-                    break;
-                case 5:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]];
-                    break;
-                case 6:
-                    $varReturn = $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]];
-                    break;
-                }
-                
+            $varReturn = \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern);
             return $varReturn;
             }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setGlobal                                                                                            |
+        | ▪ Method Name     : getSpecificRegistry                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menyimpan data awal Registry berdasarkan Kata Kunci (varKey)                                         |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mendapatkan data Registry Spesifik (varValue) berdasarkan User Session (varUserSession) dan Sub      |
+        |                     Kunci (varSubKeyPattern)                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey                                                                                                   |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSubKeyPattern                                                                                         |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varValue                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setGlobal($varKey)
+        public static function getSpecificRegistry($varUserSession, $varSubKeyPattern)
             {
-            
-            \App\Helpers\ZhtHelper\General\Session::set($varKey, $varDataSession);
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+            $varReturn = \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern);
+            return $varReturn;
             }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setSpecificUserSession                                                                               |
+        | ▪ Method Name     : setGlobalRegistry                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Menyimpan data Registry Spesifik (varValue) berdasarkan Parameter Kunci (varKey), Sub Parameter      |
-        |                     Kunci (varSubKey), dan User Session (varUserSession)                                                 |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menyimpan data Registry Global (varValue) berdasarkan Sub Kunci (varSubKeyPattern)                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey                                                                                                   |
-        |      ▪ (string) varSubKey                                                                                                |
-        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSubKeyPattern                                                                                         |
         |      ▪ (string) varValue                                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSpecificUserSession($varSubKey, $varUserSession, $varValue)
+        public static function setGlobalRegistry($varSubKeyPattern, $varValue)
             {
             $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-
-            $varArrayTemp=explode('::', $varSubKey);
-            switch(count($varArrayTemp))
-                {
-                case 1:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]]=$varValue;
-                    break;
-                case 2:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]]=$varValue;
-                    break;
-                case 3:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]]=$varValue;
-                    break;
-                case 4:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]]=$varValue;
-                    break;
-                case 5:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]]=$varValue;
-                    break;
-                case 6:
-                    $varDataSession['Registry']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]]=$varValue;
-                    break;
-                }
-            
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern, $varValue);
             \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
-            
-            var_dump($varDataSession);
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setSpecificRegistry                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menyimpan data Registry Spesifik (varValue) berdasarkan User Session (varUserSession) dan Sub Kunci  |
+        |                     (varSubKeyPattern)                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varSubKeyPattern                                                                                         |
+        |      ▪ (string) varValue                                                                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setSpecificRegistry($varUserSession, $varSubKeyPattern, $varValue)
+            {
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern, $varValue);
+            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
             }
         }
     }

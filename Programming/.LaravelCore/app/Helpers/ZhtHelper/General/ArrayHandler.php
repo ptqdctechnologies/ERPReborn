@@ -18,45 +18,159 @@ namespace App\Helpers\ZhtHelper\General
     */
     class ArrayHandler
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static $varNameSpace;
-        
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : init                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Inisialisasi                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function init()
+            {
+            self::$varNameSpace=get_class();
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayValue                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mendapatkan nilai dari suatu array (varDataArray) berdasarkan Pola Key (varArrayPattern)             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (array)  varDataArray ► Data Array                                                                                |
+        |      ▪ (string) varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) $varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayValue($varDataArray, $varArrayPattern)
+            {
+            $varReturn = null;
+            if(self::isKeyExistOnSubArray($varDataArray, $varArrayPattern)==true)
+                {
+                $varArrayTemp=explode('::', $varArrayPattern);
+                switch(count($varArrayTemp))
+                    {
+                    case 1:
+                        $varReturn = $varDataArray[$varArrayTemp[0]];
+                        break;
+                    case 2:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]];
+                        break;
+                    case 3:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]];
+                        break;
+                    case 4:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]];
+                        break;
+                    case 5:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]];
+                        break;
+                    case 6:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]];
+                        break;
+                    case 7:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]];
+                        break;
+                    case 8:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]];
+                        break;
+                    case 9:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]][$varArrayTemp[8]];
+                        break;
+                    case 10:
+                        $varReturn = $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]][$varArrayTemp[8]][$varArrayTemp[9]];
+                        break;
+                    default:
+                        $varReturn = null;
+                        break;
+                    }
+                }
+            return $varReturn;
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isKeyExist                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mengecek apakah suatu Key (varKey) ada pada suatu array (varData) dalam satu lapis pencarian         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varKey ► Key Array                                                                                       |
+        |      ▪ (array)  varData ► Data Array                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) $varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function isKeyExist($varKey, $varData)
             {
             $varReturn = false;
-            if (array_key_exists($varKey, $varData))
+                       
+            if($varData)
                 {
-                $varReturn = true;
+                if (array_key_exists($varKey, $varData))
+                    {
+                    $varReturn = true;
+                    }
                 }
             return $varReturn;
             }
             
-        public static function isKeyExistOnSubArray($varSubKey, $varData)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isKeyExistOnSubArray                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mengecek apakah suatu Pola Key (varArrayPattern) ada pada suatu array (varData) dalam pencarian      |
+        |                     multi lapisan                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                 |
+        |      ▪ (array)  varData ► Data Array                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) $varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isKeyExistOnSubArray($varData, $varArrayPattern)
             {         
-            //$varSubKey harus bernotasi KEY1::KEY2::KEY3::...
-            
-            //echo $varSubKey.'<br>';
-            //var_dump($varData);
-            //echo '<br>';
-            
             $varReturn = false;
-            $varArrayTemp=explode('::', $varSubKey);
+            $varArrayTemp=explode('::', $varArrayPattern);
             if(self::isKeyExist($varArrayTemp[0], $varData)==true)
                 {
                 $varReturn = true;
                 if(is_array($varData[$varArrayTemp[0]])==true)
                     {
-                    $varSubKeyNew='';
+                    $varArrayPatternNew='';
                     for($i=1; $i!=count($varArrayTemp); $i++)
                         {
-                        if(strcmp($varSubKeyNew, '')!=0)
+                        if(strcmp($varArrayPatternNew, '')!=0)
                             {
-                            $varSubKeyNew.='::';
+                            $varArrayPatternNew.='::';
                             }
-                        $varSubKeyNew .= $varArrayTemp[$i];
+                        $varArrayPatternNew .= $varArrayTemp[$i];
                         }
-                    if(strcmp($varSubKeyNew, '')!=0)
+                    if(strcmp($varArrayPatternNew, '')!=0)
                         {
-                        if(self::isKeyExistOnSubArray($varSubKeyNew, $varData[$varArrayTemp[0]])==false)
+                        if(self::isKeyExistOnSubArray($varData[$varArrayTemp[0]], $varArrayPatternNew)==false)
                             {
                             $varReturn = false;
                             }                        
@@ -65,24 +179,68 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return $varReturn;
             }
-            
-/*        public static function isKeyExistOnSubArray($needle, $array)
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setArrayValue                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menyimpan nilai pada suatu array (varDataArray) berdasarkan Pola Key (varArrayPattern)               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (array)   varDataArray ► Data Array                                                                               |
+        |      ▪ (string)  varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                |
+        |      ▪ (string)  varValue ► Nilai                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) $varReturn                                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setArrayValue(&$varDataArray, $varArrayPattern, $varValue)
             {
-            foreach ($array as $key => $value) 
+            $varArrayTemp=explode('::', $varArrayPattern);
+            
+            //var_dump($varDataArray);
+            
+            $varReturn = true;
+            switch(count($varArrayTemp))
                 {
-                if ($key === $needle) 
-                    {
-                    return $value;
-                    }
-                if (is_array($value)) 
-                    {
-                    if ($x = self::isKeyExistOnSubArray($key, $value)) 
-                        {
-                        return $x;
-                        }
-                    }
+                case 1:
+                    $varDataArray[$varArrayTemp[0]]=$varValue;
+                    break;
+                case 2:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]]=$varValue;
+                    break;
+                case 3:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]]=$varValue;
+                    break;
+                case 4:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]]=$varValue;
+                    break;
+                case 5:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]]=$varValue;
+                    break;
+                case 6:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]]=$varValue;
+                    break;
+                case 7:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]]=$varValue;
+                    break;
+                case 8:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]]=$varValue;
+                    break;
+                case 9:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]][$varArrayTemp[8]]=$varValue;
+                    break;
+                case 10:
+                    $varDataArray[$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]][$varArrayTemp[6]][$varArrayTemp[7]][$varArrayTemp[8]][$varArrayTemp[9]]=$varValue;
+                    break;
+                default:
+                    $varReturn = false;
+                    break;
                 }
-            return false;
-            }*/
+            //var_dump($varDataArray);
+            return $varReturn;
+            }
         }
     }

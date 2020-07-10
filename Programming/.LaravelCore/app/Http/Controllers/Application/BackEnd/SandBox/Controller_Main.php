@@ -9,10 +9,33 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function init()
             {
             \App\Helpers\ZhtHelper\General\Session::delete(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput('Helper::ZhtHelper', 000000, 'xxxx');
-            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput('Helper::ZhtHelper', 000000, 'yyyy');
             
-            \App\Helpers\ZhtHelper\Logger\SystemLog::getLogOutput(000000);
+//            \App\Helpers\ZhtHelper\System\Registry::init();
+
+            //$varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());         
+
+            
+//            echo \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name');
+
+            echo "<br>----------------<br>";
+
+//            var_dump($varDataSession);
+            echo "<br>----------------<br>";
+
+
+
+
+
+
+
+//            \App\Helpers\ZhtHelper\System\Registry::setSpecificRegistry(0, 'Zzz::Xxx', '$varValue');
+//            echo \App\Helpers\ZhtHelper\System\Registry::getSpecificRegistry(0, 'Zzz::Xxx');
+            
+            
+//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutut(000000, 'Helper::ZhtHelper', 'xxxx');
+//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogOutput(000000, 'Helper::ZhtHelper', 'yyyy');
+            
+//            \App\Helpers\ZhtHelper\Logger\SystemLog::setLogError(000000, 'Helper::ZhtHelper', 'Error yyyy');
 
 
 
@@ -41,6 +64,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             
             \App\Helpers\ZhtHelper\Database\PostgreSQL::init();
+            \App\Helpers\ZhtHelper\Database\PostgreSQL::getStatusAvailability();
+            $x = \App\Helpers\ZhtHelper\Database\PostgreSQL::getQueryExecution("SELECT 1 AS xxx");
+            
+            var_dump($x);
+            
+            
+            
+            
+            
             echo "<br>"; echo "<br>"; echo "<br>";
             echo "weleh";
 

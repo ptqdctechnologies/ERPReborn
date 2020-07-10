@@ -1,26 +1,74 @@
 <?php
 
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category   : Laravel Helpers                                                                                                   |
+| ▪ Name Space : \App\Helpers\ZhtHelper\Logger                                                                                     |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+
 namespace App\Helpers\ZhtHelper\Logger
     {
+
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : SystemLog                                                                                                    |
+    | ▪ Description : Menangani Log Sistem                                                                                         |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
     class SystemLog
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static $varNameSpace;
-        private static $varDataLogOutput;
+        private static $varDataLogErrorMaxSize;
         private static $varDataLogOutputMaxSize;
+        private static $varDataLogErrorIndentantionTab;
+        private static $varDataLogOutputIndentantionTab;
         
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : init                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Inisialisasi                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function init()
             {
             self::$varNameSpace=get_class();
-            self::$varDataLogOutput=[];
+            self::$varDataLogErrorMaxSize=10;
             self::$varDataLogOutputMaxSize=10;
-            }
-            
-        public static function setLogError($varLastMessageCount=null)
-            {
-
+            self::$varDataLogErrorIndentantionTab=5;
+            self::$varDataLogOutputIndentantionTab=5;
             }
 
-        public static function setLogOutput($varCallerID, $varUserSession, $varMessage)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getLogError                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mendapatkan data Log Error sesuai User Session tertentu (varUserSession)                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getLogError($varUserSession)
             {
             //---> Cek apakah session sudah terbentuk
             if(!\App\Helpers\ZhtHelper\General\Session::isExist(\App\Helpers\ZhtHelper\System\Environment::getApplicationID()))
@@ -31,22 +79,33 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray('Log::Specific::'.$varUserSession.'::Output', $varDataSession)==false)
+            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
                 {
-                $varDataSession['Log']['Specific'][$varUserSession]['Output']=[];
+                $varDataSession['Log']['Specific'][$varUserSession]['Error']=[];
                 }
-                
-            if(count($varDataSession['Log']['Specific'][$varUserSession]['Output']) == self::$varDataLogOutputMaxSize)
-                {
-                array_shift($varDataSession['Log']['Specific'][$varUserSession]['Output']);
-                }
-            array_push($varDataSession['Log']['Specific'][$varUserSession]['Output'], \App\Helpers\ZhtHelper\System\Environment::getApplicationDateTimeTZ().' ['.$varCallerID.'] '.$varMessage);
-                
-            //var_dump($varDataSession);
             
-            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
+            $varReturn = '';
+            for($i=count($varDataSession['Log']['Specific'][$varUserSession]['Error']); $i!=0; $i--)
+                {
+                $varReturn .= $varDataSession['Log']['Specific'][$varUserSession]['Error'][$i-1].'<br>';
+                }
+            return $varReturn;
             }
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getLogOutput                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mendapatkan data Log Output sesuai User Session tertentu (varUserSession)                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function getLogOutput($varUserSession)
             {
             //---> Cek apakah session sudah terbentuk
@@ -58,177 +117,157 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray('Log::Specific::'.$varUserSession.'::Output', $varDataSession)==false)
+            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
                 {
                 $varDataSession['Log']['Specific'][$varUserSession]['Output']=[];
+                $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']=0;
                 }
             
+            $varReturn = '';
             for($i=count($varDataSession['Log']['Specific'][$varUserSession]['Output']); $i!=0; $i--)
                 {
-                echo $varDataSession['Log']['Specific'][$varUserSession]['Output'][$i-1].'<br>';
+                $varReturn .= $varDataSession['Log']['Specific'][$varUserSession]['Output'][$i-1].'<br>';
                 }
-            
-            //var_dump($varDataSession['Log']['Specific'][$varUserSession]['Output']);
+            return $varReturn;
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-        public static function setLogOutputOLD($varSubKey, $varUserSession, $varMessage)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setLogError                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menyimpan data Log Error (varMessage) sesuai User Session tertentu (varUserSession) dengan penanda   |
+        |                     khusus (varCallerID)                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varCallerID ► ID Penanda Khusus Caller                                                                   |
+        |      ▪ (string) varMessage ► Pesan Error                                                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setLogError($varUserSession, $varCallerID, $varMessage=null)
             {
             //---> Cek apakah session sudah terbentuk
             if(!\App\Helpers\ZhtHelper\General\Session::isExist(\App\Helpers\ZhtHelper\System\Environment::getApplicationID()))
                 {
                 \App\Helpers\ZhtHelper\System\Registry::init();
                 self::init();
-                }
-            $varData = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-            //$varSubKey='Log::Specific::'.$varUserSession.'::Output::'.$varSubKey;
+                }            
 
-            $varDataLogOutput = self::getLogOutput('Log::Specific::'.$varUserSession.'::Output::'.$varSubKey, $varUserSession);
-            if(!$varDataLogOutput)
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+
+            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
                 {
-                $varDataLogOutput=[];
+                $varDataSession['Log']['Specific'][$varUserSession]['Error']=[];
+                $varDataSession['Log']['Specific'][$varUserSession]['ErrorIndentation']=0;
                 }
-            if(count($varDataLogOutput) == self::$varDataLogOutputMaxSize)
+                
+            if(count($varDataSession['Log']['Specific'][$varUserSession]['Error']) == self::$varDataLogErrorMaxSize)
                 {
-                array_shift($varDataLogOutput);
+                array_shift($varDataSession['Log']['Specific'][$varUserSession]['Error']);
                 }
-            array_push($varDataLogOutput, $varMessage);
+            array_push($varDataSession['Log']['Specific'][$varUserSession]['Error'], \App\Helpers\ZhtHelper\System\Environment::getApplicationDateTimeTZ().' ['.$varCallerID.'] '.$varMessage);
 
-            $varArrayTemp=explode('::', $varSubKey);
-            switch(count($varArrayTemp))
-                {
-                case 1:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]]=$varDataLogOutput;
-                    break;
-                case 2:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]][$varArrayTemp[1]]=$varDataLogOutput;
-                    break;
-                case 3:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]]=$varDataLogOutput;
-                    break;
-                case 4:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]]=$varDataLogOutput;
-                    break;
-                case 5:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]]=$varDataLogOutput;
-                    break;
-                case 6:
-                    $varData['Log']['Specific'][$varUserSession]['Output'][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]]=$varDataLogOutput;
-                    break;
-                }
-
-//            var_dump($varSubKey);
-            
-            var_dump($varData);
-            
-            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varData);
-            
-/*            $varRegistry = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-
-            $varArrayTemp=explode('::', $varSubKey);
-            switch(count($varArrayTemp))
-                {
-                case 1:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]]=$varValue;
-                    break;
-                case 2:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]]=$varValue;
-                    break;
-                case 3:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]]=$varValue;
-                    break;
-                case 4:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]]=$varValue;
-                    break;
-                case 5:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]]=$varValue;
-                    break;
-                case 6:
-                    $varRegistry['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]]=$varValue;
-                    break;
-                }
-*/
-
-//            if(count(self::$varDataLogOutput) == self::$varDataLogOutputMaxSize)
-  //              {
-    //            array_shift(self::$varDataLogOutput);
-      //          }
-        //    array_push(self::$varDataLogOutput, $varMessage);
+            //---> Data Store
+            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
             }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSpecificUserSession                                                                               |
+        | ▪ Method Name     : setLogOutput                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-09                                                                                           |
-        | ▪ Description     : Mendapatkan data Registry Spesifik (varValue) berdasarkan Parameter Kunci (varKey), Sub Parameter    |
-        |                     Kunci (varSubKey), dan User Session (varUserSession)                                                 |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menyimpan data Log Output (varMessage) sesuai User Session tertentu (varUserSession) dengan penanda  |
+        |                     khusus (varCallerID)                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varKey                                                                                                   |
-        |      ▪ (string) varSubKey                                                                                                |
-        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varCallerID ► ID Penanda Khusus Caller                                                                   |
+        |      ▪ (string) varMessage ► Pesan Output                                                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varValue                                                                                                 |
+        |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getLogOutputOLD($varSubKey, $varUserSession)
-            {
+        public static function setLogOutput($varUserSession, $varCallerID, $varMessage=null)
+            {            
             //---> Cek apakah session sudah terbentuk
             if(!\App\Helpers\ZhtHelper\General\Session::isExist(\App\Helpers\ZhtHelper\System\Environment::getApplicationID()))
                 {
                 \App\Helpers\ZhtHelper\System\Registry::init();
-                }              
-            
-            $varData = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
-            
-            $varReturn=null;
-            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varSubKey, $varData)==true)
-                {
-                $varArrayTemp=explode('::', $varSubKey);
-
-                switch(count($varArrayTemp))
-                    {
-                    case 1:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]];
-                        break;
-                    case 2:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]];
-                        break;
-                    case 3:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]];
-                        break;
-                    case 4:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]];
-                        break;
-                    case 5:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]];
-                        break;
-                    case 6:
-                        $varReturn = $varData['Log']['Specific'][$varUserSession][$varArrayTemp[0]][$varArrayTemp[1]][$varArrayTemp[2]][$varArrayTemp[3]][$varArrayTemp[4]][$varArrayTemp[5]];
-                        break;
-                    }
+                self::init();
                 }
-            return $varReturn;
-            }            
+
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+
+            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
+                {
+                $varDataSession['Log']['Specific'][$varUserSession]['Output']=[];
+                }
+                
+            if(count($varDataSession['Log']['Specific'][$varUserSession]['Output']) == self::$varDataLogOutputMaxSize)
+                {
+                array_shift($varDataSession['Log']['Specific'][$varUserSession]['Output']);
+                }
+            array_push($varDataSession['Log']['Specific'][$varUserSession]['Output'], \App\Helpers\ZhtHelper\System\Environment::getApplicationDateTimeTZ().' ['.$varCallerID.'] '.str_repeat('&nbsp;', ($varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']<0?0:$varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation'])).$varMessage);
+
+            //---> Data Store
+            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setLogIndentationIncrease                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Menambahkan indentasi untuk Log Output sesuai User Session (varUserSession)                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setLogIndentationIncrease($varUserSession)
+            {
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+            if(\App\Helpers\ZhtHelper\General\ArrayHandler::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')==false)
+                {
+                self::init();
+                \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', -self::$varDataLogOutputIndentantionTab);
+                $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']=-self::$varDataLogOutputIndentantionTab;
+                //var_dump($varDataSession);
+                }
+            $varOutputIndentation = \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation') + self::$varDataLogOutputIndentantionTab;
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', $varOutputIndentation);
+            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setLogIndentationDecrease                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Description     : Mengurangi indentasi untuk Log Output sesuai User Session (varUserSession)                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setLogIndentationDecrease($varUserSession)
+            {
+            $varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+            $varOutputIndentation = \App\Helpers\ZhtHelper\General\ArrayHandler::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation') - self::$varDataLogOutputIndentantionTab;
+            \App\Helpers\ZhtHelper\General\ArrayHandler::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', $varOutputIndentation);            
+            \App\Helpers\ZhtHelper\General\Session::set(\App\Helpers\ZhtHelper\System\Environment::getApplicationID(), $varDataSession);
+            }
         }
     }
 
