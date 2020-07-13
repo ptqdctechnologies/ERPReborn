@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         {
         public function init()
             {
-            \App\Helpers\ZhtHelper\General\Session::delete(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
 //            \App\Helpers\ZhtHelper\System\Registry::init();
 
@@ -63,13 +63,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$varRegistry['Registry']['Global']['Environment']['Database']['Type']='PostgreSQL';
 
             
-            \App\Helpers\ZhtHelper\Database\PostgreSQL::init();
-            \App\Helpers\ZhtHelper\Database\PostgreSQL::getStatusAvailability();
-            $x = \App\Helpers\ZhtHelper\Database\PostgreSQL::getQueryExecution("SELECT 1 AS xxx");
+            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::init();
+            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStatusAvailability();
+            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution("SELECT 1 AS xxx");
             
-            var_dump($x);
+            //\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo();
+            //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTimeTZ());
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey'));
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue('myKey', 'myValue', 10);
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey'));
             
             
+            //var_dump($x);
+            
+            //phpinfo();
             
             
             
@@ -77,6 +84,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo "weleh";
 
             echo "weleh";
+            
+            
             
 //            var_dump(\App\Helpers\ZhtHelper\General\Session::get('ERPReborn'));
   //          echo \App\Helpers\ZhtHelper\General\Session::delete('ERPReborn');

@@ -15,9 +15,15 @@
 clear;
 
 cd ./Programming/WebBackEnd;
+php artisan route:clear;
+php artisan config:clear;
+php artisan cache:clear;
 composer dump-autoload;
 cd -;
 
 cd ./Programming/WebFrontEnd; 
+php artisan route:clear;
+php artisan config:clear;
+php artisan cache:clear;
 composer dump-autoload; 
 cd -;

@@ -8,7 +8,9 @@ RUN apt-get update \
        vim \
     && docker-php-ext-install \
        pdo pdo_pgsql \
-       pgsql
+       pgsql \
+    && pecl install redis \
+    && docker-php-ext-enable redis
 
 #ADD . /var/www
 #ADD ./public /var/www/html

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        Zheta Helper Log Error (<?php echo \App\Helpers\ZhtHelper\System\Environment::getApplicationDateTimeTZ(); ?>)
+        Zheta Helper Log Error (<?php echo \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationDateTimeTZ(); ?>)
     </head>
     <body onload="load()">
         <p style="color:blue;font-size:10px;">
             <?php
-            echo \App\Helpers\ZhtHelper\Logger\SystemLog::getLogError(000000);
+            echo \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::getLogError(000000);
             echo 
                 "<script>".
                     "setTimeout(\"window.open(self.location, '_self');\", 1000); ".
