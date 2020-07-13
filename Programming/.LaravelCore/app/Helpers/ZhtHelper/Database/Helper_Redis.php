@@ -47,23 +47,23 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getValue                                                                                             |
+        | ▪ Method Name     : delete                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-13                                                                                           |
-        | ▪ Description     : Mendapatkan nilai yang tersimpan sesuai kata kunci (varKey)                                          |
+        | ▪ Description     : Menghapus data berdasarkan kata kunci (varKey)                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varKey ► Kata Kunci                                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
+        |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getValue($varKey)
+        public static function delete($varKey)
             {
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Retrieve data stored with key `'.$varKey.'`');
-            $varReturn = null;
+            $varReturn = true;
             if(self::getStatusAvailability()==true)
                 {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
@@ -71,7 +71,10 @@ namespace App\Helpers\ZhtHelper\Database
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Retrieve data stored with key `'.$varKey.'`');
                 $ObjRedis = new \Illuminate\Support\Facades\Redis();
                 $varConnRedis = $ObjRedis::connection();
-                $varReturn = $varConnRedis->get($varKey);
+                if($varConnRedis->get($varKey))
+                    {
+                    $varConnRedis->unlink($varKey);
+                    }
                 unset($varConnRedis);
                 unset($ObjRedis);
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
@@ -88,7 +91,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-13                                                                                           |
-        | ▪ Description     : Mendapatkan Tanggal dan Waktu dari Redis                                                             |
+        | ▪ Description     : Mendapatkan tanggal dan waktu dari Redis                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -191,11 +194,85 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getTTL                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan TTL data berdasarkan kata kunci (varKey)                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varKey ► Kata Kunci                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getTTL($varKey)
+            {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Get TTL of key `'.$varKey.'`');
+            $varReturn = null;
+            if(self::getStatusAvailability()==true)
+                {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Get TTL of key `'.$varKey.'`');
+                $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                $varConnRedis = $ObjRedis::connection();
+                $varReturn = $varConnRedis->ttl($varKey);
+                unset($varConnRedis);
+                unset($ObjRedis);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+                }
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getValue                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan nilai yang tersimpan berdasarkan kata kunci (varKey)                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varKey ► Kata Kunci                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getValue($varKey)
+            {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Retrieve data stored with key `'.$varKey.'`');
+            $varReturn = null;
+            if(self::getStatusAvailability()==true)
+                {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Retrieve data stored with key `'.$varKey.'`');
+                $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                $varConnRedis = $ObjRedis::connection();
+                $varReturn = $varConnRedis->get($varKey);
+                unset($varConnRedis);
+                unset($ObjRedis);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+                }
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setValue                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-13                                                                                           |
-        | ▪ Description     : Menyimpan data (varValue) sesuai kata kunci (varKey) dengan expiry time tertentu (varTTL)            |
+        | ▪ Description     : Menyimpan data (varValue) berdasarkan kata kunci (varKey) dengan expiry time tertentu (varTTL)       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varKey ► Kata Kunci                                                                                      |
@@ -208,16 +285,23 @@ namespace App\Helpers\ZhtHelper\Database
         public static function setValue($varKey, $varValue, $varTTL=null)
             {
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Set key `'.$varKey.'` with value `'.$varValue.'`'.($varTTL?' (will expired at '.$varTTL.' second(s))':''));
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Storing data value of `'.$varValue.'` with key `'.$varKey.'` '.($varTTL?' (will expired at '.$varTTL.' second(s))':''));
             $varReturn = false;
             if(self::getStatusAvailability()==true)
                 {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Save data key `'.$varKey.'` with value `'.$varValue.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Storing data value of `'.$varValue.'` with key `'.$varKey.'` on Redis database');
                 $ObjRedis = new \Illuminate\Support\Facades\Redis();
                 $varConnRedis = $ObjRedis::connection();
-                $varConnRedis->set($varKey, $varValue, $varTTL);
+                if($varTTL)
+                    {
+                    $varConnRedis->setEx($varKey, $varTTL, $varValue);
+                    }
+                else
+                    {
+                    $varConnRedis->set($varKey, $varValue);
+                    }
                 unset($varConnRedis);
                 unset($ObjRedis);
                 $varReturn = true;

@@ -69,9 +69,13 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo();
             //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTimeTZ());
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey'));
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue('myKey', 'myValue', 10);
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey'));
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey2'));
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue('myKey2', 'myValue', 1);
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setDelete('myKey2');
+            echo "<br><br>TTL:";
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL('myKey2'));
+            echo "<br><br>GetValue:";
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey2'));
             
             
             //var_dump($x);
