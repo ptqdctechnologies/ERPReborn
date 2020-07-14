@@ -50,12 +50,24 @@ namespace App\Helpers\ZhtHelper\Logger
         public static function init()
             {
             self::$varNameSpace=get_class();
-            self::$varDataLogErrorMaxSize=10;
-            self::$varDataLogOutputMaxSize=10;
+            self::$varDataLogErrorMaxSize=100;
+            self::$varDataLogOutputMaxSize=100;
             self::$varDataLogErrorIndentantionTab=5;
             self::$varDataLogOutputIndentantionTab=5;
             }
 
+        public static function setLogOutputMethodHeader($varUserSession, $varReturnInitialValue, $varClassName, $varMethodName, $varCustomMessage=null)
+            {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Entry Point'));
+            return $varReturnInitialValue;
+            }
+
+        public static function setLogOutputMethodFooter($varUserSession, &$varReturn)
+            {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+            return $varReturn;
+            }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

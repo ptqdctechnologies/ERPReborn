@@ -45,21 +45,24 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function init()
             {
-            self::$varNameSpace=get_class();
-            
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Type', 'PostgreSQL');
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_HOST'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PORT'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_DATABASE'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginName', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_USERNAME'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PASSWORD'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_HOST'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PORT'));
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PASSWORD'));
-            //var_dump($varDataSession);
-            
-            \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+            try {
+                self::$varNameSpace=get_class();
+
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Type', 'PostgreSQL');
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_HOST'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PORT'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_DATABASE'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginName', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_USERNAME'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PASSWORD'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_HOST'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PORT'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PASSWORD'));
+
+                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);                
+                } 
+            catch (\Exception $ex) {
+                }
             }
 
             
@@ -80,8 +83,13 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function getGlobalRegistry($varUserSession, $varSubKeyPattern)
             {
-            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern);
+            $varReturn = null;
+            try {
+                $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern);                
+                } 
+            catch (\Exception $ex) {
+                }
             return $varReturn;
             }
 
@@ -104,8 +112,13 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function getSpecificRegistry($varUserSession, $varSubKeyPattern)
             {
-            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern);
+            $varReturn = null;
+            try {
+                $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern);
+                } 
+            catch (\Exception $ex) {
+                }
             return $varReturn;
             }
 
@@ -127,9 +140,13 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function setGlobalRegistry($varSubKeyPattern, $varValue)
             {
-            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern, $varValue);
-            \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+            try {
+                $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::'.$varSubKeyPattern, $varValue);
+                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+                }
+            catch (Exception $ex) {
+                }
             }
 
 
@@ -152,9 +169,13 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function setSpecificRegistry($varUserSession, $varSubKeyPattern, $varValue)
             {
-            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern, $varValue);
-            \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+            try {
+                $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern, $varValue);
+                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+                } 
+            catch (Exception $ex) {
+                }
             }
         }
     }

@@ -63,21 +63,25 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$varRegistry['Registry']['Global']['Environment']['Database']['Type']='PostgreSQL';
 
             
-            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::init();
-            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStatusAvailability();
-            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution("SELECT 1 AS xxx");
+            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::init(000000);
+            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStatusAvailability(000000);
+            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(000000, "SELECT 1 AS xxx");
+            echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getDateTimeTZ(000000);
             
-            //\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo();
             //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTimeTZ());
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey2'));
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue('myKey2', 'myValue', 1);
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setDelete('myKey2');
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue(000000, 'myKey2'));
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue(000000, 'myKey2', 'myValue', 1);
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::isExist(000000, 'myKey2');
+            echo "<br><br>Delete:";
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::delete(000000, 'myKey2');
             echo "<br><br>TTL:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL('myKey2'));
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL(000000, 'myKey2'));
             echo "<br><br>GetValue:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue('myKey2'));
-            
-            
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue(000000, 'myKey2'));
+            echo "<br><br>DateTime:";
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime(000000));
+            echo "<br><br>Info:";
+            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo(000000));
             //var_dump($x);
             
             //phpinfo();

@@ -5,6 +5,7 @@ namespace Facade\Ignition;
 use Facade\FlareClient\Flare;
 use Facade\FlareClient\Http\Client;
 use Facade\Ignition\Commands\SolutionMakeCommand;
+use Facade\Ignition\Commands\SolutionProviderMakeCommand;
 use Facade\Ignition\Commands\TestCommand;
 use Facade\Ignition\Context\LaravelContextDetector;
 use Facade\Ignition\DumpRecorder\DumpRecorder;
@@ -41,6 +42,7 @@ use Facade\Ignition\SolutionProviders\MissingPackageSolutionProvider;
 use Facade\Ignition\SolutionProviders\RunningLaravelDuskInProductionProvider;
 use Facade\Ignition\SolutionProviders\SolutionProviderRepository;
 use Facade\Ignition\SolutionProviders\TableNotFoundSolutionProvider;
+use Facade\Ignition\SolutionProviders\UndefinedPropertySolutionProvider;
 use Facade\Ignition\SolutionProviders\UndefinedVariableSolutionProvider;
 use Facade\Ignition\SolutionProviders\UnknownValidationSolutionProvider;
 use Facade\Ignition\SolutionProviders\ViewNotFoundSolutionProvider;
@@ -79,8 +81,11 @@ class IgnitionServiceProvider extends ServiceProvider
             ->registerViewEngines()
             ->registerHousekeepingRoutes()
             ->registerLogHandler()
-            ->registerCommands()
-            ->setupQueue($this->app->queue);
+            ->registerCommands();
+
+        if ($this->app->bound('queue')) {
+            $this->setupQueue($this->app->queue);
+        }
 
         $this->app->make(QueryRecorder::class)->register();
         $this->app->make(LogRecorder::class)->register();
@@ -295,6 +300,7 @@ class IgnitionServiceProvider extends ServiceProvider
     {
         $this->app->bind('command.flare:test', TestCommand::class);
         $this->app->bind('command.make:solution', SolutionMakeCommand::class);
+        $this->app->bind('command.make:solution-provider', SolutionProviderMakeCommand::class);
 
         if ($this->app['config']->get('flare.key')) {
             $this->commands(['command.flare:test']);
@@ -302,6 +308,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
         if ($this->app['config']->get('ignition.register_commands', false)) {
             $this->commands(['command.make:solution']);
+            $this->commands(['command.make:solution-provider']);
         }
 
         return $this;
@@ -364,6 +371,7 @@ class IgnitionServiceProvider extends ServiceProvider
             RunningLaravelDuskInProductionProvider::class,
             MissingColumnSolutionProvider::class,
             UnknownValidationSolutionProvider::class,
+            UndefinedPropertySolutionProvider::class,
         ];
     }
 

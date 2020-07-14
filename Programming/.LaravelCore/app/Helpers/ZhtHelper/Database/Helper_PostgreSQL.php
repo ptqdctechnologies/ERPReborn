@@ -33,7 +33,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
         | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,12 +43,16 @@ namespace App\Helpers\ZhtHelper\Database
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function init()
+        public static function init($varUserSession)
             {
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Class initializing');
-            self::$varNameSpace=get_class();
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Class initializing');
+                self::$varNameSpace=get_class();
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
             }
 
 
@@ -56,25 +60,42 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTimeTZ                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-14                                                                                           |
         | ▪ Description     : Mendapatkan Tanggal dan Waktu dari database                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varUserSession                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeTZ()
+        public static function getDateTimeTZ($varUserSession)
             {
-            $varDataFetch = DB::select('SELECT NOW();');
-            foreach($varDataFetch as $row)
-                {
-                $varData = (array) $row;
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                if(self::getStatusAvailability($varUserSession)==true)
+                    {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get date and time');
+                    try {
+                        $varDataFetch = DB::select('SELECT NOW();');
+                        foreach($varDataFetch as $row)
+                            {
+                            $varData = (array) $row;
+                            }
+                        $varReturn = $varData['now']; 
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
+                        } 
+                    catch (\Exception $ex) {
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    }
                 }
-            $varReturn = $varData['now'];
-            return $varReturn;
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
             }
 
 
@@ -82,35 +103,32 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getStatusAvailability                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-14                                                                                           |
         | ▪ Description     : Mendapatkan status ketersediaan reseource PostgreSQL                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varUserSession                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getStatusAvailability()
+        public static function getStatusAvailability($varUserSession)
             {
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Check PostgreSQL database availability to accept request');
-            $varReturn = true;
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, true, __CLASS__, __FUNCTION__, 'Check PostgreSQL database availability to accept request');
             try {
                 if(!$varDataFetch = DB::select('SELECT 1;'))
                     {
                     throw new \Exception("Error");
                     }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend(000000, 'Success');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
                 }
             catch (\Exception $ex) {
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogError(000000, __CLASS__, '('.__FUNCTION__.') PostgreSQL database connection not available to accept request. Please to check environment configuration');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogError($varUserSession, __CLASS__, '('.__FUNCTION__.') PostgreSQL database connection not available to accept request. Please to check environment configuration');
                 $varReturn = false;
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend(000000, 'Failed');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
                 }
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
-            return $varReturn;
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
             }
 
 
@@ -118,74 +136,73 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getQueryExecution                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-14                                                                                           |
         | ▪ Description     : Mendapatkan data dari database sesuai syntax query (varSQLQuery)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
         |      ▪ (string) varSQLQuery                                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array) varReturn                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getQueryExecution($varSQLQuery)
+        public static function getQueryExecution($varUserSession, $varSQLQuery)
             {
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Execute SQL syntax `'.$varSQLQuery.'` to PostgreSQL database');
-            $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-            if(self::getStatusAvailability()==true)
-                {
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-                //---> Inisialisasi [Process][StartDateTime]
-                $varDataFetch = self::getQueryExecutionDataFetch("SELECT NOW();");
-                //$varDataFetch = DB::select("SELECT NOW();");
-                foreach($varDataFetch as $row)
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                if(self::getStatusAvailability($varUserSession)==true)
                     {
-                    $varData[] = (array) $row;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                    //---> Inisialisasi [Process][StartDateTime]
+                    $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, "SELECT NOW();");
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData[] = (array) $row;
+                        }
+                    $varReturn['Process']['StartDateTime']=$varData[0]['now'];
+                    unset($varData);
+                    //---> Inisialisasi [Data], [RowCount]
+                    $i=0;
+                    $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
+                    $varData = [];
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData[] = (array) $row;
+                        //str_replace("world","Peter","Hello world!");
+                        //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
+                        $i++;
+                        }
+                    $varReturn['Data'] = $varData;
+                    $varReturn['RowCount']=$i;
+                    unset($varData);
+                    //---> Inisialisasi [Process][StartDateTime]
+                    $varDataFetch = self::getQueryExecutionDataFetch(
+                        $varUserSession,
+                        "
+                        SELECT
+                            \"SubSQL\".now AS \"FinishDateTime\",
+                            (\"SubSQL\".now - '".$varReturn['Process']['StartDateTime']."')::interval AS \"ExecutionTime\"
+                        FROM
+                            (
+                            SELECT NOW()
+                            ) AS \"SubSQL\"
+                        "
+                        );
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData[] = (array) $row;
+                        }
+                    $varReturn['Process']['FinishDateTime']=$varData[0]['FinishDateTime'];
+                    $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
+                    unset($varData);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                     }
-                $varReturn['Process']['StartDateTime']=$varData[0]['now'];
-                unset($varData);
-                //---> Inisialisasi [Data], [RowCount]
-                $i=0;
-                $varDataFetch = self::getQueryExecutionDataFetch($varSQLQuery);
-                $varData = [];
-                foreach($varDataFetch as $row)
-                    {
-                    $varData[] = (array) $row;
-                    //str_replace("world","Peter","Hello world!");
-                    //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
-                    $i++;
-                    }
-                $varReturn['Data'] = $varData;
-                $varReturn['RowCount']=$i;
-                unset($varData);
-                //---> Inisialisasi [Process][StartDateTime]
-                $varDataFetch = self::getQueryExecutionDataFetch(
-                    "
-                    SELECT
-                        \"SubSQL\".now AS \"FinishDateTime\",
-                        (\"SubSQL\".now - '".$varReturn['Process']['StartDateTime']."')::interval AS \"ExecutionTime\"
-                    FROM
-                        (
-                        SELECT NOW()
-                        ) AS \"SubSQL\"
-                    "
-                    );
-                foreach($varDataFetch as $row)
-                    {
-                    $varData[] = (array) $row;
-                    }
-                $varReturn['Process']['FinishDateTime']=$varData[0]['FinishDateTime'];
-                $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
-                unset($varData);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
                 }
-            else
-                {
-                $varReturn = null;
+            catch (\Exception $ex) {
                 }
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
-            return $varReturn;
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
             }
 
 
@@ -193,25 +210,37 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getQueryExecutionDataFetch                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-14                                                                                           |
         | ▪ Description     : Mengambil data dari database sesuai syntax query (varSQLQuery)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
         |      ▪ (string) varSQLQuery                                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array) $varDataFetch                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private static function getQueryExecutionDataFetch($varSQLQuery)
+        private static function getQueryExecutionDataFetch($varUserSession, $varSQLQuery)
             {
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-            //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
-            $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Fetch data from SQL syntax `'.$varSQLQuery.'`');
-            $varDataFetch = DB::select($varSQLQuery);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
-            return $varDataFetch;
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
+                $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Fetch data from SQL syntax `'.$varSQLQuery.'`');
+                try {
+                    $varReturn = DB::select($varSQLQuery);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
             }
         }
     }
