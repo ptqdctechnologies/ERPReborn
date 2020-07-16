@@ -26,7 +26,9 @@ class DumpRecorder
     {
         $multiDumpHandler = new MultiDumpHandler();
 
-        $this->app->singleton(MultiDumpHandler::class, $multiDumpHandler);
+        $this->app->singleton(MultiDumpHandler::class, function () use ($multiDumpHandler) {
+            return $multiDumpHandler;
+        });
 
         $previousHandler = VarDumper::setHandler(function ($var) use ($multiDumpHandler) {
             $multiDumpHandler->dump($var);
@@ -48,12 +50,12 @@ class DumpRecorder
     public function record(Data $data)
     {
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 8);
-        $file = Arr::get($backtrace, '6.file');
-        $lineNumber = Arr::get($backtrace, '6.line');
+        $file = (string)Arr::get($backtrace, '6.file');
+        $lineNumber = (int)Arr::get($backtrace, '6.line');
 
-        if (! Arr::exists($backtrace, '7.class') && Arr::get($backtrace, '7.function') === 'ddd') {
-            $file = Arr::get($backtrace, '7.file');
-            $lineNumber = Arr::get($backtrace, '7.line');
+        if (! Arr::exists($backtrace, '7.class') && (string)Arr::get($backtrace, '7.function') === 'ddd') {
+            $file = (string)Arr::get($backtrace, '7.file');
+            $lineNumber = (int)Arr::get($backtrace, '7.line');
         }
 
         $htmlDump = (new HtmlDumper())->dump($data);
