@@ -12,20 +12,12 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_DateTime                                                                                              |
-    | ▪ Description : Menangani Tanggal dan Waktu                                                                                  |
+    | ▪ Class Name  : Helper_Hash                                                                                                  |
+    | ▪ Description : Menangani Hash                                                                                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_DateTime
+    class Helper_Hash
         {
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | Class Properties                                                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private static $varNameSpace;
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -66,55 +58,39 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : init                                                                                                 |
+        | ▪ Method Name     : getMD5                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-13                                                                                           |
-        | ▪ Description     : Inisialisasi                                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function init()
-            {
-            self::$varNameSpace=get_class();
-            }
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDateTimeFromUnixTime                                                                              |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
-        | ▪ Description     : Mendapatkan tanggal dan waktu dari UnixTime (varUnixTime)                                            |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Description     : Mendapatkan MD5 dari data (varData)                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varData                                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeFromUnixTime($varUnixTime)
+            
+        public static function getMD5($varUserSession, $varData)
             {
-            $varReturn = null;
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease(000000);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput(000000, __CLASS__, '('.__FUNCTION__.') Convert UnixTime `'.$varUnixTime.'` to DateTime');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get MD5');
                 try {
-                    $varReturn = date("Y-m-d H:i:s", $varUnixTime);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend(000000, 'Success');
+                    $varReturn = md5($varData);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend(000000, 'Failed');
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
                     }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease(000000);
                 } 
             catch (\Exception $ex) {
                 }
-            return $varReturn;
-            }           
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
+            }
         }
     }
+
+?>

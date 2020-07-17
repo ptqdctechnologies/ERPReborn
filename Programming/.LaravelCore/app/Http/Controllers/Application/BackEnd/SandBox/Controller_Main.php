@@ -6,8 +6,32 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
  
     class Controller_Main extends \App\Http\Controllers\Controller
         {
-        public function init()
+        public function __construct()
             {
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
+            }
+        
+        public function test2()
+            {
+            
+            echo "xxxx";
+            }
+
+
+
+
+
+
+
+
+
+
+        public function test()
+            {
+            
+            
+            
+            
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
 //            \App\Helpers\ZhtHelper\System\Registry::init();
@@ -59,14 +83,18 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 
 
-
             //$varRegistry['Registry']['Global']['Environment']['Database']['Type']='PostgreSQL';
 
+            echo \App\Helpers\ZhtHelper\General\Helper_Hash::getMD5(000000, 'xxxxxxxxxxxxxx');
             
             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::init(000000);
             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStatusAvailability(000000);
             $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(000000, "SELECT 1 AS xxx");
             echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getDateTimeTZ(000000);
+
+
+            
+
             
             //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTimeTZ());
             var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue(000000, 'myKey2'));

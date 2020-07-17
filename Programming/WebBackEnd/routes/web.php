@@ -19,15 +19,17 @@ Route::get('/', function () {
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
 
-Route::get('showLogOutput', function () {
-    return view('zhtHelperLogOutputShow');
-    })->middleware('web');
-    
-Route::get('showLogError', function () {
-    return view('zhtHelperLogErrorShow');
-    })->middleware('web');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test2', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test2');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogOutput', 'get', 'zhtHelperLogOutputShow', 'web');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogError', 'get', 'zhtHelperLogErrorShow', 'web');
+
+//Route::get('showLogOutput', function () {
+//    return view('zhtHelperLogOutputShow');
+//    })->middleware('web');
+//Route::get('showLogError', function () {
+//    return view('zhtHelperLogErrorShow');
+//    })->middleware('web');
+//Route::get('test', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@init');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
-
-
-Route::get('test', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@init');
