@@ -16,7 +16,7 @@ namespace App\Http\Middleware\Application\BackEnd
             //var_dump($request->route()->parameters());
             //var_dump($varRequest);
             
-            dd("Before Middleware");
+            //dd("Before Middleware");
                         
             return $varRequest;
             }

@@ -8,7 +8,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         {
         public function __construct()
             {
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
+            //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
         
         public function test2()
@@ -21,12 +21,24 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 
 
-
-
-
-
-
         public function test()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+//            \App\Helpers\ZhtHelper\System\Helper_Registry::init();
+            echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, [1,2,3]);
+            echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
+            echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
+            $x=\App\Helpers\ZhtHelper\General\Helper_Array::getOnlyArrayValueWithoutKey(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
+            var_dump($x);
+            }
+
+
+
+
+
+        public function testOLD()
             {
             
             
@@ -34,8 +46,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
-//            \App\Helpers\ZhtHelper\System\Registry::init();
 
+            echo \App\Helpers\ZhtHelper\General\Helper_Array::isAssociativeArray(000000, [1,2,3]);
+            
+            
+            
             //$varDataSession = \App\Helpers\ZhtHelper\General\Session::get(\App\Helpers\ZhtHelper\System\Environment::getApplicationID());         
 
             
