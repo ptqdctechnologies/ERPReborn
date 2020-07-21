@@ -1408,17 +1408,17 @@
     },
     {
         "name": "league/commonmark",
-        "version": "1.5.1",
-        "version_normalized": "1.5.1.0",
+        "version": "1.5.3",
+        "version_normalized": "1.5.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/commonmark.git",
-            "reference": "6d74caf6abeed5fd85d6ec20da23d7269cd0b46f"
+            "reference": "2574454b97e4103dc4e36917bd783b25624aefcd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/6d74caf6abeed5fd85d6ec20da23d7269cd0b46f",
-            "reference": "6d74caf6abeed5fd85d6ec20da23d7269cd0b46f",
+            "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/2574454b97e4103dc4e36917bd783b25624aefcd",
+            "reference": "2574454b97e4103dc4e36917bd783b25624aefcd",
             "shasum": ""
         },
         "require": {
@@ -1437,11 +1437,11 @@
             "michelf/php-markdown": "~1.4",
             "mikehaertl/php-shellcommand": "^1.4",
             "phpstan/phpstan": "^0.12",
-            "phpunit/phpunit": "^7.5",
+            "phpunit/phpunit": "^7.5 || ^8.5 || ^9.2",
             "scrutinizer/ocular": "^1.5",
             "symfony/finder": "^4.2"
         },
-        "time": "2020-06-27T12:50:08+00:00",
+        "time": "2020-07-19T22:47:30+00:00",
         "bin": [
             "bin/commonmark"
         ],
@@ -2314,31 +2314,30 @@
     },
     {
         "name": "phpdocumentor/reflection-docblock",
-        "version": "5.1.0",
-        "version_normalized": "5.1.0.0",
+        "version": "5.2.0",
+        "version_normalized": "5.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/phpDocumentor/ReflectionDocBlock.git",
-            "reference": "cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e"
+            "reference": "3170448f5769fe19f456173d833734e0ff1b84df"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e",
-            "reference": "cd72d394ca794d3466a3b2fc09d5a6c1dc86b47e",
+            "url": "https://api.github.com/repos/phpDocumentor/ReflectionDocBlock/zipball/3170448f5769fe19f456173d833734e0ff1b84df",
+            "reference": "3170448f5769fe19f456173d833734e0ff1b84df",
             "shasum": ""
         },
         "require": {
-            "ext-filter": "^7.1",
-            "php": "^7.2",
-            "phpdocumentor/reflection-common": "^2.0",
-            "phpdocumentor/type-resolver": "^1.0",
-            "webmozart/assert": "^1"
+            "ext-filter": "*",
+            "php": "^7.2 || ^8.0",
+            "phpdocumentor/reflection-common": "^2.2",
+            "phpdocumentor/type-resolver": "^1.3",
+            "webmozart/assert": "^1.9.1"
         },
         "require-dev": {
-            "doctrine/instantiator": "^1",
-            "mockery/mockery": "^1"
+            "mockery/mockery": "~1.3.2"
         },
-        "time": "2020-02-22T12:28:44+00:00",
+        "time": "2020-07-20T20:05:34+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2416,27 +2415,27 @@
     },
     {
         "name": "phpoption/phpoption",
-        "version": "1.7.4",
-        "version_normalized": "1.7.4.0",
+        "version": "1.7.5",
+        "version_normalized": "1.7.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/schmittjoh/php-option.git",
-            "reference": "b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3"
+            "reference": "994ecccd8f3283ecf5ac33254543eb0ac946d525"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3",
-            "reference": "b2ada2ad5d8a32b89088b8adc31ecd2e3a13baf3",
+            "url": "https://api.github.com/repos/schmittjoh/php-option/zipball/994ecccd8f3283ecf5ac33254543eb0ac946d525",
+            "reference": "994ecccd8f3283ecf5ac33254543eb0ac946d525",
             "shasum": ""
         },
         "require": {
             "php": "^5.5.9 || ^7.0 || ^8.0"
         },
         "require-dev": {
-            "bamarni/composer-bin-plugin": "^1.3",
-            "phpunit/phpunit": "^4.8.35 || ^5.0 || ^6.0 || ^7.0"
+            "bamarni/composer-bin-plugin": "^1.4.1",
+            "phpunit/phpunit": "^4.8.35 || ^5.7.27 || ^6.5.6 || ^7.0 || ^8.0 || ^9.0"
         },
-        "time": "2020-06-07T10:40:07+00:00",
+        "time": "2020-07-20T17:29:33+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

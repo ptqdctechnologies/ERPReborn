@@ -96,7 +96,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (array)  varDataArray ► Data Array                                                                                |
         |      ▪ (string) varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                 |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) $varReturn                                                                                               |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getArrayValue($varDataArray, $varArrayPattern)
@@ -158,7 +158,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varKey ► Key Array                                                                                       |
         |      ▪ (array)  varData ► Data Array                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) $varReturn                                                                                               |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function isKeyExist($varKey, $varData)
@@ -178,6 +178,49 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isAssociativeArray                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
+        | ▪ Description     : Mengecek suatu array (varArrayData) termasuk Associative Array (Array yang memiliki key)             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varArrayData ► Data Array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isAssociativeArray($varUserSession, array $varDataArray)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Is Associative Array');
+                try {
+                    if (array() === $varDataArray) 
+                        {
+                        $varReturn = false;
+                        }
+                    else
+                        {
+                        $varReturn = (array_keys($varDataArray) !== range(0, count($varDataArray) - 1));
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, ($varReturn==true ? 'true' : 'false'));
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isKeyExistOnSubArray                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -189,7 +232,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                 |
         |      ▪ (array)  varData ► Data Array                                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) $varReturn                                                                                               |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function isKeyExistOnSubArray($varData, $varArrayPattern)
@@ -225,6 +268,49 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isSequentialArray                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
+        | ▪ Description     : Mengecek suatu array (varArrayData) termasuk Sequential Array (Array yang tidak memiliki key)        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varArrayData ► Data Array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isSequentialArray($varUserSession, array $varDataArray)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Is Sequential Array');
+                try {
+                    if (array() === $varDataArray) 
+                        {
+                        $varReturn = true;
+                        }
+                    else
+                        {
+                        $varReturn = !(array_keys($varDataArray) !== range(0, count($varDataArray) - 1));
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, ($varReturn==true ? 'true' : 'false'));
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setArrayValue                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -236,7 +322,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string)  varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                |
         |      ▪ (string)  varValue ► Nilai                                                                                        |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (boolean) $varReturn                                                                                              |
+        |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function setArrayValue(&$varDataArray, $varArrayPattern, $varValue)
@@ -286,13 +372,36 @@ namespace App\Helpers\ZhtHelper\General
             return $varReturn;
             }
 
-        public static function getOnlyArrayValueWithoutKey($varData)
+
+        public static function getOnlyArrayValueWithoutKey($varUserSession, $varDataArray)
             {
-            $varReturn=[];
-            foreach ($varData as $varKey => $varValue) {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Array Values Only');
+                try {
+                    if(self::isAssociativeArray($varUserSession, $varDataArray)==true)
+                        {
+                        $varReturn = array_values($varDataArray);
+                        }
+                    else
+                        {
+                        $varReturn = $varDataArray;
+                        }
+                    }
+                catch (\Exception $ex) {
+                    }
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);            
+
+            
+/*            $varReturn=[];
+            foreach ($varDataArray as $varKey => $varValue) {
                 array_push($varReturn, $varValue);
                 }
-            return $varReturn;
+            return $varReturn;*/
             }
         }
     }

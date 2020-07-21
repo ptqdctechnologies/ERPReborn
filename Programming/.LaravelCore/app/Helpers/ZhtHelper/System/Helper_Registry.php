@@ -97,13 +97,43 @@ namespace App\Helpers\ZhtHelper\System
                 \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PORT'));
                 \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PASSWORD'));
 
-                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);                
+                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
                 } 
             catch (\Exception $ex) {
                 }
             }
 
-            
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isSet                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-20                                                                                           |
+        | ▪ Description     : Pengecekan apakah Registry sudah diset atau belum                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isSet()
+            {
+            $varReturn = false;
+            try {
+                $varDatasession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+                if(isset($varDatasession))
+                    {
+                    $varReturn = true;
+                    }
+                } 
+            catch (\Exception $ex) {
+                }
+            return $varReturn;
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getGlobalRegistry                                                                                    |
@@ -154,6 +184,36 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Registry::Specific::'.$varUserSession.'::'.$varSubKeyPattern);
+                } 
+            catch (\Exception $ex) {
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setAutoInit                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-20                                                                                           |
+        | ▪ Description     : Pengesetan Automatic Init                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setAutoInit()
+            {
+            $varReturn = false;
+            try {
+                if(self::isSet()==false)
+                    {
+                    self::init();
+                    }
+                $varReturn = true;
                 } 
             catch (\Exception $ex) {
                 }

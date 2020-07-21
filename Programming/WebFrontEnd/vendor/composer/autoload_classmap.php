@@ -12,6 +12,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\Database\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_Redis.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Array' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Array.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_DateTime' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_DateTime.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_Encryption' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Encryption.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_File' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_File.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',

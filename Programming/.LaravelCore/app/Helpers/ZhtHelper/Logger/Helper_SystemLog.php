@@ -123,12 +123,7 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function getLogError($varUserSession)
             {
-            //---> Cek apakah session sudah terbentuk
-            if(!\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()))
-                {
-                \App\Helpers\ZhtHelper\System\Helper_Registry::init();
-                self::init();
-                }            
+            self::setAutoInit();         
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
@@ -162,12 +157,7 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function getLogOutput($varUserSession)
             {
-            //---> Cek apakah session sudah terbentuk
-            if(!\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()))
-                {
-                \App\Helpers\ZhtHelper\System\Helper_Registry::init();
-                self::init();
-                }            
+            self::setAutoInit();       
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
@@ -185,7 +175,7 @@ namespace App\Helpers\ZhtHelper\Logger
                 for($j=0; $j!=count($varData); $j++)
                     {
                     $varReturn .= '<td nowrap style="color:'.($j==1?'red':'blue').'; '.($j==1?'font-weight: bold; ':'').($j==2?'font-style: italic; ':'').'font-size:10px;">';
-                    $varReturn .= ($j==0?'▪ ':'');
+                    $varReturn .= ($j==0?'▪ '.'('.$i.') ':'');
                     $varReturn .= ($j==2?'► ':'');
                     $varReturn .= $varData[$j];
                     $varReturn .= '</td>';
@@ -193,6 +183,39 @@ namespace App\Helpers\ZhtHelper\Logger
                 $varReturn .= '</tr>';
                 }            
             $varReturn .=  '</table>';
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setAutoInit                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-20                                                                                           |
+        | ▪ Description     : Pengesetan Automatic Init                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setAutoInit()
+            {
+            $varReturn = false;
+            try {
+                //---> Cek apakah session sudah terbentuk
+                //if(!\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()))
+                if(\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID())==false)
+                    {
+                    \App\Helpers\ZhtHelper\System\Helper_Registry::setAutoInit();
+                    self::init();
+                    } 
+                $varReturn = true;
+                } 
+            catch (\Exception $ex) {
+                }
             return $varReturn;
             }
 
@@ -241,12 +264,7 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogError($varUserSession, $varCallerID, $varMessage=null)
             {
-            //---> Cek apakah session sudah terbentuk
-            if(!\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()))
-                {
-                \App\Helpers\ZhtHelper\System\Helper_Registry::init();
-                self::init();
-                }            
+            self::setAutoInit();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
@@ -271,8 +289,8 @@ namespace App\Helpers\ZhtHelper\Logger
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLogOutput                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-20                                                                                           |
         | ▪ Description     : Menyimpan data Log Output (varMessage) sesuai User Session tertentu (varUserSession) dengan penanda  |
         |                     khusus (varCallerID)                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -285,13 +303,8 @@ namespace App\Helpers\ZhtHelper\Logger
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function setLogOutput($varUserSession, $varCallerID, $varMessage=null)
-            {            
-            //---> Cek apakah session sudah terbentuk
-            if(!\App\Helpers\ZhtHelper\General\Helper_Session::isExist(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID()))
-                {
-                \App\Helpers\ZhtHelper\System\Helper_Registry::init();
-                self::init();
-                }
+            {
+            self::setAutoInit();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
@@ -315,8 +328,8 @@ namespace App\Helpers\ZhtHelper\Logger
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setLogIndentationIncrease                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-20                                                                                           |
         | ▪ Description     : Menambahkan indentasi untuk Log Output sesuai User Session (varUserSession)                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -327,6 +340,8 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogIndentationIncrease($varUserSession)
             {
+            self::setAutoInit();
+
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')==false)
                 {
@@ -357,6 +372,8 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public static function setLogIndentationDecrease($varUserSession)
             {
+            self::setAutoInit();
+            
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varOutputIndentation = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation') - self::$varDataLogOutputIndentantionTab;
             \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', $varOutputIndentation);            

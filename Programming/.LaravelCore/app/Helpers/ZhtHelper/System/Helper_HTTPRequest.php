@@ -12,5 +12,11 @@ namespace App\Helpers\ZhtHelper\System
     {
     class Helper_HTTPRequest
         {
+        public static function getEncryptedURLParameter(array $varDataArray)
+            {
+            //echo "<br>".$_SERVER['REQUEST_TIME']."<br>";
+            echo \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationDateTimeTZ();
+            //echo "<br>".$_SERVER['REQUEST_TIME']."<br>";
+            }
         }
     }
