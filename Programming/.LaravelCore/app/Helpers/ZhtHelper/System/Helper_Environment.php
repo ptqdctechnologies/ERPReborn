@@ -128,7 +128,7 @@ namespace App\Helpers\ZhtHelper\System
             
             $varTimeZoneOffset = str_pad((($varDate->getOffset())/3600), 2, '0', STR_PAD_LEFT);
                         
-            $varReturn = date("Y-m-d H:i:s.").$varMicroSecond.'+'.$varTimeZoneOffset;
+            $varReturn = date("Y-m-d H:i:s.", time()).$varMicroSecond.'+'.$varTimeZoneOffset;
 
             return $varReturn;
             }
