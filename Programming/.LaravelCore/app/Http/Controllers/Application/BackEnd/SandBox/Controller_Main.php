@@ -31,7 +31,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_Array::isSequentialArray(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
             echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
             $x=\App\Helpers\ZhtHelper\General\Helper_Array::getOnlyArrayValueWithoutKey(000000, ['a'=>1, 'b'=>2, 'c'=>3]);
-            var_dump($x);
+            echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
+            echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getBase64Decode(000000, \App\Helpers\ZhtHelper\General\Helper_Encryption::getBase64Encode(000000, 'Pesan Rahasia'));
+            echo "<br>xxxxxxxxxxxxxxxxxxxxx<br>";
+//            echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLEncode(000000, 'Ini data rahasianya', 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121');
+            echo \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encryption::getOpenSSLEncode(000000, 'Ini data rahasianya', 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121'), 'AES-128-CTR', 'Kunci Enkripsiku', 0, '1234567891011121');
             }
 
 

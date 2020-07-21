@@ -70,8 +70,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */
-            
+        */            
         public static function getMD5($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
