@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Laravel.DumpAutoLoad.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-07-08
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2020-07-22
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk mengupdate Laravel menggunakan Composer
@@ -15,15 +15,15 @@
 clear;
 
 cd ./Programming/WebBackEnd;
-php artisan route:clear;
-php artisan config:clear;
-php artisan cache:clear;
+sudo php artisan route:clear;
+sudo php artisan config:clear;
+sudo php artisan cache:clear;
 composer dump-autoload;
 cd -;
 
 cd ./Programming/WebFrontEnd; 
-php artisan route:clear;
-php artisan config:clear;
-php artisan cache:clear;
+sudo php artisan route:clear;
+sudo php artisan config:clear;
+sudo php artisan cache:clear;
 composer dump-autoload; 
 cd -;
