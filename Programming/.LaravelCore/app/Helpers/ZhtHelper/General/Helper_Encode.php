@@ -12,11 +12,11 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_Encryption                                                                                            |
-    | ▪ Description : Menangani Encryption                                                                                         |
+    | ▪ Class Name  : Helper_Encode                                                                                                |
+    | ▪ Description : Menangani Encode                                                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Encryption
+    class Helper_Encode
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -86,46 +86,32 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getOpenSSLDecrypt                                                                                    |
+        | ▪ Method Name     : getBase64Decode                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-21                                                                                           |
-        | ▪ Description     : Mendapatkan enkripsi OpenSSL dari data (varCipherData)                                               |
+        | ▪ Description     : Mendapatkan dekripsi Base64 dari data (varPlainData)                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
         |      ▪ (string) varCipherData ► Data yang akan didekripsi                                                                |
-        |      ▪ (string) varCipherMode ► Mode ciphering                                                                           |
-        |      ▪ (string) varEncryptionKey ► Kunci enkripsi                                                                        |
-        |      ▪ (string) varOptions ► Opsi data                                                                                   |
-        |      ▪ (string) varInitialVector ► Vektor inisial                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */            
-        public static function getOpenSSLDecrypt($varUserSession, $varCipherData, $varCipherMode, $varEncryptionKey, $varOptions, $varInitialVector)
+        public static function getBase64Decode($varUserSession, $varCipherData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get OpenSSL (Mode '.$varCipherMode.') Decode for Cipher Data `'.$varCipherData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Decode for decoded data`'.$varCipherData.'`');
                 try {
-                    if(!isset($varCipherMode))
-                        {
-                        throw new \Exception('Ciphering mode `'.$varCipherMode.'` is not recognized');
-                        }
-                    if(openssl_cipher_iv_length($varCipherMode) != strlen($varInitialVector))
-                        {
-                        throw new \Exception('Initial vector length must be '.openssl_cipher_iv_length($varCipherMode).' characters');
-                        }                    
-                    $varReturn = openssl_decrypt($varCipherData, $varCipherMode, $varEncryptionKey, $varOptions, $varInitialVector);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
+                    $varReturn = base64_decode($varCipherData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
-                }
+                } 
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
@@ -134,43 +120,29 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getOpenSSLEncrypt                                                                                    |
+        | ▪ Method Name     : getBase64Encode                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-21                                                                                           |
-        | ▪ Description     : Mendapatkan enkripsi OpenSSL dari data (varPlainData)                                                |
+        | ▪ Description     : Mendapatkan enkripsi Base64 dari data (varPlainData)                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
         |      ▪ (string) varPlainData ► Data yang akan dienkripsi                                                                 |
-        |      ▪ (string) varCipherMode ► Mode ciphering                                                                           |
-        |      ▪ (string) varEncryptionKey ► Kunci enkripsi                                                                        |
-        |      ▪ (string) varOptions ► Opsi data                                                                                   |
-        |      ▪ (string) varInitialVector ► Vektor inisial                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */            
-        public static function getOpenSSLEncrypt($varUserSession, $varPlainData, $varCipherMode, $varEncryptionKey, $varOptions, $varInitialVector)
+        public static function getBase64Encode($varUserSession, $varPlainData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get OpenSSL (Mode '.$varCipherMode.') Encode for Plain Data `'.$varPlainData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Encode for plain data`'.$varPlainData.'`');
                 try {
-                    if(!isset($varCipherMode))
-                        {
-                        throw new \Exception('Ciphering mode `'.$varCipherMode.'` is not recognized');
-                        }
-                    if(openssl_cipher_iv_length($varCipherMode) != strlen($varInitialVector))
-                        {
-                        throw new \Exception('Initial vector length must be '.openssl_cipher_iv_length($varCipherMode).' characters');
-                        }                    
-                    $varReturn = openssl_encrypt($varPlainData, $varCipherMode, $varEncryptionKey, $varOptions, $varInitialVector);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
+                    $varReturn = base64_encode($varPlainData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
@@ -178,11 +150,56 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-            
-        public static function getRandomKey($varUserSession, int $varByteLength)
+
+
+        public static function getBase64EncodeWithoutSlashCharacter($varUserSession, $varPlainData, $varReplacementCharacter=null)
             {
-            
-            return $varReturn;
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Encode without slash character for plain data`'.$varPlainData.'`');
+                try {
+                    if(!$varReplacementCharacter)
+                        {
+                        $varReplacementCharacter = '-';
+                        }
+                    $varEncodedData = self::getBase64Encode($varUserSession, $varPlainData);
+                    $varReturn = str_replace('/', $varReplacementCharacter, $varEncodedData);
+                    } 
+                catch (\Exception $ex) {
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        public static function getBase64DecodeWithoutSlashCharacter($varUserSession, $varEncodedData, $varReplacementCharacter=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Decode without slash character for decoded data`'.$varEncodedData.'`');
+                try {
+                    if(!$varReplacementCharacter)
+                        {
+                        $varReplacementCharacter = '-';
+                        }
+                    $varEncodedData = str_replace($varReplacementCharacter, '/', $varEncodedData);
+
+                                        
+                    $varReturn = self::getBase64Decode($varUserSession, $varEncodedData);
+                    } 
+                catch (\Exception $ex) {
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }
+?>

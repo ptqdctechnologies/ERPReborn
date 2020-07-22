@@ -115,6 +115,21 @@ namespace App\Helpers\ZhtHelper\General
             catch (\Exception $ex) {
                 }
             return $varReturn;
-            }           
+            }
+            
+        public static function getMicroTime()
+            {
+            $varMicroDate = microtime();
+            $varDateArray = explode(" ", $varMicroDate);
+            $varMicroSecond = substr($varDateArray[1], 0, 6);
+            $varReturn=$varMicroSecond;
+            return $varReturn;
+            }
+
+        public static function getUnixTime()
+            {
+            $varReturn=time();
+            return $varReturn;
+            }
         }
     }

@@ -20,14 +20,14 @@ clear;
 
 cp ./.ProjectCore/BashScript/Script.Git.ForkSync.TeguhPJS.sh ./../Script.Git.ForkSync.TeguhPJS.sh;
 cd ..;
-rm -rf ./ERPReborn;
+sudo rm -rf ./ERPReborn;
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
 git fetch upstream;
 git pull upstream master;
 git push origin master;
-rm -rf ./../Script.Git.ForkSync.TeguhPJS.sh;
+sudo rm -rf ./../Script.Git.ForkSync.TeguhPJS.sh;
 
 cd .;
 ./BashScript/Script.Laravel.ComposerUpdate.sh;

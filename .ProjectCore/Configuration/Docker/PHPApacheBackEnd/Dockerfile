@@ -6,11 +6,14 @@ RUN apt-get update \
        apt-utils \ 
        libpq-dev \
        vim \
+       libbz2-dev \
     && docker-php-ext-install \
-       pdo pdo_pgsql \
+       pdo \
+       pdo_pgsql \
        pgsql \
     && pecl install redis \
-    && docker-php-ext-enable redis
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install bz2
 
 #ADD . /var/www
 #ADD ./public /var/www/html
