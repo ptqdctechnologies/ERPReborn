@@ -493,6 +493,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\General\\Helper_Array' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Array.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Compression' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Compression.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_DateTime' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_DateTime.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_Encode' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Encode.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Encryption' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Encryption.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_File' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_File.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',

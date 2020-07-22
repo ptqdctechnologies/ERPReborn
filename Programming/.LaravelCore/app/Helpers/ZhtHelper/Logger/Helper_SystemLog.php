@@ -101,12 +101,20 @@ namespace App\Helpers\ZhtHelper\Logger
             return $varReturnInitialValue;
             }
 
-        public static function setLogOutputMethodFooter($varUserSession, &$varReturn)
+        public static function setLogOutputMethodFooter($varUserSession, &$varReturn, $varClassName, $varMethodName, $varCustomMessage=null)
             {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Exit Point'));
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
             return $varReturn;
             }
 
+        public static function setLogOutputMethodFooter2($varUserSession, &$varReturn)
+            {
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, '', 'Exit Point');
+            return $varReturn;
+            }
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getLogError                                                                                          |

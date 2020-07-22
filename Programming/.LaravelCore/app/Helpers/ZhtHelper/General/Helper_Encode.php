@@ -12,11 +12,11 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_Encryption                                                                                            |
-    | ▪ Description : Menangani Encryption                                                                                         |
+    | ▪ Class Name  : Helper_Encode                                                                                                |
+    | ▪ Description : Menangani Encode                                                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Compression
+    class Helper_Encode
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -31,7 +31,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -50,7 +50,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __destruct                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -69,7 +69,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
         | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -86,42 +86,29 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getBZip2Compress                                                                                     |
+        | ▪ Method Name     : getBase64Decode                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
-        | ▪ Description     : Mendapatkan kompresi BZip2 dari data (varData)                                                       |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan dekripsi Base64 dari data (varPlainData)                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varData ► Data yang akan dikompresi                                                                      |
-        |      ▪ (int)    varBlockSize ► Ukuran block (1-9)                                                                        |
-        |      ▪ (int)    varWorkFactor ► Fase Kompresi                                                                            |
+        |      ▪ (string) varCipherData ► Data yang akan didekripsi                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getBZip2Compress($varUserSession, $varData, int $varBlockSize=null, int $varWorkFactor=null)
+        */            
+        public static function getBase64Decode($varUserSession, $varCipherData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get BZip2 Compression for data`'.$varData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Decode for decoded data`'.$varCipherData.'`');
                 try {
-                    if(!$varBlockSize)
-                        {
-                        $varBlockSize = 9;
-                        }
-                    if(!$varWorkFactor)
-                        {
-                        $varWorkFactor = 0;
-                        }
-                    $varCompressedData = \bzcompress($varData, $varBlockSize, $varWorkFactor);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
-                    $varReturn = $varCompressedData;
+                    $varReturn = base64_decode($varCipherData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
@@ -133,32 +120,29 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getBZip2Decompress                                                                                   |
+        | ▪ Method Name     : getBase64Encode                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
-        | ▪ Description     : Mendapatkan dekompresi BZip2 dari data terkompresi (varCompressedData)                               |
+        | ▪ Last Update     : 2020-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan enkripsi Base64 dari data (varPlainData)                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varCompressedData ► Data yang akan didekompresi                                                          |
+        |      ▪ (string) varPlainData ► Data yang akan dienkripsi                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getBZip2Decompress($varUserSession, $varCompressedData)
+        */            
+        public static function getBase64Encode($varUserSession, $varPlainData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get BZip2 Decompression for compressed data`'.$varCompressedData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Encode for plain data`'.$varPlainData.'`');
                 try {
-                    $varUncompressedData = \bzdecompress($varCompressedData);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
-                    $varReturn = $varUncompressedData;
+                    $varReturn = base64_encode($varPlainData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
@@ -168,39 +152,21 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getZLibCompress                                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
-        | ▪ Description     : Mendapatkan kompresi ZLib dari data (varData)                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varData ► Data yang akan dikompresi                                                                      |
-        |      ▪ (int)    varCompressionLevel ► Level kompresi                                                                     |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getZLibCompress($varUserSession, $varData, int $varCompressionLevel=null)
+        public static function getBase64EncodeWithoutSlashCharacter($varUserSession, $varPlainData, $varReplacementCharacter=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get ZLib Compression for data`'.$varData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Encode without slash character for plain data`'.$varPlainData.'`');
                 try {
-                    if(!$varCompressionLevel)
+                    if(!$varReplacementCharacter)
                         {
-                        $varCompressionLevel = 9;
+                        $varReplacementCharacter = '-';
                         }
-                    $varCompressedData = \gzcompress($varData, $varCompressionLevel);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
-                    $varReturn = $varCompressedData;
+                    $varEncodedData = self::getBase64Encode($varUserSession, $varPlainData);
+                    $varReturn = str_replace('/', $varReplacementCharacter, $varEncodedData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
@@ -210,34 +176,23 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getZLibDecompress                                                                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-22                                                                                           |
-        | ▪ Description     : Mendapatkan dekompresi ZLib dari data terkompresi (varCompressedData)                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varCompressedData ► Data yang akan didekompresi                                                          |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getZLibDecompress($varUserSession, $varCompressedData)
+        public static function getBase64DecodeWithoutSlashCharacter($varUserSession, $varEncodedData, $varReplacementCharacter=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get ZLib Decompression for compressed data`'.$varCompressedData.'`');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get Base64 Decode without slash character for decoded data`'.$varEncodedData.'`');
                 try {
-                    $varUncompressedData = \gzuncompress($varCompressedData);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
-                    $varReturn = $varUncompressedData;
+                    if(!$varReplacementCharacter)
+                        {
+                        $varReplacementCharacter = '-';
+                        }
+                    $varEncodedData = str_replace($varReplacementCharacter, '/', $varEncodedData);
+
+                                        
+                    $varReturn = self::getBase64Decode($varUserSession, $varEncodedData);
                     } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed');
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
@@ -247,5 +202,4 @@ namespace App\Helpers\ZhtHelper\General
             }
         }
     }
-
 ?>

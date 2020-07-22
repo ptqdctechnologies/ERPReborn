@@ -215,7 +215,7 @@ namespace App\Helpers\ZhtHelper\General
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -305,7 +305,7 @@ namespace App\Helpers\ZhtHelper\General
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);            
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
 
 
@@ -394,7 +394,7 @@ namespace App\Helpers\ZhtHelper\General
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn);            
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
 
             
 /*            $varReturn=[];
