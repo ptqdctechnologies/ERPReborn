@@ -1529,6 +1529,7 @@ return array(
     'Illuminate\\Hashing\\HashServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Hashing/HashServiceProvider.php',
     'Illuminate\\Http\\Client\\ConnectionException' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/ConnectionException.php',
     'Illuminate\\Http\\Client\\Factory' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/Factory.php',
+    'Illuminate\\Http\\Client\\HttpClientException' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/HttpClientException.php',
     'Illuminate\\Http\\Client\\PendingRequest' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/PendingRequest.php',
     'Illuminate\\Http\\Client\\Request' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/Request.php',
     'Illuminate\\Http\\Client\\RequestException' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Client/RequestException.php',
