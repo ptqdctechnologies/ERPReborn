@@ -12,8 +12,13 @@ RUN apt-get update \
        pdo_pgsql \
        pgsql \
     && pecl install redis \
-    && docker-php-ext-enable redis \
-    && docker-php-ext-install bz2
+    && docker-php-ext-enable \
+       redis \
+    && docker-php-ext-install \
+       sockets \
+       bz2 \
+    && docker-php-ext-enable \ 
+       sockets
 
 #ADD . /var/www
 #ADD ./public /var/www/html
