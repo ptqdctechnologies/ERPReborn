@@ -99,6 +99,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
+            'Psr\\Http\\Client\\' => 16,
             'Psr\\EventDispatcher\\' => 20,
             'Psr\\Container\\' => 14,
             'Prophecy\\' => 9,
@@ -126,6 +127,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         ),
         'I' => 
         array (
+            'Intervention\\HttpAuth\\' => 22,
             'Illuminate\\' => 11,
         ),
         'G' => 
@@ -330,6 +332,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
+        'Psr\\Http\\Client\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/http-client/src',
+        ),
         'Psr\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
@@ -377,6 +383,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Laravel\\Tinker\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
+        ),
+        'Intervention\\HttpAuth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/intervention/httpauth/src',
         ),
         'Illuminate\\' => 
         array (
@@ -497,6 +507,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\General\\Helper_Encryption' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Encryption.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_File' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_File.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
@@ -1370,6 +1381,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Fruitcake\\Cors\\HandleCors' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/HandleCors.php',
         'GuzzleHttp\\Client' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Client.php',
         'GuzzleHttp\\ClientInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientInterface.php',
+        'GuzzleHttp\\ClientTrait' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/ClientTrait.php',
         'GuzzleHttp\\Cookie\\CookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJar.php',
         'GuzzleHttp\\Cookie\\CookieJarInterface' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/CookieJarInterface.php',
         'GuzzleHttp\\Cookie\\FileCookieJar' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Cookie/FileCookieJar.php',
@@ -1381,7 +1393,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'GuzzleHttp\\Exception\\GuzzleException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/GuzzleException.php',
         'GuzzleHttp\\Exception\\InvalidArgumentException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/InvalidArgumentException.php',
         'GuzzleHttp\\Exception\\RequestException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/RequestException.php',
-        'GuzzleHttp\\Exception\\SeekException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/SeekException.php',
         'GuzzleHttp\\Exception\\ServerException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/ServerException.php',
         'GuzzleHttp\\Exception\\TooManyRedirectsException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/TooManyRedirectsException.php',
         'GuzzleHttp\\Exception\\TransferException' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Exception/TransferException.php',
@@ -1437,7 +1448,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'GuzzleHttp\\RequestOptions' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RequestOptions.php',
         'GuzzleHttp\\RetryMiddleware' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/RetryMiddleware.php',
         'GuzzleHttp\\TransferStats' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/TransferStats.php',
-        'GuzzleHttp\\UriTemplate' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/UriTemplate.php',
         'GuzzleHttp\\Utils' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/Utils.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
@@ -2011,6 +2021,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\Hashing\\HashServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Hashing/HashServiceProvider.php',
         'Illuminate\\Http\\Client\\ConnectionException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/ConnectionException.php',
         'Illuminate\\Http\\Client\\Factory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Factory.php',
+        'Illuminate\\Http\\Client\\HttpClientException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/HttpClientException.php',
         'Illuminate\\Http\\Client\\PendingRequest' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/PendingRequest.php',
         'Illuminate\\Http\\Client\\Request' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Request.php',
         'Illuminate\\Http\\Client\\RequestException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/RequestException.php',
@@ -2386,6 +2397,25 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Intervention\\HttpAuth\\AbstractVault' => __DIR__ . '/..' . '/intervention/httpauth/src/AbstractVault.php',
+        'Intervention\\HttpAuth\\Directive' => __DIR__ . '/..' . '/intervention/httpauth/src/Directive.php',
+        'Intervention\\HttpAuth\\Environment' => __DIR__ . '/..' . '/intervention/httpauth/src/Environment.php',
+        'Intervention\\HttpAuth\\Exception\\AuthentificationException' => __DIR__ . '/..' . '/intervention/httpauth/src/Exception/AuthentificationException.php',
+        'Intervention\\HttpAuth\\Exception\\InvalidParameterException' => __DIR__ . '/..' . '/intervention/httpauth/src/Exception/InvalidParameterException.php',
+        'Intervention\\HttpAuth\\Exception\\NotSupportedException' => __DIR__ . '/..' . '/intervention/httpauth/src/Exception/NotSupportedException.php',
+        'Intervention\\HttpAuth\\HttpAuth' => __DIR__ . '/..' . '/intervention/httpauth/src/HttpAuth.php',
+        'Intervention\\HttpAuth\\Key' => __DIR__ . '/..' . '/intervention/httpauth/src/Key.php',
+        'Intervention\\HttpAuth\\Laravel\\Facades\\HttpAuth' => __DIR__ . '/..' . '/intervention/httpauth/src/Laravel/Facades/HttpAuth.php',
+        'Intervention\\HttpAuth\\Laravel\\HttpAuthServiceProvider' => __DIR__ . '/..' . '/intervention/httpauth/src/Laravel/HttpAuthServiceProvider.php',
+        'Intervention\\HttpAuth\\TokenInterface' => __DIR__ . '/..' . '/intervention/httpauth/src/TokenInterface.php',
+        'Intervention\\HttpAuth\\Token\\HttpAuthentification' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/HttpAuthentification.php',
+        'Intervention\\HttpAuth\\Token\\HttpAuthorization' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/HttpAuthorization.php',
+        'Intervention\\HttpAuth\\Token\\NullToken' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/NullToken.php',
+        'Intervention\\HttpAuth\\Token\\PhpAuthDigest' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/PhpAuthDigest.php',
+        'Intervention\\HttpAuth\\Token\\PhpAuthUser' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/PhpAuthUser.php',
+        'Intervention\\HttpAuth\\Token\\RedirectHttpAuthorization' => __DIR__ . '/..' . '/intervention/httpauth/src/Token/RedirectHttpAuthorization.php',
+        'Intervention\\HttpAuth\\Vault\\BasicVault' => __DIR__ . '/..' . '/intervention/httpauth/src/Vault/BasicVault.php',
+        'Intervention\\HttpAuth\\Vault\\DigestVault' => __DIR__ . '/..' . '/intervention/httpauth/src/Vault/DigestVault.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laravel\\Tinker\\ClassAliasAutoloader' => __DIR__ . '/..' . '/laravel/tinker/src/ClassAliasAutoloader.php',
         'Laravel\\Tinker\\Console\\TinkerCommand' => __DIR__ . '/..' . '/laravel/tinker/src/Console/TinkerCommand.php',
@@ -3938,6 +3968,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Psr\\EventDispatcher\\EventDispatcherInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/EventDispatcherInterface.php',
         'Psr\\EventDispatcher\\ListenerProviderInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/ListenerProviderInterface.php',
         'Psr\\EventDispatcher\\StoppableEventInterface' => __DIR__ . '/..' . '/psr/event-dispatcher/src/StoppableEventInterface.php',
+        'Psr\\Http\\Client\\ClientExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientExceptionInterface.php',
+        'Psr\\Http\\Client\\ClientInterface' => __DIR__ . '/..' . '/psr/http-client/src/ClientInterface.php',
+        'Psr\\Http\\Client\\NetworkExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/NetworkExceptionInterface.php',
+        'Psr\\Http\\Client\\RequestExceptionInterface' => __DIR__ . '/..' . '/psr/http-client/src/RequestExceptionInterface.php',
         'Psr\\Http\\Message\\MessageInterface' => __DIR__ . '/..' . '/psr/http-message/src/MessageInterface.php',
         'Psr\\Http\\Message\\RequestInterface' => __DIR__ . '/..' . '/psr/http-message/src/RequestInterface.php',
         'Psr\\Http\\Message\\ResponseInterface' => __DIR__ . '/..' . '/psr/http-message/src/ResponseInterface.php',

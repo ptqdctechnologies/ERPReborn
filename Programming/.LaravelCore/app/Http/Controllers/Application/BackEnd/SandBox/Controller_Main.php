@@ -11,7 +11,76 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
         
+        public function webServices()
+            {
+            $res['message'] = "Success!";
+            return response($res);
+            }
+            
         public function test()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+
+            // create digest auth
+//            $auth = \Intervention\HttpAuth\HttpAuth::make();
+  //          $auth->digest();
+    //        $auth->realm('Secure');
+  //          $auth->username('admin');
+//            $auth->password('secret');
+            
+//            var_dump($auth);
+            
+//            $auth->secure();
+            
+            $varDataArray = [
+                'System' => [],
+                'Data' => []
+            ];
+            //$x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray);
+            $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray));
+            var_dump($x);
+            
+            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
+                000000, 
+                'http://172.28.0.3/api/webservices', 
+                'POST', 
+                80
+               );
+            
+            
+           
+            echo "<br>Finish";
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+        public function testEncrypt()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
