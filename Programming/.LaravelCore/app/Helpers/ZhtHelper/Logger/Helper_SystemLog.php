@@ -94,6 +94,87 @@ namespace App\Helpers\ZhtHelper\Logger
             self::$varDataLogOutputIndentantionTab=5;
             }
 
+
+        private static function getCurrentOutputIndentation($varUserSession)
+            {
+            self::setAutoInit();
+
+            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            $varReturn = $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation'];
+            return $varReturn;
+            }
+            
+            
+        public static function setLogOutputMethodProcessHeader($varUserSession, $varClassName, $varMethodName, $varCustomMessage=null)
+            {
+            self::setAutoInit();
+
+            $varData['ClassName'] = $varClassName;
+            $varData['MethodName'] = $varMethodName;
+            $varData['Message'] = $varCustomMessage;
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.' - SubProcess) '.($varCustomMessage ? $varCustomMessage : ''));
+            $varData['LogOutputIndentation'] = self::getCurrentOutputIndentation($varUserSession);
+            return $varData;
+            }
+
+
+        public static function setLogOutputMethodProcessStatus($varUserSession, &$varData, $varStatus, $varCustomMessage=null)
+            {
+            self::setAutoInit();
+
+            $varData['Status'] = $varStatus;
+            $varData['StatusMessage'] = $varCustomMessage;
+            }
+
+
+        public static function setLogOutputMethodProcessFooter($varUserSession, &$varData)
+            {
+            self::setAutoInit();
+
+            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            $varDataArray=explode('#', $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1]);
+            if (strcmp(($varDataArray[1].'#'.$varDataArray[2]), ('['.$varData['ClassName'].']#['.str_repeat('&nbsp;', $varData['LogOutputIndentation']).'('.$varData['MethodName'].' - SubProcess) '.($varData['Message']?$varData['Message']:'').']')) == 0)
+                {
+                self::setLastLogOuputAppend($varUserSession, $varData['Status'].($varData['StatusMessage'] ? ', '.$varData['StatusMessage'] : ''));
+                }
+            else
+                {
+                //self::setLastLogOuputAppend($varUserSession, 'On process');
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varData['ClassName'], '('.$varData['MethodName'].' - SubProcess) '.($varData['Message'] ? $varData['Message'] : '').' (Closed Normally) ► '.$varData['Status'].($varData['StatusMessage'] ? ', '.$varData['StatusMessage'] : ''));
+                }
+            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+            }
+            
+            
+            
+            
+
+/*        public static function setLogOutputMethodSubHeaderAppend($varUserSession, $varLastIndentation, $varMessage=null)
+            {
+            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            
+            echo "<br>".self::getCurrentOutputIndentation($varUserSession);
+            
+            if($varLastIndentation == self::getCurrentOutputIndentation($varUserSession))
+                {
+                $varData=$varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1];
+                $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1] = substr($varData, 0, strlen($varData)-1).' ► '.$varMessage.']';
+                }
+            else
+                {
+                $varData=$varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1];
+                $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1] = substr($varData, 0, strlen($varData)-1).' ► '.$varMessage.']';
+                }
+            //---> Data Store
+            \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+            }
+*/            
+            
+            
+            
+
+
         public static function setLogOutputMethodHeader($varUserSession, $varReturnInitialValue, $varClassName, $varMethodName, $varCustomMessage=null)
             {
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
