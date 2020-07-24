@@ -157,31 +157,42 @@ namespace App\Helpers\ZhtHelper\System
                     self::init();
                     }
                 //---> Main Process
-                switch ($varHTTPMethod)
+                if(is_array($varHTTPMethod)==false)
                     {
-                    case 'delete':
+                    switch ($varHTTPMethod)
                         {
-                        break;
-                        }    
-                    case 'get':
-                        {
-                        self::$ObjLaravelRoute::get($varRoute, $varClassName.'@'.$varMethodName);
-                        break;
-                        }
-                    case 'post':
-                        {
-                        self::$ObjLaravelRoute::post($varRoute, $varClassName.'@'.$varMethodName);
-                        break;
-                        }
-                    case 'put':
-                        {
-                        break;
-                        }    
-                    default:
-                        {
-                        self::$ObjLaravelRoute::any($varRoute, $varClassName.'@'.$varMethodName);
-                        break;
-                        }
+                        case 'delete':
+                            {
+                            break;
+                            }    
+                        case 'get':
+                            {
+                            self::$ObjLaravelRoute::get($varRoute, $varClassName.'@'.$varMethodName);
+                            break;
+                            }
+                        case 'post':
+                            {
+                            self::$ObjLaravelRoute::post($varRoute, $varClassName.'@'.$varMethodName);
+                            break;
+                            }
+                        case 'put':
+                            {
+                            break;
+                            }    
+                        default:
+                            {
+                            self::$ObjLaravelRoute::any($varRoute, $varClassName.'@'.$varMethodName);
+                            break;
+                            }
+                        }                    
+                    }
+                else
+                    {
+                    self::$ObjLaravelRoute::match(
+                        $varHTTPMethod,
+                        $varRoute,
+                        $varClassName.'@'.$varMethodName
+                        );
                     }
                 } 
             catch (\Exception $ex) {

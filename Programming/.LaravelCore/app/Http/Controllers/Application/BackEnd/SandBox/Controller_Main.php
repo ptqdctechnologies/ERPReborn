@@ -13,8 +13,12 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         
         public function webServices()
             {
-            $res['message'] = "Success!";
-            return response($res);
+            //$res['message'] = "Success!";
+            $varArrayData['message'] = "Success!";
+            //$varReturn = json_encode($varArrayData, true);
+            $varReturn = response()->json($varArrayData);
+            //return response($varReturn);
+            return $varReturn;
             }
             
         public function test()
@@ -40,12 +44,13 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray));
             var_dump($x);
             
-            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
+            //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
+            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
                 000000, 
                 'http://172.28.0.3/api/webservices', 
                 'POST', 
                 80
-               );
+                );
             
             
            
