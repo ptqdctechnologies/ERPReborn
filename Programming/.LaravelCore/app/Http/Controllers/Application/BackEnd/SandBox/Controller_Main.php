@@ -42,13 +42,43 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
                 000000, 
-                //'http://172.28.0.3/api/webservices', 
-                    'http://172.28.0.35', 
+                'http://172.28.0.3/api/webservices', 
                 'POST', 
                 80
-                );
+               );
+            
+            
+           
             echo "<br>Finish";
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
         public function testEncrypt()
             {

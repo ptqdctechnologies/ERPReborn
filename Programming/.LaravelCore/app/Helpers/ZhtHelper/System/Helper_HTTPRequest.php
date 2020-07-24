@@ -19,10 +19,14 @@ namespace App\Helpers\ZhtHelper\System
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Set HTTP Request');
                 try {
+                    //---> Cek apakah port tujuan terbuka
                     if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort)==false)
                         {
                         throw new \Exception("Port is closed");
                         }
+                    //---> Main process
+                    
+                    
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
                     } 
                 catch (\Exception $ex) {

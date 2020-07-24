@@ -86,11 +86,53 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getIPAddressFromURL                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-24                                                                                           |
+        | ▪ Description     : Mendapatkan IP Address dari alamat URL tertentu (varURL)                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varURL ► Alamat host yang akan diperiksa                                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getIPAddressFromURL($varUserSession, $varURL)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get IP Address of `'.$varURL.'`');
+                try {
+                    $varURLArray = @parse_url($varURL);
+                    $varIPAddress = gethostbyname($varURLArray['host']);
+                    if (!filter_var($varIPAddress, FILTER_VALIDATE_IP)) 
+                        {
+                        throw new \Exception("Invalid IP address");
+                        }
+                    $varReturn = $varIPAddress;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isPortOpen                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-23                                                                                           |
-        | ▪ Description     : Mengecek apakah suatu Port (varPort) terbuka pada alamat tertentu ($varURL)                          |
+        | ▪ Description     : Mengecek apakah suatu Port (varPort) terbuka pada alamat tertentu (varURL)                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string)  varUserSession ► User Session                                                                           |
@@ -101,56 +143,60 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isPortOpen($varUserSession, $varURL, int $varPort, int $varTimeOutInSeconds=null)
+        public static function isPortOpen($varUserSession, $varURL, int $varPort, $varProtocol=null, int $varTimeOutInSeconds=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-$varURL='http://172.28.0.3/';
-$varPort=808;
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Check whether port '.$varPort.' can be accessed through '.$varURL);
                 try {
-                    if(!$varTimeOutInSeconds)
+                    //---> Cari Validitas Port
+                    if(($varPort<1)OR($varPort>65535))
                         {
-                        $varTimeOutInSeconds=3;
+                        throw new \Exception("Invalid Port number");
                         }
-                    $varConnection=fsockopen($varURL, $varPort, $errno, $errstr, $varTimeOutInSeconds);
-                    if($errno == 110)
+                    //---> Cari Validitas Protocol
+                    if(!$varProtocol)
                         {
-                        throw new \Exception("Timeout, Connection Failed");
-                        }
-                    else
-                        {
-                        echo "connect";
-                        $varReturn = true;
-                        }
-/*                    if(!$varConnection)
-                        {
-                        echo "not connect";
+                        $varProtocolID = SOL_TCP;
                         }
                     else
                         {
-                        echo "connect";
-                        }*/
-                    
-                    
-/*                    if($errno == 110)
-                        {
-                        throw new \Exception("Connection Failed");
+                        if (stristr($varProtocol, 'tcp'))
+                            {
+                            $varProtocolID = SOL_TCP;
+                            }
+                        elseif (stristr($varProtocol, 'udp'))
+                            {
+                            $varProtocolID = SOL_UDP;
+                            }
+                        else
+                            {
+                            throw new \Exception("Invalid Protocol");
+                            }
                         }
-                    else
+                    //---> Cari Validitas IP Address
+                    $varIPAddress = self::getIPAddressFromURL($varUserSession, $varURL);
+                    if(!$varIPAddress)
                         {
-                        echo "xxxxxx".$errno;
-//                        if (is_resource($varConnection))
-  //                          {
-    //                        fclose($varConnection);
-      //                      }
-                        $varReturn = true;
-                        }*/
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'True');
-                    }
+                        throw new \Exception("Invalid IP address");
+                        }
+                    //---> Inisialisasi Socket
+                    $varObjSocket = socket_create(AF_INET, SOCK_STREAM, $varProtocolID);
+                    if ($varObjSocket === false) 
+                        {
+                        throw new \Exception("Can't create socket, reason : ".socket_strerror(socket_last_error()));
+                        }
+                    //--->
+                    $varResult = socket_connect($varObjSocket, $varIPAddress, $varPort);
+                    if ($varResult === false) {
+                        throw new \Exception("Can't create socket, reason (".$varResult."): ".socket_strerror(socket_last_error()));
+                        } 
+                    $varReturn= true;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
+                    } 
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed, '.$ex->getMessage());
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
                 } 
