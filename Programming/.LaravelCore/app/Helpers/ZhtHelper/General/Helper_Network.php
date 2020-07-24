@@ -142,6 +142,8 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Code Reference  : https://gist.github.com/md5/f0ca3ba1c2b0f04785fb                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function isPortOpen($varUserSession, $varURL, int $varPort, $varProtocol=null, int $varTimeOutInSeconds=null)
             {
@@ -192,6 +194,7 @@ namespace App\Helpers\ZhtHelper\General
                     if ($varResult === false) {
                         throw new \Exception("Can't create socket, reason (".$varResult."): ".socket_strerror(socket_last_error()));
                         } 
+                    socket_close($varObjSocket);
                     $varReturn= true;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'success');
                     } 
