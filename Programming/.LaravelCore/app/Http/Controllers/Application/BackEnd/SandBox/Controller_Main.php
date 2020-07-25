@@ -25,6 +25,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
+         
+            
+            
+            
             // create digest auth
 //            $auth = \Intervention\HttpAuth\HttpAuth::make();
   //          $auth->digest();
@@ -51,7 +55,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 'POST', 
                 80
                 );
-            
             
            
             echo "<br>Finish";
