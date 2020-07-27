@@ -1,6 +1,9 @@
 FROM php:7.3-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
+#    && add-apt-repository ppa:ondrej/php \
+#    && apt-get install -y software-properties-common \
+
 RUN apt-get update \
     && apt-get install -y \ 
        apt-utils \ 

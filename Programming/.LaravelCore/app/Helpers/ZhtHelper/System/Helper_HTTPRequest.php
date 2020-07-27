@@ -11,10 +11,18 @@
 namespace App\Helpers\ZhtHelper\System
     {
     //use Illuminate\Http\Request;
-    use Illuminate\Http\Response;
+    //use Illuminate\Http\Response;
     
     class Helper_HTTPRequest
         {
+        public static function getHeader($varUserSession)
+            {
+            $varHeader = request()->header();
+            var_dump($varHeader);
+            }
+        
+        
+        
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getRequest                                                                                           |
@@ -133,7 +141,7 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
                 try {
                     $ObjClient = new \GuzzleHttp\Client();
-                    $varResponse = $ObjClient->request(
+/*                    $varResponse = $ObjClient->request(
                         $varMethod,
                         $varURL,
                         [
@@ -143,12 +151,55 @@ namespace App\Helpers\ZhtHelper\System
                                 ],
                         'auth' => [
                                 'userHTTP', 
-                                'PassHTTP',
+                                'passHTTP'
+                                ],
+                        'body' =>  json_encode($varData, true)
+                        ]
+                        );
+*/                    
+/*                    $x = $varResponse->getStatusCode();
+                    var_dump($x);
+                    
+                    $x = $varResponse->getBody();
+                    var_dump($x);
+*/                    
+                    
+                    
+                    $varResponse = $ObjClient->request(
+                        $varMethod,
+                        $varURL,
+                        [
+                        'verify' => false,
+                        'headers' => [
+                                'Content-Type' => 'application/json',
+                                //'Authorization' => 'Basic '.base64_encode('username:password'),
+                                ],
+                        'auth' => [
+                                'userHTTP', 
+                                'passHTTP',
                                 'digest'
                                 ],
                         'body' =>  json_encode($varData, true)
                         ]
                         );
+                    
+                    
+                    
+//                                
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                                //'digest'
                     $varResponseContents = $varResponse->getBody()->getContents();
                     //var_dump($varResponseContents);
                     $varReturn = $varResponseContents;

@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {           
             $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
             
+            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader(000000);
+            
+            
             //echo "<br>Data Masuk : ";
             //var_dump($varDataReceive);
             //echo "<br>";
@@ -50,7 +53,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varDataArray = [
                 'System' => [],
                 'Data' => []
-            ];
+                ];
             //$x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray);
             $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray));
             var_dump($x);
