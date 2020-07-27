@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Application\BackEnd\SandBox
     {
     use Illuminate\Http\Request;
+    use Illuminate\Http\Response;
  
     class Controller_Main extends \App\Http\Controllers\Controller
         {
@@ -12,13 +13,19 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             }
         
         public function webServices()
-            {
-            //$res['message'] = "Success!";
-            $varArrayData['message'] = "Success!";
-            //$varReturn = json_encode($varArrayData, true);
-            $varReturn = response()->json($varArrayData);
-            //return response($varReturn);
-            return $varReturn;
+            {           
+            $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
+            
+            //echo "<br>Data Masuk : ";
+            //var_dump($varDataReceive);
+            //echo "<br>";
+            
+            $varDataSend = ['message' => 'Sukses alhamdulillah'];
+            
+            //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
+            
+            //return response()->json(['name' => 'Virat Gandhi', 'state' => 'Gujarat']);
+            return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
             
         public function test()
@@ -48,15 +55,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(000000, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(000000, $varDataArray));
             var_dump($x);
             
-            //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setRequest(
-            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
+            echo "<br>--------------------------------------------<br>";
+            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
                 000000, 
                 'http://172.28.0.3/api/webservices', 
                 'POST', 
+                $varDataArray,
                 80
                 );
             
+            
            
+            echo "<br>--------------------------------------------<br>";
+            echo "<br>Tunggu data masuk<br>";
+            var_dump($x);
             echo "<br>Finish";
             }
 
