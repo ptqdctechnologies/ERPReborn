@@ -91,8 +91,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : delete                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Menghapus data berdasarkan kata kunci (varKey)                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -106,10 +106,13 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, true, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete data stored with key `'.$varKey.'`');
+                try
                     {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Delete data stored with key `'.$varKey.'`');
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
+                        }
                     $ObjRedis = new \Illuminate\Support\Facades\Redis();
                     $varConnRedis = $ObjRedis::connection();
                     if($varConnRedis->exists($varKey)==1)
@@ -118,8 +121,12 @@ namespace App\Helpers\ZhtHelper\Database
                         }
                     unset($varConnRedis);
                     unset($ObjRedis);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
@@ -131,8 +138,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTime                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Mendapatkan tanggal dan waktu dari Redis                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -144,25 +151,25 @@ namespace App\Helpers\ZhtHelper\Database
         public static function getDateTime($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Execute main process');
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        $varData = $varConnRedis->time();
-                        $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeFromUnixTime($varData[0]).'.'.$varData[1];
-                        unset($varConnRedis);
-                        unset($ObjRedis);                        
-                        //\App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
-                        } 
-                    catch (Exception $ex) {
-                        //\App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+            try {                                
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get data and time');
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
-                    }                
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    $varData = $varConnRedis->time();
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeFromUnixTime(($varUserSession), $varData[0]).'.'.$varData[1];
+                    unset($varConnRedis);
+                    unset($ObjRedis);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
             catch (\Exception $ex) {
                 }
@@ -174,8 +181,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getInfo                                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Mendapatkan informasi umum dari Redis                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -188,23 +195,23 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Execute main process');
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        $varReturn = $varConnRedis->info();
-                        unset($varConnRedis);
-                        unset($ObjRedis);                    
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
-                        } 
-                    catch (\Exception $ex) {
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get information of Redis');
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
-                    }                    
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    $varReturn = $varConnRedis->info();
+                    unset($varConnRedis);
+                    unset($ObjRedis);                    
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
@@ -216,8 +223,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getStatusAvailability                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Mendapatkan status ketersediaan reseource Redis                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -228,23 +235,24 @@ namespace App\Helpers\ZhtHelper\Database
         */
         public static function getStatusAvailability($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, true, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Redis availability');
                 try {
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
                     if(!$varConnRedis = $ObjRedis::connection())
                         {
                         throw new \Exception("Error");
                         }
                     unset($varConnRedis);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
+                    unset($ObjRedis);                  
+                    $varReturn = true;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogError($varUserSession, __CLASS__, '('.__FUNCTION__.') Redis database connection not available to accept request. Please to check environment configuration');
-                    $varReturn = false;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, Redis database connection not available to accept request. Please to check environment configuration, '. $ex->getMessage());
                     }
-                unset($ObjRedis);                  
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
             catch (\Exception $ex) {
                 }
@@ -271,23 +279,23 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Get TTL of key `'.$varKey.'`');
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        $varReturn = $varConnRedis->ttl($varKey);
-                        unset($varConnRedis);
-                        unset($ObjRedis);
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
-                        } 
-                    catch (\Exception $ex) {
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get TTL of key `'.$varKey.'`');
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    $varReturn = $varConnRedis->ttl($varKey);
+                    unset($varConnRedis);
+                    unset($ObjRedis);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
@@ -299,8 +307,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getValue                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Mendapatkan nilai yang tersimpan berdasarkan kata kunci (varKey)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -314,23 +322,23 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Retrieve data stored with key `'.$varKey.'`');
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        $varReturn = $varConnRedis->get($varKey);
-                        unset($varConnRedis);
-                        unset($ObjRedis);
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
-                        } 
-                    catch (\Exception $ex) {
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Retrieve data stored with key `'.$varKey.'`');
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    $varReturn = $varConnRedis->get($varKey);
+                    unset($varConnRedis);
+                    unset($ObjRedis);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
@@ -342,8 +350,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist                                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Mengecek apakah data sudah ada berdasarkan kata kunci (varKey)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -357,27 +365,26 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Check data existence with key `'.$varKey.'`');
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        if($varConnRedis->exists($varKey)==1)
-                            {
-                            $varReturn = true;
-                            }
-                        unset($varConnRedis);
-                        unset($ObjRedis);
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');
-                        } 
-                    catch (\Exception $ex) 
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check data existence with key `'.$varKey.'`');
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
                         {
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    if($varConnRedis->exists($varKey)==1)
+                        {
+                        $varReturn = true;
+                        }
+                    unset($varConnRedis);
+                    unset($ObjRedis);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
@@ -389,8 +396,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setValue                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
         | ▪ Description     : Menyimpan data (varValue) berdasarkan kata kunci (varKey) dengan expiry time tertentu (varTTL)       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -406,31 +413,31 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                if(self::getStatusAvailability($varUserSession)==true)
-                    {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Storing data value of `'.$varValue.'` with key `'.$varKey.'` '.($varTTL?' (will expired at '.$varTTL.' second(s))':''));
-                    try {
-                        $ObjRedis = new \Illuminate\Support\Facades\Redis();
-                        $varConnRedis = $ObjRedis::connection();
-                        if($varTTL)
-                            {
-                            $varConnRedis->setEx($varKey, $varTTL, $varValue);
-                            }
-                        else
-                            {
-                            $varConnRedis->set($varKey, $varValue);
-                            }
-                        unset($varConnRedis);
-                        unset($ObjRedis);
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Success');                            
-                        $varReturn = true;
-                        } 
-                    catch (\Exception $ex) {
-                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLastLogOuputAppend($varUserSession, 'Failed');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Storing data value of `'.$varValue.'` with key `'.$varKey.'` '.($varTTL?' (will expired at '.$varTTL.' second(s))':''));
+                try {
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
                         }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
+                    $ObjRedis = new \Illuminate\Support\Facades\Redis();
+                    $varConnRedis = $ObjRedis::connection();
+                    if($varTTL)
+                        {
+                        $varConnRedis->setEx($varKey, $varTTL, $varValue);
+                        }
+                    else
+                        {
+                        $varConnRedis->set($varKey, $varValue);
+                        }
+                    unset($varConnRedis);
+                    unset($ObjRedis);
+                    $varReturn = true;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
