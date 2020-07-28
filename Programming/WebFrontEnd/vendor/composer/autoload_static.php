@@ -503,6 +503,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_File' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_File.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',

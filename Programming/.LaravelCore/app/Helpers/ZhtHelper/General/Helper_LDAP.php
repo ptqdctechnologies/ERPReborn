@@ -12,11 +12,11 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_HTTPAuthentication                                                                                    |
-    | ▪ Description : Menangani Otentikasi HTTP                                                                                    |
+    | ▪ Class Name  : Helper_LDAP                                                                                                  |
+    | ▪ Description : Menangani LDAP                                                                                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_HTTPAuthentication
+    class Helper_LDAP
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -83,65 +83,42 @@ namespace App\Helpers\ZhtHelper\General
             self::$varNameSpace=get_class();
             }
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getJSONWebToken                                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-28                                                                                           |
-        | ▪ Description     : Mendapatkan JSON Web Token sesuai Nama User (varUserName), kata kunci (varKey), dan Algoritma        |
-        |                     (varAlgorithm)                                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varUSerName ► Nama Pengguna                                                                              |
-        |      ▪ (string) varKey ► Kata Kunci                                                                                      |
-        |      ▪ (string) varAlgorithm ► Algoritma                                                                                 |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getJSONWebToken($varUserSession, $varUserName, $varKey, $varAlgorithm=null)
+
+        private static function getUserPrincipalNameFromSAMAccountName($varBaseDN, $varSAMAccountName)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            $varReturn = 
+                $varSAMAccountName.'@'.strtoupper(str_replace(',', '.', str_replace('dc=', '', strtolower($varBaseDN))));
+            return 
+                $varReturn;
+            }
+
+
+        public static function getAuthenticationBySAMAccountName($varUserSession, $varLDAPHost, $varLDAPPort, $varBaseDN, $varSAMAccountName, $varPassword=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get JSON Web Token');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get authentication by SAM Account Name');
                 try {
-                    if(!$varAlgorithm)
+                    $ObjLDAPConnection = ldap_connect($varLDAPHost, $varLDAPPort);
+                    if(!$ObjLDAPConnection)
                         {
-                        $varAlgorithm = 'HS256';
+                        throw new \Exception("Connection Failed");
                         }
-                    $varTyp = 'JWT';
-                    
-                    $varHeader = 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                $varUserSession, 
-                                ['alg' => $varAlgorithm, 'typ'=> $varTyp]
-                                )
-                            );
-                    $varPayLoad = 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                $varUserSession, 
-                                ['loggedInAs' => $varUserName, 'iat'=> \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession)]
-                                )
-                                //['loggedInAs' => $varUserName, 'iat'=> 1422779638])
-                            );
-                    $varSignature = 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
-                            $varUserSession, 
-                            \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
-                                $varUserSession, 
-                                \App\Helpers\ZhtHelper\General\Helper_Encode::getUTF8Encode($varUserSession, $varKey),
-                                $varHeader.'.'.$varPayLoad
-                                )
-                            );                    
-                    $varReturn = $varHeader.'.'.$varPayLoad.'.'.$varSignature;
+                    else
+                        {
+                        $varUserPrincipalName = self::getUserPrincipalNameFromSAMAccountName($varBaseDN, $varSAMAccountName);
+                        if(!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
+                            {
+                            throw new \Exception("LDAP Bind Failed");
+                            }
+                        else
+                            {
+                            unset($ObjLDAPBind);
+                            $varReturn = true;
+                            }
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
+                    } 
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
@@ -150,7 +127,6 @@ namespace App\Helpers\ZhtHelper\General
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-
             }
         }
     }

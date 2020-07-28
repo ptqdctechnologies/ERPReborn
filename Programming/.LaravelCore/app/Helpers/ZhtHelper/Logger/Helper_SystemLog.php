@@ -149,27 +149,7 @@ namespace App\Helpers\ZhtHelper\Logger
             
             
             
-
-/*        public static function setLogOutputMethodSubHeaderAppend($varUserSession, $varLastIndentation, $varMessage=null)
-            {
-            $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            
-            echo "<br>".self::getCurrentOutputIndentation($varUserSession);
-            
-            if($varLastIndentation == self::getCurrentOutputIndentation($varUserSession))
-                {
-                $varData=$varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1];
-                $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1] = substr($varData, 0, strlen($varData)-1).' ► '.$varMessage.']';
-                }
-            else
-                {
-                $varData=$varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1];
-                $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-1] = substr($varData, 0, strlen($varData)-1).' ► '.$varMessage.']';
-                }
-            //---> Data Store
-            \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
-            }
-*/            
+          
             
             
             
@@ -184,23 +164,35 @@ namespace App\Helpers\ZhtHelper\Logger
 
         public static function setLogOutputMethodFooter($varUserSession, &$varReturn, $varClassName, $varMethodName, $varCustomMessage=null)
             {
+            self::setAutoInit();
+            
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            var_dump($varDataSession);
             
-            $varBack2Step=explode('#', str_replace(']', '', $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-2]));
-            if(strcmp(substr($varBack2Step[2],1,strlen($varBack2Step[2])-1), (str_repeat('&nbsp;', \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')).'('.$varMethodName.') Entry Point'))==0)
-                {  
-                $varRemovedElement = array_pop($varDataSession['Log']['Specific'][$varUserSession]['Output']);
-                $varRemovedElement = str_replace(' - SubProcess)', ')', str_replace(str_repeat('&nbsp;', self::$varDataLogOutputIndentantionTab).'(', '(', $varRemovedElement));
-                array_pop($varDataSession['Log']['Specific'][$varUserSession]['Output']);
-                array_push($varDataSession['Log']['Specific'][$varUserSession]['Output'], $varRemovedElement);
-                //---> Data Store
-                \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
-                }
-            else
-                {
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Exit Point'));                
-                }
+            echo "<br>*********".\App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation');
             
+           //if(count($varDataSession['Log']['Specific'][$varUserSession]['Output'])>1)
+//                {
+                $varBack2Step=explode('#', str_replace(']', '', $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-2]));
+                if(strcmp(substr($varBack2Step[2],1,strlen($varBack2Step[2])-1), (str_repeat('&nbsp;', \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')).'('.$varMethodName.') Entry Point'))==0)
+                    {  
+                    $varRemovedElement = array_pop($varDataSession['Log']['Specific'][$varUserSession]['Output']);
+                    $varRemovedElement = str_replace(' - SubProcess)', ')', str_replace(str_repeat('&nbsp;', self::$varDataLogOutputIndentantionTab).'(', '(', $varRemovedElement));
+                    array_pop($varDataSession['Log']['Specific'][$varUserSession]['Output']);
+                    array_push($varDataSession['Log']['Specific'][$varUserSession]['Output'], $varRemovedElement);
+                    //---> Data Store
+                    \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
+                    }
+                else
+                    {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Exit Point'));
+                    }
+  //              }
+            //else
+            //    {
+            //    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, $varClassName, '('.$varMethodName.') '.($varCustomMessage ? $varCustomMessage : 'Exit Point'));
+            //    }
+                
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
             return $varReturn;
             }
