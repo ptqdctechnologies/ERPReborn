@@ -12,18 +12,26 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_Hash                                                                                                  |
-    | ▪ Description : Menangani Hash                                                                                               |
+    | ▪ Class Name  : Helper_HTTPAuthentication                                                                                    |
+    | ▪ Description : Menangani Otentikasi HTTP                                                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Hash
+    class Helper_HTTPAuthentication
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static $varNameSpace;
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +50,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __destruct                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,28 +66,82 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getMD5                                                                                               |
+        | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan MD5 dari data (varData)                                                                  |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) varData                                                                                                  |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function init()
+            {
+            self::$varNameSpace=get_class();
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getJSONWebToken                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Description     : Mendapatkan JSON Web Token sesuai Nama User (varUserName), kata kunci (varKey), dan Algoritma        |
+        |                     (varAlgorithm)                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varUSerName ► Nama Pengguna                                                                              |
+        |      ▪ (string) varKey ► Kata Kunci                                                                                      |
+        |      ▪ (string) varAlgorithm ► Algoritma                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */            
-        public static function getMD5($varUserSession, $varData)
+        */
+        public static function getJSONWebToken($varUserSession, $varUserName, $varKey, $varAlgorithm=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get MD5');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Is associative array');
                 try {
-                    $varReturn = md5($varData);
+                    if(!$varAlgorithm)
+                        {
+                        $varAlgorithm = 'HS256';
+                        }
+                    $varTyp = 'JWT';
+                    
+                    $varHeader = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession, 
+                                ['alg' => $varAlgorithm, 'typ'=> $varTyp]
+                                )
+                            );
+                    $varPayLoad = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession, 
+                                ['loggedInAs' => $varUserName, 'iat'=> \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession)]
+                                )
+                                //['loggedInAs' => $varUserName, 'iat'=> 1422779638])
+                            );
+                    $varSignature = 
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
+                                $varUserSession, 
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getUTF8Encode($varUserSession, $varKey),
+                                $varHeader.'.'.$varPayLoad
+                                )
+                            );                    
+                    $varReturn = $varHeader.'.'.$varPayLoad.'.'.$varSignature;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
@@ -88,44 +150,7 @@ namespace App\Helpers\ZhtHelper\General
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-    
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSHA256                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-28                                                                                           |
-        | ▪ Description     : Mendapatkan SHA256 dari data (varData) dengan Kata Kunci (varKey)                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) varKey                                                                                                   |
-        |      ▪ (string) varData                                                                                                  |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */            
-        public static function getSHA256($varUserSession, $varKey, $varData)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get SHA256');
-                try {
-                    $varReturn = hash_hmac('sha256', $varData, $varKey, true);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
         }
     }
-
-?>

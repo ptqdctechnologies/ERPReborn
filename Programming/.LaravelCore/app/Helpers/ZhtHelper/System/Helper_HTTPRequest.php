@@ -183,8 +183,8 @@ namespace App\Helpers\ZhtHelper\System
                         ]
                         );
                     
-                    
-                    
+                        echo "<br>------------------------------------";
+                        \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
 //                                
                     
                     
