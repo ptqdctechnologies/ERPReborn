@@ -33,6 +33,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
             echo '<br>'.$varUserName;
             echo '<br>'.$varUserPassword;
             }
+        
+
         }
     }
  

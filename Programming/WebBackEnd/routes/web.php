@@ -24,6 +24,10 @@ Route::get('/', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogOutput', 'get', 'zhtHelperLogOutputShow', 'web');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogError', 'get', 'zhtHelperLogErrorShow', 'web');
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('login', 'get', '\App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main@getUserAuthentication');
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getJSUnixTime', 'get', '\App\Http\Controllers\Application\BackEnd\System\Environment\Controller_Main@getJSUnixTime');
+
 //Route::get('showLogOutput', function () {
 //    return view('zhtHelperLogOutputShow');
 //    })->middleware('web');

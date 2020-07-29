@@ -12,18 +12,26 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_Hash                                                                                                  |
-    | ▪ Description : Menangani Hash                                                                                               |
+    | ▪ Class Name  : Helper_LDAP                                                                                                  |
+    | ▪ Description : Menangani LDAP                                                                                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Hash
+    class Helper_LDAP
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static $varNameSpace;
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +50,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __destruct                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,26 +66,46 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getMD5                                                                                               |
+        | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan MD5 dari data (varData)                                                                  |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) varData                                                                                                  |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function init()
+            {
+            self::$varNameSpace=get_class();
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserPrincipalNameFromSAMAccountName                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Description     : Mendapatkan User Principal Name dari SAM Account Name                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        |
+        |      ▪ (string) varSAMAccountName ► LDAP SAM Account Name                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */            
-        public static function getMD5($varUserSession, $varData)
+        */
+        private static function getUserPrincipalNameFromSAMAccountName($varUserSession, $varBaseDN, $varSAMAccountName)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get MD5 hash');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Principal Name from SAM AccountName `'.$varSAMAccountName.'`');
                 try {
-                    $varReturn = md5($varData);
+                    $varReturn = $varSAMAccountName.'@'.strtoupper(str_replace(',', '.', str_replace('dc=', '', strtolower($varBaseDN))));
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -89,31 +117,51 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-    
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSHA256                                                                                            |
+        | ▪ Method Name     : getAuthenticationBySAMAccountName                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-28                                                                                           |
-        | ▪ Description     : Mendapatkan SHA256 dari data (varData) dengan Kata Kunci (varKey)                                    |
+        | ▪ Description     : Mendapatkan otentikasi LDAP berdasarkan SAM Account Name (varSAMAccountName)                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) varKey                                                                                                   |
-        |      ▪ (string) varData                                                                                                  |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varLDAPHost ► Alamat IP Server LDAP                                                                      |
+        |      ▪ (string) varLDAPPort ► Port Server LDAP                                                                           |
+        |      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        |
+        |      ▪ (string) varSAMAccountName ► LDAP SAM Account Name                                                                |
+        |      ▪ (string) varPassword ► Password                                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        */            
-        public static function getSHA256($varUserSession, $varKey, $varData)
+        */
+        public static function getAuthenticationBySAMAccountName($varUserSession, $varLDAPHost, int $varLDAPPort, $varBaseDN, $varSAMAccountName, $varPassword=null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get SHA256 hash');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get authentication by SAM Account Name `'.$varSAMAccountName.'` with password `'.$varPassword.'`');
                 try {
-                    $varReturn = hash_hmac('sha256', $varData, $varKey, true);
+                    $ObjLDAPConnection = ldap_connect($varLDAPHost, $varLDAPPort);
+                    if(!$ObjLDAPConnection)
+                        {
+                        throw new \Exception("Connection Failed");
+                        }
+                    else
+                        {
+                        $varUserPrincipalName = self::getUserPrincipalNameFromSAMAccountName($varUserSession, $varBaseDN, $varSAMAccountName);
+                        if(!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, $varPassword))
+                            {
+                            throw new \Exception("LDAP Bind Failed");
+                            }
+                        else
+                            {
+                            unset($ObjLDAPBind);
+                            $varReturn = true;
+                            }
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -123,9 +171,7 @@ namespace App\Helpers\ZhtHelper\General
                 } 
             catch (\Exception $ex) {
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }
-
-?>

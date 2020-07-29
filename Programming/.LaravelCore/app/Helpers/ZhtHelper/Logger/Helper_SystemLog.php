@@ -49,6 +49,7 @@ namespace App\Helpers\ZhtHelper\Logger
         */
         public function __construct()
             {
+            self::init();
             }
 
             
@@ -185,9 +186,8 @@ namespace App\Helpers\ZhtHelper\Logger
         public static function setLogOutputMethodFooter($varUserSession, &$varReturn, $varClassName, $varMethodName, $varCustomMessage=null)
             {
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            
             $varBack2Step=explode('#', str_replace(']', '', $varDataSession['Log']['Specific'][$varUserSession]['Output'][count($varDataSession['Log']['Specific'][$varUserSession]['Output'])-2]));
-            if(strcmp(substr($varBack2Step[2],1,strlen($varBack2Step[2])-1), (str_repeat('&nbsp;', \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')).'('.$varMethodName.') Entry Point'))==0)
+            if ((strcmp($varBack2Step[1], '['.$varClassName)==0) AND (strcmp(substr($varBack2Step[2],1,strlen($varBack2Step[2])-1), (str_repeat('&nbsp;', \App\Helpers\ZhtHelper\General\Helper_Array::getArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')).'('.$varMethodName.') Entry Point'))==0))
                 {  
                 $varRemovedElement = array_pop($varDataSession['Log']['Specific'][$varUserSession]['Output']);
                 $varRemovedElement = str_replace(' - SubProcess)', ')', str_replace(str_repeat('&nbsp;', self::$varDataLogOutputIndentantionTab).'(', '(', $varRemovedElement));
@@ -205,12 +205,6 @@ namespace App\Helpers\ZhtHelper\Logger
             return $varReturn;
             }
 
-        public static function setLogOutputMethodFooter2($varUserSession, &$varReturn)
-            {
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
-            \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, '', 'Exit Point');
-            return $varReturn;
-            }
             
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -446,11 +440,11 @@ namespace App\Helpers\ZhtHelper\Logger
         public static function setLogIndentationIncrease($varUserSession)
             {
             self::setAutoInit();
+            self::init();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')==false)
                 {
-                self::init();
                 \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', -self::$varDataLogOutputIndentantionTab);
                 $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']=-self::$varDataLogOutputIndentantionTab;
                 //var_dump($varDataSession);
