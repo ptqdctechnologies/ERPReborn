@@ -125,6 +125,45 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getGMTDateTime                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan tanggal dan waktu GMT saat ini                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varDateTimeFormat                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getGMTDateTime($varUserSession, $varDateTimeFormat=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'get current GMT DateTime');
+                try {
+                    if(!$varDateTimeFormat)
+                        {
+                        $varDateTimeFormat = 'Y-m-d H:i:s';
+                        }
+                    $varReturn = gmdate($varDateTimeFormat);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getGMTDateTimeFromUnixTime                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -136,7 +175,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (int)    varUnixTime                                                                                              |
         |      ▪ (string) varDateTimeFormat                                                                                        |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getGMTDateTimeFromUnixTime($varUserSession, int $varUnixTime, $varDateTimeFormat=null)
@@ -174,7 +213,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getMicroTime()
@@ -211,7 +250,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getUnixTime($varUserSession)
@@ -244,7 +283,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getUnixTimeByJavaScript($varUserSession)

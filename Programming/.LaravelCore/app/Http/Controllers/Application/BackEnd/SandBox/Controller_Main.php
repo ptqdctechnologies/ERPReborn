@@ -30,8 +30,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //return response()->json(['name' => 'Virat Gandhi', 'state' => 'Gujarat']);
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
-            
+
+
         public function test()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            
+            echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
+            }
+
+
+
+            
+
+        public function testWS()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 

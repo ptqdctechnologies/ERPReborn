@@ -18,6 +18,9 @@ Route::get('/', function () {
 });
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\SendWSRequest@SendRequest');
+
+
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test2', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test2');

@@ -17,6 +17,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_Encryption' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Encryption.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_File' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_File.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',

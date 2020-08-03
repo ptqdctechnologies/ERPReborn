@@ -8,6 +8,35 @@ namespace App\Http\Middleware\Application\BackEnd
         {
         public function handle(\Illuminate\Http\Request $request, \Closure $next)
             {
+            echo "<br>-------------MIDDLEWARE-------------<br>";/*
+            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader(000000, $request);
+            var_dump($headers);
+            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getClientAgent(000000, $request);
+            echo "<br><br>".$headers;
+            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getCookies(000000, $request);
+            echo "<br><br>";
+            var_dump($headers);
+            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getXSRFToken(000000, $request);
+            echo "<br><br>".$headers;*/
+            echo "<br>-------------MIDDLEWARE-------------<br>";
+            return $this->CheckAllStage($request, $next);
+            }
+
+        private function CheckAllStage(&$varObjRequest, &$varObjNext)
+            {
+            try {
+                
+                }
+            catch (Exception $ex) {
+
+                }
+            return $varObjNext($varObjRequest);          
+            }
+
+
+
+        public function handlexxx(\Illuminate\Http\Request $request, \Closure $next)
+            {
             echo "<br>-------------MIDDLEWARE-------------<br>";
             
             //var_dump($next->varUserSession);
