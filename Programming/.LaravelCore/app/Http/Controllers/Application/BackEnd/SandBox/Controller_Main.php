@@ -16,7 +16,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {           
             $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
             
-            \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader(000000);
+            //\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader(000000);
             
             
             //echo "<br>Data Masuk : ";
@@ -30,8 +30,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //return response()->json(['name' => 'Virat Gandhi', 'state' => 'Gujarat']);
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
-            
+
+
         public function test()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            
+            echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
+            }
+
+
+
+            
+
+        public function testWS()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
@@ -74,11 +86,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             var_dump($x);
             echo "<br>Finish";
             
-            
-            $x = \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(000000, '192.168.1.23', 389, 'DC=qdc-files,DC=qdc,DC=co,DC=id', 'teguh.pratama', 'teguhpratama789');
-            echo $x;
-            echo "<br>Finish Lagi";
-            
+            //$x = \App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName(000000, '192.168.1.23', 389, 'DC=qdc-files,DC=qdc,DC=co,DC=id', 'teguh.pratama', 'teguhpratama789');
+            \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTimeByJavaScript(000000);
             }
 
 

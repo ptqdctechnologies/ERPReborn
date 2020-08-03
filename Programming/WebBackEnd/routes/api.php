@@ -23,4 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('webservices', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@webServices');
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gateway', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\SandBox\SendWSResponse@sendResponse');
+
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----

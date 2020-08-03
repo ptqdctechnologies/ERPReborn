@@ -12,11 +12,11 @@ namespace App\Helpers\ZhtHelper\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_DateTime                                                                                              |
-    | ▪ Description : Menangani Tanggal dan Waktu                                                                                  |
+    | ▪ Class Name  : Helper_HTTPHeader                                                                                            |
+    | ▪ Description : Menangani Header HTTP                                                                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_DateTime
+    class Helper_HTTPHeader
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -31,7 +31,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -50,7 +50,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : __destruct                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-17                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : System's Default Destructor                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -69,7 +69,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-13                                                                                           |
+        | ▪ Last Update     : 2020-07-28                                                                                           |
         | ▪ Description     : Inisialisasi                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -82,88 +82,51 @@ namespace App\Helpers\ZhtHelper\General
             {
             self::$varNameSpace=get_class();
             }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDateTimeFromUnixTime                                                                              |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2020-08-03                                                                                           |
-        | ▪ Description     : Mendapatkan tanggal dan waktu dari UnixTime (varUnixTime)                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (int)    varUnixTime                                                                                              |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getDateTimeFromUnixTime($varUserSession, int $varUnixTime, $varDateTimeFormat=null)
+           
+        public static function setHeader()
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Convert UnixTime `'.$varUnixTime.'` to DateTime');
-                try {
-                    if(!$varDateTimeFormat)
-                        {
-                        $varDateTimeFormat = 'Y-m-d H:i:s';
-                        }
-                    $varReturn = date($varDateTimeFormat, $varUnixTime);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            
             }
 
+//        public static function getGMTDateTime()
+  //          {
+    //        $varDatetime = 'Tue, 04 Mar 2014 21:35:31 GMT';
+      //      $varReturn = date('Y-m-d H:i:s', strtotime($varDatetime));
+        //    return $varReturn;
+          //  }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getGMTDateTime                                                                                       |
+        | ▪ Method Name     : getHeader                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-03                                                                                           |
-        | ▪ Description     : Mendapatkan tanggal dan waktu GMT saat ini                                                           |
+        | ▪ Description     : Mendapatkan data Header HTTP yang berasal dari objek HTTP request (varObjRequest)                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varDateTimeFormat ► Format penulisan waktu                                                               |
-        |      ▪ (int)    varUnixTime ► Waktu Unix                                                                                 |
+        |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getGMTDateTime($varUserSession, $varDateTimeFormat=null, int $varUnixTime=null)
+        public static function getHeader($varUserSession, &$varObjRequest)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'get current GMT DateTime');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Header');
                 try {
-                    if(!$varDateTimeFormat)
-                        {
-                        $varDateTimeFormat = 'Y-m-d H:i:s';
-                        }
-                    if(!$varUnixTime)
-                        {
-                        $varReturn = gmdate($varDateTimeFormat);
-                        }
-                    else
-                        {
-                        $varReturn = gmdate($varDateTimeFormat, $varUnixTime);
-                        }
+                    $varReturn = collect($varObjRequest->header())->transform(function ($item) {
+                        return $item[0];
+                        });
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
+                } 
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
@@ -172,112 +135,256 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getMicroTime                                                                                         |
+        | ▪ Method Name     : getClientAgent                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan MicroTime                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getMicroTime()
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get MicroTime');
-                try {
-                    $varMicroDate = microtime();
-                    $varDateArray = explode(" ", $varMicroDate);
-                    $varMicroSecond = substr($varDateArray[1], 0, 6);
-                    $varReturn=$varMicroSecond;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getUnixTime                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2020-08-03                                                                                           |
-        | ▪ Description     : Mendapatkan UnixTime                                                                                 |
+        | ▪ Description     : Mendapatkan data Client Agent Header HTTP yang berasal dari objek HTTP request (varObjRequest)       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) $varDateTimeString                                                                                       |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getUnixTime($varUserSession, $varDateTimeString=null)
+        public static function getClientAgent($varUserSession, &$varObjRequest)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get UnixTime');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get client agent');
                 try {
-                    if(!$varDateTimeString)
-                        {
-                        $varReturn=time();
-                        }
-                    else
-                        {
-                        $varReturn=strtotime($varDateTimeString);
-                        }
+                    $varDataArray = self::getHeader($varUserSession, $varObjRequest);
+                    $varReturn = $varDataArray['user-agent'];
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
+                } 
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getUnixTimeByJavaScript                                                                              |
+        | ▪ Method Name     : getCookies                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-29                                                                                           |
-        | ▪ Description     : Mendapatkan UnixTime melalui Java Script                                                             |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan data Cookies Header HTTP yang berasal dari objek HTTP request (varObjRequest)            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                |
+        |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getUnixTimeByJavaScript($varUserSession)
+        public static function getCookies($varUserSession, &$varObjRequest)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get UnixTime By JavaScript');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get cookies');
                 try {
-                    $varReturn = (int) file_get_contents(
-                        \App\Helpers\ZhtHelper\General\Helper_Network::getCurrentProtocol($varUserSession).
-                        'localhost/getJSUnixTime');
+                    $varDataArray = self::getHeader($varUserSession, $varObjRequest);
+                    $varDataCookieArray = explode('; ', $varDataArray['cookie']);
+                    for($i=0; $i!=count($varDataCookieArray); $i++)
+                        {
+                        $varDataCookieArrayItem = explode('=', $varDataCookieArray[$i]);
+                        $varReturn[$varDataCookieArrayItem[0]]=$varDataCookieArrayItem[1];
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
+                    }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
                 }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getXSRFToken                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan data XSRF Token Header HTTP yang berasal dari objek HTTP request (varObjRequest)         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getXSRFToken($varUserSession, &$varObjRequest)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get XSRF token');
+                try {
+                    $varDataArray = self::getCookies($varUserSession, $varObjRequest);
+                    $varReturn = $varDataArray['XSRF-TOKEN'];
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : generateContentMD5                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Memunculkan nilai Content MD5 untuk HTTP Header dari data Content (varDataContent)                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varDataContent ► Data Content                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function generateContentMD5($varUserSession, $varDataContent)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-MD5 HTTP Header');
+                try {
+                    $varReturn = base64_encode(md5($varDataContent, true));
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : generateContentType                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Memunculkan nilai Content Type untuk HTTP Header dari data Content (varDataContent)                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varDataContent ► Data Content                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function generateContentType($varUserSession, $varDataContent)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, 'text/plain; charset=us-ascii', __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-Type HTTP Header');
+                try {
+                    if(\App\Helpers\ZhtHelper\General\Helper_Encode::isJSON($varUserSession, $varDataContent)==true)
+                        {
+                        $varReturn = 'application/json';
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : generateDate                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Memunculkan nilai Tanggal dan Waktu untuk HTTP Header                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function generateDate($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-Type HTTP Header');
+                try {
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'D, d M Y H:i:s T');
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : generateDate                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Memunculkan nilai Tanggal dan Waktu Kadaluwarsa untuk HTTP Header                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varTTL ► Time To Live (in seconds)                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function generateExpires($varUserSession, $varTTL)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-Type HTTP Header');
+                try {
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime(
+                        $varUserSession, 
+                        'D, d M Y H:i:s T', 
+                        (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession) + $varTTL)
+                        );
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);

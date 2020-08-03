@@ -129,6 +129,9 @@ namespace App\Helpers\ZhtHelper\System
             $varTimeZoneOffset = str_pad((($varDate->getOffset())/3600), 2, '0', STR_PAD_LEFT);
                         
             $varReturn = date("Y-m-d H:i:s.", time()).$varMicroSecond.'+'.$varTimeZoneOffset;
+            
+            //$varUnixTime = (int) file_get_contents((stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://').'localhost/getJSUnixTime');
+            //$varReturn = date("Y-m-d H:i:s.", $varUnixTime).$varMicroSecond.'+'.$varTimeZoneOffset;
 
             return $varReturn;
             }

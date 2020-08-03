@@ -18,11 +18,18 @@ Route::get('/', function () {
 });
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\SendWSRequest@SendRequest');
+
+
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test2', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test2');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogOutput', 'get', 'zhtHelperLogOutputShow', 'web');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogError', 'get', 'zhtHelperLogErrorShow', 'web');
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('login', 'get', '\App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main@getUserAuthentication');
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('getJSUnixTime', 'get', '\App\Http\Controllers\Application\BackEnd\System\Environment\Controller_Main@getJSUnixTime');
 
 //Route::get('showLogOutput', function () {
 //    return view('zhtHelperLogOutputShow');
