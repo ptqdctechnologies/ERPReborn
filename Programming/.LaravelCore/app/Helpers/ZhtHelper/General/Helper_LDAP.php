@@ -83,6 +83,7 @@ namespace App\Helpers\ZhtHelper\General
             self::$varNameSpace=get_class();
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserPrincipalNameFromSAMAccountName                                                               |

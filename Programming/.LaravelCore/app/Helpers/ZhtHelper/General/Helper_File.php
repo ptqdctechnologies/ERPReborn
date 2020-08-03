@@ -169,5 +169,39 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFileContent                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan isi suatu file PHP berdasarkan path (varPath)                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varPath ► Path File                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varFileContent                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getFileContent_PHPScript($varFilePath = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get PHP Script file content of `'.$varPath.'`');
+                try {
+                    $ObjResource = str_replace(['<?php', '?>'], '', (file_get_contents($varFilePath)));
+                    $varReturn = $ObjResource;
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
         }
     }

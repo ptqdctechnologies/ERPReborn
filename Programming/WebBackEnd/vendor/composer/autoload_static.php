@@ -528,6 +528,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Application\\BackEnd\\RequestHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/RequestHandler_General.php',
         'App\\Http\\Middleware\\Application\\BackEnd\\ResponseHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/ResponseHandler_General.php',
+        'App\\Http\\Middleware\\Application\\BackEnd\\UserAuthentication' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/UserAuthentication.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',

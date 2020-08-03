@@ -19,6 +19,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
@@ -38,6 +39,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Application\\BackEnd\\RequestHandler_General' => $baseDir . '/app/Http/Middleware/Application/BackEnd/RequestHandler_General.php',
     'App\\Http\\Middleware\\Application\\BackEnd\\ResponseHandler_General' => $baseDir . '/app/Http/Middleware/Application/BackEnd/ResponseHandler_General.php',
+    'App\\Http\\Middleware\\Application\\BackEnd\\UserAuthentication' => $baseDir . '/app/Http/Middleware/Application/BackEnd/UserAuthentication.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',
