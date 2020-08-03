@@ -118,6 +118,7 @@ namespace App\Helpers\ZhtHelper\System
                         $varHeaders=[
                             'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                             'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
+                            'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
                             'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
                             'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData))
                             ];
@@ -209,7 +210,6 @@ namespace App\Helpers\ZhtHelper\System
                         ]
                         );
                     
-                        echo "<br>------------------------------------";
                         \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                     
                     
