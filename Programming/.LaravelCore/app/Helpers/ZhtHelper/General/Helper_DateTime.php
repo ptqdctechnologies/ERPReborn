@@ -88,8 +88,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTimeFromUnixTime                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
         | ▪ Description     : Mendapatkan tanggal dan waktu dari UnixTime (varUnixTime)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -99,13 +99,57 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeFromUnixTime($varUserSession, int $varUnixTime)
+        public static function getDateTimeFromUnixTime($varUserSession, int $varUnixTime, $varDateTimeFormat=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Convert UnixTime `'.$varUnixTime.'` to DateTime');
                 try {
-                    $varReturn = date("Y-m-d H:i:s", $varUnixTime);
+                    if(!$varDateTimeFormat)
+                        {
+                        $varDateTimeFormat = 'Y-m-d H:i:s';
+                        }
+                    $varReturn = date($varDateTimeFormat, $varUnixTime);
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getGMTDateTimeFromUnixTime                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-03                                                                                           |
+        | ▪ Description     : Mendapatkan tanggal dan waktu GMT dari UnixTime (varUnixTime)                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (int)    varUnixTime                                                                                              |
+        |      ▪ (string) varDateTimeFormat                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getGMTDateTimeFromUnixTime($varUserSession, int $varUnixTime, $varDateTimeFormat=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Convert UnixTime `'.$varUnixTime.'` to DateTime');
+                try {
+                    if(!$varDateTimeFormat)
+                        {
+                        $varDateTimeFormat = 'Y-m-d H:i:s';
+                        }
+                    $varReturn = gmdate($varDateTimeFormat, $varUnixTime);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
