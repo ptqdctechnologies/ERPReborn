@@ -27,6 +27,10 @@ namespace App\Http\Middleware\Application\BackEnd
             $varClientServerDateTimeLagTolerance = (5*60);
             $varTTL = 500;
 
+            
+            echo \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd(), 'config/Application/BackEnd/environment.txt');
+            
+            
             //echo "<br>".(strcmp(substr('\ddd\ddd\ddd', 0, 1), '\\')==0 ? '' : '\\')  ."<br>";
             
             //echo "<br>".(strcmp(substr('dddd/ddd/', strlen('dddd/ddd/')-1, 1), '/')==0 ? substr('dddd/ddd/', 0, strlen('dddd/ddd/')-1) : 'dddd/ddd/')."<br>";

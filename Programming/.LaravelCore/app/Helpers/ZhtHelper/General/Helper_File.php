@@ -131,12 +131,51 @@ namespace App\Helpers\ZhtHelper\General
                 catch (\Exception $ex) {
 //                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+//                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 } 
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+        //---> Kelak akan menggantikan getAutoMatchSystemFilePath($varPrefix, $varPostfix)
+        public static function getAutoMatchFilePath($varUserSession, $varPrefix, $varPostfix)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'get automatic match system file path');
+                try {
+                    $varPrefix = (strcmp(substr($varPrefix, strlen($varPrefix)-1, 1), '/')==0 ? substr($varPrefix, 0, strlen($varPrefix)-1) : $varPrefix);
+                    $varPostfix = (strcmp(substr($varPostfix, 0, 1), '/')==0 ? substr($varPostfix, 1, strlen($varPostfix)-1) : $varPostfix);
+                    //$varPath=$varPrefix.(strcmp(substr($varPostfix, 0, 1), '/')==0 ? '' : '/').$varPostfix;
+                    $varPath=$varPrefix.'/'.$varPostfix;
+                    if(is_file($varPath)==0)
+                        {
+                        $varPath = null;
+                        $iMax = substr_count($varPrefix, '/');
+                        for ($i=0; $i!=$iMax; $i++)
+                            {
+                            echo "<br>".($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix);
+                            if(is_file($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix))
+                                {
+                                $varPath = $varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix;
+                                break;
+                                }
+                            }
+                        }
+                    //echo "<br>".$varPath;
+                    $varReturn = $varPath;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
