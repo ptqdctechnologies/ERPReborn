@@ -22,6 +22,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
     'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => $baseDir . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',

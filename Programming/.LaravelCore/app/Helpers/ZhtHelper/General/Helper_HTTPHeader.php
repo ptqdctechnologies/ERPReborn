@@ -120,6 +120,7 @@ namespace App\Helpers\ZhtHelper\General
                     $varReturn = collect($varObjRequest->header())->transform(function ($item) {
                         return $item[0];
                         });
+                    $varReturn = $varReturn->toArray();
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
@@ -379,6 +380,7 @@ namespace App\Helpers\ZhtHelper\General
                         'D, d M Y H:i:s T', 
                         (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession) + $varTTL)
                         );
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());

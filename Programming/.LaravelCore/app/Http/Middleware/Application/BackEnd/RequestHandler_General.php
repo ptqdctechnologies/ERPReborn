@@ -23,48 +23,70 @@ namespace App\Http\Middleware\Application\BackEnd
         private function CheckAllStage(&$varObjRequest, &$varObjNext)
             {
             $varUserSession = 000000;
+            $varDataSeparatorTag = '<DataSeparator>';
+            $varClientServerDateTimeLagTolerance = (5*60);
             $varTTL = 500;
+
+            
+            echo \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd(), 'config/Application/BackEnd/environment.txt');
+            
+            
+            //echo "<br>".(strcmp(substr('\ddd\ddd\ddd', 0, 1), '\\')==0 ? '' : '\\')  ."<br>";
+            
+            //echo "<br>".(strcmp(substr('dddd/ddd/', strlen('dddd/ddd/')-1, 1), '/')==0 ? substr('dddd/ddd/', 0, strlen('dddd/ddd/')-1) : 'dddd/ddd/')."<br>";
             
             
             try {
+                $varServerCurrentUnixTime=\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession);
+
                 echo "<br>-------------MIDDLEWARE-------------<br>";
                 $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
                 var_dump($varHTTPHeader);
-                
-                //$varRequestUnixTime = \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']);
-                //$varExpiresUnixTime = ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL));
-                //---> Check Expired DateTime
-                if(\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession) > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
+
+                //---> HTTP Header Check
+                //--->---> Check Date Time on HTTP Header
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('date', $varHTTPHeader)==false)
                     {
-                    throw new \Exception('Request has expired');
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request date and time not specified on HTTP Header']));
+                    }
+                //--->---> Check Date Time Difference on HTTP Header
+                if(!(($varServerCurrentUnixTime-$varClientServerDateTimeLagTolerance) <= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date'])) && ($varServerCurrentUnixTime+$varClientServerDateTimeLagTolerance) >= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']))))
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
+                    }
+                //--->---> Check Content-MD5 on HTTP Header
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('content-md5', $varHTTPHeader)==false)
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request Content-MD5 not found on HTTP Header']));
+                    }
+                //--->---> Check X-Request-Unique-ID on HTTP Header ---> Untuk menangani Idempotency
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('x-request-unique-id', $varHTTPHeader)==false)
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request Unique ID not specified on HTTP Header']));
+                    }
+                //--->---> Check Expired DateTime
+                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request has expired']));
                     }                   
-                //---> Check Content Integrity
+                //--->---> Check Content Integrity
                 if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), true))) != 0)
                     {
-                    throw new \Exception('Content integrity is invalid');
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Content integrity is invalid']));
                     }
                 echo "<br>-------------MIDDLEWARE-------------<br>";
-                return $varObjNext($varObjRequest);          
+                return $varObjNext($varObjRequest);  
                 }
             catch (\Exception $ex) {
                 $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';
-                switch($ex->getMessage())
-                    {
-                    case 'Request has expired':
-                        {
-                        abort(403, $varMessageHeading.$ex->getMessage());
-                        break;
-                        }
-                    case 'Content integrity is invalid':
-                        {
-                        abort(403, $varMessageHeading.$ex->getMessage());
-                        break;
-                        }
-                    default:
-                        {
-                        break;
-                        }
-                    }
+                $varDataMessage = explode($varDataSeparatorTag, $ex->getMessage());                
+                abort($varDataMessage[0], $varMessageHeading.$varDataMessage[1]);
                 }
             }
 

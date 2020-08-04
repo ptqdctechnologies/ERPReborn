@@ -153,7 +153,8 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function getLaravelEnvironment($varKey)
             {
-            $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent(
+            $varUserSession=000000;
+            $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
                     \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env')
                     );
             $varArrayTemp=explode("\n", $varFileContent);
