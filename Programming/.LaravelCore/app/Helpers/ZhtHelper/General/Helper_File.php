@@ -113,7 +113,6 @@ namespace App\Helpers\ZhtHelper\General
                     $varPostfix = (strcmp(substr($varPostfix, 0, 1), '/')==0 ? substr($varPostfix, 1, strlen($varPostfix)-1) : $varPostfix);
                     //$varPath=$varPrefix.(strcmp(substr($varPostfix, 0, 1), '/')==0 ? '' : '/').$varPostfix;
                     $varPath=$varPrefix.'/'.$varPostfix;
-       echo "<br>".$varPath;
                     if(is_file($varPath)==0)
                         {
                         for ($i=0; $i!=10; $i++)
@@ -125,6 +124,7 @@ namespace App\Helpers\ZhtHelper\General
                                 }
                             }
                         }
+                    //echo "<br>".$varPath;
                     $varReturn = $varPath;
 //                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -134,7 +134,7 @@ namespace App\Helpers\ZhtHelper\General
                 } 
             catch (\Exception $ex) {
                 }
-//            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -152,7 +152,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varFileContent                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getFileContent($varPath)
+        public static function getFileContent($varUserSession, $varPath)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
