@@ -40,9 +40,3 @@ Route::get('/', function () {
 //Route::get('test', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@init');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----
-
-//Route::group(['middleware' => ['web']], function () {
-  //  Route::get('/login', '\App\Http\Controllers\Application\BackEnd\System\UserAuthentication\Controller_Main@loginAuthentication')->name('success');
-    //});
-    
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('login', 'get', '\App\Http\Controllers\Application\BackEnd\System\UserAuthentication\Controller_Main@loginAuthentication', 'web');
