@@ -36,7 +36,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
-            echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
+            //echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
+            //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd().'/', '.env');
             }
 
 

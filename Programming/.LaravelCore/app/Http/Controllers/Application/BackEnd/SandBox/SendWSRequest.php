@@ -15,6 +15,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
+            //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env');
+            
             $varDataArray = [
                 'System' => [],
                 'Data' => []

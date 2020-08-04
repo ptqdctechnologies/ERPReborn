@@ -26,6 +26,10 @@ namespace App\Http\Middleware\Application\BackEnd
             $varDataSeparatorTag = '<DataSeparator>';
             $varClientServerDateTimeLagTolerance = (5*60);
             $varTTL = 500;
+
+            //echo "<br>".(strcmp(substr('\ddd\ddd\ddd', 0, 1), '\\')==0 ? '' : '\\')  ."<br>";
+            
+            //echo "<br>".(strcmp(substr('dddd/ddd/', strlen('dddd/ddd/')-1, 1), '/')==0 ? substr('dddd/ddd/', 0, strlen('dddd/ddd/')-1) : 'dddd/ddd/')."<br>";
             
             
             try {
