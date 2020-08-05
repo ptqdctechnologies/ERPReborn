@@ -86,7 +86,7 @@ namespace App\Helpers\ZhtHelper\General
 
         public static function getUniqueID($varUserSession)
             {
-            $varReturn = uniqid(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().'.', TRUE).'.'.self::getUniqueIDReal(13);
+            $varReturn = uniqid(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().'.', TRUE).'.'.self::getUniqueIDReal(100);
             
             //var_dump($varReturn);
             //$varReturn = '';
@@ -98,7 +98,6 @@ namespace App\Helpers\ZhtHelper\General
             //Reference : https://www.php.net/manual/en/function.uniqid.php
             // uniqid gives 13 chars, but you could adjust it to your needs.
             try {
-                echo "------------------";
                 if (function_exists("random_bytes")) {
                     $bytes = random_bytes(ceil($varLength / 2));
                     } 

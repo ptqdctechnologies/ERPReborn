@@ -36,8 +36,13 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             
+            echo \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID(000000);
+            
             //echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
-            //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd().'/', '.env');
+            //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd().'/', '/config/Application/BackEnd/environment.txt');
+            //echo "xxx : ".\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(000000, 'LDAP_BASEDN');
+            //echo "yyy";
+            //echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', 'secret');
             }
 
 

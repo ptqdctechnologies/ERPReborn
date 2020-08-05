@@ -138,7 +138,26 @@ namespace App\Helpers\ZhtHelper\General
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
-        //---> Kelak akan menggantikan getAutoMatchSystemFilePath($varPrefix, $varPostfix)
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAutoMatchFilePath                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-05                                                                                           |
+        | ▪ Description     : Mencari posisi file path varPostfix relatif terhadap varPrefix                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
+        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varPath                                                                                                  |
+        |                                                                                                                          |
+        |  Kelak akan menggantikan getAutoMatchSystemFilePath($varPrefix, $varPostfix)                                             |
+        |                                                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */            
         public static function getAutoMatchFilePath($varUserSession, $varPrefix, $varPostfix)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
@@ -147,7 +166,6 @@ namespace App\Helpers\ZhtHelper\General
                 try {
                     $varPrefix = (strcmp(substr($varPrefix, strlen($varPrefix)-1, 1), '/')==0 ? substr($varPrefix, 0, strlen($varPrefix)-1) : $varPrefix);
                     $varPostfix = (strcmp(substr($varPostfix, 0, 1), '/')==0 ? substr($varPostfix, 1, strlen($varPostfix)-1) : $varPostfix);
-                    //$varPath=$varPrefix.(strcmp(substr($varPostfix, 0, 1), '/')==0 ? '' : '/').$varPostfix;
                     $varPath=$varPrefix.'/'.$varPostfix;
                     if(is_file($varPath)==0)
                         {
@@ -155,7 +173,7 @@ namespace App\Helpers\ZhtHelper\General
                         $iMax = substr_count($varPrefix, '/');
                         for ($i=0; $i!=$iMax; $i++)
                             {
-                            echo "<br>".($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix);
+                            //echo "<br>".($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix);
                             if(is_file($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix))
                                 {
                                 $varPath = $varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix;
@@ -176,6 +194,7 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

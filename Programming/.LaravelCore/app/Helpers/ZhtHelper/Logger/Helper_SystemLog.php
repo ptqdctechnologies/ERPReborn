@@ -226,7 +226,7 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
                 {
                 $varDataSession['Log']['Specific'][$varUserSession]['Error']=[];
                 }
@@ -260,7 +260,7 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
                 {
                 $varDataSession['Log']['Specific'][$varUserSession]['Output']=[];
                 $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']=0;
@@ -367,7 +367,7 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varDataSession, 'Log::Specific::'.$varUserSession.'::Error')==false)
                 {
                 $varDataSession['Log']['Specific'][$varUserSession]['Error']=[];
                 $varDataSession['Log']['Specific'][$varUserSession]['ErrorIndentation']=0;
@@ -407,7 +407,7 @@ namespace App\Helpers\ZhtHelper\Logger
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varDataSession, 'Log::Specific::'.$varUserSession.'::Output')==false)
                 {
                 $varDataSession['Log']['Specific'][$varUserSession]['Output']=[];
                 }
@@ -443,7 +443,7 @@ namespace App\Helpers\ZhtHelper\Logger
             self::init();
 
             $varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')==false)
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation')==false)
                 {
                 \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Log::Specific::'.$varUserSession.'::OutputIndentation', -self::$varDataLogOutputIndentantionTab);
                 $varDataSession['Log']['Specific'][$varUserSession]['OutputIndentation']=-self::$varDataLogOutputIndentantionTab;

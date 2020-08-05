@@ -18,9 +18,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         //public function getUserAuthentication($varUserName, $varUserPassword)
             {
             $varUserSession = 000000;
-            $varHost = '192.168.1.23';
-            $varPost = 389;
-            $varBaseDN = 'DC=qdc-files,DC=qdc,DC=co,DC=id';
+            $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(000000, 'LDAP_HOST');
+            $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(000000, 'LDAP_PORT');
+            $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment(000000, 'LDAP_BASEDN');
             $varUserName = 'teguh.pratama';
             $varUserPassword = 'teguhpratama789';
             
