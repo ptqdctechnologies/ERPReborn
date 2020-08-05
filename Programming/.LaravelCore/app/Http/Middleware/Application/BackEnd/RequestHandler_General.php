@@ -45,7 +45,7 @@ namespace App\Http\Middleware\Application\BackEnd
 
                 //---> HTTP Header Check
                 //--->---> Check Date Time on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('date', $varHTTPHeader)==false)
+                    if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request date and time not specified on HTTP Header']));
@@ -57,19 +57,19 @@ namespace App\Http\Middleware\Application\BackEnd
                         [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
                     }
                 //--->---> Check Content-MD5 on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('content-md5', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'content-md5', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request Content-MD5 not found on HTTP Header']));
                     }
                 //--->---> Check X-Request-Unique-ID on HTTP Header ---> Untuk menangani Idempotency
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('x-request-unique-id', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'x-request-unique-id', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request Unique ID not specified on HTTP Header']));
                     }
                 //--->---> Check Expired DateTime
-                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist('expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
+                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request has expired']));

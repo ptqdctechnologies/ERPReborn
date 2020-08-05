@@ -102,7 +102,7 @@ namespace App\Helpers\ZhtHelper\General
         public static function getArrayValue($varDataArray, $varArrayPattern)
             {
             $varReturn = null;
-            if(self::isKeyExistOnSubArray($varDataArray, $varArrayPattern)==true)
+            if(self::isKeyExistOnSubArray(000000, $varDataArray, $varArrayPattern)==true)
                 {
                 $varArrayTemp=explode('::', $varArrayPattern);
                 switch(count($varArrayTemp))
@@ -150,18 +150,19 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isKeyExist                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-05                                                                                           |
         | ▪ Description     : Mengecek apakah suatu Key (varKey) ada pada suatu array (varData) dalam satu lapis pencarian         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Key Array                                                                                       |
         |      ▪ (array)  varData ► Data Array                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isKeyExist($varKey, $varData)
+        public static function isKeyExist($varUserSession, $varKey, $varData)
             {
             $varReturn = false;
                        
@@ -222,23 +223,24 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isKeyExistOnSubArray                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-05                                                                                           |
         | ▪ Description     : Mengecek apakah suatu Pola Key (varArrayPattern) ada pada suatu array (varData) dalam pencarian      |
         |                     multi lapisan                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varArrayPattern ► Pola Key Array (harus bernotasi KEY1::KEY2::KEY3::...)                                 |
         |      ▪ (array)  varData ► Data Array                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isKeyExistOnSubArray($varData, $varArrayPattern)
+        public static function isKeyExistOnSubArray($varUserSession, $varData, $varArrayPattern)
             {         
             $varReturn = false;
             $varArrayTemp=explode('::', $varArrayPattern);
-            if(self::isKeyExist($varArrayTemp[0], $varData)==true)
+            if(self::isKeyExist($varUserSession, $varArrayTemp[0], $varData)==true)
                 {
                 $varReturn = true;
                 if(is_array($varData[$varArrayTemp[0]])==true)
@@ -254,7 +256,7 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     if(strcmp($varArrayPatternNew, '')!=0)
                         {
-                        if(self::isKeyExistOnSubArray($varData[$varArrayTemp[0]], $varArrayPatternNew)==false)
+                        if(self::isKeyExistOnSubArray($varUserSession, $varData[$varArrayTemp[0]], $varArrayPatternNew)==false)
                             {
                             $varReturn = false;
                             }                        
@@ -380,7 +382,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan nilai array tanpa menyertakan kunci array (varDataArray)                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varDataArray ► Data array yang akan dievaluasi                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
