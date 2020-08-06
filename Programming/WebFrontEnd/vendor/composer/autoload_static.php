@@ -514,6 +514,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Application\\FrontEnd\\RequestHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/FrontEnd/RequestHandler_General.php',

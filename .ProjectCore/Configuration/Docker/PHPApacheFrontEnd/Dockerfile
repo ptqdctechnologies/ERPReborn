@@ -7,7 +7,11 @@ RUN apt-get update \
        libpq-dev \
        vim \
     && pecl install redis \
-    && docker-php-ext-enable redis 
+    && docker-php-ext-enable redis \
+    && docker-php-ext-install \
+       sockets \
+    && docker-php-ext-enable \
+       sockets
 #    && docker-php-ext-install
 
 #---> Cloning File

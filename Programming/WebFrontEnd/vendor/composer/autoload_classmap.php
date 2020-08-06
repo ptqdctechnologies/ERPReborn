@@ -29,6 +29,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
+    'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Application\\FrontEnd\\RequestHandler_General' => $baseDir . '/app/Http/Middleware/Application/FrontEnd/RequestHandler_General.php',

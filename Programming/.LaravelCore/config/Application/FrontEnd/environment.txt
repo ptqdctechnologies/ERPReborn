@@ -1,0 +1,2 @@
+URL_BACKEND_API_AUTH=http://172.28.0.3/api/auth
+URL_BACKEND_API_GATEWAY=http://172.28.0.3/api/gateway
