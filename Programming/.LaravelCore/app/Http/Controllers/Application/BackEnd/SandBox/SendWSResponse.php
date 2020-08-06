@@ -13,7 +13,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function sendResponse()
             {
-            $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);           
+            $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
             $varDataSend = ['message' => 'Sukses alhamdulillah'];
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
