@@ -164,6 +164,7 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
                 try {
+                    $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
 /*                    $varResponse = $ObjClient->request(
                         $varMethod,
@@ -214,28 +215,28 @@ namespace App\Helpers\ZhtHelper\System
                             'body' =>  json_encode($varData, true)
                             ]
                             );
+                        $varHTTPStatusCode = $varResponse->getStatusCode();
+                        $varResponseData = $varResponse->getBody()->getContents();
                         } 
-//                        \GuzzleHttp\Exception\ClientException::                        
-//                    catch (\Exception $ex) {
-                    catch (GuzzleHttp\Exception\ClientException $ex) {
-//                        var_dump($ex);
+
+                    catch (\GuzzleHttp\Exception\BadResponseException $ex) {
+                    //catch (\GuzzleHttp\Exception\ClientException $ex) {
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
+                        $varHTTPStatusCode = $response->getStatusCode();
+                        $varHTTPStatusCode;
+                        //echo $responseBodyAsString;
+                        //die;
                         }
-//                    var_dump($ObjClient);
-//                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
                     
-                        \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
+                    \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                     
                     
-
-                    $varResponseContents = $varResponse->getBody()->getContents();
-
                     $varResponseContents = [
                         'metadata' => [
-                            'HTTPStatusCode' => $varResponse->getStatusCode()
+                            'HTTPStatusCode' => $varHTTPStatusCode
                             ],
-                        'data' => $varResponse->getBody()->getContents()
+                        'data' => $varResponseData
                         ];
 //echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
 //var_dump($varResponseContents);                    

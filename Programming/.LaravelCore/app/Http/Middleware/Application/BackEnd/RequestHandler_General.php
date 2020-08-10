@@ -2,11 +2,14 @@
 
 namespace App\Http\Middleware\Application\BackEnd
     {
-    use Closure;
-    
     class RequestHandler_General
         {
         public function handle(\Illuminate\Http\Request $request, \Closure $next)
+            {
+            return $this->CheckAllStage($request, $next);
+            }
+
+        private function CheckAllStage(&$varObjRequest, &$varObjNext)
             {
             //$headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader(000000, $request);
             //var_dump($headers);
@@ -17,11 +20,7 @@ namespace App\Http\Middleware\Application\BackEnd
             var_dump($headers);
             $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getXSRFToken(000000, $request);
             echo "<br><br>".$headers;*/
-            return $this->CheckAllStage($request, $next);
-            }
-
-        private function CheckAllStage(&$varObjRequest, &$varObjNext)
-            {
+            
             $varUserSession = 000000;
             $varDataSeparatorTag = '<DataSeparator>';
             $varClientServerDateTimeLagTolerance = (5*60);
@@ -36,7 +35,7 @@ namespace App\Http\Middleware\Application\BackEnd
                 $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
                 //---> HTTP Header Check
                 //--->---> Check Date Time on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date22', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'datexxx', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request date and time not specified on HTTP Header']));
@@ -79,8 +78,8 @@ namespace App\Http\Middleware\Application\BackEnd
             catch (\Exception $ex) {
                 $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';
                 $varDataMessage = explode($varDataSeparatorTag, $ex->getMessage());                
-                //$varReturn = abort($varDataMessage[0], $varMessageHeading.$varDataMessage[1]);
-                $varReturn = response()->json(['error' => $varMessageHeading.$varDataMessage[1]], $varDataMessage[0]);
+                $varReturn = abort($varDataMessage[0], $varMessageHeading.$varDataMessage[1]);
+                //$varReturn = response()->json(['error' => $varMessageHeading.$varDataMessage[1]], $varDataMessage[0]);
                 }
             return $varReturn;
             }
