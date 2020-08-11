@@ -159,6 +159,10 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Back End Configuration Environment');
                 try {
                     $varReturn=self::getConfigEnvironment($varUserSession, $varKey, '/config/Application/BackEnd/environment.txt');
+                    if(is_numeric($varReturn)==true)
+                        {
+                        $varReturn = $varReturn*1;
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -194,6 +198,10 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Back End Configuration Environment');
                 try {
                     $varReturn=self::getConfigEnvironment($varUserSession, $varKey, '/config/Application/FrontEnd/environment.txt');
+                    if(is_numeric($varReturn)==true)
+                        {
+                        $varReturn = $varReturn*1;
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -294,7 +302,53 @@ namespace App\Helpers\ZhtHelper\System
                 }
             $varReturn=$varData[$varKey];
             return $varReturn;
-            }            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserSessionID_System                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-11                                                                                           |
+        | ▪ Description     : Mencari User Session ID of System                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getUserSessionID_System()
+            {
+            $varReturn=null;
+            
+            try {
+                if(is_file(getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                    {$varPathFile=getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                    {$varPathFile=getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                    {$varPathFile=getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                $varFileContent = file_get_contents($varPathFile);
+                $varArrayTemp=explode("\n", $varFileContent);
+                for($i=0; $i!=count($varArrayTemp); $i++)
+                    {
+                    if(strlen($varArrayTemp[$i])>0)
+                        {
+                        $varArrayTemp2=explode("=", $varArrayTemp[$i]);
+                        $varValue=$varArrayTemp2;
+                        array_shift($varValue);
+                        $varValue=implode("=", $varValue);
+                        $varData[$varArrayTemp2[0]]=$varValue;
+                        }
+                    }
+                $varReturn=(int) $varData['USER_SESSION_ID_SYSTEM'];                
+                } 
+            catch (\Exception $ex) {
+                }
+            return $varReturn;
+            }
         }
     }
 

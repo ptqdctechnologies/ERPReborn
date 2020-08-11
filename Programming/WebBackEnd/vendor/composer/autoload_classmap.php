@@ -39,6 +39,7 @@ return array(
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Application\\BackEnd\\RequestHandler_General' => $baseDir . '/app/Http/Middleware/Application/BackEnd/RequestHandler_General.php',
     'App\\Http\\Middleware\\Application\\BackEnd\\ResponseHandler_General' => $baseDir . '/app/Http/Middleware/Application/BackEnd/ResponseHandler_General.php',
+    'App\\Http\\Middleware\\Application\\BackEnd\\TerminateHandler_General' => $baseDir . '/app/Http/Middleware/Application/BackEnd/TerminateHandler_General.php',
     'App\\Http\\Middleware\\Authenticate' => $baseDir . '/app/Http/Middleware/Authenticate.php',
     'App\\Http\\Middleware\\CheckForMaintenanceMode' => $baseDir . '/app/Http/Middleware/CheckForMaintenanceMode.php',
     'App\\Http\\Middleware\\EncryptCookies' => $baseDir . '/app/Http/Middleware/EncryptCookies.php',

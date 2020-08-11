@@ -8,13 +8,45 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         {
         public function __construct()
             {
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
             }
 
         public function init()
             {
             }
-        
+
         public function getUserAuthentication()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);            
+            $varUserName = $varDataReceive['data']['userName'];
+            $varUserPassword = $varDataReceive['data']['userPassword'];
+
+            $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
+            $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
+            $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
+
+            if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
+                {
+                echo "Login berhasil";
+                }
+            else
+                {
+                echo "Login gagal";
+                }
+            
+            $varDataSend = ['message' => 'Sukses alhamdulillah'];
+            return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse($varUserSession, $varDataSend);
+            }
+            
+            
+            
+        public function getUserAuthenticationOLD()
         //public function getUserAuthentication($varUserName, $varUserPassword)
             {
             $varUserSession = 000000;

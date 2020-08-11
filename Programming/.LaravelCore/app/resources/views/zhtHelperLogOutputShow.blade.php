@@ -9,7 +9,7 @@
             echo \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::getLogOutput(000000);
             echo 
                 "<script>".
-                    "setTimeout(\"window.open(self.location, '_self');\", 1000); ".
+                    "setTimeout(\"window.open(self.location, '_self');\", 10000); ".
                 "</script>";
             ?>
         </p>

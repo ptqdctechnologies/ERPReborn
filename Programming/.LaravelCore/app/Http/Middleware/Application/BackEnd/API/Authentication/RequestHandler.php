@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Middleware\Application\BackEnd
+namespace App\Http\Middleware\Application\BackEnd\API\Authentication
     {
-    class RequestHandler_General
+    class RequestHandler
         {
         public function handle(\Illuminate\Http\Request $request, \Closure $next)
             {
@@ -11,29 +11,15 @@ namespace App\Http\Middleware\Application\BackEnd
 
         private function CheckAllStage(&$varObjRequest, &$varObjNext)
             {
-            //$headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader(000000, $request);
-            //var_dump($headers);
-            /*$headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getClientAgent(000000, $request);
-            echo "<br><br>".$headers;
-            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getCookies(000000, $request);
-            echo "<br><br>";
-            var_dump($headers);
-            $headers = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getXSRFToken(000000, $request);
-            echo "<br><br>".$headers;*/
-            
-            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'USER_SESSION_ID_SYSTEM');
-            $varDataSeparatorTag = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR');
-            $varClientServerDateTimeLagTolerance = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TIME_LAG_TOLERANCE_CLIENT_SERVER');
-            $varTTL = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TIME_EXPIRED_REQUEST');
-            //echo \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd(), 'config/Application/BackEnd/environment.txt');
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varDataSeparatorTag = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR');
+            $varClientServerDateTimeLagTolerance = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TIME_LAG_TOLERANCE_CLIENT_SERVER');
+            $varTTL = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TIME_EXPIRED_REQUEST');
             try {
                 $varServerCurrentUnixTime=\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession);
-//                echo "<br>-------------MIDDLEWARE-------------<br>";
-//                echo "<br>";
-//                var_dump($varHTTPHeader);
-//                echo "<br>";
-                $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
                 //---> HTTP Header Check
+                $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
+//var_dump($varHTTPHeader);
                 //--->---> Check Date Time on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date', $varHTTPHeader)==false)
                     {
@@ -70,10 +56,7 @@ namespace App\Http\Middleware\Application\BackEnd
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Content integrity is invalid']));
                     }
-                //echo "<br>-------------MIDDLEWARE-------------<br>";
-                //return $varObjNext($varObjRequest);                
                 $varReturn = $varObjNext($varObjRequest);
-                //return $varReturn;
                 }
             catch (\Exception $ex) {
                 $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';
