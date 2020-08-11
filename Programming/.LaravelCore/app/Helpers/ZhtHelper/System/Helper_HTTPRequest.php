@@ -116,15 +116,32 @@ namespace App\Helpers\ZhtHelper\System
                     //---> Pengecekan Header
                     if(!$varHeaders)
                         {
-                        $varHeaders=[
-                            'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                            'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
-                            'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
-                            'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
-                            'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                            'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
-                            'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
-                            ];
+                        //---> API AUTH
+                        if(strcmp($varURL, \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'))==0)
+                            {
+                            $varHeaders=[
+                                'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
+                                'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
+                                'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
+                                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
+                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
+                                //'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
+                                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                                ];                            
+                            }
+                        //---> API selainnya
+                        else
+                            {
+                            $varHeaders=[
+                                'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
+                                'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
+                                'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
+                                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
+                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
+                                'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
+                                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                                ];                            
+                            }
                         }
                     //---> Main process
                     $varReturn = self::setRequest($varUserSession, $varURL, $varMethod, $varData, $varPort, $varHeaders);
@@ -166,40 +183,6 @@ namespace App\Helpers\ZhtHelper\System
                 try {
                     $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
-/*                    $varResponse = $ObjClient->request(
-                        $varMethod,
-                        $varURL,
-                        [
-                        'verify' => false,
-                        'headers' => [
-                                'Content-Type' => 'application/json',
-                                ],
-                        'auth' => [
-                                'userHTTP', 
-                                'passHTTP'
-                                ],
-                        'body' =>  json_encode($varData, true)
-                        ]
-                        );
-*/                    
-/*                    $x = $varResponse->getStatusCode();
-                    var_dump($x);
-                    
-                    $x = $varResponse->getBody();
-                    var_dump($x);
-*/                    
-                    
-
-/*
-                                [
-                                'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                                'Date' => gmdate('D, d M Y H:i:s T'),
-                                'Content-Type' => 'application/json'
-                                //'Authorization' => 'Basic '.base64_encode('username:password'),
-                                ],
-*/
-                    
-//                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
                     try {
                         $varResponse = $ObjClient->request(
                             $varMethod,
@@ -207,11 +190,6 @@ namespace App\Helpers\ZhtHelper\System
                             [
                             'verify' => false,
                             'headers' => $varHeaders, 
-    //                        'auth' => [
-      //                              'userHTTP', 
-        //                            'passHTTP',
-          //                          'digest'
-            //                        ],
                             'body' =>  json_encode($varData, true)
                             ]
                             );
