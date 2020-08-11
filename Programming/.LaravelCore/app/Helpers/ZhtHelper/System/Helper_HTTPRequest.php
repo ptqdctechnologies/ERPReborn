@@ -45,6 +45,7 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Request');
                 try {
                     $varDataReceive = request()->json()->all();
+
                     $varReturn = $varDataReceive;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
@@ -122,7 +123,7 @@ namespace App\Helpers\ZhtHelper\System
                             'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
                             'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
                             'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
-                            'X-Request-Unique-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                            'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                             ];
                         }
                     //---> Main process
@@ -163,6 +164,7 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
                 try {
+                    $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
 /*                    $varResponse = $ObjClient->request(
                         $varMethod,
@@ -197,26 +199,48 @@ namespace App\Helpers\ZhtHelper\System
                                 ],
 */
                     
-                    $varResponse = $ObjClient->request(
-                        $varMethod,
-                        $varURL,
-                        [
-                        'verify' => false,
-                        'headers' => $varHeaders, 
-                        'auth' => [
-                                'userHTTP', 
-                                'passHTTP',
-                                'digest'
-                                ],
-                        'body' =>  json_encode($varData, true)
-                        ]
-                        );
+//                    echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+                    try {
+                        $varResponse = $ObjClient->request(
+                            $varMethod,
+                            $varURL,
+                            [
+                            'verify' => false,
+                            'headers' => $varHeaders, 
+    //                        'auth' => [
+      //                              'userHTTP', 
+        //                            'passHTTP',
+          //                          'digest'
+            //                        ],
+                            'body' =>  json_encode($varData, true)
+                            ]
+                            );
+                        $varHTTPStatusCode = $varResponse->getStatusCode();
+                        $varResponseData = $varResponse->getBody()->getContents();
+                        } 
+
+                    catch (\GuzzleHttp\Exception\BadResponseException $ex) {
+                    //catch (\GuzzleHttp\Exception\ClientException $ex) {
+                        $response = $ex->getResponse();
+                        $responseBodyAsString = $response->getBody()->getContents();
+                        $varHTTPStatusCode = $response->getStatusCode();
+                        //echo $responseBodyAsString;
+                        //die;
+                        }
                     
-                        \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
+                    \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                     
                     
-                                //'digest'
-                    $varResponseContents = $varResponse->getBody()->getContents();
+                    $varResponseContents = [
+                        'metadata' => [
+                            'HTTPStatusCode' => $varHTTPStatusCode
+                            ],
+                        'data' => $varResponseData
+                        ];
+//echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
+//var_dump($varResponseContents);                    
+//echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
+
                     //var_dump($varResponseContents);
                     $varReturn = $varResponseContents;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

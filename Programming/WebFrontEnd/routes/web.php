@@ -27,4 +27,6 @@ Route::get('showLogError', function () {
     return view('zhtHelperLogErrorShow');
     })->middleware('web');
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@SendRequest', 'webWithoutCSRF');
+
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----

@@ -2,14 +2,16 @@
 
 namespace App\Http\Middleware\Application\BackEnd
     {
-    use Closure;
-    
     class ResponseHandler_General
         {
-        public function handle($request, Closure $next)
+        public function handle(\Illuminate\Http\Request $request, \Closure $next)
             {
-            $varResponse = $next($request);
-            
+            return $this->CheckAllStage($next($request));
+            }
+        
+        private function CheckAllStage($varResponse)
+            {
+            echo "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
             return $varResponse;
             }
         }
