@@ -224,7 +224,6 @@ namespace App\Helpers\ZhtHelper\System
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
-                        $varHTTPStatusCode;
                         //echo $responseBodyAsString;
                         //die;
                         }

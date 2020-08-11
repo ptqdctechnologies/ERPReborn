@@ -35,7 +35,7 @@ namespace App\Http\Middleware\Application\BackEnd
                 $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
                 //---> HTTP Header Check
                 //--->---> Check Date Time on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'datexxx', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request date and time not specified on HTTP Header']));
