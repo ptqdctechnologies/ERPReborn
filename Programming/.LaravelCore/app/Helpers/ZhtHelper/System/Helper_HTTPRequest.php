@@ -13,16 +13,20 @@ namespace App\Helpers\ZhtHelper\System
     //use Illuminate\Http\Request;
     //use Illuminate\Http\Response;
     
-    class Helper_HTTPRequest
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : Helper_HTTPRequest                                                                                           |
+    | ▪ Description : Menangani segala hal yang terkait HTTP Request dari Aplikasi                                                 |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */    class Helper_HTTPRequest
         {
         public static function getHeader($varUserSession)
             {
             $varHeader = request()->header();
             var_dump($varHeader);
             }
-        
-        
-        
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getRequest                                                                                           |
@@ -44,9 +48,11 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Request');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataReceive = request()->json()->all();
 
                     $varReturn = $varDataReceive;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
@@ -57,104 +63,6 @@ namespace App\Helpers\ZhtHelper\System
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getResponse                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Last Update     : 2020-08-03                                                                                           |
-        | ▪ Description     : Mendapatkan Response HTTP dari API (digunakan oleh client/frontend untuk dikirim ke backend)         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varURL ► Alamat host yang dituju                                                                         |
-        |      ▪ (string) varData ► Data yang akan dikirimkan                                                                      |
-        |      ▪ (string) varMethod ► Metode HTTP Request                                                                          |
-        |      ▪ (int)    varPort ► Port HTTP Request                                                                              |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getResponse($varUserSession, $varURL, $varData=null, $varMethod=null, int $varPort=null, int $varTTL=null, array $varHeaders=null)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Response');
-                try {
-                    if(!$varPort)
-                        {
-                        $varPort = 80;
-                        }
-                    //---> Cek apakah port tujuan terbuka
-                    if (\App\Helpers\ZhtHelper\General\Helper_Network::isPortOpen($varUserSession, $varURL, $varPort)==false)
-                        {
-                        throw new \Exception('Port is closed');
-                        }
-                    //---> Pengecekan Method
-                    if(!$varMethod)
-                        {
-                        $varMethod = 'POST';
-                        }
-                    //---> Pengecekan data
-                    if(!$varData)
-                        {
-                        $varData=[];                 
-                        }
-                    if(!is_array($varData))
-                        {
-                        throw new Exception('Data must be an array');
-                        }
-                    //---> Pengecekan TTL
-                    if(!$varTTL)
-                        {
-                        $varTTL = 300;
-                        }
-                    ini_set('max_execution_time', $varTTL);
-                    //---> Pengecekan Header
-                    if(!$varHeaders)
-                        {
-                        //---> API AUTH
-                        if(strcmp($varURL, \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'))==0)
-                            {
-                            $varHeaders=[
-                                'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                                'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
-                                'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
-                                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
-                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                                //'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
-                                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
-                                ];                            
-                            }
-                        //---> API selainnya
-                        else
-                            {
-                            $varHeaders=[
-                                'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                                'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
-                                'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
-                                'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
-                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                                'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
-                                'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
-                                ];                            
-                            }
-                        }
-                    //---> Main process
-                    $varReturn = self::setRequest($varUserSession, $varURL, $varMethod, $varData, $varPort, $varHeaders);
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }               
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 
@@ -175,12 +83,13 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private static function setRequest($varUserSession, $varURL, $varMethod, $varData=null, $varPort=null, $varHeaders=null)
+        public static function setRequest($varUserSession, $varURL, $varMethod, $varData=null, $varPort=null, $varHeaders=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
                     try {
@@ -193,8 +102,29 @@ namespace App\Helpers\ZhtHelper\System
                             'body' =>  json_encode($varData, true)
                             ]
                             );
-                        $varHTTPStatusCode = $varResponse->getStatusCode();
-                        $varResponseData = $varResponse->getBody()->getContents();
+                        $varHTTPStatusCode = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varResponse);
+                        $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
+                        
+echo "<br><br>ON setRequest -->";
+//echo $varResponse->getStatusCode();
+var_dump($varResponse->getHeaders());
+//var_dump($varResponse->);
+echo "<br><br>";
+
+//var_dump(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse));
+//echo "<br><br><br>";
+//var_dump(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Date'));
+//echo "<br><br><br>";
+//var_dump($varResponse->getHeaders());
+//$myresponse = new \GuzzleHttp\Psr7\Response();
+//$x=$myresponse->getStatusCode();
+//$x=$myresponse->getHeaders();
+//$x=$varResponse->getHeaders();                    
+//echo "---------------";
+//var_dump($x);
+//echo "---------------";
+
+
                         } 
 
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
@@ -206,8 +136,7 @@ namespace App\Helpers\ZhtHelper\System
                         //die;
                         }
                     
-                    \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
-                    
+                    //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                     
                     $varResponseContents = [
                         'metadata' => [
@@ -221,6 +150,7 @@ namespace App\Helpers\ZhtHelper\System
 
                     //var_dump($varResponseContents);
                     $varReturn = $varResponseContents;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -236,28 +166,32 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setResponse                                                                                          |
+        | ▪ Method Name     : setRequest                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-27                                                                                           |
-        | ▪ Description     : Mengeset Response HTTP untuk Requester (digunakan oleh backend untuk dikirim ke client/frontend)     |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-12                                                                                           |
+        | ▪ Description     : Mengeset Ulang Nilai Header pada Request HTTP (Digunakan bila Request sudah terbentuk)               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varDataSend ► Data yang akan dikirim kan                                                                 |
+        |      ▪ (mixed)  varObjRequest ► Objek Request                                                                            |
+        |      ▪ (string) varKey ► Nama Header                                                                                     |
+        |      ▪ (mixed)  varPort ► Nilai Header                                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setResponse($varUserSession, $varDataSend)
+        public static function setRequest_Header($varUserSession, &$varObjRequest, string $varKey, $varValue)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set HTTP Response');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Specific Header on HTTP Request');
                 try {
-                    $varReturn = response()->json($varDataSend);
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varObjRequest->headers->set($varKey, $varValue);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }          
+                    } 
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
@@ -269,8 +203,7 @@ namespace App\Helpers\ZhtHelper\System
             }
 
 
-        
-        
+         
         
         
         

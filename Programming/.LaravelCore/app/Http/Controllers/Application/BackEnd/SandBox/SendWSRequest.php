@@ -22,7 +22,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 'Data' => []
                 ];
 
-            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
+            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                 000000, 
                 'http://172.28.0.3/api/gateway', 
                 $varDataArray
