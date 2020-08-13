@@ -107,6 +107,7 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get BZip2 Compression for data`'.$varData.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if(!$varBlockSize)
                         {
                         $varBlockSize = 9;
@@ -117,6 +118,7 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     $varCompressedData = \bzcompress($varData, $varBlockSize, $varWorkFactor);
                     $varReturn = $varCompressedData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -151,8 +153,10 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get BZip2 Decompression for compressed data`'.$varCompressedData.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varUncompressedData = \bzdecompress($varCompressedData);
                     $varReturn = $varUncompressedData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -188,12 +192,14 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get ZLib Compression for data`'.$varData.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if(!$varCompressionLevel)
                         {
                         $varCompressionLevel = 9;
                         }
                     $varCompressedData = \gzcompress($varData, $varCompressionLevel);
                     $varReturn = $varCompressedData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -228,8 +234,10 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get ZLib Decompression for compressed data`'.$varCompressedData.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varUncompressedData = \gzuncompress($varCompressedData);
                     $varReturn = $varUncompressedData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {

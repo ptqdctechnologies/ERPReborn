@@ -11,8 +11,11 @@ RUN apt-get update \
     && docker-php-ext-install \
        sockets \
     && docker-php-ext-enable \
-       sockets
-#    && docker-php-ext-install
+       sockets \
+    && apt-get install -y \
+       libcurl4-gnutls-dev \
+       && docker-php-ext-install \
+          curl
 
 #---> Cloning File
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/vhost.conf /etc/apache2/sites-available/000-default.conf

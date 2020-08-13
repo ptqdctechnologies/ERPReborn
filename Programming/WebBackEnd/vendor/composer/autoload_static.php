@@ -15,11 +15,11 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
-        '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
         'c964ee0ededf28c96ebd9db5099ef910' => __DIR__ . '/..' . '/guzzlehttp/promises/src/functions_include.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
@@ -44,6 +44,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'c' => 
+        array (
+            'cweagans\\Composer\\' => 18,
         ),
         'X' => 
         array (
@@ -184,6 +188,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'cweagans\\Composer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/cweagans/composer-patches/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -521,7 +529,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
+        'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
+        'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Main' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Main.php',
@@ -532,6 +542,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Controller_Main' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Environment/Controller_Main.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
+        'App\\Http\\Middleware\\Application\\BackEnd\\API\\Authentication\\RequestHandler' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/API/Authentication/RequestHandler.php',
+        'App\\Http\\Middleware\\Application\\BackEnd\\API\\Authentication\\ResponseHandler' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/API/Authentication/ResponseHandler.php',
+        'App\\Http\\Middleware\\Application\\BackEnd\\API\\Authentication\\TerminateHandler' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/API/Authentication/TerminateHandler.php',
         'App\\Http\\Middleware\\Application\\BackEnd\\RequestHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/RequestHandler_General.php',
         'App\\Http\\Middleware\\Application\\BackEnd\\ResponseHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/ResponseHandler_General.php',
         'App\\Http\\Middleware\\Application\\BackEnd\\TerminateHandler_General' => __DIR__ . '/../..' . '/app/Http/Middleware/Application/BackEnd/TerminateHandler_General.php',
@@ -5165,6 +5178,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'cweagans\\Composer\\PatchEvent' => __DIR__ . '/..' . '/cweagans/composer-patches/src/PatchEvent.php',
+        'cweagans\\Composer\\PatchEvents' => __DIR__ . '/..' . '/cweagans/composer-patches/src/PatchEvents.php',
+        'cweagans\\Composer\\Patches' => __DIR__ . '/..' . '/cweagans/composer-patches/src/Patches.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

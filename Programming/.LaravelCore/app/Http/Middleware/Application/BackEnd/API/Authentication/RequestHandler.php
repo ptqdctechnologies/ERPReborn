@@ -10,7 +10,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
             }
 
         private function CheckAllStage(&$varObjRequest, &$varObjNext)
-            {
+            {            
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varDataSeparatorTag = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR');
             $varClientServerDateTimeLagTolerance = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TIME_LAG_TOLERANCE_CLIENT_SERVER');
@@ -19,7 +19,9 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 $varServerCurrentUnixTime=\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession);
                 //---> HTTP Header Check
                 $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
+//echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
 //var_dump($varHTTPHeader);
+//echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
                 //--->---> Check Date Time on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date', $varHTTPHeader)==false)
                     {
@@ -59,10 +61,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 $varReturn = $varObjNext($varObjRequest);
                 }
             catch (\Exception $ex) {
-                $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';
-                $varDataMessage = explode($varDataSeparatorTag, $ex->getMessage());                
-                $varReturn = abort($varDataMessage[0], $varMessageHeading.$varDataMessage[1]);
-                //$varReturn = response()->json(['error' => $varMessageHeading.$varDataMessage[1]], $varDataMessage[0]);
+                $varDataMessage = explode($varDataSeparatorTag, $ex->getMessage());
+                $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPError::setErrorPage($varUserSession, $varDataMessage[0], $varDataMessage[1]);
                 }
             return $varReturn;
             }

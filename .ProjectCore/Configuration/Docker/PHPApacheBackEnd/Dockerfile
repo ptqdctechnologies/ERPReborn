@@ -29,7 +29,11 @@ RUN apt-get update \
        && docker-php-ext-install \
           ldap \
        && docker-php-ext-enable \
-          ldap
+          ldap \
+    && apt-get install -y \ 
+       libcurl4-gnutls-dev \
+       && docker-php-ext-install \
+          curl
 
 #ADD . /var/www
 #ADD ./public /var/www/html

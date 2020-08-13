@@ -108,6 +108,52 @@
         ]
     },
     {
+        "name": "cweagans/composer-patches",
+        "version": "1.6.7",
+        "version_normalized": "1.6.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/cweagans/composer-patches.git",
+            "reference": "2e6f72a2ad8d59cd7e2b729f218bf42adb14f590"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/2e6f72a2ad8d59cd7e2b729f218bf42adb14f590",
+            "reference": "2e6f72a2ad8d59cd7e2b729f218bf42adb14f590",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0",
+            "php": ">=5.3.0"
+        },
+        "require-dev": {
+            "composer/composer": "~1.0",
+            "phpunit/phpunit": "~4.6"
+        },
+        "time": "2019-08-29T20:11:49+00:00",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "cweagans\\Composer\\Patches"
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "cweagans\\Composer\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Cameron Eagans",
+                "email": "me@cweagans.net"
+            }
+        ],
+        "description": "Provides a way to patch Composer packages."
+    },
+    {
         "name": "dnoegel/php-xdg-base-dir",
         "version": "v0.1.1",
         "version_normalized": "0.1.1.0",
@@ -567,17 +613,17 @@
     },
     {
         "name": "facade/ignition",
-        "version": "2.3.5",
-        "version_normalized": "2.3.5.0",
+        "version": "2.3.6",
+        "version_normalized": "2.3.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facade/ignition.git",
-            "reference": "58dc4a8df3d41174c677a370b6779b694e4539e7"
+            "reference": "d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facade/ignition/zipball/58dc4a8df3d41174c677a370b6779b694e4539e7",
-            "reference": "58dc4a8df3d41174c677a370b6779b694e4539e7",
+            "url": "https://api.github.com/repos/facade/ignition/zipball/d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81",
+            "reference": "d7d05dba5a0bdbf018a2cb7be268f22f5d73eb81",
             "shasum": ""
         },
         "require": {
@@ -602,7 +648,7 @@
         "suggest": {
             "laravel/telescope": "^3.1"
         },
-        "time": "2020-08-01T21:20:01+00:00",
+        "time": "2020-08-10T13:50:38+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1256,17 +1302,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v7.24.0",
-        "version_normalized": "7.24.0.0",
+        "version": "v7.25.0",
+        "version_normalized": "7.25.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "71bfb1f2f89e4e31fba539d43fe287143e635e68"
+            "reference": "fdf3d4a40447eb286ba3820768306cae64bcc0b3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/71bfb1f2f89e4e31fba539d43fe287143e635e68",
-            "reference": "71bfb1f2f89e4e31fba539d43fe287143e635e68",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/fdf3d4a40447eb286ba3820768306cae64bcc0b3",
+            "reference": "fdf3d4a40447eb286ba3820768306cae64bcc0b3",
             "shasum": ""
         },
         "require": {
@@ -1379,7 +1425,7 @@
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2020-08-07T15:13:57+00:00",
+        "time": "2020-08-11T13:43:10+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1415,17 +1461,17 @@
     },
     {
         "name": "laravel/tinker",
-        "version": "v2.4.1",
-        "version_normalized": "2.4.1.0",
+        "version": "v2.4.2",
+        "version_normalized": "2.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/tinker.git",
-            "reference": "3c9ef136ca59366bc1b50b7f2500a946d5149c62"
+            "reference": "58424c24e8aec31c3a3ac54eb3adb15e8a0a067b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/tinker/zipball/3c9ef136ca59366bc1b50b7f2500a946d5149c62",
-            "reference": "3c9ef136ca59366bc1b50b7f2500a946d5149c62",
+            "url": "https://api.github.com/repos/laravel/tinker/zipball/58424c24e8aec31c3a3ac54eb3adb15e8a0a067b",
+            "reference": "58424c24e8aec31c3a3ac54eb3adb15e8a0a067b",
             "shasum": ""
         },
         "require": {
@@ -1443,7 +1489,7 @@
         "suggest": {
             "illuminate/database": "The Illuminate Database package (^6.0|^7.0|^8.0)."
         },
-        "time": "2020-07-07T15:10:00+00:00",
+        "time": "2020-08-11T19:28:08+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1724,17 +1770,17 @@
     },
     {
         "name": "mockery/mockery",
-        "version": "1.4.1",
-        "version_normalized": "1.4.1.0",
+        "version": "1.4.2",
+        "version_normalized": "1.4.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/mockery/mockery.git",
-            "reference": "1404386ca3410b04fe58b9517e85d702ab33b2c6"
+            "reference": "20cab678faed06fac225193be281ea0fddb43b93"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/mockery/mockery/zipball/1404386ca3410b04fe58b9517e85d702ab33b2c6",
-            "reference": "1404386ca3410b04fe58b9517e85d702ab33b2c6",
+            "url": "https://api.github.com/repos/mockery/mockery/zipball/20cab678faed06fac225193be281ea0fddb43b93",
+            "reference": "20cab678faed06fac225193be281ea0fddb43b93",
             "shasum": ""
         },
         "require": {
@@ -1746,9 +1792,9 @@
             "phpunit/phpunit": "<8.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "^8.5 || ^9.0"
+            "phpunit/phpunit": "^8.5 || ^9.3"
         },
-        "time": "2020-07-09T08:31:54+00:00",
+        "time": "2020-08-11T18:10:13+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2174,17 +2220,17 @@
     },
     {
         "name": "opis/closure",
-        "version": "3.5.5",
-        "version_normalized": "3.5.5.0",
+        "version": "3.5.6",
+        "version_normalized": "3.5.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/opis/closure.git",
-            "reference": "dec9fc5ecfca93f45cd6121f8e6f14457dff372c"
+            "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/opis/closure/zipball/dec9fc5ecfca93f45cd6121f8e6f14457dff372c",
-            "reference": "dec9fc5ecfca93f45cd6121f8e6f14457dff372c",
+            "url": "https://api.github.com/repos/opis/closure/zipball/e8d34df855b0a0549a300cb8cb4db472556e8aa9",
+            "reference": "e8d34df855b0a0549a300cb8cb4db472556e8aa9",
             "shasum": ""
         },
         "require": {
@@ -2194,7 +2240,7 @@
             "jeremeamia/superclosure": "^2.0",
             "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
         },
-        "time": "2020-06-17T14:59:55+00:00",
+        "time": "2020-08-11T08:46:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -3031,20 +3077,21 @@
     },
     {
         "name": "predis/predis",
-        "version": "v1.1.1",
-        "version_normalized": "1.1.1.0",
+        "version": "v1.1.2",
+        "version_normalized": "1.1.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/nrk/predis.git",
-            "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1"
+            "reference": "82eb18c6c3860849cb6e2ff34b0c4b39d5daee46"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
-            "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
+            "url": "https://api.github.com/repos/nrk/predis/zipball/82eb18c6c3860849cb6e2ff34b0c4b39d5daee46",
+            "reference": "82eb18c6c3860849cb6e2ff34b0c4b39d5daee46",
             "shasum": ""
         },
         "require": {
+            "cweagans/composer-patches": "^1.6",
             "php": ">=5.3.9"
         },
         "require-dev": {
@@ -3054,8 +3101,20 @@
             "ext-curl": "Allows access to Webdis when paired with phpiredis",
             "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
         },
-        "time": "2016-06-16T16:22:20+00:00",
+        "time": "2020-08-11T17:28:15+00:00",
         "type": "library",
+        "extra": {
+            "composer-exit-on-patch-failure": true,
+            "patches": {
+                "phpunit/phpunit-mock-objects": {
+                    "Fix PHP 7 and 8 compatibility": "./tests/phpunit_mock_objects.patch"
+                },
+                "phpunit/phpunit": {
+                    "Fix PHP 7 compatibility": "./tests/phpunit_php7.patch",
+                    "Fix PHP 8 compatibility": "./tests/phpunit_php8.patch"
+                }
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
@@ -3079,6 +3138,16 @@
             "nosql",
             "predis",
             "redis"
+        ],
+        "funding": [
+            {
+                "url": "https://www.paypal.me/tillkruss",
+                "type": "custom"
+            },
+            {
+                "url": "https://github.com/tillkruss",
+                "type": "github"
+            }
         ]
     },
     {
@@ -3500,38 +3569,41 @@
     },
     {
         "name": "ramsey/collection",
-        "version": "1.0.1",
-        "version_normalized": "1.0.1.0",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/ramsey/collection.git",
-            "reference": "925ad8cf55ba7a3fc92e332c58fd0478ace3e1ca"
+            "reference": "044184884e3c803e4cbb6451386cb71562939b18"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/ramsey/collection/zipball/925ad8cf55ba7a3fc92e332c58fd0478ace3e1ca",
-            "reference": "925ad8cf55ba7a3fc92e332c58fd0478ace3e1ca",
+            "url": "https://api.github.com/repos/ramsey/collection/zipball/044184884e3c803e4cbb6451386cb71562939b18",
+            "reference": "044184884e3c803e4cbb6451386cb71562939b18",
             "shasum": ""
         },
         "require": {
-            "php": "^7.2"
+            "php": "^7.2 || ^8"
         },
         "require-dev": {
-            "dealerdirect/phpcodesniffer-composer-installer": "^0.5.0",
+            "captainhook/captainhook": "^5.3",
+            "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+            "ergebnis/composer-normalize": "^2.6",
             "fzaninotto/faker": "^1.5",
-            "jakub-onderka/php-parallel-lint": "^1",
+            "hamcrest/hamcrest-php": "^2",
             "jangregor/phpstan-prophecy": "^0.6",
             "mockery/mockery": "^1.3",
             "phpstan/extension-installer": "^1",
-            "phpstan/phpdoc-parser": "0.4.1",
-            "phpstan/phpstan": "^0.12",
-            "phpstan/phpstan-mockery": "^0.12",
-            "phpstan/phpstan-phpunit": "^0.12",
+            "phpstan/phpstan": "^0.12.32",
+            "phpstan/phpstan-mockery": "^0.12.5",
+            "phpstan/phpstan-phpunit": "^0.12.11",
             "phpunit/phpunit": "^8.5",
-            "slevomat/coding-standard": "^6.0",
-            "squizlabs/php_codesniffer": "^3.5"
+            "psy/psysh": "^0.10.4",
+            "slevomat/coding-standard": "^6.3",
+            "squizlabs/php_codesniffer": "^3.5",
+            "vimeo/psalm": "^3.12.2"
         },
-        "time": "2020-01-05T00:22:59+00:00",
+        "time": "2020-08-11T00:57:21+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -3551,7 +3623,6 @@
             }
         ],
         "description": "A PHP 7.2+ library for representing and manipulating collections.",
-        "homepage": "https://github.com/ramsey/collection",
         "keywords": [
             "array",
             "collection",
@@ -3559,6 +3630,12 @@
             "map",
             "queue",
             "set"
+        ],
+        "funding": [
+            {
+                "url": "https://github.com/ramsey",
+                "type": "github"
+            }
         ]
     },
     {

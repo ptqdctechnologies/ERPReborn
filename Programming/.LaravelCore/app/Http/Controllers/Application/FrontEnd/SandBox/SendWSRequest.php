@@ -19,21 +19,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send Authentication Request');
                 try {
-                    //----( M A I N   C O D E ) ------------- [ S T A R T ]-----
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
-                        'metadata' => [],
+                        'metadata' => [
+                            ],
                         'data' => [
                             'userName' => 'teguh.pratama',
                             'userPassword' => 'teguhpratama789'
                             ]
                         ];
-                    $x = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
+                    $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
                         $varDataArray
-                        );            
+                        );
+                    echo "RESPON DATA : ";
                     var_dump($x);
-                    //----( M A I N   C O D E ) ------------- [   E N D   ]-----
+//phpinfo();
+                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
+                    var_dump(headers_list());
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -44,22 +50,32 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             catch (\Exception $ex) {
                 }
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-
-            
-            
-            
-            
-            
-            
-            
-            /*
-            
-            
-            
-            
-            */
             }
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
         public function SendRequest()
             {
@@ -69,7 +85,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'Data' => []
                 ];
 
-            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getResponse(
+            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),                  
                 $varDataArray
