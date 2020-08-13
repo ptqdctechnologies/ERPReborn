@@ -26,6 +26,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
     'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => $baseDir . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
+    'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',

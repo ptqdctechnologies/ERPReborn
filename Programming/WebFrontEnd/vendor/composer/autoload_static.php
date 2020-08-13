@@ -524,6 +524,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
+        'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
