@@ -525,6 +525,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
+        'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',

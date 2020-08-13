@@ -21,7 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
-                        'metadata' => [],
+                        'metadata' => [
+                            ],
                         'data' => [
                             'userName' => 'teguh.pratama',
                             'userPassword' => 'teguhpratama789'
@@ -32,7 +33,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
                         $varDataArray
                         );
+                    echo "RESPON DATA : ";
                     var_dump($x);
+//phpinfo();
+                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
+                    var_dump(headers_list());
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -44,22 +50,32 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             catch (\Exception $ex) {
                 }
             \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-
-            
-            
-            
-            
-            
-            
-            
-            /*
-            
-            
-            
-            
-            */
             }
 
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 
         public function SendRequest()
             {

@@ -8,9 +8,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         {
         public function __construct()
             {
-           $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
+//            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
             $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\ResponseHandler::class);
-           $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
+//            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
             }
 
         public function init()
@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                 //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 //$varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-
+                
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);            
                 $varUserName = $varDataReceive['data']['userName'];
                 $varUserPassword = $varDataReceive['data']['userPassword'];
@@ -34,19 +34,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
 
                 if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
                     {
-                    echo "Login berhasil";
+                    //echo "Login berhasil";
+                    $varDataSend = ['message' => 'Sukses alhamdulillah'];
                     }
                 else
                     {
-                    echo "Login gagal";
+                    //echo "Login gagal";
+                    $varDataSend = ['message' => 'Gagal lagi gagal lagi'];
                     }
 
-                $varDataSend = ['message' => 'Sukses alhamdulillah'];
-                return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+//                echo "<br>CONSTRUCT : "; var_dump(headers_list());
+
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----                
                 } 
             catch (\Exception $ex) {
+                $varDataSend = ['message' => 'Gagal lagi gagal lagi'];
                 }
+            return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+//$x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+//echo $x;
+//echo "<br><br>MY RETURN ON getUserAuthentication (API) : "; var_dump($x); echo "<br><br>";
             }
             
             

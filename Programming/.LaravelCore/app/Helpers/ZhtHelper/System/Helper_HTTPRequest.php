@@ -18,7 +18,8 @@ namespace App\Helpers\ZhtHelper\System
     | ▪ Class Name  : Helper_HTTPRequest                                                                                           |
     | ▪ Description : Menangani segala hal yang terkait HTTP Request dari Aplikasi                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
-    */    class Helper_HTTPRequest
+    */
+    class Helper_HTTPRequest
         {
         public static function getHeader($varUserSession)
             {
@@ -102,33 +103,13 @@ namespace App\Helpers\ZhtHelper\System
                             'body' =>  json_encode($varData, true)
                             ]
                             );
+                        $varDataMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Content-MD5');
                         $varHTTPStatusCode = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varResponse);
                         $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
-                        
-echo "<br><br>ON setRequest -->";
-//echo $varResponse->getStatusCode();
-var_dump($varResponse->getHeaders());
-//var_dump($varResponse->);
-echo "<br><br>";
-
-//var_dump(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse));
-//echo "<br><br><br>";
-//var_dump(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Date'));
-//echo "<br><br><br>";
-//var_dump($varResponse->getHeaders());
-//$myresponse = new \GuzzleHttp\Psr7\Response();
-//$x=$myresponse->getStatusCode();
-//$x=$myresponse->getHeaders();
-//$x=$varResponse->getHeaders();                    
-//echo "---------------";
-//var_dump($x);
-//echo "---------------";
-
-
+echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>".$varDataMD5."<br>~~~~~~~~~<br>";
                         } 
 
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
-                    //catch (\GuzzleHttp\Exception\ClientException $ex) {
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
@@ -147,8 +128,6 @@ echo "<br><br>";
 //echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
 //var_dump($varResponseContents);                    
 //echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
-
-                    //var_dump($varResponseContents);
                     $varReturn = $varResponseContents;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

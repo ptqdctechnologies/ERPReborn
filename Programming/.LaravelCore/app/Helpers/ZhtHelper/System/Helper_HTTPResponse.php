@@ -144,9 +144,9 @@ namespace App\Helpers\ZhtHelper\System
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varReturn = response()->json($varDataSend);
-                    //$varReturn = response()->;
-                    $varReturn->header('xxx', 'yahhhhh xxxxxx');
-                    echo "<br><br>MY RETURN ON setResponse : "; var_dump($varReturn); echo "<br><br>";
+                    //$varReturn->header('zzz', 'zzzZZZzzz');
+                    //$varReturn->header('Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varDataSend)));
+//echo "<br><br>MY RETURN ON setResponse : "; var_dump($varReturn); echo "<br><br>";
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }          
