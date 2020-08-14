@@ -20,7 +20,7 @@ namespace App\Helpers\ZhtHelper\System
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setErrorPage                                                                                         |
+        | ▪ Method Name     : setResponse                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-13                                                                                           |
@@ -34,7 +34,7 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setErrorPage($varUserSession, int $varHTTPStatusCode, string $varHTTPMessage=null)
+        public static function setResponse($varUserSession, int $varHTTPStatusCode, string $varHTTPMessage=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Error Page of HTTP');

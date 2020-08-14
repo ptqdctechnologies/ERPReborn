@@ -25,6 +25,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
     'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => $baseDir . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
+    'App\\Helpers\\ZhtHelper\\System\\Helper_APIResponse' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_APIResponse.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
