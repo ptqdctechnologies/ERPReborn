@@ -232,5 +232,15 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+        public static function getFileContentFromPHPScript($varUserSession, $varFilePath = null)
+            {
+            //if(is_file($varFilePath))
+                {
+                $ObjResource = str_replace(['<?php', '?>'], '', (file_get_contents($varFilePath)));
+                return($ObjResource);
+                //
+                }
+            }
         }
     }

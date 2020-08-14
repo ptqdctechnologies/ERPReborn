@@ -103,31 +103,46 @@ namespace App\Helpers\ZhtHelper\System
                             'body' =>  json_encode($varData, true)
                             ]
                             );
-                        $varDataMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Content-MD5');
                         $varHTTPStatusCode = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varResponse);
-                        $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
-echo "<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>".$varDataMD5."<br>~~~~~~~~~<br>";
+                        
+                        //---> Jika Backend Process Sukses
+                        if($varHTTPStatusCode == 200)
+                            {
+                            $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
+                            $varDataHeaderMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Content-MD5');
+                            
+                            if(strcmp($varDataHeaderMD5, \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData))==0)
+                                {
+                                $varResponseContents = [
+                                    'metadata' => [
+                                        'HTTPStatusCode' => $varHTTPStatusCode
+                                        ],
+                                    'data' => $varResponseData
+                                    ];                                
+                                //$varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
+                                }
+                            else
+                                {
+                                $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
+                                }
+                            }
+                        //---> Jika Backend Process Gagal
+                        else
+                            {
+                            $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Authentication process failed');
+                            }
                         } 
 
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
-                        //echo $responseBodyAsString;
-                        //die;
+//                        $varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
+                        $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_Authentication::getNotification_SuccessMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
                         }
-                    
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
+                                       
                     
-                    $varResponseContents = [
-                        'metadata' => [
-                            'HTTPStatusCode' => $varHTTPStatusCode
-                            ],
-                        'data' => $varResponseData
-                        ];
-//echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
-//var_dump($varResponseContents);                    
-//echo "<br>@@@@@@@@@@@@@@@@@@@@@<br>";
                     $varReturn = $varResponseContents;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

@@ -24,36 +24,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 //$varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
                 
-                $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);            
-                $varUserName = $varDataReceive['data']['userName'];
-                $varUserPassword = $varDataReceive['data']['userPassword'];
+//                $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);            
+//                $varUserName = $varDataReceive['data']['userName'];
+//                $varUserPassword = $varDataReceive['data']['userPassword'];
 
-                $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
-                $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
-                $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
-
-                if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
-                    {
+//                $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
+//                $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
+//                $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
+//                if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
+//                    {
                     //echo "Login berhasil";
                     $varDataSend = ['message' => 'Sukses alhamdulillah'];
-                    }
-                else
-                    {
-                    //echo "Login gagal";
-                    $varDataSend = ['message' => 'Gagal lagi gagal lagi'];
-                    }
+//                    }
+//                else
+//                    {
+//                    //echo "Login gagal";
+//                    $varDataSend = ['message' => 'Login gagal'];
+//                    return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Authentication process failed');
+//                    }
 
 //                echo "<br>CONSTRUCT : "; var_dump(headers_list());
 
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----                
                 } 
             catch (\Exception $ex) {
-                $varDataSend = ['message' => 'Gagal lagi gagal lagi'];
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Error');
                 }
             return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
-//$x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
-//echo $x;
-//echo "<br><br>MY RETURN ON getUserAuthentication (API) : "; var_dump($x); echo "<br><br>";
             }
             
             
