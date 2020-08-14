@@ -50,6 +50,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
             catch (\Exception $ex) {
                 $varDataSend = ['message' => 'Gagal lagi gagal lagi'];
                 }
+//            return response("Passwords do not match", 500);
+            return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setErrorPage($varUserSession, 403, 'xxx');
+            //return abort(403,'Anda tidak punya akses karena anda Malas Ngoding');
             return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
 //$x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
 //echo $x;

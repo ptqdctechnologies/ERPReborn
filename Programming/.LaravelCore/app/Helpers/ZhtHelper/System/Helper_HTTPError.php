@@ -46,6 +46,7 @@ namespace App\Helpers\ZhtHelper\System
                         $varHTTPMessage = '';
                         }
                     $varReturn = abort($varHTTPStatusCode, $varMessageHeading.$varHTTPMessage);
+                    //$varReturn = abort(404, 'xxx');
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);

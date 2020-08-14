@@ -1,1 +1,1 @@
-./../../../.LaravelCore/app/resources/views/zhtHelperLogOutputShow.blade.php
+./../../../.LaravelCore/resources/views/BackEnd/zhtHelperLogOutputShow.blade.php
