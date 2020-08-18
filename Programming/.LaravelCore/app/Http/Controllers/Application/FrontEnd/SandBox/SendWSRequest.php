@@ -18,10 +18,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send Authentication Request');
+//abort(422, 'Ketemu errorrrrr');
                 try {
+
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'metadata' => [
+                            'APIVersion' => 1
                             ],
                         'data' => [
                             'userName' => 'teguh.pratama',
@@ -33,16 +36,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
                         $varDataArray
                         );
+//return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Error');
+
                     echo "RESPON DATA : ";
                     var_dump($x);
 //phpinfo();
-                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
-                    var_dump(headers_list());
+//                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
+//                    var_dump(headers_list());
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
+//abort(422, 'Ketemu errorrrrr');
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);

@@ -143,8 +143,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getAutoMatchFilePath                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-05                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-18                                                                                           |
         | ▪ Description     : Mencari posisi file path varPostfix relatif terhadap varPrefix                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -180,6 +180,10 @@ namespace App\Helpers\ZhtHelper\General
                                 break;
                                 }
                             }
+                        }
+                    if(is_file($varPath)==0)
+                        {
+                        throw new \Exception('File path is not found');
                         }
                     //echo "<br>".$varPath;
                     $varReturn = $varPath;
@@ -241,6 +245,16 @@ namespace App\Helpers\ZhtHelper\General
                 return($ObjResource);
                 //
                 }
+            }
+        
+        public static function getFilesListInFolder($varUserSession, $varFilePath = null)
+            {
+            return array_diff(scandir($varFilePath, 1), ['.', '..']);
+            }
+        
+        public static function setIncludeAllFilesInFolder($varUserSession, $varFilePath = null)
+            {
+            return include($varFilePath.'*');
             }
         }
     }

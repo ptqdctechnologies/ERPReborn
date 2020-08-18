@@ -13,22 +13,32 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function SendRequest()
             {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+
+            $varAPIVersion = 1;
+            $varUserName = 'teguh.pratama';
+            $varUserPassword = 'teguhpratama789';
             
-            //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env');
-            
-            $varDataArray = [
-                'System' => [],
-                'Data' => []
+            $varAPI = [
+                'authentication', 
+                'getUserAuthentication', 
+                $varAPIVersion
+                ];
+            $varData = [
+                $varUserName,
+                $varUserPassword
                 ];
 
-            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                000000, 
-                'http://172.28.0.3/api/gateway', 
-                $varDataArray
-                );
+            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
+            $varDataSend = $ObjEngine->getUserAuthentication(
+                $varUserSession, 
+                $varAPI, 
+                $varData
+                );          
             echo "<br>Tunggu data masuk<br>";
-            var_dump($x);
+            var_dump($varDataSend);
             echo "<br>Finish";
             }
         }
