@@ -25,13 +25,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
-                $varAPIVersion = $varDataReceive['metadata']['APIVersion'];
-                $varUserName = $varDataReceive['data']['userName'];
-                $varUserPassword = $varDataReceive['data']['userPassword'];
-
+                $varAPI = [
+                    'authentication', 
+                    'getUserAuthentication', 
+                    $varDataReceive['metadata']['APIVersion']
+                    ];
+                $varData = [
+                    $varDataReceive['data']['userName'],
+                    $varDataReceive['data']['userPassword']
+                    ];
                 $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
-                $varDataSend = $ObjEngine->getUserAuthentication($varUserSession, $varAPIVersion, [$varUserName, $varUserPassword]);
-                //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----                
+                $varDataSend = $ObjEngine->getUserAuthentication($varUserSession, $varAPI, $varData);
+                //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                 } 
             catch (\Exception $ex) {
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Error');

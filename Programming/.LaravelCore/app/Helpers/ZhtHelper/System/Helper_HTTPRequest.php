@@ -104,7 +104,7 @@ namespace App\Helpers\ZhtHelper\System
                             ]
                             );
                         $varHTTPStatusCode = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varResponse);
-                        
+//echo $varHTTPStatusCode;                        
                         //---> Jika Backend Process Sukses
                         if($varHTTPStatusCode == 200)
                             {
@@ -138,7 +138,7 @@ namespace App\Helpers\ZhtHelper\System
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
 //                        $varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
-                        $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_Authentication::getNotification_SuccessMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
+                        $varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
                         }
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                                        

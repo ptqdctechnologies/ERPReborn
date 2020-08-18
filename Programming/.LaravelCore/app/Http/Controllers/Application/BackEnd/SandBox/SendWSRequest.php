@@ -17,32 +17,28 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-                $varAPIVersion = 1;
-                $varUserName = 'teguh.pratama';
-                $varUserPassword = 'teguhpratama789';
-
-                $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
-                $varDataSend = $ObjEngine->getUserAuthentication($varUserSession, $varAPIVersion, [$varUserName, $varUserPassword]);
-
+            $varAPIVersion = 1;
+            $varUserName = 'teguh.pratama';
+            $varUserPassword = 'teguhpratama789';
             
-            
-/*            $varDataArray = [
-                'metadata' => [
-                    'APIVersion' => 1
-                    ],
-                'data' => [
-                    'userName' => 'teguh.pratama',
-                    'userPassword' => 'teguhpratama789'
-                    ]
+            $varAPI = [
+                'authentication', 
+                'getUserAuthentication', 
+                $varAPIVersion
                 ];
-            
-            $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+            $varData = [
+                $varUserName,
+                $varUserPassword
+                ];
+
+            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
+            $varDataSend = $ObjEngine->getUserAuthentication(
                 $varUserSession, 
-                'http://172.28.0.3/api/auth',
-                $varDataArray
-                );*/
+                $varAPI, 
+                $varData
+                );          
             echo "<br>Tunggu data masuk<br>";
-            //var_dump($x);
+            var_dump($varDataSend);
             echo "<br>Finish";
             }
         }
