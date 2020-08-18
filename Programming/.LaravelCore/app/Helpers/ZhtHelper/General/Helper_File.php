@@ -242,5 +242,15 @@ namespace App\Helpers\ZhtHelper\General
                 //
                 }
             }
+        
+        public static function getFilesListInFolder($varUserSession, $varFilePath = null)
+            {
+            return array_diff(scandir($varFilePath, 1), ['.', '..']);
+            }
+        
+        public static function setIncludeAllFilesInFolder($varUserSession, $varFilePath = null)
+            {
+            return include($varFilePath.'*');
+            }
         }
     }

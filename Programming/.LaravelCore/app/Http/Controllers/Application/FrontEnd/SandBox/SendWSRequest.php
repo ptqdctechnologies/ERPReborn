@@ -22,6 +22,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'metadata' => [
+                            'APIVersion' => 1
                             ],
                         'data' => [
                             'userName' => 'teguh.pratama',
@@ -36,8 +37,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     echo "RESPON DATA : ";
                     var_dump($x);
 //phpinfo();
-                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
-                    var_dump(headers_list());
+//                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
+//                    var_dump(headers_list());
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

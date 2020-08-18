@@ -131,7 +131,7 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varDataSend ► Data yang akan dikirim kan                                                                 |
+        |      ▪ (array)  varDataSend ► Data yang akan dikirimkan                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
