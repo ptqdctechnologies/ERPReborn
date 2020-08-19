@@ -24,7 +24,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'metadata' => [
-                            'APIVersion' => 1
+                            'API' => [
+                                'version' => 1
+                                ]
                             ],
                         'data' => [
                             'userName' => 'teguh.pratama',

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserAuthentication\v1
     {
-    class authentication extends \App\Http\Controllers\Controller
+    class getUserAuthentication extends \App\Http\Controllers\Controller
         {
         function __construct()
             {
@@ -16,8 +16,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authe
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Authentication (version 1)');
                 try {
                     //---> Variable Initializing
-                    $varUserName = $varData[0];
-                    $varUserPassword = $varData[1];
+                    $varUserName = $varData['userName'];
+                    $varUserPassword = $varData['userPassword'];
 
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
