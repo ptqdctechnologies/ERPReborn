@@ -22,21 +22,27 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserPassword = 'teguhpratama789';
             
             $varAPI = [
-                'authentication', 
-                'getUserAuthentication', 
-                $varAPIVersion
+                'service' => 'authentication',
+                'class' => 'general', 
+                'subClass' => 'getUserAuthentication', 
+                'version' => $varAPIVersion
                 ];
             $varData = [
-                $varUserName,
-                $varUserPassword
+                'userName' => $varUserName,
+                'userPassword' => $varUserPassword
                 ];
 
-            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
+/*            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
             $varDataSend = $ObjEngine->getUserAuthentication(
                 $varUserSession, 
                 $varAPI, 
                 $varData
-                );          
+                );          */
+            
+              $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main();
+              $varDataSend = $ObjEngine->getUserAuthentication();
+            
+            
             echo "<br>Tunggu data masuk<br>";
             var_dump($varDataSend);
             echo "<br>Finish";
