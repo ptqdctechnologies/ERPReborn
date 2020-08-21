@@ -237,6 +237,22 @@ namespace App\Helpers\ZhtHelper\General
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFileContentFromPHPScript                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-19                                                                                           |
+        | ▪ Description     : Mendapatkan file content dari PHP Script berdasarkan File Path (varFilePath)                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function getFileContentFromPHPScript($varUserSession, $varFilePath = null)
             {
             //if(is_file($varFilePath))
@@ -246,12 +262,48 @@ namespace App\Helpers\ZhtHelper\General
                 //
                 }
             }
-        
-        public static function getFilesListInFolder($varUserSession, $varFilePath = null)
+
+
+        public static function getFileImageContent($varUserSession, $varFilePath = null)
             {
-            return array_diff(scandir($varFilePath, 1), ['.', '..']);
+            if(is_file($varFilePath))
+                {
+                $varImagePath=file_get_contents($varFilePath);
+                $varImageType=mime_content_type($varFilePath);
+                $varImageData=base64_encode($varImagePath);
+                $varSrcImage = 'data:'. $varImageType.';base64,'.$varImageData;                
+                }
+            else
+                {
+                //unset($varSrcImage);
+                $varSrcImage = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+                }
+            return $varSrcImage;
             }
-        
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFilesListInFolder                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-19                                                                                           |
+        | ▪ Description     : Mendapatkan daftar seluruh file pada file path (varFilePath)                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getFilesListInFolder($varUserSession, string $varFilePath = null)
+            {
+            $varReturn = array_diff(scandir($varFilePath, 1), ['.', '..']);
+            return $varReturn;
+            }
+
+
         public static function setIncludeAllFilesInFolder($varUserSession, $varFilePath = null)
             {
             return include($varFilePath.'*');

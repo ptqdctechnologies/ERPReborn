@@ -17,33 +17,46 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
-            $varAPIVersion = 1;
-            $varUserName = 'teguh.pratama';
+/*            $varUserName = 'teguh.pratama';
             $varUserPassword = 'teguhpratama789';
             
             $varAPI = [
                 'service' => 'authentication',
                 'class' => 'general', 
                 'subClass' => 'getUserAuthentication', 
-                'version' => $varAPIVersion
+                'version' => 'latest'
                 ];
             $varData = [
                 'userName' => $varUserName,
                 'userPassword' => $varUserPassword
                 ];
 
-/*            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
+            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\Authentication\Controller_Main();
             $varDataSend = $ObjEngine->getUserAuthentication(
                 $varUserSession, 
                 $varAPI, 
                 $varData
                 );          */
             
-              $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main();
-              $varDataSend = $ObjEngine->getUserAuthentication();
-            
-            
+            $ObjEngine = new \App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main();
+            $varDataSend = $ObjEngine->getUserAuthentication();
+              
+/*            $varAPI = [
+                'service' => 'core',
+                'class' => 'API', 
+                'subClass' => 'setNotificationSuccess', 
+                'version' => 'latest'
+                ];
+            $varData = [
+                'HTTPStatusCode' => 403,
+                'message' => 'Failed'
+                ];
+            $varDataSend = (new \App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main())->setNotificationSuccess($varData);
+*/            
             echo "<br>Tunggu data masuk<br>";
+            
+
+            
             var_dump($varDataSend);
             echo "<br>Finish";
             }

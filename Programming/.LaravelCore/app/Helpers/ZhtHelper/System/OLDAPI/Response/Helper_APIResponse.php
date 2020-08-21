@@ -17,7 +17,7 @@ namespace App\Helpers\ZhtHelper\System\API\Response
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_APIResponse
-        {    
+        {
         public static function getResponse()
             {
             $varArgsCount = func_num_args();

@@ -111,25 +111,64 @@ namespace App\Helpers\ZhtHelper\System
                             $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
                             $varDataHeaderMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Content-MD5');
                             
-                            if(strcmp($varDataHeaderMD5, \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData))==0)
+                            if(strcmp($varDataHeaderMD5, \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)) == 0)
                                 {
+                                //---> Based on Core\Engines\APIResponse\setNotificationSuccess\v1\setNotificationSuccess
                                 $varResponseContents = [
                                     'metadata' => [
-                                        'HTTPStatusCode' => $varHTTPStatusCode
+                                        'HTTPStatusCode' => $varHTTPStatusCode,
+                                        'APIResponse' => [
+                                            'class' => 'core.general.notification',
+                                            'type' => 'successMessage',
+                                            'version' => 1
+                                            ],
                                         ],
-                                    'data' => $varResponseData
-                                    ];                                
-                                //$varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
+                                    'data' => [
+                                        $varResponseData
+                                        ]
+                                    ];
                                 }
                             else
                                 {
-                                $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
+//                                $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Data integrity check failed');
+                                //---> Based on Core\Engines\APIResponse\setNotificationFailure\v1\setNotificationFailure
+                                $varResponseContents = [
+                                    'metadata' => [
+                                        'HTTPStatusCode' => $varHTTPStatusCode,
+                                        'APIResponse' => [
+                                            'class' => 'core.general.notification',
+                                            'type' => 'failureMessage',
+                                            'version' => 1
+                                            ],
+                                        ],
+                                    'data' => [
+                                        'message' => 'Data integrity check failed'
+                                        ]
+                                    ];
+                                //echo abort(403, 'xxxxx');
+                                //echo \App\Helpers\ZhtHelper\System\Helper_HTTPError::setThrowNewErrorFromEngine($varUserSession, 422, null);
+                                //echo "~~~~~~~~~~~~~~~~~~~~~~~~";
+                                //echo \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, '$varHTTPMessage');
                                 }
                             }
                         //---> Jika Backend Process Gagal
                         else
                             {
-                            $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Authentication process failed');
+//                            $varResponseContents = \App\Helpers\ZhtHelper\System\API\Response\Helper_APIResponse::getResponse($varUserSession, ['authentication', 'getErrorNotification', 'v1'] , $varHTTPStatusCode, 'Authentication process failed');
+                            //---> Based on Core\Engines\APIResponse\setNotificationFailure\v1\setNotificationFailure
+                            $varResponseContents = [
+                                'metadata' => [
+                                    'HTTPStatusCode' => $varHTTPStatusCode,
+                                    'APIResponse' => [
+                                        'class' => 'core.general.notification',
+                                        'type' => 'failureMessage',
+                                        'version' => 1
+                                        ],
+                                    ],
+                                'data' => [
+                                    'message' => 'Authentication process failed'
+                                    ]
+                                ];                                
                             }
                         } 
 
@@ -137,8 +176,21 @@ namespace App\Helpers\ZhtHelper\System
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
-//                        $varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
-                        $varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
+                        //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
+
+                        $varResponseContents = [
+                            'metadata' => [
+                                'HTTPStatusCode' => $varHTTPStatusCode,
+                                'APIResponse' => [
+                                    'class' => 'core.general.notification',
+                                    'type' => 'failureMessage',
+                                    'version' => 1
+                                    ],
+                                ],
+                            'data' => [
+                                'message' => $responseBodyAsString
+                                ]
+                            ]; 
                         }
                     //\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'admin', 'secretkey');
                                        
