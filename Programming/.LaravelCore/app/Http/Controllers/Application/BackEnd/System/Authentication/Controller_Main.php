@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);                
+
                 $varAPI = [
                     'service' => 'authentication',
                     'class' => 'general', 
@@ -42,7 +43,7 @@ $varAPI = [
     'service' => 'authentication',
     'class' => 'general', 
     'subClass' => 'getUserAuthentication', 
-    'version' => 1
+    'version' => 'latest'
     ];
 $varData = [
     'userName' => 'teguh.pratama',
@@ -54,12 +55,14 @@ $varData = [
                 //---> Method Call
                 $varDataSend = \App\Helpers\ZhtHelper\System\Helper_API::setCallAPIEngine($varUserSession, $varAPI, $varData);
 
-                //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
+                //
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
                 } 
             catch (\Exception $ex) {
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+            //return $varReturn;
             }
         }
     }

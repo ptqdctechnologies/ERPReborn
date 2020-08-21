@@ -8,8 +8,32 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
         function __construct()
             {
             }
-        
+
+
         function getUserAuthentication($varUserSession, $varData)
+            {
+            //---> Variable Initializing
+            $varUserName = $varData['userName'];
+            $varUserPassword = $varData['userPassword'];
+
+            //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
+            $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
+            $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
+            $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
+            if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
+                {
+                $varDataSend = ['message' => 'Login Succeeded'];
+                return $varDataSend;
+                }
+            else { 
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setThrowNewErrorFromEngine($varUserSession, 401, 'Invalid LDAP Authentication');
+                }
+            }
+            
+            
+            
+            
+        function getUserAuthenticationOLD($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -26,6 +50,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
                         {
                         //echo "Login berhasil";
+//throw new \Exception('xxxx');
+return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Errorxxxx');
                         $varDataSend = ['message' => 'Sukses alhamdulillah'];
                         }
                     else
@@ -45,6 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 } 
             catch (\Exception $ex) {
                 }
+
 //                abort(422);
 //return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Errorxxxx');
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);

@@ -18,14 +18,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send Authentication Request');
-//abort(422, 'Ketemu errorrrrr');
                 try {
 
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'metadata' => [
                             'API' => [
-                                'version' => 1
+                                'version' => 'latest'
                                 ]
                             ],
                         'data' => [
@@ -33,16 +32,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                             'userPassword' => 'teguhpratama789'
                             ]
                         ];
-                    $x = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
                         $varDataArray
                         );
-//return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, 'Error');
-
-                    echo "RESPON DATA : ";
-                    var_dump($x);
+                    
+                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                        {
+                        var_dump($varResponseData);
+                        }
+                    else
+                        {
+                        echo $varResponseData['data']['message'];
+                        }
+                    
+                    
 //phpinfo();
+//                    echo "RESPON DATA : ";
+//                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
+//                    $x = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/Authentication/Engines/general/getUserAuthentication');
+//                    var_dump($x);
 //                    echo "<br>~~~~~~~~~~~~~~~~~~~~~~~<br>";
 //                    var_dump(headers_list());
 
@@ -50,7 +60,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
-//abort(422, 'Ketemu errorrrrr');
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
