@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
             {
             $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
             $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\ResponseHandler::class);
-//            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
             }
 
         public function init()

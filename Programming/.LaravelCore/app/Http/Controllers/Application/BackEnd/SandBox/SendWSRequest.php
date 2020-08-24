@@ -10,6 +10,27 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+
+/*        public function SendRequest()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+//$varSQL="SELECT NOW();";
+$varSQL="
+    SELECT 
+        * 
+    FROM 
+        \"SchSysConfig\".\"Func_TblRotateLog_APIRequest_SET\"( 
+            NOW()::timestamptz, 
+            'http://172.28.0.3/api/auth'::varchar, 
+            'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'::varchar, 
+            '172.28.0.4'::cidr
+            )      
+";
+\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);
+var_dump($varSQL);
+            }*/
+
             
         public function SendRequest()
             {
@@ -17,6 +38,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
 
+            
+            
 /*            $varUserName = 'teguh.pratama';
             $varUserPassword = 'teguhpratama789';
             

@@ -33,7 +33,9 @@ RUN apt-get update \
     && apt-get install -y \ 
        libcurl4-gnutls-dev \
        && docker-php-ext-install \
-          curl
+          curl \
+    && apt-get install -y \ 
+       arp-scan
 
 #ADD . /var/www
 #ADD ./public /var/www/html

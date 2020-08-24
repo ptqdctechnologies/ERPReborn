@@ -46,15 +46,15 @@ services:
       #- './:/var/www/html'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
-    links:
-      - 'db-postgresql'
-    environment:
-      DB_CONNECTION: 'pgsql'
-      DB_HOST: 'db-postgresql'
-      DB_PORT: 5432
-      DB_DATABASE: 'dbERPReborn'
-      DB_USERNAME: 'SysEngine'
-      DB_PASSWORD: '748159263'
+#    links:
+#      - 'db-postgresql'
+#    environment:
+#      DB_CONNECTION: 'pgsql'
+#      DB_HOST: 'db-postgresql'
+#      DB_PORT: 5432
+#      DB_DATABASE: 'dbERPReborn'
+#      DB_USERNAME: 'SysEngine'
+#      DB_PASSWORD: '748159263'
 
 
   #---> Services : PostgreSQL Database

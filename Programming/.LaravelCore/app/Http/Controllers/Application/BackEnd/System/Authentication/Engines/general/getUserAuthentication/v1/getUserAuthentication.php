@@ -26,8 +26,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 return $varDataSend;
                 }
             else { 
-                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setThrowNewErrorFromEngine($varUserSession, 401, 'Invalid LDAP Authentication');
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, 401, 'Invalid LDAP Authentication');
                 }
+            //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
             }
             
             
