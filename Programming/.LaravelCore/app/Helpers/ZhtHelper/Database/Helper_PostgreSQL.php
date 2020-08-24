@@ -242,6 +242,10 @@ namespace App\Helpers\ZhtHelper\Database
                         $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
                         unset($varData);
                         }
+                    else
+                        {
+                        throw new \Exception('Database connection is not available');
+                        }
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {

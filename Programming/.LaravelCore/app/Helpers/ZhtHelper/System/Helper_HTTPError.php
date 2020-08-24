@@ -143,11 +143,11 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setThrowNewErrorFromEngine                                                                           |
+        | ▪ Method Name     : setResponseOveride                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-21                                                                                           |
-        | ▪ Description     : Mengeset New Throw Error untuk mengoveride Default Error Caller Engine                               |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-24                                                                                           |
+        | ▪ Description     : Mengeset New Throw Error untuk mengoveride Default Error Caller Engine (Khusus untuk Engine)         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
@@ -157,7 +157,7 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setThrowNewErrorFromEngine($varUserSession, int $varHTTPStatusCode, string $varHTTPMessage=null)
+        public static function setResponseOveride($varUserSession, int $varHTTPStatusCode, string $varHTTPMessage=null)
             {
             $varDataSeparatorTag = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR');
             $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';

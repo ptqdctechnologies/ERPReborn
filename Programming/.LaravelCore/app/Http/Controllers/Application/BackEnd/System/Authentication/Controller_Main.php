@@ -8,9 +8,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         {
         public function __construct()
             {
-//            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
             $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\ResponseHandler::class);
-//            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
             }
 
         public function init()
@@ -53,7 +53,7 @@ $varData = [
 */
 
                 //---> Method Call
-                $varDataSend = \App\Helpers\ZhtHelper\System\Helper_API::setCallAPIEngine($varUserSession, $varAPI, $varData);
+                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPI, $varData);
 
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
                 //

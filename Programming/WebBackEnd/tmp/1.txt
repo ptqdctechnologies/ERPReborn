@@ -1,1 +1,11 @@
-hello terminate
+
+                SELECT 
+                    *
+                FROM 
+                    "SchSysConfig"."Func_TblRotateLog_APIRequest_SET"(
+                        NOW()::timestamptz,
+                        '172.28.0.4'::cidr,
+                        'http://172.28.0.3/api/auth'::varchar,
+                        'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'::varchar
+                        )
+                
