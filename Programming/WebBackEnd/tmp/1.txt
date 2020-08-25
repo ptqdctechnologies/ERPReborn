@@ -1,11 +1,17 @@
 
                 SELECT 
-                    *
+                    "SignRecordID" AS "Sys_RPK"
                 FROM 
-                    "SchSysConfig"."Func_TblRotateLog_APIRequest_SET"(
-                        NOW()::timestamptz,
-                        '172.28.0.4'::cidr,
-                        'http://172.28.0.3/api/auth'::varchar,
-                        'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'::varchar
+                    "SchSysConfig"."Func_TblRotateLog_API_SET"(
+                        '172.28.0.4'::cidr, 
+                        'http://172.28.0.3/api/auth'::varchar, 
+                        'Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.135 Safari/537.36'::varchar, 
+                        '2020-08-25 17:57:17+07'::timestamptz, 
+                        '{"host":["172.28.0.3"],"user-agent":["Mozilla\/5.0 (X11; Fedora; Linux x86_64) AppleWebKit\/537.36 (KHTML, like Gecko) Chrome\/84.0.4147.135 Safari\/537.36"],"date":["Tue, 25 Aug 2020 10:57:17 GMT"],"expires":["Tue, 25 Aug 2020 11:07:17 GMT"],"content-type":["application\/json"],"content-md5":["PmB\/Xlc5Fd3ZsOqa0zT51w=="],"x-request-id":["ERPReborn.5f44ee8d81eb04.14815972.00705cac804aef38fc0f284c560d92ea78cdde5c73b51b3198a04727d03acd89113227242def2c8785bf32399f3f4b64e05e"],"content-length":["110"]}'::json, 
+                        '{"metadata":{"API":{"version":"latest"}},"data":{"userName":"teguh.pratama","userPassword":"teguhpratama789"}}'::varchar, 
+                        '2020-08-25 17:57:17+07'::timestamptz, 
+                        200::smallint, 
+                        '{"cache-control":["no-cache, private"],"date":["Tue, 25 Aug 2020 10:57:17 GMT"],"content-type":["application\/json"],"content-md5":["lI1EgK9wtq+aOBc5mIg1+A=="],"x-ratelimit-limit":[60],"x-ratelimit-remaining":[59]}'::json, 
+                        '{"APIWebToken":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODM1MzAzN30.JDtEpq0-s2BrIC9EXLmGhf7ZJoJE55Jo5W9WQMMnS8s"}'::varchar
                         )
                 

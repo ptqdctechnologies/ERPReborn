@@ -43,15 +43,24 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getRequest($varUserSession)
+        public static function getRequest($varUserSession, &$varObjRequest=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get HTTP Request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varDataReceive = request()->json()->all();
-
+                    //---> Guzzle Mode
+                    if(!$varObjRequest)
+                        {
+                        $varDataReceive = request()->json()->all();
+                        }
+                    //---> Non Guzzle Mode
+                    else
+                        {
+                        //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varObjRequest->getContent());
+                        $varDataReceive = $varObjRequest->getContent();
+                        }
                     $varReturn = $varDataReceive;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -64,6 +73,57 @@ namespace App\Helpers\ZhtHelper\System
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getRequest_Header                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-25                                                                                           |
+        | ▪ Description     : Mendapatkan Header dari HTTP Request                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varObjResponse ► Objek HTTP Response                                                                     |
+        |      ▪ (string) varKey ► Nama Kunci Header                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getRequest_Header($varUserSession, $varObjRequest, $varKey=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Header of HTTP Request');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(!$varKey)
+                        {
+                        //---> Non Guzzle Mode
+                        $varReturn = $varObjRequest->header();
+                        }
+                    else
+                        {
+                        //---> Non Guzzle Mode
+                        $varReturn = $varObjRequest->header($varKey);
+                        if(count($varReturn)==1)
+                            {
+                            $varReturn = $varReturn[0];
+                            }
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }          
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
 

@@ -4,9 +4,9 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
     {
     class RequestHandler
         {
-        public function handle(\Illuminate\Http\Request $request, \Closure $next)
+        public function handle(\Illuminate\Http\Request $varObjRequest, \Closure $next)
             {
-            return $this->CheckAllStage($request, $next);
+            return $this->CheckAllStage($varObjRequest, $next);
             }
 
         private function CheckAllStage(&$varObjRequest, &$varObjNext)
