@@ -4,41 +4,35 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
     {
     class TerminateHandler
         {
-        public function handle(\Illuminate\Http\Request $request, \Closure $next)
+        public function handle(\Illuminate\Http\Request $varObjRequest, \Closure $next)
             {
-            return $next($request);
+            return $next($varObjRequest);
             }
             
-        public function terminate($request, $response)
+        public function terminate($varObjRequest, $varObjResponse)
             {
-            $varUserSession = 000000;
-            //$x = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getClientAgent($varUserSession, $request);
-            //$x = $request->ip();
-            //$x = url()->current();
-            //$x = $_SERVER['HTTP_USER_AGENT'];
-            //$x = \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession);
-            //$x = \App\Helpers\ZhtHelper\General\Helper_Network::getMACAddress($varUserSession, '172.28.0.4');
-            
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             //---> Store API Access Request to Database
             $varSQL = "
                 SELECT 
-                    *
+                    \"SignRecordID\" AS \"Sys_RPK\"
                 FROM 
-                    \"SchSysConfig\".\"Func_TblRotateLog_APIRequest_SET\"(
-                        NOW()::timestamptz,
-                        '".(\App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession))."'::cidr,
-                        '".(url()->current())."'::varchar,
-                        '".($_SERVER['HTTP_USER_AGENT'])."'::varchar
+                    \"SchSysConfig\".\"Func_TblRotateLog_API_SET\"(
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession)))."::cidr, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, url()->current()))."::varchar, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $_SERVER['HTTP_USER_AGENT']))."::varchar, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta'))))."::timestamptz, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest))))."::json, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest)))."::varchar, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta'))))."::timestamptz, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varObjResponse)))."::smallint, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse))))."::json, 
+                        ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)))."::varchar
                         )
                 ";
-            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);
-            
-            //file_put_contents(getcwd().'./../tmp/1.txt', $varSQL);
-            //file_put_contents(getcwd().'./../tmp/1.txt', $x);
-            
-            //echo "<br>".getcwd().'./../tmp/1.txt'."<br>";
-            //file_put_contents(getcwd().'./../tmp/1.txt', 'hello terminate');
-            //echo "TERMINATE";
+            $varDBData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);
+//            file_put_contents(getcwd().'./../tmp/1.txt', $varSQL);
+//            $x = $varDBData['Data'][0]['Sys_RPK'];
             }
         }
     }

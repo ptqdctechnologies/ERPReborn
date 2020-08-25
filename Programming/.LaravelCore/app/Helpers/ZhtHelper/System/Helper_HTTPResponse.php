@@ -165,8 +165,8 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setResponse_BodyContent                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-12                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan Body Content dari HTTP Response                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -183,7 +183,14 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Body Content of HTTP Response');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = $varObjResponse->getBody()->getContents();
+                    //---> Jika $varObjResponse dari Guzzle
+                    try {
+                        $varReturn = $varObjResponse->getBody()->getContents();                        
+                        } 
+                    //---> Jika $varObjResponse bukan dari Guzzle
+                    catch (\Exception $ex) {
+                        $varReturn = $varObjResponse->getContent();
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }          
@@ -200,10 +207,10 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setResponse_Header                                                                                   |
+        | ▪ Method Name     : getResponse_Header                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-12                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan Header dari HTTP Response                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -223,16 +230,42 @@ namespace App\Helpers\ZhtHelper\System
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if(!$varKey)
                         {
-                        $varReturn = $varObjResponse->getHeaders();
+                        //---> Guzzle Mode
+                        try {
+                            $varReturn = $varObjResponse->getHeaders();                        
+                            } 
+                        //---> Non Guzzle Mode
+                        catch (\Exception $ex) {
+                            try {
+                                $varReturn = $varObjResponse->headers->all();
+                                } 
+                            catch (\Exception $ex) {
+                                }
+                            }
                         }
                     else
                         {
-                        if ($varObjResponse->hasHeader($varKey)==true)
-                            {
-                            $varReturn = $varObjResponse->getHeader($varKey);
-                            if(count($varReturn)==1)
+                        //---> Guzzle Mode
+                        try {
+                            if ($varObjResponse->hasHeader($varKey)==true)
                                 {
-                                $varReturn = $varReturn[0];
+                                $varReturn = $varObjResponse->getHeader($varKey);
+                                if(count($varReturn)==1)
+                                    {
+                                    $varReturn = $varReturn[0];
+                                    }
+                                }                            
+                            } 
+                        //---> Non Guzzle Mode
+                        catch (\Exception $ex) {
+                            try {
+                                $varReturn = $varObjResponse->headers->get($varKey);
+                                if(count($varReturn)==1)
+                                    {
+                                    $varReturn = $varReturn[0];
+                                    }
+                                } 
+                            catch (\Exception $ex) {
                                 }
                             }
                         }
@@ -254,8 +287,8 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setResponse_HTTPStatusCode                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-12                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-25                                                                                           |
         | ▪ Description     : Mendapatkan Header dari HTTP Response                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -272,7 +305,18 @@ namespace App\Helpers\ZhtHelper\System
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Status Code of HTTP Response');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = $varObjResponse->getStatusCode();
+                    //---> Guzzle Mode
+                    try {
+                        $varReturn = $varObjResponse->getStatusCode();
+                        } 
+                    //---> Non Guzzle Mode
+                    catch (\Exception $ex) {
+                        try {
+                            $varReturn = $varObjResponse->status();
+                            } 
+                        catch (\Exception $ex) {
+                            }
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }          
