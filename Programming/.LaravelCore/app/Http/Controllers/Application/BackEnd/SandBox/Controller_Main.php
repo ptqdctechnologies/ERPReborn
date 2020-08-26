@@ -31,6 +31,30 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
 
+        public function testRedis()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            echo "TEST REDIS<br><br>";
+            $varUserSession = 000000;
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, 'MyKey', '{Myvalue}', 5);
+            for($i=0; $i!=3; $i++)
+                {
+                sleep(1);
+                echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
+                }
+            echo "<br>~~~~~~~~~~~";
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, 'MyKey', '{New Myvalue}', 5);
+            for($i=0; $i!=10; $i++)
+                {
+                sleep(1);
+                echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
+                }
+            //echo "<br>". \App\Helpers\ZhtHelper\Database\Helper_Redis::getStatusAvailability($varUserSession);
+            //echo "<br>".\Illuminate\Support\Facades\Redis::ttl('MyKey');
+            //echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey');
+            //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo($varUserSession));
+            }
+            
 
         public function test()
             {

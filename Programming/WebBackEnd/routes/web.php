@@ -22,6 +22,11 @@ Route::get('/', function () {
 
 
 
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testRedis', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testRedis');
+
+
+
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test2', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@test2');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('showLogOutput', 'get', 'zhtHelperLogOutputShow', 'web');
