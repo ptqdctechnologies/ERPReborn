@@ -36,6 +36,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             echo "TEST REDIS<br><br>";
             $varUserSession = 000000;
+            
+//            echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, 'SysAdmin', '10006000000000002');
+            
+            
             \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, 'MyKey', '{Myvalue}', 5);
             for($i=0; $i!=3; $i++)
                 {
@@ -49,6 +53,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 sleep(1);
                 echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
                 }
+
+ 
             //echo "<br>". \App\Helpers\ZhtHelper\Database\Helper_Redis::getStatusAvailability($varUserSession);
             //echo "<br>".\Illuminate\Support\Facades\Redis::ttl('MyKey');
             //echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey');
