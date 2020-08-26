@@ -127,8 +127,8 @@ namespace App\Helpers\ZhtHelper\General
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                 $varUserSession, 
                                 ['loggedInAs' => $varUserName, 'iat'=> \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession)]
+//                                ['loggedInAs' => $varUserName, 'iat'=> 1598434071]
                                 )
-                                //['loggedInAs' => $varUserName, 'iat'=> 1422779638])
                             );
                     $varSignature = 
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64URLEncode(
