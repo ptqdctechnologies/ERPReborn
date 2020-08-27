@@ -52,6 +52,73 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             require_once($varFilePath);
             $varObjEngine = new $varClass();
             $varReturn = $varObjEngine->{$varCallerFunctionName}($varUserSession, $varData);
+            
+            if($varReturn['metadata']['successStatus']==false)
+                {
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
+                }   
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setEngineResponseDataReturn_Fail                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-27                                                                                           |
+        | ▪ Description     : Mendapatkan Fail Engine Return HTTP Response                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varHTTPErrorCode ► Error Code HTTP Response                                                              |
+        |      ▪ (string) varHTTPErrorMessage ► Error Message HTTP Response                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setEngineResponseDataReturn_Fail($varUserSession, int $varHTTPErrorCode, string $varHTTPErrorMessage = null)
+            {
+            if(!$varHTTPErrorMessage)
+                {
+                $varHTTPErrorMessage = '';
+                }
+            $varReturn = [
+                "metadata" => [
+                    "successStatus" => false
+                    ],
+                "data" => [
+                    "code" => $varHTTPErrorCode,
+                    "message" => $varHTTPErrorMessage
+                    ]
+                ];
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setEngineResponseDataReturn_Success                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-27                                                                                           |
+        | ▪ Description     : Mendapatkan Success Engine Return HTTP Response                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data yang akan dikirim oleh HTTP Response                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setEngineResponseDataReturn_Success($varUserSession, array $varData)
+            {
+            $varReturn = [
+                "metadata" => [
+                    "successStatus" => true
+                    ],
+                "data" => $varData
+                ];
             return $varReturn;
             }
         }
