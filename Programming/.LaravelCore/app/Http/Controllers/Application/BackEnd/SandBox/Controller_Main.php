@@ -34,7 +34,29 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testRedis()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            echo "TEST REDIS<br><br>";
+            
+            $ObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
+//            $user = $ObjModel->   ->hydrate(
+//            $user = DB::select(
+//                "SELECT * FROM \"SchSysConfig\".\"FuncSys_General_GetUnixTime\"('2019-01-01 00:00:00 +07')"
+//                );
+//                );
+/*            $x = 
+                $ObjModel->hydrate(
+                    \Illuminate\Support\Facades\DB::select('SELECT NOW();')
+                    );
+            var_dump($x);
+*/
+            $varUserSession=0;
+            echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varUserSession, 
+                'SchSysConfig.Func_TblLog_UserLoginSession_SET', 
+                [111, null, null, null, 222, 'SysEngine', 'eyJhbGciOiJIUzI1NiIsI', null, 444, 95000000000001, '2018-01-01 00:00:00+07', '9999-12-31 23:59:59+07', null, null],
+                ['bigint', 'bigint', 'character varying', 'character varying', 'bigint', 'character varying', 'character varying', 'json', 'bigint', 'bigint', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone']
+                );
+            
+            
+/*            echo "TEST REDIS<br><br>";
             $varUserSession = 000000;
             
 //            echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, 'SysAdmin', '10006000000000002');
@@ -53,7 +75,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 sleep(1);
                 echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
                 }
-
+*/
  
             //echo "<br>". \App\Helpers\ZhtHelper\Database\Helper_Redis::getStatusAvailability($varUserSession);
             //echo "<br>".\Illuminate\Support\Facades\Redis::ttl('MyKey');

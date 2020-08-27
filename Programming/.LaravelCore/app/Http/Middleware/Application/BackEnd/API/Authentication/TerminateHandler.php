@@ -13,7 +13,21 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             //---> Store API Access Request to Database
-            $varSQL = "
+            $varObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblRotateLog_API();
+            $varObjModel->setInsert(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
+                url()->current(), 
+                $_SERVER['HTTP_USER_AGENT'], 
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
+                json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest)), 
+                \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest), 
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
+                \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varObjResponse), 
+                json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse)), 
+                \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)
+                );
+/*            $varSQL = "
                 SELECT 
                     \"SignRecordID\" AS \"Sys_RPK\"
                 FROM 
@@ -30,7 +44,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         ".(\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)))."::varchar
                         )
                 ";
-            $varDBData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);
+            $varDBData = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQL);*/
 //            file_put_contents(getcwd().'./../tmp/1.txt', $varSQL);
 //            $x = $varDBData['Data'][0]['Sys_RPK'];
             }

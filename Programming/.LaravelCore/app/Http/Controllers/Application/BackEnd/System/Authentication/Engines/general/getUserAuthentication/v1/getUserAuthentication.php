@@ -24,14 +24,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     $varHost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_HOST');
                     $varPost = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_PORT');
                     $varBaseDN = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'LDAP_BASEDN');
+                    //---> Jika Otentikasi berhasil
                     if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
                         {
+
+                        
+                        
+                        $varSQL = "
+                            SELECT 
+                                * 
+                            FROM 
+                                \"SchSysConfig\".\"Func_TblLog_UserLoginSession_SET\"(varSystemLoginSession, null, null, null, varInstitutionBranchID, 'SysEngine', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4'::varchar, null::json, varInstitutionBranchID::bigint, 95000000000001::bigint, '2018-01-01 00:00:00+07'::timestamptz, '9999-12-31 23:59:59+07'::timestamptz, null::timestamptz, null::timestamptz);
+                            ";
                         $varDataSend = [
                             'APIWebToken' => \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, 'SecretKey')
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         }
-                    else { 
+                    //---> Jika Otentikasi gagal
+                    else 
+                        { 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----

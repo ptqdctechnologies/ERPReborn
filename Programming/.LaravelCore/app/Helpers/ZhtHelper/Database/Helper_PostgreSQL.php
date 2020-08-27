@@ -119,7 +119,7 @@ namespace App\Helpers\ZhtHelper\Database
                         {
                         throw new \Exception('Database not available');
                         }
-                    $varDataFetch = DB::select('SELECT NOW();');
+                    $varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT NOW();');
                     foreach($varDataFetch as $row)
                         {
                         $varData = (array) $row;
@@ -160,7 +160,7 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check PostgreSQL database availability to accept request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varDataFetch = DB::select('SELECT 1;'))
+                    if(!$varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT 1;'))
                         {
                         throw new \Exception("Error");
                         }
@@ -289,7 +289,7 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
                     $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-                    $varReturn = DB::select($varSQLQuery);
+                    $varReturn = \Illuminate\Support\Facades\DB::select($varSQLQuery);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -426,6 +426,119 @@ namespace App\Helpers\ZhtHelper\Database
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBuildStringLiteral_StoredProcedure                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-25                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String untuk StoredProcedure                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varStoredProcedureName ► Nama Stored Procedure                                                           |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        |      ▪ (array)  varDataType ► Data Type                                                                                  |
+        |      ▪ (array)  varFieldReturn ► Return Field                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varDataType, array $varReturnField = ['*'])
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Build String Literal for Stored Procedure');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //---> Check data integrity
+                    if((!$varStoredProcedureName) OR (count($varData) == 0) OR (count($varDataType) == 0) OR (count($varReturnField) == 0) OR (count($varData) != count($varDataType)))
+                        {
+                        throw new \Exception('Invalid data entry');
+                        }
+                    //---> Build SELECT
+                    if((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
+                        {
+                        $varSQL = "SELECT * FROM ";
+                        }
+                    else
+                        {
+                        $varSQL = "SELECT ";
+                        for($i=0; $i!=count($varReturnField); $i++)
+                            {
+                            if($i != 0)
+                                {
+                                $varSQL .= ", ";
+                                }
+                            $varSQL .= "\"".$varReturnField[$i]."\"";
+                            }
+                        $varSQL .= " FROM ";
+                        }
+                    //--->
+                    $varTemp = explode('.', str_replace('"', '', $varStoredProcedureName));
+                    $varSQL .= "\"".$varTemp[0]."\".\"".$varTemp[1]."\"";
+                    //--->
+                    $varSQL .= "(";
+                    //--->
+                    for($i=0; $i!=count($varDataType); $i++)
+                        {
+                        if($i != 0)
+                            {
+                            $varSQL .= ", ";
+                            }
+                        switch($varDataType[$i])
+                            {
+                            case 'bigint':
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i]))."::bigint";
+                                break;
+                                }
+                            case 'cidr':
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::cidr";
+                                break;
+                                }
+                            case 'character varying':
+                            case 'varchar':
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::varchar";
+                                break;                                
+                                }
+                            case 'json':
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::json";
+                                break;
+                                }
+                            case 'timestamp with time zone':
+                            case 'timestamptz':
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::timestamptz";
+                                break;                                
+                                }
+                            default:
+                                {
+                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::".$varDataType[$i];
+                                break;                                
+                                }
+                            }
+                        }
+                    //--->
+                    $varSQL .= ");";
+                    
+                    $varReturn = $varSQL;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
         }
     }
