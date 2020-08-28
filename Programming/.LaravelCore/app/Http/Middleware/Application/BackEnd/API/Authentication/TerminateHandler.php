@@ -14,7 +14,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             //---> Store API Access Request to Database
             $varObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblRotateLog_API();
-            $varObjModel->setInsert(
+            $varObjModel->setDataInsert(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
                 url()->current(), 
@@ -27,6 +27,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse)), 
                 \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)
                 );
+            //$varObjModel->setD
+            
 /*            $varSQL = "
                 SELECT 
                     \"SignRecordID\" AS \"Sys_RPK\"
