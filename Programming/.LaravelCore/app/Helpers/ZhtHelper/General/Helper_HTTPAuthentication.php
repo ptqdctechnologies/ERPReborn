@@ -87,8 +87,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getJSONWebToken                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-28                                                                                           |
         | ▪ Description     : Mendapatkan JSON Web Token sesuai Nama User (varUserName), kata kunci (varKey), dan Algoritma        |
         |                     (varAlgorithm)                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -97,11 +97,12 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varUSerName ► Nama Pengguna                                                                              |
         |      ▪ (string) varKey ► Kata Kunci                                                                                      |
         |      ▪ (string) varAlgorithm ► Algoritma                                                                                 |
+        |      ▪ (int)    varIssuedUnixTime ► Issued UnixTime                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getJSONWebToken($varUserSession, $varUserName, $varKey, $varAlgorithm=null)
+        public static function getJSONWebToken($varUserSession, string $varUserName, string $varKey, string $varAlgorithm=null, int $varIssuedUnixTime=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -110,6 +111,10 @@ namespace App\Helpers\ZhtHelper\General
                     if(!$varAlgorithm)
                         {
                         $varAlgorithm = 'HS256';
+                        }
+                    if(!$varIssuedUnixTime)
+                        {
+                        $varIssuedTime = \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession);
                         }
                     $varTyp = 'JWT';
                     
@@ -126,7 +131,7 @@ namespace App\Helpers\ZhtHelper\General
                             $varUserSession, 
                             \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                 $varUserSession, 
-                                ['loggedInAs' => $varUserName, 'iat'=> \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession)]
+                                ['loggedInAs' => $varUserName, 'iat'=> $varIssuedUnixTime]
 //                                ['loggedInAs' => $varUserName, 'iat'=> 1598434071]
                                 )
                             );

@@ -50,7 +50,9 @@ namespace App\Helpers\ZhtHelper\System
                 {
                 case 400: {$varData['StatusCodeDescription'] = 'Bad Request'; break;}
                 case 401: {$varData['StatusCodeDescription'] = 'Unauthorized'; break;}
+                case 408: {$varData['StatusCodeDescription'] = 'Request Timeout'; break;}
                 case 422: {$varData['StatusCodeDescription'] = 'Unprocessable Entity'; break;}
+                case 500: {$varData['StatusCodeDescription'] = 'Internal Server Error'; break;}
                 default: {$varData['StatusCodeDescription'] = ''; break;}
                 }
 
