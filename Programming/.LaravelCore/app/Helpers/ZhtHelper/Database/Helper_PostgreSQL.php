@@ -96,11 +96,136 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDateTimeTZ                                                                                        |
+        | ▪ Method Name     : getBuildStringLiteral_StoredProcedure                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan Tanggal dan Waktu dari database                                                          |
+        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String untuk StoredProcedure                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varStoredProcedureName ► Nama Stored Procedure                                                           |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        |      ▪ (array)  varFieldReturn ► Return Field                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varReturnField = ['*'])
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Build String Literal for Stored Procedure');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //---> Check data integrity
+                    if((!$varStoredProcedureName) OR (count($varReturnField) == 0))
+                        {
+                        throw new \Exception('Invalid data entry');
+                        }
+                    //---> Build SELECT
+                    if((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
+                        {
+                        $varSQL = "SELECT * FROM ";
+                        }
+                    else
+                        {
+                        $varSQL = "SELECT ";
+                        for($i=0; $i!=count($varReturnField); $i++)
+                            {
+                            if($i != 0)
+                                {
+                                $varSQL .= ", ";
+                                }
+                            $varSQL .= "\"".$varReturnField[$i]."\"";
+                            }
+                        $varSQL .= " FROM ";
+                        }
+                    //--->
+                    $varTemp = explode('.', str_replace('"', '', $varStoredProcedureName));
+                    $varSQL .= "\"".$varTemp[0]."\".\"".$varTemp[1]."\"";
+                    //--->
+                    $varSQL .= "(";
+                    //--->
+                    $varSpecialKeyword=['NOW()'];
+                    for($i=0; $i!=count($varData); $i++)
+                        {
+                        if($i != 0)
+                            {
+                            $varSQL .= ", ";
+                            }
+                        if((strcmp(substr($varData[$i][0], 0, 1), '(')==0)&&(strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
+                            {
+                            $varSQL .= $varData[$i][0]."::".$varData[$i][1];
+                            }
+                        elseif(in_array(strtoupper($varData[$i][0]), $varSpecialKeyword)) 
+                            { 
+                            $varSQL .= $varData[$i][0]."::".$varData[$i][1];
+                            } 
+                        else
+                            {
+                            switch($varData[$i][1])
+                                {
+                                case 'bigint':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
+                                    break;
+                                    }
+                                case 'cidr':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::cidr";
+                                    break;
+                                    }
+                                case 'character varying':
+                                case 'varchar':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::varchar";
+                                    break;                                
+                                    }
+                                case 'json':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::json";
+                                    break;
+                                    }
+                                case 'timestamp with time zone':
+                                case 'timestamptz':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamptz";
+                                    break;                                
+                                    }
+                                default:
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::".$varData[$i][1];
+                                    break;                                
+                                    }
+                                }
+                            }
+                        }
+                    //--->
+                    $varSQL .= ");";
+                    
+                    $varReturn = $varSQL;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentDateTimeTZ                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Description     : Mendapatkan Tanggal dan Waktu saat ini dari database                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
@@ -108,7 +233,7 @@ namespace App\Helpers\ZhtHelper\Database
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeTZ($varUserSession)
+        public static function getCurrentDateTimeTZ($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -125,6 +250,96 @@ namespace App\Helpers\ZhtHelper\Database
                         $varData = (array) $row;
                         }
                     $varReturn = $varData['now'];
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentUnixTime                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Description     : Mendapatkan UnixTime saat ini dari database                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getCurrentUnixTime($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get date and time');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Database not available');
+                        }
+                    $varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT "SchSysConfig"."FuncSys_General_GetUnixTime"(NOW()) AS "UnixTime";');
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData = (array) $row;
+                        }
+                    $varReturn = $varData['UnixTime'];
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+ 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentYear                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Description     : Mendapatkan Tahun saat ini dari database                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getCurrentYear($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get date and time');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Database not available');
+                        }
+                    $varDataFetch = \Illuminate\Support\Facades\DB::select("SELECT EXTRACT('YEAR' FROM NOW())::smallint AS \"CurrentYear\";");
+                    foreach($varDataFetch as $row)
+                        {
+                        $varData = (array) $row;
+                        }
+                    $varReturn = $varData['CurrentYear'];
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -426,119 +641,6 @@ namespace App\Helpers\ZhtHelper\Database
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-            
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getBuildStringLiteral_StoredProcedure                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-25                                                                                           |
-        | ▪ Description     : Mendapatkan Literasi String untuk StoredProcedure                                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varStoredProcedureName ► Nama Stored Procedure                                                           |
-        |      ▪ (array)  varData ► Data                                                                                           |
-        |      ▪ (array)  varDataType ► Data Type                                                                                  |
-        |      ▪ (array)  varFieldReturn ► Return Field                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varDataType, array $varReturnField = ['*'])
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Build String Literal for Stored Procedure');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    //---> Check data integrity
-                    if((!$varStoredProcedureName) OR (count($varData) == 0) OR (count($varDataType) == 0) OR (count($varReturnField) == 0) OR (count($varData) != count($varDataType)))
-                        {
-                        throw new \Exception('Invalid data entry');
-                        }
-                    //---> Build SELECT
-                    if((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
-                        {
-                        $varSQL = "SELECT * FROM ";
-                        }
-                    else
-                        {
-                        $varSQL = "SELECT ";
-                        for($i=0; $i!=count($varReturnField); $i++)
-                            {
-                            if($i != 0)
-                                {
-                                $varSQL .= ", ";
-                                }
-                            $varSQL .= "\"".$varReturnField[$i]."\"";
-                            }
-                        $varSQL .= " FROM ";
-                        }
-                    //--->
-                    $varTemp = explode('.', str_replace('"', '', $varStoredProcedureName));
-                    $varSQL .= "\"".$varTemp[0]."\".\"".$varTemp[1]."\"";
-                    //--->
-                    $varSQL .= "(";
-                    //--->
-                    for($i=0; $i!=count($varDataType); $i++)
-                        {
-                        if($i != 0)
-                            {
-                            $varSQL .= ", ";
-                            }
-                        switch($varDataType[$i])
-                            {
-                            case 'bigint':
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i]))."::bigint";
-                                break;
-                                }
-                            case 'cidr':
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::cidr";
-                                break;
-                                }
-                            case 'character varying':
-                            case 'varchar':
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::varchar";
-                                break;                                
-                                }
-                            case 'json':
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::json";
-                                break;
-                                }
-                            case 'timestamp with time zone':
-                            case 'timestamptz':
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::timestamptz";
-                                break;                                
-                                }
-                            default:
-                                {
-                                $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i]))."::".$varDataType[$i];
-                                break;                                
-                                }
-                            }
-                        }
-                    //--->
-                    $varSQL .= ");";
-                    
-                    $varReturn = $varSQL;
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
             }
         }
     }

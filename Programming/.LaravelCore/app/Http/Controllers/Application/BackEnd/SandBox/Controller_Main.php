@@ -34,8 +34,18 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testRedis()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+
+            $varUserSession=0;
+//            $x = new \App\Models\Redis\General\APIWebToken();
+//            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
+$x = new \App\Models\Redis\General\APIWebToken();
+$x->setDataInsert($varUserSession, 'xxx', 'xxxValue', 10);
+echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
+echo $x->getData($varUserSession, 'xxx');
+//$x->setKeyHeader($varUserSession, $varClassName)
+
             
-            $ObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
+//            $ObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
 //            $user = $ObjModel->   ->hydrate(
 //            $user = DB::select(
 //                "SELECT * FROM \"SchSysConfig\".\"FuncSys_General_GetUnixTime\"('2019-01-01 00:00:00 +07')"
@@ -47,13 +57,56 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     );
             var_dump($x);
 */
-            $varUserSession=0;
+/*            $varUserSession=0;
             echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                 $varUserSession, 
                 'SchSysConfig.Func_TblLog_UserLoginSession_SET', 
                 [111, null, null, null, 222, 'SysEngine', 'eyJhbGciOiJIUzI1NiIsI', null, 444, 95000000000001, '2018-01-01 00:00:00+07', '9999-12-31 23:59:59+07', null, null],
                 ['bigint', 'bigint', 'character varying', 'character varying', 'bigint', 'character varying', 'character varying', 'json', 'bigint', 'bigint', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone', 'timestamp with time zone']
                 );
+*/            
+  
+            //echo \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear(000);
+            
+//            echo substr('(NOW() + \'5 minutes\'::interval)', 0, 1); 
+//            echo substr('(NOW() + \'5 minutes\'::interval)', strlen('(NOW() + \'5 minutes\'::interval)')-1, 1); 
+/*            $varSQLQuery = '
+            SELECT
+                CASE
+                    WHEN (COUNT("Sys_RPK") = 0) THEN 
+                        TRUE
+                    ELSE
+                        FALSE
+                END AS "SignValid"
+            FROM 
+                "SchSysConfig"."TblLog_UserLoginSession"
+            WHERE
+                "SessionStartDateTimeTZ" <= NOW()
+                AND
+                "SessionFinishDateTimeTZ" >= NOW()
+                AND
+                "APIWebToken" LIKE \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODU5Nzg0OX0.nujH2-2GRILaG_ahWQ-mxsFNydpWHahNIJ0an5HDi9A\'
+                ';
+            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(000, $varSQLQuery);
+            var_dump($x['Data'][0]['SignValid']);
+            
+            if($x['Data'][0]['SignValid']==true)
+                {
+                echo "lanjut";
+                }
+            else
+                {
+                echo "ulang";
+                }*/
+            
+            
+            
+/*
+--                "SessionStartDateTimeTZ" <= NOW()
+  --              AND
+    --            "SessionFinishDateTimeTZ" >= NOW()
+      --          AND
+*/
             
             
 /*            echo "TEST REDIS<br><br>";

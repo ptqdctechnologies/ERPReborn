@@ -35,7 +35,18 @@ namespace App\Models\PostgreSQL
         */
         public function setDataDelete($varUserSession, int $varRecordID)
             {
-            //"SchSysConfig"."FuncSys_General_SetRecordDelete"(bigint, bigint)
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetRecordDelete',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varRecordID, 'bigint']
+                    ],
+                    )
+                );
+            return $varReturn;
             }
 
 
@@ -56,7 +67,18 @@ namespace App\Models\PostgreSQL
         */
         public function setDataUndelete($varUserSession, int $varRecordID)
             {
-            //"SchSysConfig"."FuncSys_General_SetRecordDelete"(bigint, bigint)
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetRecordUndelete',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varRecordID, 'bigint']
+                    ],
+                    )
+                );
+            return $varReturn;
             }
         }
     }

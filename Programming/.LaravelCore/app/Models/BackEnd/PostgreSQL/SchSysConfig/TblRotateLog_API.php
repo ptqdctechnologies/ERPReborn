@@ -49,8 +49,18 @@ namespace App\Models\PostgreSQL\SchSysConfig
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     'SchSysConfig.Func_TblRotateLog_API_SET',
-                    [$varHostIPAddress, $varURL, $varNavigatorUserAgent, $varRequestDateTimeTZ, $varRequestHTTPHeader, $varRequestHTTPBody, $varResponseDateTimeTZ, $varResponseHTTPStatus, $varResponseHTTPHeader, $varResponseHTTPBody],
-                    ['cidr', 'character varying', 'character varying', 'timestamp with time zone', 'json', 'character varying', 'timestamp with time zone', 'smallint', 'json', 'character varying']
+                    [
+                        [$varHostIPAddress, 'cidr'],
+                        [$varURL, 'character varying'],
+                        [$varNavigatorUserAgent, 'character varying'],
+                        [$varRequestDateTimeTZ, 'timestamp with time zone'],
+                        [$varRequestHTTPHeader, 'json'], 
+                        [$varRequestHTTPBody, 'character varying'],
+                        [$varResponseDateTimeTZ, 'timestamp with time zone'], 
+                        [$varResponseHTTPStatus, 'smallint'], 
+                        [$varResponseHTTPHeader, 'json'],
+                        [$varResponseHTTPBody, 'character varying']
+                    ],
                     )
                 );
             return $varReturn;

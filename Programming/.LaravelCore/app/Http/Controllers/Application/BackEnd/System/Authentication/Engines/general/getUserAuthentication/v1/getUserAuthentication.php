@@ -17,6 +17,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Authentication (version 1)');
                 try {
                     //---> Variable Initializing
+                    $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
 
@@ -27,17 +28,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---> Jika Otentikasi berhasil
                     if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
                         {
-
+                        //---> Generate APIWebToken
+                        $i=0;
+                        do
+                            {
+                            $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
+                            }
+                        while((new \App\Models\PostgreSQL\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
+                        //---> Insert Data
+                        $varDBBuffer = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
+                            6000000000001, 
+                            null, 
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
+                            11000000000001,
+                            $varUserName, 
+                            $varAPIWebToken, 
+                            null, 
+                            null, 
+                            null, 
+                            'NOW()', 
+                            '(NOW() + \'5 minutes\'::interval)', 
+                            null, 
+                            null
+                            );
+                        $varSysID = $varDBBuffer['Data'][0]['SignRecordID'];
                         
+                        (new \App\Models\Redis\General\APIWebToken())->setDataInsert(
+                            $varUserSession, 
+                            $varAPIWebToken, 
+                            json_encode([
+                                
+                                ]), 
+                            10);
                         
-                        $varSQL = "
-                            SELECT 
-                                * 
-                            FROM 
-                                \"SchSysConfig\".\"Func_TblLog_UserLoginSession_SET\"(varSystemLoginSession, null, null, null, varInstitutionBranchID, 'SysEngine', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoiU3lzRW5naW5lIiwiaWF0IjoxNTk4NDM0MDcxfQ.fkz2xMA1tUNmA5VaWC75a-A9WdYAmqToLbze3Sxojf4'::varchar, null::json, varInstitutionBranchID::bigint, 95000000000001::bigint, '2018-01-01 00:00:00+07'::timestamptz, '9999-12-31 23:59:59+07'::timestamptz, null::timestamptz, null::timestamptz);
-                            ";
                         $varDataSend = [
-                            'APIWebToken' => \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, 'SecretKey')
+                            'APIWebToken' => $varAPIWebToken,
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         }

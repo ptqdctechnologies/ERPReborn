@@ -27,8 +27,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse)), 
                 \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varObjResponse)
                 );
-            //$varObjModel->setD
-            
+
 /*            $varSQL = "
                 SELECT 
                     \"SignRecordID\" AS \"Sys_RPK\"
