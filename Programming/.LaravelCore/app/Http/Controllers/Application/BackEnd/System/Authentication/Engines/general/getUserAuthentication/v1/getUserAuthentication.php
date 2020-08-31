@@ -28,6 +28,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     //---> Jika Otentikasi berhasil
                     if(\App\Helpers\ZhtHelper\General\Helper_LDAP::getAuthenticationBySAMAccountName($varUserSession, $varHost, $varPost, $varBaseDN, $varUserName, $varUserPassword)==true)
                         {
+                        //--->
+                        $varSessionIntervalInSeconds = (5*60);
                         //---> Generate APIWebToken
                         $i=0;
                         do
@@ -35,8 +37,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\PostgreSQL\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-                        //---> Insert Data
-                        $varDBBuffer = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
+
+                        //---> Insert Data to PostgreSQL
+                        $varBufferDB = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
                             null, 
                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
@@ -47,22 +50,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             null, 
                             null, 
                             'NOW()', 
-                            '(NOW() + \'5 minutes\'::interval)', 
+                            '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)', 
                             null, 
                             null
                             );
-                        $varSysID = $varDBBuffer['Data'][0]['SignRecordID'];
-                        
-                        (new \App\Models\Redis\General\APIWebToken())->setDataInsert(
+                        //$varSysID = $varBufferDB['SignRecordID'];
+                        $varBufferDB = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varBufferDB['SignRecordID']);
+
+                        //---> Insert Data to Redis
+                        $varRedisID = (new \App\Models\Redis\General\APIWebToken())->setDataInsert(
                             $varUserSession, 
-                            $varAPIWebToken, 
+                            $varBufferDB[0]['APIWebToken'],
                             json_encode([
-                                
+                                'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                                'sessionFinishDateTimeTZ' => $varBufferDB[0]['SessionFinishDateTimeTZ']                                
                                 ]), 
-                            10);
-                        
+                            $varSessionIntervalInSeconds);
+
+                        //---> Set Return Value
                         $varDataSend = [
-                            'APIWebToken' => $varAPIWebToken,
+                            'APIWebToken' => $varBufferDB[0]['APIWebToken'],
+                            'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
+                            'sessionFinishDateTimeTZ' => $varBufferDB[0]['SessionFinishDateTimeTZ'],
+                            'RedisID' => $varRedisID
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         }

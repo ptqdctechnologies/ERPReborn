@@ -47,7 +47,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         {
                         echo $varResponseData['data']['message'];
                         }
-                    
+
 
 
                         
