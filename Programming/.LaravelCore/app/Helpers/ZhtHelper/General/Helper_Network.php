@@ -105,8 +105,10 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Current Protocol');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varProtocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
                     $varReturn = $varProtocol;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
@@ -140,6 +142,7 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Current IP Address');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varReturn = $_SERVER['REMOTE_ADDR'];
                     $varReturn = 
                         getenv('HTTP_CLIENT_IP')?:
@@ -148,6 +151,7 @@ namespace App\Helpers\ZhtHelper\General
                         getenv('HTTP_FORWARDED_FOR')?:
                         getenv('HTTP_FORWARDED')?:
                         getenv('REMOTE_ADDR');
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     }
                 catch (\Exception $ex) {
                     }
@@ -180,6 +184,7 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get IP Address of `'.$varURL.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varURLArray = @parse_url($varURL);
                     $varIPAddress = gethostbyname($varURLArray['host']);
                     if (!filter_var($varIPAddress, FILTER_VALIDATE_IP)) 
@@ -187,6 +192,7 @@ namespace App\Helpers\ZhtHelper\General
                         throw new \Exception("Invalid IP address");
                         }
                     $varReturn = $varIPAddress;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
@@ -205,11 +211,13 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get MAC Address of `'.$varIPAddress.'`');
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     //---> Centos
                     //$varReturn = `arp -n 172.28.0.4 | awk '{print $3}' | sed -n '2p'`;
                     //---> Debian
                     $varReturn = exec("arp-scan 172.28.0.4 | sed -n '3p' | awk '{print $2}';");
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     }
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
@@ -246,6 +254,7 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check whether port '.$varPort.' can be accessed through '.$varURL);
                 try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Cari Validitas Port
                     if(($varPort<1)OR($varPort>65535))
                         {
@@ -290,6 +299,7 @@ namespace App\Helpers\ZhtHelper\General
                         } 
                     socket_close($varObjSocket);
                     $varReturn= true;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'success');
                     } 
                 catch (\Exception $ex) {

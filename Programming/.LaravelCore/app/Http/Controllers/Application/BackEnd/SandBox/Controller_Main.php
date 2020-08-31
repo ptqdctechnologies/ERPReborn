@@ -41,7 +41,22 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 $x = new \App\Models\Redis\General\APIWebToken();
 $x->setDataInsert($varUserSession, 'xxx', 'xxxValue', 10);
 echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
-echo $x->getData($varUserSession, 'xxx');
+echo $x->getDataRecord($varUserSession, 'xxx');
+for($i=0; $i!=2; $i++)
+    {
+    echo "<br>".$x->getDataTTL($varUserSession, 'xxx');
+    sleep(1);
+    }
+
+echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
+$x->setDataTTLRenewal($varUserSession, 'xxx', 20);
+for($i=0; $i!=2; $i++)
+    {
+    echo "<br>".$x->getDataTTL($varUserSession, 'xxx');
+    sleep(1);
+    }
+
+
 //$x->setKeyHeader($varUserSession, $varClassName)
 
             
