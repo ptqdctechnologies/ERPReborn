@@ -27,7 +27,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)    varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
@@ -45,7 +45,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
-            int $varUserSession, 
+            $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
             {
@@ -72,7 +72,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
                     ]
                     )
                 );
-            return $varReturn;
+            return $varReturn['Data'][0];
             }
 
 
@@ -104,7 +104,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            int $varUserSession, 
+            $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
             {
@@ -131,7 +131,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
                     ],
                     )
                 );
-            return $varReturn;
+            return $varReturn['Data'][0];
             }
         }
     }

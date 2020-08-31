@@ -61,14 +61,13 @@ namespace App\Models\Redis
         */
         protected function init($varUserSession, string $varClassName)
             {
-            $varTemp = explode('\\', $varClassName);
-            $this->varKeyHeader = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().'::'.($varTemp[count($varTemp)-1]);
+            $this->varKeyHeader = \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().'::'.(\App\Helpers\ZhtHelper\General\Helper_PHPObject::getClassNameFromNameSpace($varUserSession, $varClassName));
             }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getData                                                                                              |
+        | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-28                                                                                           |
@@ -81,7 +80,7 @@ namespace App\Models\Redis
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData($varUserSession, string $varKey)
+        public function getDataRecord($varUserSession, string $varKey)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
@@ -90,7 +89,7 @@ namespace App\Models\Redis
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getTTL                                                                                               |
+        | ▪ Method Name     : getDataTTL                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-28                                                                                           |
@@ -103,9 +102,53 @@ namespace App\Models\Redis
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getTTL($varUserSession, string $varKey)
+        public function getDataTTL($varUserSession, string $varKey)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isDataExist                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Mendapatkan keberadaan dari suatu key (varKey)                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isDataExist($varUserSession, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExist($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isDataExpired                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Mendapatkan status kadaluwarsa dari suatu key (varKey)                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isDataExpired($varUserSession, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExpired($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
             }
 
@@ -150,7 +193,46 @@ namespace App\Models\Redis
         */
         public function setDataInsert(int $varUserSession, string $varKey, $varValue, int $varTTL = null)
             {
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue, $varTTL);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Data Insert');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue, $varTTL);
+                    $varReturn = $this->varKeyHeader.'::'.$varKey;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataTTLRenewal                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Menyimpan ulang TTL data dengan key tertentu (varKey)                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        |      ▪ (int)    varTTL ► TTL                                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataTTLRenewal(int $varUserSession, string $varKey, int $varTTL)
+            {
+            \App\Helpers\ZhtHelper\Database\Helper_Redis::setTTLRenewal($varUserSession, $this->varKeyHeader.'::'.$varKey, $varTTL);
             }            
         }
     }

@@ -94,13 +94,14 @@ namespace App\Helpers\ZhtHelper\System
                         //---> API selainnya
                         else
                             {
+//dd($varData['metadata']['API']['APIWebToken']);                            
                             $varHeaders=[
                                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                                 'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
                                 'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
                                 'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
                                 'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                                'Authorization' => 'bearer '.\App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken(000000, 'Teguh Pratama', \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'HTTP_AUTH_KEY')),
+                                'Authorization' => (!$varData['metadata']['API']['APIWebToken'] ? null : 'Bearer '.$varData['metadata']['API']['APIWebToken']),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                                 ];                            
                             }

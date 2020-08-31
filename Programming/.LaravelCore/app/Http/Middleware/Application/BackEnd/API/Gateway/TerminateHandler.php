@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Middleware\Application\BackEnd\API\Authentication
+namespace App\Http\Middleware\Application\BackEnd\API\Gateway
     {
     class TerminateHandler
         {

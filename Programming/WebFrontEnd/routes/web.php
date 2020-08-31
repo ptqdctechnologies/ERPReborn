@@ -28,7 +28,18 @@ Route::get('showLogError', function () {
     })->middleware('web');
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendAuthRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@SendAuthRequest', 'webWithoutCSRF');
-    
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getSessionData', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_GetSessionData', 'webWithoutCSRF');
+
+
+
+
+
+
+
+
+
+
+
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@SendRequest', 'webWithoutCSRF');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----

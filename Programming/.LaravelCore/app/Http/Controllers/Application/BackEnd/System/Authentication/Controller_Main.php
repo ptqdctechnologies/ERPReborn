@@ -20,11 +20,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         public function getUserAuthentication()
             {
             try {
-                
                 //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                 $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 
-                $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);                
+                $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
 
                 $varAPI = [
                     'service' => 'authentication',
@@ -56,7 +55,6 @@ $varData = [
                 $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPI, $varData);
 
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
-                //
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
                 } 
             catch (\Exception $ex) {

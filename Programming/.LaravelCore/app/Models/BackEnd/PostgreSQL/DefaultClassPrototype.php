@@ -16,8 +16,31 @@ namespace App\Models\PostgreSQL
     | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models PostgreSQL                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class DefaultClassPrototype extends \Illuminate\Database\Eloquent\Model
+    class DefaultClassPrototype //extends \Illuminate\Database\Eloquent\Model
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataRecord                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Data Record                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataRecord($varUserSession, int $varRecordID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, $varRecordID);
+            return $varReturn['Data'];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataDelete                                                                                        |

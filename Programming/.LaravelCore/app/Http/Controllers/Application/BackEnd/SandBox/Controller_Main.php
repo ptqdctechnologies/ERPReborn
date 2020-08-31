@@ -38,10 +38,37 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession=0;
 //            $x = new \App\Models\Redis\General\APIWebToken();
 //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
-$x = new \App\Models\Redis\General\APIWebToken();
+            
+//$x = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
+//$y = $x->getDataRecord(000000, 6000000000013);
+//var_dump($y);
+//            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, 6000000000013);
+//            var_dump($x);
+
+                        $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
+                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey);
+                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
+
+            
+/*$x = new \App\Models\Redis\General\APIWebToken();
 $x->setDataInsert($varUserSession, 'xxx', 'xxxValue', 10);
 echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
-echo $x->getData($varUserSession, 'xxx');
+echo $x->getDataRecord($varUserSession, 'xxx');
+for($i=0; $i!=2; $i++)
+    {
+    echo "<br>".$x->getDataTTL($varUserSession, 'xxx');
+    sleep(1);
+    }
+
+echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
+$x->setDataTTLRenewal($varUserSession, 'xxx', 20);
+for($i=0; $i!=2; $i++)
+    {
+    echo "<br>".$x->getDataTTL($varUserSession, 'xxx');
+    sleep(1);
+    }
+*/
+
 //$x->setKeyHeader($varUserSession, $varClassName)
 
             

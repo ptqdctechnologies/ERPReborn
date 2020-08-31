@@ -7,8 +7,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
         public function __construct()
             {
             }
-
-
+                
         public function setNotificationFailure($varData)
             {
             //try

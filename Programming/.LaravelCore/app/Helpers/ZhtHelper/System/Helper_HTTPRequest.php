@@ -146,6 +146,8 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function setRequest($varUserSession, $varURL, $varMethod, $varData=null, $varPort=null, $varHeaders=null)
             {
+//var_dump($varData);
+//dd($varHeaders);
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
@@ -163,6 +165,8 @@ namespace App\Helpers\ZhtHelper\System
                             'body' =>  json_encode($varData, true)
                             ]
                             );
+//dd($varURL);
+//dd($varResponse);
                         $varHTTPStatusCode = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_HTTPStatusCode($varUserSession, $varResponse);
 //echo $varHTTPStatusCode;                        
                         //---> Jika Backend Process Sukses
@@ -237,6 +241,8 @@ namespace App\Helpers\ZhtHelper\System
                         $responseBodyAsString = $response->getBody()->getContents();
                         $varHTTPStatusCode = $response->getStatusCode();
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
+
+//echo $ex->getMessage();                     
 
                         $varResponseContents = [
                             'metadata' => [
