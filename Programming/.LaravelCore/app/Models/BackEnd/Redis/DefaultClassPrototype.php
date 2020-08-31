@@ -111,6 +111,50 @@ namespace App\Models\Redis
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isDataExist                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Mendapatkan keberadaan dari suatu key (varKey)                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isDataExist($varUserSession, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExist($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isDataExpired                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Mendapatkan status kadaluwarsa dari suatu key (varKey)                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isDataExpired($varUserSession, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExpired($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataDelete                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

@@ -10,10 +10,44 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
+        public function APIGateway_GetSessionData()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varDataArray = [
+                        'metadata' => [
+                            'API' => [
+                                'APIWebToken' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1OTExN30.PkpclTIraeQaM9Gawt0h7JP7hFfEw6ZvxYN7-hcrT6A',
+                                'key' => 'environment.session.getData',
+                                'version' => 'latest'
+                                ]
+                            ],
+                        'data' => [
+                            ]
+                        ];
+                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
+                        $varDataArray
+                        );
+
+                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                        {
+                        var_dump($varResponseData);
+                        }
+                    else
+                        {
+                        echo $varResponseData['data']['message'];
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+            }
+
+            
 
         public function SendAuthRequest()
             {
-\App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);

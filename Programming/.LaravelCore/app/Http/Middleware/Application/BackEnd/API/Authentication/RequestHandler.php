@@ -62,7 +62,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 }
             catch (\Exception $ex) {
                 $varDataMessage = explode($varDataSeparatorTag, $ex->getMessage());
-                $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPError::setErrorPage($varUserSession, $varDataMessage[0], $varDataMessage[1]);
+                $varReturn = \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, $varDataMessage[0], $varDataMessage[1]);
                 }
             return $varReturn;
             }
