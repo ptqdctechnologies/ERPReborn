@@ -8,9 +8,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
         {
         public function __construct()
             {
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class);
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\ResponseHandler::class);
-            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\RequestHandler::class, ['only' => ['getUserAuthentication'], 'except' => []]);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\ResponseHandler::class, ['only' => ['getUserAuthentication'], 'except' => []]);
+            $this->middleware(\App\Http\Middleware\Application\BackEnd\API\Authentication\TerminateHandler::class, ['only' => ['getUserAuthentication'], 'except' => []]);
             }
 
         public function init()
@@ -25,12 +25,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication
                 
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
 
-                $varAPI = [
-                    'service' => 'authentication',
-                    'class' => 'general', 
-                    'subClass' => 'getUserAuthentication', 
-                    'version' => $varDataReceive['metadata']['API']['version']
-                    ];
+                $varAPIKey = 'authentication.general.getUserAuthentication';
+                $varAPIVersion = $varDataReceive['metadata']['API']['version'];
+
                 $varData = [
                     'userName' => $varDataReceive['data']['userName'],
                     'userPassword' => $varDataReceive['data']['userPassword']
@@ -52,7 +49,7 @@ $varData = [
 */
 
                 //---> Method Call
-                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPI, $varData);
+                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData);
 
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);

@@ -30,6 +30,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         {
                         //--->
                         $varSessionIntervalInSeconds = (5*60);
+                        $varSessionIntervalInSeconds = (10*60*60);
                         //---> Generate APIWebToken
                         $i=0;
                         do
@@ -50,9 +51,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             null, 
                             null, 
                             'NOW()', 
-                            '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)', 
                             null, 
-                            null
+                            'NOW()', 
+                            '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
                         //$varSysID = $varBufferDB['SignRecordID'];
                         $varBufferDB = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varBufferDB['SignRecordID']);
@@ -63,7 +64,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varBufferDB[0]['APIWebToken'],
                             json_encode([
                                 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                                'sessionFinishDateTimeTZ' => $varBufferDB[0]['SessionFinishDateTimeTZ']                                
+                                'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                                'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']
                                 ]), 
                             $varSessionIntervalInSeconds);
 
@@ -71,7 +73,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varDataSend = [
                             'APIWebToken' => $varBufferDB[0]['APIWebToken'],
                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
-                            'sessionFinishDateTimeTZ' => $varBufferDB[0]['SessionFinishDateTimeTZ'],
+                            'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
+                            'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
                             'RedisID' => $varRedisID
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
@@ -85,6 +88,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
+                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $ex->getMessage());
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);

@@ -547,6 +547,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Controller_Main_APIGateway' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Core/Controller_Main_APIGateway.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Engines\\APIResponse\\setNotificationFailure\\v1\\setNotificationFailure' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Core/Engines/APIResponse/setNotificationFailure/v1/setNotificationFailure.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Engines\\APIResponse\\setNotificationSuccess\\v1\\setNotificationSuccess' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Core/Engines/APIResponse/setNotificationSuccess/v1/setNotificationSuccess.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Engines\\API\\gateway\\v1\\gateway' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Core/Engines/API/gateway/v1/gateway.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Controller_Main' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Environment/Controller_Main.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
