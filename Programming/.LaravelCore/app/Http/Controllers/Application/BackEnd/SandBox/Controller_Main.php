@@ -38,8 +38,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
 //            $x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
-            $x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
-            var_dump($x);
+            //$x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
+            $x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
+            echo $x;
             echo '<br>~~~~~~~~<br>';
             
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');

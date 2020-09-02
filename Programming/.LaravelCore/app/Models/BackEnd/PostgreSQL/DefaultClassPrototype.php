@@ -46,7 +46,7 @@ namespace App\Models\PostgreSQL
             $this->varSchemaTableName = '"'.$varTemp[count($varTemp)-2].'"."'.$varTemp[count($varTemp)-1].'"';
             }
 
-
+            
         public function getAllDataRecord($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_All($varUserSession, str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]), str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]));
@@ -159,6 +159,50 @@ namespace App\Models\PostgreSQL
         public function getSchemaTableName($varUserSession)
             {
             $varReturn = $this->varSchemaTableName;
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSchemaName                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan Nama Skema                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getSchemaName($varUserSession)
+            {
+            $varReturn = str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getTableName                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan Nama Table                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getTableName($varUserSession)
+            {
+            $varReturn = str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]);
             return $varReturn;
             }
         }

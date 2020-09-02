@@ -73,7 +73,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig.Func_TblLog_UserLoginSession_SET',
+                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                     [
                         [$varUserSession, 'bigint'],
                         [null, 'bigint'],
@@ -132,7 +132,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
-                    'SchSysConfig.Func_TblLog_UserLoginSession_SET',
+                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                     [
                         [$varUserSession, 'bigint'],
                         [$varSysID, 'bigint'],
