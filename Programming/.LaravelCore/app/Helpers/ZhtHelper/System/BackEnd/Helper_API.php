@@ -142,37 +142,5 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 ];
             return $varReturn;
             }
-
-public static function setEngineResponseDataReturn_FailXXX($varUserSession, int $varHTTPErrorCode, string $varHTTPErrorMessage = null)
-    {
-    if(!$varHTTPErrorMessage)
-        {
-        $varHTTPErrorMessage = '';
-        }
-    $varReturn = [
-        "metadata" => [
-            "successStatus" => true
-            ],
-        "data" => [
-            "code" => $varHTTPErrorCode,
-            "message" => $varHTTPErrorMessage
-            ]
-        ];
-    return $varReturn;
-    }
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
         }
     }

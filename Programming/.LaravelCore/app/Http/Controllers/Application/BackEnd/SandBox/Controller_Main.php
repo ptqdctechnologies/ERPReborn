@@ -34,8 +34,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testRedis()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-
             $varUserSession=0;
+            
+//            $x = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
+//            
+            $x = (new \App\Models\Redis\General\APIWebToken())->getAllDataRecord($varUserSession);
+            var_dump($x);
+            echo '<br>~~~~~~~~<br>';
+            echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
+            
 //            $x = new \App\Models\Redis\General\APIWebToken();
 //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
             

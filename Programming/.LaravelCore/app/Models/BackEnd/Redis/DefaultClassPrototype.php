@@ -67,6 +67,35 @@ namespace App\Models\Redis
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllDataRecord                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh record                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getAllDataRecord($varUserSession)
+            {
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, $this->varKeyHeader.'*');
+            for($i=0; $i!=count($varData); $i++)
+                {
+                $varKey = $this->varKeyHeader.(explode($this->varKeyHeader, $varData[$i]))[1];
+                $varReturn[$varKey] = [
+                    'value' => \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey),
+                    'ttl' => \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey)
+                    ];
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
