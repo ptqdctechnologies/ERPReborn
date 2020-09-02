@@ -124,52 +124,12 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         $varHTTPMessage = '';
                         }
-                    else
-                        {
-                        //---> Jika Message ternyata dimunculkan dari engine (overide default error caller 422)
-                        if(strcmp(substr($varHTTPMessage, 0, strlen('ThrowNewErrorFromEngine')), 'ThrowNewErrorFromEngine')==0)
-                            {
-                            $varArrayThrowNewErrorFromEngine = explode($varDataSeparatorTag, $varHTTPMessage);
-                            $varHTTPStatusCode = $varArrayThrowNewErrorFromEngine[2];
-                            $varHTTPMessage = $varArrayThrowNewErrorFromEngine[3];
-                            }
-                        }
                     $varReturn = abort($varHTTPStatusCode, $varMessageHeading.$varHTTPMessage);
 
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setResponseOveride                                                                                   |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-08-24                                                                                           |
-        | ▪ Description     : Mengeset New Throw Error untuk mengoveride Default Error Caller Engine (Khusus untuk Engine)         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varHTTPStatusCode ► HTTP Status Code                                                                     |
-        |      ▪ (string) varHTTPMessage ► HTTP Message                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (mixed)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function setResponseOveride($varUserSession, int $varHTTPStatusCode, string $varHTTPMessage=null)
-            {
-            $varDataSeparatorTag = \App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR');
-            $varMessageHeading = '('.\App\Helpers\ZhtHelper\General\Helper_DateTime::getGMTDateTime($varUserSession, 'd M Y H:i:s').' GMT) '.\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID().' Error Message ► ';
-            if(!$varHTTPMessage)
-                {
-                $varHTTPMessage = '';
-                }
-            $varHTTPMessage = 'ThrowNewErrorFromEngine'.$varDataSeparatorTag.$varUserSession.$varDataSeparatorTag.$varHTTPStatusCode.$varDataSeparatorTag.$varHTTPMessage;
-            $varReturn = abort($varHTTPStatusCode, $varHTTPMessage);
-            return $varReturn;
             }
         }
     }
