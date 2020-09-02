@@ -16,7 +16,7 @@ namespace App\Models\PostgreSQL\SchSysConfig
     | ▪ Description : Menangani Models PostgreSQL ► Non Specific Table                                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class General extends \Illuminate\Database\Eloquent\Model
+    class General //extends \Illuminate\Database\Eloquent\Model
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

@@ -94,12 +94,12 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varUnixTime ► Unix Time                                                                                 |
+        |      ▪ (float)    varUnixTime ► Unix Time                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getDateTimeFromUnixTime($varUserSession, int $varUnixTime, $varDateTimeFormat=null)
+        public static function getDateTimeFromUnixTime($varUserSession, float $varUnixTime, $varDateTimeFormat=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -199,6 +199,45 @@ namespace App\Helpers\ZhtHelper\General
                     $varDateArray = explode(" ", $varMicroDate);
                     $varMicroSecond = substr($varDateArray[1], 0, 6);
                     $varReturn=$varMicroSecond;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getTimeIntervalFromUnixTime                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan interval waktu dari UnixTime (varUnixTime)                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (float)  varUnixTime ► Unix Time                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getTimeIntervalFromUnixTime($varUserSession, float $varUnixTime)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Time Interval from UnixTime');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varSecond = explode('.', (string) $varUnixTime)[0];
+                    $varMicroSecond = substr(explode('.', (string) $varUnixTime)[1], 0, 6);
+                    $varReturn = str_pad((string) floor($varSecond/(60*60)), 2, '0', STR_PAD_LEFT).':'.str_pad((string) floor(($varSecond-floor($varSecond/(60*60)))/60), 2, '0', STR_PAD_LEFT).':'.str_pad((string) ($varSecond-floor(($varSecond-floor($varSecond/(60*60)))/60)), 2, '0', STR_PAD_LEFT).($varMicroSecond>0 ? '.'.$varMicroSecond: '');
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -324,7 +363,8 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     else
                         {
-                        $varReturn=strtotime($varDateTimeString);
+                        $varMicroSecond = str_replace(' ', '', (explode('-', (explode('+', (explode('.', $varDateTimeString))[1]))[0]))[0]);
+                        $varReturn=strtotime($varDateTimeString).(!$varMicroSecond ? '': '.'.$varMicroSecond);
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

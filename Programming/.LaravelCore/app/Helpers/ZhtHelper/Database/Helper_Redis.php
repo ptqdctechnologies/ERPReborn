@@ -134,6 +134,60 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllRecord                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh record                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKeyHeader ► Key Header                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAllRecord($varUserSession, $varKeyHeader)
+            {
+            $varStartDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, $varKeyHeader.'*');
+            $varFinishDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
+            $varExecutionTime  = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeIntervalFromUnixTime($varUserSession, ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varFinishDateTime)) - ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varStartDateTime)));
+            $varRowCount = count($varData); 
+            for($i=0; $i!=$varRowCount; $i++)
+                {
+                $varKey = $varKeyHeader.(explode($varKeyHeader, $varData[$i]))[1];
+                $varTemp[$varKey] = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
+                }
+            arsort($varTemp);
+
+            $i=0;
+            foreach ($varTemp as $varKey => $varTTL) 
+                {
+                $varReturn[$i] = [
+                    'Sys_ID' => $varKey,
+                    'TTL' => $varTTL,
+                    'Value'=> \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey)
+                    ];
+                $i++;
+                }
+            
+            $varReturn = [
+                'Process' => [
+                    'StartDateTime' => $varStartDateTime,
+                    'FinishDateTime' => $varFinishDateTime,
+                    'ExecutionTime' => $varExecutionTime,
+                    ],
+                'Data' => $varReturn,
+                'RowCount' => $varRowCount
+            ];
+            
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTime                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |
@@ -199,6 +253,32 @@ namespace App\Helpers\ZhtHelper\Database
                         throw new \Exception('Redis not available');
                         }
                     $varReturn = \Illuminate\Support\Facades\Redis::info();
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        public static function getKeyList($varUserSession, $varKeyPattern)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get key list with '.$varKeyPattern.' pattern');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
+                        }
+                    $varReturn = \Illuminate\Support\Facades\Redis::keys($varKeyPattern);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

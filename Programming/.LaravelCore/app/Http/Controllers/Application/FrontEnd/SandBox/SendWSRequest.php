@@ -12,18 +12,23 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_GetSessionData()
             {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAxODMwMH0.eQk6IYelscRQhCNe7XVHwg4DGG0MOW4iL4WUg79CT54';
+            
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
+                        'header' => [
+                            'authorization' => 'Bearer'.' '.$varAPIWebToken,
+                            ],
                         'metadata' => [
                             'API' => [
-                                'APIWebToken' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1OTExN30.PkpclTIraeQaM9Gawt0h7JP7hFfEw6ZvxYN7-hcrT6A',
-                                'key' => 'environment.session.getData',
+                                'key' => 'environment.general.session.getData',
                                 'version' => 'latest'
                                 ]
                             ],
                         'data' => [
+                            'aaa' => 'AAA'
                             ]
                         ];
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
@@ -45,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
             
 
-        public function SendAuthRequest()
+        public function APIAuthentication_SendAuthRequest()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();

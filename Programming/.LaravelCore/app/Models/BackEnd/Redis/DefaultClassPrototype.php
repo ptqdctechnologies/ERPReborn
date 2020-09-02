@@ -67,6 +67,27 @@ namespace App\Models\Redis
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllDataRecord                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh record                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getAllDataRecord($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getAllRecord($varUserSession, $this->varKeyHeader);
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -105,6 +126,27 @@ namespace App\Models\Redis
         public function getDataTTL($varUserSession, string $varKey)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getKeyHeader                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan KeyHeader                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getKeyHeader($varUserSession)
+            {
+            $varReturn = $this->varKeyHeader;
             return $varReturn;
             }
 
