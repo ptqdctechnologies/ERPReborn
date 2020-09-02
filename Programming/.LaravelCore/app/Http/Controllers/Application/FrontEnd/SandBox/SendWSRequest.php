@@ -17,7 +17,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'header' => [
-                            'authorization' => 'Bearer'.' '.'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODkyNzc3N30.aSlvCMwsOXEESibY6QtPpWpVQLBZpLi-vYzIUiMzYp4',
+                            'authorization' => 'Bearer'.' '.'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAxODMwMH0.eQk6IYelscRQhCNe7XVHwg4DGG0MOW4iL4WUg79CT54',
                             ],
                         'metadata' => [
                             'API' => [

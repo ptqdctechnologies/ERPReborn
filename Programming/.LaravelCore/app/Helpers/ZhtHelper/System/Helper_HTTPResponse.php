@@ -139,26 +139,34 @@ namespace App\Helpers\ZhtHelper\System
         */
         public static function setResponse($varUserSession, $varDataSend)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set HTTP Response');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = response()->json($varDataSend);
-                    //$varReturn->header('zzz', 'zzzZZZzzz');
-                    //$varReturn->header('Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varDataSend)));
-//echo "<br><br>MY RETURN ON setResponse : "; var_dump($varReturn); echo "<br><br>";
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }          
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+            if($varDataSend['metadata']['successStatus']==false)
+                {
+                abort($varDataSend['data']['code'], $varDataSend['data']['message']);
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            else
+                {
+                $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
+                try {
+                    $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set HTTP Response');
+                    try {
+                        //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                        $varReturn = response()->json($varDataSend);
+                        //$varReturn->header('zzz', 'zzzZZZzzz');
+                        //$varReturn->header('Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varDataSend)));
+    //echo "<br><br>MY RETURN ON setResponse : "; var_dump($varReturn); echo "<br><br>";
+                        //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                        }          
+                    catch (\Exception $ex) {
+                        \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                    } 
+                catch (\Exception $ex) {
+                    }
+                return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+
+                }
             }
 
 

@@ -46,6 +46,7 @@ return array(
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Engines\\APIResponse\\setNotificationSuccess\\v1\\setNotificationSuccess' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Core/Engines/APIResponse/setNotificationSuccess/v1/setNotificationSuccess.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Engines\\API\\gateway\\v1\\gateway' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Core/Engines/API/gateway/v1/gateway.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Controller_Main' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Environment/Controller_Main.php',
+    'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Engines\\general\\session\\getData\\v1\\getData' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Environment/Engines/general/session/getData/v1/getData.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Middleware\\Application\\BackEnd\\API\\Authentication\\RequestHandler' => $baseDir . '/app/Http/Middleware/Application/BackEnd/API/Authentication/RequestHandler.php',

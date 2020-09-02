@@ -22,7 +22,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     $varData = $varData['data'];
 
                     //---> Method Call
-                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, 'main2');
+                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData);
                     
                     if($varDataSend['metadata']['successStatus'] == true)
                         {
@@ -30,12 +30,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                         }
                     else
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varAPIKey.'~~~'.$varAPIVersion.'~~~'.json_encode($varDataSend));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, $varDataSend['data']['code'], $varDataSend['data']['message']);
                         }
-                    
-//$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-
-//$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

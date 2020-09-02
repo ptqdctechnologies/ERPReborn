@@ -52,8 +52,11 @@ $varData = [
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
                 } 
-            catch (\Exception $ex) {
-                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, $ex->getMessage());
+//            catch (\Exception $ex) {
+//                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, $ex->getMessage());
+//                }
+            catch (\Symfony\Component\HttpKernel\Exception\HttpException $ex) {
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, $ex->getStatusCode(), $ex->getMessage());
                 }
             }
         }

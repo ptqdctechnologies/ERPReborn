@@ -36,7 +36,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null)
+        public static function setCallAPIEngineOLD($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null)
             {
             $varAPIKeyData = explode('.', $varAPIKey);
             $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
@@ -74,36 +74,70 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
                 }
             require_once($varFilePath);
-            //$varObj = new $varClass();
-            //$varReturn = $varObj->{$varFunctionName}($varUserSession, $varData);
             $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
-//$varReturn='xxxxxxxxxx';
 
             if($varReturn['metadata']['successStatus']==false)
                 {
-//                if($varReturn['data']['code']!=null)
-      //              {
-                    return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
-//return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], json_encode($varReturn));
-        //            }
-//                else
-  //                  {
-                    //return $varReturn;
-                    
-                    //return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, 401, 'Mymessage');
-                    
-                    //return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setHTTPErrorPageDisplay($varUserSession, 401);
-                    //return self::setEngineResponseDataReturn_Fail($varUserSession, 401);
-//return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
-            
-//return 'Class = '.$varClass.', Function = '.$varFunctionName.', Data = '.serialize($varData);            
-                    //die;
-//return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, 401, json_encode($varReturn));
-    //                }
+                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
                 }   
             return $varReturn;
             }
 
+            
+            
+            
+            
+            
+public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null)
+    {
+    $varAPIKeyData = explode('.', $varAPIKey);
+    $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
+    $varAPIStructure = implode('.', $varAPIKeyData);
+
+    //---> Cek Nama Fungsi yang akan dieksekusi
+    if(!$varFunctionName)
+        {
+        //---> Bila Null, maka disamakan dengan nama fungsi parent yang menginisiasi objek ini
+        $varFunctionName = debug_backtrace()[1]['function'];
+        }
+
+    //---> Latest Version Translation
+    if(strcmp($varAPIVersion, 'latest') == 0)
+        {
+        $varFileVersionHeader = 'v';
+        $varFolderArray = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/'.$varAPIService.'/Engines/'.str_replace('.', '/', $varAPIStructure));
+        $varLastVersion = 0;
+        for($i=0; $i!=count($varFolderArray); $i++)
+            {
+            $varCheckVersion = str_replace($varFileVersionHeader, '', $varFolderArray[$i]);
+            if($varLastVersion < $varCheckVersion)
+                {
+                $varLastVersion = $varCheckVersion;
+                }
+            }
+        $varAPIVersion=$varLastVersion;
+        }
+
+    //---> Main Process
+    $varClass = 'App\\Http\\Controllers\\Application\\BackEnd\\System\\'.$varAPIService.'\\Engines\\'.str_replace('.', '\\', $varAPIStructure).'\\v'.$varAPIVersion.'\\'.$varAPIKeyData[count($varAPIKeyData)-1];
+    $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php');
+    if(!$varFilePath)
+        {
+        throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
+        }
+    require_once($varFilePath);
+    $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+
+//    if($varReturn['metadata']['successStatus']==false)
+//        {
+//        return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
+//        }   
+    return $varReturn;
+    }
+            
+            
+            
+            
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -186,56 +220,7 @@ public static function setEngineResponseDataReturn_FailXXX($varUserSession, int 
     
     
     
-        public static function setCallAPIEngine2($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null)
-            {
-            $varAPIKeyData = explode('.', $varAPIKey);
-            $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
-            $varAPIStructure = implode('.', $varAPIKeyData);
-            
-            //---> Cek Nama Fungsi yang akan dieksekusi
-            if(!$varFunctionName)
-                {
-                //---> Bila Null, maka disamakan dengan nama fungsi parent yang menginisiasi objek ini
-                $varFunctionName = debug_backtrace()[1]['function'];
-                }
-            
-            //---> Latest Version Translation
-            if(strcmp($varAPIVersion, 'latest') == 0)
-                {
-                $varFileVersionHeader = 'v';
-                $varFolderArray = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/'.$varAPIService.'/Engines/'.str_replace('.', '/', $varAPIStructure));
-                $varLastVersion = 0;
-                for($i=0; $i!=count($varFolderArray); $i++)
-                    {
-                    $varCheckVersion = str_replace($varFileVersionHeader, '', $varFolderArray[$i]);
-                    if($varLastVersion < $varCheckVersion)
-                        {
-                        $varLastVersion = $varCheckVersion;
-                        }
-                    }
-                $varAPIVersion=$varLastVersion;
-                }
-                
-            //---> Main Process
-            $varClass = 'App\\Http\\Controllers\\Application\\BackEnd\\System\\'.$varAPIService.'\\Engines\\'.str_replace('.', '\\', $varAPIStructure).'\\v'.$varAPIVersion.'\\'.$varAPIKeyData[count($varAPIKeyData)-1];
-            $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php');
-            if(!$varFilePath)
-                {
-                throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
-                }
-            require_once($varFilePath);
-            $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
-            
-            if($varReturn['metadata']['successStatus']==false)
-                {
-                if(!$varReturn['data']['code'])
-                    {
-                    return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponseOveride($varUserSession, $varReturn['data']['code'], $varReturn['data']['message']);
-                    }
-                }
-            return $varReturn;            
-            }    
-    
+
     
     
     

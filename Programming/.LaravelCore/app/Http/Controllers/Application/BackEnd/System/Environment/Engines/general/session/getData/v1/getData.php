@@ -8,21 +8,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Environment\Engines\ge
         function __construct()
             {
             }
-    
-        function main2($varUserSession, $varData)
-            {
-//$varDataSend = ['Answer' => 'Feedbackdari Main2'];
-//$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-
-////$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');            
-//            return $varReturn;
-$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');
-            
-            return $varReturn;
-            }
 
 
-        function main23($varUserSession, $varData)
+        function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -31,10 +19,10 @@ $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponse
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varDataSend = ['Answer' => 'Feedbackdari Main2'];
                     //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+$varDataSend = ['Answer' => 'Feedbackdari Main2'];
+$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                     
-                    //$varDataSend = [];
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');
+$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');
                     ///$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
