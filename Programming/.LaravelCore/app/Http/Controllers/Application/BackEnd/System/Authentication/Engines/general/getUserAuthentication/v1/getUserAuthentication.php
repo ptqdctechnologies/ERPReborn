@@ -63,6 +63,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varUserSession, 
                             $varBufferDB[0]['APIWebToken'],
                             json_encode([
+                                'user_RefID' => $varBufferDB[0]['User_RefID'],
+                                'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
+                                'branch_RefID' => $varBufferDB[0]['Branch_RefID'],
                                 'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                                 'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                                 'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ']

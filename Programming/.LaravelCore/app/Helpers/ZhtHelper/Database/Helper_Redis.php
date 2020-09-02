@@ -134,6 +134,60 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllRecord                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh record                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKeyHeader ► Key Header                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAllRecord($varUserSession, $varKeyHeader)
+            {
+            $varStartDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
+            $varData = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, $varKeyHeader.'*');
+            $varFinishDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
+            $varExecutionTime  = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeIntervalFromUnixTime($varUserSession, ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varFinishDateTime)) - ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varStartDateTime)));
+            $varRowCount = count($varData); 
+            for($i=0; $i!=$varRowCount; $i++)
+                {
+                $varKey = $varKeyHeader.(explode($varKeyHeader, $varData[$i]))[1];
+                $varTemp[$varKey] = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
+                }
+            arsort($varTemp);
+
+            $i=0;
+            foreach ($varTemp as $varKey => $varTTL) 
+                {
+                $varReturn[$i] = [
+                    'Sys_ID' => $varKey,
+                    'TTL' => $varTTL,
+                    'Value'=> \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey)
+                    ];
+                $i++;
+                }
+            
+            $varReturn = [
+                'Process' => [
+                    'StartDateTime' => $varStartDateTime,
+                    'FinishDateTime' => $varFinishDateTime,
+                    'ExecutionTime' => $varExecutionTime,
+                    ],
+                'Data' => $varReturn,
+                'RowCount' => $varRowCount
+            ];
+            
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTime                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000003                                                                                       |

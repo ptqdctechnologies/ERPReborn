@@ -12,12 +12,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_GetSessionData()
             {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAxODMwMH0.eQk6IYelscRQhCNe7XVHwg4DGG0MOW4iL4WUg79CT54';
+            
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varDataArray = [
                         'header' => [
-                            'authorization' => 'Bearer'.' '.'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAxODMwMH0.eQk6IYelscRQhCNe7XVHwg4DGG0MOW4iL4WUg79CT54',
+                            'authorization' => 'Bearer'.' '.$varAPIWebToken,
                             ],
                         'metadata' => [
                             'API' => [
@@ -48,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
             
 
-        public function SendAuthRequest()
+        public function APIAuthentication_SendAuthRequest()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();

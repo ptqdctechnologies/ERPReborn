@@ -20,6 +20,42 @@ namespace App\Models\PostgreSQL
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private $varSchemaTableName;
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : __construct                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : System's Default Constructor                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varFullClassName ► Full Class Name (Include NameSpace)                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        function __construct($varFullClassName)
+            {
+            $varTemp = explode('\\', $varFullClassName);
+            $this->varSchemaTableName = '"'.$varTemp[count($varTemp)-2].'"."'.$varTemp[count($varTemp)-1].'"';
+            }
+
+
+        public function getAllDataRecord($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_All($varUserSession, str_replace('"', '', (explode('.', $this->varSchemaTableName))[0]), str_replace('"', '', (explode('.', $this->varSchemaTableName))[1]));
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -36,7 +72,7 @@ namespace App\Models\PostgreSQL
         */
         public function getDataRecord($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, $varRecordID);
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
             return $varReturn['Data'];
             }
 
@@ -101,6 +137,28 @@ namespace App\Models\PostgreSQL
                     ],
                     )
                 );
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSchemaTableName                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Description     : Mendapatkan Nama Skema dan Table                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getSchemaTableName($varUserSession)
+            {
+            $varReturn = $this->varSchemaTableName;
             return $varReturn;
             }
         }

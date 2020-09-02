@@ -111,13 +111,19 @@ namespace App\Helpers\ZhtHelper\Database
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varReturnField = ['*'])
+        public static function getBuildStringLiteral_StoredProcedure($varUserSession, string $varStoredProcedureName, array $varData, array $varReturnField = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Build String Literal for Stored Procedure');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    //---> Parameter Reinitialization
+                    if(!$varReturnField)
+                        {
+                        $varReturnField = ['*'];
+                        }
+                    
                     //---> Check data integrity
                     if((!$varStoredProcedureName) OR (count($varReturnField) == 0))
                         {
@@ -521,20 +527,21 @@ namespace App\Helpers\ZhtHelper\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getQueryExecutionDataFetch_RecordDataOnly                                                            |
+        | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_All                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
         | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only tanpa menyertakan Field System         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getQueryExecutionDataFetch_RecordDataOnly($varUserSession, int $varRecordID)
+        public static function getQueryExecutionDataFetch_DataOnly_All($varUserSession, string $varSchemaName, string $varTableName)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -543,13 +550,63 @@ namespace App\Helpers\ZhtHelper\Database
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varSQL = '
                         SELECT 
-                            "FuncSys_General_GetStringLiteralFieldSelect_DataOnly" AS "QueryBuilderString"
+                            "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All" AS "QueryBuilderString"
                         FROM 
-                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly"('.$varRecordID.'::bigint);
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(\''.$varSchemaName.'\'::varchar, \''.$varTableName.'\'::varchar)
                         ';
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varSQL = $varData['Data'][0]['QueryBuilderString'];
                     //--->
+                    //echo $varSQL."<br><br>";
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varReturn = $varData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_Specific                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only tanpa menyertakan Field System sesuai  |
+        |                     Record ID tertentu (varRecordID)                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, int $varRecordID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varSQL = '
+                        SELECT 
+                            "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific" AS "QueryBuilderString"
+                        FROM 
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific"('.$varRecordID.'::bigint)
+                        ';
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    //--->
+                    //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

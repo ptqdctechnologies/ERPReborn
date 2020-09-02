@@ -81,16 +81,8 @@ namespace App\Models\Redis
         */
         public function getAllDataRecord($varUserSession)
             {
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, $this->varKeyHeader.'*');
-            for($i=0; $i!=count($varData); $i++)
-                {
-                $varKey = $this->varKeyHeader.(explode($this->varKeyHeader, $varData[$i]))[1];
-                $varReturn[$varKey] = [
-                    'value' => \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey),
-                    'ttl' => \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey)
-                    ];
-                }
-            return $varReturn;
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getAllRecord($varUserSession, $this->varKeyHeader);
+            return $varReturn['Data'];
             }
 
 
