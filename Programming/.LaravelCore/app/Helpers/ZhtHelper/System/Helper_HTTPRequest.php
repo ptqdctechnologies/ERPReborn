@@ -187,9 +187,8 @@ namespace App\Helpers\ZhtHelper\System
                                             'version' => 1
                                             ],
                                         ],
-                                    'data' => [
-                                        $varResponseData
-                                        ]
+                                    //'data' => (json_decode($varResponseData, TRUE))['data']
+                                    'data' => (json_decode($varResponseData, TRUE))
                                     ];
                                 }
                             else

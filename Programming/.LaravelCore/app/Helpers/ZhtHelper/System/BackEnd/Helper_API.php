@@ -132,10 +132,24 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setEngineResponseDataReturn_Success($varUserSession, array $varData)
+        public static function setEngineResponseDataReturn_Success($varUserSession, array $varData, string $varFullClassName = null)
             {
+            if(!$varFullClassName)
+                {
+                $varFullClassName = '';
+                }
+            $APIKey = explode('\\', explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[0].explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[1]);
+            array_pop($APIKey);
+            $APIVersion = str_replace('v', '', array_pop($APIKey));
+            $APIKey = \App\Helpers\ZhtHelper\General\Helper_String::getLowerCaseFirstCharacter($varUserSession, implode('.', $APIKey));
+            
             $varReturn = [
                 "metadata" => [
+                    "APIResponse" =>
+                        [
+                        'key' => $APIKey,
+                        'version' => $APIVersion,
+                        ],
                     "successStatus" => true
                     ],
                 "data" => $varData

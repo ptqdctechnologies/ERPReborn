@@ -80,7 +80,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
                             'RedisID' => $varRedisID
                             ];
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, __CLASS__);
                         }
                     //---> Jika Otentikasi gagal
                     else 

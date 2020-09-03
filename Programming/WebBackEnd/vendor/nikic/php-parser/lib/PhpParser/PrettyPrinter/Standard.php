@@ -27,7 +27,9 @@ class Standard extends PrettyPrinterAbstract
     }
 
     protected function pArg(Node\Arg $node) {
-        return ($node->byRef ? '&' : '') . ($node->unpack ? '...' : '') . $this->p($node->value);
+        return ($node->name ? $node->name->toString() . ': ' : '')
+             . ($node->byRef ? '&' : '') . ($node->unpack ? '...' : '')
+             . $this->p($node->value);
     }
 
     protected function pConst(Node\Const_ $node) {
@@ -385,7 +387,10 @@ class Standard extends PrettyPrinterAbstract
     }
 
     protected function pExpr_Instanceof(Expr\Instanceof_ $node) {
-        return $this->pInfixOp(Expr\Instanceof_::class, $node->expr, ' instanceof ', $node->class);
+        list($precedence, $associativity) = $this->precedenceMap[Expr\Instanceof_::class];
+        return $this->pPrec($node->expr, $precedence, $associativity, -1)
+             . ' instanceof '
+             . $this->pNewVariable($node->class);
     }
 
     // Unary expressions
@@ -492,7 +497,7 @@ class Standard extends PrettyPrinterAbstract
              . '(' . $this->pMaybeMultiline($node->args) . ')';
     }
 
-    protected function pExpr_NullsafeMethodCall(Expr\NUllsafeMethodCall $node) {
+    protected function pExpr_NullsafeMethodCall(Expr\NullsafeMethodCall $node) {
         return $this->pDereferenceLhs($node->var) . '?->' . $this->pObjectProperty($node->name)
             . '(' . $this->pMaybeMultiline($node->args) . ')';
     }
@@ -575,7 +580,7 @@ class Standard extends PrettyPrinterAbstract
     }
 
     protected function pExpr_ClassConstFetch(Expr\ClassConstFetch $node) {
-        return $this->p($node->class) . '::' . $this->p($node->name);
+        return $this->pDereferenceLhs($node->class) . '::' . $this->p($node->name);
     }
 
     protected function pExpr_PropertyFetch(Expr\PropertyFetch $node) {
@@ -633,7 +638,8 @@ class Standard extends PrettyPrinterAbstract
             $args = $node->args ? '(' . $this->pMaybeMultiline($node->args) . ')' : '';
             return 'new ' . $this->pClassCommon($node->class, $args);
         }
-        return 'new ' . $this->p($node->class) . '(' . $this->pMaybeMultiline($node->args) . ')';
+        return 'new ' . $this->pNewVariable($node->class)
+            . '(' . $this->pMaybeMultiline($node->args) . ')';
     }
 
     protected function pExpr_Clone(Expr\Clone_ $node) {
@@ -652,6 +658,10 @@ class Standard extends PrettyPrinterAbstract
         $kind = $node->getAttribute('kind', Expr\Exit_::KIND_DIE);
         return ($kind === Expr\Exit_::KIND_EXIT ? 'exit' : 'die')
              . (null !== $node->expr ? '(' . $this->p($node->expr) . ')' : '');
+    }
+
+    protected function pExpr_Throw(Expr\Throw_ $node) {
+        return 'throw ' . $this->p($node->expr);
     }
 
     protected function pExpr_Yield(Expr\Yield_ $node) {
@@ -1000,6 +1010,11 @@ class Standard extends PrettyPrinterAbstract
         } else  {
             return '(' . $this->p($node) . ')';
         }
+    }
+
+    protected function pNewVariable(Node $node) {
+        // TODO: This is not fully accurate.
+        return $this->pDereferenceLhs($node);
     }
 
     /**

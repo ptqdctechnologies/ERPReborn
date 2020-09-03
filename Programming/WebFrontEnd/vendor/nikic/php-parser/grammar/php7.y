@@ -49,6 +49,12 @@ reserved_non_modifiers_identifier:
       reserved_non_modifiers                                { $$ = Node\Identifier[$1]; }
 ;
 
+namespace_declaration_name:
+      T_STRING                                              { $$ = Name[$1]; }
+    | semi_reserved                                         { $$ = Name[$1]; }
+    | T_NAME_QUALIFIED                                      { $$ = Name[$1]; }
+;
+
 namespace_name:
       T_STRING                                              { $$ = Name[$1]; }
     | T_NAME_QUALIFIED                                      { $$ = Name[$1]; }
@@ -83,11 +89,11 @@ top_statement:
     | class_declaration_statement                           { $$ = $1; }
     | T_HALT_COMPILER
           { $$ = Stmt\HaltCompiler[$this->lexer->handleHaltCompiler()]; }
-    | T_NAMESPACE namespace_name semi
+    | T_NAMESPACE namespace_declaration_name semi
           { $$ = Stmt\Namespace_[$2, null];
             $$->setAttribute('kind', Stmt\Namespace_::KIND_SEMICOLON);
             $this->checkNamespace($$); }
-    | T_NAMESPACE namespace_name '{' top_statement_list '}'
+    | T_NAMESPACE namespace_declaration_name '{' top_statement_list '}'
           { $$ = Stmt\Namespace_[$2, $4];
             $$->setAttribute('kind', Stmt\Namespace_::KIND_BRACED);
             $this->checkNamespace($$); }
@@ -233,7 +239,16 @@ non_empty_statement:
     | T_STATIC static_var_list semi                         { $$ = Stmt\Static_[$2]; }
     | T_ECHO expr_list_forbid_comma semi                    { $$ = Stmt\Echo_[$2]; }
     | T_INLINE_HTML                                         { $$ = Stmt\InlineHTML[$1]; }
-    | expr semi                                             { $$ = Stmt\Expression[$1]; }
+    | expr semi {
+        $e = $1;
+        if ($e instanceof Expr\Throw_) {
+            // For backwards-compatibility reasons, convert throw in statement position into
+            // Stmt\Throw_ rather than Stmt\Expression(Expr\Throw_).
+            $$ = Stmt\Throw_[$e->expr];
+        } else {
+            $$ = Stmt\Expression[$e];
+        }
+    }
     | T_UNSET '(' variables_list ')' semi                   { $$ = Stmt\Unset_[$3]; }
     | T_FOREACH '(' expr T_AS foreach_variable ')' foreach_statement
           { $$ = Stmt\Foreach_[$3, $5[0], ['keyVar' => null, 'byRef' => $5[1], 'stmts' => $7]]; }
@@ -244,7 +259,6 @@ non_empty_statement:
     | T_DECLARE '(' declare_list ')' declare_statement      { $$ = Stmt\Declare_[$3, $5]; }
     | T_TRY '{' inner_statement_list '}' catches optional_finally
           { $$ = Stmt\TryCatch[$3, $5, $6]; $this->checkTryCatch($$); }
-    | T_THROW expr semi                                     { $$ = Stmt\Throw_[$2]; }
     | T_GOTO identifier semi                                { $$ = Stmt\Goto_[$2]; }
     | identifier ':'                                        { $$ = Stmt\Label[$1]; }
     | error                                                 { $$ = array(); /* means: no statement */ }
@@ -475,13 +489,13 @@ optional_visibility_modifier:
 ;
 
 parameter:
-      optional_visibility_modifier optional_type optional_ref optional_ellipsis plain_variable
+      optional_visibility_modifier optional_type_without_static optional_ref optional_ellipsis plain_variable
           { $$ = new Node\Param($5, null, $2, $3, $4, attributes(), $1);
             $this->checkParam($$); }
-    | optional_visibility_modifier optional_type optional_ref optional_ellipsis plain_variable '=' expr
+    | optional_visibility_modifier optional_type_without_static optional_ref optional_ellipsis plain_variable '=' expr
           { $$ = new Node\Param($5, $7, $2, $3, $4, attributes(), $1);
             $this->checkParam($$); }
-    | optional_visibility_modifier optional_type optional_ref optional_ellipsis error
+    | optional_visibility_modifier optional_type_without_static optional_ref optional_ellipsis error
           { $$ = new Node\Param(Expr\Error[], null, $2, $3, $4, attributes(), $1); }
 ;
 
@@ -492,6 +506,11 @@ type_expr:
 ;
 
 type:
+      type_without_static                                   { $$ = $1; }
+    | T_STATIC                                              { $$ = Node\Name['static']; }
+;
+
+type_without_static:
       name                                                  { $$ = $this->handleBuiltinTypes($1); }
     | T_ARRAY                                               { $$ = Node\Identifier['array']; }
     | T_CALLABLE                                            { $$ = Node\Identifier['callable']; }
@@ -502,9 +521,20 @@ union_type:
     | union_type '|' type                                   { push($1, $3); }
 ;
 
-optional_type:
+union_type_without_static:
+      type_without_static '|' type_without_static           { init($1, $3); }
+    | union_type_without_static '|' type_without_static     { push($1, $3); }
+;
+
+type_expr_without_static:
+      type_without_static                                   { $$ = $1; }
+    | '?' type_without_static                               { $$ = Node\NullableType[$2]; }
+    | union_type_without_static                             { $$ = Node\UnionType[$1]; }
+;
+
+optional_type_without_static:
       /* empty */                                           { $$ = null; }
-    | type_expr                                             { $$ = $1; }
+    | type_expr_without_static                              { $$ = $1; }
 ;
 
 optional_return_type:
@@ -527,6 +557,8 @@ argument:
       expr                                                  { $$ = Node\Arg[$1, false, false]; }
     | '&' variable                                          { $$ = Node\Arg[$2, true, false]; }
     | T_ELLIPSIS expr                                       { $$ = Node\Arg[$2, false, true]; }
+    | identifier_ex ':' expr
+          { $$ = new Node\Arg($3, false, false, attributes(), $1); }
 ;
 
 global_var_list:
@@ -568,7 +600,7 @@ class_statement_list:
 ;
 
 class_statement:
-      variable_modifiers optional_type property_declaration_list ';'
+      variable_modifiers optional_type_without_static property_declaration_list ';'
           { $attrs = attributes();
             $$ = new Stmt\Property($1, $3, $attrs, $2); $this->checkProperty($$, #1); }
     | method_modifiers T_CONST class_const_list ';'
@@ -767,6 +799,7 @@ expr:
     | T_YIELD expr                                          { $$ = Expr\Yield_[$2, null]; }
     | T_YIELD expr T_DOUBLE_ARROW expr                      { $$ = Expr\Yield_[$4, $2]; }
     | T_YIELD_FROM expr                                     { $$ = Expr\YieldFrom[$2]; }
+    | T_THROW expr                                          { $$ = Expr\Throw_[$2]; }
 
     | T_FN optional_ref '(' parameter_list ')' optional_return_type T_DOUBLE_ARROW expr
           { $$ = Expr\ArrowFunction[['static' => false, 'byRef' => $2, 'params' => $4, 'returnType' => $6, 'expr' => $8]]; }

@@ -145,15 +145,15 @@ namespace App\Helpers\ZhtHelper\System
                 }
             else
                 {
-                $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
+//                $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, (response()->json([])), __CLASS__, __FUNCTION__);
+                $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
                 try {
                     $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set HTTP Response');
                     try {
                         //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        $varReturn = response()->json($varDataSend);
-                        //$varReturn->header('zzz', 'zzzZZZzzz');
-                        //$varReturn->header('Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varDataSend)));
-    //echo "<br><br>MY RETURN ON setResponse : "; var_dump($varReturn); echo "<br><br>";
+                        //$varReturn = response()->json($varDataSend);
+                        $varReturn = $varDataSend;
+                        
                         //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                         }          
@@ -165,7 +165,6 @@ namespace App\Helpers\ZhtHelper\System
                 catch (\Exception $ex) {
                     }
                 return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-
                 }
             }
 
