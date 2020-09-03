@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_GetSessionData()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAxODMwMH0.eQk6IYelscRQhCNe7XVHwg4DGG0MOW4iL4WUg79CT54';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTEyNjI3M30.UQ-CH1j0_2ypS0JLezxoy2WWmsis444GCpexKxHaON0';
             
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();

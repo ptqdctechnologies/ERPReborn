@@ -29,11 +29,11 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         [403, 'Request date and time not specified on HTTP Header']));
                     }
                 //--->---> Check Date Time Difference on HTTP Header
-//                if(!(($varServerCurrentUnixTime-$varClientServerDateTimeLagTolerance) <= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date'])) && ($varServerCurrentUnixTime+$varClientServerDateTimeLagTolerance) >= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']))))
-//                    {
-//                    throw new \Exception(implode($varDataSeparatorTag, 
-//                        [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
-//                    }
+                if(!(($varServerCurrentUnixTime-$varClientServerDateTimeLagTolerance) <= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date'])) && ($varServerCurrentUnixTime+$varClientServerDateTimeLagTolerance) >= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']))))
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
+                    }
                 //--->---> Check Content-MD5 on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'content-md5', $varHTTPHeader)==false)
                     {
@@ -47,11 +47,11 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                         [403, 'Request ID not specified on HTTP Header']));
                     }
                 //--->---> Check Expired DateTime
-//                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
-//                    {
-//                    throw new \Exception(implode($varDataSeparatorTag, 
-//                        [403, 'Request has expired']));
-//                    }                   
+                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
+                    {
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 'Request has expired']));
+                    }                   
                 //--->---> Check Content Integrity
                 if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), true))) != 0)
                     {
