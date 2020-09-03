@@ -43,7 +43,7 @@ namespace App\Models\Database
         function __construct($varFullClassName)
             {
             $varTemp = explode('\\', $varFullClassName);
-            $this->varSchemaTableName = '"'.$varTemp[count($varTemp)-2].'"."'.$varTemp[count($varTemp)-1].'"';
+            $this->varSchemaTableName = '"'.str_replace('_', '-', $varTemp[count($varTemp)-2]).'"."'.$varTemp[count($varTemp)-1].'"';
             }
 
             

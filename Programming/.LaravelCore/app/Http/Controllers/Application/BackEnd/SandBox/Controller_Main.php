@@ -39,7 +39,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
 //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
-            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
             echo $x;
             echo '<br>~~~~~~~~<br>';
             
