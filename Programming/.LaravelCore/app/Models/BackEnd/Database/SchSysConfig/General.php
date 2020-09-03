@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\PostgreSQL\SchSysConfig                                                                               |
+| ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\PostgreSQL\SchSysConfig
+namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : General                                                                                                      |
-    | ▪ Description : Menangani Models PostgreSQL ► Non Specific Table                                                             |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► Non Specific Table                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class General //extends \Illuminate\Database\Eloquent\Model

@@ -5,8 +5,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
     {
     class getUserAuthentication extends \App\Http\Controllers\Controller
         {
+        private $varAPIIdentity;
+
+
         function __construct()
             {
+            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
             }
 
 
@@ -37,10 +41,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             {
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
-                        while((new \App\Models\PostgreSQL\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
+                        while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
 
                         //---> Insert Data to PostgreSQL
-                        $varBufferDB = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
+                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
                             null, 
                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession),
@@ -56,10 +60,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
                         //$varSysID = $varBufferDB['SignRecordID'];
-                        $varBufferDB = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varBufferDB['SignRecordID']);
+                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varBufferDB['SignRecordID']);
 
                         //---> Insert Data to Redis
-                        $varRedisID = (new \App\Models\Redis\General\APIWebToken())->setDataInsert(
+                        $varRedisID = (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
                             $varUserSession, 
                             $varBufferDB[0]['APIWebToken'],
                             json_encode([
@@ -80,7 +84,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
                             'RedisID' => $varRedisID
                             ];
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, __CLASS__);
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
                     //---> Jika Otentikasi gagal
                     else 

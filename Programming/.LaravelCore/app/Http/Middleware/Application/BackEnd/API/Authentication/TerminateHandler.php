@@ -13,7 +13,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             //---> Store API Access Request to Database
-            (new \App\Models\PostgreSQL\SchSysConfig\TblRotateLog_API())->setDataInsert(
+            (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->setDataInsert(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
                 url()->current(), 

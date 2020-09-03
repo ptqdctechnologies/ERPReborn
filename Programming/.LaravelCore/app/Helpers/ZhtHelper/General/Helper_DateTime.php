@@ -363,7 +363,12 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     else
                         {
-                        $varMicroSecond = str_replace(' ', '', (explode('-', (explode('+', (explode('.', $varDateTimeString))[1]))[0]))[0]);
+                        try {
+                            $varMicroSecond = str_replace(' ', '', (explode('-', (explode('+', (explode('.', $varDateTimeString))[1]))[0]))[0]);                            
+                            } 
+                        catch (\Exception $ex) {
+                            $varMicroSecond = null;
+                            }
                         $varReturn=strtotime($varDateTimeString).(!$varMicroSecond ? '': '.'.$varMicroSecond);
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

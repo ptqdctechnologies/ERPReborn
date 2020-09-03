@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\PostgreSQL\SchSysConfig                                                                               |
+| ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\PostgreSQL\SchSysConfig
+namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : TblRotateLog_API                                                                                             |
-    | ▪ Description : Menangani Models PostgreSQL ► TblRotateLog_API                                                               |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblRotateLog_API                                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblRotateLog_API extends \App\Models\PostgreSQL\DefaultClassPrototype
+    class TblRotateLog_API extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

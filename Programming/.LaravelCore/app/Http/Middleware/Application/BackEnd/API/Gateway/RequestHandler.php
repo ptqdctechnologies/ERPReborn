@@ -33,7 +33,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'HTTP Authorization Requests must be in Bearer Mode']));
                     }
                 //--->---> Check API Web Token Existence
-                if((new \App\Models\Redis\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
+                if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'API Web Token does not exist']));
@@ -41,7 +41,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                 //--->---> Check API Web Token Expiry
                 else
                     {
-                    if((new \App\Models\Redis\General\APIWebToken())->isDataExpired($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == true)
+                    if((new \App\Models\Cache\General\APIWebToken())->isDataExpired($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == true)
                         {
                         throw new \Exception(implode($varDataSeparatorTag, 
                             [403, 'API Web Token has been expired']));
@@ -87,12 +87,12 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     
 /*
 throw new \Exception(implode($varDataSeparatorTag, 
-    [403, ((new \App\Models\Redis\General\APIWebToken())->getDataTTL($varUserSession, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTQzOH0.DFZ1Qodt1ivT2PEY-0l9I1Am7Clh5EP_eZEMXcyA4Cw'))                 ]));
+    [403, ((new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTQzOH0.DFZ1Qodt1ivT2PEY-0l9I1Am7Clh5EP_eZEMXcyA4Cw'))                 ]));
 */                    
 //                ;
 /*                    
 throw new \Exception(implode($varDataSeparatorTag, 
-    [403, (new \App\Models\Redis\General\APIWebToken())->getDataTTL($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1])                 ]));
+    [403, (new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1])                 ]));
 */                
                 
                 $varReturn = $varObjNext($varObjRequest);

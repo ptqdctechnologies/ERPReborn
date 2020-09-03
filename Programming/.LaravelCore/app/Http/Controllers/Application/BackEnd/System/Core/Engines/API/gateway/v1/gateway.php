@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
     {
     class gateway extends \App\Http\Controllers\Controller
         {
+        private $varAPIIdentity;
+
         function __construct()
             {
+            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
             }
 
 
@@ -26,7 +29,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     
                     if($varDataSend['metadata']['successStatus'] == true)
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend['data']);
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                        $varUserSession, 
+                                        $varDataSend['data'], 
+                                        ['Key' => $varAPIKey, 'Version' => ((strcmp($varAPIVersion, 'latest') !=0 ) ? $varAPIVersion : (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPILatestVersion($varUserSession, $varAPIKey)))]
+                                        );
                         }
                     else
                         {

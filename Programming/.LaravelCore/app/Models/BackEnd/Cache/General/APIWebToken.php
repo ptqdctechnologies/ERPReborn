@@ -3,12 +3,12 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Redis\General                                                                                         |
+| ▪ Name Space : \App\Models\Cache\General                                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Redis\General
+namespace App\Models\Cache\General
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -16,7 +16,7 @@ namespace App\Models\Redis\General
     | ▪ Description : Menangani Models Redis ► APIWebToken                                                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class APIWebToken extends \App\Models\Redis\DefaultClassPrototype
+    class APIWebToken extends \App\Models\Cache\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

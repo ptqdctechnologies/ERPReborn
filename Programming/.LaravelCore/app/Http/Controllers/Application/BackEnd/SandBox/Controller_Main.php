@@ -37,26 +37,26 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession=0;
             
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
-//            $x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
-            //$x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
-            $x = (new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
+//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
+            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
             echo $x;
             echo '<br>~~~~~~~~<br>';
             
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
 //            
-            $x = (new \App\Models\Redis\General\APIWebToken())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
             var_dump($x);
             
-            //echo (new \App\Models\PostgreSQL\SchSysConfig\TblRotateLog_API())->getSchemaTableName($varUserSession);
+            //echo (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->getSchemaTableName($varUserSession);
             
             echo '<br>~~~~~~~~<br>';
             echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
             
-//            $x = new \App\Models\Redis\General\APIWebToken();
+//            $x = new \App\Models\Cache\General\APIWebToken();
 //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
             
-//$x = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
+//$x = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
 //$y = $x->getDataRecord(000000, 6000000000013);
 //var_dump($y);
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, 6000000000013);
@@ -67,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                         echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
 
             
-/*$x = new \App\Models\Redis\General\APIWebToken();
+/*$x = new \App\Models\Cache\General\APIWebToken();
 $x->setDataInsert($varUserSession, 'xxx', 'xxxValue', 10);
 echo "<br>~~~~~~~~~~~~~~~~~~~~~<br>";
 echo $x->getDataRecord($varUserSession, 'xxx');
@@ -89,7 +89,7 @@ for($i=0; $i!=2; $i++)
 //$x->setKeyHeader($varUserSession, $varClassName)
 
             
-//            $ObjModel = new \App\Models\PostgreSQL\SchSysConfig\TblLog_UserLoginSession();
+//            $ObjModel = new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession();
 //            $user = $ObjModel->   ->hydrate(
 //            $user = DB::select(
 //                "SELECT * FROM \"SchSysConfig\".\"FuncSys_General_GetUnixTime\"('2019-01-01 00:00:00 +07')"

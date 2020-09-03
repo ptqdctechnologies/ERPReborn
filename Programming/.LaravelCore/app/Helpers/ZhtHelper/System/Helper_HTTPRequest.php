@@ -178,17 +178,13 @@ namespace App\Helpers\ZhtHelper\System
                             if(strcmp($varDataHeaderMD5, \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)) == 0)
                                 {
                                 //---> Based on Core\Engines\APIResponse\setNotificationSuccess\v1\setNotificationSuccess
+                                $varData = (json_decode($varResponseData, TRUE));
                                 $varResponseContents = [
                                     'metadata' => [
                                         'HTTPStatusCode' => $varHTTPStatusCode,
-                                        'APIResponse' => [
-                                            'class' => 'core.general.notification',
-                                            'type' => 'successMessage',
-                                            'version' => 1
-                                            ],
+                                        'APIResponse' => $varData['metadata']['APIResponse']
                                         ],
-                                    //'data' => (json_decode($varResponseData, TRUE))['data']
-                                    'data' => (json_decode($varResponseData, TRUE))
+                                    'data' => $varData['data']
                                     ];
                                 }
                             else
@@ -199,13 +195,12 @@ namespace App\Helpers\ZhtHelper\System
                                     'metadata' => [
                                         'HTTPStatusCode' => $varHTTPStatusCode,
                                         'APIResponse' => [
-                                            'class' => 'core.general.notification',
-                                            'type' => 'failureMessage',
+                                            'key' => 'core.general.notification',
                                             'version' => 1
                                             ],
                                         ],
                                     'data' => [
-                                        'message' => 'Data integrity check failed'
+                                        'message' => 'Data integrity check failed (MD5 Payload Inconsistency)'
                                         ]
                                     ];
                                 //echo abort(403, 'xxxxx');
@@ -223,8 +218,7 @@ namespace App\Helpers\ZhtHelper\System
                                 'metadata' => [
                                     'HTTPStatusCode' => $varHTTPStatusCode,
                                     'APIResponse' => [
-                                        'class' => 'core.general.notification',
-                                        'type' => 'failureMessage',
+                                        'key' => 'core.general.notification',
                                         'version' => 1
                                         ],
                                     ],
@@ -247,8 +241,7 @@ namespace App\Helpers\ZhtHelper\System
                             'metadata' => [
                                 'HTTPStatusCode' => $varHTTPStatusCode,
                                 'APIResponse' => [
-                                    'class' => 'core.general.notification',
-                                    'type' => 'failureMessage',
+                                    'key' => 'core.general.notification',
                                     'version' => 1
                                     ],
                                 ],
