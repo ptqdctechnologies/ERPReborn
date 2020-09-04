@@ -13,7 +13,7 @@ namespace App\Models\Database
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : DefaultClassPrototype                                                                                        |
-    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models PostgreSQL                                              |
+    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models Database                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class DefaultClassPrototype //extends \Illuminate\Database\Eloquent\Model

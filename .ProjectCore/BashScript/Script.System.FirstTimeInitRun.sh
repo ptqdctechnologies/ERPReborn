@@ -24,6 +24,6 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
 
-./BashScript/Script.Docker.BuildPermanentStorage.Minio.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
 
 ./BashScript/Script.Docker.Start.sh;

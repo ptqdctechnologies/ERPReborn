@@ -139,7 +139,7 @@ services:
       app-network:
         ipv4_address: '172.28.0.7'
     volumes:
-      - './.ProjectCore/PermanentStorage/Minio/:/data'
+      - './.ProjectCore/PermanentStorage/MinIO/:/data'
     environment:
       MINIO_ACCESS_KEY: 'AKIAIOSFODNN7EXAMPLE'
       MINIO_SECRET_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'

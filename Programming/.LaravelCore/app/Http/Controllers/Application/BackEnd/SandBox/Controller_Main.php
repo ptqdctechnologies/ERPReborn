@@ -31,6 +31,23 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
 
+        public function testMinIO()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            $varUserSession=0;
+            
+            \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::test();
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         public function testRedis()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());

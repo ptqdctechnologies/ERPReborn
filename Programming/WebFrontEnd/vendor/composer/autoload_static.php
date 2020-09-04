@@ -498,6 +498,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
         'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',
         'App\\Helpers\\ZhtHelper\\Database\\Helper_Redis' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_Redis.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Array' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Array.php',
