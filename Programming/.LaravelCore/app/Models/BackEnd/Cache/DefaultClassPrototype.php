@@ -13,7 +13,7 @@ namespace App\Models\Cache
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : DefaultClassPrototype                                                                                        |
-    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models Redis                                                   |
+    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models Cache                                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class DefaultClassPrototype
