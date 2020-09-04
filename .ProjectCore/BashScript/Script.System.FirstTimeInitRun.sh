@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.System.FirstTimeInitRun.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-06-17
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2020-09-04
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menjalankan semua Script saat Inisialisasi Pertama 
@@ -23,5 +23,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
+
+./BashScript/Script.Docker.BuildPermanentStorage.Minio.sh;
 
 ./BashScript/Script.Docker.Start.sh;

@@ -35,6 +35,7 @@ services:
       - 'db-postgresql'
       - 'redis'
       - 'pgadmin4'
+      - 'minio'
     restart: 'unless-stopped'
     tty: 'true'
     ports:
@@ -126,6 +127,25 @@ services:
       PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
       PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
 
+
+  #---> Services : Minio
+  minio:
+    container_name: 'minio'
+    image: 'minio/minio:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '19000:9000'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.7'
+    volumes:
+      - './.ProjectCore/PermanentStorage/Minio/:/data'
+    environment:
+      MINIO_ACCESS_KEY: 'AKIAIOSFODNN7EXAMPLE'
+      MINIO_SECRET_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
+    command: server /data
+    restart: always
+  
 
 #---> Docker Volumes
 volumes:
