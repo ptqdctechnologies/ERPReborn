@@ -1,1 +1,1 @@
-./../.ProjectCore/BashScript/Script.Docker.BuildPermanentStorage.Minio.sh
+./../.ProjectCore/BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh
