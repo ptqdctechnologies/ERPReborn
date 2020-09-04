@@ -28,6 +28,7 @@
       2. **php:7.3-apache**
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
+      5. **minio/minio:lates**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
       2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
@@ -39,6 +40,7 @@
       3. **erp-reborn-phpapache-backend** &rarr; membentuk container bernama **php-apache-frontend** (Docker IP : 172.28.0.4)
       4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
       5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.6)
+      6. **minio/minio** &rarr; membentuk container bernama **minio** (Docker IP : 172.28.0.7)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
@@ -47,6 +49,7 @@
    4. **apache WebFrontEnd** &rarr; **http://localhost:20080** (NAT dari 172.28.0.4:80)
    5. **redis** &rarr; **http://localhost:16379** (NAT dari 172.28.0.5:6379)
    6. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.6:5050)
+   7. **minio** &rarr; **http://localhost:19000** (NAT dari 172.28.0.7:9000)
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
