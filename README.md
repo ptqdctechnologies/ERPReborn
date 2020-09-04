@@ -28,7 +28,7 @@
       2. **php:7.3-apache**
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
-      5. **minio/minio:lates**
+      5. **minio/minio:latest**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
       2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
