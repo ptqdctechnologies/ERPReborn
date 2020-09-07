@@ -36,7 +36,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession=0;
             
-            \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::test();
+            //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::test();
+            $x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getBucketName($varUserSession);
+            var_dump($x);
+            echo '<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>';
+            //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->($varUserSession);
+            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
+            //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, 'MyImages/Logo-Application.png');
+            //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL($varUserSession, 'MyImages/Logo-Application.png');
+            //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, 'MyImages/Logo-Application.png');
             }
             
             
@@ -62,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo $x;
             echo '<br>~~~~~~~~<br>';
             
-//            $x = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
+//            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
 //            
             $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
             var_dump($x);
@@ -70,7 +78,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //echo (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->getSchemaTableName($varUserSession);
             
             echo '<br>~~~~~~~~<br>';
-            echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
+            echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
             
 //            $x = new \App\Models\Cache\General\APIWebToken();
 //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
@@ -82,8 +90,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            var_dump($x);
 
                         $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
-                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey);
-                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
+                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
+                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
 
             
 /*$x = new \App\Models\Cache\General\APIWebToken();
@@ -178,25 +186,25 @@ for($i=0; $i!=2; $i++)
 //            echo \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, 'SysAdmin', '10006000000000002');
             
             
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, 'MyKey', '{Myvalue}', 5);
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue($varUserSession, 'MyKey', '{Myvalue}', 5);
             for($i=0; $i!=3; $i++)
                 {
                 sleep(1);
-                echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
+                echo "<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'MyKey');
                 }
             echo "<br>~~~~~~~~~~~";
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, 'MyKey', '{New Myvalue}', 5);
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue($varUserSession, 'MyKey', '{New Myvalue}', 5);
             for($i=0; $i!=10; $i++)
                 {
                 sleep(1);
-                echo "<br>".\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, 'MyKey');
+                echo "<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'MyKey')."-->".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'MyKey');
                 }
 */
  
-            //echo "<br>". \App\Helpers\ZhtHelper\Database\Helper_Redis::getStatusAvailability($varUserSession);
+            //echo "<br>". \App\Helpers\ZhtHelper\Cache\Helper_Redis::getStatusAvailability($varUserSession);
             //echo "<br>".\Illuminate\Support\Facades\Redis::ttl('MyKey');
-            //echo \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, 'MyKey');
-            //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo($varUserSession));
+            //echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'MyKey');
+            //var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getInfo($varUserSession));
             }
             
 
@@ -420,20 +428,20 @@ for($i=0; $i!=2; $i++)
             
 
             
-            //var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTimeTZ());
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue(000000, 'myKey2'));
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue(000000, 'myKey2', 'myValue', 1);
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::isExist(000000, 'myKey2');
+            //var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTimeTZ());
+            var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(000000, 'myKey2'));
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(000000, 'myKey2', 'myValue', 1);
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExist(000000, 'myKey2');
             echo "<br><br>Delete:";
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::delete(000000, 'myKey2');
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::delete(000000, 'myKey2');
             echo "<br><br>TTL:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL(000000, 'myKey2'));
+            var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL(000000, 'myKey2'));
             echo "<br><br>GetValue:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getValue(000000, 'myKey2'));
+            var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(000000, 'myKey2'));
             echo "<br><br>DateTime:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime(000000));
+            var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTime(000000));
             echo "<br><br>Info:";
-            var_dump(\App\Helpers\ZhtHelper\Database\Helper_Redis::getInfo(000000));
+            var_dump(\App\Helpers\ZhtHelper\Cache\Helper_Redis::getInfo(000000));
             //var_dump($x);
             
             //phpinfo();

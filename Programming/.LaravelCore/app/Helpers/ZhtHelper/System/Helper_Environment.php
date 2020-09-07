@@ -272,7 +272,7 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getLaravelEnvironment                                                                                |
+        | ▪ Method Name     : getLaravelEnvironmentOLD                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
@@ -284,7 +284,7 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getLaravelEnvironment($varKey)
+        public static function getLaravelEnvironmentOLD($varKey)
             {
             $varUserSession=000000;
             $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
@@ -304,7 +304,7 @@ namespace App\Helpers\ZhtHelper\System
             return $varReturn;
             }
 
-        public static function getLaravelEnvironment2($varKey)
+        public static function getLaravelEnvironment($varKey)
             {
             $varUserSession=000000;
             $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
