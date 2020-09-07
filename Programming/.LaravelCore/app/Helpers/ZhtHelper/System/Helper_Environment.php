@@ -304,6 +304,26 @@ namespace App\Helpers\ZhtHelper\System
             return $varReturn;
             }
 
+        public static function getLaravelEnvironment2($varKey)
+            {
+            $varUserSession=000000;
+            $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
+                    //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env')
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '.env')
+                    );
+            $varArrayTemp=explode("\n", $varFileContent);
+            for($i=0; $i!=count($varArrayTemp); $i++)
+                {
+                if(strlen($varArrayTemp[$i])>0)
+                    {
+                    $varArrayTemp2=explode("=", $varArrayTemp[$i]);
+                    $varData[$varArrayTemp2[0]]=$varArrayTemp2[1];
+                    }
+                }
+            $varReturn=$varData[$varKey];
+            return $varReturn;
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
