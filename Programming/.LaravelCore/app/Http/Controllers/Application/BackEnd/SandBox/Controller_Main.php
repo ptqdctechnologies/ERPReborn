@@ -42,9 +42,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo '<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>';
             //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->($varUserSession);
             echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
+            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/Logo-Application2.png');
+            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/MyImages2B/Logo-Application2B.png');
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, 'MyImages/Logo-Application.png');
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL($varUserSession, 'MyImages/Logo-Application.png');
             //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, 'MyImages/Logo-Application.png');
+//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, 'MyImages/Logo-Application.png');
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession);
+            var_dump($x);
             }
             
             
