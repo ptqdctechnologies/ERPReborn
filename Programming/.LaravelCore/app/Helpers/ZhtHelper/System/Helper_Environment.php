@@ -272,7 +272,7 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getLaravelEnvironment                                                                                |
+        | ▪ Method Name     : getLaravelEnvironmentOLD                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-07-09                                                                                           |
@@ -284,12 +284,32 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getLaravelEnvironment($varKey)
+        public static function getLaravelEnvironmentOLD($varKey)
             {
             $varUserSession=000000;
             $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
                     \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env')
                     //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '.env')
+                    );
+            $varArrayTemp=explode("\n", $varFileContent);
+            for($i=0; $i!=count($varArrayTemp); $i++)
+                {
+                if(strlen($varArrayTemp[$i])>0)
+                    {
+                    $varArrayTemp2=explode("=", $varArrayTemp[$i]);
+                    $varData[$varArrayTemp2[0]]=$varArrayTemp2[1];
+                    }
+                }
+            $varReturn=$varData[$varKey];
+            return $varReturn;
+            }
+
+        public static function getLaravelEnvironment($varKey)
+            {
+            $varUserSession=000000;
+            $varFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileContent($varUserSession, 
+                    //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchSystemFilePath(getcwd(), '.env')
+                    \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '.env')
                     );
             $varArrayTemp=explode("\n", $varFileContent);
             for($i=0; $i!=count($varArrayTemp); $i++)

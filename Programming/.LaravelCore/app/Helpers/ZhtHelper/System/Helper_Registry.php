@@ -86,16 +86,16 @@ namespace App\Helpers\ZhtHelper\System
             try {
                 self::$varNameSpace=get_class();
 
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Environment::Application::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('APP_NAME'));
                 \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Type', 'PostgreSQL');
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_HOST'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PORT'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_DATABASE'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginName', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_USERNAME'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('DB_PASSWORD'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_HOST'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PORT'));
-                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('REDIS_PASSWORD'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('DB_HOST'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('DB_PORT'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::Name', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('DB_DATABASE'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginName', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('DB_USERNAME'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Database::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('DB_PASSWORD'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Host', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('REDIS_HOST'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::Port', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('REDIS_PORT'));
+                \App\Helpers\ZhtHelper\General\Helper_Array::setArrayValue($varDataSession, 'Registry::Global::Redis::LoginPassword', \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironmentOLD('REDIS_PASSWORD'));
 
                 \App\Helpers\ZhtHelper\General\Helper_Session::set(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID(), $varDataSession);
                 } 

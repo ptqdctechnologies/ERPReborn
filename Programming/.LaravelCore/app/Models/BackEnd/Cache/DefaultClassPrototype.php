@@ -81,7 +81,7 @@ namespace App\Models\Cache
         */
         public function getAllDataRecord($varUserSession)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getAllRecord($varUserSession, $this->varKeyHeader);
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getAllRecord($varUserSession, $this->varKeyHeader);
             return $varReturn['Data'];
             }
 
@@ -103,7 +103,7 @@ namespace App\Models\Cache
         */
         public function getDataRecord($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
             }
 
@@ -125,7 +125,7 @@ namespace App\Models\Cache
         */
         public function getDataTTL($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
             }
 
@@ -168,7 +168,7 @@ namespace App\Models\Cache
         */
         public function isDataExist($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExist($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExist($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
             }
 
@@ -190,7 +190,7 @@ namespace App\Models\Cache
         */
         public function isDataExpired($varUserSession, string $varKey)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_Redis::isExpired($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired($varUserSession, $this->varKeyHeader.'::'.$varKey);
             return $varReturn;
             }
 
@@ -212,7 +212,7 @@ namespace App\Models\Cache
         */
         public function setDataDelete($varUserSession, string $varKey)
             {
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::delete($varUserSession, $this->varKeyHeader.'::'.$varKey);
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::delete($varUserSession, $this->varKeyHeader.'::'.$varKey);
             }
 
 
@@ -240,7 +240,7 @@ namespace App\Models\Cache
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Data Insert');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    \App\Helpers\ZhtHelper\Database\Helper_Redis::setValue($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue, $varTTL);
+                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue($varUserSession, $this->varKeyHeader.'::'.$varKey, $varValue, $varTTL);
                     $varReturn = $this->varKeyHeader.'::'.$varKey;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -274,7 +274,7 @@ namespace App\Models\Cache
         */
         public function setDataTTLRenewal(int $varUserSession, string $varKey, int $varTTL)
             {
-            \App\Helpers\ZhtHelper\Database\Helper_Redis::setTTLRenewal($varUserSession, $this->varKeyHeader.'::'.$varKey, $varTTL);
+            \App\Helpers\ZhtHelper\Cache\Helper_Redis::setTTLRenewal($varUserSession, $this->varKeyHeader.'::'.$varKey, $varTTL);
             }            
         }
     }

@@ -3,17 +3,17 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Helpers                                                                                                   |
-| ▪ Name Space : \App\Helpers\ZhtHelper\Database                                                                                   |
+| ▪ Name Space : \App\Helpers\ZhtHelper\Cache                                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Helpers\ZhtHelper\Database
+namespace App\Helpers\ZhtHelper\Cache
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : Helper_Redis                                                                                                 |
-    | ▪ Description : Menangani Database Non SQL Redis                                                                             |
+    | ▪ Description : Menangani Cache Redis                                                                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_Redis
@@ -149,15 +149,15 @@ namespace App\Helpers\ZhtHelper\Database
         */
         public static function getAllRecord($varUserSession, $varKeyHeader)
             {
-            $varStartDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
-            $varData = \App\Helpers\ZhtHelper\Database\Helper_Redis::getKeyList($varUserSession, $varKeyHeader.'*');
-            $varFinishDateTime = \App\Helpers\ZhtHelper\Database\Helper_Redis::getDateTime($varUserSession);
+            $varStartDateTime = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTime($varUserSession);
+            $varData = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, $varKeyHeader.'*');
+            $varFinishDateTime = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTime($varUserSession);
             $varExecutionTime  = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeIntervalFromUnixTime($varUserSession, ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varFinishDateTime)) - ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varStartDateTime)));
             $varRowCount = count($varData); 
             for($i=0; $i!=$varRowCount; $i++)
                 {
                 $varKey = $varKeyHeader.(explode($varKeyHeader, $varData[$i]))[1];
-                $varTemp[$varKey] = \App\Helpers\ZhtHelper\Database\Helper_Redis::getTTL($varUserSession, $varKey);
+                $varTemp[$varKey] = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
                 }
             arsort($varTemp);
 
@@ -167,7 +167,7 @@ namespace App\Helpers\ZhtHelper\Database
                 $varReturn[$i] = [
                     'Sys_ID' => $varKey,
                     'TTL' => $varTTL,
-                    'Value'=> \App\Helpers\ZhtHelper\Database\Helper_Redis::getValue($varUserSession, $varKey)
+                    'Value'=> \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey)
                     ];
                 $i++;
                 }
