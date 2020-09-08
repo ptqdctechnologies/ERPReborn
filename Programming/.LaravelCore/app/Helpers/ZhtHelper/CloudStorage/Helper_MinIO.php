@@ -74,6 +74,55 @@ namespace App\Helpers\ZhtHelper\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllDataRecord                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh data record                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varBucketName ► Bucket Name                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAllDataRecord($varUserSession, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get all record');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    self::setBucketName($varUserSession, $varBucketName);
+                    $varArrayTemp = self::getFileListRecursive($varUserSession, '');
+                    for($i=0; $i!=count($varArrayTemp); $i++)
+                        {
+                        $varTemp = explode('/', $varArrayTemp[$i]);
+                        $varFileName = array_pop($varTemp);
+                        $varReturn[$i] = [
+                            'Sys_ID' => $varArrayTemp[$i],
+                            'Folder' => implode('/', $varTemp),
+                            'File' => $varFileName
+                            ];
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBucketName                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -146,9 +195,11 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                         throw new \Exception('File is not exist');
                         }
                     $varFilePathPart = explode('/', $varRemoteFilePath);
-                    $varFile = array_pop($varFilePathPart);
+                    $varFileExtension = explode('.', $varFilePathPart[count($varFilePathPart)-1]);
+                    $varFileName = array_pop($varFilePathPart);
                     $varReturn = [
-                        'fileName' => $varFile,
+                        'fileName' => $varFileName,
+                        'extension' => strtolower($varFileExtension[count($varFileExtension)-1]),
                         'mimeType' => self::$ObjMinIO->mimeType($varRemoteFilePath),
                         'size' => self::$ObjMinIO->size($varRemoteFilePath),
                         'lastModified' => \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeFromUnixTime($varUserSession, self::$ObjMinIO->lastModified($varRemoteFilePath)),
@@ -233,7 +284,12 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, $varBucketName);
-                    $varReturn = self::$ObjMinIO->files($varBaseFolder);
+                    $varTemp = self::$ObjMinIO->files($varBaseFolder);
+                    for($i=0; $i!=count($varTemp); $i++)
+                        {
+                        $varFilePart=explode('/', $varTemp[$i]);
+                        $varReturn[$i]=$varFilePart[count($varFilePart)-1];
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

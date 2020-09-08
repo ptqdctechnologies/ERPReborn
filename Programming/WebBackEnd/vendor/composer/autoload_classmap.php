@@ -8,9 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
     'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => $baseDir . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
     'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',
-    'App\\Helpers\\ZhtHelper\\Database\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_Redis.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Array' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Array.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Compression' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Compression.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_DateTime' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_DateTime.php',

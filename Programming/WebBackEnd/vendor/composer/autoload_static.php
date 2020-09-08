@@ -523,9 +523,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
     public static $classMap = array (
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
+        'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
         'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
         'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',
-        'App\\Helpers\\ZhtHelper\\Database\\Helper_Redis' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_Redis.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Array' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Array.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Compression' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Compression.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_DateTime' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_DateTime.php',
