@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBusinessDocument                                                                                          |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBusinessDocument                                        |
+    | ▪ Class Name  : TblCitizenIdentity                                                                                           |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCitizenIdentity                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBusinessDocument extends \App\Models\Database\DefaultClassPrototype
+    class TblCitizenIdentity extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -50,9 +50,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (int)     varBusinessDocumentType_RefID ► Business Document Type Reference ID                                     |
-        |      ▪ (varchar) varDocumentNumber ► Document Number                                                                     |
+        |      ▪ (int)     varPerson_RefID ► Reference ID                                                                          |
+        |      ▪ (string)  varName ► Person Name                                                                                   |
+        |      ▪ (string)  varIdentityNumber ► Identity Number                                                                     |
+        |      ▪ (int)     varPersonGender_RefID ► Person Gender Reference ID                                                      |
+        |      ▪ (int)     varBirthPlace_RefID ► Birth Place Reference ID                                                          |
+        |      ▪ (string)  varBirthDateTime ► Birth DateTime                                                                       |
+        |      ▪ (int)     varReligion_RefID ► Religion Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +64,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -73,16 +77,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'varchar'],
-                        [$varBusinessDocumentType_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varName, 'varchar'], 
+                        [$varIdentityNumber, 'varchar'],
+                        [$varPersonGender_RefID, 'bigint'],
+                        [$varBirthPlace_RefID, 'bigint'],
+                        [$varBirthDateTime, 'timestamp'],
+                        [$varReligion_RefID, 'bigint']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
             }
-
-
+            /*
+        
+             * 
+             */
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
@@ -92,22 +102,26 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)    varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► System Record ID                                                                              |
-        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
-        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (int)     varBusinessDocumentType_RefID ► Business Document Type Reference ID                                     |
-        |      ▪ (varchar) varDocumentNumber ► Document Number                                                                     |
+        |      ▪ (int)     varUserSession ► User Session                                                                           |
+        |      ▪ (int)     varSysID ► System Record ID                                                                             |
+        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
+        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
+        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)     varPerson_RefID ► Reference ID                                                                          |
+        |      ▪ (string)  varName ► Person Name                                                                                   |
+        |      ▪ (string)  varIdentityNumber ► Identity Number                                                                     |
+        |      ▪ (int)     varPersonGender_RefID ► Person Gender Reference ID                                                      |
+        |      ▪ (int)     varBirthPlace_RefID ► Birth Place Reference ID                                                          |
+        |      ▪ (string)  varBirthDateTime ► Birth DateTime                                                                       |
+        |      ▪ (int)     varReligion_RefID ► Religion Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -120,9 +134,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'varchar'],
-                        [$varBusinessDocumentType_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varName, 'varchar'], 
+                        [$varIdentityNumber, 'varchar'],
+                        [$varPersonGender_RefID, 'bigint'],
+                        [$varBirthPlace_RefID, 'bigint'],
+                        [$varBirthDateTime, 'timestamp'],
+                        [$varReligion_RefID, 'bigint']
                     ],
                     )
                 );
