@@ -77,11 +77,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varSignDataAuthentication, 'boolean'],
-                        [$varBusinessDocument_RefID, 'boolean'],
-                        [$varVersion, 'boolean'],
-                        [$varDocumentDateTimeTZ, 'boolean'],
-                        [$varAnnotation, 'boolean'],
-                        [$varCodeOfBudgeting_RefID, 'boolean']
+                        [$varBusinessDocument_RefID, 'bigint'],
+                        [$varVersion, 'smallint'],
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varAnnotation, 'varchar'],
+                        [$varCodeOfBudgeting_RefID, 'bigint']
                     ]
                     )
                 );
@@ -130,11 +130,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varSignDataAuthentication, 'boolean'],
-                        [$varBusinessDocument_RefID, 'boolean'],
-                        [$varVersion, 'boolean'],
-                        [$varDocumentDateTimeTZ, 'boolean'],
-                        [$varAnnotation, 'boolean'],
-                        [$varCodeOfBudgeting_RefID, 'boolean']
+                        [$varBusinessDocument_RefID, 'bigint'],
+                        [$varVersion, 'smallint'],
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varAnnotation, 'varchar'],
+                        [$varCodeOfBudgeting_RefID, 'bigint']
                     ],
                     )
                 );
