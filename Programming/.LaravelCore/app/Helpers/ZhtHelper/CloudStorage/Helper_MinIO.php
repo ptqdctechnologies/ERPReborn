@@ -198,12 +198,12 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                     $varFileExtension = explode('.', $varFilePathPart[count($varFilePathPart)-1]);
                     $varFileName = array_pop($varFilePathPart);
                     $varReturn = [
-                        'fileName' => $varFileName,
-                        'extension' => strtolower($varFileExtension[count($varFileExtension)-1]),
-                        'mimeType' => self::$ObjMinIO->mimeType($varRemoteFilePath),
-                        'size' => self::$ObjMinIO->size($varRemoteFilePath),
-                        'lastModified' => \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeFromUnixTime($varUserSession, self::$ObjMinIO->lastModified($varRemoteFilePath)),
-                        'folder' => implode('/', $varFilePathPart)
+                        'FileName' => $varFileName,
+                        'FileExtension' => strtolower($varFileExtension[count($varFileExtension)-1]),
+                        'MIMEType' => self::$ObjMinIO->mimeType($varRemoteFilePath),
+                        'Size' => self::$ObjMinIO->size($varRemoteFilePath),
+                        'LastModified' => \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeFromUnixTime($varUserSession, self::$ObjMinIO->lastModified($varRemoteFilePath)),
+                        'Folder' => implode('/', $varFilePathPart)
                         ];
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

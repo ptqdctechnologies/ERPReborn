@@ -177,6 +177,11 @@ namespace App\Helpers\ZhtHelper\Database
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
                                     break;
                                     }
+                                case 'boolean':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, ($varData[$i][0]==null ? null : ($varData[$i][0]==true ? 'TRUE' : 'FALSE'))))."::boolean";
+                                    break;
+                                    }
                                 case 'cidr':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::cidr";

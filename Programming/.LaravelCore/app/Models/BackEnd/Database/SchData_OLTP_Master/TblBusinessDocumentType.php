@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchSysConfig
+namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblLog_UserLoginSession                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblLog_UserLoginSession                                           |
+    | ▪ Class Name  : TblBusinessDocumentType                                                                                      |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBusinessDocumentType                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblLog_UserLoginSession extends \App\Models\Database\DefaultClassPrototype
+    class TblBusinessDocumentType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -37,13 +37,12 @@ namespace App\Models\Database\SchSysConfig
             parent::__construct(__CLASS__);
             }
 
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,15 +50,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (string)  varName ► Type of Blood                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -67,7 +58,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -80,15 +71,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varUser_Name, 'varchar'],
-                        [$varAPIWebToken, 'varchar'],
-                        [$varOptionsList, 'json'],
-                        [$varBranch_RefID, 'bigint'],
-                        [$varUserRole_RefID, 'bigint'],
-                        [$varSessionStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionFinishDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
+                        [$varName, 'varchar']
                     ]
                     )
                 );
@@ -101,7 +84,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -110,15 +93,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (string)  varName ► Type of Blood                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -126,7 +101,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -139,15 +114,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varUser_Name, 'varchar'],
-                        [$varAPIWebToken, 'varchar'],
-                        [$varOptionsList, 'json'],
-                        [$varBranch_RefID, 'bigint'],
-                        [$varUserRole_RefID, 'bigint'],
-                        [$varSessionStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionFinishDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
+                        [$varName, 'varchar']
                     ],
                     )
                 );
@@ -155,5 +122,3 @@ namespace App\Models\Database\SchSysConfig
             }
         }
     }
-
-?>

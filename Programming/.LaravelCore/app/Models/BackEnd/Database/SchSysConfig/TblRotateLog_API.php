@@ -47,19 +47,19 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varHostIPAddress ► Host IP Address                                                                       |
-        |      ▪ (string) varURL ► Destination URL                                                                                 |
-        |      ▪ (string) varNavigatorUserAgent ► Navigator User Agent                                                             |
-        |      ▪ (string) varRequestDateTimeTZ ► Request DateTimeTZ                                                                |
-        |      ▪ (string) varRequestHTTPHeader ► Request HTTP Header                                                               |
-        |      ▪ (string) varRequestHTTPBody ► Request HTTP Body                                                                   |
-        |      ▪ (string) varResponseDateTimeTZ ► Response DateTimeTZ                                                              |
-        |      ▪ (int)    varResponseHTTPStatus ► Response HTTP Status                                                             |
-        |      ▪ (string) varResponseHTTPHeader ► Response HTTP Header                                                             |
-        |      ▪ (string) varResponseHTTPBody ► Response HTTP Body                                                                 |
+        |      ▪ (string)  varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varHostIPAddress ► Host IP Address                                                                      |
+        |      ▪ (string)  varURL ► Destination URL                                                                                |
+        |      ▪ (string)  varNavigatorUserAgent ► Navigator User Agent                                                            |
+        |      ▪ (string)  varRequestDateTimeTZ ► Request DateTimeTZ                                                               |
+        |      ▪ (string)  varRequestHTTPHeader ► Request HTTP Header                                                              |
+        |      ▪ (string)  varRequestHTTPBody ► Request HTTP Body                                                                  |
+        |      ▪ (string)  varResponseDateTimeTZ ► Response DateTimeTZ                                                             |
+        |      ▪ (int)     varResponseHTTPStatus ► Response HTTP Status                                                            |
+        |      ▪ (string)  varResponseHTTPHeader ► Response HTTP Header                                                            |
+        |      ▪ (string)  varResponseHTTPBody ► Response HTTP Body                                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
+        |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert($varUserSession, string $varHostIPAddress, string $varURL, string $varNavigatorUserAgent, string $varRequestDateTimeTZ, string $varRequestHTTPHeader, string $varRequestHTTPBody, string $varResponseDateTimeTZ, int $varResponseHTTPStatus = null, string $varResponseHTTPHeader = null, string $varResponseHTTPBody = null)
