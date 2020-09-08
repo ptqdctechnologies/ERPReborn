@@ -177,6 +177,11 @@ namespace App\Helpers\ZhtHelper\Database
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
                                     break;
                                     }
+                                case 'boolean':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, ($varData[$i][0]==null ? null : ($varData[$i][0]==true ? 'TRUE' : 'FALSE'))))."::boolean";
+                                    break;
+                                    }
                                 case 'cidr':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::cidr";
@@ -192,6 +197,17 @@ namespace App\Helpers\ZhtHelper\Database
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::json";
                                     break;
+                                    }
+                                case 'smallint':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::smallint";
+                                    break;
+                                    }
+                                case 'timestamp without time zone':
+                                case 'timestamp':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamp";
+                                    break;                                
                                     }
                                 case 'timestamp with time zone':
                                 case 'timestamptz':
@@ -423,6 +439,7 @@ namespace App\Helpers\ZhtHelper\Database
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                    //echo $varSQLQuery."<br><br>";
                     if(self::getStatusAvailability($varUserSession)==true)
                         {
                         //---> Inisialisasi [Process][StartDateTime]
@@ -436,6 +453,8 @@ namespace App\Helpers\ZhtHelper\Database
                         //---> Inisialisasi [Data], [RowCount]
                         $i=0;
                         $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
+                        //var_dump($varReturn);
+                        //var_dump($varSQLQuery);
                         $varData = [];
                         foreach($varDataFetch as $row)
                             {
@@ -554,6 +573,7 @@ namespace App\Helpers\ZhtHelper\Database
                         FROM 
                             "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(\''.$varSchemaName.'\'::varchar, \''.$varTableName.'\'::varchar)
                         ';
+                    //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varSQL = $varData['Data'][0]['QueryBuilderString'];
                     //--->

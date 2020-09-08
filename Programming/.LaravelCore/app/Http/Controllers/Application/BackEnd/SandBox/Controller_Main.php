@@ -41,14 +41,26 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             var_dump($x);
             echo '<br>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>';
             //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->($varUserSession);
-            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
-            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/Logo-Application2.png');
-            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/MyImages2B/Logo-Application2B.png');
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, 'MyImages/Logo-Application.png');
             //echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileURL($varUserSession, 'MyImages/Logo-Application.png');
             //\App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, 'MyImages/Logo-Application.png');
 //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, 'MyImages/Logo-Application.png');
+
+/*            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages/Logo-Application.png');
+            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/Logo-Application2.png');
+            echo \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, './../public/images/Logo-Application.png', 'MyImages2/MyImages2B/Logo-Application2B.png');
             $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession);
+            var_dump($x);*/
+            
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord($varUserSession);
+            //$x = \Illuminate\Support\Facades\DB::select('SELECT 1;');
+            //$x = \Illuminate\Support\Facades\DB::
+            
+            //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentity())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getAllDataRecord($varUserSession);
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession)->getAllDataRecord($varUserSession);
+            
+            //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getDataRecord($varUserSession, 'MyImages/Logo-Application.png');
             var_dump($x);
             }
             

@@ -87,6 +87,29 @@ namespace App\Models\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAllDataRecord                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh data record                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varBucketName ► Bucket Name                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getAllDataRecord($varUserSession, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord($varUserSession, $varBucketName);
+            return $varReturn;            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBucketName                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -104,6 +127,30 @@ namespace App\Models\CloudStorage
             {
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getBucketName($varUserSession);
             return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataRecord                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Description     : Mendapatkan seluruh data record                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varRemoteFilePath ► Remote File Path                                                                     |
+        |      ▪ (string) varBucketName ► Bucket Name                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataRecord($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileInfo($varUserSession, $varRemoteFilePath, $varBucketName);
+            return $varReturn;            
             }
 
 

@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchSysConfig
+namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblLog_UserLoginSession                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblLog_UserLoginSession                                           |
+    | ▪ Class Name  : TblCitizenIdentity                                                                                           |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCitizenIdentity                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblLog_UserLoginSession extends \App\Models\Database\DefaultClassPrototype
+    class TblCitizenIdentity extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -37,13 +37,12 @@ namespace App\Models\Database\SchSysConfig
             parent::__construct(__CLASS__);
             }
 
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,15 +50,13 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (int)     varPerson_RefID ► Reference ID                                                                          |
+        |      ▪ (string)  varName ► Person Name                                                                                   |
+        |      ▪ (string)  varIdentityNumber ► Identity Number                                                                     |
+        |      ▪ (int)     varPersonGender_RefID ► Person Gender Reference ID                                                      |
+        |      ▪ (int)     varBirthPlace_RefID ► Birth Place Reference ID                                                          |
+        |      ▪ (string)  varBirthDateTime ► Birth DateTime                                                                       |
+        |      ▪ (int)     varReligion_RefID ► Religion Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -67,7 +64,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -80,28 +77,28 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varUser_Name, 'varchar'],
-                        [$varAPIWebToken, 'varchar'],
-                        [$varOptionsList, 'json'],
-                        [$varBranch_RefID, 'bigint'],
-                        [$varUserRole_RefID, 'bigint'],
-                        [$varSessionStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionFinishDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varName, 'varchar'], 
+                        [$varIdentityNumber, 'varchar'],
+                        [$varPersonGender_RefID, 'bigint'],
+                        [$varBirthPlace_RefID, 'bigint'],
+                        [$varBirthDateTime, 'timestamp'],
+                        [$varReligion_RefID, 'bigint']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
             }
-
-
+            /*
+        
+             * 
+             */
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -110,15 +107,13 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (int)     varPerson_RefID ► Reference ID                                                                          |
+        |      ▪ (string)  varName ► Person Name                                                                                   |
+        |      ▪ (string)  varIdentityNumber ► Identity Number                                                                     |
+        |      ▪ (int)     varPersonGender_RefID ► Person Gender Reference ID                                                      |
+        |      ▪ (int)     varBirthPlace_RefID ► Birth Place Reference ID                                                          |
+        |      ▪ (string)  varBirthDateTime ► Birth DateTime                                                                       |
+        |      ▪ (int)     varReligion_RefID ► Religion Reference ID                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -126,7 +121,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varUser_Name = null, string $varAPIWebToken = null, string $varOptionsList = null, int $varBranch_RefID = null, int $varUserRole_RefID = null, string $varSessionStartDateTimeTZ = null, string $varSessionFinishDateTimeTZ = null, string $varSessionAutoStartDateTimeTZ = null, string $varSessionAutoFinishDateTimeTZ = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -139,15 +134,13 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varUser_Name, 'varchar'],
-                        [$varAPIWebToken, 'varchar'],
-                        [$varOptionsList, 'json'],
-                        [$varBranch_RefID, 'bigint'],
-                        [$varUserRole_RefID, 'bigint'],
-                        [$varSessionStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionFinishDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoStartDateTimeTZ, 'timestamptz'],
-                        [$varSessionAutoFinishDateTimeTZ, 'timestamptz']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varName, 'varchar'], 
+                        [$varIdentityNumber, 'varchar'],
+                        [$varPersonGender_RefID, 'bigint'],
+                        [$varBirthPlace_RefID, 'bigint'],
+                        [$varBirthDateTime, 'timestamp'],
+                        [$varReligion_RefID, 'bigint']
                     ],
                     )
                 );
@@ -155,5 +148,3 @@ namespace App\Models\Database\SchSysConfig
             }
         }
     }
-
-?>
