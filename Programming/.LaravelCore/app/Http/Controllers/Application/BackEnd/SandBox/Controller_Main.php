@@ -53,7 +53,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             var_dump($x);*/
             
             //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getAllDataRecord($varUserSession);
-            $x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getDataRecord($varUserSession, 'MyImages/Logo-Application.png');
+            //$x = \Illuminate\Support\Facades\DB::select('SELECT 1;');
+            //$x = \Illuminate\Support\Facades\DB::
+            
+            //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentity())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getAllDataRecord($varUserSession);
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession)->getAllDataRecord($varUserSession);
+            
+            //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getDataRecord($varUserSession, 'MyImages/Logo-Application.png');
             var_dump($x);
             }
             
