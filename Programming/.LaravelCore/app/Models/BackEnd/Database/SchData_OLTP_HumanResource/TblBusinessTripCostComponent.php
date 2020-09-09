@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Project
+namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblProject                                                                                                   |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Project ► TblProject                                                |
+    | ▪ Class Name  : TblBusinessTripCostComponent                                                                                 |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblBusinessTripCostComponent                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblProject extends \App\Models\Database\DefaultClassPrototype
+    class TblBusinessTripCostComponent extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -51,11 +51,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (bool)    varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (string)  varCode ► Project Code                                                                                  |
-        |      ▪ (string)  varName ► Project Name                                                                                  |
-        |      ▪ (string)  varDateStart ► Project Starting Date                                                                    |
-        |      ▪ (int)     varCustomer_RefID ► Customer Reference ID                                                               |
+        |      ▪ (string)  varName ► Business Trip Component Name                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +59,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +72,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varName, 'varchar']
                     ]
                     )
                 );
@@ -102,11 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (bool)    varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (string)  varCode ► Project Code                                                                                  |
-        |      ▪ (string)  varName ► Project Name                                                                                  |
-        |      ▪ (string)  varDateStart ► Project Starting Date                                                                    |
-        |      ▪ (int)     varCustomer_RefID ► Customer Reference ID                                                               |
+        |      ▪ (string)  varName ► Business Trip Component Name                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,11 +115,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varName, 'varchar']
                     ],
                     )
                 );
