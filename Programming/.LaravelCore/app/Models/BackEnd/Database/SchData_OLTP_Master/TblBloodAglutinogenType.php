@@ -37,6 +37,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             parent::__construct(__CLASS__);
             }
 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |

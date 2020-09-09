@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
+namespace App\Models\Database\SchData_OLTP_Project
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblCountryAdministrativeAreaLevel3                                                                           |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCountryAdministrativeAreaLevel3                         |
+    | ▪ Class Name  : TblProject                                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Project ► TblProject                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCountryAdministrativeAreaLevel3 extends \App\Models\Database\DefaultClassPrototype
+    class TblProject extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Last Update     : 2020-09-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,8 +51,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (int)     varCountryAdministrativeAreaLevel2_RefID ► Country Reference ID                                         |
-        |      ▪ (string)  varName ► Name                                                                                          |
+        |      ▪ (bool)    varSignDataAuthentication                                                                               |
+        |      ▪ (string)  varCode                                                                                                 |
+        |      ▪ (string)  varName                                                                                                 |
+        |      ▪ (string)  varDateStart                                                                                            |
+        |      ▪ (int)     varCustomer_RefID                                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varCountryAdministrativeAreaLevel2_RefID = null, string $varName = null)
+            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -73,8 +76,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varCountryAdministrativeAreaLevel2_RefID, 'bigint'],
-                        [$varName, 'varchar']
+                        [$varSignDataAuthentication, 'boolean'],
+                        [$varCode, 'varchar'],
+                        [$varName, 'varchar'],
+                        [$varDateStart, 'date'], 
+                        [$varCustomer_RefID, 'bigint']
                     ]
                     )
                 );
@@ -96,8 +102,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
         |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
         |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (int)     varCountryAdministrativeAreaLevel2_RefID ► Country Reference ID                                         |
-        |      ▪ (string)  varName ► Name                                                                                          |
+        |      ▪ (bool)    varSignDataAuthentication                                                                               |
+        |      ▪ (string)  varCode                                                                                                 |
+        |      ▪ (string)  varName                                                                                                 |
+        |      ▪ (string)  varDateStart                                                                                            |
+        |      ▪ (int)     varCustomer_RefID                                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varCountryAdministrativeAreaLevel2_RefID = null, string $varName = null)
+            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -118,8 +127,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varCountryAdministrativeAreaLevel2_RefID, 'bigint'],
-                        [$varName, 'varchar']
+                        [$varSignDataAuthentication, 'boolean'],
+                        [$varCode, 'varchar'],
+                        [$varName, 'varchar'],
+                        [$varDateStart, 'date'], 
+                        [$varCustomer_RefID, 'bigint']
                     ],
                     )
                 );
