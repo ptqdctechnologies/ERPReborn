@@ -47,21 +47,21 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (string) varUser_Name ► User Name                                                                                 |
+        |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
+        |      ▪ (string) varOptionsList ► Options List                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference fID                                                              |
+        |      ▪ (string) varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                     |
+        |      ▪ (string) varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                   |
+        |      ▪ (string) varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                            |
+        |      ▪ (string) varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                          |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
@@ -105,22 +105,22 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)     varUserSession ► User Session                                                                           |
-        |      ▪ (int)     varSysID ► System Record ID                                                                             |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varUser_Name ► User Name                                                                                |
-        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
-        |      ▪ (string)  varOptionsList ► Options List                                                                           |
-        |      ▪ (int)     varBranch_RefID ► Branch Reference ID                                                                   |
-        |      ▪ (int)     varUserRole_RefID ► User Role Reference fID                                                             |
-        |      ▪ (string)  varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                    |
-        |      ▪ (string)  varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                  |
-        |      ▪ (string)  varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                           |
-        |      ▪ (string)  varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                         |
+        |      ▪ (int)    varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (string) varUser_Name ► User Name                                                                                 |
+        |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
+        |      ▪ (string) varOptionsList ► Options List                                                                            |
+        |      ▪ (int)    varBranch_RefID ► Branch Reference ID                                                                    |
+        |      ▪ (int)    varUserRole_RefID ► User Role Reference fID                                                              |
+        |      ▪ (string) varSessionStartDateTimeTZ ► Session Start DateTimeTZ                                                     |
+        |      ▪ (string) varSessionFinishDateTimeTZ ► Session Finish DateTimeTZ                                                   |
+        |      ▪ (string) varSessionAutoStartDateTimeTZ ► Session Auto Start DateTimeTZ                                            |
+        |      ▪ (string) varSessionAutoFinishDateTimeTZ ► Session Auto Finish DateTimeTZ                                          |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(

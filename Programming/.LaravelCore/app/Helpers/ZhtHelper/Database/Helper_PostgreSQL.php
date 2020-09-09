@@ -191,7 +191,17 @@ namespace App\Helpers\ZhtHelper\Database
                                 case 'varchar':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::varchar";
-                                    break;                                
+                                    break;
+                                    }
+                                case 'date':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::date";
+                                    break;
+                                    }
+                                case 'numeric':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::numeric";
+                                    break;
                                     }
                                 case 'json':
                                     {
@@ -207,18 +217,18 @@ namespace App\Helpers\ZhtHelper\Database
                                 case 'timestamp':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamp";
-                                    break;                                
+                                    break;
                                     }
                                 case 'timestamp with time zone':
                                 case 'timestamptz':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamptz";
-                                    break;                                
+                                    break;
                                     }
                                 default:
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::".$varData[$i][1];
-                                    break;                                
+                                    break;
                                     }
                                 }
                             }
