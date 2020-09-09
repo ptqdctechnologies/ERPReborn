@@ -47,15 +47,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (int)     varBusinessDocumentType_RefID ► Business Document Type Reference ID                                     |
-        |      ▪ (varchar) varDocumentNumber ► Document Number                                                                     |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
@@ -98,9 +98,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-        |      ▪ (int)     varBusinessDocumentType_RefID ► Business Document Type Reference ID                                     |
-        |      ▪ (varchar) varDocumentNumber ► Document Number                                                                     |
+        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
+        |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+

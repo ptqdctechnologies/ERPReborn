@@ -47,13 +47,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varName ► Business Trip Component Name                                                                  |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (string) varName ► Business Trip Component Name                                                                   |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
@@ -89,14 +89,14 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)     varUserSession ► User Session                                                                           |
-        |      ▪ (int)     varSysID ► System Record ID                                                                             |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-        |      ▪ (string)  varName ► Business Trip Component Name                                                                  |
+        |      ▪ (int)    varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (string) varName ► Business Trip Component Name                                                                   |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(

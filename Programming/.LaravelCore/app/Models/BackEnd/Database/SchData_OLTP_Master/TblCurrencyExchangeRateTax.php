@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Project
+namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblProject                                                                                                   |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Project ► TblProject                                                |
+    | ▪ Class Name  : TblCurrencyExchangeRateTax                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCurrencyExchangeRateTax                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblProject extends \App\Models\Database\DefaultClassPrototype
+    class TblCurrencyExchangeRateTax extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -52,10 +52,10 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (string) varCode ► Project Code                                                                                   |
-        |      ▪ (string) varName ► Project Name                                                                                   |
-        |      ▪ (string) varDateStart ► Project Starting Date                                                                     |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (int)    varExchangeRate ► Exchange Rate                                                                          |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, int $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +76,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varSignDataAuthentication, 'boolean'], 
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varExchangeRate, 'numeric'],
+                        [$varValidStartDateTimeTZ, 'timestamptz'],
+                        [$varValidFinishDateTimeTZ, 'timestamptz']
                     ]
                     )
                 );
@@ -103,10 +103,10 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (string) varCode ► Project Code                                                                                   |
-        |      ▪ (string) varName ► Project Name                                                                                   |
-        |      ▪ (string) varDateStart ► Project Starting Date                                                                     |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (int)    varExchangeRate ► Exchange Rate                                                                          |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, int $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,11 +127,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
-                        [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varSignDataAuthentication, 'boolean'], 
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varExchangeRate, 'numeric'],
+                        [$varValidStartDateTimeTZ, 'timestamptz'],
+                        [$varValidFinishDateTimeTZ, 'timestamptz']
                     ],
                     )
                 );

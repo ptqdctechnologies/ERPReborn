@@ -198,6 +198,11 @@ namespace App\Helpers\ZhtHelper\Database
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::date";
                                     break;
                                     }
+                                case 'numeric':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::numeric";
+                                    break;
+                                    }
                                 case 'json':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::json";

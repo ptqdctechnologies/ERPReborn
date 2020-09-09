@@ -23,7 +23,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                          |
+        | ▪ Last Update     : 2020-09-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -47,18 +47,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-	|      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-	|      ▪ (int)     varBusinessDocument_RefID ► Business Document Reference ID                                              |
-        |      ▪ (int)     varVersion ► Document Version                                                                           |
-        |      ▪ (string)  varDocumentDateTimeTZ ► Document DateTimeTZ                                                             |
-        |      ▪ (string)  varAnnotation ► Annotation                                                                              |
-	|      ▪ (int)     varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                               |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+	|      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
+        |      ▪ (int)    varVersion ► Document Version                                                                            |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (string) varAnnotation ► Annotation                                                                               |
+	|      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
@@ -99,19 +99,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)     varUserSession ► User Session                                                                           |
-        |      ▪ (int)     varSysID ► System Record ID                                                                             |
-        |      ▪ (string)  varSysDataAnnotation ► System Data Annotation                                                           |
-        |      ▪ (string)  varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type               |
-        |      ▪ (int)     varSysBranchRefID ► System Branch Reference ID                                                          |
-	|      ▪ (boolean) varSignDataAuthentication ► Sign Data Authentication                                                    |
-	|      ▪ (int)     varBusinessDocument_RefID ► Business Document Reference ID                                              |
-        |      ▪ (int)     varVersion ► Document Version                                                                           |
-        |      ▪ (string)  varDocumentDateTimeTZ ► Document DateTimeTZ                                                             |
-        |      ▪ (string)  varAnnotation ► Annotation                                                                              |
-	|      ▪ (int)     varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                               |
+        |      ▪ (int)    varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+	|      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
+	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
+        |      ▪ (int)    varVersion ► Document Version                                                                            |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (string) varAnnotation ► Annotation                                                                               |
+	|      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
