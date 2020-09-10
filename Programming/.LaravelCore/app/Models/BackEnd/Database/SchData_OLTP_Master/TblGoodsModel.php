@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBloodAglutinogenType                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBloodAglutinogenType                                    |
+    | ▪ Class Name  : TblGoodsModel                                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblGoodsModel                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBloodAglutinogenType extends \App\Models\Database\DefaultClassPrototype
+    class TblGoodsModel extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -49,7 +49,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
-        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varTradeMark_RefID ► Trade Mark Reference ID                                                             |
         |      ▪ (int)    varGoodsType_RefID ► Goods Type Reference ID                                                             |
@@ -98,7 +98,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
-        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varTradeMark_RefID ► Trade Mark Reference ID                                                             |
         |      ▪ (int)    varGoodsType_RefID ► Goods Type Reference ID                                                             |
