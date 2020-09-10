@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBloodAglutinogenType                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblBloodAglutinogenType                                    |
+    | ▪ Class Name  : TblGoodsModel                                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblGoodsModel                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBloodAglutinogenType extends \App\Models\Database\DefaultClassPrototype
+    class TblGoodsModel extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
