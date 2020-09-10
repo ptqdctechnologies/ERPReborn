@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Accounting                                                                      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
+namespace App\Models\Database\SchData_OLTP_Accounting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblCurrencyExchangeRateTax                                                                                   |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCurrencyExchangeRateTax                                 |
+    | ▪ Class Name  : TblJournalDetail                                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Accounting ► TblJournalDetail                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCurrencyExchangeRateTax extends \App\Models\Database\DefaultClassPrototype
+    class TblJournalDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,11 +51,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varExchangeRate ► Exchange Rate                                                                          |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (bool)   varSignDataAuthentication ► SignDataAuthentication                                                       |
+        |      ▪ (int)    varJournal_RefID ► Journal Reference ID                                                                  |
+        |      ▪ (string) varJournalDetailDateTimeTZ ► Journal Detail DateTimeTZ                                                   |
+        |      ▪ (int)    varCodeOfAccounting_RefID ► Code Of Accounting Reference ID                                              |
+        |      ▪ (string) varJournalAccountPosition ► Journal Account Position                                                     |
+        |      ▪ (int)    varCurrency_RefID ► Reference ID                                                                         |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
+        |      ▪ (int)    varQuantityUnit_RefID ► Reference ID                                                                     |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (string) varAnnotation ► Annotation                                                                               |
+        |      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, float $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            bool $varSignDataAuthentication = null, int $varJournal_RefID = null, string $varJournalDetailDateTimeTZ = null, int $varCodeOfAccounting_RefID = null, string $varJournalAccountPosition = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, float $varBaseCurrencyValue = null, int $varQuantityUnit_RefID = null, float $varQuantity = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +84,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'], 
+                        [$varSignDataAuthentication,, 'boolean'],
+                        [$varJournal_RefID, 'bigint'],
+                        [$varJournalDetailDateTimeTZ, 'timestamptz'],
+                        [$varCodeOfAccounting_RefID, 'bigint'],
+                        [$varJournalAccountPosition, 'varchar'],
                         [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRate, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
+                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varBaseCurrencyValue, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varAnnotation, 'varchar'],
+                        [$varCodeOfBudgeting_RefID, 'bigint']
                     ]
                     )
                 );
@@ -93,7 +109,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -102,11 +118,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varExchangeRate ► Exchange Rate                                                                          |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (bool)   varSignDataAuthentication ► SignDataAuthentication                                                       |
+        |      ▪ (int)    varJournal_RefID ► Journal Reference ID                                                                  |
+        |      ▪ (string) varJournalDetailDateTimeTZ ► Journal Detail DateTimeTZ                                                   |
+        |      ▪ (int)    varCodeOfAccounting_RefID ► Code Of Accounting Reference ID                                              |
+        |      ▪ (string) varJournalAccountPosition ► Journal Account Position                                                     |
+        |      ▪ (int)    varCurrency_RefID ► Reference ID                                                                         |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
+        |      ▪ (int)    varQuantityUnit_RefID ► Reference ID                                                                     |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (string) varAnnotation ► Annotation                                                                               |
+        |      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +138,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, float $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            bool $varSignDataAuthentication = null, int $varJournal_RefID = null, string $varJournalDetailDateTimeTZ = null, int $varCodeOfAccounting_RefID = null, string $varJournalAccountPosition = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, float $varBaseCurrencyValue = null, int $varQuantityUnit_RefID = null, float $varQuantity = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,11 +151,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'], 
+                        [$varSignDataAuthentication,, 'boolean'],
+                        [$varJournal_RefID, 'bigint'],
+                        [$varJournalDetailDateTimeTZ, 'timestamptz'],
+                        [$varCodeOfAccounting_RefID, 'bigint'],
+                        [$varJournalAccountPosition, 'varchar'],
                         [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRate, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
+                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varBaseCurrencyValue, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varAnnotation, 'varchar'],
+                        [$varCodeOfBudgeting_RefID, 'bigint']
                     ],
                     )
                 );
