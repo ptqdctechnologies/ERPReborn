@@ -602,6 +602,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Models\\Database\\SchData_OLTP_Master\\TblCurrencyExchangeRateTax' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblCurrencyExchangeRateTax.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblDayOffGovernmentPolicy' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblDayOffGovernmentPolicy.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblDayOffNational' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblDayOffNational.php',
+        'App\\Models\\Database\\SchData_OLTP_Master\\TblGoodsModel' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblGoodsModel.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblGoodsType' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblGoodsType.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPeriod' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPeriod.php',
         'App\\Models\\Database\\SchData_OLTP_Master\\TblPerson' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblPerson.php',

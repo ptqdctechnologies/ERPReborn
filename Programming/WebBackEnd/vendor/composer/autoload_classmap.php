@@ -87,6 +87,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Master\\TblCurrencyExchangeRateTax' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblCurrencyExchangeRateTax.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblDayOffGovernmentPolicy' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblDayOffGovernmentPolicy.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblDayOffNational' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblDayOffNational.php',
+    'App\\Models\\Database\\SchData_OLTP_Master\\TblGoodsModel' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblGoodsModel.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblGoodsType' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblGoodsType.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPeriod' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPeriod.php',
     'App\\Models\\Database\\SchData_OLTP_Master\\TblPerson' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblPerson.php',
