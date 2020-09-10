@@ -49,7 +49,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
-        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
@@ -100,7 +100,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
-        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Ref Type                |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
