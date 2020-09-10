@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBudget                                                                                                    |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudget                                               |
+    | ▪ Class Name  : TblBudgetSection                                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetSection                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBudget extends \App\Models\Database\DefaultClassPrototype
+    class TblBudgetSection extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -51,11 +51,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersionRefID ► Business Document Version Reference ID                                 |
-        |      ▪ (int)    varBudgetTypeRefID ► Budget Type Reference ID                                                            |
-        |      ▪ (int)    varProjectRefID ► Project Reference ID                                                                   |
-        |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varRequesterPersonRefID ► Requester Person Reference ID                                                  |
+        |      ▪ (int)    varBudget_RefID ► Budget Branch Reference ID                                                             |
+        |      ▪ (int)    varBudgetOwner_RefID ► Budget Ownwe Branch Reference ID                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +60,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersionRefID = null, int $varBudgetTypeRefID = null, int $varProjectRefID = null, string $varName = null, int $varRequesterPersonRefID = null)
+            int $varBudget_RefID = null, int $varBudgetOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +73,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersionRefID, 'bigint'],
-                        [$varBudgetTypeRefID, 'bigint'],
-                        [$varProjectRefID, 'bigint'],
-                        [$varName, 'varchar'],
-                        [$varRequesterPersonRefID, 'bigint']
+                        [$varBudget_RefID, 'bigint'],
+                        [$varBudgetOwner_RefID, 'bigint']
                     ]
                     )
                 );
@@ -102,11 +96,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersionRefID ► Business Document Version Reference ID                                 |
-        |      ▪ (int)    varBudgetTypeRefID ► Budget Type Reference ID                                                            |
-        |      ▪ (int)    varProjectRefID ► Project Reference ID                                                                   |
-        |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varRequesterPersonRefID ► Requester Person Reference ID                                                  |
+        |      ▪ (int)    varBudget_RefID ► Budget Branch Reference ID                                                             |
+        |      ▪ (int)    varBudgetOwner_RefID ► Budget Ownwe Branch Reference ID                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +105,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersionRefID = null, int $varBudgetTypeRefID = null, int $varProjectRefID = null, string $varName = null, int $varRequesterPersonRefID = null)
+            int $varBudget_RefID = null, int $varBudgetOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,11 +118,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersionRefID, 'bigint'],
-                        [$varBudgetTypeRefID, 'bigint'],
-                        [$varProjectRefID, 'bigint'],
-                        [$varName, 'varchar'],
-                        [$varRequesterPersonRefID, 'bigint']
+                        [$varBudget_RefID, 'bigint'],
+                        [$varBudgetOwner_RefID, 'bigint']
                     ],
                     )
                 );
