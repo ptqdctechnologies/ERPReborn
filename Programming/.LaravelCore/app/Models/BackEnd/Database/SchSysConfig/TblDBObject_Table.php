@@ -12,11 +12,11 @@ namespace App\Models\Database\SchSysConfig
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblDBObject_Schema                                                                                           |
-    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblDBObject_Schema                                                |
+    | ▪ Class Name  : TblDBObject_Table                                                                                            |
+    | ▪ Description : Menangani Models Database ► SchSysConfig ► TblDBObject_Table                                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblDBObject_Schema extends \App\Models\Database\DefaultClassPrototype
+    class TblDBObject_Table extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -51,7 +51,9 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► Schema Name                                                                                    |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (string) varPartitionParameterName ► Partition Parameter Name                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,7 +61,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null)
+            string $varSchemaName = null, string $varTableName = null, string $varPartitionParameterName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -72,7 +74,9 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar']
+                        [$varSchemaName, 'varchar'],
+                        [$varTableName, 'varchar'],
+                        [$varPartitionParameterName, 'varchar']
                     ]
                     )
                 );
@@ -94,7 +98,9 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► Schema Name                                                                                    |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (string) varPartitionParameterName ► Partition Parameter Name                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -102,7 +108,7 @@ namespace App\Models\Database\SchSysConfig
 /*        public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null)
+            string $varSchemaName = null, string $varTableName = null, string $varPartitionParameterName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -115,7 +121,9 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar']
+                        [$varSchemaName, 'varchar'],
+                        [$varTableName, 'varchar'],
+                        [$varPartitionParameterName, 'varchar']
                     ],
                     )
                 );
