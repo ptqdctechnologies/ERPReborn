@@ -57,10 +57,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$x = \Illuminate\Support\Facades\DB::
             
             //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentity())->getAllDataRecord($varUserSession);
-            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getAllDataRecord($varUserSession);
+            //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getAllDataRecord($varUserSession);
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession)->getAllDataRecord($varUserSession);
             
             //$x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getDataRecord($varUserSession, 'MyImages/Logo-Application.png');
+            
+            //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->setEmptyTableAndResetSequence($varUserSession);
+            //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Database\SchSysConfig\TblDBObject_Table())->getAllDataRecord($varUserSession);
             var_dump($x);
             }
             
