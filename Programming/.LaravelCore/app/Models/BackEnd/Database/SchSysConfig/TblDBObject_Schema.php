@@ -51,7 +51,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varType ► Type of Blood                                                                                  |
+        |      ▪ (string) varName ► Schema Name                                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,7 +59,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varType = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -72,7 +72,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varType, 'varchar']
+                        [$varName, 'varchar']
                     ]
                     )
                 );
@@ -94,7 +94,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varType ► Type of Blood                                                                                  |
+        |      ▪ (string) varName ► Schema Name                                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -102,7 +102,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varType = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -115,7 +115,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varType, 'varchar']
+                        [$varName, 'varchar']
                     ],
                     )
                 );
