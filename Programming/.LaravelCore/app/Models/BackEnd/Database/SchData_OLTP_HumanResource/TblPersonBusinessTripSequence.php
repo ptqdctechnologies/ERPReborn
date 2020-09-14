@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonBusinessTrip                                                                                        |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblPersonBusinessTrip                               |
+    | ▪ Class Name  : TblPersonBusinessTripSequence                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblPersonBusinessTripSequence                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonBusinessTrip extends \App\Models\Database\DefaultClassPrototype
+    class TblPersonBusinessTripSequence extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -52,7 +52,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
+        |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +64,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocumentVersion_RefID = null)
+            bool $varSignDataAuthentication = null, int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -74,7 +78,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varSignDataAuthentication, 'boolean'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint']
+                        [$varPersonBusinessTrip_RefID, 'bigint'],
+                        [$varSequence, 'smallint'],
+                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varStartDateTimeTZ, 'timestamptz'],
+                        [$varFinishDateTimeTZ, 'timestamptz']
                     ]
                     )
                 );
@@ -97,7 +105,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (int)    varPersonBusinessTrip_RefID ► Person Business Trip Reference ID                                          |
+        |      ▪ (int)    varSequence ► Business Trip Sequence                                                                     |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,7 +117,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocumentVersion_RefID = null)
+            bool $varSignDataAuthentication = null, int $varPersonBusinessTrip_RefID = null, int $varSequence = null, int $varRequesterPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -117,9 +129,13 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranchRefID, 'bigint'],                        
                         [$varSignDataAuthentication, 'boolean'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint']
+                        [$varPersonBusinessTrip_RefID, 'bigint'],
+                        [$varSequence, 'smallint'],
+                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varStartDateTimeTZ, 'timestamptz'],
+                        [$varFinishDateTimeTZ, 'timestamptz']
                     ],
                     )
                 );
