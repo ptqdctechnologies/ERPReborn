@@ -55,17 +55,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.154.0",
-        "version_normalized": "3.154.0.0",
+        "version": "3.154.1",
+        "version_normalized": "3.154.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "370d1a58004fbeb3896ec48489677e90e653b12f"
+            "reference": "5651d8a92164d98869b70a15e4c06ce4c14c7c28"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/370d1a58004fbeb3896ec48489677e90e653b12f",
-            "reference": "370d1a58004fbeb3896ec48489677e90e653b12f",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5651d8a92164d98869b70a15e4c06ce4c14c7c28",
+            "reference": "5651d8a92164d98869b70a15e4c06ce4c14c7c28",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-09-10T18:12:09+00:00",
+        "time": "2020-09-11T18:12:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1569,17 +1569,17 @@
     },
     {
         "name": "league/commonmark",
-        "version": "1.5.4",
-        "version_normalized": "1.5.4.0",
+        "version": "1.5.5",
+        "version_normalized": "1.5.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/commonmark.git",
-            "reference": "21819c989e69bab07e933866ad30c7e3f32984ba"
+            "reference": "45832dfed6007b984c0d40addfac48d403dc6432"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/21819c989e69bab07e933866ad30c7e3f32984ba",
-            "reference": "21819c989e69bab07e933866ad30c7e3f32984ba",
+            "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/45832dfed6007b984c0d40addfac48d403dc6432",
+            "reference": "45832dfed6007b984c0d40addfac48d403dc6432",
             "shasum": ""
         },
         "require": {
@@ -1591,7 +1591,7 @@
         },
         "require-dev": {
             "cebe/markdown": "~1.0",
-            "commonmark/commonmark.js": "0.29.1",
+            "commonmark/commonmark.js": "0.29.2",
             "erusev/parsedown": "~1.0",
             "ext-json": "*",
             "github/gfm": "0.29.0",
@@ -1602,7 +1602,7 @@
             "scrutinizer/ocular": "^1.5",
             "symfony/finder": "^4.2"
         },
-        "time": "2020-08-18T01:19:12+00:00",
+        "time": "2020-09-13T14:44:46+00:00",
         "bin": [
             "bin/commonmark"
         ],
@@ -3228,17 +3228,17 @@
     },
     {
         "name": "predis/predis",
-        "version": "v1.1.5",
-        "version_normalized": "1.1.5.0",
+        "version": "v1.1.6",
+        "version_normalized": "1.1.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/predis/predis.git",
-            "reference": "8ca99f91e45d49f214abc234ce69149591406bbd"
+            "reference": "9930e933c67446962997b05201c69c2319bf26de"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/predis/predis/zipball/8ca99f91e45d49f214abc234ce69149591406bbd",
-            "reference": "8ca99f91e45d49f214abc234ce69149591406bbd",
+            "url": "https://api.github.com/repos/predis/predis/zipball/9930e933c67446962997b05201c69c2319bf26de",
+            "reference": "9930e933c67446962997b05201c69c2319bf26de",
             "shasum": ""
         },
         "require": {
@@ -3252,7 +3252,7 @@
             "ext-curl": "Allows access to Webdis when paired with phpiredis",
             "ext-phpiredis": "Allows faster serialization and deserialization of the Redis protocol"
         },
-        "time": "2020-09-10T13:35:23+00:00",
+        "time": "2020-09-11T19:18:05+00:00",
         "type": "library",
         "extra": {
             "composer-exit-on-patch-failure": true,

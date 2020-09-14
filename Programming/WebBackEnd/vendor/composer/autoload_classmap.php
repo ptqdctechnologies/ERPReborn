@@ -113,6 +113,8 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Master\\TblTradeMark' => $baseDir . '/app/Models/Database/SchData_OLTP_Master/TblTradeMark.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProject' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProject.php',
     'App\\Models\\Database\\SchSysConfig\\General' => $baseDir . '/app/Models/Database/SchSysConfig/General.php',
+    'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
+    'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
     'App\\Models\\Database\\SchSysConfig\\TblLog_UserLoginSession' => $baseDir . '/app/Models/Database/SchSysConfig/TblLog_UserLoginSession.php',
     'App\\Models\\Database\\SchSysConfig\\TblRotateLog_API' => $baseDir . '/app/Models/Database/SchSysConfig/TblRotateLog_API.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',

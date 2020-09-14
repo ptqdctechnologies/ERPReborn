@@ -628,6 +628,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Models\\Database\\SchData_OLTP_Master\\TblTradeMark' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Master/TblTradeMark.php',
         'App\\Models\\Database\\SchData_OLTP_Project\\TblProject' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/TblProject.php',
         'App\\Models\\Database\\SchSysConfig\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/General.php',
+        'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
+        'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
         'App\\Models\\Database\\SchSysConfig\\TblLog_UserLoginSession' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblLog_UserLoginSession.php',
         'App\\Models\\Database\\SchSysConfig\\TblRotateLog_API' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblRotateLog_API.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
