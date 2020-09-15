@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagram version="1" name="ERPReborn-Diagram.erd">
+	<entities>
+		<data-source id="postgres-jdbc-17490a404ef-338d5189808f3232">
+			<entity id="1" name="TblAppObject_AuthorizationSequence" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequence&quot;" order="0" x="20" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="2" name="TblAppObject_AuthorizationSequenceActionType" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceActionType&quot;" order="1" x="1631" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="3" name="TblAppObject_AuthorizationSequenceEdge" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceEdge&quot;" order="2" x="405" y="2624">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="4" name="TblAppObject_AuthorizationSequenceEdgeMember" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceEdgeMember&quot;" order="3" x="405" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="5" name="TblAppObject_AuthorizationSequenceEdgeMemberType" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceEdgeMemberType&quot;" order="4" x="2035" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="6" name="TblAppObject_AuthorizationSequenceNode" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceNode&quot;" order="5" x="818" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="7" name="TblAppObject_AuthorizationSequenceNodeType" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceNodeType&quot;" order="6" x="2477" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="8" name="TblAppObject_AuthorizationSequenceVersion" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_AuthorizationSequenceVersion&quot;" order="7" x="1246" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="9" name="TblAppObject_InstitutionBranch" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_InstitutionBranch&quot;" order="8" x="20" y="645">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="10" name="TblAppObject_InstitutionCompany" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_InstitutionCompany&quot;" order="9" x="818" y="397">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="11" name="TblAppObject_InstitutionRegional" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_InstitutionRegional&quot;" order="10" x="405" y="396">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="12" name="TblAppObject_Menu" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_Menu&quot;" order="11" x="3252" y="2104">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="13" name="TblAppObject_Module" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_Module&quot;" order="12" x="2867" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="14" name="TblAppObject_ModuleReport" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_ModuleReport&quot;" order="13" x="818" y="2624">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="15" name="TblAppObject_UserRole" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_UserRole&quot;" order="14" x="3252" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="16" name="TblAppObject_UserRoleDelegation" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_UserRoleDelegation&quot;" order="15" x="2477" y="2613">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="17" name="TblAppObject_UserRolePrivilegesMenu" fq-name="&quot;SchSysConfig&quot;.&quot;TblAppObject_UserRolePrivilegesMenu&quot;" order="16" x="1631" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="18" name="TblDBObject_ForeignObject" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_ForeignObject&quot;" order="17" x="2867" y="2613">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="19" name="TblDBObject_Parameter" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_Parameter&quot;" order="18" x="20" y="196">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="20" name="TblDBObject_Partition_RemovableRecord_Key" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_Partition_RemovableRecord_Key&quot;" order="19" x="405" y="1119">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="21" name="TblDBObject_Partition_RemovableRecord_Parameter" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_Partition_RemovableRecord_Parameter&quot;" order="20" x="818" y="904">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="22" name="TblDBObject_Schema" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_Schema&quot;" order="21" x="818" y="1390">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="23" name="TblDBObject_Table" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_Table&quot;" order="22" x="405" y="1606">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="24" name="TblDBObject_User" fq-name="&quot;SchSysConfig&quot;.&quot;TblDBObject_User&quot;" order="23" x="1246" y="2624">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="25" name="TblEMailDistribution_Recipient" fq-name="&quot;SchSysConfig&quot;.&quot;TblEMailDistribution_Recipient&quot;" order="24" x="3637" y="2104">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="26" name="TblEMailDistribution_Schedule" fq-name="&quot;SchSysConfig&quot;.&quot;TblEMailDistribution_Schedule&quot;" order="25" x="4022" y="2104">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="27" name="TblEmailDistribution_Recipient" fq-name="&quot;SchSysConfig&quot;.&quot;TblEmailDistribution_Recipient&quot;" order="26" x="3637" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="28" name="TblEmailDistribution_Schedule" fq-name="&quot;SchSysConfig&quot;.&quot;TblEmailDistribution_Schedule&quot;" order="27" x="4022" y="20">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="29" name="TblLDAPObject_User" fq-name="&quot;SchSysConfig&quot;.&quot;TblLDAPObject_User&quot;" order="28" x="2035" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="30" name="TblLog_AuthSeq_BusinessDocumentCurrentStage" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_AuthSeq_BusinessDocumentCurrentStage&quot;" order="29" x="1631" y="2624">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="31" name="TblLog_AuthSeq_BusinessDocumentHistory" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_AuthSeq_BusinessDocumentHistory&quot;" order="30" x="3252" y="2613">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="32" name="TblLog_EMailDistributionSchedule" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_EMailDistributionSchedule&quot;" order="31" x="20" y="2635">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="33" name="TblLog_EMailDistributionScheduleAttachment" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_EMailDistributionScheduleAttachment&quot;" order="32" x="2477" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="34" name="TblLog_EMailDistributionScheduleRecipient" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_EMailDistributionScheduleRecipient&quot;" order="33" x="3637" y="2613">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="35" name="TblLog_UserLoginSession" fq-name="&quot;SchSysConfig&quot;.&quot;TblLog_UserLoginSession&quot;" order="34" border-width="3" x="1387" y="575">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="36" name="TblMapper_LDAPUserToPerson" fq-name="&quot;SchSysConfig&quot;.&quot;TblMapper_LDAPUserToPerson&quot;" order="35" x="2867" y="2115">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="37" name="TblMapper_UserToLDAPUser" fq-name="&quot;SchSysConfig&quot;.&quot;TblMapper_UserToLDAPUser&quot;" order="36" x="2035" y="2624">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="38" name="TblMapper_UserToLUserRole" fq-name="&quot;SchSysConfig&quot;.&quot;TblMapper_UserToLUserRole&quot;" order="37" x="4022" y="2613">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="39" name="TblRotateLog_API" fq-name="&quot;SchSysConfig&quot;.&quot;TblRotateLog_API&quot;" order="38" x="1246" y="86">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="40" name="TblRotateLog_FailedUserLogin" fq-name="&quot;SchSysConfig&quot;.&quot;TblRotateLog_FailedUserLogin&quot;" order="39" x="818" y="108">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+			<entity id="41" name="TblRotateLog_WebPageRequest" fq-name="&quot;SchSysConfig&quot;.&quot;TblRotateLog_WebPageRequest&quot;" order="40" x="405" y="163">
+				<path name="SchSysConfig"/>
+				<path name="dbERPReborn"/>
+			</entity>
+		</data-source>
+	</entities>
+	<relations>
+		<relation name="vfk_TblAppObject_InstitutionRegional_TblAppObject_InstitutionCompany" type="vfk" pk-ref="10" fk-ref="11"/>
+		<relation name="vfk_TblAppObject_InstitutionBranch_TblAppObject_InstitutionRegional" type="vfk" pk-ref="11" fk-ref="9"/>
+		<relation name="vfk_TblDBObject_Partition_RemovableRecord_Key_TblDBObject_Partition_RemovableRecord_Parameter" type="vfk" pk-ref="21" fk-ref="20"/>
+		<relation name="vfk_TblDBObject_Table_TblDBObject_Schema" type="vfk" pk-ref="22" fk-ref="23"/>
+		<relation name="vfk_TblAppObject_InstitutionBranch_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="9">
+			<bend type="abs" x="405" y="873"/>
+			<bend type="abs" x="818" y="873"/>
+		</relation>
+		<relation name="vfk_TblAppObject_InstitutionCompany_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="10"/>
+		<relation name="vfk_TblAppObject_InstitutionRegional_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="11"/>
+		<relation name="vfk_TblDBObject_Partition_RemovableRecord_Key_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="20"/>
+		<relation name="vfk_TblDBObject_Partition_RemovableRecord_Parameter_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="21"/>
+		<relation name="vfk_TblDBObject_Schema_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="22"/>
+		<relation name="vfk_TblDBObject_Table_TblLog_UserLoginSession" type="vfk" pk-ref="35" fk-ref="23"/>
+	</relations>
+</diagram>
