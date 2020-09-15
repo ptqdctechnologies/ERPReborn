@@ -37,6 +37,10 @@ RUN apt-get update \
     && apt-get install -y \ 
        arp-scan
 
+#--->Increase Memory
+RUN cd /usr/local/etc/php/conf.d/ && \
+  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+
 #ADD . /var/www
 #ADD ./public /var/www/html
 
