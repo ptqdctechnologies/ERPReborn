@@ -27,6 +27,24 @@ TABLE "SchSysConfig.TblLog_UserLoginSession"
     "SessionAutoStartDateTimeTZ" timestamptz
     "SessionAutoFinishDateTimeTZ" timestamptz
 }
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."User_RefID" < "SchSysConfig.TblDBObject_User"."Sys_PID"
+Ref: "SchSysConfig.TblLog_UserLoginSession"."User_RefID" < "SchSysConfig.TblDBObject_User"."Sys_SID"
 
 
 TABLE "SchSysConfig.TblDBObject_Schema"
@@ -51,10 +69,20 @@ TABLE "SchSysConfig.TblDBObject_Schema"
     "Name" "varchar(128)"
 }
 Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+
 
 
 Table "SchSysConfig.TblDBObject_Table" {
@@ -80,11 +108,22 @@ Table "SchSysConfig.TblDBObject_Table" {
   "Partition_RemovableRecord_Parameter_RefID" bigint
 }
 Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Table"."Schema_RefID" < "SchSysConfig.TblDBObject_Schema"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Table"."Schema_RefID" < "SchSysConfig.TblDBObject_Schema"."Sys_SID"
+
 
 
 TABLE "SchSysConfig.TblDBObject_User"
@@ -112,10 +151,20 @@ TABLE "SchSysConfig.TblDBObject_User"
     "PasswordShadow" "varchar(32)"
 }
 Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_User"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+
 
 
 TABLE "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"
@@ -140,10 +189,20 @@ TABLE "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"
     "Parameter" "varchar(128)"
 }
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+
 
 
 TABLE "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"
@@ -169,11 +228,22 @@ TABLE "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"
     "Key" "varchar(128)"
 }
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Partition_RemovableRecord_Parameter_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_PID"
+Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Partition_RemovableRecord_Parameter_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_SID"
+
 
 
 TABLE "SchSysConfig.TblAppObject_InstitutionCompany"
@@ -197,6 +267,22 @@ TABLE "SchSysConfig.TblAppObject_InstitutionCompany"
     "Sys_DataIntegrityShadow" varchar(32)
     "Name" varchar(128)
 }
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+
+
 
 TABLE "SchSysConfig.TblAppObject_InstitutionRegional"
 {
@@ -220,6 +306,24 @@ TABLE "SchSysConfig.TblAppObject_InstitutionRegional"
     "AppObject_InstitutionCompany_RefID" bigint 
     "Name" varchar(128)
 }
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."AppObject_InstitutionCompany_RefID" < "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."AppObject_InstitutionCompany_RefID" < "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_SID"
+
+
 
 TABLE "SchSysConfig.TblAppObject_InstitutionBranch"
 {
@@ -243,92 +347,17 @@ TABLE "SchSysConfig.TblAppObject_InstitutionBranch"
     "AppObject_InstitutionRegional_RefID" bigint 
     "Name" varchar(128)
 }
-
-
-
-
-
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."User_RefID" < "SchSysConfig.TblDBObject_User"."Sys_PID"
-
-
-
-Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Table"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Table"."Partition_RemovableRecord_Parameter_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_User"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
 Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."AppObject_InstitutionCompany_RefID" < "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."AppObject_InstitutionRegional_RefID" < "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_PID"
-
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
 Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblAppObject_InstitutionCompany"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Parameter"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Table"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Schema"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_User"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblLog_UserLoginSession"."Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
-
-Ref: "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."AppObject_InstitutionRegional_RefID" < "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_PID"
+Ref: "SchSysConfig.TblAppObject_InstitutionBranch"."AppObject_InstitutionRegional_RefID" < "SchSysConfig.TblAppObject_InstitutionRegional"."Sys_SID"
