@@ -558,30 +558,39 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_All                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-15                                                                                           |
         | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only tanpa menyertakan Field System         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
         |      ▪ (string) varSchemaName ► Schema Name                                                                              |
         |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (bool)   varStatusAuthenticatedDataOnly ► Status Authenticated Data Only                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getQueryExecutionDataFetch_DataOnly_All($varUserSession, string $varSchemaName, string $varTableName)
+        public static function getQueryExecutionDataFetch_DataOnly_All($varUserSession, string $varSchemaName, string $varTableName, bool $varStatusAuthenticatedDataOnly = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if($varStatusAuthenticatedDataOnly === null)
+                        {
+                        $varStatusAuthenticatedDataOnly = true;
+                        }
                     $varSQL = '
                         SELECT 
                             "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All" AS "QueryBuilderString"
                         FROM 
-                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(\''.$varSchemaName.'\'::varchar, \''.$varTableName.'\'::varchar)
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(
+                                \''.$varSchemaName.'\'::varchar,
+                                \''.$varTableName.'\'::varchar,
+                                '.($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE').'::boolean
+                                )
                         ';
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);

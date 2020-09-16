@@ -64,7 +64,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->setEmptyTableAndResetSequence($varUserSession);
             //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Schema())->getAllDataRecord($varUserSession);
-            $x = (new \App\Models\Database\SchSysConfig\TblDBObject_Table())->getAllDataRecord($varUserSession);
+            //$x = (new \App\Models\Database\SchSysConfig\TblDBObject_Table())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->getAllDataRecord($varUserSession, false);
             var_dump($x);
             }
             
