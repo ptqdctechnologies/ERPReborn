@@ -621,3 +621,95 @@ Ref: "SchMaster.TblPerson"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_Insti
 Ref: "SchMaster.TblPerson"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
 
 
+
+TABLE "SchMaster"."TblBusinessDocumentType"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "SignDataAuthentication" boolean
+    "Name" varchar(256)
+    }
+
+
+
+TABLE "SchMaster.TblBusinessDocument"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "SignDataAuthentication" boolean
+    "BusinessDocumentType_RefID" bigint
+    "DocumentNumber" varchar(32)
+    }
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Entry_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Edit_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Delete_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Hidden_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Data_Authentication_LoginSession_RefID" < "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Partition_RemovableRecord_Key_RefID" < "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchMaster.TblBusinessDocument"."Sys_Branch_RefID" < "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+
+
+
+TABLE "SchSysConfig.TblAppObject_AuthorizationSequence"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "Owner_RefID" bigint
+    "BusinessDocumentType_RefID" bigint
+    }
+
+
+
+
