@@ -2831,7 +2831,7 @@ TABLE "SchCustomerRelation.TblCustomer"
     "Sys_Data_Authentication_DateTimeTZ" timestamptz
     "Sys_Partition_RemovableRecord_Key_RefID" bigint
     "Sys_Branch_RefID" bigint
-    "InstitutionBranch_RefID" bigint
+    "Entity_RefID" bigint
     }
 Ref: "SchCustomerRelation.TblCustomer"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
 Ref: "SchCustomerRelation.TblCustomer"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
@@ -2847,8 +2847,10 @@ Ref: "SchCustomerRelation.TblCustomer"."Sys_Partition_RemovableRecord_Key_RefID"
 Ref: "SchCustomerRelation.TblCustomer"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
 Ref: "SchCustomerRelation.TblCustomer"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
 Ref: "SchCustomerRelation.TblCustomer"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
-Ref: "SchCustomerRelation.TblCustomer"."InstitutionBranch_RefID" > "SchMaster.TblInstitutionBranch"."Sys_PID"
-Ref: "SchCustomerRelation.TblCustomer"."InstitutionBranch_RefID" > "SchMaster.TblInstitutionBranch"."Sys_SID"
+Ref: "SchCustomerRelation.TblCustomer"."Entity_RefID" > "SchMaster.TblInstitutionBranch"."Sys_PID"
+Ref: "SchCustomerRelation.TblCustomer"."Entity_RefID" > "SchMaster.TblInstitutionBranch"."Sys_SID"
+Ref: "SchCustomerRelation.TblCustomer"."Entity_RefID" > "SchMaster.TblPerson"."Sys_PID"
+Ref: "SchCustomerRelation.TblCustomer"."Entity_RefID" > "SchMaster.TblPerson"."Sys_SID"
 
 
 
@@ -2926,3 +2928,132 @@ Ref: "SchMaster.TblInstitutionBranch"."Sys_Branch_RefID" > "SchSysConfig.TblAppO
 Ref: "SchMaster.TblInstitutionBranch"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
 Ref: "SchMaster.TblInstitutionBranch"."Institution_RefID" > "SchMaster.TblInstitution"."Sys_PID"
 Ref: "SchMaster.TblInstitutionBranch"."Institution_RefID" > "SchMaster.TblInstitution"."Sys_SID"
+
+
+
+TABLE "SchFinance.TblAdvance"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "SignDataAuthentication" boolean
+    "BusinessDocumentVersion_RefID" bigint
+    "CodeOfBudgeting_RefID" bigint
+    "RequesterPerson_RefID" bigint
+    }
+Ref: "SchFinance.TblAdvance"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchFinance.TblAdvance"."BusinessDocumentVersion_RefID" > "SchMaster.TblBusinessDocumentVersion"."Sys_PID"
+Ref: "SchFinance.TblAdvance"."BusinessDocumentVersion_RefID" > "SchMaster.TblBusinessDocumentVersion"."Sys_SID"
+
+
+
+TABLE "SchFinance.TblAdvanceDetail"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Sys_DataIntegrityShadow" varchar(32)
+    "SignDataAuthentication" boolean
+    "Advance_RefID" bigint
+    "Product_RefID" bigint
+    "Quantity" numeric(202)
+    "QuantityUnit_RefID" bigint
+    "UnitPrice_Currency_RefID" bigint
+    "UnitPrice_CurrencyExchangeRate" numeric(202)
+    "UnitPrice_CurrencyValue" numeric(202)
+    }
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchFinance.TblAdvanceDetail"."Advance_RefID" > "SchFinance.TblAdvance"."Sys_PID"
+Ref: "SchFinance.TblAdvanceDetail"."Advance_RefID" > "SchFinance.TblAdvance"."Sys_SID"
+
+
+
+TABLE "SchSupplyChain.TblSupplier"
+    {
+    "Sys_PID" bigint
+    "Sys_SID" bigint
+    "Sys_RPK" bigint [pk]
+    "Sys_Data_Annotation" varchar(1024)
+    "Sys_Data_Entry_LoginSession_RefID" bigint
+    "Sys_Data_Entry_DateTimeTZ" timestamptz
+    "Sys_Data_Edit_LoginSession_RefID" bigint
+    "Sys_Data_Edit_DateTimeTZ" timestamptz
+    "Sys_Data_Delete_LoginSession_RefID" bigint
+    "Sys_Data_Delete_DateTimeTZ" timestamptz
+    "Sys_Data_Hidden_LoginSession_RefID" bigint
+    "Sys_Data_Hidden_DateTimeTZ" timestamptz
+    "Sys_Data_Authentication_LoginSession_RefID" bigint
+    "Sys_Data_Authentication_DateTimeTZ" timestamptz
+    "Sys_Partition_RemovableRecord_Key_RefID" bigint
+    "Sys_Branch_RefID" bigint
+    "Entity_RefID" bigint
+    }
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Entry_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Edit_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Delete_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Hidden_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Data_Authentication_LoginSession_RefID" > "SchSysConfig.TblLog_UserLoginSession"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Partition_RemovableRecord_Key_RefID" > "SchSysConfig.TblDBObject_Partition_RemovableRecord_Key"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Sys_Branch_RefID" > "SchSysConfig.TblAppObject_InstitutionBranch"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Entity_RefID" > "SchMaster.TblInstitutionBranch"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Entity_RefID" > "SchMaster.TblInstitutionBranch"."Sys_SID"
+Ref: "SchSupplyChain.TblSupplier"."Entity_RefID" > "SchMaster.TblPerson"."Sys_PID"
+Ref: "SchSupplyChain.TblSupplier"."Entity_RefID" > "SchMaster.TblPerson"."Sys_SID"
