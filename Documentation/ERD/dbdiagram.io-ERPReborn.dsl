@@ -3027,7 +3027,7 @@ Ref: "SchProject.TblProjectSection"."Project_RefID" > "SchProject.TblProject"."S
 
 
 
- TABLE "SchSupplyChain.TblSupplier"
+TABLE "SchSupplyChain.TblSupplier"
     {
     "Sys_PID" bigint
     "Sys_SID" bigint
