@@ -29,6 +29,7 @@
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
       5. **minio/minio:latest**
+      6. **grafana.grafana:latest**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
       2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
@@ -41,6 +42,7 @@
       4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
       5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.6)
       6. **minio/minio** &rarr; membentuk container bernama **minio** (Docker IP : 172.28.0.7)
+      6. **grafana/grafana** &rarr; membentuk container bernama **grafana** (Docker IP : 172.28.0.8)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
