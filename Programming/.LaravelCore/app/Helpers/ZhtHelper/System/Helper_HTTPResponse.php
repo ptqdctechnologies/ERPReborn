@@ -94,7 +94,9 @@ namespace App\Helpers\ZhtHelper\System
                         //---> API selainnya
                         else
                             {
+                            //echo "xxxxxxxxxx";
 //dd($varData['metadata']['API']['APIWebToken']);                            
+//var_dump($varData['header']);
                             $varHeaders=[
                                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                                 'Date' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),

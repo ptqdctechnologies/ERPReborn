@@ -31,6 +31,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
                 $varData = [
                     'metadata' => $varDataReceive['metadata'],
                     'data' => $varDataReceive['data']
+                    //'data' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIUserLoginEntity($varUserSession)
                     ];
 /*
 //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                

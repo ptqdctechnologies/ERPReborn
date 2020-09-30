@@ -24,7 +24,8 @@ namespace App\Helpers\ZhtHelper\System
         public static function getHeader($varUserSession)
             {
             $varHeader = request()->header();
-            var_dump($varHeader);
+            //var_dump($varHeader);
+            return $varHeader;
             }
 
 
@@ -86,7 +87,7 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (mixed)  varObjResponse ► Objek HTTP Response                                                                     |
+        |      ▪ (mixed)  varObjRequest ► Objek HTTP Request                                                                       |
         |      ▪ (string) varKey ► Nama Kunci Header                                                                               |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (mixed)  varReturn                                                                                                |
@@ -147,7 +148,7 @@ namespace App\Helpers\ZhtHelper\System
         public static function setRequest($varUserSession, $varURL, $varMethod, $varData=null, $varPort=null, $varHeaders=null)
             {
 //var_dump($varData);
-//dd($varHeaders);
+//var_dump($varHeaders);
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
