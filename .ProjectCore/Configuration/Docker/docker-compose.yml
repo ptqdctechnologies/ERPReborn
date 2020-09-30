@@ -166,15 +166,9 @@ services:
       app-network:
         ipv4_address: '172.28.0.8'
     volumes:
-      - './.ProjectCore/PermanentStorage/Grafana/:/var/lib/grafana'
-        #- './.ProjectCore/PermanentStorage/Grafana/:/var/lib/grafana'
-          #    volumes:
-          #      - './.ProjectCore/PermanentStorage/MinIO/:/data'
-          #    environment:
-          #      MINIO_ACCESS_KEY: 'AKIAIOSFODNN7EXAMPLE'
-          #      MINIO_SECRET_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-          #    command: server /data
-          #    restart: always
+      #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
+      - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
+      - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
   
 
 #---> Docker Volumes

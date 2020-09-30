@@ -67,6 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varUserSession, 
                             $varBufferDB[0]['APIWebToken'],
                             json_encode([
+                                'userLoginSession_RefID' => $varBufferDB[0]['Sys_ID'],
                                 'user_RefID' => $varBufferDB[0]['User_RefID'],
                                 'userRole_RefID' => $varBufferDB[0]['UserRole_RefID'],
                                 'branch_RefID' => $varBufferDB[0]['Branch_RefID'],

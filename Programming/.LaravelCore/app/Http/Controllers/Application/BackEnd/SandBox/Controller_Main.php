@@ -73,7 +73,25 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             
             
+        public function testModelDatabase()
+            {
+            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            $varUserSession=0;
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
+            echo $x."<br>";
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
+            echo $x."<br>";
+            echo '<br>~~~~~~~~<br>';
+
+            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
+            var_dump($x);
             
+            echo '<br>~~~~~~~~<br>';
+            //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);
+            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000120);
+            var_dump($x);
+            
+            }
             
             
             
@@ -87,20 +105,16 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);            
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getTableName($varUserSession);            
-            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
-            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
-            echo $x;
-            echo '<br>~~~~~~~~<br>';
-            
+
 //            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, 'ERPReborn::*');
 //            
-            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
-            var_dump($x);
+//            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
+//            var_dump($x);
             
             //echo (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->getSchemaTableName($varUserSession);
             
-            echo '<br>~~~~~~~~<br>';
-            echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
+//            echo '<br>~~~~~~~~<br>';
+//            echo \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5OTAyMjUyN30.u2Re2mLnb8XhmJmxTseNOtWzTv2vwM5lySIg0KB1BS0');
             
 //            $x = new \App\Models\Cache\General\APIWebToken();
 //            $x->setDataInsert($varUserSession, 'xxxx', 'varValue', 10);
@@ -111,9 +125,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_RecordDataOnly($varUserSession, 6000000000013);
 //            var_dump($x);
 
-                        $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
-                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
-                        echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
+//            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
+            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTQ1NTcxMH0.KfZQ_diR-r3eiEKgyfsQSUhasCgDi_9thgN3CRF3C6c';
+            echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
+    //                    echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
 
             
 /*$x = new \App\Models\Cache\General\APIWebToken();

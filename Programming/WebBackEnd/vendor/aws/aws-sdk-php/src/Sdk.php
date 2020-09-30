@@ -432,6 +432,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSynthetics(array $args = [])
  * @method \Aws\Textract\TextractClient createTextract(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionTextract(array $args = [])
+ * @method \Aws\TimestreamQuery\TimestreamQueryClient createTimestreamQuery(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionTimestreamQuery(array $args = [])
+ * @method \Aws\TimestreamWrite\TimestreamWriteClient createTimestreamWrite(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionTimestreamWrite(array $args = [])
  * @method \Aws\TranscribeService\TranscribeServiceClient createTranscribeService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionTranscribeService(array $args = [])
  * @method \Aws\Transfer\TransferClient createTransfer(array $args = [])
@@ -465,7 +469,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.155.2';
+    const VERSION = '3.156.0';
 
     /** @var array Arguments for creating clients */
     private $args;

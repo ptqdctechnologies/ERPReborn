@@ -20,6 +20,101 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAPIIdentityFromClassFullName                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-03                                                                                           |
+        | ▪ Description     : Mendapatkan API Identity (Key and Version) dari ClassFullName (varFullClassName)                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFullClassName ► Full Class Name (include namespace)                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAPIIdentityFromClassFullName($varUserSession, string $varFullClassName)
+            {
+            $APIData = explode('\\', explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[0].explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[1]);
+            array_pop($APIData);
+            $varReturn['Version'] = str_replace('v', '', array_pop($APIData));
+            $varReturn['Key'] = \App\Helpers\ZhtHelper\General\Helper_String::getLowerCaseFirstCharacter($varUserSession, implode('.', $APIData));
+            return $varReturn;
+            }
+
+
+        public static function getAPIUserLoginEntity($varUserSession)
+            {
+            $varDataHeader = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
+            $varAPIWebToken = str_replace('Bearer ', '', $varDataHeader['authorization'][0]);
+
+            $varReturn = [
+                'APIWebToken' => $varAPIWebToken,
+                'UserLoginSessionID' => null,
+                'UserID' => null,
+                'UserRoleID' => null,
+                'BranchID' => null,
+                'SessionStartDateTimeTZ' => null,
+                'SessionAutoStartDateTimeTZ' => null,
+                'SessionAutoFinishDateTimeTZ' => null
+                ];
+            
+            if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
+                {
+                $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
+            
+                $varReturn['UserLoginSessionID'] = $varData['userLoginSession_RefID'];
+                $varReturn['UserID'] = $varData['user_RefID'];
+                $varReturn['UserRoleID'] = $varData['userRole_RefID'];
+                $varReturn['BranchID'] = $varData['branch_RefID'];
+                $varReturn['SessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                $varReturn['SessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                $varReturn['SessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                }
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAPILatestVersion                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-09-03                                                                                           |
+        | ▪ Description     : Mendapatkan API Latest Version berdasarkan API Key (varAPIKey)                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAPILatestVersion($varUserSession, $varAPIKey)
+            {
+            $varAPIKeyData = explode('.', $varAPIKey);
+            $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
+            $varAPIStructure = implode('.', $varAPIKeyData);
+            
+            $varFileVersionHeader = 'v';
+            $varFolderArray = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/'.$varAPIService.'/Engines/'.str_replace('.', '/', $varAPIStructure));
+            $varLastVersion = 0;
+            for($i=0; $i!=count($varFolderArray); $i++)
+                {
+                $varCheckVersion = str_replace($varFileVersionHeader, '', $varFolderArray[$i]);
+                if($varLastVersion < $varCheckVersion)
+                    {
+                    $varLastVersion = $varCheckVersion;
+                    }
+                }
+            $varReturn=$varLastVersion;
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIEngine                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
@@ -64,68 +159,6 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 }
             require_once($varFilePath);
             $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getAPIIdentityFromClassFullName                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-03                                                                                           |
-        | ▪ Description     : Mendapatkan API Identity (Key and Version) dari ClassFullName (varFullClassName)                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varFullClassName ► Full Class Name (include namespace)                                                   |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getAPIIdentityFromClassFullName($varUserSession, string $varFullClassName)
-            {
-            $APIData = explode('\\', explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[0].explode('\Engines', explode('App\\Http\\Controllers\\Application\\BackEnd\\System\\', $varFullClassName)[1])[1]);
-            array_pop($APIData);
-            $varReturn['Version'] = str_replace('v', '', array_pop($APIData));
-            $varReturn['Key'] = \App\Helpers\ZhtHelper\General\Helper_String::getLowerCaseFirstCharacter($varUserSession, implode('.', $APIData));
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getAPILatestVersion                                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-03                                                                                           |
-        | ▪ Description     : Mendapatkan API Latest Version berdasarkan API Key (varAPIKey)                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
-        |      ▪ (string) varAPIKey ► API Key                                                                                      |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getAPILatestVersion($varUserSession, $varAPIKey)
-            {
-            $varAPIKeyData = explode('.', $varAPIKey);
-            $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
-            $varAPIStructure = implode('.', $varAPIKeyData);
-            
-            $varFileVersionHeader = 'v';
-            $varFolderArray = \App\Helpers\ZhtHelper\General\Helper_File::getFilesListInFolder($varUserSession, getcwd().'/./../app/Http/Controllers/Application/BackEnd/System/'.$varAPIService.'/Engines/'.str_replace('.', '/', $varAPIStructure));
-            $varLastVersion = 0;
-            for($i=0; $i!=count($varFolderArray); $i++)
-                {
-                $varCheckVersion = str_replace($varFileVersionHeader, '', $varFolderArray[$i]);
-                if($varLastVersion < $varCheckVersion)
-                    {
-                    $varLastVersion = $varCheckVersion;
-                    }
-                }
-            $varReturn=$varLastVersion;
             return $varReturn;
             }
 
