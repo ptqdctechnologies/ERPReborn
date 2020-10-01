@@ -6,7 +6,6 @@ use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\PromiseInterface;
-use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\LazyOpenStream;
 use GuzzleHttp\TransferStats;
 use GuzzleHttp\Utils;
@@ -393,7 +392,12 @@ class CurlFactory implements CurlFactoryInterface
             }
         }
 
-        if (isset($options['sink'])) {
+        // Do not connect a sink for HEAD requests.
+        if ($easy->request->getMethod() !== 'HEAD') {
+            if (!isset($options['sink'])) {
+                // Use a default temp stream if no sink was set.
+                $options['sink'] = \fopen('php://temp', 'w+');
+            }
             $sink = $options['sink'];
             if (!\is_string($sink)) {
                 $sink = \GuzzleHttp\Psr7\stream_for($sink);
@@ -411,11 +415,8 @@ class CurlFactory implements CurlFactoryInterface
             $conf[\CURLOPT_WRITEFUNCTION] = static function ($ch, $write) use ($sink): int {
                 return $sink->write($write);
             };
-        } else {
-            // Use a default temp stream if no sink was set.
-            $conf[\CURLOPT_FILE] = \fopen('php://temp', 'w+');
-            $easy->sink = Psr7\stream_for($conf[\CURLOPT_FILE]);
         }
+
         $timeoutRequiresNoSignal = false;
         if (isset($options['timeout'])) {
             $timeoutRequiresNoSignal |= $options['timeout'] < 1;
@@ -497,13 +498,8 @@ class CurlFactory implements CurlFactoryInterface
                 );
             }
             $conf[\CURLOPT_NOPROGRESS] = false;
-            $conf[\CURLOPT_PROGRESSFUNCTION] = static function () use ($progress) {
-                $args = \func_get_args();
-                // PHP 5.5 pushed the handle onto the start of the args
-                if (\is_resource($args[0])) {
-                    \array_shift($args);
-                }
-                \call_user_func_array($progress, $args);
+            $conf[\CURLOPT_PROGRESSFUNCTION] = static function ($resource, int $downloadSize, int $downloaded, int $uploadSize, int $uploaded) use ($progress) {
+                $progress($downloadSize, $downloaded, $uploadSize, $uploaded);
             };
         }
 
