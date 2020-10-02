@@ -1228,6 +1228,7 @@ return array(
     'Facade\\Ignition\\SolutionProviders\\MissingAppKeySolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/MissingAppKeySolutionProvider.php',
     'Facade\\Ignition\\SolutionProviders\\MissingColumnSolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/MissingColumnSolutionProvider.php',
     'Facade\\Ignition\\SolutionProviders\\MissingImportSolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/MissingImportSolutionProvider.php',
+    'Facade\\Ignition\\SolutionProviders\\MissingMixManifestSolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/MissingMixManifestSolutionProvider.php',
     'Facade\\Ignition\\SolutionProviders\\MissingPackageSolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/MissingPackageSolutionProvider.php',
     'Facade\\Ignition\\SolutionProviders\\RouteNotDefinedSolutionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/RouteNotDefinedSolutionProvider.php',
     'Facade\\Ignition\\SolutionProviders\\RunningLaravelDuskInProductionProvider' => $vendorDir . '/facade/ignition/src/SolutionProviders/RunningLaravelDuskInProductionProvider.php',

@@ -55,17 +55,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.157.0",
-        "version_normalized": "3.157.0.0",
+        "version": "3.158.0",
+        "version_normalized": "3.158.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "ad2c0183d7ebc695acb1ba39d528f2328f2c0de3"
+            "reference": "59345aa45161a8f83c3a0027a7df9567ae72cc85"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ad2c0183d7ebc695acb1ba39d528f2328f2c0de3",
-            "reference": "ad2c0183d7ebc695acb1ba39d528f2328f2c0de3",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59345aa45161a8f83c3a0027a7df9567ae72cc85",
+            "reference": "59345aa45161a8f83c3a0027a7df9567ae72cc85",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-09-30T18:58:20+00:00",
+        "time": "2020-10-01T18:41:53+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -653,17 +653,17 @@
     },
     {
         "name": "facade/ignition",
-        "version": "2.3.7",
-        "version_normalized": "2.3.7.0",
+        "version": "2.3.8",
+        "version_normalized": "2.3.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facade/ignition.git",
-            "reference": "b364db8860a63c1fb58b72b9718863c21df08762"
+            "reference": "e8fed9c382cd1d02b5606688576a35619afdf82c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facade/ignition/zipball/b364db8860a63c1fb58b72b9718863c21df08762",
-            "reference": "b364db8860a63c1fb58b72b9718863c21df08762",
+            "url": "https://api.github.com/repos/facade/ignition/zipball/e8fed9c382cd1d02b5606688576a35619afdf82c",
+            "reference": "e8fed9c382cd1d02b5606688576a35619afdf82c",
             "shasum": ""
         },
         "require": {
@@ -688,7 +688,7 @@
         "suggest": {
             "laravel/telescope": "^3.1"
         },
-        "time": "2020-09-06T19:26:27+00:00",
+        "time": "2020-10-01T23:01:14+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
