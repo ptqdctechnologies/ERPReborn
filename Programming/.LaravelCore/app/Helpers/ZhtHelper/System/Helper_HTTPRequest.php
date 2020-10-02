@@ -180,6 +180,7 @@ namespace App\Helpers\ZhtHelper\System
                                 {
                                 //---> Based on Core\Engines\APIResponse\setNotificationSuccess\v1\setNotificationSuccess
                                 $varData = (json_decode($varResponseData, TRUE));
+                                //dd($varData);
                                 $varResponseContents = [
                                     'metadata' => [
                                         'HTTPStatusCode' => $varHTTPStatusCode,
