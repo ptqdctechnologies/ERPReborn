@@ -10,21 +10,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
-        public function APIGateway_GetSessionData()
-            {
-            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg3MjM4OX0.fkGxTZRTk0LUaI8tKTQ7-cwSIoEJ5YDA8y67LIDtimM', 
-                'environment.general.session.getData', 
-                'latest', 
-                [
-                    'aaa' => 'AAA'
-                ]
-                );
-            var_dump($varJSONData);
-            }
-
-            
 
         public function APIAuthentication_SendAuthRequest()
             {
@@ -36,6 +21,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             var_dump($varJSONData);
             }
 
+
+        public function APIGateway_GetSessionData()
+            {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4';
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'environment.general.session.getData', 
+                'latest', 
+                [
+                    'aaa' => 'AAA'
+                ]
+                );
+            var_dump($varJSONData);
+            }
+
+
+        public function APIGateway_SetLogout()
+            {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4';
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'authentication.general.setLogout', 
+                'latest'
+                );
+            var_dump($varJSONData);            
+            }
             
             
             

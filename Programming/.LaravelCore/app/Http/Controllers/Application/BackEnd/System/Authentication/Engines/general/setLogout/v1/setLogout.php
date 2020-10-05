@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Http\Controllers\Application\BackEnd\System\Environment\Engines\general\session\getData\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogout\v1
     {
-    class getData extends \App\Http\Controllers\Controller
+    class setLogout extends \App\Http\Controllers\Controller
         {
         function __construct()
             {
@@ -17,18 +17,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Environment\Engines\ge
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Session Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-//                    $varDataSend = ['Answer' => 'Feedbackdari Main2'];
-                    //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-/*$varDataSend = [
-    'Answer' => 'Feedbackdari Main2',
-    'IDSession' => $varData
-    ];
-*/
-                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIUserLoginEntity($varUserSession);
+                    //$varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIUserLoginEntity($varUserSession);
+                    $varDataSend = ['z' => 'zzz'];
+                    $varDataSend = [];
                     $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
-                    
-//$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Pokoknya error');
-                    ///$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

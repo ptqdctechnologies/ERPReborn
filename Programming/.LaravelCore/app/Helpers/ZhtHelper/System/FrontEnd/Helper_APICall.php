@@ -66,6 +66,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     else
                         {
                         echo $varResponseData['data']['message'];
+                        die();
                         }
 //                        \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, 'Tue, 25 Aug 2020 08:23:38 GMT', 7);                   
 //phpinfo();
@@ -118,6 +119,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varAPIVersion = 'latest';
                         }
+                    if(!$varData)
+                        {
+                        $varData = [];
+                        }
                     $varDataArray = [
                         'header' => [
                             'authorization' => 'Bearer'.' '.$varAPIWebToken,
@@ -137,11 +142,13 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         );
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
-                        var_dump($varResponseData);
+                        //var_dump($varResponseData);
+                        $varReturn = $varResponseData;
                         }
                     else
                         {
                         echo $varResponseData['data']['message'];
+                        die();
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

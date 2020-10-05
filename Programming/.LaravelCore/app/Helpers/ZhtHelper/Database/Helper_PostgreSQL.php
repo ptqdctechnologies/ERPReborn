@@ -575,7 +575,7 @@ namespace App\Helpers\ZhtHelper\Database
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded field data only');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     if($varStatusAuthenticatedDataOnly === null)
@@ -595,6 +595,58 @@ namespace App\Helpers\ZhtHelper\Database
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    //--->
+                    //echo $varSQL."<br><br>";
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varReturn = $varData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+            
+        public static function getQueryExecutionDataFetch_DataOnly_Filtered($varUserSession, string $varSchemaName, string $varTableName, string $varFilterCondition = null, bool $varStatusAuthenticatedDataOnly = null)
+            {
+echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filtered field data only');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if($varStatusAuthenticatedDataOnly === null)
+                        {
+                        $varStatusAuthenticatedDataOnly = true;
+                        }
+                    $varSQL = '
+                        SELECT 
+                            "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All" AS "QueryBuilderString"
+                        FROM 
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(
+                                \''.$varSchemaName.'\'::varchar,
+                                \''.$varTableName.'\'::varchar,
+                                '.($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE').'::boolean
+                                )
+                        ';
+                    //echo $varSQL."<br><br>";
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varSQL = '
+                        SELECT
+                            * 
+                        FROM 
+                            ('.$varData['Data'][0]['QueryBuilderString'].') AS "SubSQL"
+                        WHERE
+                            1 = 1
+                            AND
+                            '.$varFilterCondition.'
+                        ';
                     //--->
                     //echo $varSQL."<br><br>";
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
