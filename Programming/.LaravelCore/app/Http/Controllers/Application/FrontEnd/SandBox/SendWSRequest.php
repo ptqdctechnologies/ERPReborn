@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_GetSessionData()
             {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg3MjM4OX0.fkGxTZRTk0LUaI8tKTQ7-cwSIoEJ5YDA8y67LIDtimM', 
                 'environment.general.session.getData', 
@@ -21,17 +21,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     'aaa' => 'AAA'
                 ]
                 );
+            var_dump($varJSONData);
             }
 
             
 
         public function APIAuthentication_SendAuthRequest()
             {
-            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 'teguh.pratama', 
                 'teguhpratama789'
                 );
+            var_dump($varJSONData);
             }
 
             
