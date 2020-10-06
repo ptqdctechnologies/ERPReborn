@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan protocol server                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varURL ► Alamat host yang akan diperiksa                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -131,7 +131,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan IP Address dari Client                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -172,7 +172,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan IP Address dari alamat URL tertentu (varURL)                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varURL ► Alamat host yang akan diperiksa                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

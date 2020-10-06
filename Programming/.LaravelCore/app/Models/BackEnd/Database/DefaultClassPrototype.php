@@ -192,7 +192,7 @@ namespace App\Models\Database
         | ▪ Description     : Data Authentication                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -224,7 +224,7 @@ namespace App\Models\Database
         | ▪ Description     : Data Delete                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -283,7 +283,7 @@ namespace App\Models\Database
         | ▪ Description     : Data Unauthentication                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -315,7 +315,7 @@ namespace App\Models\Database
         | ▪ Description     : Data Undelete                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |

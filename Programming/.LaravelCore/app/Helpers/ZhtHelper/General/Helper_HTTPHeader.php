@@ -105,7 +105,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan data Header HTTP yang berasal dari objek HTTP request (varObjRequest)                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -143,7 +143,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan data Client Agent Header HTTP yang berasal dari objek HTTP request (varObjRequest)       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -179,7 +179,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan data Cookies Header HTTP yang berasal dari objek HTTP request (varObjRequest)            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -220,7 +220,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan data XSRF Token Header HTTP yang berasal dari objek HTTP request (varObjRequest)         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (\Illuminate\Http\Request) varObjRequest ► Objek HTTP Request                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -256,7 +256,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Memunculkan nilai Content MD5 untuk HTTP Header dari data Content (varDataContent)                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varDataContent ► Data Content                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -291,7 +291,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Memunculkan nilai Content Type untuk HTTP Header dari data Content (varDataContent)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varDataContent ► Data Content                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -329,7 +329,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Memunculkan nilai Tanggal dan Waktu untuk HTTP Header                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -363,7 +363,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Memunculkan nilai Tanggal dan Waktu Kadaluwarsa untuk HTTP Header                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varTTL ► Time To Live (in seconds)                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

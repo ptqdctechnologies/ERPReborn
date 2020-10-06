@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         |                     (varAlgorithm)                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varUSerName ► Nama Pengguna                                                                              |
         |      ▪ (string) varKey ► Kata Kunci                                                                                      |
         |      ▪ (string) varAlgorithm ► Algoritma                                                                                 |

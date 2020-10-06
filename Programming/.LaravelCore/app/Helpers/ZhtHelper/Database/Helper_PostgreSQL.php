@@ -103,7 +103,7 @@ namespace App\Helpers\ZhtHelper\Database
         | ▪ Description     : Mendapatkan Literasi String untuk StoredProcedure                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varStoredProcedureName ► Nama Stored Procedure                                                           |
         |      ▪ (array)  varData ► Data                                                                                           |
         |      ▪ (array)  varFieldReturn ► Return Field                                                                            |
@@ -395,7 +395,7 @@ namespace App\Helpers\ZhtHelper\Database
         | ▪ Description     : Mendapatkan status ketersediaan reseource PostgreSQL                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (boolean) varReturn                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -563,7 +563,7 @@ namespace App\Helpers\ZhtHelper\Database
         | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only tanpa menyertakan Field System         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSchemaName ► Schema Name                                                                              |
         |      ▪ (string) varTableName ► Table Name                                                                                |
         |      ▪ (bool)   varStatusAuthenticatedDataOnly ► Status Authenticated Data Only                                          |
@@ -613,6 +613,25 @@ namespace App\Helpers\ZhtHelper\Database
             }
 
             
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_Filtered                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-05                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only tanpa menyertakan Field System         |
+        |                     berdasarkan kondisi Filter (varFilterCondition)                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (string) varFilterCondition ► Kondisi Filter                                                                      |
+        |      ▪ (bool)   varStatusAuthenticatedDataOnly ► Status Authenticated Data Only                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function getQueryExecutionDataFetch_DataOnly_Filtered($varUserSession, string $varSchemaName, string $varTableName, string $varFilterCondition = null, bool $varStatusAuthenticatedDataOnly = null)
             {
 echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
@@ -675,7 +694,7 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
         |                     Record ID tertentu (varRecordID)                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -723,7 +742,7 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
         | ▪ Description     : Mendapatkan Literasi String konversi untuk Big Integer (varData)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -767,7 +786,7 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
         | ▪ Description     : Mendapatkan Literasi String konversi untuk Variable Character (varData)                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -811,7 +830,7 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
         | ▪ Description     : Mendapatkan Literasi String untuk Escaped Character Single Quote dari data (varData)                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

@@ -27,7 +27,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan Class Name dari Full Name Space                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varNameSpace ► Name Space                                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

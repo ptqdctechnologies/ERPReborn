@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan tanggal dan waktu dari UnixTime (varUnixTime)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (float)    varUnixTime ► Unix Time                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -134,7 +134,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan tanggal dan waktu GMT saat ini                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varDateTimeFormat ► Format penulisan waktu                                                               |
         |      ▪ (int)    varUnixTime ► Waktu Unix                                                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -222,7 +222,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan interval waktu dari UnixTime (varUnixTime)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (float)  varUnixTime ► Unix Time                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -262,7 +262,7 @@ namespace App\Helpers\ZhtHelper\General
         |                     (varTimeZoneOffset)                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varGMTDateTime ► GMT Date Time                                                                           |
         |      ▪ (int)    varTimeZoneOffset ► Time Zone Offset                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -300,7 +300,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan Time Zone Offset dari suatu Zone (varZone)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varZone ► Zone                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -344,7 +344,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan UnixTime                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varDateTimeString ► Date Time String                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -394,7 +394,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan UnixTime melalui Java Script                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+

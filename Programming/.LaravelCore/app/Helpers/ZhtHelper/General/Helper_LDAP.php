@@ -92,7 +92,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan User Principal Name dari SAM Account Name                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        |
         |      ▪ (string) varSAMAccountName ► LDAP SAM Account Name                                                                |
         | ▪ Output Variable :                                                                                                      |
@@ -128,7 +128,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan otentikasi LDAP berdasarkan SAM Account Name (varSAMAccountName)                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varLDAPHost ► Alamat IP Server LDAP                                                                      |
         |      ▪ (string) varLDAPPort ► Port Server LDAP                                                                           |
         |      ▪ (string) varBaseDN ► LDAP Base Domain Name                                                                        |

@@ -27,7 +27,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mengeset tampilan halaman customized HTTP Error                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varErrorCode ► HTTP Error Status Code                                                                    |
         |      ▪ (string) varErrorMessage ► HTTP Error Message                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -106,7 +106,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mengeset halaman untuk menampilkan error dari HTTP                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varHTTPStatusCode ► HTTP Status Code                                                                     |
         |      ▪ (string) varHTTPMessage ► HTTP Message                                                                            |
         | ▪ Output Variable :                                                                                                      |

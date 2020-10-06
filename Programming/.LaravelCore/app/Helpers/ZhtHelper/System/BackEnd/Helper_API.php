@@ -27,7 +27,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Description     : Mendapatkan API Identity (Key and Version) dari ClassFullName (varFullClassName)                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varFullClassName ► Full Class Name (include namespace)                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -43,39 +43,6 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             }
 
 
-        public static function getAPIUserLoginEntity($varUserSession)
-            {
-            $varDataHeader = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
-            $varAPIWebToken = str_replace('Bearer ', '', $varDataHeader['authorization'][0]);
-
-            $varReturn = [
-                'APIWebToken' => $varAPIWebToken,
-                'UserLoginSessionID' => null,
-                'UserID' => null,
-                'UserRoleID' => null,
-                'BranchID' => null,
-                'SessionStartDateTimeTZ' => null,
-                'SessionAutoStartDateTimeTZ' => null,
-                'SessionAutoFinishDateTimeTZ' => null
-                ];
-            
-            if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
-                {
-                $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
-            
-                $varReturn['UserLoginSessionID'] = $varData['userLoginSession_RefID'];
-                $varReturn['UserID'] = $varData['user_RefID'];
-                $varReturn['UserRoleID'] = $varData['userRole_RefID'];
-                $varReturn['BranchID'] = $varData['branch_RefID'];
-                $varReturn['SessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
-                $varReturn['SessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
-                $varReturn['SessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                }
-
-            return $varReturn;
-            }
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getAPILatestVersion                                                                                  |
@@ -85,7 +52,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Description     : Mendapatkan API Latest Version berdasarkan API Key (varAPIKey)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varAPIKey ► API Key                                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
@@ -122,7 +89,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Description     : Memanggil API Engine                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (array)  varAPIKey ► API Key                                                                                      |
         |      ▪ (array)  varAPIVersion ► API Version                                                                              |
         |      ▪ (array)  varData ► Data yang akan diproses                                                                        |
@@ -172,7 +139,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Description     : Mendapatkan Fail Engine Return HTTP Response                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varHTTPErrorCode ► Error Code HTTP Response                                                              |
         |      ▪ (string) varHTTPErrorMessage ► Error Message HTTP Response                                                        |
         | ▪ Output Variable :                                                                                                      |
@@ -207,7 +174,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Description     : Mendapatkan Success Engine Return HTTP Response                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (array)  varData ► Data yang akan dikirim oleh HTTP Response                                                      |
         |      ▪ (array)  varAPIIdentity ► API Identity (Key & Version)                                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -238,6 +205,57 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     ],
                 "data" => $varData
                 ];
+            return $varReturn;
+            }
+
+
+         /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserLoginSessionEntityByAPIWebToken                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-06                                                                                           |
+        | ▪ Description     : Mendapatkan API User Login Identity berdasarkan APIWebToken                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getUserLoginSessionEntityByAPIWebToken($varUserSession, string $varAPIWebToken = null)
+            {
+            if(!$varAPIWebToken)
+                {
+                $varDataHeader = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getHeader($varUserSession);
+                $varAPIWebToken = str_replace('Bearer ', '', $varDataHeader['authorization'][0]);                
+                }
+
+            $varReturn = [
+                'APIWebToken' => $varAPIWebToken,
+                'UserLoginSessionID' => null,
+                'UserID' => null,
+                'UserRoleID' => null,
+                'BranchID' => null,
+                'SessionStartDateTimeTZ' => null,
+                'SessionAutoStartDateTimeTZ' => null,
+                'SessionAutoFinishDateTimeTZ' => null
+                ];
+            
+            if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
+                {
+                $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
+            
+                $varReturn['UserLoginSessionID'] = $varData['userLoginSession_RefID'];
+                $varReturn['UserID'] = $varData['user_RefID'];
+                $varReturn['UserRoleID'] = $varData['userRole_RefID'];
+                $varReturn['BranchID'] = $varData['branch_RefID'];
+                $varReturn['SessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                $varReturn['SessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                $varReturn['SessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                }
+
             return $varReturn;
             }
         }

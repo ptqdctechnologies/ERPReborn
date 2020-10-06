@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan kompresi BZip2 dari data (varData)                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data yang akan dikompresi                                                                      |
         |      ▪ (int)    varBlockSize ► Ukuran block (1-9)                                                                        |
         |      ▪ (int)    varWorkFactor ► Fase Kompresi                                                                            |
@@ -141,7 +141,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan dekompresi BZip2 dari data terkompresi (varCompressedData)                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCompressedData ► Data yang akan didekompresi                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -179,7 +179,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan kompresi ZLib dari data (varData)                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data yang akan dikompresi                                                                      |
         |      ▪ (int)    varCompressionLevel ► Level kompresi                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -222,7 +222,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan dekompresi ZLib dari data terkompresi (varCompressedData)                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCompressedData ► Data yang akan didekompresi                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

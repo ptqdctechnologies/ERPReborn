@@ -27,7 +27,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Description     : Cek eksistensi APIWebToken pada sistem                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (int)    varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -47,5 +47,38 @@ namespace App\Models\Database\SchSysConfig
                 );
             return $varReturn['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken'];
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setUserSessionLogout                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-06                                                                                           |
+        | ▪ Description     : Mengeset Logout User Session berdasarkan User Session ID (varUserSessionID)                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varUserSessionID ► User Session ID                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setUserSessionLogout($varUserSession, int $varUserSessionID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetUserSessionLogout',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varUserSessionID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0]['FuncSys_General_SetUserSessionLogout'];
+            }
+            
         }
     }
