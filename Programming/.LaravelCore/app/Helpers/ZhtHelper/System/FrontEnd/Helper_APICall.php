@@ -27,7 +27,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         | ▪ Description     : Memanggil API Authentication                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varUserName ► User Name                                                                                  |
         |      ▪ (string) varUserPassword ► User Password                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -99,7 +99,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         | ▪ Description     : Memanggil API Gateway                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
         |      ▪ (string) varAPIKey ► API Key                                                                                      |
         |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |

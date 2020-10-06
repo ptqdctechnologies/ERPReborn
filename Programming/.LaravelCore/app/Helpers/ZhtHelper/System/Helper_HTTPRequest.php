@@ -39,7 +39,7 @@ namespace App\Helpers\ZhtHelper\System
         |                     ke client/frontend)                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -86,7 +86,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mendapatkan Header dari HTTP Request                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varObjRequest ► Objek HTTP Request                                                                       |
         |      ▪ (string) varKey ► Nama Kunci Header                                                                               |
         | ▪ Output Variable :                                                                                                      |
@@ -137,7 +137,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mengeset Request HTTP                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varURL ► Alamat host yang dituju                                                                         |
         |      ▪ (string) varMethod ► Metode HTTP Request                                                                          |
         |      ▪ (int)    varPort ► Port HTTP Request                                                                              |
@@ -279,7 +279,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mengeset Ulang Nilai Header pada Request HTTP (Digunakan bila Request sudah terbentuk)               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varObjRequest ► Objek Request                                                                            |
         |      ▪ (string) varKey ► Nama Header                                                                                     |
         |      ▪ (mixed)  varPort ► Nilai Header                                                                                   |

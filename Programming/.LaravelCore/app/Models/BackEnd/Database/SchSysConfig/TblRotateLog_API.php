@@ -47,7 +47,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varHostIPAddress ► Host IP Address                                                                       |
         |      ▪ (string) varURL ► Destination URL                                                                                 |
         |      ▪ (string) varNavigatorUserAgent ► Navigator User Agent                                                             |

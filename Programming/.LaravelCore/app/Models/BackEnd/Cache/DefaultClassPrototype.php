@@ -74,7 +74,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan seluruh record                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -95,7 +95,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan nilai dari suatu key (varKey)                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -117,7 +117,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan TTL dari suatu key (varKey)                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -139,7 +139,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan KeyHeader                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -160,7 +160,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan keberadaan dari suatu key (varKey)                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -182,7 +182,7 @@ namespace App\Models\Cache
         | ▪ Description     : Mendapatkan status kadaluwarsa dari suatu key (varKey)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -204,7 +204,7 @@ namespace App\Models\Cache
         | ▪ Description     : Menghapus data berdasarkan key (varKey)                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -225,7 +225,7 @@ namespace App\Models\Cache
         | ▪ Description     : Menambahkan data dengan key (varKey)                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         |      ▪ (mixed)  varValue ► Data Value                                                                                    |
         |      ▪ (int)    varTTL ► TTL                                                                                             |
@@ -265,7 +265,7 @@ namespace App\Models\Cache
         | ▪ Description     : Menyimpan ulang TTL data dengan key tertentu (varKey)                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varKey ► Data Key                                                                                        |
         |      ▪ (int)    varTTL ► TTL                                                                                             |
         | ▪ Output Variable :                                                                                                      |

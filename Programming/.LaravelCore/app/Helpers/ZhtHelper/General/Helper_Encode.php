@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan decode Base64 dari data terdecode (varEncodedData)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varEncodedData ► Data yang akan didecode                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -128,7 +128,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan encode Base64 dari data (varPlainData)                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varPlainData ► Data yang akan diencode                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -163,7 +163,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan encode Base64 URL dari data (varPlainData)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varPlainData ► Data yang akan diencode                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -199,7 +199,7 @@ namespace App\Helpers\ZhtHelper\General
         |                     (varReplacementCharacter)) dari data (varPlainData)                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varPlainData ► Data yang akan diencode                                                                   |
         |      ▪ (string) varReplacementCharacter ► Karakter pengganti slash ('/')                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -241,7 +241,7 @@ namespace App\Helpers\ZhtHelper\General
         |                     (varReplacementCharacter)) dari data terencode (varEncodedData)                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varEncodedData ► Data yang akan didecode                                                                 |
         |      ▪ (string) varReplacementCharacter ► Karakter pengganti slash ('/')                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -282,7 +282,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan decode JSON dari data terdecode (varEncodedData)                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varEncodedData ► Data yang akan didecode                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -317,7 +317,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan encode JSON dari data array (varDataArray)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varDataArray ► Data yang akan diencode                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -352,7 +352,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan encode UTF8 dari data (varData)                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varData ► Data yang akan diencode                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
@@ -387,7 +387,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mengecek apakah suatu data (varDataJSON) termasuk dalam kategori JSON                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varDataJSON ► Data JSON yang akan diperiksa validitasnya                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |

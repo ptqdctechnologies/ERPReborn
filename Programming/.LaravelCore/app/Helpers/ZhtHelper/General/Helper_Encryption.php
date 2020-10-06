@@ -93,7 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan enkripsi OpenSSL dari data (varCipherData)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCipherData ► Data yang akan didekripsi                                                                |
         |      ▪ (string) varCipherMode ► Mode ciphering                                                                           |
         |      ▪ (string) varEncryptionKey ► Kunci enkripsi                                                                        |
@@ -140,7 +140,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan enkripsi OpenSSL dari data (varPlainData)                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varPlainData ► Data yang akan dienkripsi                                                                 |
         |      ▪ (string) varCipherMode ► Mode ciphering                                                                           |
         |      ▪ (string) varEncryptionKey ► Kunci enkripsi                                                                        |

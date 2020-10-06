@@ -215,7 +215,7 @@ namespace App\Helpers\ZhtHelper\Logger
         | ▪ Description     : Mendapatkan data Log Error sesuai User Session tertentu (varUserSession)                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -249,7 +249,7 @@ namespace App\Helpers\ZhtHelper\Logger
         | ▪ Description     : Mendapatkan data Log Output sesuai User Session tertentu (varUserSession)                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -328,7 +328,7 @@ namespace App\Helpers\ZhtHelper\Logger
         | ▪ Description     : Menambah pesan tambahan (varMessage) pada Log Output terakhir sesuai User Session (varUserSession)   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varMessage ► Pesan tambahan yang akan ditambahkan pada output                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -354,7 +354,7 @@ namespace App\Helpers\ZhtHelper\Logger
         |                     khusus (varCallerID)                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCallerID ► ID Penanda Khusus Caller                                                                   |
         |      ▪ (string) varMessage ► Pesan Error                                                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -394,7 +394,7 @@ namespace App\Helpers\ZhtHelper\Logger
         |                     khusus (varCallerID)                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCallerID ► ID Penanda Khusus Caller                                                                   |
         |      ▪ (string) varMessage ► Pesan Output                                                                                |
         | ▪ Output Variable :                                                                                                      |
@@ -432,7 +432,7 @@ namespace App\Helpers\ZhtHelper\Logger
         | ▪ Description     : Menambahkan indentasi untuk Log Output sesuai User Session (varUserSession)                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -464,7 +464,7 @@ namespace App\Helpers\ZhtHelper\Logger
         | ▪ Description     : Mengurangi indentasi untuk Log Output sesuai User Session (varUserSession)                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+

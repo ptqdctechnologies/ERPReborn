@@ -30,7 +30,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mendapatkan Response HTTP dari API (digunakan oleh client/frontend untuk dikirim ke backend)         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varURL ► Alamat host yang dituju                                                                         |
         |      ▪ (string) varData ► Data yang akan dikirimkan                                                                      |
         |      ▪ (string) varMethod ► Metode HTTP Request                                                                          |
@@ -133,7 +133,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mengeset Response HTTP untuk Requester (digunakan oleh backend untuk dikirim ke client/frontend)     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (array)  varDataSend ► Data yang akan dikirimkan                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
@@ -180,7 +180,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mendapatkan Body Content dari HTTP Response                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varObjResponse ► Objek HTTP Response                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (mixed)  varReturn                                                                                                |
@@ -224,7 +224,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mendapatkan Header dari HTTP Response                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varObjResponse ► Objek HTTP Response                                                                     |
         |      ▪ (string) varKey ► Nama Kunci Header                                                                               |
         | ▪ Output Variable :                                                                                                      |
@@ -302,7 +302,7 @@ namespace App\Helpers\ZhtHelper\System
         | ▪ Description     : Mendapatkan Header dari HTTP Response                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (mixed)  varObjResponse ► Objek HTTP Response                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
