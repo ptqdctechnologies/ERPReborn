@@ -76,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testModelDatabase()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varUserSession=0;
+            $varUserSession=01;
             $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
             echo $x."<br>";
             $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
@@ -93,6 +93,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllFilteredDataRecord($varUserSession, '"APIWebToken" = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4\'');
 
+            //$x = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, 6000000000141);
+            
             var_dump($x);
             }
             

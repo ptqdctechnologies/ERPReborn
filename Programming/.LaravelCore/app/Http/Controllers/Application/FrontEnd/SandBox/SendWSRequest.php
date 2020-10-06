@@ -40,8 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_SetLogout()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTk1MTcxNH0.JVB7sTxNVpjBFzMWozFfSMhiJkpwG3tC7i1Iagdipyk';
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTk1NDI4NX0.wJigon5DVKBSICmx_hqV2D4vWqSqpHu6atIsMb2TxPg';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTk4NjM5NX0.z09U8UzVZ2AwOct98vOF9s_lJzADepwgWRx-0iTfHSQ';
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
