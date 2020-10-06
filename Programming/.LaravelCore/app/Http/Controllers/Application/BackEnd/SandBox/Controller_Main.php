@@ -83,14 +83,16 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo $x."<br>";
             echo '<br>~~~~~~~~<br>';
 
-            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
-            var_dump($x);
+//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
+//            var_dump($x);
             
             echo '<br>~~~~~~~~<br>';
             //$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllDataRecord($varUserSession);
-            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000120);
+//            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000120);
+//            var_dump($x);
+
+$x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getAllFilteredDataRecord($varUserSession, '"APIWebToken" = \'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTg4MTQ4Mn0.0KJAcBDlk57gHYwRo69GCsxxZtqTpv5tU2emJdS-y-4\'');
             var_dump($x);
-            
             }
             
             
