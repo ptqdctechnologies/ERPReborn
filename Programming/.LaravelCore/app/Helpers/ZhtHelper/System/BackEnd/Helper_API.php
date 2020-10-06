@@ -215,7 +215,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2020-10-06                                                                                           |
-        | ▪ Description     : Mendapatkan API User Login Identity berdasarkan APIWebToken Header                                   |
+        | ▪ Description     : Mendapatkan API User Login Identity berdasarkan APIWebToken                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
