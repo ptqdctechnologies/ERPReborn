@@ -1258,6 +1258,7 @@ return array(
     'Illuminate\\Contracts\\Database\\Eloquent\\Castable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/Eloquent/Castable.php',
     'Illuminate\\Contracts\\Database\\Eloquent\\CastsAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/Eloquent/CastsAttributes.php',
     'Illuminate\\Contracts\\Database\\Eloquent\\CastsInboundAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/Eloquent/CastsInboundAttributes.php',
+    'Illuminate\\Contracts\\Database\\Eloquent\\SerializesCastableAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/Eloquent/SerializesCastableAttributes.php',
     'Illuminate\\Contracts\\Database\\Events\\MigrationEvent' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/Events/MigrationEvent.php',
     'Illuminate\\Contracts\\Database\\ModelIdentifier' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Database/ModelIdentifier.php',
     'Illuminate\\Contracts\\Debug\\ExceptionHandler' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Debug/ExceptionHandler.php',
