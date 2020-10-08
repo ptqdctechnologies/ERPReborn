@@ -55,17 +55,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.158.3",
-        "version_normalized": "3.158.3.0",
+        "version": "3.158.4",
+        "version_normalized": "3.158.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "ac883fef515dc92785136f251a8337b33bff1d54"
+            "reference": "c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ac883fef515dc92785136f251a8337b33bff1d54",
-            "reference": "ac883fef515dc92785136f251a8337b33bff1d54",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2",
+            "reference": "c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-10-06T18:16:08+00:00",
+        "time": "2020-10-07T18:12:22+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -5153,12 +5153,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/console.git",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00"
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/console/zipball/04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
+            "url": "https://api.github.com/repos/symfony/console/zipball/ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
             "shasum": ""
         },
         "require": {

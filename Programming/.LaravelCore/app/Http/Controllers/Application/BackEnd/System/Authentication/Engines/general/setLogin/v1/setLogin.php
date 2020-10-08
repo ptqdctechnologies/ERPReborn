@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\getUserAuthentication\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1
     {
-    class getUserAuthentication extends \App\Http\Controllers\Controller
+    class setLogin extends \App\Http\Controllers\Controller
         {
         private $varAPIIdentity;
 
@@ -14,14 +14,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
-        function getUserAuthentication($varUserSession, $varData)
+        function setLogin($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get User Authentication (version 1)');
                 try {
                     //---> Variable Initializing
-                    $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                     $varUserName = $varData['userName'];
                     $varUserPassword = $varData['userPassword'];
 
@@ -35,6 +34,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //--->
                         $varSessionIntervalInSeconds = (5*60);
                         $varSessionIntervalInSeconds = (10*60*60);
+
                         //---> Generate APIWebToken
                         $i=0;
                         do

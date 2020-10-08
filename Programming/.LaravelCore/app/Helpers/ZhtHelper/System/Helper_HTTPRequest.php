@@ -148,7 +148,7 @@ namespace App\Helpers\ZhtHelper\System
         public static function setRequest($varUserSession, $varURL, $varMethod, $varData=null, $varPort=null, $varHeaders=null)
             {
 //var_dump($varData);
-//var_dump($varHeaders);
+//var_dump($varHeaders); echo "<br><br>";
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Send HTTP Request');
@@ -172,10 +172,10 @@ namespace App\Helpers\ZhtHelper\System
 //echo $varHTTPStatusCode;                        
                         //---> Jika Backend Process Sukses
                         if($varHTTPStatusCode == 200)
-                            {
+                            {                            
                             $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_BodyContent($varUserSession, $varResponse);
                             $varDataHeaderMD5 = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varResponse, 'Content-MD5');
-                            
+//dd($varDataHeaderMD5);
                             if(strcmp($varDataHeaderMD5, \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)) == 0)
                                 {
                                 //---> Based on Core\Engines\APIResponse\setNotificationSuccess\v1\setNotificationSuccess

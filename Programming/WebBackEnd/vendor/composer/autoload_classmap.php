@@ -41,7 +41,7 @@ return array(
     'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\SendWSResponse' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/SendWSResponse.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Authentication\\Controller_Main' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Authentication/Controller_Main.php',
-    'App\\Http\\Controllers\\Application\\BackEnd\\System\\Authentication\\Engines\\general\\getUserAuthentication\\v1\\getUserAuthentication' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Authentication/Engines/general/getUserAuthentication/v1/getUserAuthentication.php',
+    'App\\Http\\Controllers\\Application\\BackEnd\\System\\Authentication\\Engines\\general\\setLogin\\v1\\setLogin' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Authentication/Engines/general/setLogin/v1/setLogin.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Authentication\\Engines\\general\\setLogout\\v1\\setLogout' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Authentication/Engines/general/setLogout/v1/setLogout.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Controller_Main' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Core/Controller_Main.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Core\\Controller_Main_APIGateway' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Core/Controller_Main_APIGateway.php',

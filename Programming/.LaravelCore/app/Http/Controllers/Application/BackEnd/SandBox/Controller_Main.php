@@ -252,9 +252,27 @@ for($i=0; $i!=2; $i++)
 
         public function test()
             {
-            \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            
-            echo \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID(000000);
+//---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+$varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
+
+$varAPIKey = 'authentication.general.setLogin';
+//$varAPIVersion = $varDataReceive['metadata']['API']['version'];
+$varAPIVersion = 'latest';
+
+$varData = [
+    'userName' => 'teguh.pratama',
+    'userPassword' => 'teguhpratama789'
+    ];
+
+//---> Method Call
+$varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, 'setLogin');
+
+var_dump($varDataSend);
+
+            //\App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());            
+            //echo \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID(000000);
             
             //echo \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getGMTDateTime();
             //\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath(000000, getcwd().'/', '/config/Application/BackEnd/environment.txt');

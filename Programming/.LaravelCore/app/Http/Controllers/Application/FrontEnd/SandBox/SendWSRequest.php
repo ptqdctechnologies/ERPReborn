@@ -10,8 +10,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
-
-        public function APIAuthentication_SendAuthRequest()
+            
+        public function APIAuthentication_SetLogin()
             {
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
