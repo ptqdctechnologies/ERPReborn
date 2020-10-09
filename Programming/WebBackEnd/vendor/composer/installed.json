@@ -55,17 +55,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.158.4",
-        "version_normalized": "3.158.4.0",
+        "version": "3.158.5",
+        "version_normalized": "3.158.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2"
+            "reference": "dae8d62d976adc737d9daf4817ac36de6d53c3e8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2",
-            "reference": "c0c0df79edc0a646a7ccd6b2e8d1723ff4ba88e2",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dae8d62d976adc737d9daf4817ac36de6d53c3e8",
+            "reference": "dae8d62d976adc737d9daf4817ac36de6d53c3e8",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-10-07T18:12:22+00:00",
+        "time": "2020-10-08T18:13:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1900,17 +1900,17 @@
     },
     {
         "name": "league/flysystem-aws-s3-v3",
-        "version": "1.0.28",
-        "version_normalized": "1.0.28.0",
+        "version": "1.0.29",
+        "version_normalized": "1.0.29.0",
         "source": {
             "type": "git",
             "url": "https://github.com/thephpleague/flysystem-aws-s3-v3.git",
-            "reference": "af7384a12f7cd7d08183390d930c9d0ec629c990"
+            "reference": "4e25cc0582a36a786c31115e419c6e40498f6972"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/af7384a12f7cd7d08183390d930c9d0ec629c990",
-            "reference": "af7384a12f7cd7d08183390d930c9d0ec629c990",
+            "url": "https://api.github.com/repos/thephpleague/flysystem-aws-s3-v3/zipball/4e25cc0582a36a786c31115e419c6e40498f6972",
+            "reference": "4e25cc0582a36a786c31115e419c6e40498f6972",
             "shasum": ""
         },
         "require": {
@@ -1922,7 +1922,7 @@
             "henrikbjorn/phpspec-code-coverage": "~1.0.1",
             "phpspec/phpspec": "^2.0.0"
         },
-        "time": "2020-08-22T08:43:01+00:00",
+        "time": "2020-10-08T18:58:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
