@@ -83,6 +83,193 @@ namespace App\Helpers\ZhtHelper\General
             self::$varNameSpace=get_class();
             }
 
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_LowerAllCharacters                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Mengganti seluruh karakter Array Key dengan Huruf Non Kapital                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayKeyRename_LowerAllCharacters($varUserSession, array $varArray)
+            {
+            $varReturn = self::getArrayKeyRename_Engine($varUserSession, $varArray, 10);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_LowerFirstCharacter                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Mengganti karakter pertama Array Key dengan Huruf Non Kapital                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayKeyRename_LowerFirstCharacter($varUserSession, array $varArray)
+            {
+            $varReturn = self::getArrayKeyRename_Engine($varUserSession, $varArray, 25);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_UpperAllCharacters                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Mengganti seluruh karakter Array Key dengan Huruf Kapital                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayKeyRename_UpperAllCharacters($varUserSession, array $varArray)
+            {
+            $varReturn = self::getArrayKeyRename_Engine($varUserSession, $varArray, 15);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_UpperFirstCharacter                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Mengganti karakter pertama Array Key dengan Huruf Kapital                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayKeyRename_UpperFirstCharacter($varUserSession, array $varArray)
+            {
+            $varReturn = self::getArrayKeyRename_Engine($varUserSession, $varArray, 20);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_Engine                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Engine Penggantian karakter pertama Array Key                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function getArrayKeyRename_Engine($varUserSession, array $array, $case = 10, $useMB = false, $mbEnc = 'UTF-8') 
+            {
+            /*define('ARRAY_KEY_FC_LOWERCASE', 25); //FOO => fOO
+            define('ARRAY_KEY_FC_UPPERCASE', 20); //foo => Foo
+            define('ARRAY_KEY_UPPERCASE', 15); //foo => FOO
+            define('ARRAY_KEY_LOWERCASE', 10); //FOO => foo
+            define('ARRAY_KEY_USE_MULTIBYTE', true); //use mutlibyte functions
+            */
+            $newArray = array();
+
+            //for more speed define the runtime created functions in the global namespace
+
+            //get function
+            if($useMB === false) {
+                $function = 'strToUpper'; //default
+                switch($case) {
+                    //first-char-to-lowercase
+                    case 25:
+                        //maybee lcfirst is not callable
+                        if(!function_exists('lcfirst'))
+                            $function = create_function('$input', '
+                                return strToLower($input[0]) . substr($input, 1, (strLen($input) - 1));
+                            ');
+                        else $function = 'lcfirst';
+                        break;
+
+                    //first-char-to-uppercase               
+                    case 20:
+                        $function = 'ucfirst';
+                        break;
+
+                    //lowercase
+                    case 10:
+                        $function = 'strToLower';
+                }
+            } else {
+                //create functions for multibyte support
+                switch($case) {
+                    //first-char-to-lowercase
+                    case 25:
+                        $function = create_function('$input', '
+                            return mb_strToLower(mb_substr($input, 0, 1, \'' . $mbEnc . '\')) .
+                                mb_substr($input, 1, (mb_strlen($input, \'' . $mbEnc . '\') - 1), \'' . $mbEnc . '\');
+                        ');
+
+                        break;
+
+                    //first-char-to-uppercase
+                    case 20:
+                        $function = create_function('$input', '
+                            return mb_strToUpper(mb_substr($input, 0, 1, \'' . $mbEnc . '\')) .
+                                mb_substr($input, 1, (mb_strlen($input, \'' . $mbEnc . '\') - 1), \'' . $mbEnc . '\');
+                        ');
+
+                        break;
+
+                    //uppercase
+                    case 15:
+                        $function = create_function('$input', '
+                            return mb_strToUpper($input, \'' . $mbEnc . '\');
+                        ');
+                        break;
+
+                    //lowercase
+                    default: //case 10:
+                        $function = create_function('$input', '
+                            return mb_strToLower($input, \'' . $mbEnc . '\');
+                        ');
+                }
+            }
+
+            //loop array
+            foreach($array as $key => $value) {
+                if(is_array($value)) //$value is an array, handle keys too
+                    $newArray[$function($key)] = self::getArrayKeyRename_Engine($varUserSession, $value, $case, $useMB);
+                elseif(is_string($key))
+                    $newArray[$function($key)] = $value;
+                else $newArray[$key] = $value; //$key is not a string
+            } //end loop
+
+            return $newArray;
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

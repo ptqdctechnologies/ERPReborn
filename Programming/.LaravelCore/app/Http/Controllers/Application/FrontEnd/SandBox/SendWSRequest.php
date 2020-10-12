@@ -10,9 +10,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
-            
+
         public function APIAuthentication_SetLogin()
             {
+            //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 'teguh.pratama', 
@@ -22,9 +23,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        public function APIGateway_GetLoginOptionListAccess()
+/*        public function APIGateway_GetLoginOptionListAccess()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjEzMDczN30.pzY0FAQXblkhneKRI1HuEtE1-WORGEbpx5d2pkpS0zQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjQ4NjI0Mn0.6PJRlMWKsxSTdMtBGGCdkJSR4o7IpcmfdJtO5vJIhto';
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
@@ -34,12 +35,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ]
                 );
             var_dump($varJSONData);
-            }
+            }*/
 
 
         public function APIGateway_GetSessionData()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjEzMDczN30.pzY0FAQXblkhneKRI1HuEtE1-WORGEbpx5d2pkpS0zQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjQ5OTk0OH0.B9rmQWPl16QFxyRnOLmDcEY05r8pE7FfHzh6FrQt70E';
+            //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
@@ -53,9 +55,30 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
+        public function APIGateway_SetLoginBranchAndUserRole()
+            {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjQ5OTk0OH0.B9rmQWPl16QFxyRnOLmDcEY05r8pE7FfHzh6FrQt70E';
+            $varBranchID = 11000000000004;
+            $varUserRoleID = 95000000000007;
+            //---Core---
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'authentication.general.setLoginBranchAndUserRole', 
+                'latest', 
+                [
+                    'branchID' => $varBranchID,
+                    'userRoleID' => $varUserRoleID
+                ]
+                );
+            var_dump($varJSONData);            
+            }
+
+
         public function APIGateway_SetLogout()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjEzMDczN30.pzY0FAQXblkhneKRI1HuEtE1-WORGEbpx5d2pkpS0zQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjQ5OTk0OH0.B9rmQWPl16QFxyRnOLmDcEY05r8pE7FfHzh6FrQt70E';
+            //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 

@@ -76,7 +76,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testModelDatabase()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
-            $varUserSession=01;
+            $varUserSession=4000000000399;
+            $varUserSession=4000000000016;
 //            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getTableName($varUserSession);            
 //            echo $x."<br>";
 //            $x = (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->getSchemaName($varUserSession);            
@@ -96,18 +97,49 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$x = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, 6000000000141);
 
 //SELECT * FROM "SchSysConfig"."FuncSys_General_GetBranchAccessListByUserID"(1::bigint)            
-            $varData = (new \App\Models\Database\SchSysConfig\General())->getBranchAccessListByUserID($varUserSession);
+/*            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
             
             for($i=0; $i!=count($varData); $i++)
                 {
+                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserSession, $varData[$i]['Sys_ID']);
+                $varReturnUserRole = null;
+                for($j=0; $j!=count($varDataUserRole); $j++)
+                    {
+                    if(!$varDataUserRole[$j]['Sys_ID'])
+                        {
+                        continue;
+                        }
+                    $varReturnUserRole[$j]=[
+                        'UserRole_RefID' => $varDataUserRole[$j]['Sys_ID'],
+                        'UserRoleName' => $varDataUserRole[$j]['UserRoleName'],
+                        ];  
+                    }
                 $varReturn[$i]=[
                     'Branch_RefID' => $varData[$i]['Sys_ID'],
                     'BranchName' => $varData[$i]['BranchName'],
-                    'UserRole_RefID' => []
+                    'UserRole' => $varReturnUserRole
                     ];
                 }
             
             var_dump($varReturn);
+            echo "<br><br>";
+            
+            
+            */
+            /*for($i=0; $i!=count($varData); $i++)
+                {
+                $varReturn[$i]=[
+                    'Branch_RefID' => $varData[$i]['Sys_ID'],
+                    'UserRoleName' => $varData[$i]['UserRoleName'],
+                    'UserRole_RefID' => []
+                    ];
+                }
+            
+            var_dump($varReturn);*/
+            //var_dump($varData);
+
+            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
+            var_dump($x);
             }
             
             

@@ -14,6 +14,35 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
+        private function getOptionList($varUserSession)
+            {
+            $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
+            
+            for($i=0; $i!=count($varData); $i++)
+                {
+                $varDataUserRole = (new \App\Models\Database\SchSysConfig\General())->getDataList_UserRole($varUserSession, $varData[$i]['Sys_ID']);
+                $varReturnUserRole = null;
+                for($j=0; $j!=count($varDataUserRole); $j++)
+                    {
+                    if(!$varDataUserRole[$j]['Sys_ID'])
+                        {
+                        continue;
+                        }
+                    $varReturnUserRole[$j]=[
+                        'UserRole_RefID' => $varDataUserRole[$j]['Sys_ID'],
+                        'UserRoleName' => $varDataUserRole[$j]['UserRoleName'],
+                        ];  
+                    }
+                $varReturn[$i]=[
+                    'Branch_RefID' => $varData[$i]['Sys_ID'],
+                    'BranchName' => $varData[$i]['BranchName'],
+                    'UserRole' => $varReturnUserRole
+                    ];
+                }
+            return $varReturn;
+            }
+
+
         function setLogin($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
@@ -34,6 +63,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //--->
                         $varSessionIntervalInSeconds = (5*60);
                         $varSessionIntervalInSeconds = (10*60*60);
+                        
+                        $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $this->getOptionList((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)));
 
                         //---> Generate APIWebToken
                         $i=0;
@@ -51,7 +82,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             11000000000001,
                             $varUserName, 
                             $varAPIWebToken, 
-                            null, 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varOptionList),
                             null, 
                             null, 
                             'NOW()', 
@@ -83,7 +114,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'sessionStartDateTimeTZ' => $varBufferDB[0]['SessionStartDateTimeTZ'],
                             'sessionAutoStartDateTimeTZ' => $varBufferDB[0]['SessionAutoStartDateTimeTZ'],
                             'sessionAutoFinishDateTimeTZ' => $varBufferDB[0]['SessionAutoFinishDateTimeTZ'],
-                            'RedisID' => $varRedisID
+                            'redisID' => $varRedisID,
+                            'optionList' => $varOptionList
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
