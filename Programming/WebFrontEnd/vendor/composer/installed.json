@@ -1002,24 +1002,24 @@
     },
     {
         "name": "guzzlehttp/guzzle",
-        "version": "7.1.1",
-        "version_normalized": "7.1.1.0",
+        "version": "7.2.0",
+        "version_normalized": "7.2.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/guzzle/guzzle.git",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3"
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/7427d6f99df41cc01f33cd59832f721c150ffdf3",
-            "reference": "7427d6f99df41cc01f33cd59832f721c150ffdf3",
+            "url": "https://api.github.com/repos/guzzle/guzzle/zipball/0aa74dfb41ae110835923ef10a9d803a22d50e79",
+            "reference": "0aa74dfb41ae110835923ef10a9d803a22d50e79",
             "shasum": ""
         },
         "require": {
             "ext-json": "*",
-            "guzzlehttp/promises": "^1.0",
-            "guzzlehttp/psr7": "^1.6.1",
-            "php": "^7.2.5",
+            "guzzlehttp/promises": "^1.4",
+            "guzzlehttp/psr7": "^1.7",
+            "php": "^7.2.5 || ^8.0",
             "psr/http-client": "^1.0"
         },
         "provide": {
@@ -1027,8 +1027,8 @@
         },
         "require-dev": {
             "ext-curl": "*",
-            "php-http/client-integration-tests": "dev-phpunit8",
-            "phpunit/phpunit": "^8.5.5",
+            "php-http/client-integration-tests": "^3.0",
+            "phpunit/phpunit": "^8.5.5 || ^9.3.5",
             "psr/log": "^1.1"
         },
         "suggest": {
@@ -1036,7 +1036,7 @@
             "ext-intl": "Required for Internationalized Domain Name (IDN) support",
             "psr/log": "Required for using the Log middleware"
         },
-        "time": "2020-09-30T08:51:17+00:00",
+        "time": "2020-10-10T11:47:56+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1277,17 +1277,17 @@
     },
     {
         "name": "laravel/framework",
-        "version": "v8.8.0",
-        "version_normalized": "8.8.0.0",
+        "version": "v8.9.0",
+        "version_normalized": "8.9.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/laravel/framework.git",
-            "reference": "0bdd5c6f12cb7cb6644e484169656245af417735"
+            "reference": "8a6bf870bcfa1597e514a9c7ee6df44db98abb54"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/laravel/framework/zipball/0bdd5c6f12cb7cb6644e484169656245af417735",
-            "reference": "0bdd5c6f12cb7cb6644e484169656245af417735",
+            "url": "https://api.github.com/repos/laravel/framework/zipball/8a6bf870bcfa1597e514a9c7ee6df44db98abb54",
+            "reference": "8a6bf870bcfa1597e514a9c7ee6df44db98abb54",
             "shasum": ""
         },
         "require": {
@@ -1400,7 +1400,7 @@
             "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
             "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
         },
-        "time": "2020-10-02T14:33:08+00:00",
+        "time": "2020-10-06T14:22:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2026,17 +2026,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "2.41.0",
-        "version_normalized": "2.41.0.0",
+        "version": "2.41.2",
+        "version_normalized": "2.41.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e"
+            "reference": "35959c93ada06469107a05df6b15b65074a960cf"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8690b13ad4da6d54d692afea15aab30b36fee52e",
-            "reference": "8690b13ad4da6d54d692afea15aab30b36fee52e",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/35959c93ada06469107a05df6b15b65074a960cf",
+            "reference": "35959c93ada06469107a05df6b15b65074a960cf",
             "shasum": ""
         },
         "require": {
@@ -2055,7 +2055,7 @@
             "phpunit/phpunit": "^7.5 || ^8.0",
             "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2020-10-04T09:11:05+00:00",
+        "time": "2020-10-10T23:35:06+00:00",
         "bin": [
             "bin/carbon"
         ],
@@ -2257,31 +2257,31 @@
     },
     {
         "name": "opis/closure",
-        "version": "3.5.7",
-        "version_normalized": "3.5.7.0",
+        "version": "3.6.0",
+        "version_normalized": "3.6.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/opis/closure.git",
-            "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf"
+            "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/opis/closure/zipball/4531e53afe2fc660403e76fb7644e95998bff7bf",
-            "reference": "4531e53afe2fc660403e76fb7644e95998bff7bf",
+            "url": "https://api.github.com/repos/opis/closure/zipball/c547f8262a5fa9ff507bd06cc394067b83a75085",
+            "reference": "c547f8262a5fa9ff507bd06cc394067b83a75085",
             "shasum": ""
         },
         "require": {
-            "php": "^5.4 || ^7.0"
+            "php": "^5.4 || ^7.0 || ^8.0"
         },
         "require-dev": {
             "jeremeamia/superclosure": "^2.0",
-            "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
+            "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
         },
-        "time": "2020-09-06T17:02:15+00:00",
+        "time": "2020-10-11T21:42:15+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "3.5.x-dev"
+                "dev-master": "3.6.x-dev"
             }
         },
         "installation-source": "dist",
@@ -4554,12 +4554,12 @@
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/console.git",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00"
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/console/zipball/04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
-            "reference": "04c3a31fe8ea94b42c9e2d1acc93d19782133b00",
+            "url": "https://api.github.com/repos/symfony/console/zipball/ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
+            "reference": "ae789a8a2ad189ce7e8216942cdb9b77319f5eb8",
             "shasum": ""
         },
         "require": {

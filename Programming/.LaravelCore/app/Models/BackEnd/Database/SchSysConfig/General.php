@@ -49,6 +49,25 @@ namespace App\Models\Database\SchSysConfig
             }
 
 
+        public function setUserSessionBranchAndUserRole($varUserSession, int $varRecordID, int $varBranchID, int $varUserRoleID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetUserSessionBranchAndUserRole',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varRecordID, 'bigint'],
+                        [$varBranchID, 'bigint'],
+                        [$varUserRoleID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0]['FuncSys_General_SetUserSessionBranchAndUserRole'];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setUserSessionLogout                                                                                 |
@@ -59,7 +78,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varUserSessionID ► User Session ID                                                                       |
+        |      ▪ (int)    varUserSessionID ► User Session ID                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -79,6 +98,99 @@ namespace App\Models\Database\SchSysConfig
                 );
             return $varReturn['Data'][0]['FuncSys_General_SetUserSessionLogout'];
             }
-            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_BranchAccess                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Akses Cabang berdasarkan User Session ID (varUserSessionID)               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_BranchAccess($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_GetDataList_BranchAccess',
+                    [
+                        [$varUserSession, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_UserRole                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-08                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan User Role berdasarkan User Session ID (varUserSessionID) dan Branch ID    |
+        |                     (varBranchID)                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_UserRole($varUserSession, int $varBranchID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_GetDataList_UserRole',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varBranchID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+ 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserIDByName                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan User ID berdasarkan Name (varName)                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varName ► Name                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getUserIDByName($varUserSession, string $varName)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_GetUserIDByName',
+                    [
+                        [$varName, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0]['FuncSys_General_GetUserIDByName'];
+            }
         }
     }
