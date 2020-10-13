@@ -29,7 +29,7 @@
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
       5. **minio/minio:latest**
-      6. **grafana.grafana:latest**
+      6. **grafana/grafana:latest**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
       2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
@@ -52,6 +52,7 @@
    5. **redis** &rarr; **http://localhost:16379** (NAT dari 172.28.0.5:6379)
    6. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.6:5050)
    7. **minio** &rarr; **http://localhost:19000** (NAT dari 172.28.0.7:9000)
+   8. **grafana** &rarr; **http://localhost:13000** (NAT dari http://172.28.0.8:3000)
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
