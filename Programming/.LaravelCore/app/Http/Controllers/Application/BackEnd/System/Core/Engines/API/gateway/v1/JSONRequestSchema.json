@@ -1,0 +1,56 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of core.API.gateway (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": ["core.API.gateway"]
+                        },                        
+                    "version": {
+                        "type": ["integer", "string"],
+                        "minimum": 1,
+                        "minLength": 1
+                        }                        
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "metadata": {
+                "type": "object",
+                "properties": {
+                    "API": {
+                        "properties": {
+                            "key": {
+                                "type": "string"
+                                },                        
+                            "version": {
+                                "type": ["integer", "string"],
+                                "minimum": 1,
+                                "minLength": 1
+                                }
+                            },
+                        "required": [ "key", "version" ]
+                        }
+                    },
+                "required": [ "API" ]
+                },
+            "data": {
+                }
+            },
+        "required": [ "metadata", "data" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

@@ -28,11 +28,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
 
                 $varAPIKey = 'core.API.gateway';
                 $varAPIVersion = 'latest';
-                
+
                 $varData = [
                     'metadata' => $varDataReceive['metadata'],
                     'data' => $varDataReceive['data']
                     ];
+                
+                $varDataReceive = [
+                    'metadata' => [
+                        'API' => [
+                            'key' => $varAPIKey,
+                            'version' => $varAPIVersion
+                            ]
+                        ],
+                    'data' => $varData
+                    ];
+
 /*
 //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                
 $varAPI = [
@@ -48,7 +59,7 @@ $varData = [
 //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
 */
                 //---> Method Call
-                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData);
+                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
 
                 //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);

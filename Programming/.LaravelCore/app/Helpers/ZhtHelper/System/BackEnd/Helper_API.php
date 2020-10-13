@@ -98,8 +98,10 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null)
+        public static function setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, array $varData, string $varFunctionName=null, array $varRealDataRequest=null)
             {
+            $varErrorMessage = null;
+            
             $varAPIKeyData = explode('.', $varAPIKey);
             $varAPIService = \App\Helpers\ZhtHelper\General\Helper_String::getUpperCaseFirstCharacter($varUserSession, array_shift($varAPIKeyData));
             $varAPIStructure = implode('.', $varAPIKeyData);
@@ -119,13 +121,61 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
             //---> Main Process
             $varClass = 'App\\Http\\Controllers\\Application\\BackEnd\\System\\'.$varAPIService.'\\Engines\\'.str_replace('.', '\\', $varAPIStructure).'\\v'.$varAPIVersion.'\\'.$varAPIKeyData[count($varAPIKeyData)-1];
+            
+            $varMainPath = explode('\\', $varClass);
+            array_pop($varMainPath);
+            $varMainPath = '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', implode('\\', $varMainPath)));            
+            
             $varFilePath = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/./../'.str_replace('App/', 'app/', str_replace('\\', '/', $varClass)).'.php');
             if(!$varFilePath)
                 {
-                throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
+                //throw new \Exception('API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found');
+                $varErrorMessage = 'API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+                $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
                 }
-            require_once($varFilePath);
-            $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+        
+            if($varRealDataRequest)
+                {
+                $varFilePathJSONValidation = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), $varMainPath.'/JSONRequestSchema.json');
+                if(!$varFilePathJSONValidation)
+                    {
+                    $varErrorMessage = 'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                    }
+                $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
+                if($varJSONSchemaValidationStatus==false)
+                    {
+                    $varErrorMessage = 'Invalid JSON Request (Contract mismatch at '.$varAPIKey.')';
+                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                    }                
+                }
+                
+/*
+if(strcmp($varAPIKey, 'environment.general.session.getData')==0)
+    {
+    //$varErrorMessage = 'test'.json_encode($varRealDataRequest);
+    //$varErrorMessage = 'test'.\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest);
+    //$varErrorMessage = 'test'.$varFilePathJSONValidation;
+//    $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
+    $varErrorMessage = 'test '.($varJSONSchemaValidationStatus==true ? 'Udah OK' : 'Engga OK Banget');
+
+/*                    $varJSONRequestSchema = new \Swaggest\JsonSchema\Schema();
+                    $varJSONRequestSchema->import($varFilePathJSONValidation);
+                    $varJSONRequestSchema->in(json_decode(\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest)));
+$varErrorMessage = 'test '.json_encode($varJSONRequestSchema->import($varFilePathJSONValidation));
+$varErrorMessage = 'test '.json_encode($varJSONRequestSchema->in(json_decode(\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest))));
+$varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
+    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+    }
+*/
+                
+
+    if(!$varErrorMessage)
+                {
+                require_once($varFilePath);
+                $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+                }
+                
             return $varReturn;
             }
 
