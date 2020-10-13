@@ -24,9 +24,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                     $varAPIKey = $varData['metadata']['API']['key'];
                     $varAPIVersion = $varData['metadata']['API']['version'];
                     $varData = $varData['data'];
+                    
+                    $varDataReceive = [
+                        'metadata' => [
+                            'API' => [
+                                'key' => $varAPIKey,
+                                'version' => $varAPIVersion
+                                ]
+                            ],
+                        'data' => $varData
+                        ];
 
                     //---> Method Call
-                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData);
+                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
                     
                     if($varDataSend['metadata']['successStatus'] == true)
                         {
