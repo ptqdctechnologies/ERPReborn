@@ -2,7 +2,7 @@
 
 ![LogoERPReborn](https://i.ibb.co/fnL12cm/Logo-Phoenix.png)
 
-**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies yang diinisiasi sejak tahun 2020
+**ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak tahun 2020)
 
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
