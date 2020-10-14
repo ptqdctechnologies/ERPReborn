@@ -145,8 +145,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
                 if($varJSONSchemaValidationStatus==false)
                     {
-                    $varErrorMessage = 'Invalid JSON Request (Contract mismatch at '.$varAPIKey.')';
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                    $varErrorMessage = 'Invalid JSON Request (Contract incompatibility at '.$varAPIKey.')';
+                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
                     }                
                 }
                 

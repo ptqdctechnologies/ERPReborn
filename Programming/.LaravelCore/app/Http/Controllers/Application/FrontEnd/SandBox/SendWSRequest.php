@@ -56,7 +56,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_SetLoginBranchAndUserRole()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjU2ODI2NX0.TO_MhzCwN50kWdfq9mOEqtTfaU27JBxc5r2qo_wkK0k';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjY3MTUyMH0.u4ij2y45wvqg09mw3VPOqICjDFp4xSTkIm_CI3NVXfs';
             $varBranchID = 11000000000004;
             $varUserRoleID = 95000000000007;
             //---Core---
