@@ -140,6 +140,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
             $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
             var_dump($x);
+
             }
             
             
@@ -149,6 +150,65 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
             $varUserSession=0;
+
+            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTQ1NTcxMH0.KfZQ_diR-r3eiEKgyfsQSUhasCgDi_9thgN3CRF3C6c';
+            echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
+
+
+            
+/*            
+$varAPIWebToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
+$varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
+var_dump($varData);
+echo "<br>";
+echo "<br>";
+$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
+var_dump($x);
+echo "<br>";
+echo "<br>";
+$varData['userRole_RefID']=777;
+\App\Helpers\ZhtHelper\Cache\Helper_Redis::setValueRenewal($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varData));
+
+
+$varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
+var_dump($varData);
+echo "<br>";
+echo "<br>";
+$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
+var_dump($x);
+*/
+/*
+$varAPIWebToken='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
+$varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
+var_dump($varData);
+echo "<br><br>";
+
+$varData['userRole_RefID']=8888;
+(new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varData));
+$varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
+var_dump($varData);
+
+echo "<br>";
+echo "<br>";
+$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
+var_dump($x);
+*/
+
+
+
+
+
+
+
+
+
+//echo "<br>";
+//$x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken);
+//var_dump($x);
+            
+            
+            
+
             
 //            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, 6000000000001);
 //            $x = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000001);
@@ -175,8 +235,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            var_dump($x);
 
 //            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTk2NH0.BHiM9jFqxX_wUegqcdDin3sDjEJjAwg9df0oM0GhtF8';
-            $varKey = 'ERPReborn::APIWebToken::eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMTQ1NTcxMH0.KfZQ_diR-r3eiEKgyfsQSUhasCgDi_9thgN3CRF3C6c';
-            echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey);
     //                    echo "<br>~~~~~~~<br>".\App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
 
             

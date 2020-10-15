@@ -634,7 +634,6 @@ namespace App\Helpers\ZhtHelper\Database
         */
         public static function getQueryExecutionDataFetch_DataOnly_Filtered($varUserSession, string $varSchemaName, string $varTableName, string $varFilterCondition = null, bool $varStatusAuthenticatedDataOnly = null)
             {
-echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filtered field data only');
@@ -663,12 +662,11 @@ echo "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
                             ('.$varData['Data'][0]['QueryBuilderString'].') AS "SubSQL"
                         WHERE
                             1 = 1
-                            AND
-                            '.$varFilterCondition.'
+                            '.($varFilterCondition ? ' AND ' .$varFilterCondition : '').'
                         ';
                     //--->
-                    //echo $varSQL."<br><br>";
-                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    echo $varSQL."<br><br>";
+                    //$varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

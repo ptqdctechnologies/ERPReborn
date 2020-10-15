@@ -335,37 +335,6 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : isKeyExist                                                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-08-05                                                                                           |
-        | ▪ Description     : Mengecek apakah suatu Key (varKey) ada pada suatu array (varData) dalam satu lapis pencarian         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varKey ► Key Array                                                                                       |
-        |      ▪ (array)  varData ► Data Array                                                                                     |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function isKeyExist($varUserSession, $varKey, $varData)
-            {
-            $varReturn = false;
-                       
-            if($varData)
-                {
-                if (array_key_exists($varKey, $varData))
-                    {
-                    $varReturn = true;
-                    }
-                }
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isAssociativeArray                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -403,6 +372,70 @@ namespace App\Helpers\ZhtHelper\General
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isElementExist                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-15                                                                                           |
+        | ▪ Description     : Mengecek apakah suatu Element (varElement) ada pada suatu array (varData) dalam satu lapis pencarian |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varElement ► Element                                                                                     |
+        |      ▪ (array)  varData ► Data Array                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isElementExist($varUserSession, $varElement, $varData)
+            {
+            $varReturn = false;
+                       
+            if(is_array($varData))
+                {
+                if (in_array($varElement, $varData))
+                    {
+                    $varReturn = true;
+//                    echo "array ".$varElement;
+//                    var_dump($varData);
+                    }
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isKeyExist                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-08-05                                                                                           |
+        | ▪ Description     : Mengecek apakah suatu Key (varKey) ada pada suatu array (varData) dalam satu lapis pencarian         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Key Array                                                                                       |
+        |      ▪ (array)  varData ► Data Array                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isKeyExist($varUserSession, $varKey, $varData)
+            {
+            $varReturn = false;
+                       
+            if(is_array($varData))
+                {
+                if (array_key_exists($varKey, $varData))
+                    {
+                    $varReturn = true;
+                    }
+                }
+            return $varReturn;
             }
 
 
