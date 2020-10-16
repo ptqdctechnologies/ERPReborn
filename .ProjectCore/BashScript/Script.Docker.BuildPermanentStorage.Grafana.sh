@@ -16,7 +16,4 @@ clear;
 
 mkdir -p ./../ERPReborn-PermanentStorage/Grafana;
 sudo chmod 775 ./../ERPReborn-PermanentStorage/Grafana;
-sudo chown 472:472 ./../ERPReborn-PermanentStorage/Grafana;
-#sudo docker pull postgres;
-#vim ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile;
-#sudo docker build --file ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile -t erp-reborn-postgresql .;
+sudo chown -R 472:472 ./../ERPReborn-PermanentStorage/Grafana;
