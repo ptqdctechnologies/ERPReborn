@@ -138,7 +138,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             var_dump($varReturn);*/
             //var_dump($varData);
 
-            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
+//            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
+            $x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession);
             var_dump($x);
 
             }
