@@ -71,7 +71,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varJSONData);            
             }
-            
+        
+        public function APIGateway_getDataListCountry()
+            {
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjgzMjM4MX0.hb1S2JzNdCq49GCr0M9qzPRSbhQcEyLlO6N_zDvZ92w';
+            //---Core---
+            $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountry', 
+                'latest', 
+                [
+                ]
+                );
+            var_dump($varJSONData);            }
             
             
             
