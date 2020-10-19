@@ -83,7 +83,57 @@ namespace App\Helpers\ZhtHelper\General
             self::$varNameSpace=get_class();
             }
 
-            
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getArrayKeyRename_CamelCase                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-19                                                                                           |
+        | ▪ Description     : Mengganti seluruh karakter Array Key dengan Mode Camel Case                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataArray ► Data array                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getArrayKeyRename_CamelCase($varUserSession, array $varArray = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Rename Array Key to Camel Case');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(is_array($varArray)==true)
+                        {
+                        foreach($varArray as $key => $value) 
+                            {
+                            if((strcmp(substr($key, 0, 1), strtoupper(substr($key, 0, 1)))==0) AND (strcmp(substr($key, 1, 1), strtoupper(substr($key, 1, 1)))==0))
+                                {
+                                $varReturn[$key] = (is_array($value)==TRUE ? self::getArrayKeyRename_CamelCase($varUserSession, $value) : $value);
+                                }
+                            else
+                                {
+                                $varReturn[strtolower(substr($key, 0, 1)).substr($key, 1, (strlen($key) - 1))] = (is_array($value)==TRUE ? self::getArrayKeyRename_CamelCase($varUserSession, $value) : $value);
+                                }
+                            }
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);                    
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getArrayKeyRename_LowerAllCharacters                                                                 |
@@ -189,7 +239,9 @@ namespace App\Helpers\ZhtHelper\General
         */
         private static function getArrayKeyRename_Engine($varUserSession, array $array, $case = 10, $useMB = false, $mbEnc = 'UTF-8') 
             {
-            /*define('ARRAY_KEY_FC_LOWERCASE', 25); //FOO => fOO
+            /*
+            define('ARRAY_KEY_FC_LOWERCASE', 30); //FOO => FOO, Bar => bar
+            define('ARRAY_KEY_FC_LOWERCASE', 25); //FOO => fOO
             define('ARRAY_KEY_FC_UPPERCASE', 20); //foo => Foo
             define('ARRAY_KEY_UPPERCASE', 15); //foo => FOO
             define('ARRAY_KEY_LOWERCASE', 10); //FOO => foo

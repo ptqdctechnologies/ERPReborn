@@ -25,7 +25,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_GetSessionData()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMzA3NjY4OH0.twA2Bv-FeQCsw7-acI2tg7e2B59_aBGBBUdT0MDyTZI';
             //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_SetLoginBranchAndUserRole()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMzA3NjY4OH0.twA2Bv-FeQCsw7-acI2tg7e2B59_aBGBBUdT0MDyTZI';
             $varBranchID = 11000000000004;
             $varUserRoleID = 95000000000007;
             //---Core---
@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         public function APIGateway_SetLogout()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjczMDUxMH0.nVXe1M51rpPxH8zkOvA7kW-R9ADkVVRDK_OFRJJCrVw';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMzA3NjY4OH0.twA2Bv-FeQCsw7-acI2tg7e2B59_aBGBBUdT0MDyTZI';
             //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -71,10 +71,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varJSONData);            
             }
-        
+
+
         public function APIGateway_getDataListCountry()
             {
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMjgzMjM4MX0.hb1S2JzNdCq49GCr0M9qzPRSbhQcEyLlO6N_zDvZ92w';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMzA3NjY4OH0.twA2Bv-FeQCsw7-acI2tg7e2B59_aBGBBUdT0MDyTZI';
             //---Core---
             $varJSONData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -82,9 +83,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.read.master.getDataListCountry', 
                 'latest', 
                 [
+                'SQLStatement' => [
+                    'pick' => '*',
+                    'sort' => null,
+                    'filter' => '"InternationalName" ILIKE \'%nesia%\'',
+                    'paging' => null
+                    ]
                 ]
                 );
-            var_dump($varJSONData);            }
+            var_dump($varJSONData);            
+            
+            }
             
             
             

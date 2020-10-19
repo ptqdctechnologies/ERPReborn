@@ -174,6 +174,7 @@ namespace App\Helpers\ZhtHelper\Database
                                 {
                                 case 'bigint':
                                     {
+                                    throw new \Exception('Error');
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
                                     break;
                                     }
@@ -430,8 +431,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getQueryExecution                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2020-10-19                                                                                           |
         | ▪ Description     : Mendapatkan data dari database sesuai syntax query (varSQLQuery)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -448,58 +449,73 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
-                    //echo $varSQLQuery."<br><br>";
-                    if(self::getStatusAvailability($varUserSession)==true)
+                    if(!$varSQLQuery)
                         {
-                        //---> Inisialisasi [Process][StartDateTime]
-                        $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, "SELECT NOW();");
-                        foreach($varDataFetch as $row)
-                            {
-                            $varData[] = (array) $row;
-                            }
-                        $varReturn['Process']['StartDateTime']=$varData[0]['now'];
-                        unset($varData);
-                        //---> Inisialisasi [Data], [RowCount]
-                        $i=0;
-                        $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
-                        //var_dump($varReturn);
-                        //var_dump($varSQLQuery);
-                        $varData = [];
-                        foreach($varDataFetch as $row)
-                            {
-                            $varData[] = (array) $row;
-                            //str_replace("world","Peter","Hello world!");
-                            //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
-                            $i++;
-                            }
-                        $varReturn['Data'] = $varData;
-                        $varReturn['RowCount']=$i;
-                        unset($varData);
-                        //---> Inisialisasi [Process][StartDateTime]
-                        $varDataFetch = self::getQueryExecutionDataFetch(
-                            $varUserSession,
-                            "
-                            SELECT
-                                \"SubSQL\".now AS \"FinishDateTime\",
-                                (\"SubSQL\".now - '".$varReturn['Process']['StartDateTime']."')::interval AS \"ExecutionTime\"
-                            FROM
-                                (
-                                SELECT NOW()
-                                ) AS \"SubSQL\"
-                            "
-                            );
-                        foreach($varDataFetch as $row)
-                            {
-                            $varData[] = (array) $row;
-                            }
-                        $varReturn['Process']['FinishDateTime']=$varData[0]['FinishDateTime'];
-                        $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
-                        unset($varData);
+                        throw new \Exception('Incorrect SQL syntax');
                         }
                     else
                         {
-                        throw new \Exception('Database connection is not available');
+                        $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                        //echo $varSQLQuery."<br><br>";
+                        if(self::getStatusAvailability($varUserSession)==true)
+                            {
+                            //---> Cek apakah SQLQuery Proper
+                            if(self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
+                                {
+                                throw new \Exception('Incorrect SQL syntax');
+                                }
+                            else
+                                {
+                                //---> Inisialisasi [Process][StartDateTime]
+                                $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, "SELECT NOW();");
+                                foreach($varDataFetch as $row)
+                                    {
+                                    $varData[] = (array) $row;
+                                    }
+                                $varReturn['Process']['StartDateTime']=$varData[0]['now'];
+                                unset($varData);
+                                //---> Inisialisasi [Data], [RowCount]
+                                $i=0;
+                                $varDataFetch = self::getQueryExecutionDataFetch($varUserSession, $varSQLQuery);
+                                //var_dump($varReturn);
+                                //var_dump($varSQLQuery);
+                                $varData = [];
+                                foreach($varDataFetch as $row)
+                                    {
+                                    $varData[] = (array) $row;
+                                    //str_replace("world","Peter","Hello world!");
+                                    //$varData[] = str_replace("\\u20ac", "€", ((array) $row));
+                                    $i++;
+                                    }
+                                $varReturn['Data'] = $varData;
+                                $varReturn['RowCount']=$i;
+                                unset($varData);
+                                //---> Inisialisasi [Process][StartDateTime]
+                                $varDataFetch = self::getQueryExecutionDataFetch(
+                                    $varUserSession,
+                                    "
+                                    SELECT
+                                        \"SubSQL\".now AS \"FinishDateTime\",
+                                        (\"SubSQL\".now - '".$varReturn['Process']['StartDateTime']."')::interval AS \"ExecutionTime\"
+                                    FROM
+                                        (
+                                        SELECT NOW()
+                                        ) AS \"SubSQL\"
+                                    "
+                                    );
+                                foreach($varDataFetch as $row)
+                                    {
+                                    $varData[] = (array) $row;
+                                    }
+                                $varReturn['Process']['FinishDateTime']=$varData[0]['FinishDateTime'];
+                                $varReturn['Process']['ExecutionTime']=$varData[0]['ExecutionTime'];
+                                unset($varData);                            
+                                }
+                            }
+                        else
+                            {
+                            throw new \Exception('Database connection is not available');
+                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -842,6 +858,51 @@ namespace App\Helpers\ZhtHelper\Database
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varReturn = str_replace('\'', '\'\'', $varData);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isValid_SQLSyntax                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-19                                                                                           |
+        | ▪ Description     : Mengecek apakah SQL Syntax (varSQL) sudah valid atau tidak                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQL ► SQL Syntax                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isValid_SQLSyntax($varUserSession, $varSQL)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check if SQL is valid');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn = ((array)((\Illuminate\Support\Facades\DB::select(
+                        self::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.FuncSys_General_IsValid_SQLSyntax',
+                            [
+                                [$varSQL, 'varchar']
+                            ]
+                            )
+                        ))[0]))['FuncSys_General_IsValid_SQLSyntax'];
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

@@ -139,7 +139,19 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //var_dump($varData);
 
 //            $x = ((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, 'teguh.pratama'));
+            //
+            
+            //$x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::isValid_SQLSyntax($varUserSession, 'SELECT NOW();');
+            //$x = (new \App\Models\Database\SchSysConfig\General())->isValid_SQLSyntax($varUserSession, 'SELECT NOW();');
+            
             $x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession);
+            //$x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, 'SELECT NOW();');
+            
+            
+            //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, ['AAA' => 'aaa', 'BBB' => 'bbb']);
+            //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $x);
+            $x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $x);
+            
             var_dump($x);
 
             }
