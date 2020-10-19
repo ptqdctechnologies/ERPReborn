@@ -284,26 +284,26 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
 
             $varReturn = [
                 'APIWebToken' => $varAPIWebToken,
-                'UserLoginSessionID' => null,
-                'UserID' => null,
-                'UserRoleID' => null,
-                'BranchID' => null,
-                'SessionStartDateTimeTZ' => null,
-                'SessionAutoStartDateTimeTZ' => null,
-                'SessionAutoFinishDateTimeTZ' => null
+                'userLoginSessionID' => null,
+                'userID' => null,
+                'userRoleID' => null,
+                'branchID' => null,
+                'sessionStartDateTimeTZ' => null,
+                'sessionAutoStartDateTimeTZ' => null,
+                'sessionAutoFinishDateTimeTZ' => null
                 ];
             
             if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                 {
                 $varData = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, 'ERPReborn::APIWebToken::'.$varAPIWebToken));
             
-                $varReturn['UserLoginSessionID'] = $varData['userLoginSession_RefID'];
-                $varReturn['UserID'] = $varData['user_RefID'];
-                $varReturn['UserRoleID'] = $varData['userRole_RefID'];
-                $varReturn['BranchID'] = $varData['branch_RefID'];
-                $varReturn['SessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
-                $varReturn['SessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
-                $varReturn['SessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
+                $varReturn['userID'] = $varData['user_RefID'];
+                $varReturn['userRoleID'] = $varData['userRole_RefID'];
+                $varReturn['branchID'] = $varData['branch_RefID'];
+                $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
+                $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
+                $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
                 }
 
             return $varReturn;
