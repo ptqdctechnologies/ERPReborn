@@ -14,7 +14,4 @@
 
 clear;
 
-mkdir -p ./../ERPReborn-PermanentStorage/MinIO;
-#sudo docker pull postgres;
-#vim ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile;
-#sudo docker build --file ./.ProjectCore/Configuration/Docker/PostgreSQL/Dockerfile -t erp-reborn-postgresql .;
+sudo mkdir -p ./../ERPReborn-PermanentStorage/MinIO;
