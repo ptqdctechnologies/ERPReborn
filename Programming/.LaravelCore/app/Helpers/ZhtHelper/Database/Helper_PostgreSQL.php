@@ -174,8 +174,12 @@ namespace App\Helpers\ZhtHelper\Database
                                 {
                                 case 'bigint':
                                     {
-                                    throw new \Exception('Error');
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
+                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE))
+                                        {
+                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::bigint";
+                                        }
+                                    else
+                                        {throw new \Exception('Error');}
                                     break;
                                     }
                                 case 'boolean':
@@ -201,7 +205,12 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'numeric':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::numeric";
+                                    if((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE))
+                                        {
+                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::numeric";
+                                        }
+                                    else
+                                        {throw new \Exception('Error');}
                                     break;
                                     }
                                 case 'json':
@@ -211,7 +220,12 @@ namespace App\Helpers\ZhtHelper\Database
                                     }
                                 case 'smallint':
                                     {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::smallint";
+                                    if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE))
+                                        {
+                                        $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger($varUserSession, $varData[$i][0]))."::smallint";
+                                        }
+                                    else
+                                        {throw new \Exception('Error');}
                                     break;
                                     }
                                 case 'timestamp without time zone':

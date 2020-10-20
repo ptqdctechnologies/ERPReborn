@@ -22,12 +22,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataListCountry                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-10-19                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-20                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Negara                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -36,17 +37,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataListCountry($varUserSession, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataListCountry($varUserSession, int $varBranchID, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
+                //$varBranchID = 11000000000001;
+                
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetDataList_Country',
                         [
-//                            [(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'bigint' ],
-                            [11000000000004, 'bigint' ],
+                            [$varBranchID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -54,6 +56,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
+                
+//                var_dump($varReturn);
+                
 //                $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
 //                return \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varReturn['Data']);
                 return $varReturn['Data'];
