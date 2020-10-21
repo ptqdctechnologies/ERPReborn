@@ -153,8 +153,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, ['AAA' => 'aaa', 'BBB' => 'bbb']);
             //$x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $x);
 //            $x = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $x);
-            $x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE 1=1 OR 3 = (1+2) OR "x"=89 OR (("x" > 2) AND ("x" < 25)) OR ("xxx" ILIKE \'myWord\' OR "xxx" ILIKE \'myWord123%\' OR "xxx" ILIKE \'%myWord456\' OR "xxx" LIKE \'%myWord789%\' OR \'zzz\' ILIKE \'ZZZ\' OR "AAA" ILIKE "AAA" OR "BBB" LIKE "BBB")');
-            
+            //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE (3 < (3+1)) OR "dfg" = "dfg" OR (\'fff = 123\') = (\'fff = 123\') OR ( "xxx" ILIKE \'myWord\' OR "xxx" ILIKE \'myWord123%\' OR "xxx" ILIKE \'%myWord456\' OR "xxx" LIKE \'%myWord789%\' OR \'zzz\' ILIKE \'ZZZ\' OR "AAA" ILIKE "AAA" OR "BBB" LIKE "BBB") OR 1=1 OR 3 = (1+2) OR "x"=89 OR (("x" > 2) AND ("x" < 25))');
+            //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE "dfg" = "dfg" OR (\'fff = 123\') = (\'fff = 123\') OR ( "xxx" ILIKE \'myWord\' OR "xxx" ILIKE \'myWord123%\' OR "xxx" ILIKE \'%myWord456\' OR "xxx" LIKE \'%myWord789%\' OR \'zzz\' ILIKE \'ZZZ\' OR "AAA" ILIKE "AAA" OR "BBB" LIKE "BBB")');
+            $x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE "zzz2" NOT   LIKE "xxxx2" AND \'zzz\' NOT   LIKE \'xxxx\' AND "xxx" ILIKE "xxx" OR \'1234\' ILIKE (\'12\' || \'34\') OR "AAA" || \'xxx\' LIKE "AAA"');
             var_dump($x);
 
             }
