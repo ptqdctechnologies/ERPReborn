@@ -14,7 +14,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
-        private function getOptionList($varUserSession)
+        private function getOptionList(int $varUserSession)
             {
             $varData = (new \App\Models\Database\SchSysConfig\General())->getDataList_BranchAccess($varUserSession);
             
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
-        function setLogin($varUserSession, $varData)
+        public function setLogin($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -66,6 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         
                         $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $this->getOptionList((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)));
 
+                        
                         //---> Generate APIWebToken
                         $i=0;
                         do
@@ -73,7 +74,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             $varAPIWebToken = \App\Helpers\ZhtHelper\General\Helper_HTTPAuthentication::getJSONWebToken($varUserSession, $varUserName, \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession), 'HS256', (int) \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentUnixTime($varUserSession));
                             }
                         while((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true);
-
+ 
                         //---> Insert Data to PostgreSQL
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->setDataInsert(
                             6000000000001, 
@@ -117,6 +118,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'redisID' => $varRedisID,
                             'optionList' => $varOptionList
                             ];
+              
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
                     //---> Jika Otentikasi gagal

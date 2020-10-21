@@ -17,7 +17,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession, $varData['SQLStatement']['pick'], $varData['SQLStatement']['sort'], $varData['SQLStatement']['filter'], $varData['SQLStatement']['paging']);                    
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], $varData['SQLStatement']['pick'], $varData['SQLStatement']['sort'], $varData['SQLStatement']['filter'], $varData['SQLStatement']['paging'])))
+                            {
+                            throw new \Exception();
+                            }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                       
                         } 
                     catch (\Exception $ex) {
