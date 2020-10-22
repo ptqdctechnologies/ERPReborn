@@ -64,25 +64,25 @@
 - WebBackEnd : **ERPReborn/Programming/WebBackEnd/**
 - WebFrontEnd : **ERPReborn/Programming/WebFrontEnd/**
  
-<h3>Development Team<h3>
+<h3>Development Team</h3>
    
 ![Team-ProjectManager](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
-**Teguh Pratama Januzir S** | Project Manager
+**Teguh Pratama Januzir S** | <em>Project Manager</em>
    
 ![Team-ProjectConsultant](https://i.ibb.co/f48Hppb/Team-Bherly-Novrandy.jpg)
-**Bherly Novrandy** | Project Consultant
+**Bherly Novrandy** | <em>Project Consultant</em>
 
 ![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co/WtK1wky/Team-Icha-Mailinda.jpg)
-**Icha Mailinda** | FrontEnd And BackEnd Developer Coordinator
+**Icha Mailinda** | <em>FrontEnd And BackEnd Developer Coordinator</em>
 
 ![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
-**Suyanto** | FrontEnd Developer
+**Suyanto** | <em>FrontEnd Developer</em>
 
 ![Team-BackEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
-**Aldi Mulyadi** | BackEnd Developer
+**Aldi Mulyadi** | <em>BackEnd Developer</em>
 
 ![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
-**Teguh Pratama Januzir S** | Database Engineer
+**Teguh Pratama Januzir S** | <em>Database Engineer</em>
 
 ![Team-SystemAdministrator](https://i.ibb.co/zn7vX0K/Team-Zainudin-Anwar.jpg)
-**Zainudin Anwar** | System Administrator
+**Zainudin Anwar** | <em>System Administrator</em>
