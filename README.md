@@ -64,3 +64,25 @@
 - WebBackEnd : **ERPReborn/Programming/WebBackEnd/**
 - WebFrontEnd : **ERPReborn/Programming/WebFrontEnd/**
  
+<h3>Development Team<h3>
+   
+![Team-ProjectManager](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
+**Teguh Pratama Januzir S** | Project Manager
+   
+![Team-ProjectConsultant](https://i.ibb.co/f48Hppb/Team-Bherly-Novrandy.jpg)
+**Bherly Novrandy** | Project Consultant
+
+![Team-FrontEndAndBackEndDeveloperCoordinator](https://i.ibb.co/WtK1wky/Team-Icha-Mailinda.jpg)
+**Icha Mailinda** | FrontEnd And BackEnd Developer Coordinator
+
+![Team-FrontEndDeveloper](https://i.ibb.co/RyRHf8f/Team-Suyanto.jpg)
+**Suyanto** | FrontEnd Developer
+
+![Team-BackEndDeveloper](https://i.ibb.co/ZJ6J72b/Team-Aldi-Mulyadi.jpg)
+**Aldi Mulyadi** | BackEnd Developer
+
+![Team-DatabaseEngineer](https://i.ibb.co/LdBfhDH/Teguh-Pratama-Januzir-S.jpg)
+**Teguh Pratama Januzir S** | Database Engineer
+
+![Team-SystemAdministrator](https://i.ibb.co/zn7vX0K/Team-Zainudin-Anwar.jpg)
+**Zainudin Anwar** | System Administrator
