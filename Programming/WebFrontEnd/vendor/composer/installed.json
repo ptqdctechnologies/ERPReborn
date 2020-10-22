@@ -503,23 +503,23 @@
     },
     {
         "name": "facade/flare-client-php",
-        "version": "1.3.6",
-        "version_normalized": "1.3.6.0",
+        "version": "1.3.7",
+        "version_normalized": "1.3.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/facade/flare-client-php.git",
-            "reference": "451fadf38e9f635e7f8e1f5b3cf5c9eb82f11799"
+            "reference": "fd688d3c06658f2b3b5f7bb19f051ee4ddf02492"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/facade/flare-client-php/zipball/451fadf38e9f635e7f8e1f5b3cf5c9eb82f11799",
-            "reference": "451fadf38e9f635e7f8e1f5b3cf5c9eb82f11799",
+            "url": "https://api.github.com/repos/facade/flare-client-php/zipball/fd688d3c06658f2b3b5f7bb19f051ee4ddf02492",
+            "reference": "fd688d3c06658f2b3b5f7bb19f051ee4ddf02492",
             "shasum": ""
         },
         "require": {
             "facade/ignition-contracts": "~1.0",
             "illuminate/pipeline": "^5.5|^6.0|^7.0|^8.0",
-            "php": "^7.1",
+            "php": "^7.1|^8.0",
             "symfony/http-foundation": "^3.3|^4.1|^5.0",
             "symfony/mime": "^3.4|^4.0|^5.1",
             "symfony/var-dumper": "^3.4|^4.0|^5.0"
@@ -529,7 +529,7 @@
             "phpunit/phpunit": "^7.5.16",
             "spatie/phpunit-snapshot-assertions": "^2.0"
         },
-        "time": "2020-09-18T06:35:11+00:00",
+        "time": "2020-10-21T16:02:39+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -2026,17 +2026,17 @@
     },
     {
         "name": "nesbot/carbon",
-        "version": "2.41.3",
-        "version_normalized": "2.41.3.0",
+        "version": "2.41.4",
+        "version_normalized": "2.41.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/briannesbitt/Carbon.git",
-            "reference": "e148788eeae9b9b7b87996520358b86faad37b52"
+            "reference": "6571aec754a648ef476a8d8f57993f7bc965afe4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/e148788eeae9b9b7b87996520358b86faad37b52",
-            "reference": "e148788eeae9b9b7b87996520358b86faad37b52",
+            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/6571aec754a648ef476a8d8f57993f7bc965afe4",
+            "reference": "6571aec754a648ef476a8d8f57993f7bc965afe4",
             "shasum": ""
         },
         "require": {
@@ -2055,7 +2055,7 @@
             "phpunit/phpunit": "^7.5 || ^8.0",
             "squizlabs/php_codesniffer": "^3.4"
         },
-        "time": "2020-10-12T20:36:09+00:00",
+        "time": "2020-10-22T07:28:05+00:00",
         "bin": [
             "bin/carbon"
         ],
