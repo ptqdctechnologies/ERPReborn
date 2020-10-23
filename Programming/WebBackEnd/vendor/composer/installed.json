@@ -55,17 +55,17 @@
     },
     {
         "name": "aws/aws-sdk-php",
-        "version": "3.158.11",
-        "version_normalized": "3.158.11.0",
+        "version": "3.158.12",
+        "version_normalized": "3.158.12.0",
         "source": {
             "type": "git",
             "url": "https://github.com/aws/aws-sdk-php.git",
-            "reference": "cdf3c097a606087654ac90ea1ffb8f3e86c423be"
+            "reference": "ba2956c3cb5ff0d7b808683b1c57ebc3f5cc9633"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/cdf3c097a606087654ac90ea1ffb8f3e86c423be",
-            "reference": "cdf3c097a606087654ac90ea1ffb8f3e86c423be",
+            "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba2956c3cb5ff0d7b808683b1c57ebc3f5cc9633",
+            "reference": "ba2956c3cb5ff0d7b808683b1c57ebc3f5cc9633",
             "shasum": ""
         },
         "require": {
@@ -101,7 +101,7 @@
             "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
             "ext-sockets": "To use client-side monitoring"
         },
-        "time": "2020-10-21T18:12:19+00:00",
+        "time": "2020-10-22T18:12:00+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -778,29 +778,29 @@
     },
     {
         "name": "fideloper/proxy",
-        "version": "4.4.0",
-        "version_normalized": "4.4.0.0",
+        "version": "4.4.1",
+        "version_normalized": "4.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fideloper/TrustedProxy.git",
-            "reference": "9beebf48a1c344ed67c1d36bb1b8709db7c3c1a8"
+            "reference": "c073b2bd04d1c90e04dc1b787662b558dd65ade0"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/9beebf48a1c344ed67c1d36bb1b8709db7c3c1a8",
-            "reference": "9beebf48a1c344ed67c1d36bb1b8709db7c3c1a8",
+            "url": "https://api.github.com/repos/fideloper/TrustedProxy/zipball/c073b2bd04d1c90e04dc1b787662b558dd65ade0",
+            "reference": "c073b2bd04d1c90e04dc1b787662b558dd65ade0",
             "shasum": ""
         },
         "require": {
-            "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0",
+            "illuminate/contracts": "^5.0|^6.0|^7.0|^8.0|^9.0",
             "php": ">=5.4.0"
         },
         "require-dev": {
-            "illuminate/http": "^5.0|^6.0|^7.0|^8.0",
+            "illuminate/http": "^5.0|^6.0|^7.0|^8.0|^9.0",
             "mockery/mockery": "^1.0",
             "phpunit/phpunit": "^6.0"
         },
-        "time": "2020-06-23T01:36:47+00:00",
+        "time": "2020-10-22T13:48:01+00:00",
         "type": "library",
         "extra": {
             "laravel": {
