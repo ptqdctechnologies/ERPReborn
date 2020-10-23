@@ -18,6 +18,49 @@ namespace App\Helpers\ZhtHelper\Database
     */
     class Helper_SQLValidation
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isSecure_FilterStatement                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mengecek apakah Filter Statment aman dari SQL Injection                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isSecure_FilterStatement($varUserSession, string $varFilterStatement)
+            {
+            //$varReturn = ((self::isContain_SQLInjection_BatchStatements($varUserSession, $varFilterStatement) == TRUE) ?? ((self::isContain_SQLInjection_AlwaysTrueStatements($varUserSession, $varFilterStatement) == TRUE) ?? FALSE));
+            //$varReturn = ((self::isContain_SQLInjection_BatchStatements($varUserSession, $varFilterStatement)==TRUE) ? FALSE : (self::isContain_SQLInjection_AlwaysTrueStatements($varUserSession, $varFilterStatement) ? FALSE : TRUE));
+            $varReturn = !(self::isContain_SQLInjection_BatchStatements($varUserSession, $varFilterStatement));
+            if($varReturn == TRUE)
+                {
+                $varReturn = !(self::isContain_SQLInjection_AlwaysTrueStatements($varUserSession, $varFilterStatement));
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getBracketReduce                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mendapatkan pengurangan notasi tanda kurung                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQLClause ► SQL Clause                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static function getBracketReduce($varUserSession, $varSQLClause)
             {
             while(((strcmp(substr($varSQLClause, 0, 1), '(')==0) AND (strcmp(substr($varSQLClause, strlen($varSQLClause)-1, 1), ')')==0)))
@@ -28,6 +71,22 @@ namespace App\Helpers\ZhtHelper\Database
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSQLClauseSplit_MathPattern                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mendapatkan pemotongan SQL Clause berpola Matematika                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQLClause ► SQL Clause                                                                                |
+        |      ▪ (string) varOperator ► Operator                                                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static function getSQLClauseSplit_MathPattern($varUserSession, $varSQLClause, $varOperator)
             {
             $varSQLClause = self::getBracketReduce($varUserSession, $varSQLClause);
@@ -39,6 +98,22 @@ namespace App\Helpers\ZhtHelper\Database
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSQLClauseSplit_NonMathPattern                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mendapatkan pemotongan SQL Clause berpola Non Matematika                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQLClause ► SQL Clause                                                                                |
+        |      ▪ (string) varOperator ► Operator                                                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private static function getSQLClauseSplit_NonMathPattern($varUserSession, $varSQLClause, $varOperator)
             {
             $varOperatorSign = $varOperator;
@@ -106,44 +181,22 @@ namespace App\Helpers\ZhtHelper\Database
             }
 
 
-        private static function isContain_MathPattern($varUserSession, $varSQLClause, $varOperator)
-            {
-            $varReturn = (
-                (
-                (preg_match('/(?i)(([0-9]|"|\))[[:space:]]*'.$varOperator.'[[:space:]]*([0-9]|"|\())(?-i)/', $varSQLClause) == TRUE)
-                && (preg_match('/(?i)((\'){1,}(\))*[[:space:]]*'.$varOperator.'[[:space:]]*(\()*(\'){1,})(?-i)/', $varSQLClause) == FALSE)
-                && (preg_match('/(?i)([[:space:]]*(LIKE)[[:space:]]*)(?-i)/', $varSQLClause) == FALSE)
-                )
-                ? TRUE : FALSE);
-            return $varReturn;
-            }
-
-
-        private static function isContain_NonMathPattern($varUserSession, $varSQLClause, $varOperator)
-            {
-            if((strcmp($varOperator, 'LIKE')==0) OR (strcmp($varOperator, 'ILIKE')==0))
-                {
-                $varOperator = '\b('.$varOperator.')\b';
-                }
-            elseif(strcmp($varOperator, 'NOT LIKE')==0) 
-                {
-                $varOperator = '\b(NOT)\b[[:space:]]{1,}\b(LIKE)\b';
-                }
-            elseif(strcmp($varOperator, 'NOT ILIKE')==0)
-                {
-                $varOperator = '\b(NOT)\b[[:space:]]{1,}\b(ILIKE)\b';
-                }
-            
-            $varReturn = (
-                (
-                (preg_match('/(?i)([[:space:]]*'.$varOperator.'[[:space:]]*)(?-i)/', $varSQLClause) == TRUE)
-                //(preg_match('/(?i)(([[:space:]]*)([[:space:]]*))(?-i)/', $varSQLClause) == TRUE)
-                )
-                ? TRUE : FALSE);
-            return $varReturn;
-            }
-        
-        public static function isSecure_FilterStatement($varUserSession, string $varFilterStatement)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isContain_SQLInjection_AlwaysTrueStatements                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mengecek apakah Filter Statment aman dari SQL Injection tipe Always True Statements                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function isContain_SQLInjection_AlwaysTrueStatements($varUserSession, string $varFilterStatement)
             {
             $varData = explode('<ClauseOperator>', str_ireplace([' AND ', ' OR '], '<ClauseOperator>', str_ireplace('WHERE', '', str_replace(array("\n", "\t", "\r"), ' ', $varFilterStatement))));
             
@@ -168,60 +221,60 @@ namespace App\Helpers\ZhtHelper\Database
                     $varDataClause = trim(substr($varData[$i], 0, $varCharPosition).substr($varData[$i], $varCharPosition+1, strlen($varData[$i])-$varCharPosition-1));
                     }
                 //---> Normalisasi Operator
-                if(self::isContain_MathPattern($varUserSession, $varDataClause, '=') == TRUE)
+                if(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '=') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '=';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '<') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '<') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '<';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '>') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '>') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '>';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '<=') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '<=') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '<=';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '>=') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '>=') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '>=';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '!=') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '!=') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '!=';
                     }
-                elseif(self::isContain_MathPattern($varUserSession, $varDataClause, '<>') == TRUE)
+                elseif(self::isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varDataClause, '<>') == TRUE)
                     {
                     $varOperatorType = 'MathOperator';
                     $varOperatorSign = '<>';
                     }
                 else {
                     $varOperatorType = 'StringOperator';
-                    if(self::isContain_NonMathPattern($varUserSession, $varDataClause, 'NOT LIKE') == TRUE)
+                    if(self::isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varDataClause, 'NOT LIKE') == TRUE)
                         {
                         $varOperatorSign = 'NOT LIKE';
                         }
-                    elseif(self::isContain_NonMathPattern($varUserSession, $varDataClause, 'NOT ILIKE') == TRUE)
+                    elseif(self::isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varDataClause, 'NOT ILIKE') == TRUE)
                         {
                         $varOperatorSign = 'NOT ILIKE';
                         }
-                    elseif(self::isContain_NonMathPattern($varUserSession, $varDataClause, 'LIKE') == TRUE)
+                    elseif(self::isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varDataClause, 'LIKE') == TRUE)
                         {
                         $varOperatorSign = 'LIKE';
                         }
-                    elseif(self::isContain_NonMathPattern($varUserSession, $varDataClause, 'ILIKE') == TRUE)
+                    elseif(self::isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varDataClause, 'ILIKE') == TRUE)
                         {
                         $varOperatorSign = 'ILIKE';
                         }
-                    elseif(self::isContain_NonMathPattern($varUserSession, $varDataClause, '=') == TRUE)
+                    elseif(self::isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varDataClause, '=') == TRUE)
                         {
                         $varOperatorSign = '=';
                         }
@@ -370,13 +423,125 @@ namespace App\Helpers\ZhtHelper\Database
                         $varPotentialThreatCount++;
                         }
                     }
-
 //                var_dump($varDataClausePart);
-  //              echo '<br>Operator Type : '.$varOperatorType.', <br>Operator Sign : '.$varOperatorSign.', <br   >Syntax : ';
-    //            echo $varDataClause.'<br><br>';
+//                echo '<br>Operator Type : '.$varOperatorType.', <br>Operator Sign : '.$varOperatorSign.', <br   >Syntax : ';
+//                echo $varDataClause.'<br><br>';
                 }
-            //echo "<br><br>PotentialThreatCount----->>".$varPotentialThreatCount."<br><br>";
-            return ($varPotentialThreatCount==0 ? TRUE : FALSE);
+//          echo "<br><br>PotentialThreatCount----->>".$varPotentialThreatCount."<br><br>";
+            return ($varPotentialThreatCount==0 ? FALSE : TRUE);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isContain_SQLInjection_AlwaysTrueStatements_MathPattern                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mengecek apakah Filter Statment aman dari SQL Injection tipe Always True Statements dengan pola      |
+        |                     matematika                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQLClause ► SQL Clause                                                                                |
+        |      ▪ (string) varOperator ► Operator                                                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function isContain_SQLInjection_AlwaysTrueStatements_MathPattern($varUserSession, $varSQLClause, $varOperator)
+            {
+            $varReturn = (
+                (
+                (preg_match('/(?i)(([0-9]|"|\))[[:space:]]*'.$varOperator.'[[:space:]]*([0-9]|"|\())(?-i)/', $varSQLClause) == TRUE)
+                && (preg_match('/(?i)((\'){1,}(\))*[[:space:]]*'.$varOperator.'[[:space:]]*(\()*(\'){1,})(?-i)/', $varSQLClause) == FALSE)
+                && (preg_match('/(?i)([[:space:]]*(LIKE)[[:space:]]*)(?-i)/', $varSQLClause) == FALSE)
+                )
+                ? TRUE : FALSE);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mengecek apakah Filter Statment aman dari SQL Injection tipe Always True Statements dengan pola non  |
+        |                     matematika                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQLClause ► SQL Clause                                                                                |
+        |      ▪ (string) varOperator ► Operator                                                                                   |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function isContain_SQLInjection_AlwaysTrueStatements_NonMathPattern($varUserSession, $varSQLClause, $varOperator)
+            {
+            if((strcmp($varOperator, 'LIKE')==0) OR (strcmp($varOperator, 'ILIKE')==0))
+                {
+                $varOperator = '\b('.$varOperator.')\b';
+                }
+            elseif(strcmp($varOperator, 'NOT LIKE')==0) 
+                {
+                $varOperator = '\b(NOT)\b[[:space:]]{1,}\b(LIKE)\b';
+                }
+            elseif(strcmp($varOperator, 'NOT ILIKE')==0)
+                {
+                $varOperator = '\b(NOT)\b[[:space:]]{1,}\b(ILIKE)\b';
+                }
+            
+            $varReturn = (
+                (
+                (preg_match('/(?i)([[:space:]]*'.$varOperator.'[[:space:]]*)(?-i)/', $varSQLClause) == TRUE)
+                )
+                ? TRUE : FALSE);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isContain_SQLInjection_BatchStatements                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-23                                                                                           |
+        | ▪ Description     : Mengecek apakah Filter Statment aman dari SQL Injection tipe Batch Statements                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function isContain_SQLInjection_BatchStatements($varUserSession, string $varFilterStatement)
+            {
+            $varRegEx = 
+                '/(?i)'.
+                    '([[:space:]]*)'.
+                    '(;){1,}'.
+                    '([[:space:]]*)'.
+                    '('.
+                        '(\b(ALTER)\b){1,1}'.
+                            '|'.'(\b(CREATE)\b){1,1}'.
+                            '|'.'(\b(DROP)\b){1,1}'.
+                            '|'.'((\b(EXEC)((UTE){0,1})*\b){1,1})'.
+                            '|'.'((\b(INSERT)([[:space:]]{1,}(INTO))*\b){1,1})'.
+                            '|'.'(\b(MERGE)\b){1,1}'.
+                            '|'.'(\b(SELECT)\b){1,1}'.
+                            '|'.'(\b(TRUNCATE)\b){1,1}'.
+                            '|'.'(\b(UPDATE)\b){1,1}'.
+                            '|'.'((\b(UNION)([[:space:]]{1,}(ALL))*\b){1,1})'.
+                    ')'.
+                    '([[:space:]]{1,})'.
+                '(?-i)/';
+            
+            $varReturn = ((preg_match($varRegEx, $varFilterStatement)==TRUE) ? TRUE : FALSE);
+            return $varReturn;                        
             }
         }
     }
