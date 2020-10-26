@@ -1543,11 +1543,18 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         $method = static::getRoundingMethodFromOptions($options);
 
         if ($method) {
+            $previousCount = INF;
+
             while (
                 \count($intervalValues->getNonZeroValues()) > $parts &&
                 ($count = \count($keys = array_keys($intervalValues->getValuesSequence()))) > 1
             ) {
-                $intervalValues = $this->copy()->roundUnit($keys[$count - 2], 1, $method);
+                $intervalValues = $this->copy()->roundUnit(
+                    $keys[min($count, $previousCount - 1) - 2],
+                    1,
+                    $method
+                );
+                $previousCount = $count;
             }
         }
 

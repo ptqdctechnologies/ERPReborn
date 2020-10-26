@@ -11,10 +11,10 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": ["authentication.general.setLogout"]
+                        "enum": [ "authentication.general.setLogout" ]
                         },                        
                     "version": {
-                        "type": ["integer", "string"],
+                        "type": [ "integer", "string" ],
                         "minimum": 1,
                         "minLength": 1
                         }                        

@@ -19,7 +19,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                     try{
                         if(\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE)
                             {
-                            throw new \Exception('SQL Injection Detected');
+                            throw new \Exception('SQL Injection Prevention');
                             }
                         if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], $varData['SQLStatement']['pick'], $varData['SQLStatement']['sort'], $varData['SQLStatement']['filter'], $varData['SQLStatement']['paging'])))
                             {

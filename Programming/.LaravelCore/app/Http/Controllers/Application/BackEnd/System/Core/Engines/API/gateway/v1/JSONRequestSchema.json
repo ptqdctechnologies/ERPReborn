@@ -11,10 +11,10 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": ["core.API.gateway"]
+                        "enum": [ "core.API.gateway" ]
                         },                        
                     "version": {
-                        "type": ["integer", "string"],
+                        "type": [ "integer", "string" ],
                         "minimum": 1,
                         "minLength": 1
                         }                        
@@ -36,7 +36,7 @@
                                 "type": "string"
                                 },                        
                             "version": {
-                                "type": ["integer", "string"],
+                                "type": [ "integer", "string" ],
                                 "minimum": 1,
                                 "minLength": 1
                                 }
