@@ -11,10 +11,10 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": ["authentication.general.setLoginBranchAndUserRole"]
+                        "enum": [ "authentication.general.setLoginBranchAndUserRole" ]
                         },                        
                     "version": {
-                        "type": ["integer", "string"],
+                        "type": [ "integer", "string" ],
                         "minimum": 1,
                         "minLength": 1
                         }                        

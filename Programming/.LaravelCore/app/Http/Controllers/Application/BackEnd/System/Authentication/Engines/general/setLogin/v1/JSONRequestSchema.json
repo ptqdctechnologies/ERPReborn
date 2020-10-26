@@ -10,7 +10,7 @@
                 "type": "object",
                 "properties": {
                     "version": {
-                        "type": ["integer", "string"],
+                        "type": [ "integer", "string" ],
                         "minimum": 1,
                         "minLength": 1
                         }                        
