@@ -88,9 +88,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        /*------------------------*/
-        /* API Stage : Not Stable */
-        /*------------------------*/
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_getDataListCountry()
             {
             //---Parameter Set---
@@ -103,8 +103,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'SQLStatement' => [
-                    'pick' => '*',
+                    'pick' => null,
                     'sort' => null,
+//                    'filter' => null,
 //                    'filter' => '"InternationalName" ILIKE \'%nesia%\'; DROP table',
                     'filter' => '"InternationalName" ILIKE \'%nesia%\'',
                     'paging' => null
@@ -113,7 +114,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+
             
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_getDataListCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwMzc2NjkwNX0.H3E-oRG6xSNkMP5BpIvbtC6XEBh5Y0FYB_eaqT4fz-8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountryAdministrativeAreaLevel1', 
+                'latest', 
+                [
+                'country_RefID' => 20000000000078,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
             
             
             
