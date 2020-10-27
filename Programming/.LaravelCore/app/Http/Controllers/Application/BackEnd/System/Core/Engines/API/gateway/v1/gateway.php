@@ -27,7 +27,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
 
                     if((strcmp($varAPIKey, 'authentication.general.setLoginBranchAndUserRole')!=0) AND (!(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']))
                         {
-                        throw new \Exception('Branch ID has not been determined. Please determine the Branch ID first');
+                        throw new \Exception('Branch ID has not been determined');
                         }
                     
                     $varDataReceive = [

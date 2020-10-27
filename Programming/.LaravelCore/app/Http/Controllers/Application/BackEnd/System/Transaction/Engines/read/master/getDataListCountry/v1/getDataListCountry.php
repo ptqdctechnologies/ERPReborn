@@ -17,16 +17,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE)
+                        if(($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE))
                             {
-                            throw new \Exception('SQL Injection Prevention');
+                            throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], $varData['SQLStatement']['pick'], $varData['SQLStatement']['sort'], $varData['SQLStatement']['filter'], $varData['SQLStatement']['paging'])))
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                            $varData['SQLStatement']['pick'], 
+                            $varData['SQLStatement']['sort'], 
+                            $varData['SQLStatement']['filter'], 
+                            $varData['SQLStatement']['paging']
+                            )))
                             {
                             throw new \Exception();
                             }
-//$varDataSend = $varData;
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend));
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
