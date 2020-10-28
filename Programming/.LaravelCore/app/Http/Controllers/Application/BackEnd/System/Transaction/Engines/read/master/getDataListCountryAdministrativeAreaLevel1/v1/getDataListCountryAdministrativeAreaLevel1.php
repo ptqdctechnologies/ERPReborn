@@ -21,10 +21,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountryAdministrativeAreaLevel1(
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_CountryAdministrativeAreaLevel1(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['country_RefID'],
+                            $varData['country_RefID'], 
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 
@@ -54,3 +54,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             }
         }
     }
+
+?>
