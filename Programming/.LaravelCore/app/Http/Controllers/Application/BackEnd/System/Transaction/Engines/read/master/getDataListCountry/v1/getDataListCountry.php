@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCountry(
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_Country(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
                             $varData['SQLStatement']['pick'], 
@@ -53,3 +53,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             }
         }
     }
+
+?>
