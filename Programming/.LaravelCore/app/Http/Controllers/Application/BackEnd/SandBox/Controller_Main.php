@@ -158,7 +158,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, 'WHERE "zzz2" NOT   LIKE "xxxx2" AND \'zzz\' NOT   LIKE \'xxxx\' AND "xxx" ILIKE "xxx" OR \'1234\' ILIKE (\'12\' || \'34\') OR "AAA" || \'xxx\' LIKE "AAA"');
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, '"xxx" = 105; DROP TABLE "xxx"."yyy";');
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, '"xxx" = 105');
-            $x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCurrency($varUserSession, 11000000000004, NULL, NULL, 'DROP ');
+            //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCurrency($varUserSession, 11000000000004, NULL, NULL, 'DROP ');
+            $x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_PersonAccountEMail($varUserSession, 11000000000004, 25000000000241, NULL, NULL, NULL);
+            
+            
             var_dump($x);
 
             }

@@ -516,6 +516,10 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
      */
     public function loadMorph($relation, $relations)
     {
+        if (! $this->{$relation}) {
+            return $this;
+        }
+
         $className = get_class($this->{$relation});
 
         $this->{$relation}->load($relations[$className] ?? []);
@@ -562,6 +566,10 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
      */
     public function loadMorphCount($relation, $relations)
     {
+        if (! $this->{$relation}) {
+            return $this;
+        }
+
         $className = get_class($this->{$relation});
 
         $this->{$relation}->loadCount($relations[$className] ?? []);
@@ -612,7 +620,9 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
             return $query->{$method}($column, $amount, $extra);
         }
 
-        $this->{$column} = $this->{$column} + ($method === 'increment' ? $amount : $amount * -1);
+        $this->{$column} = $this->isClassDeviable($column)
+            ? $this->deviateClassCastableAttribute($method, $column, $amount)
+            : $this->{$column} + ($method === 'increment' ? $amount : $amount * -1);
 
         $this->forceFill($extra);
 
@@ -803,6 +813,29 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
         }
 
         return true;
+    }
+
+    /**
+     * Set the keys for a select query.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    protected function setKeysForSelectQuery($query)
+    {
+        $query->where($this->getKeyName(), '=', $this->getKeyForSelectQuery());
+
+        return $query;
+    }
+
+    /**
+     * Get the primary key value for a select query.
+     *
+     * @return mixed
+     */
+    protected function getKeyForSelectQuery()
+    {
+        return $this->original[$this->getKeyName()] ?? $this->getKey();
     }
 
     /**
@@ -1206,7 +1239,7 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
             return;
         }
 
-        return $this->setKeysForSaveQuery(static::newQueryWithoutScopes())
+        return $this->setKeysForSelectQuery(static::newQueryWithoutScopes())
                         ->with(is_string($with) ? func_get_args() : $with)
                         ->first();
     }
@@ -1223,7 +1256,7 @@ abstract class Model implements Arrayable, ArrayAccess, Jsonable, JsonSerializab
         }
 
         $this->setRawAttributes(
-            $this->setKeysForSaveQuery(static::newQueryWithoutScopes())->firstOrFail()->attributes
+            $this->setKeysForSelectQuery(static::newQueryWithoutScopes())->firstOrFail()->attributes
         );
 
         $this->load(collect($this->relations)->reject(function ($relation) {

@@ -12,12 +12,12 @@
                     "key": {
                         "type": "string",
                         "enum": [ "transaction.read.master.getDataListBusinessDocumentType" ]
-                        },                        
+                        },
                     "version": {
                         "type": [ "integer", "string" ],
                         "minimum": 1,
                         "minLength": 1
-                        }                        
+                        }
                     },
                 "required": [ "key", "version" ]
                 }
