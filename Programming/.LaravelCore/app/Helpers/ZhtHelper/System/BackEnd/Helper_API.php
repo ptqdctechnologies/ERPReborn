@@ -82,6 +82,69 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataCreate                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-206                                                                                          |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Create                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataCreate($varUserSession, array $varDataSend)
+            {
+            if($varDataSend['SignRecordID'])
+                {
+                $varReturn = [
+                    'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                    'recordID' => $varDataSend['SignRecordID']
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Insertion Failed');
+                }            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataUpdate                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-206                                                                                          |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Update                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataUpdate($varUserSession, array $varDataSend)
+            {
+            if($varDataSend['SignRecordID'])
+                {
+                $varReturn = [
+                    'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                    'recordID' => $varDataSend['SignRecordID']
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Update Failed');
+                }            
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIEngine                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
