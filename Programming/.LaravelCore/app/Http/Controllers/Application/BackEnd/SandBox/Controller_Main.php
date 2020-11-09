@@ -159,8 +159,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, '"xxx" = 105; DROP TABLE "xxx"."yyy";');
             //$x = \App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, '"xxx" = 105');
             //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataListCurrency($varUserSession, 11000000000004, NULL, NULL, 'DROP ');
-            $x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_PersonAccountEMail($varUserSession, 11000000000004, 25000000000241, NULL, NULL, NULL);
+            //$x= (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_PersonAccountEMail($varUserSession, 11000000000004, 25000000000241, NULL, NULL, NULL);
             
+            $x= (new \App\Models\Database\SchSysConfig\General())->setDataDelete($varUserSession, 27000000000028);
             
             var_dump($x);
 
