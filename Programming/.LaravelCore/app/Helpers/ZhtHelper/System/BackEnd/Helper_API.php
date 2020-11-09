@@ -85,7 +85,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Method Name     : getEngineDataSend_DataCreate                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-206                                                                                          |
+        | ▪ Last Update     : 2020-11-06                                                                                           |
         | ▪ Description     : Mendapatkan Engine Data Send untuk Data Create                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -114,10 +114,59 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataDelete                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Delete                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataDelete($varUserSession, array $varDataSend)
+            {
+            }
+
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataRead                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Read                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend)
+            {
+            if($varDataSend)
+                {
+                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Read Failed');
+                }            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataUpdate                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-206                                                                                          |
+        | ▪ Last Update     : 2020-11-06                                                                                           |
         | ▪ Description     : Mendapatkan Engine Data Send untuk Data Update                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -142,6 +191,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 throw new \Exception('Data Update Failed');
                 }            
             }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

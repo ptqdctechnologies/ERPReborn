@@ -232,5 +232,69 @@ namespace App\Models\Database\SchSysConfig
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::isValid_SQLSyntax($varUserSession, $varSQL);
             return $varReturn;
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataDelete                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Description     : Menghapus Data berdasarkan Record ID (varRecordID)                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataDelete($varUserSession, int $varRecordID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetRecordDelete',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varRecordID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataUndelete                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Description     : Membatalkan pennghapusan Data berdasarkan Record ID (varRecordID)                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataUndelete($varUserSession, int $varRecordID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_UnsetRecordDelete',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varRecordID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn;
+            }
         }
     }
