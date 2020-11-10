@@ -1,0 +1,32 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.initialize.master.setCountryAdministrativeAreaLevel4 (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.initialize.master.setCountryAdministrativeAreaLevel4" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "additionalProperties": false
+        }
+    },
+"required": [ "metadata", "data" ]
+}

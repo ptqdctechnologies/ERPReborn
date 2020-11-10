@@ -219,8 +219,8 @@ namespace App\Models\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataDelete                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-10                                                                                           |
         | ▪ Description     : Data Delete                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -232,17 +232,7 @@ namespace App\Models\Database
         */
         public function setDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_SetRecordDelete',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ],
-                    )
-                );
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->setDataDelete($varUserSession, $varRecordID);
             return $varReturn;
             }
 
@@ -323,17 +313,7 @@ namespace App\Models\Database
         */
         public function unsetDataDelete($varUserSession, int $varRecordID)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig.FuncSys_General_UnsetRecordDelete',
-                    [
-                        [$varUserSession, 'bigint'],
-                        [$varRecordID, 'bigint']
-                    ],
-                    )
-                );
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataDelete($varUserSession, $varRecordID);
             return $varReturn;
             }
         }
