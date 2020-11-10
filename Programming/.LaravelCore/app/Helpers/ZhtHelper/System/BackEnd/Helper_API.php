@@ -117,7 +117,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         | ▪ Method Name     : getEngineDataSend_DataDelete                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Last Update     : 2020-11-10                                                                                           |
         | ▪ Description     : Mendapatkan Engine Data Send untuk Data Delete                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -129,9 +129,51 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataDelete($varUserSession, array $varDataSend)
             {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordDelete']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Data Deletion Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Deletion Failed');
+                }
             }
 
             
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataInitialize                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-10                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Initialize                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataInitialize($varUserSession, array $varDataSend)
+            {
+            if( 1 == 1 )
+                {
+                $varReturn = [
+                    'message' => 'Data Initialization Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Initialization Failed');
+                }
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataRead                                                                           |
@@ -158,6 +200,37 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 {
                 throw new \Exception('Data Read Failed');
                 }            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataUndelete                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-10                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Undelete                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataUndelete($varUserSession, array $varDataSend)
+            {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordDelete']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Cancellation of Data Delete Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Undelete Data Failed');
+                }
             }
 
 
