@@ -25,7 +25,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
 
 ./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
-./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
 
 ./BashScript/Script.Docker.Start.sh;
