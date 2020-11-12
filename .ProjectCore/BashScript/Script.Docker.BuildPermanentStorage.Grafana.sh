@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.Grafana.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-09-25
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2020-11-12
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage Grafana didalam Docker
@@ -14,6 +14,11 @@
 
 clear;
 
-mkdir -p ./../ERPReborn-PermanentStorage/Grafana;
-sudo chmod 775 ./../ERPReborn-PermanentStorage/Grafana;
-sudo chown -R 472:472 ./../ERPReborn-PermanentStorage/Grafana;
+varDirectory="./../ERPReborn-PermanentStorage/Grafana";
+
+if [ ! -d $varDirectory ]; then
+   sudo mkdir -p $varDirectory;
+fi
+
+sudo chmod 775 $varDirectory;
+sudo chown -R 472:472 $varDirectory;
