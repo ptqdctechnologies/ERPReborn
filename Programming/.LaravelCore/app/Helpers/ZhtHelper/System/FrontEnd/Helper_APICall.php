@@ -120,6 +120,11 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varAPIVersion = 'latest';
                         }
+                    else
+                        {
+                        $varAPIVersion = strtolower($varAPIVersion);
+                        }
+        
                     if(!$varData)
                         {
                         $varData = [];

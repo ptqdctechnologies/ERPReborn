@@ -40,24 +40,53 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                         'data' => $varData
                         ];
 
-                    //---> Method Call
-                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
-                    
-                    if($varDataSend['metadata']['successStatus'] == true)
+                    $varAPIVersionValidity=FALSE;
+                    if(strcmp($varAPIVersion, 'latest') == 0)
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
-                                        $varUserSession, 
-                                        $varDataSend['data'], 
-                                        [
-                                            'Key' => $varAPIKey, 
-                                            'Version' => ((strcmp($varAPIVersion, 'latest') !=0 ) ? $varAPIVersion : (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPILatestVersion($varUserSession, $varAPIKey)))
-                                        ]
-                                        );
+                        $varAPIVersionValidity=TRUE;
                         }
                     else
                         {
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, $varDataSend['data']['code'], $varDataSend['data']['message']);
+                        try {
+                            if(is_numeric($varAPIVersion*1)==TRUE)
+                                {
+                                if(is_int($varAPIVersion*1)==TRUE)
+                                    {
+                                    $varAPIVersionValidity=TRUE;                                    
+                                    }
+                                }
+                            } 
+                        catch (\Exception $ex) {
+                            }
                         }
+                    
+                    if($varAPIVersionValidity == TRUE)
+                        {
+                        //---> Method Call
+                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
+
+                        if($varDataSend['metadata']['successStatus'] == true)
+                            {
+                            $varReturn = 
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                                    $varUserSession, 
+                                    $varDataSend['data'], 
+                                    [
+                                        'Key' => $varAPIKey, 
+                                        'Version' => ((strcmp($varAPIVersion, 'latest') !=0 ) ? $varAPIVersion : (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPILatestVersion($varUserSession, $varAPIKey)))
+                                    ]
+                                    );
+                            }
+                        else
+                            {
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, $varDataSend['data']['code'], $varDataSend['data']['message']);
+                            }
+                        }
+                    else
+                        {
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Invalid API Version');
+                        }
+      
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

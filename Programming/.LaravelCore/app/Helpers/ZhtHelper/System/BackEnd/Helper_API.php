@@ -319,22 +319,23 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 $varErrorMessage = 'API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
                 $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
                 }
-        
-            if($varRealDataRequest)
-                {
-                $varFilePathJSONValidation = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), $varMainPath.'/JSONRequestSchema.json');
-                if(!$varFilePathJSONValidation)
+            else
+                {    
+                if($varRealDataRequest)
                     {
-                    $varErrorMessage = 'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                    $varFilePathJSONValidation = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), $varMainPath.'/JSONRequestSchema.json');
+                    if(!$varFilePathJSONValidation)
+                        {
+                        $varErrorMessage = 'JSON Request Contract for API with Key `'.$varAPIKey.'` version `'.$varAPIVersion.'` does not found';
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, $varErrorMessage);
+                        }
+                    $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
+                    if($varJSONSchemaValidationStatus==false)
+                        {
+                        $varErrorMessage = 'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
+                        }                
                     }
-                $varJSONSchemaValidationStatus = \App\Helpers\ZhtHelper\General\Helper_JSON::getSchemaValidationFromFile($varUserSession, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varRealDataRequest), $varFilePathJSONValidation);
-                if($varJSONSchemaValidationStatus==false)
-                    {
-                    $varErrorMessage = 'JSON Request incompatible with API\'s Contract ('.$varAPIKey.' version '.$varAPIVersion.')';
-                    $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 400, $varErrorMessage);
-                    }                
-                }
                 
 /*
 if(strcmp($varAPIKey, 'environment.general.session.getData')==0)
@@ -356,10 +357,11 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
 */
                 
 
-    if(!$varErrorMessage)
-                {
-                require_once($varFilePath);
-                $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+                if(!$varErrorMessage)
+                    {
+                    require_once($varFilePath);
+                    $varReturn = (new $varClass())->{$varFunctionName}($varUserSession, $varData);
+                    }
                 }
                 
             return $varReturn;
