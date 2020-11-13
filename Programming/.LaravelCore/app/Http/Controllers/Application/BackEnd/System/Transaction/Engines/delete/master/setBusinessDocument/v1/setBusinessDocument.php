@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setBloodAglutinogenType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setBusinessDocument\v1
     {
-    class setBloodAglutinogenType extends \App\Http\Controllers\Controller
+    class setBusinessDocument extends \App\Http\Controllers\Controller
         {
         function __construct()
             {
@@ -17,7 +17,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->setDataDelete(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocument())->setDataDelete(
                             $varUserSession,
                             $varData['recordID']
                             ))))
