@@ -248,6 +248,8 @@ return array(
     'Aws\\AppConfig\\Exception\\AppConfigException' => $vendorDir . '/aws/aws-sdk-php/src/AppConfig/Exception/AppConfigException.php',
     'Aws\\AppMesh\\AppMeshClient' => $vendorDir . '/aws/aws-sdk-php/src/AppMesh/AppMeshClient.php',
     'Aws\\AppMesh\\Exception\\AppMeshException' => $vendorDir . '/aws/aws-sdk-php/src/AppMesh/Exception/AppMeshException.php',
+    'Aws\\AppRegistry\\AppRegistryClient' => $vendorDir . '/aws/aws-sdk-php/src/AppRegistry/AppRegistryClient.php',
+    'Aws\\AppRegistry\\Exception\\AppRegistryException' => $vendorDir . '/aws/aws-sdk-php/src/AppRegistry/Exception/AppRegistryException.php',
     'Aws\\AppSync\\AppSyncClient' => $vendorDir . '/aws/aws-sdk-php/src/AppSync/AppSyncClient.php',
     'Aws\\AppSync\\Exception\\AppSyncException' => $vendorDir . '/aws/aws-sdk-php/src/AppSync/Exception/AppSyncException.php',
     'Aws\\Appflow\\AppflowClient' => $vendorDir . '/aws/aws-sdk-php/src/Appflow/AppflowClient.php',
