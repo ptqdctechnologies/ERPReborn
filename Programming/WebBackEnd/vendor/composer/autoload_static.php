@@ -789,6 +789,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\AppConfig\\Exception\\AppConfigException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppConfig/Exception/AppConfigException.php',
         'Aws\\AppMesh\\AppMeshClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppMesh/AppMeshClient.php',
         'Aws\\AppMesh\\Exception\\AppMeshException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppMesh/Exception/AppMeshException.php',
+        'Aws\\AppRegistry\\AppRegistryClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppRegistry/AppRegistryClient.php',
+        'Aws\\AppRegistry\\Exception\\AppRegistryException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppRegistry/Exception/AppRegistryException.php',
         'Aws\\AppSync\\AppSyncClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppSync/AppSyncClient.php',
         'Aws\\AppSync\\Exception\\AppSyncException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/AppSync/Exception/AppSyncException.php',
         'Aws\\Appflow\\AppflowClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Appflow/AppflowClient.php',

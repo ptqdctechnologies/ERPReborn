@@ -1,14 +1,58 @@
 <?php
 
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category   : API Engine Controller                                                                                             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master                            |
+|                \setCountryAdministrativeAreaLevel4\v1                                                                            |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\master\setCountryAdministrativeAreaLevel4\v1
     {
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : setCountryAdministrativeAreaLevel4                                                                           |
+    | ▪ Description : Menangani API transaction.initialize.master.setCountryAdministrativeAreaLevel4 Version 1                     |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
     class setCountryAdministrativeAreaLevel4 extends \App\Http\Controllers\Controller
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : __construct                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Description     : System's Default Constructor                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         function __construct()
             {
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : main                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         function main($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
