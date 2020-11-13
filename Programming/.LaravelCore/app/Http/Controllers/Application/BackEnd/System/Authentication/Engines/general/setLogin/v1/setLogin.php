@@ -1,13 +1,45 @@
 <?php
 
-
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category   : API Engine Controller                                                                                             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1                       |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
 namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines\general\setLogin\v1
     {
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : setLogin                                                                                                     |
+    | ▪ Description : Menangani API authentication.general.setLogin Version 1                                                      |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
     class setLogin extends \App\Http\Controllers\Controller
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | Class Properties                                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private $varAPIIdentity;
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : __construct                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Description     : System's Default Constructor                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         function __construct()
             {
             $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
@@ -43,6 +75,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setLogin                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function setLogin($varUserSession, $varData)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
