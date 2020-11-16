@@ -1,7 +1,22 @@
 <?php
 
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category   : API Engine Controller                                                                                             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\master                                  |
+|                \getDataListCountryAdministrativeAreaLevel1\v1                                                                    |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\master\getDataListCountryAdministrativeAreaLevel1\v1
     {
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Class Name  : getDataListCountryAdministrativeAreaLevel1                                                                   |
+    | ▪ Description : Menangani API transaction.read.master.getDataListCountryAdministrativeAreaLevel1 Version 1                   |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
     class getDataListCountryAdministrativeAreaLevel1 extends \App\Http\Controllers\Controller
         {
         function __construct()

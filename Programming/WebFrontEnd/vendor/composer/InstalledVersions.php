@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9f8160eb101fa6a675f44fb45687fd23e6a357ed',
+    'reference' => '8e536fa58781e3f64daa58732c39dc31e0bd824e',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -103,12 +103,12 @@ private static $installed = array (
     ),
     'egulias/email-validator' => 
     array (
-      'pretty_version' => '2.1.23',
-      'version' => '2.1.23.0',
+      'pretty_version' => '2.1.24',
+      'version' => '2.1.24.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5fa792ad1853ae2bc60528dd3e5cbf4542d3c1df',
+      'reference' => 'ca90a3291eee1538cd48ff25163240695bd95448',
     ),
     'facade/flare-client-php' => 
     array (
@@ -121,12 +121,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.5.0',
-      'version' => '2.5.0.0',
+      'pretty_version' => '2.5.1',
+      'version' => '2.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '81698c5e32837c74abf9bb764ff0c1b3e001afb3',
+      'reference' => '3b3403f18bbdc0aeadf1ffaddf11a1588b12ec7a',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9f8160eb101fa6a675f44fb45687fd23e6a357ed',
+      'reference' => '8e536fa58781e3f64daa58732c39dc31e0bd824e',
     ),
     'laravel/tinker' => 
     array (
@@ -532,15 +532,15 @@ private static $installed = array (
     ),
     'myclabs/deep-copy' => 
     array (
-      'pretty_version' => '1.10.1',
-      'version' => '1.10.1.0',
+      'pretty_version' => '1.10.2',
+      'version' => '1.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '969b211f9a51aa1f6c01d1d2aef56d3bd91598e5',
+      'reference' => '776f831124e9c62e1a2c601ecc52e776d8bb7220',
       'replaced' => 
       array (
-        0 => '1.10.1',
+        0 => '1.10.2',
       ),
     ),
     'nesbot/carbon' => 
