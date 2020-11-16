@@ -163,7 +163,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //$x= (new \App\Models\Database\SchSysConfig\General())->setDataDelete($varUserSession, 27000000000028);
             
-            $x= (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->setDataInitialize($varUserSession);
+            //$x= (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->setDataInitialize($varUserSession);
+            
+            $x= (new \App\Models\Database\SchData_OLTP_Project\TblProject())->setDataSynchronize($varUserSession);
             
             var_dump($x);
 
