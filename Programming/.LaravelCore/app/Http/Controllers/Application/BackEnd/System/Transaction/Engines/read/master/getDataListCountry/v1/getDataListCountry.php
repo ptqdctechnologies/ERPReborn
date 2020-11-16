@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListCitizenIdentity                                                                                   |
+    | ▪ Class Name  : getDataListCountry                                                                                           |
     | ▪ Description : Menangani API transaction.read.master.getDataListCountry Version 1                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */

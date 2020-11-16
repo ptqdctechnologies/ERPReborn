@@ -205,6 +205,37 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataSynchronize                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-11-16                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Synchronize                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataSynchronize($varUserSession, array $varDataSend)
+            {
+            if( 1 == 1 )
+                {
+                $varReturn = [
+                    'message' => 'Data Synchronization Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Synchronization Failed');
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataUndelete                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

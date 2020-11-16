@@ -619,6 +619,26 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
+        public function APIGateway_setDataSynchronizeProject()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTQ5MzYyNn0.OA4a1rDH8gf7Vl5AqT53Xa1KEiIn327SMT44KzQ0e8M';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.synchronize.project.setProject', 
+                'latest', 
+                [
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_setDataUndeleteBloodAglutinogenType()
             {
             //---Parameter Set---
