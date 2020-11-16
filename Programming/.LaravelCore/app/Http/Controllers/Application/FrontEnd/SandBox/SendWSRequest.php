@@ -215,6 +215,90 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             var_dump($varData);
             }
 
+            
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTQ5MzYyNn0.OA4a1rDH8gf7Vl5AqT53Xa1KEiIn327SMT44KzQ0e8M';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel1', 
+                'latest', 
+                [
+                'recordID' => 21000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTQ5MzYyNn0.OA4a1rDH8gf7Vl5AqT53Xa1KEiIn327SMT44KzQ0e8M';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel2', 
+                'latest', 
+                [
+                'recordID' => 22000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTQ5MzYyNn0.OA4a1rDH8gf7Vl5AqT53Xa1KEiIn327SMT44KzQ0e8M';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel3', 
+                'latest', 
+                [
+                'recordID' => 23000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTQ5MzYyNn0.OA4a1rDH8gf7Vl5AqT53Xa1KEiIn327SMT44KzQ0e8M';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel4', 
+                'latest', 
+                [
+                'recordID' => 24000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
 
         /*--------------------*/
         /* API Stage : Stable */
