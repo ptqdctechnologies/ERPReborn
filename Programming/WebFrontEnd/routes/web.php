@@ -13,9 +13,103 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// PP
+Route::get('createPP','projectManagementPP@createPP')->name('PP.createPP');
+
+// MEW
+Route::get('addMEW','projectManagementMEW@addMEW')->name('MEW.addMEW');
+Route::get('editMEW','projectManagementMEW@editMEW')->name('MEW.editMEW');
+
+// MCFS
+Route::get('createCFSCode','projectManagementMCFS@createCFSCode')->name('MCFS.createCFSCode');
+Route::get('editCFSCode','projectManagementMCFS@editCFSCode')->name('MCFS.editCFSCode');
+Route::get('viewCFSList','projectManagementMCFS@viewCFSList')->name('MCFS.viewCFSList');
+
+// RCPO
+Route::get('createRegisterCustomerOrder','projectManagementRCPO@createRegisterCustomerOrder')->name('RCPO.createRegisterCustomerOrder');
+Route::get('editExistingCustomerOrder','projectManagementRCPO@editExistingCustomerOrder')->name('RCPO.editExistingCustomerOrder');
+
+// PB
+Route::get('createProject','projectManagementPB@createProject')->name('PB.createProject');
+Route::get('createSiteProject','projectManagementPB@createSiteProject')->name('PB.createSiteProject');
+Route::get('createProjectBudget','projectManagementPB@createProjectBudget')->name('PB.createProjectBudget');
+Route::get('createNonProjectOverheadBudget','projectManagementPB@createNonProjectOverheadBudget')->name('PB.createNonProjectOverheadBudget');
+Route::get('createBudgetPeriodeNonProject','projectManagementPB@createBudgetPeriodeNonProject')->name('PB.createBudgetPeriodeNonProject');
+
+// AFE
+Route::get('createAFE','projectManagementAFE@createAFE')->name('AFE.createAFE');
+Route::get('createAFESwitching','projectManagementAFE@createAFESwitching')->name('AFE.createAFESwitching');
+
+
+// CEPS
+Route::get('openProject','projectManagementCEPS@openProject')->name('CEPS.openProject');
+Route::get('closeProject','projectManagementCEPS@closeProject')->name('CEPS.closeProject');
+
+
+// PPM
+Route::get('addPPM','procurementTransactionPPM@addPPM')->name('PPM.addPPM');
+
+
+// RPI
+Route::get('createRPI','procurementTransactionRPI@createRPI')->name('RPI.createRPI');
+Route::get('createRPIOverhead','procurementTransactionRPI@createRPIOverhead')->name('RPI.createRPIOverhead');
+Route::get('createRPISales','procurementTransactionRPI@createRPISales')->name('RPI.createRPISales');
+Route::get('fileUpload','procurementTransactionRPI@fileUpload')->name('RPI.fileUpload');
+
+// RE
+Route::get('createREtoCustomer','procurementTransactionRE@createREtoCustomer')->name('RE.createREtoCustomer');
+Route::get('createPaymentRE','procurementTransactionRE@createPaymentRE')->name('RE.createPaymentRE');
+Route::get('createDebitNote','procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
+Route::get('createPaidDebitNote','procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
+
+
+// PR
+Route::get('createPR','procurementTransactionPR@createPR')->name('PR.createPR');
+
+// URP
+Route::get('createURP','procurementTransactionURP@createURP')->name('URP.createURP');
+
+// PPNRem
+Route::get('createPPNRem','procurementTransactionPPNRem@createPPNRem')->name('PPNRem.createPPNRem');
+Route::get('createPPNRemSet','procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
+
+// PO
+Route::get('createPO','procurementTransactionPO@createPO')->name('PO.createPO');
+Route::get('createPOverhead','procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
+Route::get('createPOSales','procurementTransactionPO@createPOSales')->name('PO.createPOSales');
+Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
+Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
+
+// BSF
+Route::get('createBSF','procurementTransactionBsf@createBSF')->name('BSF.createBSF');
+Route::get('BSFtoBRF','procurementTransactionBsf@BSFtoBRF')->name('BSF.BSFtoBRF');
+
+
+// BRF
+Route::get('createBRF','procurementTransactionBrf@createBRF')->name('BRF.createBRF');
+Route::get('fundBRF','procurementTransactionBrf@fundBRF')->name('BRF.fundBRF');
+Route::get('BRFtoBRFP','procurementTransactionBrf@BRFtoBRFP')->name('BRF.BRFtoBRFP');
+
+//ARF
+Route::resource('ARF','procurementTransactionArf');
+
+// ASF
+Route::get('createASFOverhead','procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
+Route::get('createASFSales','procurementTransactionAsf@indexSales')->name('ASF.indexSales');
+Route::get('createASFPulsaVoucher','procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
+Route::resource('ASF','procurementTransactionAsf');
+
+// Dashboard
+Route::get('projectDashboard','homeController@projectDashboard')->name('home.projectDashboard');
+Route::get('checkDocument','homeController@checkDocument')->name('home.checkDocument');
+Route::get('myDocument','homeController@myDocument')->name('home.myDocument');
+Route::get('submittedDocument','homeController@submittedDocument')->name('home.submittedDocument');
+Route::get('approvedDocument','homeController@approvedDocument')->name('home.approvedDocument');
+Route::get('documentWorkflow','homeController@documentWorkflow')->name('home.documentWorkflow');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
 

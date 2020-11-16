@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>ERP Reborn</title>
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+      <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+      <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+      <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
+      <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+      <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
+      <link rel="stylesheet" href="dist/css/adminlte.min.css">
+      <link rel="stylesheet" href="plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+      <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
+      <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  </head>
+  <body class="hold-transition sidebar-mini layout-fixed">
+    <div class="wrapper">
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-comments"></i>
+              <span class="badge badge-danger navbar-badge">3</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <a href="#" class="dropdown-item">
+                <div class="media">
+                  <img src="Adminlte/dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Brad Diesel
+                      <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">Call me whenever you can...</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <div class="media">
+                  <img src="Adminlte/dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      John Pierce
+                      <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">I got your message bro</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <div class="media">
+                  <img src="Adminlte/dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
+                  <div class="media-body">
+                    <h3 class="dropdown-item-title">
+                      Nora Silvester
+                      <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
+                    </h3>
+                    <p class="text-sm">The subject goes here</p>
+                    <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                  </div>
+                </div>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge">15</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <span class="dropdown-item dropdown-header">15 Notifications</span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-envelope mr-2"></i> 4 new messages
+                <span class="float-right text-muted text-sm">3 mins</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-users mr-2"></i> 8 friend requests
+                <span class="float-right text-muted text-sm">12 hours</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                <i class="fas fa-file mr-2"></i> 3 new reports
+                <span class="float-right text-muted text-sm">2 days</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown user-menu">
+            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
+              <img src="Adminlte/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+              <span class="d-none d-md-inline">Alexander Pierce</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+              <li class="user-header bg-primary">
+                <img src="Adminlte/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <p>
+                  Alexander Pierce - Web Developer
+                  <small>Member since Nov. 2012</small>
+                </p>
+              </li>
+              <li class="user-body">
+                <div class="row">
+                  <div class="col-4 text-center">
+                    <a href="#">Followers</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a href="#">Sales</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a href="#">Friends</a>
+                  </div>
+                </div>
+              </li>
+              <li class="user-footer">
+                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                <a href="/" class="btn btn-default btn-flat float-right">Sign out</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <a href="index3.html" class="brand-link">
+          <img src="Adminlte/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+          <span class="brand-text font-weight-light">ERP Reborn</span>
+        </a>
+        <div class="sidebar">
+          <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link active">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Menu 1
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item"> 
+                    <a href="/dashboard" class="nav-link ;active">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 1.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/advance_req" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 1.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="/report" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 1.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-copy"></i>
+                  <p>
+                    Menu 2
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/layout/top-nav.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 2.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/layout/top-nav-sidebar.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 2.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/layout/boxed.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 2.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>
+                    Menu 3
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/charts/chartjs.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 3.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/charts/flot.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 3.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/charts/inline.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 3.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tree"></i>
+                  <p>
+                    Menu 4
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/UI/general.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 4.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/UI/icons.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 4.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/UI/buttons.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 4.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-edit"></i>
+                  <p>
+                    Menu 5
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/forms/general.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 5.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/forms/advanced.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 5.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/forms/editors.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 5.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-table"></i>
+                  <p>
+                    Menu 6
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/tables/simple.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 6.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/tables/data.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 6.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/tables/jsgrid.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>6.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="nav-item has-treeview">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon far fa-envelope"></i>
+                  <p>
+                    Menu 7
+                    <i class="fas fa-angle-left right"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class="nav-item">
+                    <a href="pages/mailbox/mailbox.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 7.1</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/mailbox/compose.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 7.2</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="pages/mailbox/read-mail.html" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Menu 7.3</p>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+      <div class="content-wrapper">
+        <section class="content">
+          <div class="container-fluid">
+            <div class="card">
+              <nav class="w-100">
+                <div class="nav nav-tabs" id="product-tab" role="tablist">
+                  <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Create Advance Request</a>
+                  <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">BOQ</a>
+                </div>
+              </nav>
+              <div class="tab-content p-3" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="card-header">
+                            <h3 class="card-title">Heading</h3>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td><label>Project Code</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text form-control-sm">
+                                        <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Site Code</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text form-control-sm">
+                                        <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Request Name</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text form-control-sm">
+                                        <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Manager</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text form-control-sm">
+                                        <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td><label>Name Of Beneficiary</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Bank Name</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Account Name</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Account Number</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><Label>Internal Notes</Label></td>
+                                <td><Label>:</Label></td>
+                                <td>
+                                  <textarea name="" id="" cols="30" rows="3"></textarea>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td><label>Attach File</label></td>
+                                <td>:</td>
+                                <td>
+                                  <!DOCTYPE html>
+                                  <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+                                    <head>
+                                      <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+                                      <title>Plupload - Custom example</title>
+                                      <!-- production -->
+                                      <script type="text/javascript" src="../js/plupload.full.min.js"></script>
+                                      <!-- debug
+                                      <script type="text/javascript" src="../js/moxie.js"></script>
+                                      <script type="text/javascript" src="../js/plupload.dev.js"></script>
+                                      -->
+                                    </head>
+                                    <body style="font: 13px Verdana; background: #eee; color: #333">
+                                      <h1>Custom example</h1>
+                                      <p>Shows you how to use the core plupload API.</p>
+                                      <div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+                                      <br />
+                                      <div id="container">
+                                        <a id="pickfiles" href="javascript:;">[Select files]</a> 
+                                        <a id="uploadfiles" href="javascript:;">[Upload files]</a>
+                                      </div>
+                                      <br />
+                                      <pre id="console"></pre>
+                                      <script type="text/javascript">
+                                      // Custom example logic
+                                        var uploader = new plupload.Uploader({
+                                          runtimes : 'html5,flash,silverlight,html4',
+                                          browse_button : 'pickfiles', // you can pass an id...
+                                          container: document.getElementById('container'), // ... or DOM Element itself
+                                          url : 'upload.php',
+                                          flash_swf_url : '../js/Moxie.swf',
+                                          silverlight_xap_url : '../js/Moxie.xap',
+                                          
+                                          filters : {
+                                            max_file_size : '10mb',
+                                            mime_types: [
+                                              {title : "Image files", extensions : "jpg,gif,png"},
+                                              {title : "Zip files", extensions : "zip"}
+                                            ]
+                                          },
+                                          init: {
+                                            PostInit: function() {
+                                              document.getElementById('filelist').innerHTML = '';
+
+                                              document.getElementById('uploadfiles').onclick = function() {
+                                                uploader.start();
+                                                return false;
+                                              };
+                                            },
+
+                                            FilesAdded: function(up, files) {
+                                              plupload.each(files, function(file) {
+                                                document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                                              });
+                                            },
+
+                                            UploadProgress: function(up, file) {
+                                              document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                                            },
+
+                                            Error: function(up, err) {
+                                              document.getElementById('console').appendChild(document.createTextNode("\nError #" + err.code + ": " + err.message));
+                                            }
+                                          }
+                                        });
+                                        uploader.init();
+                                      </script>
+                                    </body>
+                                  </html>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="btn btn-danger btn-sm float-right" href="#">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Cancel
+                      </a>
+                      <a class="btn btn-primary btn-sm float-right" href="#">
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        Submit
+                      </a>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="card-header">
+                        <h3 class="card-title">Heading</h3>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td><label>Work Id</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Product Id</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <div class="input-group">
+                                    <input type="text" class="form-control form-control-sm">
+                                    <div class="input-group-append">
+                                      <span class="input-group-text form-control-sm">
+                                        <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                      </span>
+                                    </div>
+                                  </div>
+                                </td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Qty</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="text input">
+                                </td>
+                                <td>
+                                  <button>Text</button>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td><label>Unit Price</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <input type="text" class="form-control form-control-sm" placeholder="text input">
+                                </td>
+                                <td>  
+                                  <button>Text</button>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                            <table>
+                              <tr>
+                                <td><label>Remark</label></td>
+                                <td><label> : </label></td>
+                                <td>
+                                  <textarea name="" id="" cols="30" rows="2"></textarea>
+                                </td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                      <a class="btn btn-danger btn-sm float-right" href="#">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Cancel
+                      </a>
+                      <a class="btn btn-primary btn-sm float-right" href="#">
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        Add To Cart
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="card-header">
+                          <h3 class="card-title">ARF Cart</h3>
+                        </div>
+                        <div class="card-body table-responsive p-0" style="height: 300px;">
+                          <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                            <thead>
+                              <tr>
+                                <th></th>
+                                <th>Work Id</th>
+                                <th>Work Name</th>
+                                <th>Product Id</th>
+                                <th>Product Name</th>
+                                <th>Qty</th>
+                                <th>Uom</th>
+                                <th>Price</th>
+                                <th>Total</th>
+                                <th>Currency</th>
+                                <th>Remark</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <a class="btn btn-warning btn-sm" href="#">
+                                    <i class="fas fa-pencil-alt"></i>
+                                  </a>
+                                  <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash"></i>
+                                  </a>
+                                </td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY
+                                QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY
+                                </td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <a class="btn btn-warning btn-sm" href="#">
+                                    <i class="fas fa-pencil-alt"></i>
+                                  </a>
+                                  <a class="btn btn-danger btn-sm" href="#">
+                                    <i class="fas fa-trash"></i>
+                                  </a>
+                                </td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                                <td>yes</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <a class="btn btn-danger btn-sm float-right" href="#">
+                          <i class="fa fa-times" aria-hidden="true"></i>
+                          Cancel
+                        </a>
+                        <a class="btn btn-primary btn-sm float-right" href="#">
+                          <i class="fa fa-check-square" aria-hidden="true"></i>
+                          Save Data
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+                  <section class="content">
+                    <div class="container-fluid">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card-header">
+                                <h3 class="card-title">BOQ</h3>
+                              </div>
+                              <div class="card-body table-responsive p-0" style="height: 300px;">
+                                <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th>Add</th>
+                                      <th>Work Id</th>
+                                      <th>Work Name</th>
+                                      <th>Product Id</th>
+                                      <th>Product Name</th>
+                                      <th>Qty</th>
+                                      <th>Uom</th>
+                                      <th>Price</th>
+                                      <th>Total</th>
+                                      <th>Currency</th>
+                                      <th>Remark</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY
+                                      QWERTY QWERTY QWERTY </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-success btn-sm" href="#">
+                                          <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <a class="btn btn-danger btn-sm float-right" href="#">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                Cancel
+                              </a>
+                              <a class="btn btn-primary btn-sm float-right" href="#">
+                                <i class="fa fa-check-square" aria-hidden="true"></i>
+                                Submit
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="card-header">
+                                <h3 class="card-title">Heading...</h3>
+                              </div>
+                            </div>
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <table>
+                                  <tr>
+                                    <td><label>Work Id</label></td>
+                                    <td><label> : </label></td>
+                                    <td>
+                                      <input type="text" class="form-control form-control-sm" placeholder="text input" style="width:100%;">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td><label>Product Id</label></td>
+                                    <td><label> : </label></td>
+                                    <td>
+                                      <div class="input-group">
+                                        <input type="text" class="form-control form-control-sm">
+                                        <div class="input-group-append">
+                                          <span class="input-group-text form-control-sm">
+                                            <a href="#"><i data-toggle="modal" data-target="#mylogin" class="fas fa-gift"></i></a>
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <input type="text" class="form-control form-control-sm" placeholder="Text Input">
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td><label>Qty</label></td>
+                                    <td><label> : </label></td>
+                                    <td>
+                                      <input type="text" class="form-control form-control-sm" placeholder="text input">
+                                    </td>
+                                    <td>  
+                                      <button>Text</button>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td><label>Unit Price</label></td>
+                                    <td><label> : </label></td>
+                                    <td>
+                                      <input type="text" class="form-control form-control-sm" placeholder="text input">
+                                    </td>
+                                    <td>  
+                                      <button>Text</button>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <table>
+                                  <tr>
+                                    <td><label>Remark</label></td>
+                                    <td><label> : </label></td>
+                                    <td>
+                                      <textarea name="" id="" cols="30" rows="2"></textarea>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                          <a class="btn btn-danger btn-sm float-right" href="#">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                            Cancel
+                          </a>
+                          <a class="btn btn-primary btn-sm float-right" href="#">
+                            <i class="fa fa-check-square" aria-hidden="true"></i>
+                            Add To Cart
+                          </a>
+                        </div>
+                      </div>
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="card-header">
+                                <h3 class="card-title">ARF Cart</h3>
+                              </div>
+                              <div class="card-body table-responsive p-0" style="height: 300px;">
+                                <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                                  <thead>
+                                    <tr>
+                                      <th></th>
+                                      <th>Work Id</th>
+                                      <th>Work Name</th>
+                                      <th>Product Id</th>
+                                      <th>Product Name</th>
+                                      <th>Qty</th>
+                                      <th>Uom</th>
+                                      <th>Price</th>
+                                      <th>Total</th>
+                                      <th>Currency</th>
+                                      <th>Remark</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY 
+                                      QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY QWERTY</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                    <tr>
+                                      <td>
+                                        <a class="btn btn-warning btn-sm" href="#">
+                                          <i class="fas fa-pencil-alt"></i>
+                                        </a>
+                                        <a class="btn btn-danger btn-sm" href="#">
+                                          <i class="fas fa-trash"></i>
+                                        </a>
+                                      </td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                      <td>yes</td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <a class="btn btn-danger btn-sm float-right" href="#">
+                                <i class="fa fa-times" aria-hidden="true"></i>
+                                Cancel
+                              </a>
+                              <a class="btn btn-primary btn-sm float-right" href="#">
+                                <i class="fa fa-check-square" aria-hidden="true"></i>
+                                Save Data
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+        <footer class="main-footer">
+          <strong>Copyright &copy;2020 - PT. Qdc Technologies</strong>
+        </footer>
+      </div>
+    </div>
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script>
+      $.widget.bridge('uibutton', $.ui.button)
+    </script>
+    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="plugins/chart.js/Chart.min.js"></script>
+    <script src="plugins/sparklines/sparkline.js"></script>
+    <script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+    <script src="plugins/moment/moment.min.js"></script>
+    <script src="plugins/daterangepicker/daterangepicker.js"></script>
+    <script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script src="plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="dist/js/adminlte.js"></script>
+    <script src="dist/js/pages/dashboard.js"></script>
+    <script src="dist/js/demo.js"></script>
+  </body>
+</html>
