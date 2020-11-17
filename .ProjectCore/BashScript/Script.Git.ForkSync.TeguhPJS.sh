@@ -15,12 +15,13 @@
 
 varGitHubMainSite='https://github.com/ptqdctechnologies/ERPReborn';
 varGitHubForkSite='https://github.com/teguhpjs/ERPReborn';
+varDateTime=`date '+%Y-%m-%d_%H-%M-%S'`;
 
 clear;
 
 cp ./.ProjectCore/BashScript/Script.Git.ForkSync.TeguhPJS.sh ./../Script.Git.ForkSync.TeguhPJS.sh;
 cd ..;
-sudo rm -rf ./ERPReborn;
+sudo mv ./ERPReborn ./ERPReborn-$varDateTime;
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
