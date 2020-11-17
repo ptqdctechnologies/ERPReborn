@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Git.ForkSync.TeguhPJS.sh
-# ▪ Versi              : 1.00.0002
-# ▪ Tanggal            : 2020-06-18
+# ▪ Versi              : 1.00.0003
+# ▪ Tanggal            : 2020-11-17
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menyinkronisasikan Fork Repository GitHub dengan
@@ -21,7 +21,7 @@ clear;
 
 cp ./.ProjectCore/BashScript/Script.Git.ForkSync.TeguhPJS.sh ./../Script.Git.ForkSync.TeguhPJS.sh;
 cd ..;
-sudo mv ./ERPReborn ./ERPReborn-$varDateTime;
+sudo tar czvf ./ERPReborn-BackUp-BeforeForkSync-$varDateTime.tgz ./ERPReborn;
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
