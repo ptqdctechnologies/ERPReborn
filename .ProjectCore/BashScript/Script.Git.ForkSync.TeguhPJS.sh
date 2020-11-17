@@ -21,7 +21,10 @@ clear;
 
 cp ./.ProjectCore/BashScript/Script.Git.ForkSync.TeguhPJS.sh ./../Script.Git.ForkSync.TeguhPJS.sh;
 cd ..;
-sudo tar czvf ./ERPReborn-BackUp-BeforeForkSync-$varDateTime.tgz ./ERPReborn;
+sudo mv ./ERPReborn ./ERPReborn-BeforeForkSync-$varDateTime;
+sudo tar czvf ERPReborn-BackUp-BeforeForkSync-$varDateTime.tgz ./ERPReborn-BeforeForkSync-$varDateTime;
+sudo rm -rf ./ERPReborn-BeforeForkSync-$varDateTime;
+
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
