@@ -747,7 +747,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteQuantityUnit()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -755,7 +755,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setQuantityUnit', 
                 'latest', 
                 [
-                '9recordID' => 973000000000001
+                'recordID' => 73000000000001
                 ]
                 );
             var_dump($varData);
@@ -768,7 +768,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteReligion()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -776,7 +776,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setReligion', 
                 'latest', 
                 [
-                '9recordID' => 926000000000001
+                'recordID' => 26000000000001
                 ]
                 );
             var_dump($varData);
@@ -789,7 +789,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteSocialMedia()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -797,7 +797,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setSocialMedia', 
                 'latest', 
                 [
-                '9recordID' => 951000000000001
+                'recordID' => 51000000000001
                 ]
                 );
             var_dump($varData);
@@ -810,7 +810,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteTradeMark()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -818,7 +818,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setTradeMark', 
                 'latest', 
                 [
-                '9recordID' => 915000000000001
+                'recordID' => 15000000000001
                 ]
                 );
             var_dump($varData);
