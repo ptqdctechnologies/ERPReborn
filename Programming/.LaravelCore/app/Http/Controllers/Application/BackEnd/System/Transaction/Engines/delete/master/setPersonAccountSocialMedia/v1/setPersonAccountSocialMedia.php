@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setReligion\v1                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setPersonAccountSocialMedia\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setReligion\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\master\setPersonAccountSocialMedia\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setReligion                                                                                                  |
-    | ▪ Description : Menangani API transaction.delete.master.setReligion Version 1                                                |
+    | ▪ Class Name  : setPersonAccountSocialMedia                                                                                  |
+    | ▪ Description : Menangani API transaction.delete.master.setPersonAccountSocialMedia Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setReligion extends \App\Http\Controllers\Controller
+    class setPersonAccountSocialMedia extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,11 +56,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Religion Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete PersonAccountSocialMedia Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblReligion())->setDataDelete(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblPersonAccountSocialMedia())->setDataDelete(
                             $varUserSession,
                             $varData['recordID']
                             ))))

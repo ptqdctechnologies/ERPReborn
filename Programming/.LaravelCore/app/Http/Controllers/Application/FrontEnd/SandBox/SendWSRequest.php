@@ -642,7 +642,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonAccountEMail()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -650,7 +650,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setPersonAccountEMail', 
                 'latest', 
                 [
-                '9recordID' => 953000000000001
+                'recordID' => 53000000000001
                 ]
                 );
             var_dump($varData);
@@ -663,7 +663,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonAccountSocialMedia()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -671,7 +671,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setPersonAccountSocialMedia', 
                 'latest', 
                 [
-                '9recordID' => 952000000000001
+                'recordID' => 52000000000001
                 ]
                 );
             var_dump($varData);
@@ -684,7 +684,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonGender()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -692,7 +692,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setPersonGender', 
                 'latest', 
                 [
-                '9recordID' => 990000000000001
+                'recordID' => 90000000000001
                 ]
                 );
             var_dump($varData);
@@ -705,7 +705,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteProduct()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -713,7 +713,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setProduct', 
                 'latest', 
                 [
-                '9recordID' => 988000000000001
+                'recordID' => 88000000000001
                 ]
                 );
             var_dump($varData);
@@ -726,7 +726,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteProductType()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTY3NDg4Nn0.gAzvhnT21JnIusBwHAkCaESfV4uC8Y6CksoFSLF_RSQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -734,7 +734,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.master.setProductType', 
                 'latest', 
                 [
-                '9recordID' => 987000000000001
+                'recordID' => 87000000000001
                 ]
                 );
             var_dump($varData);
