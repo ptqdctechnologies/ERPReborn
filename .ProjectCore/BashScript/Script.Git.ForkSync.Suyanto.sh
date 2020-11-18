@@ -21,7 +21,10 @@ clear;
 
 cp ./.ProjectCore/BashScript/Script.Git.ForkSync.Suyanto.sh ./../Script.Git.ForkSync.Suyanto.sh;
 cd ..;
-sudo mv ./ERPReborn ./ERPReborn-$varDateTime;
+sudo mv ./ERPReborn ./ERPReborn-BeforeForkSync-$varDateTime;
+sudo tar czvf ERPReborn-BackUp-BeforeForkSync-$varDateTime.tgz ./ERPReborn-BeforeForkSync-$varDateTime;
+sudo rm -rf ./ERPReborn-BeforeForkSync-$varDateTime;
+
 git clone $varGitHubForkSite;
 cd ./ERPReborn/;
 git remote add upstream $varGitHubMainSite;
