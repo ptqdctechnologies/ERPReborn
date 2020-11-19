@@ -954,6 +954,48 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
+        public function APIGateway_setDataDeleteAdvance()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTc1MzQzNX0.kVZql5r_pMxaB3yDcvvY1MdEDKaipVqkq7NdkveDOKk';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.finance.setAdvance', 
+                'latest', 
+                [
+                'recordID' => 76000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteAdvanceDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTc1MzQzNX0.kVZql5r_pMxaB3yDcvvY1MdEDKaipVqkq7NdkveDOKk';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.finance.setAdvanceDetail', 
+                'latest', 
+                [
+                'recordID' => 82000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_setDataDeleteProject()
             {
             //---Parameter Set---
