@@ -183,6 +183,12 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetType', 'webWithoutCSRF');
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
+|Route for API : transaction.delete.customerRelation....                                                                           |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteCustomer', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteCustomer', 'webWithoutCSRF');
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
 |Route for API : transaction.delete.project....                                                                                    |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */

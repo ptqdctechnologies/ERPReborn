@@ -929,6 +929,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             var_dump($varData);
             }
 
+            
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteCustomer()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNTc1MzQzNX0.kVZql5r_pMxaB3yDcvvY1MdEDKaipVqkq7NdkveDOKk';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.customerRelation.setCustomer', 
+                'latest', 
+                [
+                'recordID' => 125000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
 
         /*--------------------*/
         /* API Stage : Stable */
