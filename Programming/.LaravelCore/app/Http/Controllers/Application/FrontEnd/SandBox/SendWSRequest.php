@@ -1130,7 +1130,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.delete.humanResource.setBusinessTripCostComponent', 
+                'transaction.delete.humanResource.setWorkAbsencePermitType', 
                 'latest', 
                 [
                 'recordID' => 981000000000001
