@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource                         |
-|                \setPersonBusinessTripSequenceDetail\v1                                                                           |
+|                \setOrganizationalDepartment\v1                                                                                   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setPersonBusinessTripSequenceDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\humanResource\setOrganizationalDepartment\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPersonBusinessTripSequenceDetail                                                                          |
-    | ▪ Description : Menangani API transaction.delete.humanResource.setPersonBusinessTripSequenceDetail Version 1                 |
+    | ▪ Class Name  : setOrganizationalDepartment                                                                                  |
+    | ▪ Description : Menangani API transaction.delete.humanResource.setOrganizationalDepartment Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPersonBusinessTripSequenceDetail extends \App\Http\Controllers\Controller
+    class setOrganizationalDepartment extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,11 +57,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Person Business Trip Sequence Detail (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Organizational Department (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblPersonBusinessTripSequenceDetail())->setDataDelete(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblOrganizationalDepartment())->setDataDelete(
                             $varUserSession,
                             $varData['recordID']
                             ))))
