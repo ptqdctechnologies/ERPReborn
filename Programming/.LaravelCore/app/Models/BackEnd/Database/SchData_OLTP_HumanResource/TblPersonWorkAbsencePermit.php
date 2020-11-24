@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonWorkTimeSheet                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblPersonWorkTimeSheet                              |
+    | ▪ Class Name  : TblPersonWorkAbsencePermit                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblPersonWorkAbsencePermit                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonWorkTimeSheet extends \App\Models\Database\DefaultClassPrototype
+    class TblPersonWorkAbsencePermit extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
