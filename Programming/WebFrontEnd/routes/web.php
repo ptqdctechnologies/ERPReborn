@@ -98,7 +98,9 @@ Route::get('BRFtoBRFP','procurementTransactionBrf@BRFtoBRFP')->name('BRF.BRFtoBR
 Route::resource('ARF','procurementTransactionArf');
 
 // ASF
-Route::get('createASFOverhead','procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
+Route::post('editableAsf','procurementTransactionAsf@editableAsf')->name('ASF.editableAsf');
+
+Route::get('store','procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
 Route::get('createASFSales','procurementTransactionAsf@indexSales')->name('ASF.indexSales');
 Route::get('createASFPulsaVoucher','procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
 Route::resource('ASF','procurementTransactionAsf');

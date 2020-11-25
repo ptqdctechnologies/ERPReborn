@@ -21,40 +21,43 @@
                 |                         Create Advance Request                          |
                 |-------------------------------------------------------------------------|-->
             <form method="post" action="" enctype="multipart/form-data">
-              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">                    
-                      <div class="col-md-6">
-                      <div class="card">
+            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <label class="card-title">
+                          File Attachment & Create New ASF
+                        </label>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
+                        </div>
+                      </div>
                       <div class="card-body">
-                      <label class="card-title">File Attachment</label>
-                      <br><hr><br>
-                        <div class="form-group">                                               
+                        <div class="row">
+
+                        <div class="col-md-6">
+                          <div class="form-group">                                               
                             <div class="input-group control-group increment" >
-                              <input type="file" name="filename[]" class="form-control">
+                              <input required="" type="file" name="filename[]" class="form-control">
                               <div class="input-group-btn"> 
-                                <button class="btn btn-success btn-sm fileInputMulti" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
+                                <button class="btn btn-outline-primary btn-sm fileInputMultiAsf" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button>
                               </div>
                             </div>
                             <div class="clone hide">
                               <div class="control-group input-group" style="margin-top:10px">
-                                <input type="file" name="filename[]" class="form-control">
+                                <input required="" type="file" name="filename[]" class="form-control">
                                 <div class="input-group-btn"> 
-                                  <button class="btn btn-danger btn-sm" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                                </div>
+                                  <button class="btn btn-outline-secondary btn-sm remove-attachment" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
                                 </div>
                               </div>
-                            </div>                            
-                          </div>
+                            </div>
+                          </div>   
                         </div>
-                      </div>    
 
                       <div class="col-md-6">
-                      <div class="card">
-                      <div class="card-body">
-                      <label class="card-title">Create New ASF</label>
-                      <br><hr><br>
                         <div class="form-group">
                           <table>
                             <tr>
@@ -69,17 +72,17 @@
                               <td><label>Manager Name</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="managerUid" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="managerAsfUid" style="border-radius:0;" type="text" class="form-control">
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text">
-                                      <a href="#"><i data-toggle="modal" data-target="#managerName" class="fas fa-gift"></i></a>
+                                      <a href="#"><i data-toggle="modal" data-target="#myManagerAsf" class="fas fa-gift" style="color:grey;"></i></a>
                                     </span>
                                   </div>
                                 </div>
                               </td>
                               <td>
                               <div class="input-group">
-                                  <input id="managerNames" style="border-radius:0;" type="text" class="form-control">                                  
+                                  <input id="managerAsfName" style="border-radius:0;" type="text" class="form-control">                                  
                                 </div>
                               </td>
                             </tr>
@@ -87,10 +90,10 @@
                               <td><label>Currency</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="currencyCodeId" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="currencyAsfCode" style="border-radius:0;" type="text" class="form-control">
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text">
-                                      <a href="#"><i data-toggle="modal" data-target="#currency" class="fas fa-gift"></i></a>
+                                      <a href="#"><i data-toggle="modal" data-target="#myCurrencyAsf" class="fas fa-gift" style="color:grey;"></i></a>
                                     </span>
                                   </div>
                                 </div>
@@ -113,17 +116,17 @@
                               <td><label>Finance Receiving Name</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input id="" style="border-radius:0;" type="text" class="form-control">
+                                  <input id="financeAsfUid" style="border-radius:0;" type="text" class="form-control">
                                   <div class="input-group-append">
                                     <span style="border-radius:0;" class="input-group-text">
-                                      <a href="#"><i data-toggle="modal" data-target="#finance" class="fas fa-gift"></i></a>
+                                      <a href="#"><i data-toggle="modal" data-target="#myFinanceAsf" class="fas fa-gift" style="color:grey;"></i></a>
                                     </span>
                                   </div>
                                 </div>
                               </td>
                               <td>
                               <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                  <input id="financeAsfName" style="border-radius:0;" type="text" class="form-control">                                  
                                 </div>
                               </td>
                             </tr>
@@ -152,19 +155,19 @@
                             </tr>
                           </table>
                         </div>
-                      </div>
-                      </div>
-                      </div>
-                    </div>                    
-
-                    <button type="reset" class="btn btn-danger btn-sm float-right">
+                        <button type="reset" class="btn btn-outline-danger btn-sm float-right">
                       <i class="fa fa-times" aria-hidden="true"></i>
                       Reset
                     </button>
-                    <a class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#searchArf" style="color:white;">
-                      <i class="fas fa-gift" aria-hidden="true"></i>
-                      Search ARF
-                    </a>                                        
+                    <a class="btn btn-outline-success btn-sm float-right" data-toggle="modal" data-target="#searchArf">
+                      <i class="fas fa-gift" style="color:grey;" aria-hidden="true">Search ARF</i>
+                      
+                    </a>
+                      </div>
+                      </div>
+                      </div>
+
+                    </div>                                        
                   </div>
                 </div>
               </div>
@@ -176,11 +179,19 @@
                   |                        Edit Create & ARF Chart                          |
                   |-------------------------------------------------------------------------|-->
               
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-header">
-                    <label class="card-title">ARF Detail</label>
-                  </div>
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <label class="card-title">
+                          ARF Detail
+                        </label>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+
                   <div class="card-body table-responsive p-0" style="height: 300px;">
                     <table id="example1" class="table table-head-fixed text-nowrap table-striped">
                       <thead>
@@ -202,12 +213,9 @@
                       </thead>
                       <tbody>
                         <tr>
-                        <td id="workid">1</td>
+                        <td>1</td>
                           <td>
-                            <a class="btn btn-warning btn-sm" href="#">
-                              <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
+                            <a class="btn btn-outline-secondary btn-sm" href="#">
                               <i class="fas fa-trash"></i>
                             </a>
                           </td>
@@ -224,12 +232,9 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>
+                        <td>1</td>
                           <td>
-                            <a class="btn btn-warning btn-sm" href="#">
-                              <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
+                            <a class="btn btn-outline-secondary btn-sm" href="#">
                               <i class="fas fa-trash"></i>
                             </a>
                           </td>
@@ -253,267 +258,267 @@
                           <!--|-------------------------------------------------------------------------|
                   |                               End ARF Chart                             |
                   |-------------------------------------------------------------------------|-->
-
-            <form method="post" action="" enctype="multipart/form-data">
-              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">                      
-                      <div class="col-md-6">
-                      <div class="card">
-                        <div class="card-body">
-                        <div class="form-group">
-                        <label class="card-title">Detail Advance Settlement Form (ASF)</label>
-                        <br><hr></br>
-                          <table>
-                            <tr>
-                              <td><label>ARF Number</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>                              
-                            </tr>
-                            <tr>
-                              <td><label>ARF Date</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>                              
-                            </tr>
-                            <tr>
-                              <td><label>Project Code</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Site Code</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>CFS Code</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>                                                            
-                            </tr>                            
-                          </table>
+                <form method="post" action="" enctype="multipart/form-data">
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <label class="card-title">
+                          Detail ASF & Balance
+                        </label>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
                         </div>
                       </div>
-                      </div>
-                      </div>
-                      
-                      <div class="col-md-6">
-                      <div class="card">
                       <div class="card-body">
-                      <label class="card-title">Balance</label>
-                      <br><hr></br>
-                        <div class="form-group">
-                          <table>
-                          <tr>
-                              <td><label>Total ARF</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Total ASF</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Balance</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
+                        <div class="row">                      
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <table>
+                                <tr>
+                                  <td><label>ARF Number</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>                              
+                                </tr>
+                                <tr>
+                                  <td><label>ARF Date</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>                              
+                                </tr>
+                                <tr>
+                                  <td><label>Project Code</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Site Code</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>CFS Code</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>                                                            
+                                </tr>                            
+                              </table>
+                            </div>
+                          </div>
+                          
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <table>
+                              <tr>
+                                  <td><label>Total ARF</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Total ASF</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Balance</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>                                                                                             
+                            </div>                    
+                          </div>
                         </div>
-                        <br><br><br><br>
-                      </div>                                                                                                            
-                    </div>                    
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              </div>
-              </div>
+
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
+                        <label class="card-title">
+                          Detail ASF & Balance
+                        </label>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+
+                      <div class="card-body">
+                        <div class="row">                      
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <table>
+                                <tr>
+                                  <td><label>QTY</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Price</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Total</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                      
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <table>
+                                <tr>
+                                  <td><label>QTY</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Price</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td><label>Total</label></td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
+                                    </div>
+                                  </td>
+                                  <td>
+                                  <div class="input-group">
+                                      <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      <button type="reset" class="btn btn-outline-danger btn-sm float-right">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                        Cancel Add
+                      </button>
+                      <button type="submit" class="btn btn-outline-success btn-sm float-right">
+                        <i class="fa fa-check-square" aria-hidden="true"></i>
+                        Add to List(Cart)
+                      </button>
+                  </div>
+                </form>
+                <br><br><br>
               
               <!--|-------------------------------------------------------------------------|
                   |                               End ARF Chart                             |
                   |-------------------------------------------------------------------------|-->
-              <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="row">                      
-                      <div class="col-md-6">
-                      <div class="card">
-                      <div class="card-body">
-                        <div class="form-group">
-                        <label class="card-title">Expense Claim</label>
-                        <br><hr></br>
-                          <table>
-                          <tr>
-                              <td><label>QTY</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Price</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Total</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>  
-                      </div>
-                      </div>
-                      
-                      <div class="col-md-6">
-                      <div class="card">
-                      <div class="card-body">
-                      <label class="card-title">Amount Due to Company</label>
-                      <br><hr></br>
-                        <div class="form-group">
-                          <table>
-                          <tr>
-                              <td><label>QTY</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Price</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td><label>Total</label></td>
-                              <td>
-                                <div class="input-group">
-                                  <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">                                  
-                                </div>
-                              </td>
-                              <td>
-                              <div class="input-group">
-                                  <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
-                                </div>
-                              </td>
-                            </tr>
-                          </table>
-                        </div>
-                      </div>
-                      </div>
-                      </div>                                                                                                        
-                    </div>
-                    <button type="reset" class="btn btn-danger btn-sm float-right">
-                      <i class="fa fa-times" aria-hidden="true"></i>
-                      Cancel Add
-                    </button>
-                    <button type="submit" class="btn btn-success btn-sm float-right">
-                      <i class="fa fa-check-square" aria-hidden="true"></i>
-                      Add to List(Cart)
-                    </button>                    
-                  </div>
-                </div>
-              </div>
-              </form>
-              <!--|-------------------------------------------------------------------------|
-                  |                               End ARF Chart                             |
-                  |-------------------------------------------------------------------------|-->
 
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-header">
+
+                  <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
                     <label class="card-title">Amount Due to Company Cart</label>
-                    <br><hr>
-                  </div>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+
                   <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                  <table id="example1" class="table table-head-fixed text-nowrap table-striped">
                       <thead>
                         <tr>
                         <th>No</th>
@@ -533,12 +538,10 @@
                       </thead>
                       <tbody>
                         <tr>
-                        <td id="workid">1</td>
+                        <td>1</td>
                           <td>
-                            <a class="btn btn-warning btn-sm" href="#">
-                              <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
+                            
+                            <a class="btn btn-outline-secondary btn-sm" href="#">
                               <i class="fas fa-trash"></i>
                             </a>
                           </td>
@@ -555,12 +558,10 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>
+                        <td>1</td>
                           <td>
-                            <a class="btn btn-warning btn-sm" href="#">
-                              <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
+                            
+                            <a class="btn btn-outline-secondary btn-sm" href="#">
                               <i class="fas fa-trash"></i>
                             </a>
                           </td>
@@ -581,23 +582,22 @@
                 </div>
               </div>
 
-                          <!--|-------------------------------------------------------------------------|
-                  |                               End ARF Chart                             |
-                  |-------------------------------------------------------------------------|-->
-            <form method="post" action="" enctype="multipart/form-data">
-              <div class="card">
-                <div class="card-body">
-                  <div class="card-headerq">
+              <div class="col-12">
+                    <div class="card">
+                      <div class="card-header">
                     <label class="card-title">Expense Claim Cart</label>
-                    <br><hr>
-                  </div>
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus btn-sm"></i>
+                          </button>
+                        </div>
+                      </div>
+
                   <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table id="example1" class="table table-head-fixed text-nowrap table-striped">
-                      <thead>
+                  <table id="editableAsf" class="table table-head-fixed text-nowrap table-striped">
+                    <thead>
                         <tr>
                         <th>No</th>
-                          <th>Edit</th>                          
-                          <th>Delete</th>
                           <th>No Trans</th>
                           <th>Work ID</th>
                           <th>Work Name</th>
@@ -613,9 +613,8 @@
                       </thead>
                       <tbody>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>1</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -629,9 +628,8 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>2</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -645,9 +643,8 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>3</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -661,9 +658,8 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>4</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -677,9 +673,8 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>5</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -693,9 +688,8 @@
                           <td>11</td>
                         </tr>
                         <tr>
-                        <td id="workid">1</td>                          
-                          <td>1</td>
-                          <td>2</td>
+                        <td>6</td>                          
+                          
                           <td>3</td>
                           <td>4</td>
                           <td>5</td>
@@ -713,22 +707,14 @@
                   </div>                  
                 </div>
               </div>
-              <button type="reset" class="btn btn-danger btn-sm float-right">
+              <button type="reset" class="btn btn-outline-danger btn-sm float-right">
                 <i class="fa fa-times" aria-hidden="true"></i>
                 Cancel ASF List (Cart)
               </button>
-              <button type="submit" class="btn btn-primary btn-sm float-right">
+              <button type="submit" class="btn btn-outline-primary btn-sm float-right">
                 <i class="fa fa-save" aria-hidden="true"></i>
                 Add ASF List(Cart)
-              </button> 
-              </form>
-                          <!--|-------------------------------------------------------------------------|
-                  |                               End ARF Chart                             |
-                  |-------------------------------------------------------------------------|-->
-
-              <!--|-------------------------------------------------------------------------|
-                  |                               End ARF Chart                             |
-                  |-------------------------------------------------------------------------|-->
+              </button>
             </div>
           </div>  
         </div>  
@@ -741,9 +727,65 @@
           var html = $(".clone").html();
           $(".increment").after(html);
         });
-        $("body").on("click",".btn-danger",function(){ 
+        $("body").on("click",".btn-secondary",function(){ 
           $(this).parents(".control-group").remove();
         });
       });
     </script>    
+
+    <!-- EDITABLE -->
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+        
+          $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+
+          $('#editableAsf').Tabledit({
+            url:'{{ route("ASF.editableAsf") }}',
+            editButton: true,
+            deleteButton: true,
+            buttons: {
+              edit: {
+                class: 'btn btn-outline-secondary',
+                html: '<i class="fa fa-pen"></i>&nbsp;',
+                action: 'edit'
+              },
+              delete: {
+                class: 'btn btn-outline-secondary',
+                html: '<i class="fa fa-trash"></i>&nbsp;',
+                action: 'delete'
+              },
+              save: {
+                class: 'btn btn-sm btn-success',
+                html: 'Save'
+              },
+              restore: {
+                class: 'btn btn-sm btn-warning',
+                html: 'Restore',
+                action: 'restore'
+              },
+              confirm: {
+                class: 'btn btn-sm btn-secondary',
+                html: 'Confirm'
+              }
+            },
+            columns: {
+              identifier: [0, 'id'],
+              editable: [[1, 'nickname'], [2, 'firstname'], [3, 'lastname']]
+            },
+            restoreButton:false,
+              onSuccess:function(data, textStatus, jqXHR)
+              {
+                if(data.action == 'delete')
+                {
+                  $('#'+data.id).remove();
+                }
+              }
+          });
+        });  
+    </script>
   @endsection
