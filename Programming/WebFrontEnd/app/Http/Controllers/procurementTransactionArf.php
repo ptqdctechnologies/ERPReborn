@@ -33,7 +33,34 @@ class procurementTransactionArf extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $this->validate($request, [
+
+        //     'filename' => 'required',
+        //     'filename.*' => 'mimes:doc,pdf,docx,zip'
+
+        // ]);
+        
+        
+        if($request->hasfile('filename'))
+        {
+
+            foreach($request->file('filename') as $file)
+            {
+                echo $name=$file->getClientOriginalName();
+                // $file->move(public_path().'/files/', $name);  
+                $data[] = $name;
+                  
+            }
+            die;
+        }
+
+        // $file= new File();
+        // $file->filename=json_encode($data);
+        
+        
+        // $file->save();
+
+        // return back()->with('success', 'Your files has been successfully added');
     }
 
     /**
