@@ -278,6 +278,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMQ(array $args = [])
  * @method \Aws\MTurk\MTurkClient createMTurk(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMTurk(array $args = [])
+ * @method \Aws\MWAA\MWAAClient createMWAA(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMWAA(array $args = [])
  * @method \Aws\MachineLearning\MachineLearningClient createMachineLearning(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMachineLearning(array $args = [])
  * @method \Aws\Macie\MacieClient createMacie(array $args = [])
@@ -477,7 +479,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.163.3';
+    const VERSION = '3.164.0';
 
     /** @var array Arguments for creating clients */
     private $args;
