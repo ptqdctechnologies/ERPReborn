@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.delete.humanResource.setBusinessTripCostComponent (version 1)",
+"description": "JSON Request Schema of transaction.delete.humanResource.setWorkAbsencePermitType (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.delete.humanResource.setBusinessTripCostComponent" ]
+                        "enum": [ "transaction.delete.humanResource.setWorkAbsencePermitType" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

@@ -1356,7 +1356,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonWorkArriveDepartPermit()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1364,7 +1364,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setPersonWorkArriveDepartPermit', 
                 'latest', 
                 [
-                '9recordID' => 943000000000001
+                'recordID' => 43000000000001
                 ]
                 );
             var_dump($varData);
@@ -1377,7 +1377,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonWorkTimeSheet()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1385,7 +1385,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setPersonWorkTimeSheet', 
                 'latest', 
                 [
-                '9recordID' => 948000000000001
+                'recordID' => 48000000000001
                 ]
                 );
             var_dump($varData);
@@ -1398,7 +1398,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeletePersonWorkTimeSheetActivity()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1406,7 +1406,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setPersonWorkTimeSheetActivity', 
                 'latest', 
                 [
-                '9recordID' => 950000000000001
+                'recordID' => 50000000000001
                 ]
                 );
             var_dump($varData);
@@ -1419,7 +1419,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkAbsencePermit()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1427,7 +1427,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkAbsencePermit', 
                 'latest', 
                 [
-                '9recordID' => 942000000000001
+                'recordID' => 42000000000001
                 ]
                 );
             var_dump($varData);
@@ -1440,7 +1440,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkAbsencePermitType()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1448,7 +1448,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkAbsencePermitType', 
                 'latest', 
                 [
-                '9recordID' => 941000000000001
+                'recordID' => 41000000000001
                 ]
                 );
             var_dump($varData);
@@ -1461,7 +1461,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkArriveDepartPermit()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1469,7 +1469,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkArriveDepartPermit', 
                 'latest', 
                 [
-                '9recordID' => 940000000000001
+                'recordID' => 40000000000001
                 ]
                 );
             var_dump($varData);
@@ -1482,7 +1482,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkDay()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1490,7 +1490,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkDay', 
                 'latest', 
                 [
-                '9recordID' => 934000000000001
+                'recordID' => 34000000000001
                 ]
                 );
             var_dump($varData);
@@ -1503,7 +1503,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkTimeAssignation()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1511,7 +1511,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkTimeAssignation', 
                 'latest', 
                 [
-                '9recordID' => 936000000000001
+                'recordID' => 36000000000001
                 ]
                 );
             var_dump($varData);
@@ -1524,7 +1524,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkTimeEpoch()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1532,7 +1532,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkTimeEpoch', 
                 'latest', 
                 [
-                '9recordID' => 933000000000001
+                'recordID' => 33000000000001
                 ]
                 );
             var_dump($varData);
@@ -1545,7 +1545,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataDeleteWorkTimeSchedule()
             {
             //---Parameter Set---
-            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -1553,7 +1553,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.humanResource.setWorkTimeSchedule', 
                 'latest', 
                 [
-                '9recordID' => 935000000000001
+                'recordID' => 35000000000001
                 ]
                 );
             var_dump($varData);
