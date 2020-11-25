@@ -1595,12 +1595,116 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.delete.project.setProjectSection', 
                 'latest', 
                 [
-                'recordID' => 9110000000000001
+                'recordID' => 110000000000001
                 ]
                 );
             var_dump($varData);
             }
 
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeletePurchaseOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.project.setPurchaseOrder', 
+                'latest', 
+                [
+                '9recordID' => 985000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeletePurchaseOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.project.setPurchaseOrderDetail', 
+                'latest', 
+                [
+                '9recordID' => 986000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeletePurchaseRequisition()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.project.setProjectSection', 
+                'latest', 
+                [
+                '9recordID' => 983000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeletePurchaseRequisitionDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.project.setPurchaseRequisitionDetail', 
+                'latest', 
+                [
+                '9recordID' => 984000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteSupplier()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = '9eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjI2OTA1NH0.NjJJegg6WRVQ3LHksbKcni92MkyzjfYpxzrFvgLu2FQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.project.setSupplier', 
+                'latest', 
+                [
+                '9recordID' => 9126000000000001
+                ]
+                );
+            var_dump($varData);
+            }
 
         /*--------------------*/
         /* API Stage : Stable */
