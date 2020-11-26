@@ -1706,6 +1706,70 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             var_dump($varData);
             }
 
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteDBObject_Schema()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjM1ODU2MX0.abVRKnZBrpMXdSv07_LMzHOsCYK1zEzzd98v62Hw-P8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.sysConfig.setDBObject_Schema', 
+                'latest', 
+                [
+                'recordID' => 2000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteDBObject_Table()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjM1ODU2MX0.abVRKnZBrpMXdSv07_LMzHOsCYK1zEzzd98v62Hw-P8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.sysConfig.setDBObject_Table', 
+                'latest', 
+                [
+                'recordID' => 3000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteDBObject_User()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjM1ODU2MX0.abVRKnZBrpMXdSv07_LMzHOsCYK1zEzzd98v62Hw-P8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.sysConfig.setDBObject_User', 
+                'latest', 
+                [
+                'recordID' => 4000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
