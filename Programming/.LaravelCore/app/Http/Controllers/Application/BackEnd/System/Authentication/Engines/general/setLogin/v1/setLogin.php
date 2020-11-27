@@ -139,7 +139,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
                         $varSysID = $varBufferDB['SignRecordID'];
-                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varBufferDB['SignRecordID']);
+                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varSysID);
 
                         //---> Insert Data to Redis
                         $varRedisID = (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
@@ -167,6 +167,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             ];
 
 //$varDataSend = ['xxx' => $varBufferDB];
+//$varDataSend = ['xxx' => $varData];
+//$varDataSend = ['xxx' => $varSysID];
               
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }

@@ -165,7 +165,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //$x= (new \App\Models\Database\SchData_OLTP_Master\TblBloodAglutinogenType())->setDataInitialize($varUserSession);
             
-            $x= (new \App\Models\Database\SchData_OLTP_Project\TblProject())->setDataSynchronize($varUserSession);
+            //$x= (new \App\Models\Database\SchData_OLTP_Project\TblProject())->setDataSynchronize($varUserSession);
+            
+            $x= (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000316);
             
             var_dump($x);
 

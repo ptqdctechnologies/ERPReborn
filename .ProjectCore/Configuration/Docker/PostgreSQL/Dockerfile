@@ -32,8 +32,8 @@ RUN apt-get install -y lsb-release \
        && unzip master.zip \
        && rm -rf /master.zip \
     && cd /mysql_fdw-master \
-       && export PATH=/usr/lib/postgresql/12/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
-       && PATH=/usr/lib/postgresql/12/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
+       && export PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
+       && PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
        && cd / \
        && rm -rf /mysql_fdw-master
 
