@@ -17,14 +17,14 @@ class DigestVaultTest extends TestCase
         $this->assertEquals('digest', $directive->getType());
         $this->assertEquals('myRealm', $directive->getParameter('realm'));
         $this->assertEquals('auth', $directive->getParameter('qop'));
-        $this->assertRegExp("/^[a-z0-9]{13}$/", $directive->getParameter('nonce'));
-        $this->assertRegExp("/^[a-z0-9]{32}$/", $directive->getParameter('opaque'));
+        $this->assertMatchesRegularExpression("/^[a-z0-9]{13}$/", $directive->getParameter('nonce'));
+        $this->assertMatchesRegularExpression("/^[a-z0-9]{32}$/", $directive->getParameter('opaque'));
     }
 
     public function testUnlocksWithKey()
     {
         $vault = new Vault('myRealm', 'myUsername', 'myPassword');
-        $key = new Key;
+        $key = new Key();
         
         $key->setProperty('username', 'myUsername');
         $key->setProperty('response', 'xx');
