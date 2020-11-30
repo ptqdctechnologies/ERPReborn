@@ -156,6 +156,48 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
+        public function APIGateway_setDataDeleteBusinessDocumentNumbering()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjcwOTM5NH0.axx5yo26DoZEkzYWZs1LRx_d2__X3ImSqM4fvF4H_ik';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentNumbering', 
+                'latest', 
+                [
+                'recordID' => 999128000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataDeleteBusinessDocumentNumberingFormat()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNjcwOTM5NH0.axx5yo26DoZEkzYWZs1LRx_d2__X3ImSqM4fvF4H_ik';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentNumberingFormat', 
+                'latest', 
+                [
+                'recordID' => 127000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_setDataDeleteBusinessDocumentType()
             {
             //---Parameter Set---
