@@ -65,9 +65,13 @@ class BinaryFileResponse extends Response
      * @param bool                $autoLastModified   Whether the Last-Modified header should be automatically set
      *
      * @return static
+     *
+     * @deprecated since Symfony 5.2, use __construct() instead.
      */
     public static function create($file = null, int $status = 200, array $headers = [], bool $public = true, string $contentDisposition = null, bool $autoEtag = false, bool $autoLastModified = true)
     {
+        trigger_deprecation('symfony/http-foundation', '5.2', 'The "%s()" method is deprecated, use "new %s()" instead.', __METHOD__, static::class);
+
         return new static($file, $status, $headers, $public, $contentDisposition, $autoEtag, $autoLastModified);
     }
 
@@ -305,7 +309,7 @@ class BinaryFileResponse extends Response
         fclose($out);
         fclose($file);
 
-        if ($this->deleteFileAfterSend && file_exists($this->file->getPathname())) {
+        if ($this->deleteFileAfterSend && is_file($this->file->getPathname())) {
             unlink($this->file->getPathname());
         }
 
