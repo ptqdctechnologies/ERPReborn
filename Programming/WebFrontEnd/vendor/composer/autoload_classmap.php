@@ -1385,6 +1385,8 @@ return array(
     'Illuminate\\Database\\Console\\WipeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Console/WipeCommand.php',
     'Illuminate\\Database\\DatabaseManager' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseManager.php',
     'Illuminate\\Database\\DatabaseServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseServiceProvider.php',
+    'Illuminate\\Database\\DatabaseTransactionRecord' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionRecord.php',
+    'Illuminate\\Database\\DatabaseTransactionsManager' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionsManager.php',
     'Illuminate\\Database\\DetectsConcurrencyErrors' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DetectsConcurrencyErrors.php',
     'Illuminate\\Database\\DetectsLostConnections' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DetectsLostConnections.php',
     'Illuminate\\Database\\Eloquent\\Builder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Builder.php',
