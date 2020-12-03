@@ -5,6 +5,7 @@ namespace Illuminate\Queue;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Container\Container;
+use Illuminate\Support\Arr;
 use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
 
@@ -173,7 +174,7 @@ abstract class Queue
             return;
         }
 
-        return collect($job->backoff ?? $job->backoff())
+        return collect(Arr::wrap($job->backoff ?? $job->backoff()))
             ->map(function ($backoff) {
                 return $backoff instanceof DateTimeInterface
                                 ? $this->secondsUntil($backoff) : $backoff;
@@ -253,6 +254,21 @@ abstract class Queue
         }
 
         return $payload;
+    }
+
+    /**
+     * Enqueue a job using the given callback.
+     *
+     * @param  \Closure|string|object  $job
+     * @param  string  $payload
+     * @param  string  $queue
+     * @param  \DateTimeInterface|\DateInterval|int|null  $delay
+     * @param  callable  $callback
+     * @return mixed
+     */
+    protected function enqueueUsing($job, $payload, $queue, $delay, $callback)
+    {
+        return $callback($payload, $queue, $delay);
     }
 
     /**
