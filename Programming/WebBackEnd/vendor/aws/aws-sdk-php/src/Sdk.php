@@ -128,6 +128,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionCostExplorer(array $args = [])
  * @method \Aws\CostandUsageReportService\CostandUsageReportServiceClient createCostandUsageReportService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCostandUsageReportService(array $args = [])
+ * @method \Aws\CustomerProfiles\CustomerProfilesClient createCustomerProfiles(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionCustomerProfiles(array $args = [])
  * @method \Aws\DAX\DAXClient createDAX(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionDAX(array $args = [])
  * @method \Aws\DLM\DLMClient createDLM(array $args = [])
@@ -362,8 +364,6 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPolly(array $args = [])
  * @method \Aws\Pricing\PricingClient createPricing(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPricing(array $args = [])
- * @method \Aws\Profile\ProfileClient createProfile(array $args = [])
- * @method \Aws\MultiRegionClient createMultiRegionProfile(array $args = [])
  * @method \Aws\QLDB\QLDBClient createQLDB(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionQLDB(array $args = [])
  * @method \Aws\QLDBSession\QLDBSessionClient createQLDBSession(array $args = [])
@@ -495,7 +495,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.165.0';
+    const VERSION = '3.166.0';
 
     /** @var array Arguments for creating clients */
     private $args;

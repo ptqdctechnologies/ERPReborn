@@ -1316,17 +1316,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.17.0",
-            "version_normalized": "8.17.0.0",
+            "version": "v8.17.1",
+            "version_normalized": "8.17.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "09bd79531d3f958f02fa34f1f14197b1716ef29b"
+                "reference": "7618102c4864ac1f1f791c966c0e9a86949d9b83"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/09bd79531d3f958f02fa34f1f14197b1716ef29b",
-                "reference": "09bd79531d3f958f02fa34f1f14197b1716ef29b",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/7618102c4864ac1f1f791c966c0e9a86949d9b83",
+                "reference": "7618102c4864ac1f1f791c966c0e9a86949d9b83",
                 "shasum": ""
             },
             "require": {
@@ -1439,7 +1439,7 @@
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
             },
-            "time": "2020-12-01T15:01:58+00:00",
+            "time": "2020-12-02T06:08:43+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2790,17 +2790,17 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "7.0.13",
-            "version_normalized": "7.0.13.0",
+            "version": "7.0.14",
+            "version_normalized": "7.0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "ad0dcd7b184e76f7198a1fe07685bfbec3ae911a"
+                "reference": "bb7c9a210c72e4709cdde67f8b7362f672f2225c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/ad0dcd7b184e76f7198a1fe07685bfbec3ae911a",
-                "reference": "ad0dcd7b184e76f7198a1fe07685bfbec3ae911a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/bb7c9a210c72e4709cdde67f8b7362f672f2225c",
+                "reference": "bb7c9a210c72e4709cdde67f8b7362f672f2225c",
                 "shasum": ""
             },
             "require": {
@@ -2809,7 +2809,7 @@
                 "php": ">=7.2",
                 "phpunit/php-file-iterator": "^2.0.2",
                 "phpunit/php-text-template": "^1.2.1",
-                "phpunit/php-token-stream": "^3.1.1",
+                "phpunit/php-token-stream": "^3.1.1 || ^4.0",
                 "sebastian/code-unit-reverse-lookup": "^1.0.1",
                 "sebastian/environment": "^4.2.2",
                 "sebastian/version": "^2.0.1",
@@ -2821,7 +2821,7 @@
             "suggest": {
                 "ext-xdebug": "^2.7.2"
             },
-            "time": "2020-11-30T08:35:22+00:00",
+            "time": "2020-12-02T13:39:03+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2854,7 +2854,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-code-coverage/issues",
-                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/7.0.13"
+                "source": "https://github.com/sebastianbergmann/php-code-coverage/tree/7.0.14"
             },
             "funding": [
                 {
@@ -3035,31 +3035,31 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "3.1.2",
-            "version_normalized": "3.1.2.0",
+            "version": "4.0.4",
+            "version_normalized": "4.0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "472b687829041c24b25f475e14c2f38a09edf1c2"
+                "reference": "a853a0e183b9db7eed023d7933a858fa1c8d25a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/472b687829041c24b25f475e14c2f38a09edf1c2",
-                "reference": "472b687829041c24b25f475e14c2f38a09edf1c2",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/a853a0e183b9db7eed023d7933a858fa1c8d25a3",
+                "reference": "a853a0e183b9db7eed023d7933a858fa1c8d25a3",
                 "shasum": ""
             },
             "require": {
                 "ext-tokenizer": "*",
-                "php": ">=7.1"
+                "php": "^7.3 || ^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.0"
+                "phpunit/phpunit": "^9.0"
             },
-            "time": "2020-11-30T08:38:46+00:00",
+            "time": "2020-08-04T08:28:15+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev"
+                    "dev-master": "4.0-dev"
                 }
             },
             "installation-source": "dist",
@@ -3085,7 +3085,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/php-token-stream/issues",
-                "source": "https://github.com/sebastianbergmann/php-token-stream/tree/3.1.2"
+                "source": "https://github.com/sebastianbergmann/php-token-stream/tree/master"
             },
             "funding": [
                 {
