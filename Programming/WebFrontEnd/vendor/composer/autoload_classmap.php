@@ -3672,6 +3672,7 @@ return array(
     'Psy\\CodeCleaner\\FunctionReturnInWriteContextPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/FunctionReturnInWriteContextPass.php',
     'Psy\\CodeCleaner\\ImplicitReturnPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/ImplicitReturnPass.php',
     'Psy\\CodeCleaner\\InstanceOfPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/InstanceOfPass.php',
+    'Psy\\CodeCleaner\\IssetPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/IssetPass.php',
     'Psy\\CodeCleaner\\LabelContextPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/LabelContextPass.php',
     'Psy\\CodeCleaner\\LeavePsyshAlonePass' => $vendorDir . '/psy/psysh/src/CodeCleaner/LeavePsyshAlonePass.php',
     'Psy\\CodeCleaner\\ListPass' => $vendorDir . '/psy/psysh/src/CodeCleaner/ListPass.php',

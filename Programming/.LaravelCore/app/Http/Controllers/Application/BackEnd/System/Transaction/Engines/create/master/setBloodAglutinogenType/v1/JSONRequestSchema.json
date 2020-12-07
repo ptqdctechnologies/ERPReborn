@@ -35,7 +35,7 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 2
-                        }                        
+                        }
                     },
                 "required": [ "type" ]
                 }
