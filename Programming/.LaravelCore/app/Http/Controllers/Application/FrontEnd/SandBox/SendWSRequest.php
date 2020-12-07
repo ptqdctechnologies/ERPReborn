@@ -2317,6 +2317,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
+        public function APIGateway_setDataUndeleteBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzMwNjU2Mn0.BnZcNhpv93k8-stuElyEn5sKVFbFTXWb3hh5iQSeW1c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocument', 
+                'latest', 
+                [
+                'recordID' => 74000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_setDataUndeleteBusinessDocumentNumbering()
             {
             //---Parameter Set---
@@ -2329,6 +2350,48 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'recordID' => 128000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataUndeleteBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzMwNjU2Mn0.BnZcNhpv93k8-stuElyEn5sKVFbFTXWb3hh5iQSeW1c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocumentType', 
+                'latest', 
+                [
+                'recordID' => 77000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataUndeleteBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzMwNjU2Mn0.BnZcNhpv93k8-stuElyEn5sKVFbFTXWb3hh5iQSeW1c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocumentVersion', 
+                'latest', 
+                [
+                'recordID' => 75000000000001
                 ]
                 );
             var_dump($varData);
