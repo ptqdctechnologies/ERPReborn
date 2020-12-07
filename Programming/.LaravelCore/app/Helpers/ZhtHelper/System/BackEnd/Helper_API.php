@@ -260,7 +260,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 }
             else
                 {
-                throw new \Exception('Undelete Data Failed');
+                throw new \Exception('Data Undelete Failed');
                 }
             }
 
