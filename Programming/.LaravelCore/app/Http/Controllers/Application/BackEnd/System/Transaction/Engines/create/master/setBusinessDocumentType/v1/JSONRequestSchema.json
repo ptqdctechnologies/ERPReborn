@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setBloodAglutinogenType (version 1)",
+"description": "JSON Request Schema of transaction.create.master.setBusinessDocumentType (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setBloodAglutinogenType" ]
+                        "enum": [ "transaction.create.master.setBusinessDocumentType" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -31,13 +31,13 @@
                 {
                 "type": "object",
                 "properties": {
-                    "type": {
+                    "name": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 2
+                        "maxLength": 256
                         }
                     },
-                "required": [ "type" ]
+                "required": [ "name" ]
                 }
             },
         "required": [ "entities" ]

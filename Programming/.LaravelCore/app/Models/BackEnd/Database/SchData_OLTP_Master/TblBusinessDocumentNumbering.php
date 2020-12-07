@@ -36,5 +36,110 @@ namespace App\Models\Database\SchData_OLTP_Master
             {
             parent::__construct(__CLASS__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataInsert                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-07                                                                                           |
+        | ▪ Description     : Data Insert                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varBusinessDocumentNumberingFormatRefID ► Business Document Numbering Format Reference ID                |
+        |      ▪ (string) varValidStartDate ► Valid Start Date                                                                     |
+        |      ▪ (string) varValidFinishDate ► Valid Finish Date                                                                   |
+        |      ▪ (int)    varLastSequenceNumber ► Last Sequence Number                                                             |
+        |      ▪ (string) varLastRequestDocumentNumber ► Last Request Document Number                                              |
+        |      ▪ (string) varLastRequestDocumentDate ► Last Request Document Date                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataInsert(
+            $varUserSession, 
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varBusinessDocumentNumberingFormatRefID = null, string $varValidStartDate = null, string $varValidFinishDate = null, int $varLastSequenceNumber = null, string $varLastRequestDocumentNumber = null, string $varLastRequestDocumentDate = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [null, 'bigint'],
+                        [$varSysDataAnnotation, 'varchar'],
+                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                        [$varSysBranchRefID, 'bigint'],
+                        [$varBusinessDocumentNumberingFormatRefID, 'bigint'],
+                        [$varValidStartDate, 'date'],
+                        [$varValidFinishDate, 'date'],
+                        [$varLastSequenceNumber, 'bigint'],
+                        [$varLastRequestDocumentNumber, 'varchar'],
+                        [$varLastRequestDocumentDate, 'date']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataUpdate                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-07                                                                                           |
+        | ▪ Description     : Data Update                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varBusinessDocumentNumberingFormatRefID ► Business Document Numbering Format Reference ID                |
+        |      ▪ (string) varValidStartDate ► Valid Start Date                                                                     |
+        |      ▪ (string) varValidFinishDate ► Valid Finish Date                                                                   |
+        |      ▪ (int)    varLastSequenceNumber ► Last Sequence Number                                                             |
+        |      ▪ (string) varLastRequestDocumentNumber ► Last Request Document Number                                              |
+        |      ▪ (string) varLastRequestDocumentDate ► Last Request Document Date                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataUpdate(
+            $varUserSession, 
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
+            int $varBusinessDocumentNumberingFormatRefID = null, string $varValidStartDate = null, string $varValidFinishDate = null, int $varLastSequenceNumber = null, string $varLastRequestDocumentNumber = null, string $varLastRequestDocumentDate = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varSysID, 'bigint'],
+                        [$varSysDataAnnotation, 'varchar'],
+                        [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
+                        [$varSysBranchRefID, 'bigint'],
+                        [$varBusinessDocumentNumberingFormatRefID, 'bigint'],
+                        [$varValidStartDate, 'date'],
+                        [$varValidFinishDate, 'date'],
+                        [$varLastSequenceNumber, 'bigint'],
+                        [$varLastRequestDocumentNumber, 'varchar'],
+                        [$varLastRequestDocumentDate, 'date']                        
+                    ],
+                    )
+                );
+            return $varReturn['Data'][0];
+            }
         }
     }
