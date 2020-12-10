@@ -32,7 +32,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-body table-responsive p-0" style="height: 450px;">
+                                <div class="card-body table-responsive p-0" style="height: 400px;">
                                     <table class="table table-head-fixed text-nowrap" id="siteArf">
                                         <thead>
                                             <tr>
@@ -43,11 +43,17 @@
                                         </thead>
                                         <tbody>
                                             @php $no=1; @endphp
-                                            @for($i = 0; $i < 20; $i++)
+                                            @for($i = 1; $i < 20; $i++)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td><span class="tag tag-success tombolSubProject"><p id="kata2" data-dismiss="modal"> Pending</p></span></td>
-                                                <td><p id="kata3">Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</p></td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSiteArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <p>Detail {{$i}}</p>
+                                                </td>
                                             </tr>
                                             @endfor
                                         </tbody>
@@ -75,7 +81,7 @@ function siteProjectArfCode() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
+    td = tr[i].getElementsByTagName("td")[1];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -96,7 +102,7 @@ function siteProjectArfName() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[2];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -107,4 +113,16 @@ function siteProjectArfName() {
     }
   }
 }
+</script>
+<script>
+    $(function() {
+        $(".klikSiteArf").on('click', function(e) {
+            e.preventDefault(); // in chase you change to a link or button
+            var $this = $(this);
+            var code = $this.data("id");
+            var name = $this.data("name");
+            $("#subprojectc").val(code);
+            $("#subprojectn").val(name);
+        });
+    });
 </script>
