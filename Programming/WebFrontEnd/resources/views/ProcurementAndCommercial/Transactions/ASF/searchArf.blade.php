@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-body table-responsive p-0" style="height: 500px;">
+                                <div class="card-body table-responsive p-0" style="height: 400px;">
                                     <table class="table table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>

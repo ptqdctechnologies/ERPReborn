@@ -29,10 +29,8 @@
 
     <!-- EDITABLE -->
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" /> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 
@@ -102,104 +100,6 @@
     });
 </script>
 
-<!-- POPUP ARF -->
-
-<script>
-    $(document).ready(function() {
-        $('.tombolProject').click(function() {
-            var code = $("#kata1").html();
-            var name = $("#kata").html();
-            $("#projectcode").val(code);
-            $("#projectname").val(name);
-        });
-        $('.tombolSubProject').click(function() {
-            var code1 = $("#kata2").html();
-            var name1 = $("#kata3").html();
-            $("#subprojectc").val(code1);
-            $("#subprojectn").val(name1);
-        });
-        $('.tombolRequestArf').click(function() {
-            var requestNameArf = $("#kata4").html();
-            $("#requestNameArf").val(requestNameArf);
-        });
-        $('.tombolCurrency').click(function() {
-            var currencyCode = $("#kata8").html();
-            var currencyName = $("#kata9").html();
-            $("#currencyCode").val(currencyCode);
-            $("#currencyName").val(currencyName);
-        });
-        $('.tombolArfManager').click(function() {
-            var managerArfUid = $("#kata10").html();
-            var managerArfName = $("#kata11").html();
-            $("#managerArfUid").val(managerArfUid);
-            $("#managerArfName").val(managerArfName);
-        });
-        $('.tombolArfFinance').click(function() {
-            var financeArfUid = $("#kata12").html();
-            var financeArfName = $("#kata13").html();
-            $("#financeArfUid").val(financeArfUid);
-            $("#financeArfName").val(financeArfName);
-        });
-        $('.tombolArfProduk').click(function() {
-            var produkArfCode = $("#kata14").html();
-            var produkArfName = $("#kata15").html();
-            $("#produkArfCode").val(produkArfCode);
-            $("#produkArfName").val(produkArfName);
-        });
-    });
-</script>
-
-<!-- END POPUP ARF         -->
-
-<!-- POPUP ASF -->
-
-<script>
-    $(document).ready(function() {
-
-        $('.tombolAsfManager').click(function() {
-            var managerAsfUid = $("#kata6").html();
-            var managerAsfName = $("#kata7").html();
-            $("#managerAsfUid").val(managerAsfUid);
-            $("#managerAsfName").val(managerAsfName);
-        });
-        $('.tombolAsfCurrency').click(function() {
-            var currencyAsfCode = $("#kata16").html();
-            $("#currencyAsfCode").val(currencyAsfCode);
-        });
-        $('.tombolAsfFinance').click(function() {
-            var financeAsfUid = $("#kata17").html();
-            var financeAsfName = $("#kata18").html();
-            $("#financeAsfUid").val(financeAsfUid);
-            $("#financeAsfName").val(financeAsfName);
-        });
-
-    });
-</script>
-
-<!-- END POPUP ASF -->
-
-<!-- ARF -->
-<script>
-    $(document).ready(function() {
-        $('.klikDetailArf').click(function() {
-            var get1 = $("#getWorkId").html();
-            var get2 = $("#getWorkName").html();
-            var get3 = $("#getProductId").html();
-            var get4 = $("#getQty").html();
-            var get5 = $("#getPrice").html();
-            var get6 = $("#getRemark").html();
-            $("#putWorkId").val(get1);
-            $("#putWorkName").val(get2);
-            $("#putProductId").val(get3);
-            $("#putQty").val(get4);
-            $("#putPrice").val(get5);
-            $("#putRemark").val(get6);
-        });
-    });
-</script>
-
-<!-- END ARF         -->
-
 
 <!-- ATTACHMENTS -->
 
@@ -247,17 +147,57 @@
                 alert("Form successful submitted!");
             }
         });
-        $('#quickForm').validate({
+        $('#arfForm').validate({
             rules: {
-                email: {
-                    required: true,
-                    email: true,
+                project_code: {
+                    maxlength: 10,
                 },
-                password: {
+                projek_name: {
                     required: true,
-                    minlength: 5
                 },
-                terms: {
+                site_code: {
+                    required: true
+                },
+                site_name: {
+                    required: true
+                },
+                currency_code: {
+                    required: true
+                },
+                currency_name: {
+                    required: true
+                },
+                manager_code: {
+                    required: true
+                },
+                manager_name: {
+                    required: true
+                },
+                finance_code: {
+                    required: true
+                },
+                finance_name: {
+                    required: true
+                },
+                beneficiary: {
+                    required: true
+                },
+                bank_name: {
+                    required: true
+                },
+                account_name: {
+                    required: true
+                },
+                account_number: {
+                    required: true
+                },
+                origin_budget: {
+                    required: true
+                },
+                internal_notes: {
+                    required: true
+                },
+                filename: {
                     required: true
                 },
             },
@@ -270,12 +210,13 @@
                     // required: "Please provide a password",
                     minlength: "Your password must be at least 5 characters long"
                 },
+
                 terms: "Please accept our terms"
             },
             errorElement: 'span',
             errorPlacement: function(error, element) {
-                error.addClass('invalid-feedback');
-                element.closest('.form-group').append(error);
+                // error.addClass('invalid-feedback');
+                // element.closest('.form-group').append(error);
             },
             highlight: function(element, errorClass, validClass) {
                 $(element).addClass('is-invalid');
