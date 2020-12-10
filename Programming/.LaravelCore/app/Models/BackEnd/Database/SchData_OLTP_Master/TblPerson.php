@@ -102,7 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varName, 'varchar'],
-                        [$varPhotoRefJSON, 'varchar']
+                        [$varPhotoRefJSON, 'json']
                     ]
                     )
                 );
@@ -147,7 +147,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varName, 'varchar'],
-                        [$varPhotoRefJSON, 'varchar']
+                        [$varPhotoRefJSON, 'json']
                     ],
                     )
                 );

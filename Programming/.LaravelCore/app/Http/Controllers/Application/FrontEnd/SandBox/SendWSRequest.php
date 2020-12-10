@@ -132,8 +132,79 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-            
-            
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataCreatePeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setPeriod', 
+                'latest', 
+                [
+                'entities' => [
+                    'name' => 'New Period Name'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataCreatePerson()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setPerson', 
+                'latest', 
+                [
+                'entities' => [
+                    'name' => 'New Person Name',
+                    'photo_RefJSON' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataCreatePersonAccountEMail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setPersonAccountEMail', 
+                'latest', 
+                [
+                'entities' => [
+                    'person_RefID' => 25000000000001,
+                    'account' => 'xyz@gmail.com'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
@@ -2608,6 +2679,81 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataUpdatePeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setPeriod', 
+                'latest', 
+                [
+                'recordID' => 59000000000001,
+                'entities' => [
+                    'name' => 'Update Period Name'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataUpdatePerson()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setPerson', 
+                'latest', 
+                [
+                'recordID' => 25000000000001,
+                'entities' => [
+                    'name' => 'Update Person Name',
+                    'photo_RefJSON' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_setDataUpdatePersonAccountEMail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwNzU2ODI2NH0.T9GQun9PtMD7Jhk6ICt5NamLIcphqnuhqXGGu9jJiZg';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setPersonAccountEMail', 
+                'latest', 
+                [
+                'recordID' => 53000000000001,
+                'entities' => [
+                    'person_RefID' => 25000000000001,
+                    'account' => 'xyz@gmail.com'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
 
 
         /*--------------------*/
