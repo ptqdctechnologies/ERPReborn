@@ -1,0 +1,65 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.master.setDayOffNational (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.master.setDayOffNational" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1
+                },
+            "entities" :
+                {
+                "type": "object",
+                "properties": {
+                    "country_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1
+                        },
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                     "validStartDate": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 10
+                        },                       
+                     "validFinishDate": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 10
+                        }
+                    },
+                "required": [ "country_RefID", "name", "validStartDate", "validFinishDate" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

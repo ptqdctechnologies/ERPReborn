@@ -1,0 +1,64 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.master.setProduct (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.master.setProduct" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1
+                },
+            "entities" :
+                {
+                "type": "object",
+                "properties": {
+                    "code" : {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 32
+                        },
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "productType_RefID" : {
+                        "type": [ "integer" ],
+                        "minimum": 1
+                        },
+                    "quantityUnit_RefID" : {
+                        "type": [ "integer" ],
+                        "minimum": 1
+                        }
+                    },
+                "required": [ "code", "name", "productType_RefID", "quantityUnit_RefID" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
