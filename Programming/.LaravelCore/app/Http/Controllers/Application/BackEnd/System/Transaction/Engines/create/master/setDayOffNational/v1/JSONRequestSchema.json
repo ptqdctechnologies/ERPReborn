@@ -27,8 +27,7 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities" :
-                {
+            "entities" : {
                 "type": "object",
                 "properties": {
                     "country_RefID": {
@@ -42,12 +41,14 @@
                         },
                      "validStartDate": {
                         "type": [ "string", "null" ],
-                        "minLength": 1,
+                        "format": "date",
+                        "minLength": 10,
                         "maxLength": 10
                         },                       
                      "validFinishDate": {
                         "type": [ "string", "null" ],
-                        "minLength": 1,
+                        "format": "date",
+                        "minLength": 10,
                         "maxLength": 10
                         }
                     },
