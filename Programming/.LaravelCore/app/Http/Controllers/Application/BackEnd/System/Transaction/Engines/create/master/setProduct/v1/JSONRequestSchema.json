@@ -27,8 +27,7 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities" :
-                {
+            "entities" : {
                 "type": "object",
                 "properties": {
                     "code" : {

@@ -282,7 +282,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUpdate($varUserSession, array $varDataSend)
             {
-            if(!$varDataSend['SignRecordID'])
+            if($varDataSend['SignRecordID'])
                 {
                 $varReturn = [
                     'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',

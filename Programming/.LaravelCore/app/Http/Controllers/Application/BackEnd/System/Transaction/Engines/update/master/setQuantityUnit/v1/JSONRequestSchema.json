@@ -31,8 +31,7 @@
                 "type": "integer",
                 "minimum": 1
                 },
-            "entities" :
-                {
+            "entities" : {
                 "type": "object",
                 "properties": {
                     "name": {
