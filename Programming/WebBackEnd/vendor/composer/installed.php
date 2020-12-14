@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b5ebd4da16fba49aed924a9588d02489c4ad0edc',
+    'reference' => '1c6a0fa18eaca4953eb468064fd176f0bdb9ee5c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.168.2',
-      'version' => '3.168.2.0',
+      'pretty_version' => '3.168.3',
+      'version' => '3.168.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1d6a976da857d13b156bd63613ee086c13f6dc29',
+      'reference' => '49ef1f905388c8185012c9651b80941b8f2a218d',
     ),
     'brick/math' => 
     array (
@@ -162,12 +162,12 @@
     ),
     'fzaninotto/faker' => 
     array (
-      'pretty_version' => 'v1.9.1',
-      'version' => '1.9.1.0',
+      'pretty_version' => 'v1.9.2',
+      'version' => '1.9.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'fc10d778e4b84d5bd315dad194661e091d307c6f',
+      'reference' => '848d8125239d7dbf8ab25cb7f054f1a630e68c2e',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -463,7 +463,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b5ebd4da16fba49aed924a9588d02489c4ad0edc',
+      'reference' => '1c6a0fa18eaca4953eb468064fd176f0bdb9ee5c',
     ),
     'laravel/tinker' => 
     array (
@@ -613,12 +613,12 @@
     ),
     'phar-io/version' => 
     array (
-      'pretty_version' => '3.0.3',
-      'version' => '3.0.3.0',
+      'pretty_version' => '3.0.4',
+      'version' => '3.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '726c026815142e4f8677b7cb7f2249c9ffb7ecae',
+      'reference' => 'e4782611070e50613683d2b9a57730e9a3ba5451',
     ),
     'phpdocumentor/reflection-common' => 
     array (
