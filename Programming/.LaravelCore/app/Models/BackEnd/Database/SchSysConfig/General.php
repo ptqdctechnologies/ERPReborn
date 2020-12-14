@@ -214,6 +214,38 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getMenuByUserRoleIDAndBranchID                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-14                                                                                           |
+        | ▪ Description     : Mendapatkan Menu berdasarkan User Role ID (varUserRoleIDe) dan Branch ID (varBranchID)               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (int)    varUserRoleID ► User Role ID                                                                             |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getMenuByUserRoleIDAndBranchID($varUserSession, int $varUserRoleID, int $varBranchID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_GetUserRolePrivilegesMenu',
+                    [
+                        [$varUserRoleID, 'bigint'],
+                        [$varBranchID, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isValid_SQLSyntax                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
