@@ -25,6 +25,7 @@
         "required": [ "API" ]
         },
     "data": {
+        "additionalProperties": false
         }       
     },
 "required": [ "metadata", "data" ]

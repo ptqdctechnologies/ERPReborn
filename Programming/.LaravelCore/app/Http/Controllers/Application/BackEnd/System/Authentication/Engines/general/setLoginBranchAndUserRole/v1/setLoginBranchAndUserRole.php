@@ -94,12 +94,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                     
                     if(!$varReturn)
                         {
+                        //---> Mendapatkan User Privileges Menu
+                        $varUserPrivilegesMenu = 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession, 
+                                \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(
+                                    $varUserSession, 
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
+                                    )
+                                );
                         //---> Update Database
                         (new \App\Models\Database\SchSysConfig\General())->setUserSessionBranchAndUserRole($varUserSession, $varUserSession, $varBranchID, $varUserRoleID);
                         //---> Update Redis
                         $varDataRedis = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, (new \App\Models\Cache\General\APIWebToken())->getDataRecord($varUserSession, $varAPIWebToken));
                         $varDataRedis['branch_RefID'] = $varBranchID;
                         $varDataRedis['userRole_RefID'] = $varUserRoleID;
+                        $varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
                         //--->
                         $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];                    

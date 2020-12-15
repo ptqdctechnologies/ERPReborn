@@ -102,7 +102,7 @@ namespace App\Helpers\ZhtHelper\System
             return $varReturn;
             }
 
-        
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getApplicationDateTimeTZ                                                                             |
@@ -137,7 +137,23 @@ namespace App\Helpers\ZhtHelper\System
             }
 
 
-        public static function setApplicationUserRolePrivilegesMenu($varUserSession, int $varUserRoleID, int $varBranchID)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationUserRolePrivilegesMenu                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-15                                                                                           |
+        | ▪ Description     : Mendapatkan User Role Privileges Menu Aplikasi                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varUserRoleID ► User Role ID                                                                             |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getApplicationUserRolePrivilegesMenu($varUserSession, int $varUserRoleID, int $varBranchID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -145,7 +161,11 @@ namespace App\Helpers\ZhtHelper\System
                 try {
                     $varBufferDB = (new \App\Models\Database\SchSysConfig\General())->getMenuByUserRoleIDAndBranchID($varUserSession, 95000000000003, 11000000000004);
                     
-                    $varDataReturn = [];
+                    $varReturn = [
+                        'ID' => '000',
+                        'Caption' => 'Menu',
+                        'CallAction' => false
+                        ];
                     
                     for($i=0; $i!=(count($varBufferDB)); $i++)
                         {                       
@@ -154,45 +174,49 @@ namespace App\Helpers\ZhtHelper\System
                         switch(count($varDataCode))
                             {
                             case 1:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => ((bool)$varBufferDB[$i]['CallAction'])
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 2:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 3:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 4:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
                                     ['Child'][$varDataCode[3]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 5:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -200,11 +224,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[4]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 6:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -213,11 +238,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[5]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 7:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -227,11 +253,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[6]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 8:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -242,11 +269,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[7]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 9:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -258,11 +286,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[8]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 10:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -275,11 +304,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[9]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 11:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -293,11 +323,12 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[10]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             case 12:
-                                $varDataReturn
+                                $varReturn
                                     ['Child'][$varDataCode[0]]
                                     ['Child'][$varDataCode[1]]
                                     ['Child'][$varDataCode[2]]
@@ -312,22 +343,16 @@ namespace App\Helpers\ZhtHelper\System
                                     ['Child'][$varDataCode[11]] = [
                                         'ID' => implode('.', $varDataCode),
                                         'Caption' => $varBufferDB[$i]['Caption'],
-                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction']
+                                        'CallAction' => (bool)$varBufferDB[$i]['CallAction'],
+                                        'Child' => []
                                         ];
                                 break;
                             default:
                                 echo '';
                             }
                         }
-                        
-                    
-                        
-                    //
-                    
-                    self::setApplicationUserRolePrivilegesMenuSimplification($varUserSession, $varDataReturn);
-                    
-                    dd($varDataReturn);
-                    
+                    $varReturn = self::getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn);
+                    //dd($varReturn);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -341,24 +366,49 @@ namespace App\Helpers\ZhtHelper\System
             }
 
             
-private static function setApplicationUserRolePrivilegesMenuSimplification($varUserSession, $varData)
-    {
-    //for($i=0; $i!=count($varData['Child']); $i++)
-    //    {
-    //    echo 
-    //    //$varReturn
-    //    }
-    
-    //var_dump($varData);
-    //foreach($varData as $val) {
-    //    echo $val."<br>";
-    //    }
-    
-    $age = $varData['Child'];
-//    foreach($age as $x => $val) {
-  //      echo "$x = $val<br>";
-    //    }
-    }
+    /*
+    +--------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Method Name     : getApplicationUserRolePrivilegesMenu_Simplification                                                  |
+    +--------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Version         : 1.0000.0000000                                                                                       |
+    | ▪ Last Update     : 2020-12-15                                                                                           |
+    | ▪ Description     : Mendapatkan Simplifikasi User Role Privileges Menu Aplikasi                                          |
+    +--------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Input Variable  :                                                                                                      |
+    |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+    |      ▪ (array)  varData ► Data                                                                                           |
+    | ▪ Output Variable :                                                                                                      |
+    |      ▪ (string) varReturn                                                                                                |
+    +--------------------------------------------------------------------------------------------------------------------------+
+    */
+    private static function getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, array $varData)
+        {
+        $varReturn = [
+            'ID' => $varData['ID'],
+            'Caption' => $varData['Caption'],
+            'CallAction' => $varData['CallAction']
+            ];
+        if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Child', $varData) == true)
+            {
+            if(count($varData['Child']) > 0)
+                {
+                $varReturn['Child'] = array_values($varData['Child']);
+                for($i=0; $i!=count($varReturn['Child']); $i++)
+                    {
+                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Child', $varReturn['Child'][$i]) == true)
+                        {
+                        if(count($varReturn['Child'][$i]['Child']) > 0)
+                            {
+                            $varReturn['Child'][$i] = self::getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn['Child'][$i]);
+                            //echo "Found ".$varReturn['Child'][$i]['Caption']."<br>";
+                            }
+                        }
+                    }
+                }
+            }
+        return $varReturn;
+        }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

@@ -509,7 +509,8 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 'branchID' => null,
                 'sessionStartDateTimeTZ' => null,
                 'sessionAutoStartDateTimeTZ' => null,
-                'sessionAutoFinishDateTimeTZ' => null
+                'sessionAutoFinishDateTimeTZ' => null,
+                'userPrivilegesMenu' => null
                 ];
             
             if((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
@@ -523,6 +524,7 @@ $varErrorMessage = 'test '.json_encode($varJSONRequestSchema->validate());
                 $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
                 $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
+                $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
                 }
 
             return $varReturn;
