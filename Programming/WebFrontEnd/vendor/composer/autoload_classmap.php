@@ -2481,6 +2481,7 @@ return array(
     'Monolog\\Handler\\PsrHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/PsrHandler.php',
     'Monolog\\Handler\\PushoverHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/PushoverHandler.php',
     'Monolog\\Handler\\RedisHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/RedisHandler.php',
+    'Monolog\\Handler\\RedisPubSubHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/RedisPubSubHandler.php',
     'Monolog\\Handler\\RollbarHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/RollbarHandler.php',
     'Monolog\\Handler\\RotatingFileHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/RotatingFileHandler.php',
     'Monolog\\Handler\\SamplingHandler' => $vendorDir . '/monolog/monolog/src/Monolog/Handler/SamplingHandler.php',
