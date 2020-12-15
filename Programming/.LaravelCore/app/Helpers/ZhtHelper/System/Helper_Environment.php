@@ -139,11 +139,11 @@ namespace App\Helpers\ZhtHelper\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setApplicationUserRolePrivilegesMenu                                                                 |
+        | ▪ Method Name     : getApplicationUserRolePrivilegesMenu                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-15                                                                                           |
-        | ▪ Description     : Mengeset User Role Privileges Menu Aplikasi                                                          |
+        | ▪ Description     : Mendapatkan User Role Privileges Menu Aplikasi                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -153,7 +153,7 @@ namespace App\Helpers\ZhtHelper\System
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setApplicationUserRolePrivilegesMenu($varUserSession, int $varUserRoleID, int $varBranchID)
+        public static function getApplicationUserRolePrivilegesMenu($varUserSession, int $varUserRoleID, int $varBranchID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -351,7 +351,7 @@ namespace App\Helpers\ZhtHelper\System
                                 echo '';
                             }
                         }
-                    $varDataReturn = self::setApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn);
+                    $varReturn = self::getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn);
                     //dd($varReturn);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -368,11 +368,11 @@ namespace App\Helpers\ZhtHelper\System
             
     /*
     +--------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Method Name     : setApplicationUserRolePrivilegesMenu_Simplification                                                  |
+    | ▪ Method Name     : getApplicationUserRolePrivilegesMenu_Simplification                                                  |
     +--------------------------------------------------------------------------------------------------------------------------+
     | ▪ Version         : 1.0000.0000000                                                                                       |
     | ▪ Last Update     : 2020-12-15                                                                                           |
-    | ▪ Description     : Mengeset Simplifikasi User Role Privileges Menu Aplikasi                                             |
+    | ▪ Description     : Mendapatkan Simplifikasi User Role Privileges Menu Aplikasi                                          |
     +--------------------------------------------------------------------------------------------------------------------------+
     | ▪ Input Variable  :                                                                                                      |
     |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -381,7 +381,7 @@ namespace App\Helpers\ZhtHelper\System
     |      ▪ (string) varReturn                                                                                                |
     +--------------------------------------------------------------------------------------------------------------------------+
     */
-    private static function setApplicationUserRolePrivilegesMenu_Simplification($varUserSession, array $varData)
+    private static function getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, array $varData)
         {
         $varReturn = [
             'ID' => $varData['ID'],
@@ -399,7 +399,7 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         if(count($varReturn['Child'][$i]['Child']) > 0)
                             {
-                            $varReturn['Child'][$i] = self::setApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn['Child'][$i]);
+                            $varReturn['Child'][$i] = self::getApplicationUserRolePrivilegesMenu_Simplification($varUserSession, $varReturn['Child'][$i]);
                             //echo "Found ".$varReturn['Child'][$i]['Caption']."<br>";
                             }
                         }
