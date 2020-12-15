@@ -169,8 +169,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //
             //$varBuffer= (new \App\Models\Database\SchSysConfig\General())->getMenuByUserRoleIDAndBranchID($varUserSession, 95000000000003, 11000000000004);
-            $x = \App\Helpers\ZhtHelper\System\Helper_Environment::setApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004);
-            
+//            $x = \App\Helpers\ZhtHelper\System\Helper_Environment::setApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004);
+            $x = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::setApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
+                );
             
             //$x= (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, 6000000000316);
             
