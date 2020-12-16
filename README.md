@@ -44,7 +44,7 @@
       4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
       5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.6)
       6. **minio/minio** &rarr; membentuk container bernama **minio** (Docker IP : 172.28.0.7)
-      7. **dperson/samba** &rarr; membentuk container bernama **samba** (Docker IP : 172.28.0.8)
+      7. **erp-reborn-samba** &rarr; membentuk container bernama **samba** (Docker IP : 172.28.0.8)
       8. **grafana/grafana** &rarr; membentuk container bernama **grafana** (Docker IP : 172.28.0.9)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
