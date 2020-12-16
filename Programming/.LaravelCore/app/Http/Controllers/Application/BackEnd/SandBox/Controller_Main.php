@@ -184,7 +184,29 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testJQuery()
             {
-            $varUserSession=4000000000016;
+            $ObjLDAPConnection = ldap_connect('172.28.0.8', 389);
+            //$ObjLDAPConnection = ldap_connect('192.168.1.23', 389);
+            //dd($ObjLDAPConnection);
+            if(!$ObjLDAPConnection)
+                {
+                echo "Connection Failed";
+                }
+            else
+                {
+                $varUserSession=4000000000016;
+                //$varUserPrincipalName = \App\Helpers\ZhtHelper\General\Helper_LDAP::getUserPrincipalNameFromSAMAccountName($varUserSession, 'DC=qdc-files,DC=qdc,DC=co,DC=id', 'teguh.pratama');
+                $varUserPrincipalName = 'teguh.pratama@QDC-FILES.QDC.CO.ID';
+                if(!$ObjLDAPBind = ldap_bind($ObjLDAPConnection, $varUserPrincipalName, 'teguhpratama789'))
+                    {
+                    echo "LDAP Bind Failed";
+                    }
+                else {
+                    echo "Berhasil";
+                    }
+//                dd($varUserPrincipalName);
+                }
+            
+ /*           $varUserSession=4000000000016;
             $varReturn = 
                 '<script src = "js/jQuery/jquery.min.js">'.
                 '</script>'.
@@ -204,7 +226,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     '.
                     //'window.alert("xxx");'.
                 '</script>';
-            echo $varReturn;
+            echo $varReturn;*/
             }
             
             

@@ -563,6 +563,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_JQuery' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JQuery.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JSON' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JSON.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',

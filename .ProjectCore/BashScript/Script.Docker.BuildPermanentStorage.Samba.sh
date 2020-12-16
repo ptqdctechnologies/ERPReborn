@@ -18,4 +18,9 @@ varDirectory="./../ERPReborn-PermanentStorage/Samba";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;
+
+   sudo mkdir -p $varDirectory/etc/localtime;
+   sudo mkdir -p $varDirectory/data;
+   sudo mkdir -p $varDirectory/config/samba;
+   sudo mkdir -p $varDirectory/config/openvpn;
 fi

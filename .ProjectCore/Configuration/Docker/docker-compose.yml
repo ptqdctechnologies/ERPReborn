@@ -152,20 +152,73 @@ services:
   #---> Services : Samba
   samba:
     container_name: 'samba'
-    image: 'dperson/samba:latest'
+    image: 'erp-reborn-samba'
     restart: 'unless-stopped'
     ports:
-      - '10137:137/udp'
+      - '10053:53'
+      - '10053:53/udp'
+      - '10088:88'
+      - '10088:88/udp'
+      - '10135:135'
+      - '10137:137'
       - '10138:138/udp'
-      - '10139:139/tcp'
-      - '10445:445/tcp'
+      - '10139:139'
+      - '10389:389'
+      - '10389:389/udp'
+      - '10445:445'
+      - '10464:464'
+      - '10464:464/udp'
+      - '10636:636'
+      - '11024:1024'
+      - '11025:1025'
+      - '11026:1026'
+      - '11027:1027'
+      - '11028:1028'
+      - '11029:1029'
+      - '11030:1030'
+      - '11031:1031'
+      - '11032:1032'
+      - '11033:1033'
+      - '11034:1034'
+      - '11035:1035'
+      - '11036:1036'
+      - '11037:1037'
+      - '11038:1038'
+      - '11039:1039'
+      - '11040:1040'
+      - '11041:1041'
+      - '11042:1042'
+      - '11043:1043'
+      - '11044:1044'
+      - '13268:3268'
+      - '13269:3269'
     networks:
       app-network:
         ipv4_address: '172.28.0.8'
     volumes:
-      - './.ProjectCore/PermanentStorage/Samba/mnt:/mnt'
-    restart: 'unless-stopped'
-    command: '-s "Mount;/mnt" -u "teguh.pratama;teguhpratama789" -p'
+      - './.ProjectCore/PermanentStorage/Samba/etc/localtime:/etc/localtime:ro'
+      - './.ProjectCore/PermanentStorage/Samba/data:/var/lib/samba'
+      - './.ProjectCore/PermanentStorage/Samba/config/samba:/etc/samba/external'
+      - './.ProjectCore/Configuration/Docker/Samba/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+    environment:
+      - DOMAIN=QDC-FILES.QDC.CO.ID
+      - DOMAINPASS=qu1d151t3chn0aNbOcPdQeRfSgThUiVjWkXlYmZ
+        #- JOIN=true
+      - DNSFORWARDER=192.168.1.1
+        #- MULTISITE=true
+      - NOCOMPLEXITY=true
+      - INSECURELDAP=false
+      - HOSTIP=172.28.0.8
+    dns_search:
+      - qdc.co.id
+    hostname: localdc
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+    #restart: always
+    tty: true
+      #command: bash -c "samba-tool domain passwordsettings set --complexity=off && samba-tool domain passwordsettings set --max-pwd-age=0 && samba-tool domain passwordsettings set --history-length=0 && samba-tool domain passwordsettings set --min-pwd-age=0 && samba-tool domain passwordsettings set --min-pwd-length=4 && tail -f /dev/null"
+    #command: '-s "Mount;/mnt" -u "teguh.pratama;teguhpratama789" -p'
     #command: '-s "Mount;/mnt" -s "Bobs Volume;/mnt2;yes;no;no;bob" -u "bob;bobspasswd" -p'
 
 
