@@ -1,0 +1,23 @@
+# Global parameters
+[global]
+	dns forwarder = 192.168.1.1				
+	idmap_ldb:use rfc2307 = yes
+			wins support = yes
+			template shell = /bin/bash
+			winbind nss info = rfc2307
+			idmap config QDC-FILES: range = 10000-20000
+			idmap config QDC-FILES: backend = ad			
+	workgroup = QDC-FILES
+	realm = QDC-FILES.QDC.CO.ID
+	netbios name = LOCALDC
+	server role = active directory domain controller
+	dns forwarder = 127.0.0.11
+	idmap_ldb:use rfc2307 = yes
+
+[netlogon]
+	path = /var/lib/samba/sysvol/qdc-files.qdc.co.id/scripts
+	read only = No
+
+[sysvol]
+	path = /var/lib/samba/sysvol
+	read only = No

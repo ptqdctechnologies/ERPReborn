@@ -5,6 +5,8 @@ namespace Illuminate\Queue;
 use Closure;
 use DateTimeInterface;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Encryption\Encrypter;
+use Illuminate\Contracts\Queue\ShouldBeEncrypted;
 use Illuminate\Support\Arr;
 use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
@@ -26,6 +28,13 @@ abstract class Queue
      * @var string
      */
     protected $connectionName;
+
+    /**
+     * Indicates that jobs should be dispatched after all database transactions have committed.
+     *
+     * @return $this
+     */
+    protected $dispatchAfterCommit;
 
     /**
      * The create payload callbacks.
@@ -142,10 +151,14 @@ abstract class Queue
             ],
         ]);
 
+        $command = $job instanceof ShouldBeEncrypted && $this->container->bound(Encrypter::class)
+                    ? $this->container[Encrypter::class]->encrypt(serialize(clone $job))
+                    : serialize(clone $job);
+
         return array_merge($payload, [
             'data' => [
                 'commandName' => get_class($job),
-                'command' => serialize(clone $job),
+                'command' => $command,
             ],
         ]);
     }
@@ -268,7 +281,35 @@ abstract class Queue
      */
     protected function enqueueUsing($job, $payload, $queue, $delay, $callback)
     {
+        if ($this->shouldDispatchAfterCommit($job) &&
+            $this->container->bound('db.transactions')) {
+            return $this->container->make('db.transactions')->addCallback(
+                function () use ($payload, $queue, $delay, $callback) {
+                    return $callback($payload, $queue, $delay);
+                }
+            );
+        }
+
         return $callback($payload, $queue, $delay);
+    }
+
+    /**
+     * Determine if the job should be dispatched after all database transactions have committed.
+     *
+     * @param  \Closure|string|object  $job
+     * @return bool
+     */
+    protected function shouldDispatchAfterCommit($job)
+    {
+        if (is_object($job) && isset($job->afterCommit)) {
+            return $job->afterCommit;
+        }
+
+        if (isset($this->dispatchAfterCommit)) {
+            return $this->dispatchAfterCommit;
+        }
+
+        return false;
     }
 
     /**
