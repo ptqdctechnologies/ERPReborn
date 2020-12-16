@@ -185,14 +185,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testJQuery()
             {
             $varUserSession=4000000000016;
-            $x = \App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/js/jQuery/jquery.min.js');
-            $x = file_get_contents($x);
-//            dd($x);
             $varReturn = 
-                '<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">'.
-//                '<script src = "'.\App\Helpers\ZhtHelper\General\Helper_File::getAutoMatchFilePath($varUserSession, getcwd(), '/js/jQuery/jquery.min.js').'">'.
+                '<script src = "js/jQuery/jquery.min.js">'.
                 '</script>'.
-                '<script type="text/javascript">'.
+                    '<script type="text/javascript">'.
                     '
                     window.onload = function()
                         {

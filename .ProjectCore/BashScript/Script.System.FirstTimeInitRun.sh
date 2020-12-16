@@ -23,6 +23,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
+./BashScript/Script.Docker.BuildImage.Samba.sh;
 
 ./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;

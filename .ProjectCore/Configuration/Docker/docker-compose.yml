@@ -147,7 +147,28 @@ services:
       MINIO_SECRET_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
     command: server /data
     restart: always
-  
+
+
+  #---> Services : Samba
+  samba:
+    container_name: 'samba'
+    image: 'dperson/samba:latest'
+    restart: 'unless-stopped'
+    ports:
+      - '10137:137/udp'
+      - '10138:138/udp'
+      - '10139:139/tcp'
+      - '10445:445/tcp'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.8'
+    volumes:
+      - './.ProjectCore/PermanentStorage/Samba/mnt:/mnt'
+    restart: 'unless-stopped'
+    command: '-s "Mount;/mnt" -u "teguh.pratama;teguhpratama789" -p'
+    #command: '-s "Mount;/mnt" -s "Bobs Volume;/mnt2;yes;no;no;bob" -u "bob;bobspasswd" -p'
+
+
   #---> Services : Grafana
   grafana:
     container_name: 'grafana'
@@ -164,12 +185,12 @@ services:
       - '13000:3000'
     networks:
       app-network:
-        ipv4_address: '172.28.0.8'
+        ipv4_address: '172.28.0.9'
     volumes:
       #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
       - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
       - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
-  
+
 
 #---> Docker Volumes
 volumes:
