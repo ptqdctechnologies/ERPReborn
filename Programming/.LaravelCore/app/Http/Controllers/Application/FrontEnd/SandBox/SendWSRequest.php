@@ -69,6 +69,22 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
+        public function APIGatewayJQuery_GetSessionUserPrivilegesMenu()
+            {
+$varUserSession=0000;
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODE3Njg0Nn0.KwRz-o9Nr4DLsG6XDkxSD5F6ZBcW8ANTwFxNoS6wXz4';
+            $varAPIKey = 'environment.general.session.getUserPrivilegesMenu'; 
+            $varAPIVersion = 'latest';
+            $varData = [];
+
+            echo \App\Helpers\ZhtHelper\General\Helper_JQuery::setCallAPI($varUserSession, $varAPIWebToken, $varAPIKey, $varAPIVersion, $varData);
+            }
+
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
         public function APIGateway_SetLoginBranchAndUserRole()
             {
             //---Parameter Set---

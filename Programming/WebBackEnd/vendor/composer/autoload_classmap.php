@@ -41,6 +41,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Main' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Main.php',
+    'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Test' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Test.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\SendWSResponse' => $baseDir . '/app/Http/Controllers/Application/BackEnd/SandBox/SendWSResponse.php',
     'App\\Http\\Controllers\\Application\\BackEnd\\System\\Authentication\\Controller_Main' => $baseDir . '/app/Http/Controllers/Application/BackEnd/System/Authentication/Controller_Main.php',
