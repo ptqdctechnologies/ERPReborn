@@ -120,8 +120,8 @@ function searchArfNameProduk() {
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
-            $("#produkArfCode").val(code);
-            $("#produkArfName").val(name);
+            $("#putProductId").val(code);
+            $("#putProductName").val(name);
         });
     });
 </script>
