@@ -30,7 +30,9 @@
     <!-- EDITABLE -->
 
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
 
@@ -111,18 +113,7 @@
 
 <!-- ARF -->
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".fileInputMultiArf").click(function() {
-            var html = $(".clone").html();
-            $(".increment").after(html);
-        });
 
-        $("body").on("click", ".remove-attachment", function() {
-            $(this).parents(".control-group").remove();
-        });
-    });
-</script>
 
 <!-- ASF -->
 <script type="text/javascript">
@@ -151,6 +142,7 @@
             rules: {
                 project_code: {
                     maxlength: 10,
+                    required: true,
                 },
                 projek_name: {
                     required: true,
@@ -197,7 +189,16 @@
                 internal_notes: {
                     required: true
                 },
-                filename: {
+                filenames: {
+                    required: true
+                },
+                requester_name: {
+                    required: true
+                },
+                remark: {
+                    required: true
+                },
+                nec_at: {
                     required: true
                 },
             },

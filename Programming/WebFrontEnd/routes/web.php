@@ -95,7 +95,15 @@ Route::get('fundBRF','procurementTransactionBrf@fundBRF')->name('BRF.fundBRF');
 Route::get('BRFtoBRFP','procurementTransactionBrf@BRFtoBRFP')->name('BRF.BRFtoBRFP');
 
 //ARF
+
+Route::get('/test/store/','procurementTransactionArf@teststore')->name('test.store');
+
+Route::get('/test/store2','procurementTransactionArf@teststore2');
+
+Route::get('arflist/cancel/','procurementTransactionArf@arflistcancel');
+Route::get('test','procurementTransactionArf@test');
 Route::resource('ARF','procurementTransactionArf');
+
 
 // ASF
 Route::post('editableAsf','procurementTransactionAsf@editableAsf')->name('ASF.editableAsf');

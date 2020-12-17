@@ -1,54 +1,129 @@
-<div class="col-md-12" style="padding-bottom: 10px;">
-    <div class="col-md-2">
-        <b>Amount:</b>
-    </div>
-    <div class="col-md-2">
-        <input type="text" value="0" class="form-control ChangeAmount">
-    </div>
-</div>
-<div class="col-md-12" style="padding-bottom: 10px;">
-    <div class="col-md-2">
-        <b>Total Amount:</b>
-    </div>
-    <div class="col-md-2">
-        <input type="text" readonly="" id="totalamount1" value="20" class="form-control" />
-    </div>
-</div>
+<html lang="en">
 
-<div class="col-md-12" style="padding-bottom: 10px;">
-    <div class="col-md-2">
-        <b>Total Paid:</b>
-    </div>
-    <div class="col-md-2">
-        <input type="text" value="0" readonly="" class="form-control tpaid" />
-    </div>
-</div>
-<div class="col-md-12" style="padding-bottom: 10px;">
-    <div class="col-md-2">
-        <b>Balance:</b>
-    </div>
-    <div class="col-md-2">
-        <input type="text" readonly="" value="20" class="form-control BalanceAmount" />
-        <input type="hidden" id="returned_change" name="returned_change" value="0" />
-    </div>
-</div>
+<head>
 
-<script>
-    $('document').ready(function() {
-        $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val();
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var putQty = parseFloat($('#putQty').val());
-            if(qtyReq > putQty){
-                alert("over budget");
-            }
+    <title>Laravel 8 Multiple File Upload Example - HDTuto.com</title>
 
-            // var balance = parseFloat(balance1) - parseFloat(total_paid);
-            // var balance = parseFloat(balance).toFixed(2);
-            // $('.BalanceAmount').val(balance);
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"> -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+    <div class="container lst">
+
+
+
+        @if (count($errors) > 0)
+
+        <div class="alert alert-danger">
+
+            <strong>Sorry!</strong> There were more problems with your HTML input.<br><br>
+
+            <ul>
+
+                @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+                @endforeach
+
+            </ul>
+
+        </div>
+
+        @endif
+
+
+
+        @if(session('success'))
+
+        <div class="alert alert-success">
+
+            {{ session('success') }}
+
+        </div>
+
+        @endif
+
+
+
+        <h3 class="well">Laravel 8 Multiple File Upload - HDTuto.com</h3>
+
+
+
+        <form method="post" action="{{url('/test/store')}}" enctype="multipart/form-data">
+
+            @csrf
+
+
+
+            <div class="input-group hdtuto control-group lst increment">
+
+                <input type="file" name="filenames[]" class="myfrm form-control">
+
+                <div class="input-group-btn">
+
+                    <button class="btn btn-success" type="button"><i class="fldemo glyphicon glyphicon-plus"></i>Add</button>
+
+                </div>
+
+            </div>
+
+            <div class="clone hide">
+
+                <div class="hdtuto control-group lst input-group" style="margin-top:10px">
+
+                    <input type="file" name="filenames[]" class="myfrm form-control">
+
+                    <div class="input-group-btn">
+
+                        <button class="btn btn-danger" type="button"><i class="fldemo glyphicon glyphicon-remove"></i> Remove</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <button type="submit" class="btn btn-success" style="margin-top:10px">Submit</button>
+
+
+
+        </form>
+
+    </div>
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $(".btn-success").click(function() {
+
+                var lsthmtl = $(".clone").html();
+
+                $(".increment").after(lsthmtl);
+
+            });
+
+            $("body").on("click", ".btn-danger", function() {
+
+                $(this).parents(".hdtuto").remove();
+
+            });
 
         });
-    });
-</script>
+    </script>
+
+
+
+</body>
+
+</html>
