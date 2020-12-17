@@ -29,13 +29,13 @@
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
       5. **minio/minio:latest**
-      6. **dperson/samba:latest**
+      6. **nowsci/samba-domain:latest**
       7. **grafana/grafana:latest**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
       2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
       3. **erp-reborn-phpapache-frontend** (turunan dari Image php:7.3-apache)
-      4. **erp-reborn-samba** (turunan dari Image dperson/samba:latest)
+      4. **erp-reborn-samba** (turunan dari Image nowsci/samba-domain:latest)
    5. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
    6. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
       1. **erp-reborn-postgresql** &rarr; membentuk container bernama **postgresql** (Docker IP : 172.28.0.2)
@@ -62,11 +62,18 @@
 
 7. Untuk menjalankannnya docker-compose kembali dapat menggunakan **./BashScript/Script.Docker.Start.sh**
 
+<h3>Konfigurasi</h3>
+
+1. Konfigurasi Laravel WebBackEnd disimpan pada :
+   - <BASE DIRECTORY>/Programming/WebBackEnd/.env
+   - <BASE DIRECTORY>/Programming/WebBackEnd/config/Application/BackEnd/environment.txt
+2. Konfigurasi Laravel WebFrontEnd disimpan pada :
+   - <BASE DIRECTORY>/Programming/WebFrontEnd/.env
 
 <h3>Lokasi Script Coding Pemrograman PHP pada Laravel :</h3>
 
-- WebBackEnd : **ERPReborn/Programming/WebBackEnd/**
-- WebFrontEnd : **ERPReborn/Programming/WebFrontEnd/**
+   - WebBackEnd : **ERPReborn/Programming/WebBackEnd/**
+   - WebFrontEnd : **ERPReborn/Programming/WebFrontEnd/**
  
 <h3>Development Team</h3>
    
