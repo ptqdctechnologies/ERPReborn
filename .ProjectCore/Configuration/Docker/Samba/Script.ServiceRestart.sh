@@ -10,7 +10,7 @@ if [ ! -f .initialized ]; then
    samba-tool domain passwordsettings set --min-pwd-age=0;
    samba-tool domain passwordsettings set --min-pwd-length=4;
 
-   samba-tool user add teguh.pratama teguhpratama789;
+   #samba-tool user add teguh.pratama teguhpratama789;
 
    touch .initialized;
 fi

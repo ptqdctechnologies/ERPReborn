@@ -23,6 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gateway', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APIGateway@main');
 
 
+//\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Test@main');
+
+
 //\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gateway', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\SandBox\SendWSResponse@sendResponse');
 
 

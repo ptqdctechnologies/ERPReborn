@@ -112,7 +112,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varDataRedis['userPrivilegesMenu'] = $varUserPrivilegesMenu;
                         (new \App\Models\Cache\General\APIWebToken())->setDataUpdate($varUserSession, $varAPIWebToken, \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDataRedis));
                         //--->
-                        $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];                    
+                        $varDataSend = ['message' => 'Chosen Branch ID and User Role ID have been saved'];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
