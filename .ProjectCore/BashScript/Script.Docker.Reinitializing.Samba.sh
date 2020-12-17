@@ -20,7 +20,15 @@ varCmd='sudo docker exec -it samba /bin/bash -c';
 varCmdContainer='samba-tool';
 
 #+-------------------------------------------------------------------------------------------------+
+#| Main Configuration                                                                              |
+#+-------------------------------------------------------------------------------------------------+
+sudo cp ./.ProjectCore/Configuration/Docker/Samba/smb.conf ./../ERPReborn-PermanentStorage/Samba/config/samba/smb.conf;
+
+#+-------------------------------------------------------------------------------------------------+
 #| User Configuration                                                                              |
 #+-------------------------------------------------------------------------------------------------+
 echo "   ---> User Reconfiguration";
-$varCmd "$varCmdContainer user add teguh.pratama teguhpratama789;";
+$varCmd "$varCmdContainer user add teguh.pratama teguhpratama789" &
+
+echo "   ---> Configuration Load";
+$varCmd "smbcontrol all reload-config;";
