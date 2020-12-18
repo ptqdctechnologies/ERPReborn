@@ -28,7 +28,10 @@ sudo cp ./.ProjectCore/Configuration/Docker/Samba/smb.conf ./../ERPReborn-Perman
 #| User Configuration                                                                              |
 #+-------------------------------------------------------------------------------------------------+
 echo "   ---> User Reconfiguration";
-$varCmd "$varCmdContainer user add teguh.pratama teguhpratama789" &
+$varCmd "$varCmdContainer user add aldi aldi123";
+$varCmd "$varCmdContainer user add icha icha123";
+$varCmd "$varCmdContainer user add teguh.pratama teguhpratama789";
+$varCmd "$varCmdContainer user add suyanto suyanto123";
 
 echo "   ---> Configuration Load";
 $varCmd "smbcontrol all reload-config;";
