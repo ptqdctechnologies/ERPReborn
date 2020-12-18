@@ -146,16 +146,91 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
                         $varDataArray
                         );
+                    
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
-                        //var_dump($varResponseData);
                         $varReturn = $varResponseData;
                         }
                     else
                         {
-                        echo $varResponseData['data']['message'];
-                        die();
+                        $varRequesterSegment = (request()->segments())[0];
+                        //---> Jika Requester berasal dari Gateway JQuery
+                        if(strcmp($varRequesterSegment, "APIGatewayJQuery_setRequest") == 0)
+                            {
+                            $varReturn = $varResponseData;
+                            }
+                        //---> Jika Requester berasal dari Gateway PHP
+                        else
+                            {
+                            echo $varResponseData['data']['message'];
+                            die();
+                            }                        
                         }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-18                                                                                           |
+        | ▪ Description     : Memanggil API Gateway JQuery                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(!$varAPIVersion)
+                        {
+                        $varAPIVersion = 'latest';
+                        }
+                    else
+                        {
+                        $varAPIVersion = strtolower($varAPIVersion);
+                        }
+        
+                    if(!$varData)
+                        {
+                        $varData = [];
+                        }
+
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_JQuery::setSyntax_AJAX_Post_JSON(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_FRONTEND_JQUERY_API_GATEWAY'), 
+                        json_encode([
+                            'APIWebToken' => $varAPIWebToken,
+                            'APIKey' => $varAPIKey, 
+                            'APIVersion' => $varAPIVersion,
+                            'data' => $varData,
+                            '_token' => \App\Helpers\ZhtHelper\System\Helper_Environment::getCSRFToken($varUserSession)
+                            ])
+                        
+                        );
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
