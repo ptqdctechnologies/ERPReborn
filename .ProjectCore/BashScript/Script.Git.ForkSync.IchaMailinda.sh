@@ -14,7 +14,7 @@
 #!/bin/bash
 
 varGitHubMainSite='https://github.com/ptqdctechnologies/ERPReborn';
-varGitHubForkSite='https://github.com/teguhpjs/ERPReborn';
+varGitHubForkSite='https://github.com/ichamai/ERPReborn';
 varDateTime=`date '+%Y-%m-%d_%H-%M-%S'`;
 
 clear;
