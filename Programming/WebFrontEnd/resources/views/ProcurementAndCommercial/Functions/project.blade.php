@@ -48,11 +48,11 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikProjectArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikProjectArf" data-id="Project Code {{ $i }}" data-name="Project Name {{ $i }}">Project Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <p>Detail {{$i}}</p>
+                                                <p>Project Name {{$i}}</p>
                                             </td>
                                         </tr>
                                         @endfor

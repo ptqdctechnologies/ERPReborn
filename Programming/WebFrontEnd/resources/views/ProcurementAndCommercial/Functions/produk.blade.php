@@ -37,8 +37,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Project Code</th>
-                                                <th>Project Name</th>
+                                                <th>Product Code</th>
+                                                <th>Product Name</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,7 +48,7 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>
                                                     <span class="tag tag-success">
-                                                        <p data-dismiss="modal" class="klikProductArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                                                        <p data-dismiss="modal" class="klikProductArf" data-id="Product Code {{ $i }}" data-name="Product Name {{ $i }}">Product Code {{$i}}</p>
                                                     </span>
                                                 </td>
                                                 <td>
