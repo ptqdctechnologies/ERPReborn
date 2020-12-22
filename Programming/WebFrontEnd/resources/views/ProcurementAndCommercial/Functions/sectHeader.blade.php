@@ -73,7 +73,7 @@
             </button>
             <button type="submit" class="btn btn-outline-success btn-sm float-right" title="Submit" style="margin-right:5px;">
                 <i class="fas fa-plus" aria-hidden="true">Submit</i>
-            </button>   
+            </button>
         </div>
     </div>
 </div>
