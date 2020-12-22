@@ -26,6 +26,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
                 
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
 
+//                $varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
+
+//dd($varDataReceive);
+                
                 $varAPIKey = 'core.API.gateway';
                 $varAPIVersion = 'latest';
 

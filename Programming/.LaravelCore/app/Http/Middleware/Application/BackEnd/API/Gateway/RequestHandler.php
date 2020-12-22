@@ -84,6 +84,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'Content integrity is invalid']));
                     }                      
                     
+//throw new \Exception(implode($varDataSeparatorTag,
+  //  [403, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)) ]));
 /*
 throw new \Exception(implode($varDataSeparatorTag, 
     [403, ((new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTQzOH0.DFZ1Qodt1ivT2PEY-0l9I1Am7Clh5EP_eZEMXcyA4Cw'))                 ]));

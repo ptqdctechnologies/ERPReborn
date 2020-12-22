@@ -86,7 +86,11 @@ namespace App\Helpers\ZhtHelper\System
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
                                 'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
                                 'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
-                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
+                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+                                    \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                        \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                        'header', 
+                                        $varData))),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                                 ];                            
                             }
@@ -97,14 +101,23 @@ namespace App\Helpers\ZhtHelper\System
 //dd($varData['metadata']['API']['APIWebToken']);                            
 //var_dump($varData['header']);
                             $varHeaders=[
+                                'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
                                 'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                                 'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
                                 'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
                                 'Content-Type' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentType($varUserSession, json_encode($varData)),
-                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
-                                'Authorization' => (((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'header', $varData) == true) && (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varData['header']) == true)) ? $varData['header']['authorization'] : null),
+//                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode($varData)),
+                                'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+                                    \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                        \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                        'header', 
+                                        $varData))),
                                 'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
-                                ];                            
+                                ];
+                            $varData = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey(
+                                \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession), 
+                                'header', 
+                                $varData);
                             }
                         }
                     //---> Main process
