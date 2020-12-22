@@ -147,7 +147,7 @@ Route::get('showLogError', function () {
 | Route for JQuery API                                                                                                             |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setRequest', ['get', 'post'], '\App\Http\Controllers\Application\FrontEnd\System\Controller_JQueryAPI@setRequest', 'webWithoutCSRF');
+//\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setRequest', ['get', 'post'], '\App\Http\Controllers\Application\FrontEnd\System\Controller_JQueryAPI@setRequest', 'webWithoutCSRF');
 
 
 /*
@@ -156,6 +156,7 @@ Route::get('showLogError', function () {
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getSessionData', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_GetSessionData', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getSessionData', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_GetSessionData', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getSessionUserPrivilegesMenu', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_GetSessionUserPrivilegesMenu', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getSessionUserPrivilegesMenu', ['get', 'post'], '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_GetSessionUserPrivilegesMenu', 'webWithoutCSRF');
 

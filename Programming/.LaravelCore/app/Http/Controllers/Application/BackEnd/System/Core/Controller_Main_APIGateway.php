@@ -71,5 +71,16 @@ $varData = [
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, $ex->getStatusCode(), $ex->getMessage());
                 }
             }
+
+        public function mainJQuery()
+            {
+            $varUserSession = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()))['userLoginSessionID'];
+            
+            $varDataSend = ['ccc' => 'xxxx'];
+
+            //return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+            $varReturn = $varDataSend;
+            return $varReturn;
+            }
         }
     }

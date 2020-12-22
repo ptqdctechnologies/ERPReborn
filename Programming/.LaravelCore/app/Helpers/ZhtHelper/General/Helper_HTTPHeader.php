@@ -268,7 +268,7 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-MD5 HTTP Header');
                 try {
-                    $varReturn = base64_encode(md5($varDataContent, true));
+                    $varReturn = base64_encode(md5($varDataContent));
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {

@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('auth', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Authentication\Controller_Main@setLogin');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gateway', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APIGateway@main');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gatewayJQuery', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\System\Core\Controller_Main_APIGateway@mainJQuery');
 
 
 //\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('test', ['get', 'post'], '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Test@main');
