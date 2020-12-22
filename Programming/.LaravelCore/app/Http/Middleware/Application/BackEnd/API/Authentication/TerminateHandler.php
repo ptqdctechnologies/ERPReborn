@@ -18,7 +18,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                 \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
                 url()->current(), 
                 $_SERVER['HTTP_USER_AGENT'], 
-                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
+                \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest, 'agent-datetime'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 
                 json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest_Header($varUserSession, $varObjRequest)), 
                 \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession, $varObjRequest), 
                 \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse_Header($varUserSession, $varObjResponse, 'date'), \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeZoneOffset($varUserSession, 'Asia/Jakarta')), 

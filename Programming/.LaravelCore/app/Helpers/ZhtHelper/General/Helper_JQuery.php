@@ -83,28 +83,44 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setSyntax_AJAX_Post_JSON                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-16                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-21                                                                                           |
         | ▪ Description     : Mengeset API                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession                                                                                           |
-        |      ▪ (string) varAPIWebToken                                                                                           |
-        |      ▪ (string) varAPIKey                                                                                                |
-        |      ▪ (mixed)  varAPIVersion                                                                                            |
-        |      ▪ (array)  varData                                                                                                  |
+        |      ▪ (string) varURL                                                                                                   |
+        |      ▪ (string) varJSONObject                                                                                            |
+        |      ▪ (string) varHeaders                                                                                               |
+        |      ▪ (string) varSuccessScript                                                                                         |
+        |      ▪ (string) varFailedScript                                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSyntax_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, string $varSuccessScript = null, string $varFailedScript = null)
+        public static function setSyntax_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'set Syntax AJAX Post JSON');
                 try {
-                    $varReturn = 
-                        'var varData = function() {'.
+                    $varHeadersJQuery = '';
+                    if($varHeaders)
+                        {
+                        foreach ($varHeaders as $varArrayKey => $varArrayValue)
+                            {
+                            if(strcmp($varHeadersJQuery, '')!=0)
+                                {
+                                $varHeadersJQuery.=', ';
+                                }
+                            $varHeadersJQuery .= '"'.$varArrayKey.'" : "'.$varArrayValue.'"';
+                            }
+                        $varHeadersJQuery = 'headers : {'.$varHeadersJQuery.'}, ';
+                        }
+                    
+                    $varReturn = str_replace(' : ', ':', 
+                        //'var varData = function() {'.
+                        'function() {'.
                             'if (window.jQuery)'.
                                 '{'.                            
                                 'var varURL = "'.$varURL.'"; '.
@@ -113,9 +129,10 @@ namespace App\Helpers\ZhtHelper\General
                                 '$.ajax(varURL, {'.
                                     'async : false, '.
                                     'type : "POST", '.
+                                    $varHeadersJQuery.
                                     'data : JSON.stringify(varJSONObject), '.
                                     'contentType : "application/json", '.
-                                    'success: function(varDataResponse, varTextStatus, ObjXHR) '.
+                                    'success : function(varDataResponse, varTextStatus, ObjXHR) '.
                                         '{ '.
                                         //'$("body").append(JSON.stringify(ObjXHR)); '.
                                         //'$("body").append(JSON.stringify(varTextStatus)); '.
@@ -125,7 +142,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'varAJAXReturn = JSON.stringify(varDataResponse)'.
                                         ($varSuccessScript ? $varSuccessScript : '').
                                         '}, '.
-                                    'error: function(varDataResponse, varTextStatus) '.
+                                    'error : function(varDataResponse, varTextStatus) '.
                                         '{ '.
                                         //'varStatusCode = varDataResponse.status; '.
                                         //'varStatusText = varDataResponse.statusText; '.
@@ -139,14 +156,15 @@ namespace App\Helpers\ZhtHelper\General
                                         '} '.
                                     '}); '.
                                 'return varAJAXReturn; '.
-                                '}'.
-                            'else'.
-                                '{'.
-                                'alert("jQuery is not yet loaded\nPlease initialize jquery first using Helper Object :\n\n\\\\App\\\\Helpers\\\\ZhtHelper\\\\General\\\\Helper_JQuery::setLibrary($varUserSession)"); '.
-                                '}'.
+                                '} '.
+                            'else '.
+                                '{ '.
+                                'alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\\\App\\\\Helpers\\\\ZhtHelper\\\\General\\\\Helper_JQuery::setLibrary($varUserSession)"); '.
+                                '} '.
                             '}(); '.
                         //'alert(varReturn); '.
-                        '';
+                        ''
+                        );
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {

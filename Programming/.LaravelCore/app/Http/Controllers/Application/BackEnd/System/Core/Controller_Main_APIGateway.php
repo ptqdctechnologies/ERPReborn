@@ -26,6 +26,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
                 
                 $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
 
+//                $varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
+
+//dd($varDataReceive);
+                
                 $varAPIKey = 'core.API.gateway';
                 $varAPIVersion = 'latest';
 
@@ -70,6 +74,17 @@ $varData = [
             catch (\Symfony\Component\HttpKernel\Exception\HttpException $ex) {
                 return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, $ex->getStatusCode(), $ex->getMessage());
                 }
+            }
+
+        public function mainJQuery()
+            {
+            $varUserSession = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()))['userLoginSessionID'];
+            
+            $varDataSend = ['ccc' => 'xxxx'];
+
+            //return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+            $varReturn = $varDataSend;
+            return $varReturn;
             }
         }
     }
