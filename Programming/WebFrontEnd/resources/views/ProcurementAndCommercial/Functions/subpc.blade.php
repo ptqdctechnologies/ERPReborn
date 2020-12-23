@@ -5,7 +5,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Choose Sub Project Code</h4>
+                    <h4 class="modal-title">Choose Site Code</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button> 
                 </div>
                 <div class="modal-body">
@@ -37,8 +37,8 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Project Code</th>
-                                                <th>Project Name</th>
+                                                <th>Site Code</th>
+                                                <th>Site Name</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -48,11 +48,11 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>
                                                     <span class="tag tag-success">
-                                                        <p data-dismiss="modal" class="klikSiteArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                                                        <p data-dismiss="modal" class="klikSiteArf" data-id="Site Code {{ $i }}" data-name="Site Name {{ $i }}">Site Code {{$i}}</p>
                                                     </span>
                                                 </td>
                                                 <td>
-                                                    <p>Detail {{$i}}</p>
+                                                    <p>Site Name {{$i}}</p>
                                                 </td>
                                             </tr>
                                             @endfor
