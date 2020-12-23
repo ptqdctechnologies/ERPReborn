@@ -144,13 +144,6 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setLogout', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_SetLogout', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setLogout', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_SetLogout', 'webWithoutCSRF');
 
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
-| Route for JQuery API                                                                                                             |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-//\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setRequest', ['get', 'post'], '\App\Http\Controllers\Application\FrontEnd\System\Controller_JQueryAPI@setRequest', 'webWithoutCSRF');
-
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
