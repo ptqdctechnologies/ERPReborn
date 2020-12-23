@@ -103,10 +103,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ]
                 );          
             echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
-$varJQueryFunction2 = \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 10000000000);
-            echo "<button type='button2' onclick='javascript:var varData=".$varJQueryFunction2."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
 dd($varJQueryFunction);
-//dd($varJQueryFunction2);
             }
 
 

@@ -97,7 +97,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setSyntax_AJAX_Post_JSON                                                                             |
+        | ▪ Method Name     : setSyntaxFunc_ClientCurrentDateTimeUTC                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-21                                                                                           |
@@ -110,7 +110,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession, int $varOffsetSeconds = null)
+        public static function setSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, int $varOffsetSeconds = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {

@@ -81,7 +81,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setSyntax_AJAX_Post_JSON                                                                             |
+        | ▪ Method Name     : setSyntaxFunc_AJAX_Post_JSON                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-21                                                                                           |
@@ -98,7 +98,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSyntax_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
+        public static function setSyntaxFunc_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -132,10 +132,10 @@ namespace App\Helpers\ZhtHelper\General
                                     $varHeadersJQuery.
                                     'data : JSON.stringify(varJSONObject), '.
                                     'contentType : "application/json", '.
-                                    'beforeSend : function(varObjXHR) '.
-                                        '{'.
-                                        'varObjXHR.setRequestHeader("custom_header", "value"); '.
-                                        '}, '.
+                                    //'beforeSend : function(varObjXHR) '.
+                                        //'{'.
+                                        //'varObjXHR.setRequestHeader("custom_header", "value"); '.
+                                        //'}, '.
                                     'success : function(varDataResponse, varTextStatus, varObjXHR) '.
                                         '{ '.
                                         //'$("body").append(JSON.stringify(varObjXHR)); '.
