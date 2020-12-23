@@ -81,7 +81,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setSyntax_AJAX_Post_JSON                                                                             |
+        | ▪ Method Name     : setSyntaxFunc_AJAX_Post_JSON                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-21                                                                                           |
@@ -98,7 +98,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSyntax_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
+        public static function setSyntaxFunc_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -113,7 +113,7 @@ namespace App\Helpers\ZhtHelper\General
                                 {
                                 $varHeadersJQuery.=', ';
                                 }
-                            $varHeadersJQuery .= '"'.$varArrayKey.'" : "'.$varArrayValue.'"';
+                            $varHeadersJQuery .= '"'.$varArrayKey.'" : '.(strcmp(substr($varArrayValue, 0, 10), 'function()') == 0 ? $varArrayValue : '"'.$varArrayValue.'"');
                             }
                         $varHeadersJQuery = 'headers : {'.$varHeadersJQuery.'}, ';
                         }
@@ -132,9 +132,13 @@ namespace App\Helpers\ZhtHelper\General
                                     $varHeadersJQuery.
                                     'data : JSON.stringify(varJSONObject), '.
                                     'contentType : "application/json", '.
-                                    'success : function(varDataResponse, varTextStatus, ObjXHR) '.
+                                    //'beforeSend : function(varObjXHR) '.
+                                        //'{'.
+                                        //'varObjXHR.setRequestHeader("custom_header", "value"); '.
+                                        //'}, '.
+                                    'success : function(varDataResponse, varTextStatus, varObjXHR) '.
                                         '{ '.
-                                        //'$("body").append(JSON.stringify(ObjXHR)); '.
+                                        //'$("body").append(JSON.stringify(varObjXHR)); '.
                                         //'$("body").append(JSON.stringify(varTextStatus)); '.
                                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                                         //'alert("Success"); '.
@@ -161,7 +165,7 @@ namespace App\Helpers\ZhtHelper\General
                                 '{ '.
                                 'alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\\\App\\\\Helpers\\\\ZhtHelper\\\\General\\\\Helper_JQuery::setLibrary($varUserSession)"); '.
                                 '} '.
-                            '}(); '.
+                            '}()'.
                         //'alert(varReturn); '.
                         ''
                         );

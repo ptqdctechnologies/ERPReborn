@@ -1388,6 +1388,7 @@ return array(
     'Illuminate\\Database\\Console\\Seeds\\SeedCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Console/Seeds/SeedCommand.php',
     'Illuminate\\Database\\Console\\Seeds\\SeederMakeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Console/Seeds/SeederMakeCommand.php',
     'Illuminate\\Database\\Console\\WipeCommand' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Console/WipeCommand.php',
+    'Illuminate\\Database\\DBAL\\TimestampType' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DBAL/TimestampType.php',
     'Illuminate\\Database\\DatabaseManager' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseManager.php',
     'Illuminate\\Database\\DatabaseServiceProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseServiceProvider.php',
     'Illuminate\\Database\\DatabaseTransactionRecord' => $vendorDir . '/laravel/framework/src/Illuminate/Database/DatabaseTransactionRecord.php',
