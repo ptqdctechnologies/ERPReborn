@@ -235,9 +235,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         [
                         //'Agentx-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession),
                         'Authorization' => 'Bearer '.$varAPIWebToken,
-                        'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
-                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
+                        //'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
+                        'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
+                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
+                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
                         'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
                             [
                             //'header' => [],

@@ -13,7 +13,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIAuthentication_SetLogin()
+        public function APIAuthentication_setLogin()
             {
             //---Parameter Set---
             //---Core---
@@ -30,7 +30,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGateway_GetSessionData()
+        public function APIGateway_getSessionData()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGatewayJQuery_GetSessionData()
+        public function APIGatewayJQuery_getSessionData()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGateway_GetSessionUserPrivilegesMenu()
+        public function APIGateway_getSessionUserPrivilegesMenu()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -88,7 +88,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGatewayJQuery_GetSessionUserPrivilegesMenu()
+        public function APIGatewayJQuery_getSessionUserPrivilegesMenu()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -111,7 +111,7 @@ dd($varJQueryFunction);
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGateway_SetLoginBranchAndUserRole()
+        public function APIGateway_setLoginBranchAndUserRole()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -134,7 +134,7 @@ dd($varJQueryFunction);
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGatewayJQuery_SetLoginBranchAndUserRole()
+        public function APIGatewayJQuery_setLoginBranchAndUserRole()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -160,7 +160,7 @@ dd($varJQueryFunction);
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGateway_SetLogout()
+        public function APIGateway_setLogout()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -176,7 +176,7 @@ dd($varJQueryFunction);
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/
-        public function APIGatewayJQuery_SetLogout()
+        public function APIGatewayJQuery_setLogout()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
@@ -1346,11 +1346,34 @@ dd($varJQueryFunction);
                 'transaction.delete.accounting.setCodeOfAccounting', 
                 'latest', 
                 [
-                'recordID' => 65000000000001
+                'recordID' => 65000000000002
                 ]
                 );
-            var_dump($varData);
+//            var_dump($varData);
+var_dump(json_encode($varData));
             }
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGatewayJQuery_setDataDeleteCodeOfAccounting()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwODY5MjE3NX0.9QyYmq5bdjAaTVZ_hjqJbwb_aTxUfzQyiXEVJGKbyI4';
+            //---Core---          
+            echo \App\Helpers\ZhtHelper\General\Helper_JQuery::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.accounting.setCodeOfAccounting', 
+                'latest', 
+                [
+                'recordID' => 65000000000001
+                ]
+                );          
+            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+dd($varJQueryFunction);
+            }
+
 
 
         /*--------------------*/
