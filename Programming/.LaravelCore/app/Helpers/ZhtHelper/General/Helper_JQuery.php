@@ -113,7 +113,7 @@ namespace App\Helpers\ZhtHelper\General
                                 {
                                 $varHeadersJQuery.=', ';
                                 }
-                            $varHeadersJQuery .= '"'.$varArrayKey.'" : "'.$varArrayValue.'"';
+                            $varHeadersJQuery .= '"'.$varArrayKey.'" : '.(strcmp(substr($varArrayValue, 0, 10), 'function()') == 0 ? $varArrayValue : '"'.$varArrayValue.'"');
                             }
                         $varHeadersJQuery = 'headers : {'.$varHeadersJQuery.'}, ';
                         }
@@ -132,9 +132,13 @@ namespace App\Helpers\ZhtHelper\General
                                     $varHeadersJQuery.
                                     'data : JSON.stringify(varJSONObject), '.
                                     'contentType : "application/json", '.
-                                    'success : function(varDataResponse, varTextStatus, ObjXHR) '.
+                                    'beforeSend : function(varObjXHR) '.
+                                        '{'.
+                                        'varObjXHR.setRequestHeader("custom_header", "value"); '.
+                                        '}, '.
+                                    'success : function(varDataResponse, varTextStatus, varObjXHR) '.
                                         '{ '.
-                                        //'$("body").append(JSON.stringify(ObjXHR)); '.
+                                        //'$("body").append(JSON.stringify(varObjXHR)); '.
                                         //'$("body").append(JSON.stringify(varTextStatus)); '.
                                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                                         //'alert("Success"); '.
@@ -161,7 +165,7 @@ namespace App\Helpers\ZhtHelper\General
                                 '{ '.
                                 'alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\\\App\\\\Helpers\\\\ZhtHelper\\\\General\\\\Helper_JQuery::setLibrary($varUserSession)"); '.
                                 '} '.
-                            '}(); '.
+                            '}()'.
                         //'alert(varReturn); '.
                         ''
                         );

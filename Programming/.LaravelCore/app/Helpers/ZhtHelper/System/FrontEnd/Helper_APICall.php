@@ -233,13 +233,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             //'_token' => \App\Helpers\ZhtHelper\System\Helper_Environment::getCSRFToken($varUserSession)
                             ]),
                         [
+                        //'Agentx-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession),
                         'Authorization' => 'Bearer '.$varAPIWebToken,
                         'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
-                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateDate($varUserSession),
-                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateExpires($varUserSession, (10*60)),
+                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession),
+                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
                         'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
                             [
-                            'header' => [],
+                            //'header' => [],
                             'metadata' => [
                                 'API' => [
                                     'key' => $varAPIKey,
