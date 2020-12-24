@@ -93,6 +93,86 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIAuthenticationJQuery                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-10-05                                                                                           |
+        | ▪ Description     : Memanggil API Authentication melalui JQuery                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varUserName ► User Name                                                                                  |
+        |      ▪ (string) varUserPassword ► User Password                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setCallAPIAuthenticationJQuery($varUserSession, string $varUserName, string $varUserPassword)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Authentication API');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varDataArray = [
+                        'metadata' => [
+                            'API' => [
+                                'version' => 'latest'
+                                ]
+                            ],
+                        'data' => [
+                            'userName' => $varUserName,
+                            'userPassword' => $varUserPassword
+                            ]
+                        ];
+                    
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_JQuery::setSyntaxFunc_AJAX_Post_JSON(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
+                        json_encode($varDataArray),
+                        [
+                        'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
+                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
+                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
+                        'Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+                            $varDataArray
+                            )),                           
+                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                            ]
+                        );
+
+/*                    
+                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
+                        $varDataArray
+                        );
+                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                        {
+                        $varReturn = $varResponseData;
+                        }
+                    else
+                        {
+                        echo $varResponseData['data']['message'];
+                        die();
+                        }*/
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -129,6 +209,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varData = [];
                         }
+
                     $varDataArray = [
                         'header' => [
                             'authorization' => 'Bearer'.' '.$varAPIWebToken,
@@ -141,6 +222,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             ],
                         'data' => $varData
                         ];
+
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_GATEWAY'),
@@ -186,7 +268,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-18                                                                                           |
-        | ▪ Description     : Memanggil API Gateway JQuery                                                                         |
+        | ▪ Description     : Memanggil API Gateway melalui JQuery                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -233,25 +315,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             //'_token' => \App\Helpers\ZhtHelper\System\Helper_Environment::getCSRFToken($varUserSession)
                             ]),
                         [
-                        //'Agentx-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::setSyntaxFunction_ClientCurrentDateTimeUTC($varUserSession),
                         'Authorization' => 'Bearer '.$varAPIWebToken,
                         //'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                         'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
                         'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
                         'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
-                            [
-                            //'header' => [],
-                            'metadata' => [
-                                'API' => [
-                                    'key' => $varAPIKey,
-                                    'version' => $varAPIVersion
-                                    ]
-                                ],
-                            'data' => $varData
-                            ]
-                            )),
-                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+//                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_UniqueID($varUserSession, $varAPIWebToken),
                             ]
                         );
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

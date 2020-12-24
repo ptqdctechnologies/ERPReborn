@@ -73,8 +73,9 @@ namespace App\Helpers\ZhtHelper\General
         public static function setLibrary($varUserSession)
             {
             $varReturn = 
-                '<script src = "js/jQuery/jquery.min.js">'.
-                '</script>';
+                '<script src = "js/jQuery/jquery.min.js"></script>'.
+                '<script src = "js/crypto-js/core.min.js"></script>'.
+                '<script src = "js/crypto-js/md5.js"></script>';
             return $varReturn;
             }
 
@@ -122,7 +123,7 @@ namespace App\Helpers\ZhtHelper\General
                         //'var varData = function() {'.
                         'function() {'.
                             'if (window.jQuery)'.
-                                '{'.                            
+                                '{'.
                                 'var varURL = "'.$varURL.'"; '.
                                 'var varJSONObject = '.$varJSONObject.'; '.
                                 'var varAJAXReturn = null; '.
@@ -159,12 +160,18 @@ namespace App\Helpers\ZhtHelper\General
                                         ($varFailedScript ? $varFailedScript : '').
                                         '} '.
                                     '}); '.
+//'require("crypto").randomBytes(64).toString("hex"); '.
+//'alert(  CryptoJS.lib.WordArray.random(100/2)   ); '.
+//'alert("OK"); '.
+                            
+//'var varx='.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_UniqID($varUserSession, "222").'; '.
+//'alert(varx); '.
                                 'return varAJAXReturn; '.
                                 '} '.
                             'else '.
                                 '{ '.
                                 'alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\\\App\\\\Helpers\\\\ZhtHelper\\\\General\\\\Helper_JQuery::setLibrary($varUserSession)"); '.
-                                '} '.
+                                '} '. 
                             '}()'.
                         //'alert(varReturn); '.
                         ''
