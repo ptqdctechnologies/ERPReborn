@@ -97,18 +97,25 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataCreate($varUserSession, array $varDataSend)
             {
-            if(!$varDataSend['SignRecordID'])
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
-                $varReturn = [
-                    'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
-                    'recordID' => $varDataSend['SignRecordID']
-                    ];
-                return $varReturn;
+                if($varDataSend['SignRecordID'])
+                    {
+                    $varReturn = [
+                        'message' => 'Data Insertion Was Successful (New Record ID : '.$varDataSend['SignRecordID'].')',
+                        'recordID' => $varDataSend['SignRecordID']
+                        ];
+                    return $varReturn;
+                    }
+                else
+                    {
+                    throw new \Exception('Data Insertion Failed');
+                    }
                 }
             else
                 {
                 throw new \Exception('Data Insertion Failed');
-                }            
+                }
             }
 
 
@@ -282,18 +289,25 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataUpdate($varUserSession, array $varDataSend)
             {
-            if($varDataSend['SignRecordID'])
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
                 {
-                $varReturn = [
-                    'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
-                    'recordID' => $varDataSend['SignRecordID']
-                    ];
-                return $varReturn;
+                if($varDataSend['SignRecordID'])
+                    {
+                    $varReturn = [
+                        'message' => 'Data Update Was Successful (Record ID : '.$varDataSend['SignRecordID'].')',
+                        'recordID' => $varDataSend['SignRecordID']
+                        ];
+                    return $varReturn;
+                    }
+                else
+                    {
+                    throw new \Exception('Data Update Failed');
+                    }
                 }
             else
                 {
                 throw new \Exception('Data Update Failed');
-                }            
+                }
             }
 
 
