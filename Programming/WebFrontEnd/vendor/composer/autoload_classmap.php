@@ -41,7 +41,6 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
-    'App\\Http\\Controllers\\Application\\FrontEnd\\System\\Controller_JQueryAPI' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/System/Controller_JQueryAPI.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\homeController' => $baseDir . '/app/Http/Controllers/homeController.php',
     'App\\Http\\Controllers\\procurementTransactionArf' => $baseDir . '/app/Http/Controllers/procurementTransactionArf.php',
