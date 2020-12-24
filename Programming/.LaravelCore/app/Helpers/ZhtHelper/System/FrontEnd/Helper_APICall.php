@@ -134,9 +134,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
                         'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
                         'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+                        'Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
                             $varDataArray
-                            )),
+                            )),                           
+                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
                         'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                             ]
                         );
@@ -319,19 +320,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
                         'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
                         'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
-                            [
-                            //'header' => [],
-                            'metadata' => [
-                                'API' => [
-                                    'key' => $varAPIKey,
-                                    'version' => $varAPIVersion
-                                    ]
-                                ],
-                            'data' => $varData
-                            ]
-                            )),
-                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+//                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_UniqueID($varUserSession, $varAPIWebToken),
                             ]
                         );
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

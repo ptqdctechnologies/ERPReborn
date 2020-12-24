@@ -40,9 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varUserID, 
                 $varUserPassword
-                );          
-            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";           
-dd($varJQueryFunction);
+                );
+            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
             }
 
 
@@ -252,7 +251,11 @@ dd($varJQueryFunction);
                     ]
                 ]
                 );          
-            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+//            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+
+            echo '<script>('.$varJQueryFunction.');</script>';
+            
+            dd($varJQueryFunction);
             }
 
 
