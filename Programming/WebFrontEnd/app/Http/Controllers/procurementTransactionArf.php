@@ -8,6 +8,85 @@ use DB;
 
 class procurementTransactionArf extends Controller
 {
+
+    public function teststores(Request $request)
+    {
+
+        echo "d";
+        die;
+        $data = json_decode($request->getContent(), true);
+        $dataAll = array();
+        $files = [];
+        foreach ($data as $i => $v) {
+            echo $x = $v['filenames'];
+            die;
+
+            foreach ($x as $file) {
+
+                $name = time() . rand(1, 100) . '.' . $file->extension();
+
+                // $file->move(public_path('files'), $name);
+
+                $files[] = $name;
+            }
+        }
+
+        dd($files);
+
+
+        $data = json_decode($request->getContent(), true);
+        $dataAll = array();
+        $cek = [];
+        foreach ($data as $i => $v) {
+
+            $cek[] = $v['filenames'];
+
+            // $files = [];
+            // foreach ($cek as $file) {
+            //     $name = time() . rand(1, 100) . '.' . $file->extension();
+            //     $files[] = $name;
+            // }
+        }
+        dd($cek);
+
+        // array_push($dataAll, array(
+
+        //     'kode_salesorder' => $v['kode_salesorder'],
+        //     'id_langganan' => $v['id_langganan'],
+        //     'tanggal' => $v['tanggal'],
+        //     'jatuh_tempo' => $v['jatuh_tempo'],
+        //     'status' => "Sales",
+        //     'tanggal_update' => $v['tanggal_update'],
+        //     'id_karyawan' => $v['id_karyawan'],
+        //     'id_divisi' => $v['id_divisi'],
+        //     'kondisi' => $v['kondisi'],
+        //     'kondisi2' => $v['kondisi2'],
+        // ));
+
+
+        // echo $request->origin_budget;die;
+
+        // $files = [];
+        // if ($request->filenames) {
+
+        //     foreach ($request->filenames as $file) {
+
+        //         $name = time() . rand(1, 100) . '.' . $file->extension();
+
+        //         // $file->move(public_path('files'), $name);
+
+        //         $files[] = $name;
+        //     }
+        // }
+
+        // dd($files);
+
+        // $file = new File();
+        // $file->filenames = $files;
+        // $file->save();
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -47,15 +126,52 @@ class procurementTransactionArf extends Controller
      */
     public function store(Request $request)
     {
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $request->username,
-            $request->password
-        );
 
-        return response()->json($varData['data']['optionList']);
+        $data = json_decode($request->getContent(), true);
+        $dataAll = array();
+
+        foreach ($data as $i => $v) {
+            // echo $v['putWorkId'];
+            array_push($dataAll, array(
+                
+                'origin_budget'=>$v['origin_budget'],
+                'projectcode'=>$v['projectcode'],
+                'projectname'=>$v['projectname'],
+                'subprojectc'=>$v['subprojectc'],
+                'subprojectn'=>$v['subprojectn'],
+                'beneficiary'=>$v['beneficiary'],
+                'bank_name'=>$v['bank_name'],
+                'account_name'=>$v['account_name'],
+                'account_number'=>$v['account_number'],
+                'internal_notes'=>$v['internal_notes'],
+                'filenames'=>$v['filenames'],
+                'requestNameArf'=>$v['requestNameArf'],
+                'putWorkId'=>$v['putWorkId'],
+                'putWorkName'=>$v['putWorkName'],
+                'putProductId'=>$v['putProductId'],
+                'putProductName'=>$v['putProductName'],
+                'putQty'=>$v['putQty'],
+                'putPrice'=>$v['putPrice'],
+                'putCurrency'=>$v['putCurrency'],
+                'totalArfDetails'=>$v['totalArfDetails'],
+                'putRemark'=>$v['putRemark']
+
+            ));
+        }
+        return response()->json($dataAll);
+
+
+
+        // dd($files);
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $request->username,
+        //     $request->password
+        // );
+
+
     }
-    
+
     public function teststore(Request $request)
     {
         $username = $request->input('username');
@@ -98,30 +214,12 @@ class procurementTransactionArf extends Controller
 
         // ]);
 
-        // $files = [];
 
-        // if ($request->hasfile('filenames')) {
-
-        //     foreach ($request->file('filenames') as $file) {
-
-        //         $name = time() . rand(1, 100) . '.' . $file->extension();
-
-        //         // $file->move(public_path('files'), $name);
-
-        //         $files[] = $name;
-        //     }
-        // }
-
-        // dd($files);
-
-        // $file = new File();
-        // $file->filenames = $files;
-        // $file->save();
 
         // return back()->with('success', 'Data Your files has been successfully added');
     }
 
-    
+
 
     /**
      * Display the specified resource.
