@@ -387,6 +387,48 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getOnlyArrayValueWithoutKey                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2020-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan nilai array tanpa menyertakan kunci array (varDataArray)                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varDataArray ► Data array yang akan dievaluasi                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getOnlyArrayValueWithoutKey($varUserSession, $varDataArray)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Array Values Only');
+                try {
+                    if(self::isAssociativeArray($varUserSession, $varDataArray)==true)
+                        {
+                        $varReturn = array_values($varDataArray);
+                        }
+                    else
+                        {
+                        $varReturn = $varDataArray;
+                        }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isAssociativeArray                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -647,35 +689,35 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getOnlyArrayValueWithoutKey                                                                          |
+        | ▪ Method Name     : setRemoveElementByKey                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Update     : 2020-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan nilai array tanpa menyertakan kunci array (varDataArray)                                 |
+        | ▪ Description     : Mengecek suatu array (varArrayData) termasuk Sequential Array (Array yang tidak memiliki key)        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varDataArray ► Data array yang akan dievaluasi                                                           |
+        |      ▪ (string) varRemoveKey ► Remove Key                                                                                |
+        |      ▪ (array)  varArrayData ► Data Array                                                                                |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
+        |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getOnlyArrayValueWithoutKey($varUserSession, $varDataArray)
+        public static function setRemoveElementByKey($varUserSession, string $varRemoveKey, array $varDataArray)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Array Values Only');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Remove Element By Key');
                 try {
-                    if(self::isAssociativeArray($varUserSession, $varDataArray)==true)
-                        {
-                        $varReturn = array_values($varDataArray);
+                    foreach($varDataArray as $varKey => $varValue) {
+                        if(strcmp($varKey, $varRemoveKey)==0)
+                            {
+                            continue;
+                            }
+                        $varReturn[$varKey]=$varValue;
                         }
-                    else
-                        {
-                        $varReturn = $varDataArray;
-                        }
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, ($varReturn==true ? 'True' : 'False'));
+                    } 
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }

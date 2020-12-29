@@ -7,7 +7,7 @@
                         <td><label>Origin Of Budget</label></td>
                         <td>
                             <div class="input-group">
-                                <select class="form-control select2bs4" style="width: 100%;">
+                                <select class="form-control select2bs4" style="width: 100%;border-radius:0;">
                                     <option selected="selected">Project</option>
                                     <option>Overhead</option>
                                     <option>Sales</option>
@@ -61,7 +61,6 @@
                 </div>
             </div>
             <br>
-
             <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Cancel">
                 <i class="fa fa-times" aria-hidden="true">Cancel</i>
             </button>

@@ -48,13 +48,13 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         }
                     }
                 //--->---> Check Date Time on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'date', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
-                        [403, 'Request date and time not specified on HTTP Header']));
+                        [403, 'Request date and time not specified on HTTP Header']));                    
                     }
                 //--->---> Check Date Time Difference on HTTP Header
-                if(!(($varServerCurrentUnixTime-$varClientServerDateTimeLagTolerance) <= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date'])) && ($varServerCurrentUnixTime+$varClientServerDateTimeLagTolerance) >= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']))))
+                if(!(($varServerCurrentUnixTime-$varClientServerDateTimeLagTolerance) <= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['agent-datetime'])) && ($varServerCurrentUnixTime+$varClientServerDateTimeLagTolerance) >= (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['agent-datetime']))))
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
@@ -72,19 +72,20 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'Request ID not specified on HTTP Header']));
                     }
                 //--->---> Check Expired DateTime
-                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['date']) + $varTTL)))
+                if($varServerCurrentUnixTime > ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'expires', $varHTTPHeader)==true) ? (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['expires'])) : (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varHTTPHeader['agent-datetime']) + $varTTL)))
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request has expired']));
-                    }                   
+                    }
                 //--->---> Check Content Integrity
-                if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), true))) != 0)
+                if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), false))) != 0)
                     {
-                    throw new \Exception(implode($varDataSeparatorTag, 
+                    throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
-                    }                    
+                    }                      
                     
-                    
+//throw new \Exception(implode($varDataSeparatorTag,
+  //  [403, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)) ]));
 /*
 throw new \Exception(implode($varDataSeparatorTag, 
     [403, ((new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTQzOH0.DFZ1Qodt1ivT2PEY-0l9I1Am7Clh5EP_eZEMXcyA4Cw'))                 ]));

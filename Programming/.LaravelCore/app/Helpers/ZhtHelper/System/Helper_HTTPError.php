@@ -37,6 +37,9 @@ namespace App\Helpers\ZhtHelper\System
         public static function setHTTPErrorPageDisplay($varUserSession, int $varErrorCode, string $varErrorMessage=null)
             {
             $varDefaultIconPathFile = '/images/Logo-Application.png';
+            
+            //$varDefaultIconFileContent = \App\Helpers\ZhtHelper\General\Helper_File::getFileImageContent($varUserSession, $varDefaultIconPathFile);
+           
             if($varErrorMessage)
                 {
                 $varArrayErrorMessage = explode('►', $varErrorMessage);

@@ -1,3 +1,8 @@
 URL_BACKEND_API_AUTH=http://172.28.0.3/api/auth
 URL_BACKEND_API_GATEWAY=http://172.28.0.3/api/gateway
-URL_FRONTEND_JQUERY_API_GATEWAY=http://172.28.0.4/APIGatewayJQuery_setRequest
+URL_BACKEND_API_UNIQUE_ID=http://172.28.0.3/api/getUniqueID
+
+xxxURL_BACKEND_API_GATEWAY_JQUERY=http://172.28.0.3/api/gatewayJQuery
+xxxURL_BACKEND_API_GATEWAY_JQUERY=http://172.28.0.3/api/gateway
+
+xxxURL_FRONTEND_JQUERY_API_GATEWAY=http://172.28.0.4/APIGatewayJQuery_setRequest
