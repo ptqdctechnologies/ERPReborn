@@ -91,7 +91,7 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession                                                                                           |
         |      ▪ (string) varURL                                                                                                   |
-        |      ▪ (string) varJSONObject                                                                                            |
+        |      ▪ (string) varJSObject                                                                                              |
         |      ▪ (string) varHeaders                                                                                               |
         |      ▪ (string) varSuccessScript                                                                                         |
         |      ▪ (string) varFailedScript                                                                                          |
@@ -99,7 +99,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setSyntaxFunc_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSONObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
+        public static function setSyntaxFunc_AJAX_Post_JSON($varUserSession, string $varURL, string $varJSObject, array $varHeaders = null, string $varSuccessScript = null, string $varFailedScript = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -120,18 +120,29 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     
                     $varReturn = str_replace(' : ', ':', 
-                        //'var varData = function() {'.
                         'function() {'.
                             'if (window.jQuery)'.
                                 '{'.
                                 'var varURL = "'.$varURL.'"; '.
-                                'var varJSONObject = '.$varJSONObject.'; '.
+
+                                'try '.
+                                    '{'.
+                                    'var varJSObject = '.$varJSObject.'; '.
+                                    '}'.
+                                'catch(varErr) '.
+                                    '{'.
+                                    'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n("+varErr+")");'.
+                                    '}'.
+
+
+
+//                                    'var varImg=; '.
                                 'var varAJAXReturn = null; '.
                                 '$.ajax(varURL, {'.
                                     'async : false, '.
                                     'type : "POST", '.
                                     $varHeadersJQuery.
-                                    'data : JSON.stringify(varJSONObject), '.
+                                    'data : JSON.stringify(varJSObject), '.
                                     'contentType : "application/json", '.
                                     //'beforeSend : function(varObjXHR) '.
                                         //'{'.
@@ -144,7 +155,7 @@ namespace App\Helpers\ZhtHelper\General
                                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                                         //'alert("Success"); '.
                                         //'varAJAXReturn = "Success"; '.
-                                        'varAJAXReturn = JSON.stringify(varDataResponse)'.
+                                        'varAJAXReturn = JSON.stringify(varDataResponse); '.
                                         ($varSuccessScript ? $varSuccessScript : '').
                                         '}, '.
                                     'error : function(varDataResponse, varTextStatus) '.
@@ -156,14 +167,14 @@ namespace App\Helpers\ZhtHelper\General
                                         //'$("body").append(JSON.stringify(varDataResponse)); '.
                                         //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
                                         //'varAJAXReturn = "Failed"; '.
-                                        'varAJAXReturn = JSON.stringify(varDataResponse)'.
+                                        'varAJAXReturn = JSON.stringify(varDataResponse); '.
                                         ($varFailedScript ? $varFailedScript : '').
                                         '} '.
                                     '}); '.
 //'require("crypto").randomBytes(64).toString("hex"); '.
 //'alert(  CryptoJS.lib.WordArray.random(100/2)   ); '.
 //'alert("OK"); '.
-                            
+
 //'var varx='.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_UniqID($varUserSession, "222").'; '.
 //'alert(varx); '.
                                 'return varAJAXReturn; '.
