@@ -265,7 +265,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             
             
             
-        public static function setCallAPIGatewayJQuery2($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
+        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -280,11 +280,30 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
-        
                     if(!$varData)
                         {
-                        $varData = '';
+                        $varData = '{}';
                         }
+                    $varReturn = 
+                        'function() '.
+                            '{ '.
+                            'varReturn = null; '.
+                            'try '.
+                                '{ '.
+                                'varReturn = new ERPReborn_JSAPIRequest('.
+                                    '"'.$varAPIWebToken.'", '.
+                                    '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
+                                    '"'.$varAPIKey.'", '.
+                                    '"'.$varAPIVersion.'", '.
+                                    $varData.
+                                    '); '.
+                                '} '.
+                            'catch(varError) '.
+                                '{ '.
+                                'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
+                                '} '.
+                            'return varReturn.value; '.
+                            '}()';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -322,7 +341,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
+        public static function setCallAPIGatewayJQueryOLD($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {

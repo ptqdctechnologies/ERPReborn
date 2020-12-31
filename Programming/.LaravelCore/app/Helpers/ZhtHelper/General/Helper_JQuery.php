@@ -58,33 +58,6 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setLibrary                                                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-16                                                                                           |
-        | ▪ Description     : Mengeset Library JQuery                                                                              |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession                                                                                           |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function setLibrary($varUserSession)
-            {
-            $varReturn = 
-                //'<script src = "js/jQuery/jquery.min.js" type="text/javascript"></script>'.
-                //'<script src = "js/crypto-js/core.min.js" type="text/javascript"></script>'.
-                //'<script src = "js/crypto-js/md5.js" type="text/javascript"></script>'.
-                '<script src = "js/ERPReborn-js/core.js" type="text/javascript"></script>'.
-                //'<script src = "js/ERPReborn-js/api-request.js" type="text/javascript"></script>'.
-                '';
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setSyntaxFunc_AJAX_Post_JSON                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |

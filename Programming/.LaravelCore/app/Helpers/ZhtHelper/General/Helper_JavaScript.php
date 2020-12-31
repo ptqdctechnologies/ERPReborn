@@ -293,5 +293,29 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setLibrary                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2020-12-31                                                                                           |
+        | ▪ Description     : Mengeset Library JQuery                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setLibrary($varUserSession)
+            {
+            $varReturn = 
+                '<script src = "js/ERPReborn-js/core.js" type="text/javascript"></script>'.
+                '<script>new ERPReborn_JSCore();</script>'.
+                '';
+            return $varReturn;
+            }
         }
     }

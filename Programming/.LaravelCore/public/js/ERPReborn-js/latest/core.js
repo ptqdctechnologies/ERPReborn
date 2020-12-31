@@ -79,10 +79,9 @@ class ERPReborn_JSCore
         var varScript = document.createElement('script');
         varScript.type = 'text/javascript';
         varScript.src = varURL;
-
+        
         // Fire the loading
         varHead.appendChild(varScript);
-        //document.getElementsByTagName('head')[0].appendChild(varScript);
         }
 
 
@@ -105,7 +104,7 @@ class ERPReborn_JSCore
         if(this.isScriptAlreadyIncluded(varURL) == false)
             {
             this.setLoadScript(varURL);
-            alert("Load : " + varURL);
+            //alert("Load : " + varURL);
             }
         }
 

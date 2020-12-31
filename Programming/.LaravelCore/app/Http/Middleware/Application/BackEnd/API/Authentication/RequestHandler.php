@@ -54,7 +54,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
                     }                   
 
                 //--->---> Check Content Integrity
-                if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), false))) != 0)
+//                if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), false))) != 0)
+                if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Content integrity is invalid']));
