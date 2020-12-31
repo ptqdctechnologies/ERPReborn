@@ -131,9 +131,18 @@ class procurementTransactionArf extends Controller
         $dataAll = array();
 
         foreach ($data as $i => $v) {
-            // echo $v['putWorkId'];
+
             array_push($dataAll, array(
-                
+                'filenames'=>$v['filenames']
+
+            ));
+        }
+        $data2 = json_decode($request->getContent(), true);
+        $dataAll2 = array();
+
+        foreach ($data2 as $i => $v) {
+
+            array_push($dataAll2, array(
                 'origin_budget'=>$v['origin_budget'],
                 'projectcode'=>$v['projectcode'],
                 'projectname'=>$v['projectname'],
@@ -144,32 +153,22 @@ class procurementTransactionArf extends Controller
                 'account_name'=>$v['account_name'],
                 'account_number'=>$v['account_number'],
                 'internal_notes'=>$v['internal_notes'],
-                'filenames'=>$v['filenames'],
                 'requestNameArf'=>$v['requestNameArf'],
                 'putWorkId'=>$v['putWorkId'],
                 'putWorkName'=>$v['putWorkName'],
                 'putProductId'=>$v['putProductId'],
                 'putProductName'=>$v['putProductName'],
                 'putQty'=>$v['putQty'],
+                'putUom'=>$v['putUom'],
                 'putPrice'=>$v['putPrice'],
                 'putCurrency'=>$v['putCurrency'],
                 'totalArfDetails'=>$v['totalArfDetails'],
-                'putRemark'=>$v['putRemark']
+                'putRemark'=>$v['putRemark'],
 
             ));
+            break;
         }
-        return response()->json($dataAll);
-
-
-
-        // dd($files);
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $request->username,
-        //     $request->password
-        // );
-
-
+        return response()->json($dataAll2);
     }
 
     public function teststore(Request $request)
@@ -264,5 +263,33 @@ class procurementTransactionArf extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function tests(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        
+        $dataAll = array();
+
+        foreach ($data as $i => $v) {
+            if($v['lastWorkId'] == ""){
+                continue;
+            }
+            array_push($dataAll, array(
+                'lastWorkId'=>$v['lastWorkId'],
+                'lastWorkName'=>$v['lastWorkName'],
+                'lastProductId'=>$v['lastProductId'],
+                'lastProductName'=>$v['lastProductName'],
+                'lastQty'=>$v['lastQty'],
+                'lastUom'=>$v['lastUom'],
+                'lastPrice'=>$v['lastPrice'],
+                'lastCurrency'=>$v['lastCurrency'],
+                'totalArfDetails'=>$v['totalArfDetails'],
+                'lastRemark'=>$v['lastRemark'],
+
+            ));
+        }
+        dd($dataAll);
     }
 }

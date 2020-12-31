@@ -1,21 +1,3 @@
-<!-- <script type="text/javascript">
-    $(document).ready(function() {
-        $(".fileInputMultiArf").click(function() {
-            var html = $(".clone").html();
-            $(".increment").after(html);
-        });
-
-        $("body").on("click", ".remove-attachment", function() {
-            $(this).parents(".clone-group").remove();
-        });
-
-        $("body").on("click", ".remove-arf-list", function() {
-            $(this).parents("#removeArfList").remove();
-        });
-
-    });
-</script> -->
-
 <!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
@@ -171,62 +153,12 @@
 </script>
 
 <script>
-    $('document').ready(function() {
-        $('.ChangeQty').keyup(function() {
-
-            var qtyReq = $(this).val();
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var putQty = parseFloat($('#putQty').val());
-            var putPrice = parseFloat($('#putPrice').val());
-
-            if (qtyReq == '') {
-                $("#buttonArfList").prop("disabled", true);
-            } else if (qtyReq > putQty) {
-                alert("Your Request Is Over Budget");
-                $("#buttonArfList").prop("disabled", true);
-            } else {
-                var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
-                var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                $('#totalArfDetails').val(totalReq);
-                $("#buttonArfList").prop("disabled", false);
-            }
-
-        });
-    });
-</script>
-
-<script>
-    $('document').ready(function() {
-        $('.ChangeQtys').keyup(function() {
-
-            var qtyReq = $(this).val();
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
-            var putQty = parseFloat($('#putQty').val());
-            var putPrice = parseFloat($('#putPrice').val());
-
-            if (qtyReq == '') {} else if (qtyReq > putQty) {
-                alert("Your Request Is Over Budget");
-            } else {
-                var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
-                var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                $('#arfListTotal').html(totalReq);
-            }
-
-        });
-    });
-</script>
-
-<script>
-    var x = 1; //initlal text box count
+    var x = 1, y = 0; //initlal text box count
 
     $('#buttonArfList').click(function () {
 
         $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
-
+        $("#detailArfList").show();
         var datas = [];
 
         for(var i=1; i<=x; i++){
@@ -246,12 +178,13 @@
                 putWorkName: $('#putWorkName').val(),
                 putProductId: $('#putProductId').val(),
                 putProductName: $('#putProductName').val(),
-                putQty: $('#putQty').val(),
+                putQty: $('#qtyCek').val(),
+                putUom: $('#putUom').val(),
                 putPrice: $('#putPrice').val(),
                 putCurrency: $('#putCurrency').val(),
                 totalArfDetails: $('#totalArfDetails').val(),
                 putRemark: $('#putRemark').val(),
-                filenames: $('#filenames_' + i ).val()
+                filenames: $('#filenames_' + i ).val(),
             }
             datas.push(data);
         }
@@ -268,22 +201,17 @@
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
-            , success: function(response){
-                console.log(response[0]);
-                // if(response.code === "success") {
-                //     alert("Insert Successfull");
-                // }
-                // else if(response.code === "error"){
-                //     $('#ajax-alert').addClass('alert-danger').show(function(){
-                //         $(this).html(response.success);
-                //     });
-                //     $('#mdl_Detail').modal('hide');
-                //     table.ajax.reload();
-
-                // }
+            , success: function(data){
+                Swal.fire("Success !", "Data Berhasil Ditambahkan", "success");
+                console.log(data);
+                y++;
+                $.each(data, function (key, val) {
+                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');                    
+                });
+                
             }, 
-            error: function(data) { 
-                alert ('Insert Failed');
+            error: function(data) {
+                Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
             } 
         });
 
@@ -321,4 +249,118 @@
     })
 
 
+</script>
+
+
+
+<script>
+    // var y = 1; //initlal text box count
+
+    $('#saveArfList').click(function () {
+        var datax = [];
+        for(var i=1; i<=y; i++){
+            var data = {
+                lastWorkId: $('#lastWorkId_' + i ).html(),
+                lastWorkName: $('#lastWorkName_' + i ).html(),
+                lastProductId: $('#lastProductId_' + i ).html(),
+                lastProductName: $('#lastProductName_' + i ).html(),
+                lastQty: $('#lastQty_' + i ).val(),
+                lastUom: $('#lastUom_' + i ).html(),
+                lastPrice: $('#lastPrice_' + i ).html(),
+                totalArfDetails: $('#totalArfDetails_' + i ).html(),
+                lastCurrency: $('#lastCurrency_' + i ).html(),
+                lastRemark: $('#lastRemark_' + i ).html(),
+                
+            }
+            datax.push(data);
+        }
+
+        var json_object = JSON.stringify(datax);
+        console.log(json_object);
+
+        $.ajax({                        
+            type: "POST",
+            url: '{{route('ARF.tests')}}',
+            data: json_object,
+            contentType: "application/json",
+            processData: true,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+            , success: function(data){
+                console.log(data);
+            }, 
+            error: function(data) {
+                Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
+            } 
+        });
+    });
+</script>
+
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQty').keyup(function() {
+            
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($('#putQty').val());
+            var putPrice = parseFloat($('#putPrice').val());
+            var total = parseFloat(putQty * putPrice);
+            var total2 = parseFloat(qtyReq * putPrice);
+
+            if (qtyReq == '') {
+                $("#buttonArfList").prop("disabled", true);
+            } else if (total2 > total) {
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $("#buttonArfList").prop("disabled", true);
+            } else {
+                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#totalArfDetails').val(totalReq);
+                $("#buttonArfList").prop("disabled", false);
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQtys').keyup(function() {
+            console.log('hello');
+            
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($("#putQtybyId").val());
+            var putPrice = parseFloat($('#arfListPrice').html());
+            var total = parseFloat(putQty * putPrice);
+            var total2 = parseFloat(qtyReq * putPrice);
+
+            if (qtyReq == '') {
+                $("#buttonArfList").prop("disabled", true);
+                $("#saveArfList").prop("disabled", true);
+            } else if (total2 > total) {
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $("#saveArfList").prop("disabled", true);
+            } else {
+                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#arfListTotal').html(totalReq);
+                $("#saveArfList").prop("disabled", false);
+            }
+
+        });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("body").on("click", ".remove-attachment", function() {
+            $(this).parents("#control-group").remove();
+        });
+    });
 </script>

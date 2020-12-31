@@ -171,6 +171,7 @@
                                 <td><label>Qty</label></td>
                                 <td>
                                   <input name="qty" id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" value="0" autocomplete="off">
+                                  <span id="putQtybyId"></span>
                                   <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                                 </td>
                                 <td>
@@ -251,47 +252,48 @@
                             <i class="fa fa-plus" aria-hidden="true">Add to ARF List(Cart)</i>
                           </button>
                         </div>
-                    </form>
-                  </div>
-                </div>
-            </div>
+        </form>
+      </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+
+<form method="post" action="" enctype="multipart/form-data">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <label class="card-title">
+            ARF List (Cart)
+          </label>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+            </button>
           </div>
         </div>
-      </div>
 
-      <form method="post" action="" enctype="multipart/form-data">
-        <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <label class="card-title">
-                  ARF List (Cart)
-                </label>
-                <div class="card-tools">
-                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                  </button>
-                </div>
-              </div>
-
-              <div class="card-body table-responsive p-0" id="detailArfList">
-                <table class="table table-head-fixed text-nowrap">
-                  <thead>
-                    <tr>
-                      <th>Delete</th>
-                      <th>Work Id</th>
-                      <th>Work Name</th>
-                      <th>Product Id</th>
-                      <th>Product Name</th>
-                      <th>Qty</th>
-                      <th>Uom</th>
-                      <th>Price</th>
-                      <th>Total</th>
-                      <th>Currency</th>
-                      <th>Remark</th>
-                    </tr>
-                  </thead>
-                  <tbody id="removeArfList">
+        <div class="card-body table-responsive p-0" id="detailArfList">
+          <table class="table table-head-fixed text-nowrap">
+            <thead>
+              <tr>
+                <th>Delete</th>
+                <th>Work Id</th>
+                <th>Work Name</th>
+                <th>Product Id</th>
+                <th>Product Name</th>
+                <th>Qty</th>
+                <th>Uom</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Currency</th>
+                <th>Remark</th>
+              </tr>
+            </thead>
+            <tbody id="tableArfListCart"></tbody>
+            <!-- <tbody id="removeArfList">
                     <tr>
                       <td>
                         <center><button type="button" class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-arf-list" id="removeButton"><i class="fa fa-trash"></i></button></center>
@@ -308,22 +310,22 @@
                       <td contenteditable="false" id="arfListRemark"></td>
                     </tr>
 
-                  </tbody>
-                </table>
-                <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline-danger btn-sm float-right remove-arf-list" title="Cancel">
-                  <i class="fa fa-times" aria-hidden="true">Cancel ARF List(Cart)</i>
-                </a>
-                <button type="submit" class="btn btn-outline-success btn-sm float-right" style="margin-right:5px;" title="Add to ARF List(Cart)">
-                  <i class="fas fa-save" aria-hidden="true">Save ARF List(Cart)</i>
-                </button>
-              </div>
-            </div>
-
-          </div>
+                  </tbody> -->
+          </table>
         </div>
-      </form>
+      </div>
+      <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline-danger btn-sm float-right remove-arf-list" title="Cancel">
+        <i class="fa fa-times" aria-hidden="true">Cancel ARF List(Cart)</i>
+      </a>
+      <a class="btn btn-outline-success btn-sm float-right" id="saveArfList" style="margin-right:5px;" title="Add to ARF List(Cart)">
+        <i class="fas fa-save" aria-hidden="true" style="color:green;">Save ARF List(Cart)</i>
+      </a>
+
     </div>
   </div>
+</form>
+</div>
+</div>
 </div>
 </section>
 </div>

@@ -104,7 +104,7 @@
                                   <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
                                   <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                  </div>
+                                  </div>  
                                 </div>
                               </div>
                             </td>
