@@ -78,24 +78,21 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'Request has expired']));
                     }
                 //--->---> Check Content Integrity
-                if(strcmp($varHTTPHeader['content-md5'], base64_encode(md5(json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), false))) != 0)
+                if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
                     {
+                    
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
-                    }                      
-                    
-//throw new \Exception(implode($varDataSeparatorTag,
-  //  [403, json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)) ]));
 /*
-throw new \Exception(implode($varDataSeparatorTag, 
-    [403, ((new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTU5ODg1NTQzOH0.DFZ1Qodt1ivT2PEY-0l9I1Am7Clh5EP_eZEMXcyA4Cw'))                 ]));
-*/                    
-//                ;
-/*                    
-throw new \Exception(implode($varDataSeparatorTag, 
-    [403, (new \App\Models\Cache\General\APIWebToken())->getDataTTL($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1])                 ]));
-*/                
-                
+                    throw new \Exception(implode($varDataSeparatorTag,
+                        [403, 'Content integrity is invalid ---> '.  
+                            $varHTTPHeader['content-md5']. '---> '.
+                            \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))) .'---> '.
+                            \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)) .'--->'.
+                            base64_encode(md5('{"metadata":{"API":{"key":"transaction.create.master.setBloodAglutinogenType","version":"latest"}},"data":{"entities":{"type":null}}}'))
+                            ]));
+*/                            
+                    }                
                 $varReturn = $varObjNext($varObjRequest);
                 } 
             catch (\Exception $ex) {

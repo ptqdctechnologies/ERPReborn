@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7f8b229f364d98e5df8b7a483d44442cdeec42e1',
+    'reference' => '038a70d1da6236db6d0e3371ebe50d9d72fb0bb8',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.171.7',
-      'version' => '3.171.7.0',
+      'pretty_version' => '3.171.9',
+      'version' => '3.171.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6c32f57bc381b46c783f70a20060fde1a95f4ab5',
+      'reference' => '687cff8a0aa0ed3fd71eb4ef3f8d2b39136949d0',
     ),
     'brick/math' => 
     array (
@@ -112,12 +112,12 @@ private static $installed = array (
     ),
     'egulias/email-validator' => 
     array (
-      'pretty_version' => '2.1.24',
-      'version' => '2.1.24.0',
+      'pretty_version' => '2.1.25',
+      'version' => '2.1.25.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ca90a3291eee1538cd48ff25163240695bd95448',
+      'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
     ),
     'facade/flare-client-php' => 
     array (
@@ -130,12 +130,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.5.5',
-      'version' => '2.5.5.0',
+      'pretty_version' => '2.5.8',
+      'version' => '2.5.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2b6fd8b7b630e5c6a04440f7ed358e8753229509',
+      'reference' => '8e907d81244649c5ea746e2ec30c32c5f59df472',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7f8b229f364d98e5df8b7a483d44442cdeec42e1',
+      'reference' => '038a70d1da6236db6d0e3371ebe50d9d72fb0bb8',
     ),
     'laravel/tinker' => 
     array (
