@@ -133,6 +133,7 @@ Route::get('showLogError', function () {
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIAuthentication_sendAuthRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIAuthentication_SendAuthRequest', 'webWithoutCSRF');
 
+
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : authentication.general....                                                                                       |
