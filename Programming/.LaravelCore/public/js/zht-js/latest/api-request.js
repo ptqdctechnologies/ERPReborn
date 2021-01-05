@@ -185,9 +185,9 @@ class zht_JSAPIRequest
 | ▪ Category    : JavaScript Class                                                                                                 |
 |                                                                                                                                  |
 | ▪ Class Name  : zht_JSAPIRequest_Authentication                                                                                  |
-| ▪ Description : Menangani Library API Request Gateway                                                                            |
+| ▪ Description : Menangani Library API Request Authentication                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
@@ -196,6 +196,7 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
         {
         super();
         var varReturn = this.main(varURL, varDataJSObject);
+        this.value = varReturn;
         }
 
     /*
@@ -221,19 +222,24 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
                 {
                 //---> Replace Empty With Null value
                 var varDataJSON = this.setJSONWithEmptyValueToNullReplacement({
+                    "metadata" : {
+                        "API" : {
+                            "version" : "latest"
+                            }
+                        },
                     "data" : varDataJSObject
                     });
+                //alert(varDataJSON);
                 //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 
                     type : "POST",
                     headers : {
-//                        'Authorization' : this.getJSONWebTokens(varAPIWebToken),
                         'User-Agent' : this.getUserAgent(),
                         'Agent-DateTime' : this.getAgentDateTime(),
                         'Expires' : this.getAgentDateTime((10*60)),
                         'Content-MD5' : this.getBase64OfMD5(varDataJSON),
-//                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL)
+                        'X-Request-ID' : this.getXRequestID('', varURL)
                         },
                     data : varDataJSON,
                     contentType : "application/json",
@@ -328,6 +334,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
+                //alert(varDataJSON);
                 //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 
