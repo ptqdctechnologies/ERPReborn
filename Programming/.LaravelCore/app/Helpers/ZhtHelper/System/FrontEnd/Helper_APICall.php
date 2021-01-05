@@ -128,6 +128,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_AUTH').'", '.
                                     $varData.
                                     '); '.
+//                                'alert(JSON.stringify('.$varData.')); '.
                                 '} '.
                             'catch(varError) '.
                                 '{ '.
@@ -135,81 +136,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 '} '.
                             'return varReturn.value; '.
                             '}()';
-
-                    
-                    
-                    
-                    
-/*                    $varDataArray = [
-                        'metadata' => [
-                            'API' => [
-                                'version' => 'latest'
-                                ]
-                            ],
-                        'data' => $varData
-                        ];
-                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
-                        $varDataArray
-                        );
-dd($varDataArray);
-
-                    if($varResponseData['metadata']['HTTPStatusCode']==200)
-                        {
-                        $varReturn = $varResponseData;
-                        }
-                    else
-                        {
-                        $varRequesterSegment = (request()->segments())[0];
-//dd($varRequesterSegment);
-                        //---> Jika Requester berasal dari Authentication JQuery
-                        if(strcmp($varRequesterSegment, "APIAuthenticationJQuery_setLogin") == 0)
-                            {
-                            $varReturn = $varResponseData;
-                            }
-                        //---> Jika Requester berasal dari Gateway PHP
-                        else
-                            {
-                            echo $varResponseData['data']['message'];
-                            die();
-                            }                        
-                        }
-*/
-                        
-/*
-                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_JQuery::setSyntaxFunc_AJAX_Post_JSON(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
-                        json_encode($varDataArray),
-                        [
-                        'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
-                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
-                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
-                            $varDataArray
-                            )),                           
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
-                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
-                            ]
-                        );
-*/
-/*                    
-                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
-                        $varDataArray
-                        );
-                    if($varResponseData['metadata']['HTTPStatusCode']==200)
-                        {
-                        $varReturn = $varResponseData;
-                        }
-                    else
-                        {
-                        echo $varResponseData['data']['message'];
-                        die();
-                        }*/
-
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
