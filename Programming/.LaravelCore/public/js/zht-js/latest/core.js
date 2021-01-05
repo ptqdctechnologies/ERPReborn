@@ -2,13 +2,13 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : JavaScript Class                                                                                                 |
 |                                                                                                                                  |
-| ▪ Class Name  : ERPReborn_JSCore                                                                                                 |
+| ▪ Class Name  : zht_JSCore                                                                                                       |
 | ▪ Description : Menangani Library Utama ERP Reborn                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-class ERPReborn_JSCore
+class zht_JSCore
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -128,7 +128,7 @@ class ERPReborn_JSCore
         this.setJSSource_Specific("js/jQuery/jquery.min.js");
         this.setJSSource_Specific("js/crypto-js/core.min.js");
         this.setJSSource_Specific("js/crypto-js/md5.js");
-        this.setJSSource_Specific("js/ERPReborn-js/api-request.js");
+        this.setJSSource_Specific("js/zht-js/api-request.js");
         }
     }
 

@@ -264,7 +264,7 @@ namespace App\Helpers\ZhtHelper\General
             }
             
             
-            
+/*            
             
             
             
@@ -293,7 +293,7 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-
+*/
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -312,8 +312,8 @@ namespace App\Helpers\ZhtHelper\General
         public static function setLibrary($varUserSession)
             {
             $varReturn = 
-                '<script src = "js/ERPReborn-js/core.js" type="text/javascript"></script>'.
-                '<script>new ERPReborn_JSCore();</script>'.
+                '<script src = "js/zht-js/core.js" type="text/javascript"></script>'.
+                '<script>new zht_JSCore();</script>'.
                 '';
             return $varReturn;
             }
