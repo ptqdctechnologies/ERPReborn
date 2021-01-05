@@ -229,8 +229,8 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
-                //---> Request Parse
                 //alert(varDataJSON);
+                //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 
                     type : "POST",
@@ -334,6 +334,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
+                //alert(varDataJSON);
                 //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 

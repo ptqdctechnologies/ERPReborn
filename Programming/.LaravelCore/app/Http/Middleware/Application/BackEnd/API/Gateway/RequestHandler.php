@@ -80,18 +80,22 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                 //--->---> Check Content Integrity
                 if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
                     {
-                    
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
-/*
-                    throw new \Exception(implode($varDataSeparatorTag,
+                   
+/*                    throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.  
-                            $varHTTPHeader['content-md5']. '---> '.
-                            \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))) .'---> '.
-                            \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)) .'--->'.
-                            base64_encode(md5('{"metadata":{"API":{"key":"transaction.create.master.setBloodAglutinogenType","version":"latest"}},"data":{"entities":{"type":null}}}'))
-                            ]));
-*/                            
+                            "<br>HTTP MD5 Header : ".$varHTTPHeader['content-md5'].
+                            "<br>Data Load : ".\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)).
+                                                       
+                            "<br><br>".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))) .'<br><br>---> '.
+                            base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) .'--->'.
+                            //base64_encode(md5('{"metadata":{"API":{"key":"transaction.create.master.setBloodAglutinogenType","version":"latest"}},"data":{"entities":{"type":null}}}'))
+                            //base64_encode(md5('{"metadata":{"API":{"key":"environment.general.session.getData","version":"latest"}},"data":{}}'))
+                            base64_encode(md5('{"metadata":{"API":{"key":"environment.general.session.getData","version":"latest"}},"data":{}}'))
+//                                              '{"metadata":{"API":{"key":"environment.general.session.getData","version":"latest"}},"data":[]}'
+                            ]));*/
+                            
                     }                
                 $varReturn = $varObjNext($varObjRequest);
                 } 
