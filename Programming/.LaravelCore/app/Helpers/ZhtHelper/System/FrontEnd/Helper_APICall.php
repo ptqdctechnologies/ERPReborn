@@ -107,7 +107,127 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIAuthenticationJQuery($varUserSession, string $varUserName, string $varUserPassword)
+        public static function setCallAPIAuthenticationJQuery($varUserSession, string $varData=null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Authentication API');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(!$varData)
+                        {
+                        $varData = '{}';
+                        }
+                    $varReturn = 
+                        'function() '.
+                            '{ '.
+                            'varReturn = null; '.
+                            'try '.
+                                '{ '.
+                                'varReturn = new zht_JSAPIRequest_Authentication('.
+                                    '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_AUTH').'", '.
+                                    $varData.
+                                    '); '.
+                                '} '.
+                            'catch(varError) '.
+                                '{ '.
+                                'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
+                                '} '.
+                            'return varReturn.value; '.
+                            '}()';
+
+                    
+                    
+                    
+                    
+/*                    $varDataArray = [
+                        'metadata' => [
+                            'API' => [
+                                'version' => 'latest'
+                                ]
+                            ],
+                        'data' => $varData
+                        ];
+                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
+                        $varDataArray
+                        );
+dd($varDataArray);
+
+                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                        {
+                        $varReturn = $varResponseData;
+                        }
+                    else
+                        {
+                        $varRequesterSegment = (request()->segments())[0];
+//dd($varRequesterSegment);
+                        //---> Jika Requester berasal dari Authentication JQuery
+                        if(strcmp($varRequesterSegment, "APIAuthenticationJQuery_setLogin") == 0)
+                            {
+                            $varReturn = $varResponseData;
+                            }
+                        //---> Jika Requester berasal dari Gateway PHP
+                        else
+                            {
+                            echo $varResponseData['data']['message'];
+                            die();
+                            }                        
+                        }
+*/
+                        
+/*
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_JQuery::setSyntaxFunc_AJAX_Post_JSON(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
+                        json_encode($varDataArray),
+                        [
+                        'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
+                        'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
+                        'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
+                        'Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+                            $varDataArray
+                            )),                           
+                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+                        'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
+                            ]
+                        );
+*/
+/*                    
+                    $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),
+                        $varDataArray
+                        );
+                    if($varResponseData['metadata']['HTTPStatusCode']==200)
+                        {
+                        $varReturn = $varResponseData;
+                        }
+                    else
+                        {
+                        echo $varResponseData['data']['message'];
+                        die();
+                        }*/
+
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+            
+            
+            
+            
+        public static function setCallAPIAuthenticationJQueryOLD($varUserSession, string $varUserName, string $varUserPassword)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -261,10 +381,25 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
-
             
-            
-            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-04                                                                                           |
+        | ▪ Description     : Memanggil API Gateway melalui JQuery                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
+        |      ▪ (string) varData ► Data Array (Non JSON Object agar bisa mereferensi kepada objek DOM)                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
@@ -290,7 +425,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'varReturn = null; '.
                             'try '.
                                 '{ '.
-                                'varReturn = new ERPReborn_JSAPIRequest('.
+                                'varReturn = new zht_JSAPIRequest_Gateway('.
                                     '"'.$varAPIWebToken.'", '.
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
                                     '"'.$varAPIKey.'", '.
@@ -318,11 +453,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             }
             
             
-            
-            
-            
-            
-            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
@@ -341,7 +471,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGatewayJQueryOLD($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
+/*        public static function setCallAPIGatewayJQueryOLD($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -380,17 +510,18 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             $varData.
                             '}'.
                         '}',
- /*                       json_encode([
-                            'metadata' => [
-                                'API' => [
-                                    'key' => $varAPIKey,
-                                    'version' => $varAPIVersion
-                                    ]
-                                ],
-                            'data' => $varData
-                            //'_token' => \App\Helpers\ZhtHelper\System\Helper_Environment::getCSRFToken($varUserSession)
-                            ]),
-*/                             
+//
+//                       json_encode([
+//                            'metadata' => [
+//                                'API' => [
+//                                    'key' => $varAPIKey,
+//                                    'version' => $varAPIVersion
+//                                    ]
+//                                ],
+//                            'data' => $varData
+//                            //'_token' => \App\Helpers\ZhtHelper\System\Helper_Environment::getCSRFToken($varUserSession)
+//                            ]),
+//                             
                             
                             
                         [
@@ -416,6 +547,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+*/
         }
     }
 

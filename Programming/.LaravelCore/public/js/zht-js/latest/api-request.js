@@ -2,14 +2,14 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : JavaScript Class                                                                                                 |
 |                                                                                                                                  |
-| ▪ Class Name  : ERPReborn_JSAPIRequest                                                                                           |
+| ▪ Class Name  : zht_JSAPIRequest                                                                                                 |
 | ▪ Description : Menangani Library API Request                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-class ERPReborn_JSAPIRequest
+class zht_JSAPIRequest
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
@@ -25,94 +25,11 @@ class ERPReborn_JSAPIRequest
     |      ▪ (void)                                                                                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    //constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    constructor()
         {
-        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject);
-        this.value = varReturn;
-        }
-
-
-    /*
-    +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Method Name     : main                                                                                                     |
-    +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Version         : 1.0000.0000000                                                                                           |
-    | ▪ Last Update     : 2020-12-31                                                                                               |
-    | ▪ Description     : Fungsi Utama                                                                                             |
-    +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Input Variable  :                                                                                                          |
-    |      ▪ varAPIWebToken ► API Web Token                                                                                        |
-    |      ▪ varURL ► URL API Gateway                                                                                              |
-    |      ▪ varAPIKey ► API Key                                                                                                   |
-    |      ▪ varAPIVersion ► API Version                                                                                           |
-    |      ▪ varDataJSObject ► Data JS Object                                                                                      |
-    | ▪ Output Variable :                                                                                                          |
-    |      ▪ varReturn ► Return Value (JSON)                                                                                       |
-    +------------------------------------------------------------------------------------------------------------------------------+
-    */
-    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
-        {
-        var varReturn = null;
-        if (window.jQuery) {
-            try
-                {
-                //---> Replace Empty With Null value
-                var varDataJSON = this.setJSONWithEmptyValueToNullReplacement({
-                    "metadata" : {
-                        "API" : {
-                            "key" : varAPIKey,
-                            "version" : varAPIVersion
-                            }
-                        },
-                    "data" : varDataJSObject
-                    });
-                //---> Request Parse
-                $.ajax(varURL, {
-                    async : false, 
-                    type : "POST",
-                    headers : {
-                        'Authorization' : this.getJSONWebTokens(varAPIWebToken),
-                        'User-Agent' : this.getUserAgent(),
-                        'Agent-DateTime' : this.getAgentDateTime(),
-                        'Expires' : this.getAgentDateTime((10*60)),
-                        'Content-MD5' : this.getBase64OfMD5(varDataJSON),
-                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL)
-                        },
-                    data : varDataJSON,
-                    contentType : "application/json",
-                    success : function(varDataResponse, varTextStatus, varObjXHR)
-                        {
-                        //'$("body").append(JSON.stringify(varObjXHR)); '.
-                        //'$("body").append(JSON.stringify(varTextStatus)); '.
-                        //'$("body").append(JSON.stringify(varDataResponse)); '.
-                        //'alert("Success"); '.
-                        //'varAJAXReturn = "Success"; '.
-                        varReturn = JSON.stringify(varDataResponse);
-                        },
-                    error : function(varDataResponse, varTextStatus)
-                        {
-                        //'varStatusCode = varDataResponse.status; '.
-                        //'varStatusText = varDataResponse.statusText; '.
-                        //'varContent = varDataResponse.responseText; '.
-                        //'varReadyState = varDataResponse.readyState; '.
-                        //'$("body").append(JSON.stringify(varDataResponse)); '.
-                        //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
-                        //'varAJAXReturn = "Failed"; '.
-                        varReturn = JSON.stringify(varDataResponse);
-                        }
-                    });
-                //alert(varReturn);
-                //$("body").append(JSON.stringify(varReturn));
-                return varReturn;
-                }
-            catch(varError) {
-                alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
-                }
-            }
-        else {
-            alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript::setLibrary($varUserSession)");
-            }
-        return varReturn;
+        //var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject);
+        //this.value = varReturn;
         }
 
 
@@ -260,4 +177,203 @@ class ERPReborn_JSAPIRequest
         return varReturn;
         }
 
+    }
+
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category    : JavaScript Class                                                                                                 |
+|                                                                                                                                  |
+| ▪ Class Name  : zht_JSAPIRequest_Authentication                                                                                  |
+| ▪ Description : Menangani Library API Request Gateway                                                                            |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
+    {
+    constructor(varURL, varDataJSObject)
+        {
+        super();
+        var varReturn = this.main(varURL, varDataJSObject);
+        }
+
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Method Name     : main                                                                                                     |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Version         : 1.0000.0000000                                                                                           |
+    | ▪ Last Update     : 2020-12-31                                                                                               |
+    | ▪ Description     : Fungsi Utama                                                                                             |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Input Variable  :                                                                                                          |
+    |      ▪ varURL ► URL API Gateway                                                                                              |
+    |      ▪ varDataJSObject ► Data JS Object                                                                                      |
+    | ▪ Output Variable :                                                                                                          |
+    |      ▪ varReturn ► Return Value (JSON)                                                                                       |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
+    main(varURL, varDataJSObject)
+        {
+        var varReturn = null;
+        if (window.jQuery) {
+            try
+                {
+                //---> Replace Empty With Null value
+                var varDataJSON = this.setJSONWithEmptyValueToNullReplacement({
+                    "data" : varDataJSObject
+                    });
+                //---> Request Parse
+                $.ajax(varURL, {
+                    async : false, 
+                    type : "POST",
+                    headers : {
+//                        'Authorization' : this.getJSONWebTokens(varAPIWebToken),
+                        'User-Agent' : this.getUserAgent(),
+                        'Agent-DateTime' : this.getAgentDateTime(),
+                        'Expires' : this.getAgentDateTime((10*60)),
+                        'Content-MD5' : this.getBase64OfMD5(varDataJSON),
+//                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL)
+                        },
+                    data : varDataJSON,
+                    contentType : "application/json",
+                    success : function(varDataResponse, varTextStatus, varObjXHR)
+                        {
+                        //'$("body").append(JSON.stringify(varObjXHR)); '.
+                        //'$("body").append(JSON.stringify(varTextStatus)); '.
+                        //'$("body").append(JSON.stringify(varDataResponse)); '.
+                        //'alert("Success"); '.
+                        //'varAJAXReturn = "Success"; '.
+                        varReturn = JSON.stringify(varDataResponse);
+                        },
+                    error : function(varDataResponse, varTextStatus)
+                        {
+                        //'varStatusCode = varDataResponse.status; '.
+                        //'varStatusText = varDataResponse.statusText; '.
+                        //'varContent = varDataResponse.responseText; '.
+                        //'varReadyState = varDataResponse.readyState; '.
+                        //'$("body").append(JSON.stringify(varDataResponse)); '.
+                        //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
+                        //'varAJAXReturn = "Failed"; '.
+                        varReturn = JSON.stringify(varDataResponse);
+                        }
+                    });
+                //alert(varReturn);
+                //$("body").append(JSON.stringify(varReturn));
+                return varReturn;
+                }
+            catch(varError) {
+                alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
+                }
+            }
+        else {
+            alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript::setLibrary($varUserSession)");
+            }
+        return varReturn;
+        }
+    }
+
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| ▪ Category    : JavaScript Class                                                                                                 |
+|                                                                                                                                  |
+| ▪ Class Name  : zht_JSAPIRequest_Gateway                                                                                         |
+| ▪ Description : Menangani Library API Request Gateway                                                                            |
+|                                                                                                                                  |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
+    {
+    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+        {
+        super();
+        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject);
+        this.value = varReturn;
+        }
+
+
+    /*
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Method Name     : main                                                                                                     |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Version         : 1.0000.0000000                                                                                           |
+    | ▪ Last Update     : 2020-12-31                                                                                               |
+    | ▪ Description     : Fungsi Utama                                                                                             |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    | ▪ Input Variable  :                                                                                                          |
+    |      ▪ varAPIWebToken ► API Web Token                                                                                        |
+    |      ▪ varURL ► URL API Gateway                                                                                              |
+    |      ▪ varAPIKey ► API Key                                                                                                   |
+    |      ▪ varAPIVersion ► API Version                                                                                           |
+    |      ▪ varDataJSObject ► Data JS Object                                                                                      |
+    | ▪ Output Variable :                                                                                                          |
+    |      ▪ varReturn ► Return Value (JSON)                                                                                       |
+    +------------------------------------------------------------------------------------------------------------------------------+
+    */
+    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+        {
+        var varReturn = null;
+        if (window.jQuery) {
+            try
+                {
+                //---> Replace Empty With Null value
+                var varDataJSON = this.setJSONWithEmptyValueToNullReplacement({
+                    "metadata" : {
+                        "API" : {
+                            "key" : varAPIKey,
+                            "version" : varAPIVersion
+                            }
+                        },
+                    "data" : varDataJSObject
+                    });
+                //---> Request Parse
+                $.ajax(varURL, {
+                    async : false, 
+                    type : "POST",
+                    headers : {
+                        'Authorization' : this.getJSONWebTokens(varAPIWebToken),
+                        'User-Agent' : this.getUserAgent(),
+                        'Agent-DateTime' : this.getAgentDateTime(),
+                        'Expires' : this.getAgentDateTime((10*60)),
+                        'Content-MD5' : this.getBase64OfMD5(varDataJSON),
+                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL)
+                        },
+                    data : varDataJSON,
+                    contentType : "application/json",
+                    success : function(varDataResponse, varTextStatus, varObjXHR)
+                        {
+                        //'$("body").append(JSON.stringify(varObjXHR)); '.
+                        //'$("body").append(JSON.stringify(varTextStatus)); '.
+                        //'$("body").append(JSON.stringify(varDataResponse)); '.
+                        //'alert("Success"); '.
+                        //'varAJAXReturn = "Success"; '.
+                        varReturn = JSON.stringify(varDataResponse);
+                        },
+                    error : function(varDataResponse, varTextStatus)
+                        {
+                        //'varStatusCode = varDataResponse.status; '.
+                        //'varStatusText = varDataResponse.statusText; '.
+                        //'varContent = varDataResponse.responseText; '.
+                        //'varReadyState = varDataResponse.readyState; '.
+                        //'$("body").append(JSON.stringify(varDataResponse)); '.
+                        //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
+                        //'varAJAXReturn = "Failed"; '.
+                        varReturn = JSON.stringify(varDataResponse);
+                        }
+                    });
+                //alert(varReturn);
+                //$("body").append(JSON.stringify(varReturn));
+                return varReturn;
+                }
+            catch(varError) {
+                alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
+                }
+            }
+        else {
+            alert("jQuery is not yet loaded\nPlease initialize jQuery first by using Helper Object :\n\n\\App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript::setLibrary($varUserSession)");
+            }
+        return varReturn;
+        }
     }
