@@ -1,7 +1,7 @@
 <!--|-----------------------------------------------------------|
     |                          Extends                          |
     |-----------------------------------------------------------|-->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,11 +27,9 @@
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
-    <!-- sweetalert -->
-    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
-
-
     <!-- EDITABLE -->
+
+
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -83,9 +81,6 @@
 <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
-<!-- sweetalert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 <script>
     //Bootstrap Duallistbox
     $('.duallistbox').bootstrapDualListbox()
@@ -119,6 +114,20 @@
 <!-- ARF -->
 
 
+
+<!-- ASF -->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".fileInputMultiAsf").click(function() {
+            var html = $(".clone").html();
+            $(".increment").after(html);
+        });
+
+        $("body").on("click", ".remove-attachment", function() {
+            $(this).parents(".control-group").remove();
+        });
+    });
+</script>
 
 <!-- VALIDATION -->
 
