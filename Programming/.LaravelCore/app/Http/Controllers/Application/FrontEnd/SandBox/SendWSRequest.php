@@ -184,25 +184,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
             dd($varJQueryFunction);
-
-/*            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwOTk4OTg5Mn0.p2BetV3fRrWY2NgCOPDnKHUuvvU6ajA-IdvuTcBkoIQ';
-            $varBranchID = 11000000000004;
-            $varUserRoleID = 95000000000007;
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JQuery::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'authentication.general.setLoginBranchAndUserRole', 
-                'latest', 
-                [
-                    'branchID' => $varBranchID,
-                    'userRoleID' => $varUserRoleID
-                ]
-                );          
-            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";*/
             }
+
 
 
         /*--------------------*/
@@ -229,17 +212,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYwOTk4OTg5Mn0.p2BetV3fRrWY2NgCOPDnKHUuvvU6ajA-IdvuTcBkoIQ';
             //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JQuery::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'authentication.general.setLogout', 
                 'latest', 
-                [
-                ]
-                );          
-            echo "<button type='button' onclick='javascript:var varData=".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+                '{'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
             }
+
+
 
         /*--------------------*/
         /* API Stage : Stable */
@@ -286,6 +272,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
             dd($varJQueryFunction);
             }
+
 
 
         /*--------------------*/
