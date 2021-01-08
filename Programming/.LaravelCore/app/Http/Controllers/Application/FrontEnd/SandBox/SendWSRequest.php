@@ -404,6 +404,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGatewayJQuery_setDataCreateDayOffNational()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDA3NjUxMn0.L9L1JhfLO9rlHYrnaliL0tVJ7Xjk9cjbUig1NboYvKo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
+            echo '<input type="text" id="dataInput_Name" value="Tahun Baru 2021">';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2021-01-01">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2021-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setDayOffNational', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"validStartDate" : document.getElementById("dataInput_ValidStartDate").value, '.
+                        '"validFinishDate" : document.getElementById("dataInput_ValidFinishDate").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
 
 
         /*--------------------*/
@@ -430,6 +461,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGatewayJQuery_setDataCreateGoodsModel()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDA3NjUxMn0.L9L1JhfLO9rlHYrnaliL0tVJ7Xjk9cjbUig1NboYvKo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_TradeMark_RefID" value=15000000000001>';
+            echo '<input type="text" id="dataInput_GoodsType_RefID" value=102000000000001>';
+            echo '<input type="text" id="dataInput_ModelName" value="New Model Name">';
+            echo '<input type="text" id="dataInput_ModelNumber" value="New Model Number">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setGoodsModel', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"tradeMark_RefID" : parseInt(document.getElementById("dataInput_TradeMark_RefID").value), '.
+                        '"goodsType_RefID" : parseInt(document.getElementById("dataInput_GoodsType_RefID").value), '.
+                        '"modelName" : document.getElementById("dataInput_ModelName").value, '.
+                        '"modelNumber" : document.getElementById("dataInput_ModelNumber").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
 
 
         /*--------------------*/
