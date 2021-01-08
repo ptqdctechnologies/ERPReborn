@@ -347,6 +347,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGatewayJQuery_setDataCreateDayOffGovernmentPolicy()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDA3NjUxMn0.L9L1JhfLO9rlHYrnaliL0tVJ7Xjk9cjbUig1NboYvKo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
+            echo '<input type="text" id="dataInput_Name" value="Pilkada Nasional">';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2020-12-09">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2020-12-09">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setDayOffGovernmentPolicy', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"validStartDate" : document.getElementById("dataInput_ValidStartDate").value, '.
+                        '"validFinishDate" : document.getElementById("dataInput_ValidFinishDate").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
 
 
         /*--------------------*/
