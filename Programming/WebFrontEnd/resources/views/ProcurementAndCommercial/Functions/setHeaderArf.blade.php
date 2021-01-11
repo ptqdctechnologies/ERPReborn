@@ -22,7 +22,7 @@
                   <td><label>Origin Of Budget</label></td>
                   <td>
                     <div class="input-group">
-                      <select class="form-control select2bs4" style="width: 100%;" name="origin_budget">
+                      <select class="form-control select2bs4" style="width: 100%;" name="origin_budget" id="origin_budget">
                         <option selected="selected">Project</option>
                         <option>Overhead</option>
                         <option>Sales</option>

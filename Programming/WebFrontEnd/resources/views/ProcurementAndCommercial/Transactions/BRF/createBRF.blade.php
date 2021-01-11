@@ -104,7 +104,7 @@
                                   <input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
                                   <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                  </div>
+                                  </div>  
                                 </div>
                               </div>
                             </td>
@@ -113,9 +113,9 @@
                             <td><label>Date End Travel</label></td>
                             <td>
                               <div class="input-group">
-                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                  <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
-                                  <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                <div class="input-group date" id="endate" data-target-input="nearest">
+                                  <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" />
+                                  <div class="input-group-append" data-target="#endate" data-toggle="datetimepicker">
                                     <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                   </div>
                                 </div>
@@ -598,18 +598,38 @@
   });
 </script>
 
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".fileInputMultiArf").click(function() {
-      var html = $(".clone").html();
-      $(".increment").after(html);
+<script>
+    var x = 1; //initlal text box count        
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    $('.add_field_button').click(function () {
+            cek = 0;
+            addColomn();
     });
+    function addColomn(){ //on add input button click
+        if(cek == 0){
+            cek++;
+            x++; //text box increment
+            $(wrapper).append(
 
-    $("body").on("click", ".remove-attachment", function() {
-      $(this).parents(".clone-group").remove();
-    });
+                '<div class="col-md-12">'
+                +   '<div class="form-group">'
+                +       '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">'
+                +           '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">'
+                +           '<div class="input-group-btn">'
+                +               '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>'
+                +           '</div>'
+                +       '</div>'
+                +    '</div>'
+                +'</div>'
 
-  });
+            ); //add input box                
+        }                        
+    }
+
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent().parent().parent('div').remove(); x--;
+    })
+
 </script>
 
 @endsection

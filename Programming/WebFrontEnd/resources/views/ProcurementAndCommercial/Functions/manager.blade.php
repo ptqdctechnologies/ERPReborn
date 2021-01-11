@@ -42,11 +42,11 @@
                       <td>{{ $no++ }}</td>
                       <td>
                           <span class="tag tag-success">
-                              <p data-dismiss="modal" class="klikManagerArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                              <p data-dismiss="modal" class="klikManagerArf" data-id="Manager {{ $i }}" data-name="name {{ $i }}">Manager {{$i}}</p>
                           </span>
                       </td>
                       <td>
-                          <p>Detail {{$i}}</p>
+                          <p>Manager Name {{$i}}</p>
                       </td>
                   </tr>
                   @endfor
@@ -117,8 +117,8 @@
       var $this = $(this);
       var uid = $this.data("id");
       var name = $this.data("name");
-      $("#managerArfUid").val(uid);
-      $("#managerArfName").val(name);
+      $("#managerAsfUid").val(uid);
+      $("#managerAsfName").val(name);
     });
   });
 </script>

@@ -33,8 +33,8 @@
                 <table class="table table-head-fixed text-nowrap" id="financeArf">
                   <tr>
                     <th>No</th>
-                    <th>Manager Uid</th>
-                    <th>Manager Name</th>
+                    <th>Finance Uid</th>
+                    <th>Finance Name</th>
                   </tr>
                   @php $no=1; @endphp
                   @for($i = 1; $i < 20; $i++)
@@ -42,11 +42,11 @@
                       <td>{{ $no++ }}</td>
                       <td>
                           <span class="tag tag-success">
-                              <p data-dismiss="modal" class="klikFinanceArf" data-id="Approved {{ $i }}" data-name="name {{ $i }}">Approved {{$i}}</p>
+                              <p data-dismiss="modal" class="klikFinanceArf" data-id="Finance Staff Uid {{ $i }}" data-name="name {{ $i }}">Finance Staff Uid {{$i}}</p>
                           </span>
                       </td>
                       <td>
-                          <p>Detail {{$i}}</p>
+                          <p>Finance Staff Name {{$i}}</p>
                       </td>
                   </tr>
                   @endfor
