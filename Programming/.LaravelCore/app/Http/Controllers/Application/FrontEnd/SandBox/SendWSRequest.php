@@ -10,6 +10,67 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
+
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGateway_getDataDeviceSolutionX601()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDQxNDQ0OH0.JHE364dIld_m72ZZG_A2BwDiwY7bYTTNLb-Oj81la6g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.solution.x601.getAllData', 
+                'latest', 
+                [
+                'entities' => [
+                    'IPAddress' => '192.168.1.203',
+                    'port' => 4370, 
+                    'serialNumber' => 'AEYU202860040',
+                    'timeZoneOffset' => '+07',
+                    'startDateTime' => '2021-01-01'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        /*--------------------*/
+        /* API Stage : Stable */
+        /*--------------------*/
+        public function APIGatewayJQuery_getDataDeviceSolutionX601()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDQxNDQ0OH0.JHE364dIld_m72ZZG_A2BwDiwY7bYTTNLb-Oj81la6g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.203">';
+            echo '<input type="text" id="dataInput_Port" value=4370>';
+            echo '<input type="text" id="dataInput_SerialNumber" value="AEYU202860040">';
+            echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
+            echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.solution.x601.getAllData', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
+                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
+                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
+                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
+                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+
         /*--------------------*/
         /* API Stage : Stable */
         /*--------------------*/

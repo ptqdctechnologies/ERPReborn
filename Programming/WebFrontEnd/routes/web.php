@@ -585,6 +585,13 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUpdateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUpdateTradeMark', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateTradeMark', 'webWithoutCSRF');
 
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
+| Route for API : instruction.device.fingerprintAttendance.solution.x601....                                                       |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataDeviceSolutionX601', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataDeviceSolutionX601', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataDeviceSolutionX601', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataDeviceSolutionX601', 'webWithoutCSRF');
 
 
 

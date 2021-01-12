@@ -35,8 +35,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession=0;
             $x = new \SDK\Solution\FingerprintAttendance\x601\SDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-            $x->getData('2021-01-11');
+            $y = $x->getAllData('+07', '2021-01-11');
           
+            dd($y);
+            
+            
 //            $x = new \SDK\Goodwin\SwingGateBarrier\ServoSW01\SDK();
             
             }
