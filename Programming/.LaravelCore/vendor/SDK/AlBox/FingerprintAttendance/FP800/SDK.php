@@ -1,6 +1,6 @@
 <?php
 
-namespace SDK\Solution\FingerprintAttendance\x601
+namespace SDK\AlBox\FingerprintAttendance\FP800
     {
     class SDK //extends AbstractHasDispatcher implements ClientInterface
         {
@@ -30,7 +30,7 @@ namespace SDK\Solution\FingerprintAttendance\x601
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/SDK/Solution/FingerprintAttendance/x601';
+            $this->varSDKPath = getcwd().'/../vendor/SDK/AlBox/FingerprintAttendance/FP800';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
@@ -64,10 +64,27 @@ namespace SDK\Solution\FingerprintAttendance\x601
                     $varCutOffStartDateTime = '1970-01-01 00:00:00';
                     }
 
-                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $varTimeOutInSeconds);
-                $Key="0";
-                if($Connect) {
-                    $varSOAPRequest=
+//                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $varTimeOutInSeconds);
+                $Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $varTimeOutInSeconds);
+                //$Key="0";
+                //if($Connect) 
+                if($errno == 110) 
+                    {
+                    throw new \Exception("Connection Failed");
+                    }
+                else
+                    {
+                    require_once($this->varSDKPath.'/Original/am05zk.php');
+                    $ObjFP = new \am05zk($this->varHostIP, $this->varHostPort);
+                    if($ObjFP->connect())
+                        {
+                        $SN = $ObjFP->get_serial_number();
+                        $varAttendaceRecord = $ObjFP->get_attendance(true);
+                        var_dump($varAttendaceRecord);
+                        }
+                    
+                    echo "OK";
+/*                    $varSOAPRequest=
                         "<GetAttLog>".
                             "<ArgComKey xsi:type=\"xsd:integer\">".
                                 $Key.
@@ -115,12 +132,12 @@ namespace SDK\Solution\FingerprintAttendance\x601
                                     }
                                 }
                             }
-                        }
+                        }*/
                     }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }
+//                else
+  //                  {
+    //                throw new \Exception("Connection Failed");
+      //              }
                 } 
             catch (\Exception $ex) {
                 throw new \Exception("Connection Timeout");

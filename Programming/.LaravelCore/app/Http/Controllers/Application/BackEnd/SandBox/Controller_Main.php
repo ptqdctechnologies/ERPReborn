@@ -34,8 +34,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testSDK()
             {
             $varUserSession=0;
-            $x = new \SDK\Solution\FingerprintAttendance\x601\SDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-            $y = $x->getAllData('+07', '2021-01-11');
+//            $x = new \SDK\Solution\FingerprintAttendance\x601\SDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
+            $x = new \SDK\AlBox\FingerprintAttendance\FP800\SDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+            $y = $x->getDataAttendance('+07', '2021-01-11');
           
             dd($y);
             
