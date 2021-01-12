@@ -1,11 +1,11 @@
 <!--|----------------------------------------------------------------------------------|
     |                             Function My Project Code                             |
     |----------------------------------------------------------------------------------|-->
-<div id="myCurrency" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Choose Currency</h4>
+                <h4 class="modal-title">Choose ARF</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -13,16 +13,28 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td><label>Currency Code</label></td>
+                                <td><label>No Trans</label></td>
                                 <td>
                                     <div class="input-group">
                                         <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_currency" onkeyup="searchArfCurrencyCode()">
+                                        <br><br><br>
                                     </div>
                                 </td>
-                                <td><label>Currency Name</label></td>
+                                
+                            </tr>
+                            <tr>
+                                <td><label>Project Code</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_currency" onkeyup="searchArfCurrencyCode()">
+                                        <br><br><br>
+                                    </div>
+                                </td>
+                                <td><label>Site Code</label></td>
                                 <td>
                                     <div class="input-group">
                                         <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_currency" onkeyup="searchArfCurrencyName()">
+                                        <br><br><br>
                                     </div>
                                 </td>
                             </tr>
@@ -37,25 +49,42 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Currency Code</th>
-                                            <th>Currency Name</th>
+                                            <th>Trano</th>
+                                            <th>Project ID</th>
+                                            <th>Project Name</th>
+                                            <th>Site Code</th>
+                                            <th>Site Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++)
-                                        <tr>
+                                        @for($i = 1; $i < 20; $i++) <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikCurrencyArf" data-id="Currency Code {{ $i }}" data-name="name {{ $i }}">Currency Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}">Trano {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <p>Currency Name {{$i}}</p>
+                                                <span class="tag tag-success">
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="projeck_id {{ $i }}">Project ID {{$i}}</p>
+                                                </span>
                                             </td>
-                                        </tr>
-                                        @endfor
+                                            <td>
+                                                <span class="tag tag-success">
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="tag tag-success">
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <p>Site Name {{$i}}</p>
+                                            </td>
+                                            </tr>
+                                            @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -117,13 +146,13 @@
 
 <script>
     $(function() {
-        $(".klikCurrencyArf").on('click', function(e) {
+        $(".klikSearchArf").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
-            $("#currencyCode").val(code);
-            $("#currencyName").val(name);
+            $("#managerUid").val(code);
+            $("#managerName").val(name);
         });
     });
 </script>

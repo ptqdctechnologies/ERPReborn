@@ -2,13 +2,12 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".available").hide();
-        $("#detailArfList").hide();
+        $("#detailprList").hide();
         $("#detailTransAvail").hide();
         $("#removeButton").hide();
     });
 </script>
 <!--  END SHOW HIDE AVAILABEL -->
-
 <script type="text/javascript">
     $(document).ready(function() {
         $(".detailTransaction").click(function() {
@@ -16,17 +15,13 @@
         });
     });
 </script>
-
 <script>
     $(document).ready(function() {
-
         $('.klikDetail1').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
             var get31 = $("#getProductId1").html();
@@ -51,15 +46,12 @@
             $("#putProductName").val(get71);
             $("#putUom").val(get81);
             $("#putCurrency").val(get91);
-
         });
         $('.klikDetail2').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
             var get32 = $("#getProductId2").html();
@@ -86,12 +78,10 @@
             $("#putCurrency").val(get92);
         });
         $('.klikDetail3').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
             var get33 = $("#getProductId3").html();
@@ -118,12 +108,10 @@
             $("#putCurrency").val(get93);
         });
         $('.klikDetail4').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
             var get34 = $("#getProductId4").html();
@@ -151,9 +139,8 @@
         });
     });
 </script>
-
 <script>
-    var x = 1, y = 0; xx = 0;//initlal text box count
+    var x = 1, y = 0; //initlal text box count
 
     $('#buttonArfList').click(function () {
 
@@ -179,7 +166,6 @@
                 putProductId: $('#putProductId').val(),
                 putProductName: $('#putProductName').val(),
                 putQty: $('#qtyCek').val(),
-                putQtys: $('#putQty').val(),
                 putUom: $('#putUom').val(),
                 putPrice: $('#putPrice').val(),
                 putCurrency: $('#putCurrency').val(),
@@ -195,7 +181,7 @@
 
         $.ajax({                        
             type: "POST",
-            url: '{{route('ARF.store')}}',
+            url: '{{route("ARF.store")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,
@@ -208,46 +194,19 @@
                 y++;
                 $.each(data, function (key, val) {
                     $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');                    
-                
-                    $('.ChangeQtys').keyup(function() {
-                    
-                        var qtyReq = $(this).val();
-                        if (qtyReq == 0 || qtyReq == '') {
-                            qtyReq = 0;
-                        }
-                        var putQty = val.putQtys;
-                        var putPrice = val.putPrice;
-                        var total = parseFloat(putQty * putPrice);
-                        var total2 = parseFloat(qtyReq * putPrice);
-
-                        if (qtyReq == '') {
-                            $("#buttonArfList").prop("disabled", true);
-                            $("#saveArfList").prop("disabled", true);
-                        } else if (total2 > total) {
-                            Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                            $("#saveArfList").prop("disabled", true);
-                        } else {
-                            var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            $('#totalArfDetails_' + y + '').html(totalReq);
-                            $("#saveArfList").prop("disabled", false);
-                        }
-
-                    });
-
                 });
-            }, 
+                
+            },
             error: function(data) {
                 Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
             } 
         });
-
-    });        
-
+    });
 
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
     $('.add_field_button').click(function () {
-            cek = 0;
-            addColomn();
+        cek = 0;
+        addColomn();
     });
     function addColomn(){ //on add input button click
         if(cek == 0){
@@ -304,9 +263,9 @@
         var json_object = JSON.stringify(datax);
         console.log(json_object);
 
-        $.ajax({                        
+        $.ajax({
             type: "POST",
-            url: '{{route('ARF.tests')}}',
+            url: '{{route("ARF.tests")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,
@@ -352,10 +311,130 @@
     });
 </script>
 
+<script>
+    $('document').ready(function() {
+        $('.ChangeQtys').keyup(function() {
+            console.log('hello');
+            
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($("#putQtybyId").val());
+            var putPrice = parseFloat($('#arfListPrice').html());
+            var total = parseFloat(putQty * putPrice);
+            var total2 = parseFloat(qtyReq * putPrice);
+
+            if (qtyReq == '') {
+                $("#buttonArfList").prop("disabled", true);
+                $("#saveArfList").prop("disabled", true);
+            } else if (total2 > total) {
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $("#saveArfList").prop("disabled", true);
+            } else {
+                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#arfListTotal').html(totalReq);
+                $("#saveArfList").prop("disabled", false);
+            }
+
+        });
+    });
+</script>
+
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("body").on("click", ".remove-attachment", function() {
             $(this).parents("#control-group").remove();
+        });
+    });
+</script>
+
+
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQty').keyup(function() {
+
+        var qtyReq = $(this).val();
+        if (qtyReq == 0 || qtyReq == '') {
+            qtyReq = 0;
+        }
+        var putQty = parseFloat($('#putQty').val());
+        var putPrice = parseFloat($('#putPrice').val());
+
+        if (qtyReq == '') {
+            $("#buttonPrList").prop("disabled", true);
+        } else if (qtyReq > putQty) {
+            alert("Your Request Is Over Budget");
+            $("#buttonPrList").prop("disabled", true);
+        } else {
+            var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
+            var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $('#totalprDetails').val(totalReq);
+            $("#buttonPrList").prop("disabled", false);
+        }
+
+        });
+    });
+</script>
+<script>
+    $('document').ready(function() {
+        $('.ChangeQtys').keyup(function() {
+
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($('#putQty').val());
+            var putPrice = parseFloat($('#putPrice').val());
+
+            if (qtyReq == '') {} else if (qtyReq > putQty) {
+                alert("Your Request Is Over Budget");
+            } else {
+                var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
+                var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#prListTotal').html(totalReq);
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#buttonPrList').click(function() {
+            $("#removeButton").show();
+            $("#detailprList").show();
+            var list1 = $("#putWorkId").val();
+            var list2 = $("#putWorkName").val();
+            var list3 = $("#putProductId").val();
+            var list4 = $("#putProductName").val();
+            var list5 = $("#qtyCek").val();
+            var list6 = $("#putUom").val();
+            var list7 = $("#putPrice").val();
+            var list8 = $("#totalprDetails").val();
+            var list9 = $("#putCurrency").val();
+            var list10 = $("#putRemark").val();
+            $("#prListWorkId").html(list1);
+            $("#prListWorkName").html(list2);
+            $("#prListProductId").html(list3);
+            $("#prListProductName").html(list4);
+            $("#prListQty").val(list5);
+            $("#prListUom").html(list6);
+            $("#prListPrice").html(list7);
+            $("#prListTotal").html(list8);
+            $("#prListCurrency").html(list9);
+            $("#prListRemark").html(list10);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.klikcek').click(function() {
+            var list1 = $("#prListQty").val();
+            alert(list1);
         });
     });
 </script>
