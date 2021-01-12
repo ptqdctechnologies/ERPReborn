@@ -350,7 +350,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getUnixTime($varUserSession, $varDateTimeString=null)
+        public static function getUnixTime($varUserSession, string $varDateTimeString=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -370,6 +370,7 @@ namespace App\Helpers\ZhtHelper\General
                             $varMicroSecond = null;
                             }
                         $varReturn=strtotime($varDateTimeString).(!$varMicroSecond ? '': '.'.$varMicroSecond);
+                        //$varReturn=strtotime($varDateTimeString);
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -377,6 +378,7 @@ namespace App\Helpers\ZhtHelper\General
                 catch (\Exception $ex) {
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
                     }
+//$varReturn=strtotime($varDateTimeString);
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
             catch (\Exception $ex) {
