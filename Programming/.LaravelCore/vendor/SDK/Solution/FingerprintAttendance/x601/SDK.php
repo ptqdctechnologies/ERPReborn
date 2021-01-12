@@ -94,10 +94,10 @@ namespace SDK\Solution\FingerprintAttendance\x601
                         $j=0;
                         for($i=0; $i<count($varDataBuffer); $i++) {
                             $varData = Parse_Data($varDataBuffer[$i],"<Row>","</Row>");
-                            $varDataPIN = Parse_Data($varData,"<PIN>","</PIN>");
+                            $varDataPIN = (Parse_Data($varData,"<PIN>","</PIN>"))*1;
                             $varDataDateTime = Parse_Data($varData,"<DateTime>","</DateTime>");
-                            $varDataVerified = Parse_Data($varData,"<Verified>","</Verified>");
-                            $varDataStatus = Parse_Data($varData,"<Status>","</Status>");
+                            $varDataVerified = (Parse_Data($varData,"<Verified>","</Verified>"))*1;
+                            $varDataStatus = (Parse_Data($varData,"<Status>","</Status>"))*1;
                             if(!empty($varDataPIN))
                                 {
                                 if(strtotime($varStartDateTime) <= strtotime($varDataDateTime))

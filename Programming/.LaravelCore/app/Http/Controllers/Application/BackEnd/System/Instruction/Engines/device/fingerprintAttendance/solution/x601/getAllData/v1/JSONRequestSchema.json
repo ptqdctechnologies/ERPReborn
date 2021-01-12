@@ -37,8 +37,8 @@
                         },
                     "port": {
                         "type": [ "integer" ],
-                        "minimum": 1,
-                        "maximum": 65536
+                        "minimum": 0,
+                        "maximum": 65353
                         },
                     "serialNumber": {
                         "type": [ "string", "null" ],

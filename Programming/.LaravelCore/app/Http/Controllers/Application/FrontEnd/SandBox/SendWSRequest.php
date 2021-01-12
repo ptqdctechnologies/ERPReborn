@@ -34,7 +34,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump($varData);
+            var_dump(json_encode($varData));
             }
         /*--------------------*/
         /* API Stage : Stable */
@@ -45,8 +45,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDQxNDQ0OH0.JHE364dIld_m72ZZG_A2BwDiwY7bYTTNLb-Oj81la6g';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_BranchID" value="11000000000004">';
-            echo '<input type="text" id="dataInput_UserRoleID" value="95000000000007">';
+            echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.203">';
+            echo '<input type="text" id="dataInput_Port" value=4370>';
+            echo '<input type="text" id="dataInput_SerialNumber" value="AEYU202860040">';
+            echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
+            echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -54,8 +57,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 '{'.
                     '"entities" : {'.
-                        '"branchID" : parseInt(document.getElementById("dataInput_BranchID").value), '.
-                        '"userRoleID" : parseInt(document.getElementById("dataInput_UserRoleID").value)'.
+                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
+                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
+                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
+                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
+                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
                         '}'.
                 '}'
                 ); 
