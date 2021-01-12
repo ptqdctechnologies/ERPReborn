@@ -31,6 +31,16 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
 
+        public function testSDK()
+            {
+            $varUserSession=0;
+            $x = new \SDK\Solution\FingerprintAttendance\x601\SDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
+            $x->getData('2021-01-11');
+          
+//            $x = new \SDK\Goodwin\SwingGateBarrier\ServoSW01\SDK();
+            
+            }
+
         public function testMinIO()
             {
             \App\Helpers\ZhtHelper\General\Helper_Session::delete(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());

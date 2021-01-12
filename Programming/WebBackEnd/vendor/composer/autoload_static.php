@@ -5484,6 +5484,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
+        'SDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\SDK' => __DIR__ . '/..' . '/SDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
+        'SDK\\Solution\\FingerprintAttendance\\x601\\SDK' => __DIR__ . '/..' . '/SDK/Solution/FingerprintAttendance/x601/SDK.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
         'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',
