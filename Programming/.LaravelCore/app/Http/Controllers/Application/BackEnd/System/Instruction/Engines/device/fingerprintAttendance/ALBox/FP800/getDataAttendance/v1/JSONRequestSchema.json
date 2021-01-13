@@ -24,7 +24,7 @@
             },
         "required": [ "API" ]
         },
-    "dataxx": {
+    "data": {
         "type": "object",
         "properties": {
             "entities" : {
@@ -59,5 +59,5 @@
         "required": [ "entities" ]
         }
     },
-"required": [ "metadata", "dataxx" ]
+"required": [ "metadata", "data" ]
 }

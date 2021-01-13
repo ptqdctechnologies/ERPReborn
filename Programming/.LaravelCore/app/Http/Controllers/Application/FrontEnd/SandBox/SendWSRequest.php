@@ -11,69 +11,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
-        public function APIGateway_getDeviceSolutionX601_AttendanceData()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'instruction.device.fingerprintAttendance.solution.x601.getDataAttendance', 
-                'latest', 
-                [
-                'entities' => [
-                    'IPAddress' => '192.168.1.203',
-                    'port' => 4370, 
-                    'serialNumber' => 'AEYU202860040',
-                    'timeZoneOffset' => '+07',
-                    'startDateTime' => '2021-01-01'
-                    ]
-                ]
-                );
-            var_dump(json_encode($varData));
-            }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
-        public function APIGatewayJQuery_getDeviceSolutionX601_AttendanceData()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.203">';
-            echo '<input type="text" id="dataInput_Port" value=4370>';
-            echo '<input type="text" id="dataInput_SerialNumber" value="AEYU202860040">';
-            echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
-            echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'instruction.device.fingerprintAttendance.solution.x601.getDataAttendance', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
-                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
-                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
-                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
-                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
-            dd($varJQueryFunction);
-            }
-
-
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : authentication.general.setLogin                                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIAuthentication_setLogin()
             {
             //---Parameter Set---
@@ -87,9 +30,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump(json_encode($varData));
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIAuthenticationJQuery_setLogin()
             {
             //---Parameter Set---
@@ -113,9 +53,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : environment.general.session.getData                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getSessionData()
             {
             //---Parameter Set---
@@ -131,9 +74,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_getSessionData()
             {
             //---Parameter Set---
@@ -153,10 +93,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : environment.general.session.getUserPrivilegesMenu                                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getSessionUserPrivilegesMenu()
             {
             //---Parameter Set---
@@ -172,9 +114,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_getSessionUserPrivilegesMenu()
             {
             //---Parameter Set---
@@ -194,10 +133,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : authentication.general.setLoginBranchAndUserRole                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setLoginBranchAndUserRole()
             {
             //---Parameter Set---
@@ -220,9 +161,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //var_dump($varData);
             var_dump(json_encode($varData));
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setLoginBranchAndUserRole()
             {
             //---Parameter Set---
@@ -248,10 +186,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : authentication.general.setLogout                                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setLogout()
             {
             //---Parameter Set---
@@ -265,9 +205,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setLogout()
             {
             //---Parameter Set---
@@ -287,10 +224,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setBloodAglutinogenType                                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateBloodAglutinogenType()
             {
             //---Parameter Set---
@@ -309,16 +248,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump(json_encode($varData));
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateBloodAglutinogenType()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_Type">';
+            echo '<input type="text" id="dataInput_Type" value="xx">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -335,10 +271,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setBusinessDocumentType                                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateBusinessDocumentType()
             {
             //---Parameter Set---
@@ -357,16 +295,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateBusinessDocumentType()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_Name">';
+            echo '<input type="text" id="dataInput_Name" value="New Business Document Type Data">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -383,10 +318,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setDayOffGovernmentPolicy                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateDayOffGovernmentPolicy()
             {
             //---Parameter Set---
@@ -408,9 +345,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateDayOffGovernmentPolicy()
             {
             //---Parameter Set---
@@ -440,10 +374,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setDayOffNational                                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateDayOffNational()
             {
             //---Parameter Set---
@@ -465,9 +401,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateDayOffNational()
             {
             //---Parameter Set---
@@ -497,10 +430,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setGoodsModel                                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateGoodsModel()
             {
             //---Parameter Set---
@@ -522,9 +457,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateGoodsModel()
             {
             //---Parameter Set---
@@ -554,10 +486,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setGoodsType                                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateGoodsType()
             {
             //---Parameter Set---
@@ -576,9 +510,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateGoodsType()
             {
             //---Parameter Set---
@@ -602,10 +533,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setPeriod                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreatePeriod()
             {
             //---Parameter Set---
@@ -624,9 +557,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreatePeriod()
             {
             //---Parameter Set---
@@ -650,10 +580,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setPerson                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreatePerson()
             {
             //---Parameter Set---
@@ -673,9 +605,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreatePerson()
             {
             //---Parameter Set---
@@ -701,10 +630,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setPersonAccountEMail                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreatePersonAccountEMail()
             {
             //---Parameter Set---
@@ -724,9 +655,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreatePersonAccountEMail()
             {
             //---Parameter Set---
@@ -752,10 +680,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setPersonGender                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreatePersonGender()
             {
             //---Parameter Set---
@@ -774,9 +704,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreatePersonGender()
             {
             //---Parameter Set---
@@ -800,10 +727,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setProduct                                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateProduct()
             {
             //---Parameter Set---
@@ -825,9 +754,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateProduct()
             {
             //---Parameter Set---
@@ -857,10 +783,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setProductType                                                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateProductType()
             {
             //---Parameter Set---
@@ -879,9 +807,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateProductType()
             {
             //---Parameter Set---
@@ -905,10 +830,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setQuantityUnit                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateQuantityUnit()
             {
             //---Parameter Set---
@@ -927,9 +854,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateQuantityUnit()
             {
             //---Parameter Set---
@@ -953,10 +877,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setReligion                                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateReligion()
             {
             //---Parameter Set---
@@ -975,9 +901,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateReligion()
             {
             //---Parameter Set---
@@ -1001,10 +924,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setTradeMark                                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataCreateTradeMark()
             {
             //---Parameter Set---
@@ -1023,9 +948,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
         public function APIGatewayJQuery_setDataCreateTradeMark()
             {
             //---Parameter Set---
@@ -1049,10 +971,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBloodAglutinogenType                                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBloodAglutinogenType()
             {
             //---Parameter Set---
@@ -1069,12 +993,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBloodAglutinogenType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=27000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBloodAglutinogenType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBusinessDocument                                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBusinessDocument()
             {
             //---Parameter Set---
@@ -1091,11 +1036,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=74000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocument', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBusinessDocumentNumbering                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBusinessDocumentNumbering()
             {
             //---Parameter Set---
@@ -1112,11 +1079,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBusinessDocumentNumbering()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=128000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentNumbering', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBusinessDocumentNumberingFormat                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBusinessDocumentNumberingFormat()
             {
             //---Parameter Set---
@@ -1133,11 +1122,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBusinessDocumentNumberingFormat()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=127000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentNumberingFormat', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBusinessDocumentType                                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBusinessDocumentType()
             {
             //---Parameter Set---
@@ -1154,11 +1165,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=77000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setBusinessDocumentVersion                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteBusinessDocumentVersion()
             {
             //---Parameter Set---
@@ -1175,11 +1208,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=75000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setBusinessDocumentVersion', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCitizenFamilyCard                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCitizenFamilyCard()
             {
             //---Parameter Set---
@@ -1196,11 +1251,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCitizenFamilyCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=30000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCitizenFamilyCard', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCitizenFamilyCardMember                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCitizenFamilyCardMember()
             {
             //---Parameter Set---
@@ -1217,11 +1294,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCitizenFamilyCardMember()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=89000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCitizenFamilyCardMember', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCitizenIdentity                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCitizenIdentity()
             {
             //---Parameter Set---
@@ -1238,11 +1337,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCitizenIdentity()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=28000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCitizenIdentity', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCitizenIdentityCard                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCitizenIdentityCard()
             {
             //---Parameter Set---
@@ -1259,11 +1380,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCitizenIdentityCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=29000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCitizenIdentityCard', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCountry                                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCountry()
             {
             //---Parameter Set---
@@ -1280,11 +1423,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCountry()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=20000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountry', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
-            
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCountryAdministrativeAreaLevel1                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel1()
             {
             //---Parameter Set---
@@ -1301,11 +1466,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=21000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel1', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCountryAdministrativeAreaLevel2                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel2()
             {
             //---Parameter Set---
@@ -1322,11 +1509,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=22000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel2', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCountryAdministrativeAreaLevel3                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel3()
             {
             //---Parameter Set---
@@ -1343,11 +1552,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=23000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel3', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCountryAdministrativeAreaLevel4                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCountryAdministrativeAreaLevel4()
             {
             //---Parameter Set---
@@ -1364,11 +1595,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=24000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCountryAdministrativeAreaLevel4', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCurrency                                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCurrency()
             {
             //---Parameter Set---
@@ -1385,11 +1638,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataDeleteCurrency()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=62000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCurrency', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.delete.master.setCurrencyExchangeRateCentralBank                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataDeleteCurrencyExchangeRateCentralBank()
             {
             //---Parameter Set---
@@ -1405,6 +1680,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ]
                 );
             var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataDeleteCurrencyExchangeRateCentralBank()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=64000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.delete.master.setCurrencyExchangeRateCentralBank', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
             }
 
 
@@ -4258,8 +4552,126 @@ dd($varJQueryFunction);
             var_dump($varData);
             }
 
-            
-            
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDeviceALBoxFP800_AttendanceData()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
+                'latest', 
+                [
+                'entities' => [
+                    'IPAddress' => '192.168.1.204',
+                    'port' => 4370, 
+                    'serialNumber' => '2065682450035',
+                    'timeZoneOffset' => '+07',
+                    'startDateTime' => '2021-01-01'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDeviceALBoxFP800_AttendanceData()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.204">';
+            echo '<input type="text" id="dataInput_Port" value=4370>';
+            echo '<input type="text" id="dataInput_SerialNumber" value="2065682450035">';
+            echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
+            echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
+                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
+                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
+                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
+                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : instruction.device.fingerprintAttendance.solution.x601.getDataAttendance                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDeviceSolutionX601_AttendanceData()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
+                'latest', 
+                [
+                'entities' => [
+                    'IPAddress' => '192.168.1.203',
+                    'port' => 4370, 
+                    'serialNumber' => 'AEYU202860040',
+                    'timeZoneOffset' => '+07',
+                    'startDateTime' => '2021-01-01'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getDeviceSolutionX601_AttendanceData()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDUwNDIwMX0.CmGxV8J17evqLGYKfJi8XP8ha4k3tvQ4Fmxv806szOA';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.203">';
+            echo '<input type="text" id="dataInput_Port" value=4370>';
+            echo '<input type="text" id="dataInput_SerialNumber" value="AEYU202860040">';
+            echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
+            echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
+                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
+                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
+                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
+                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+
             
             
             

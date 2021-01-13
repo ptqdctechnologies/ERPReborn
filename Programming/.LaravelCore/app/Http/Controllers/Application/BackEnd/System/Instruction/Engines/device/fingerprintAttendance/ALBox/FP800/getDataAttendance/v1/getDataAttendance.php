@@ -60,7 +60,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Blood Aglutinogen Type Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    
                     try{
                         $varDataSend = (new \SDK\ALBox\FingerprintAttendance\FP800\SDK(
                             $varUserSession, 

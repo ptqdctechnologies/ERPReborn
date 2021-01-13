@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\solution\x601   |  
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\Solution\x601   |  
 |                \getDataAttendance\v1                                                                                                    | 
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\solution\x601\getDataAttendance\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\Solution\x601\getDataAttendance\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getDataAttendance                                                                                            |
-    | ▪ Description : Menangani API instruction.device.fingerprintAttendance.solution.x601.getDataAttendance Version 1             |
+    | ▪ Description : Menangani API instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance Version 1             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getDataAttendance extends \App\Http\Controllers\Controller
