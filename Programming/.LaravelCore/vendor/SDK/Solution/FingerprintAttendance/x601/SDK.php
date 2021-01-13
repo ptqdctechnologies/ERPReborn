@@ -39,7 +39,7 @@ namespace SDK\Solution\FingerprintAttendance\x601
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getAllData                                                                                           |
+        | ▪ Method Name     : getDataAttendance                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-12                                                                                           |
@@ -47,23 +47,24 @@ namespace SDK\Solution\FingerprintAttendance\x601
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varTimeZoneOffset ► Time Zone Offset                                                                     |
-        |      ▪ (string) varStartDateTime ► Start Date Time                                                                       |
+        |      ▪ (string) varCutOffStartDateTime ► CutOff Start Date Time                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getAllData(string $varTimeZoneOffset = null, $varStartDateTime = null)
+        public function getDataAttendance(string $varTimeZoneOffset = null, $varCutOffStartDateTime = null)
             {
+            $varTimeOutInSeconds=3;
             $varReturn = null;
             try {
                 if(!$varTimeZoneOffset) {
                     $varTimeZoneOffset = '+07';
                     }
-                if(!$varStartDateTime) {
-                    $varStartDateTime = '1970-01-01 00:00:00';
+                if(!$varCutOffStartDateTime) {
+                    $varCutOffStartDateTime = '1970-01-01 00:00:00';
                     }
 
-                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, 1);
+                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $varTimeOutInSeconds);
                 $Key="0";
                 if($Connect) {
                     $varSOAPRequest=
@@ -94,21 +95,21 @@ namespace SDK\Solution\FingerprintAttendance\x601
                         $j=0;
                         for($i=0; $i<count($varDataBuffer); $i++) {
                             $varData = Parse_Data($varDataBuffer[$i],"<Row>","</Row>");
-                            $varDataPIN = (Parse_Data($varData,"<PIN>","</PIN>"))*1;
+                            $varDataPIN = Parse_Data($varData,"<PIN>","</PIN>");
                             $varDataDateTime = Parse_Data($varData,"<DateTime>","</DateTime>");
-                            $varDataVerified = (Parse_Data($varData,"<Verified>","</Verified>"))*1;
-                            $varDataStatus = (Parse_Data($varData,"<Status>","</Status>"))*1;
+                            $varDataVerified = Parse_Data($varData,"<Verified>","</Verified>");
+                            $varDataStatus = Parse_Data($varData,"<Status>","</Status>");
                             if(!empty($varDataPIN))
                                 {
-                                if(strtotime($varStartDateTime) <= strtotime($varDataDateTime))
+                                if(strtotime($varCutOffStartDateTime) <= strtotime($varDataDateTime))
                                     {                                    
                                     //echo $varDataPIN.'-->'.$varDataDateTime.'-->'.$varDataVerified.'-->'.$varDataStatus;
                                     //echo "<br>----------------<br>";
                                     $varReturn[$j]=[
-                                        'ID' =>  $varDataPIN,
+                                        'ID' =>  (int) $varDataPIN,
                                         'dateTimeTZ' => $varDataDateTime.'.000000 '.$varTimeZoneOffset,
-                                        'signVerified' => $varDataVerified,
-                                        'signStatus' => $varDataStatus
+                                        'signVerified' => (int) $varDataVerified,
+                                        'signStatus' => (int) $varDataStatus
                                         ];
                                     $j++;
                                     }

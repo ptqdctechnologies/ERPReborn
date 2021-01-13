@@ -47,6 +47,7 @@
         "classmap": [
             "database/seeds",
             "database/factories",
+            "vendor/SDK/ALBox/FingerprintAttendance/FP800",
             "vendor/SDK/Solution/FingerprintAttendance/x601",
             "vendor/SDK/Goodwin/SwingGateBarrier/ServoSW01"
         ]
