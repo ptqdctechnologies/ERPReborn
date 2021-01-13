@@ -1,0 +1,63 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "dataxx": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "IPAddress": {
+                        "type": [ "string" ],
+                        "minLength": 7,
+                        "maxLength": 15
+                        },
+                    "port": {
+                        "type": [ "integer" ],
+                        "minimum": 0,
+                        "maximum": 65353
+                        },
+                    "serialNumber": {
+                        "type": [ "string", "null" ],
+                        "maxLength": 128
+                        },
+                    "timeZoneOffset": {
+                        "type": [ "string", "null" ],
+                        "maxLength": 3
+                        },
+                    "startDateTime": {
+                        "type": [ "string", "null" ],
+                        "maxLength": 26
+                        }
+                    },
+                "required": [ "IPAddress", "port", "serialNumber", "timeZoneOffset", "startDateTime" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "dataxx" ]
+}
