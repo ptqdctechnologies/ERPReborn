@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     
                     try{
-                        $varDataSend = (new \SDK\Solution\FingerprintAttendance\x601\SDK(
+                        $varDataSend = (new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK(
                             $varUserSession, 
                             $varData['entities']['IPAddress'],
                             $varData['entities']['port'],

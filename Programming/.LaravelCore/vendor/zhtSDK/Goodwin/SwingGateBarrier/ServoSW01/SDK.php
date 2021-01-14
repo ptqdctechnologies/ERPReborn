@@ -1,9 +1,11 @@
 <?php
 
-namespace SDK\Goodwin\SwingGateBarrier\ServoSW01
+namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
     {
-    class SDK
+    class zhtSDK
         {
+        private $varSDKPath;
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -20,6 +22,8 @@ namespace SDK\Goodwin\SwingGateBarrier\ServoSW01
         */
         public function __construct()
             {
+            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01';
+            //$Obj = new com  COM("C:\docs\word.doc");
             echo "init";
             }
         }

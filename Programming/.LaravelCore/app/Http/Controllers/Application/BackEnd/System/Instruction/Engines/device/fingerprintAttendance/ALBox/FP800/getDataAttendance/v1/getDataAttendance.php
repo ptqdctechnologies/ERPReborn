@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = (new \SDK\ALBox\FingerprintAttendance\FP800\SDK(
+                        $varDataSend = (new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK(
                             $varUserSession, 
                             $varData['entities']['IPAddress'],
                             $varData['entities']['port'],

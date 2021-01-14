@@ -1,14 +1,14 @@
 <?php
 
-namespace SDK\ALBox\FingerprintAttendance\FP800
+namespace zhtSDK\ALBox\FingerprintAttendance\FP800
     {
-    class SDK //extends AbstractHasDispatcher implements ClientInterface
+    class zhtSDK //extends AbstractHasDispatcher implements ClientInterface
         {
+        private $varSDKPath;
         private $varUserSession;
         private $varHostIP;
         private $varHostPort;
         private $varDeviceSerialNumber;
-        private $varSDKPath;
         private $varTimeOutInSeconds;
                 
         /*
@@ -31,7 +31,7 @@ namespace SDK\ALBox\FingerprintAttendance\FP800
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/SDK/ALBox/FingerprintAttendance/FP800';
+            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/ALBox/FingerprintAttendance/FP800';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;

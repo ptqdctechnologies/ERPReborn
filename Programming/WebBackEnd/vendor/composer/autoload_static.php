@@ -5487,9 +5487,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Ramsey\\Uuid\\UuidInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/UuidInterface.php',
         'Ramsey\\Uuid\\Validator\\GenericValidator' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/GenericValidator.php',
         'Ramsey\\Uuid\\Validator\\ValidatorInterface' => __DIR__ . '/..' . '/ramsey/uuid/src/Validator/ValidatorInterface.php',
-        'SDK\\ALBox\\FingerprintAttendance\\FP800\\SDK' => __DIR__ . '/..' . '/SDK/ALBox/FingerprintAttendance/FP800/SDK.php',
-        'SDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\SDK' => __DIR__ . '/..' . '/SDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
-        'SDK\\Solution\\FingerprintAttendance\\x601\\SDK' => __DIR__ . '/..' . '/SDK/Solution/FingerprintAttendance/x601/SDK.php',
         'SebastianBergmann\\CliParser\\AmbiguousOptionException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/AmbiguousOptionException.php',
         'SebastianBergmann\\CliParser\\Exception' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/Exception.php',
         'SebastianBergmann\\CliParser\\OptionDoesNotAllowArgumentException' => __DIR__ . '/..' . '/sebastian/cli-parser/src/exceptions/OptionDoesNotAllowArgumentException.php',
@@ -6537,7 +6534,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
-        'am05zk' => __DIR__ . '/..' . '/SDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
+        'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
@@ -6619,6 +6616,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
+        'zhtSDK\\ALBox\\FingerprintAttendance\\FP800\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/SDK.php',
+        'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
+        'zhtSDK\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Solution/FingerprintAttendance/x601/SDK.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

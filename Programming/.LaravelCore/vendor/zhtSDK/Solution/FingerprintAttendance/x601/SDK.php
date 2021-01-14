@@ -1,14 +1,14 @@
 <?php
 
-namespace SDK\Solution\FingerprintAttendance\x601
+namespace zhtSDK\Solution\FingerprintAttendance\x601
     {
-    class SDK //extends AbstractHasDispatcher implements ClientInterface
+    class zhtSDK //extends AbstractHasDispatcher implements ClientInterface
         {
+        private $varSDKPath;
         private $varUserSession;
         private $varHostIP;
         private $varHostPort;
         private $varDeviceSerialNumber;
-        private $varSDKPath;
                 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -30,7 +30,7 @@ namespace SDK\Solution\FingerprintAttendance\x601
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/SDK/Solution/FingerprintAttendance/x601';
+            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Solution/FingerprintAttendance/x601';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
