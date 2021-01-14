@@ -2531,6 +2531,7 @@ return array(
     'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/CollisionServiceProvider.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Commands\\TestCommand' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Commands/TestCommand.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/ExceptionHandler.php',
+    'NunoMaduro\\Collision\\Adapters\\Laravel\\Exceptions\\RequirementsException' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Exceptions/RequirementsException.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\IgnitionSolutionsRepository' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/IgnitionSolutionsRepository.php',
     'NunoMaduro\\Collision\\Adapters\\Laravel\\Inspector' => $vendorDir . '/nunomaduro/collision/src/Adapters/Laravel/Inspector.php',
     'NunoMaduro\\Collision\\Adapters\\Phpunit\\ConfigureIO' => $vendorDir . '/nunomaduro/collision/src/Adapters/Phpunit/ConfigureIO.php',
