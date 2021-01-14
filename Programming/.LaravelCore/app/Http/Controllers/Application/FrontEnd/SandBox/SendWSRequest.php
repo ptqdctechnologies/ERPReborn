@@ -5420,7 +5420,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.undelete.master.setBloodAglutinogenType                                                      |
@@ -5443,11 +5442,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUndeleteBloodAglutinogenType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=27000000000026>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBloodAglutinogenType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBusinessDocument                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUndeleteBusinessDocument()
             {
             //---Parameter Set---
@@ -5464,11 +5485,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUndeleteBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=74000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocument', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBusinessDocument                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUndeleteBusinessDocumentNumbering()
             {
             //---Parameter Set---
@@ -5485,11 +5528,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUndeleteBusinessDocumentNumbering()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=128000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocumentNumbering', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBusinessDocument                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUndeleteBusinessDocumentType()
             {
             //---Parameter Set---
@@ -5506,11 +5571,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUndeleteBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=77000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocumentType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBusinessDocumentVersion                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUndeleteBusinessDocumentVersion()
             {
             //---Parameter Set---
@@ -5527,11 +5614,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUndeleteBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=75000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.undelete.master.setBusinessDocumentVersion', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBloodAglutinogenType                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateBloodAglutinogenType()
             {
             //---Parameter Set---
@@ -5545,17 +5654,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'recordID' => 27000000000001,
                 'entities' => [
-                    'type' => 'Update Existing Blood Aglutinogen Type Data'                    
+                    'type' => 'AB'                    
                     ]
                 ]
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateBloodAglutinogenType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=27000000000001>';
+            echo '<input type="text" id="dataInput_Type" value="AB">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBloodAglutinogenType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"type" : document.getElementById("dataInput_Type").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.undelete.master.setBloodAglutinogenType                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateBusinessDocumentType()
             {
             //---Parameter Set---
@@ -5575,11 +5710,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=77000000000057>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Business Document Type Data">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setDayOffGovernmentPolicy                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateDayOffGovernmentPolicy()
             {
             //---Parameter Set---
@@ -5602,11 +5763,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateDayOffGovernmentPolicy()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=39000000000001>';
+            echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
+            echo '<input type="text" id="dataInput_Name" value="Pilkada Nasional">';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2020-12-09">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2020-12-09">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setDayOffGovernmentPolicy', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"validStartDate" : document.getElementById("dataInput_ValidStartDate").value, '.
+                        '"validFinishDate" : document.getElementById("dataInput_ValidFinishDate").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setDayOffGovernmentPolicy                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateDayOffNational()
             {
             //---Parameter Set---
@@ -5629,11 +5822,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateDayOffNational()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=37000000000001>';
+            echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
+            echo '<input type="text" id="dataInput_Name" value="Tahun Baru 2021">';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2021-01-01">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2021-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setDayOffNational', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"validStartDate" : document.getElementById("dataInput_ValidStartDate").value, '.
+                        '"validFinishDate" : document.getElementById("dataInput_ValidFinishDate").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setGoodsModel                                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateGoodsModel()
             {
             //---Parameter Set---
@@ -5656,11 +5881,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateGoodsModel()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=16000000000001>';
+            echo '<input type="text" id="dataInput_TradeMark_RefID" value=15000000000001>';
+            echo '<input type="text" id="dataInput_GoodsType_RefID" value=102000000000001>';
+            echo '<input type="text" id="dataInput_ModelName" value="Update Model Name">';
+            echo '<input type="text" id="dataInput_ModelNumber" value="Update Model Number">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setGoodsModel', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"tradeMark_RefID" : parseInt(document.getElementById("dataInput_TradeMark_RefID").value), '.
+                        '"goodsType_RefID" : parseInt(document.getElementById("dataInput_GoodsType_RefID").value), '.
+                        '"modelName" : document.getElementById("dataInput_ModelName").value, '.
+                        '"modelNumber" : document.getElementById("dataInput_ModelNumber").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setGoodsType                                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateGoodsType()
             {
             //---Parameter Set---
@@ -5680,11 +5937,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateGoodsType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=102000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Goods Type Name">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setGoodsType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setPeriod                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdatePeriod()
             {
             //---Parameter Set---
@@ -5704,11 +5987,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdatePeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=59000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Period Name">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setPeriod', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setPerson                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdatePerson()
             {
             //---Parameter Set---
@@ -5729,11 +6038,40 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdatePerson()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=25000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Person Name">';
+            echo '<input type="text" id="dataInput_Photo_RefJSON" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setPerson', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"photo_RefJSON" : document.getElementById("dataInput_Photo_RefJSON").value'.
+                    
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setPersonAccountEMail                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdatePersonAccountEMail()
             {
             //---Parameter Set---
@@ -5754,12 +6092,39 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdatePersonAccountEMail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=53000000000001>';
+            echo '<input type="text" id="dataInput_Person_RefID" value=25000000000001>';
+            echo '<input type="text" id="dataInput_Account" value="xyz@gmail">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setPersonAccountEMail', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                        '"account : document.getElementById("dataInput_Account").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setPersonGender                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdatePersonGender()
             {
             //---Parameter Set---
@@ -5779,11 +6144,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdatePersonGender()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=90000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Name">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setPersonGender', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setProduct                                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateProduct()
             {
             //---Parameter Set---
@@ -5806,11 +6197,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateProduct()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=88000000000001>';
+            echo '<input type="text" id="dataInput_Code" value="Update Existing Code">';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Name">';
+            echo '<input type="text" id="dataInput_ProductType_RefID" value=87000000000001>';
+            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setProduct', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"code" : document.getElementById("dataInput_Code").value, '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"productType_RefID" : parseInt(document.getElementById("dataInput_ProductType_RefID").value), '.
+                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setProductType                                                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateProductType()
             {
             //---Parameter Set---
@@ -5830,11 +6253,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateProductType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=87000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Name">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setProductType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setQuantityUnit                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateQuantityUnit()
             {
             //---Parameter Set---
@@ -5854,11 +6303,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateQuantityUnit()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=73000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Quantity Unit Data">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setQuantityUnit', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setReligion                                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateReligion()
             {
             //---Parameter Set---
@@ -5878,11 +6353,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateReligion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=26000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Religion Data">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setReligion', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setTradeMark                                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_setDataUpdateTradeMark()
             {
             //---Parameter Set---
@@ -5902,11 +6403,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_setDataUpdateTradeMark()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=15000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Existing Trade Mark Data">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setTradeMark', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListBloodAglutinogenType                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListBloodAglutinogenType()
             {
             //---Parameter Set---
@@ -5928,11 +6455,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListBloodAglutinogenType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListBloodAglutinogenType', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListBusinessDocument                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListBusinessDocument()
             {
             //---Parameter Set---
@@ -5955,11 +6512,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_BusinessDocumentType_RefID" value=77000000000002>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListBusinessDocument', 
+                'latest', 
+                '{'.
+                    '"businessDocumentType_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentType_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListBusinessDocumentType                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListBusinessDocumentType()
             {
             //---Parameter Set---
@@ -5981,11 +6570,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListBusinessDocumentType', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCitizenIdentity                                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCitizenIdentity()
             {
             //---Parameter Set---
@@ -6007,11 +6626,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCitizenIdentity()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCitizenIdentity', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCountry                                                               |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCountry()
             {
             //---Parameter Set---
@@ -6033,11 +6682,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCountry()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountry', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
-            
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCountryAdministrativeAreaLevel1                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCountryAdministrativeAreaLevel1()
             {
             //---Parameter Set---
@@ -6060,11 +6739,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountryAdministrativeAreaLevel1', 
+                'latest', 
+                '{'.
+                    '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCountryAdministrativeAreaLevel2                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCountryAdministrativeAreaLevel2()
             {
             //---Parameter Set---
@@ -6087,11 +6798,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel1_RefID" value=21000000000013>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountryAdministrativeAreaLevel2', 
+                'latest', 
+                '{'.
+                    '"countryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel1_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCountryAdministrativeAreaLevel3                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCountryAdministrativeAreaLevel3()
             {
             //---Parameter Set---
@@ -6114,11 +6857,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel2_RefID" value=22000000000192>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountryAdministrativeAreaLevel3', 
+                'latest', 
+                '{'.
+                    '"countryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel2_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCountryAdministrativeAreaLevel4                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCountryAdministrativeAreaLevel4()
             {
             //---Parameter Set---
@@ -6141,11 +6916,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel3_RefID" value=23000000002670>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCountryAdministrativeAreaLevel4', 
+                'latest', 
+                '{'.
+                    '"countryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel3_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListCurrency                                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListCurrency()
             {
             //---Parameter Set---
@@ -6167,11 +6974,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListCurrency()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListCurrency', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListGoodsModel                                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListGoodsModel()
             {
             //---Parameter Set---
@@ -6194,11 +7031,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListGoodsModel()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_TradeMark_RefID" value=15000000000002>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListGoodsModel', 
+                'latest', 
+                '{'.
+                    '"tradeMark_RefID" : parseInt(document.getElementById("dataInput_TradeMark_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListPeriod                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListPeriod()
             {
             //---Parameter Set---
@@ -6220,11 +7089,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListPeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListPeriod', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListPerson                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListPerson()
             {
             //---Parameter Set---
@@ -6246,11 +7145,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListPerson()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListPerson', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListPersonAccountEMail                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListPersonAccountEMail()
             {
             //---Parameter Set---
@@ -6273,11 +7202,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListPersonAccountEMail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Person_RefID" value=25000000000241>';
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListPersonAccountEMail', 
+                'latest', 
+                '{'.
+                    '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListPersonGender                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListPersonGender()
             {
             //---Parameter Set---
@@ -6300,11 +7261,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListPersonGender()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListPersonGender', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListProductType                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListProductType()
             {
             //---Parameter Set---
@@ -6326,11 +7317,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListProductType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListProductType', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListQuantityUnit                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListQuantityUnit()
             {
             //---Parameter Set---
@@ -6352,11 +7373,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListQuantityUnit()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListQuantityUnit', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListReligion                                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListReligion()
             {
             //---Parameter Set---
@@ -6378,11 +7429,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
+        public function APIGatewayJQuery_getDataListReligion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListReligion', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
 
-        /*--------------------*/
-        /* API Stage : Stable */
-        /*--------------------*/
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.master.getDataListTradeMark                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getDataListTradeMark()
             {
             //---Parameter Set---
@@ -6403,6 +7484,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ]
                 );
             var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListTradeMark()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMDU5MDQ2OH0.mFFb0ci6EjHgPXY5sTCfy09CZG5pmvw8f_7nHdgUMbE';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
+            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListTradeMark', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
             }
 
 
