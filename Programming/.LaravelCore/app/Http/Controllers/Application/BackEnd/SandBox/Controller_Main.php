@@ -38,10 +38,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
 //            $y = $x->getDataAttendance('+07', '2020-01-01');
-            //$y = $x->getDeviceSerialNumber();
+//            $y = $x->getDeviceSerialNumber();
 
-            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK();
+            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.1.204', 4370);
+            echo  $x->getDeviceSerialNumber()."<br><br>";
+            echo  $x->getDeviceTime()."<br><br>";
             
+//            $y = $x->getDataAttendance();
+//            dd($y);
             
             //dd($y);
             

@@ -48,8 +48,9 @@
             "database/seeds",
             "database/factories",
             "vendor/zhtSDK/ALBox/FingerprintAttendance/FP800",
+            "vendor/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01",
             "vendor/zhtSDK/Solution/FingerprintAttendance/x601",
-            "vendor/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01"
+            "vendor/zhtSDK/ZKTeco/PersonAttendance/InBio260"
         ]
     },
     "autoload-dev": {

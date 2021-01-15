@@ -27,20 +27,14 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities": {
-                "type": "object",
-                "properties": {
-                    "branchID": {
-                        "type": "integer"
-                        },
-                    "userRoleID": {
-                        "type": "integer"
-                        }
-                    },
-                "required": [ "branchID", "userRoleID" ]
+            "branchID": {
+                "type": "integer"
+                },
+            "userRoleID": {
+                "type": "integer"
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "branchID", "userRoleID" ]
         }       
     },
 "required": [ "metadata", "data" ]

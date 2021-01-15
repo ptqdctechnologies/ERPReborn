@@ -60,8 +60,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     $varAPIWebToken = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession)['APIWebToken'];
-                    $varBranchID = $varData['entities']['branchID'];
-                    $varUserRoleID = $varData['entities']['userRoleID'];
+                    $varBranchID = $varData['branchID'];
+                    $varUserRoleID = $varData['userRoleID'];
                     
 //                   $varTemp = (new \App\Models\Database\SchSysConfig\General())->setUserSessionLogout($varUserSession, $varUserSession);        
   //                  $varTemp = (new \App\Models\Cache\General\APIWebToken())->setDataDelete($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken']);                   
