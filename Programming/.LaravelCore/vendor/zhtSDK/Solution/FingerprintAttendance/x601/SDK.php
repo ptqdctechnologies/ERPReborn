@@ -4,18 +4,25 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
     {
     class zhtSDK //extends AbstractHasDispatcher implements ClientInterface
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Class Attributes                                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private $varSDKPath;
         private $varUserSession;
         private $varHostIP;
         private $varHostPort;
+        private $varTimeOutInSeconds;
         private $varDeviceSerialNumber;
+
                 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-01-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -29,13 +36,33 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
         */
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
+            $this->init($varUserSession, $varHostIP, $varHostPort, $varDeviceSerialNumber);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : init                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Description     : System's Init                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
+            {
             $this->varUserSession = $varUserSession;
             $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Solution/FingerprintAttendance/x601';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
-            //echo "init";
             }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

@@ -4,12 +4,18 @@ namespace zhtSDK\ALBox\FingerprintAttendance\FP800
     {
     class zhtSDK //extends AbstractHasDispatcher implements ClientInterface
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Class Attributes                                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private $varSDKPath;
         private $varUserSession;
         private $varHostIP;
         private $varHostPort;
-        private $varDeviceSerialNumber;
         private $varTimeOutInSeconds;
+        private $ObjLib;
+        private $varDeviceSerialNumber;
                 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -30,13 +36,35 @@ namespace zhtSDK\ALBox\FingerprintAttendance\FP800
         */
         public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
+            $this->init($varUserSession, $varHostIP, $varHostPort, $varDeviceSerialNumber);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : init                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Description     : System's Init                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
+            {
             $this->varUserSession = $varUserSession;
             $this->varSDKPath = getcwd().'/../vendor/zhtSDK/ALBox/FingerprintAttendance/FP800';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
             $this->varTimeOutInSeconds = 3;
-            //echo "init";
+            
+            require_once($this->varSDKPath.'/Original/am05zk.php');
+            $this->ObjLib = new \am05zk($this->varHostIP, $this->varHostPort);
             }
 
             
@@ -73,11 +101,9 @@ namespace zhtSDK\ALBox\FingerprintAttendance\FP800
                     }
                 else
                     {
-                    require_once($this->varSDKPath.'/Original/am05zk.php');
-                    $ObjFP = new \am05zk($this->varHostIP, $this->varHostPort);
-                    if($ObjFP->connect())
+                    if($this->ObjLib->connect())
                         {
-                        $varAttendaceRecord = $ObjFP->get_attendance(true);
+                        $varAttendaceRecord = $this->ObjLib->get_attendance(true);
                         $j=0;
                         for($i=0; $i!=count($varAttendaceRecord); $i++)
                             {
@@ -123,20 +149,22 @@ namespace zhtSDK\ALBox\FingerprintAttendance\FP800
         public function getDeviceSerialNumber()
             {
             $varReturn = null;
-            $Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
-            if($errno == 110) 
-                {
-                throw new \Exception("Connection Failed");
-                }
-            else
-                {
-                require_once($this->varSDKPath.'/Original/am05zk.php');
-                $ObjFP = new \am05zk($this->varHostIP, $this->varHostPort);
-                if($ObjFP->connect())
+            try {
+                $Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
+                if($errno == 110) 
                     {
-                    $varReturn = str_replace('~SerialNumber=', '', $ObjFP->get_serial_number());
-                    $varReturn = preg_replace('/[\x00-\x1F\x7F]/', '', $varReturn);
+                    throw new \Exception("Connection Failed");
                     }
+                else
+                    {
+                    if($this->ObjLib->connect())
+                        {
+                        $varReturn = str_replace('~SerialNumber=', '', $this->ObjLib->get_serial_number());
+                        $varReturn = preg_replace('/[\x00-\x1F\x7F]/', '', $varReturn);
+                        }
+                    }                
+                } 
+            catch (\Exception $ex) {
                 }
             return $varReturn;
             }
