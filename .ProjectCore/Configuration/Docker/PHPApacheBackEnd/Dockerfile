@@ -70,3 +70,5 @@ EXPOSE 80
 
 #CMD ( crond -f -l 8 & ) && httpd -D FOREGROUND
 #CMD ((service cron restart) && (service httpd restart))
+
+RUN mkdir -p /zhtConf/tmp/processSign

@@ -23,7 +23,7 @@ while :
    do
       varSign=`sudo docker container ls | grep $varContainerName | awk '{print $2}';`;
       if [ ! -z "$varSign" ]; then 
-	 echo "RUN"; date +"Date : %d/%m/%Y Time : %H.%M.%S";
+	 #echo "RUN"; date +"Date : %d/%m/%Y Time : %H.%M.%S";
          sudo docker exec -i php-apache-backend /bin/bash -c "Script.ServiceRestart.sh";
       fi
       sleep 5;

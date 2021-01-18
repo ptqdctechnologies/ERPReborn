@@ -36,7 +36,7 @@ echo "";
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPHPApacheBackEnd.sh &
 echo "";
 
-#sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh && ./BashScript/Script.System.WatchDog.Docker.ContainerSamba.sh && ./BashScript/Script.System.WatchDog.Docker.ContainerPHPApacheBackEnd.sh &
+sudo docker-compose up --remove-orphans;
 
 varCmdExec="sudo kill -s 9 "`ps aux | grep "Script.System.WatchDog.Docker.ContainerPostgreSQL.sh" | grep -v "\-\-color" | awk '{print $2}'`";";
 #varResult=$(eval $varCmdExec) 2>/dev/null
@@ -48,4 +48,3 @@ eval $varCmdExec 2>/dev/null;
 varCmdExec="sudo kill -s 9 "`ps aux | grep "Script.System.WatchDog.Docker.ContainerPHPApacheBackEnd.sh" | grep -v "\-\-color" | awk '{print $2}'`";";
 eval $varCmdExec 2>/dev/null;
 
-sudo docker-compose up --remove-orphans;
