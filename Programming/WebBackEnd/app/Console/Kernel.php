@@ -25,6 +25,15 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
         {
         // $schedule->command('inspire')->hourly();
+
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryMinute::class, ['--no-ansi'])
+            ->everyMinute()
+            ->appendOutputTo('/var/log/cron.log');
+        
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryTwoHours::class, ['--no-ansi'])
+            ->everyTwoHours()
+            ->appendOutputTo('/var/log/cron.log');
+
         }
 
     /**

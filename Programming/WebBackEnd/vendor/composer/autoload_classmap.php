@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryMinute' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryMinute.php',
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryTwoHours' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryTwoHours.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
@@ -2481,6 +2483,7 @@ return array(
     'Illuminate\\Database\\Migrations\\MigrationCreator' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/MigrationCreator.php',
     'Illuminate\\Database\\Migrations\\MigrationRepositoryInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/MigrationRepositoryInterface.php',
     'Illuminate\\Database\\Migrations\\Migrator' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php',
+    'Illuminate\\Database\\MultipleRecordsFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/MultipleRecordsFoundException.php',
     'Illuminate\\Database\\MySqlConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/MySqlConnection.php',
     'Illuminate\\Database\\PDO\\Concerns\\ConnectsToDatabase' => $vendorDir . '/laravel/framework/src/Illuminate/Database/PDO/Concerns/ConnectsToDatabase.php',
     'Illuminate\\Database\\PDO\\Connection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/PDO/Connection.php',
@@ -2504,6 +2507,7 @@ return array(
     'Illuminate\\Database\\Query\\Processors\\Processor' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Query/Processors/Processor.php',
     'Illuminate\\Database\\Query\\Processors\\SQLiteProcessor' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Query/Processors/SQLiteProcessor.php',
     'Illuminate\\Database\\Query\\Processors\\SqlServerProcessor' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Query/Processors/SqlServerProcessor.php',
+    'Illuminate\\Database\\RecordsNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/RecordsNotFoundException.php',
     'Illuminate\\Database\\SQLiteConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SQLiteConnection.php',
     'Illuminate\\Database\\Schema\\Blueprint' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php',
     'Illuminate\\Database\\Schema\\Builder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Builder.php',
