@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ! -f .initialized ]; then
+if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
    echo "Initializing Samba Container";
 
@@ -12,5 +12,5 @@ if [ ! -f .initialized ]; then
 
    #samba-tool user add teguh.pratama teguhpratama789;
 
-   touch .initialized;
+   touch /zhtConf/tmp/processSign/.initialized;
 fi

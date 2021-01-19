@@ -39,3 +39,6 @@ RUN apt-get install -y lsb-release \
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306
+
+#---> ZhtConf Folder
+RUN mkdir -p /zhtConf/tmp/processSign

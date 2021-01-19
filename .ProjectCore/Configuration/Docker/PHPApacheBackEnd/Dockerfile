@@ -68,7 +68,5 @@ RUN a2enconf servername
 #---> Release Port
 EXPOSE 80
 
-#CMD ( crond -f -l 8 & ) && httpd -D FOREGROUND
-#CMD ((service cron restart) && (service httpd restart))
-
+#---> ZhtConf Folder
 RUN mkdir -p /zhtConf/tmp/processSign

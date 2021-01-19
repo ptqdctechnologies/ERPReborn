@@ -1,11 +1,11 @@
 #!/bin/bash
 
-if [ ! -f .initialized ]; then
+if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
    echo "Initializing MariaDB (MySQL) on PostgreSQL Container";
    #service postgresql restart;
    service mysql restart;
-   touch .initialized;
+   touch /zhtConf/tmp/processSign/.initialized;
 fi
 
 #update-rc.d mysql disable;
