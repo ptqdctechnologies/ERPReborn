@@ -9,3 +9,6 @@ FROM nowsci/samba-domain
 #---> Release Port
 EXPOSE 389
 EXPOSE 445
+
+#---> ZhtConf Folder
+RUN mkdir -p /zhtConf/tmp/processSign

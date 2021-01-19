@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '3e36d110da1a4cbedbb74518fc3279a2a9afd5b3',
+    'reference' => 'f2cf4c178741bc6c1660d009481b95e4bf1e82ff',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.171.18',
-      'version' => '3.171.18.0',
+      'pretty_version' => '3.171.19',
+      'version' => '3.171.19.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9252e55e995492a65ec9b705a5a7fdcfcaef46ef',
+      'reference' => 'e786e4a8b2ec85b258833d0570ff6b61348cbdb6',
     ),
     'brick/math' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '3e36d110da1a4cbedbb74518fc3279a2a9afd5b3',
+      'reference' => 'f2cf4c178741bc6c1660d009481b95e4bf1e82ff',
     ),
     'laravel/tinker' => 
     array (
@@ -525,12 +525,12 @@ private static $installed = array (
     ),
     'league/mime-type-detection' => 
     array (
-      'pretty_version' => '1.5.1',
-      'version' => '1.5.1.0',
+      'pretty_version' => '1.7.0',
+      'version' => '1.7.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '353f66d7555d8a90781f6f5e7091932f9a4250aa',
+      'reference' => '3b9dff8aaf7323590c1d2e443db701eb1f9aa0d3',
     ),
     'mockery/mockery' => 
     array (
@@ -734,12 +734,12 @@ private static $installed = array (
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.0',
-      'version' => '9.5.0.0',
+      'pretty_version' => '9.5.1',
+      'version' => '9.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8e16c225d57c3d6808014df6b1dd7598d0a5bbbe',
+      'reference' => 'e7bdf4085de85a825f4424eae52c99a1cec2f360',
     ),
     'predis/predis' => 
     array (
@@ -842,12 +842,12 @@ private static $installed = array (
     ),
     'psy/psysh' => 
     array (
-      'pretty_version' => 'v0.10.5',
-      'version' => '0.10.5.0',
+      'pretty_version' => 'v0.10.6',
+      'version' => '0.10.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7c710551d4a2653afa259c544508dc18a9098956',
+      'reference' => '6f990c19f91729de8b31e639d6e204ea59f19cf3',
     ),
     'ralouphie/getallheaders' => 
     array (

@@ -5992,7 +5992,6 @@ return array(
     'Whoops\\Util\\SystemFacade' => $vendorDir . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
     'Whoops\\Util\\TemplateHelper' => $vendorDir . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
     'XdgBaseDir\\Xdg' => $vendorDir . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
-    'ZKLibrary' => $vendorDir . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php',
     'am05zk' => $vendorDir . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
     'phpDocumentor\\Reflection\\DocBlock' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
     'phpDocumentor\\Reflection\\DocBlockFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',

@@ -35,7 +35,15 @@ RUN apt-get update \
        && docker-php-ext-install \
           curl \
     && apt-get install -y \ 
-       arp-scan
+       arp-scan \
+    && apt-get install -y cron
+
+ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
+
+RUN chmod 0644 /etc/cron.d/cronLaravel \
+    && touch /var/log/cron.log
+
+#CMD printenv > /etc/environment && echo "cron starting..." && (cron) && : > /var/log/cron.log && tail -f /var/log/cron.log
 
 #--->Increase Memory
 RUN cd /usr/local/etc/php/conf.d/ && \
@@ -59,3 +67,6 @@ RUN a2enconf servername
 
 #---> Release Port
 EXPOSE 80
+
+#---> ZhtConf Folder
+RUN mkdir -p /zhtConf/tmp/processSign
