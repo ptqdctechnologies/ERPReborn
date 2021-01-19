@@ -26,6 +26,7 @@ clear;
 ./BashScript/Script.Docker.BuildImage.Samba.sh;
 
 ./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.MinIO.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;

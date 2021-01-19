@@ -1,3 +1,3 @@
-* * * * * root /usr/local/bin/php -q -f /var/www/WebBackEnd/artisan schedule:run - no-ansi >> /var/log/cron.log 2>&1
+* * * * * root /usr/local/bin/php -q -f /var/www/html/WebBackEnd/artisan schedule:run --no-ansi >> /var/log/cron.log 2>&1
 # /var/www/html/WebBackEnd/storage/logs/cron.log
 # Don’t remove the empty line at the end of this file. It is required to run the cron job
