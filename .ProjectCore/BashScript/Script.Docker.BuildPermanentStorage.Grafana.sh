@@ -18,6 +18,8 @@ varDirectory="./../ERPReborn-PermanentStorage/Grafana";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;
+   sudo mkdir -p $varDirectory/var/lib/grafana/plugins;
+   sudo mkdir -p $varDirectory/var/log/grafana;
 fi
 
 sudo chmod 775 $varDirectory;
