@@ -47,7 +47,8 @@ services:
       #- './:/var/www/html'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
+        #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'
       - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
 #    links:
 #      - 'db-postgresql'

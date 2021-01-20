@@ -37,11 +37,9 @@ namespace App\Console\Commands\zhtScheduler
          */
         public function handle()
             {
-//            $this->info('Execute Every Minute');
-            $varFilePath = getcwd().'/app/Console/Commands/zhtScheduler/Log/ScheduledTask_EveryTwoHours.log';
-            $varFilePath = '/zhtConf/log/scheduledTask/ScheduledTask_EveryTwoHours.log';
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyTwoHours/core.log';
             shell_exec("touch ".$varFilePath);
-            $this->info($varFilePath);
+            //$this->info($varFilePath);
 
             return 1;
             //    return 0;
