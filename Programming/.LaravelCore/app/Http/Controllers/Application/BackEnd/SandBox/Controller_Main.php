@@ -72,8 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $y = $x->getDeviceSerialNumber();
 
 //            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 4370);
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 80);
+            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 4370);
 //            echo  $x->getDeviceSerialNumber()."<br><br>";
 //            echo  $x->getDeviceTime()."<br><br>";
             
@@ -83,7 +82,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //$y = $x->getDeviceSerialNumber();
 
 //            $y = $x->getDataAttendance();
-            var_dump($y);
+//            var_dump($y);
 
             echo "Done";
             

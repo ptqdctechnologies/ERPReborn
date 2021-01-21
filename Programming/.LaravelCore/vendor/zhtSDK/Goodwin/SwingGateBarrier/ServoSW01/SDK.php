@@ -59,7 +59,21 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             $this->varHostPort = $varHostPort;
             $this->varTimeOutInSeconds = 3;
 
-/*            require_once($this->varSDKPath.'/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php');
+/*
+            require_once($this->varSDKPath.'/Compatible/GitHub_vodvud_php_zklib/zklib/ZKLib.php');
+            $zk = new \ZKLib($varHostIP, $varHostPort);
+            if($zk->connect())
+                {
+                echo "Connect";
+                }
+            else
+                {
+                echo "failed";                
+                }
+*/            
+            
+/*
+            require_once($this->varSDKPath.'/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php');
             $this->ObjLib = new \ZKLibrary($this->varHostIP, $this->varHostPort);
             $this->ObjLib->setTimeout($this->varTimeOutInSeconds);
 
@@ -70,6 +84,7 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
          //       $this->ObjLib->disconnect();
                 }
 */
+
 
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADFactory.php');
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TAD.php');
@@ -97,12 +112,13 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             var_dump($zklib_commands); echo "<br><br>";
 
 //            echo $tad->get_date();
-            echo $tad->get_firmware_version();
+//            echo $tad->get_firmware_version();
             
- //           echo $tad->get_att_log();
+            echo $tad->get_att_log();
             
             echo "<br><br>";
             //echo phpinfo();
+
  
             }
 

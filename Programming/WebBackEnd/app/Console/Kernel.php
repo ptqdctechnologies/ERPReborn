@@ -29,11 +29,30 @@ class Kernel extends ConsoleKernel
         $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryMinute::class, ['--no-ansi'])
             ->everyMinute()
             ->appendOutputTo('/var/log/cron.log');
+
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryHour::class, ['--no-ansi'])
+            ->hourly()
+            ->appendOutputTo('/var/log/cron.log');
         
         $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryTwoHours::class, ['--no-ansi'])
             ->everyTwoHours()
             ->appendOutputTo('/var/log/cron.log');
 
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryDay::class, ['--no-ansi'])
+            ->daily()
+            ->appendOutputTo('/var/log/cron.log');
+
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryWeek::class, ['--no-ansi'])
+            ->weekly()
+            ->appendOutputTo('/var/log/cron.log');
+
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryMonth::class, ['--no-ansi'])
+            ->monthly()
+            ->appendOutputTo('/var/log/cron.log');
+
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryYear::class, ['--no-ansi'])
+            ->yearly()
+            ->appendOutputTo('/var/log/cron.log');
         }
 
     /**
