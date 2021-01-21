@@ -36,6 +36,9 @@ RUN apt-get update \
           curl \
     && apt-get install -y \ 
        arp-scan \
+    && apt-get install -y libxml2-dev \
+       && docker-php-ext-install \
+          soap \
     && apt-get install -y cron
 
 ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
