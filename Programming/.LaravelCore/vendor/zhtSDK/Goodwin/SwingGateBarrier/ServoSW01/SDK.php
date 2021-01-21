@@ -85,7 +85,7 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
                 }
 */
 
-
+/*
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADFactory.php');
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TAD.php');
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADResponse.php');
@@ -96,7 +96,7 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedArgument.php');
             require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedCommand.php');
             
-            $tad_factory = new \TADPHP\TADFactory(['ip'=>'192.168.16.111', 'com_key'=>0]);
+            $tad_factory = new \TADPHP\TADFactory(['ip'=>$varHostIP, 'com_key'=>0]);
             $tad = $tad_factory->get_instance();
             //echo $tad->get_date();
             
@@ -117,9 +117,20 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             echo $tad->get_att_log();
             
             echo "<br><br>";
-            //echo phpinfo();
+  */
+//            echo phpinfo();
 
- 
+/*            $varConnODBC =  \odbc_connect('FingerPrint', 'Admin', '');
+            if(!$varConnODBC)
+                {
+                echo "kebuka";
+                }
+            else
+                {
+                echo "gagal";
+                }*/
+            $conn = new \PDO('odbc:FingerPrint', 'Admin');  //("odbc:FingerPrint");
+            var_dump($conn);
             }
 
 

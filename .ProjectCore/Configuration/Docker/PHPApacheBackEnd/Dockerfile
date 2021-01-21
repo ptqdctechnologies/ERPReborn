@@ -39,9 +39,17 @@ RUN apt-get update \
     && apt-get install -y libxml2-dev \
        && docker-php-ext-install \
           soap \
-    && apt-get install -y cron
+    && apt-get install -y unixodbc \
+       unixodbc-dev \
+       && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
+       && docker-php-ext-install pdo_odbc \
+    && apt-get install -y cron;
 
 ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
+
+
+#       && docker-php-ext-configure odbc --with-unixODBC=shared,/usr \
+#       && docker-php-ext-install odbc \
 
 RUN chmod 0644 /etc/cron.d/cronLaravel \
     && touch /var/log/cron.log
