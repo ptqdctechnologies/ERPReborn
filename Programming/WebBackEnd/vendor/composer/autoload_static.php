@@ -6554,7 +6554,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'ZKLibrary' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php',
-        'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
+        'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Compatible/GitHub_am05mhz_am05zk/am05zk.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
