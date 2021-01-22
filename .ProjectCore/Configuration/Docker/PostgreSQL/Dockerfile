@@ -37,14 +37,27 @@ RUN apt-get install -y lsb-release \
           && cd / \
           && rm -rf /mysql_fdw-master \
     && wget https://github.com/CartoDB/odbc_fdw/archive/master.zip \
-       && apt-get install -y unixodbc-dev \
-          && unzip master.zip \
-          && rm -rf /master.zip \
-          && cd /odbc_fdw-master \
-             && make \
-             && make install \
-             && cd / \
-             && rm -rf /odbc_fdw-master
+       && apt-get install -y \
+          unixodbc-dev \
+       && unzip master.zip \
+       && rm -rf /master.zip \
+       && cd /odbc_fdw-master \
+          && make \
+          && make install \
+          && cd / \
+          && rm -rf /odbc_fdw-master \
+    && wget https://github.com/tds-fdw/tds_fdw/archive/master.zip \
+       && apt-get install -y \
+          libsybdb5 \
+          freetds-dev \
+          freetds-common \
+       && unzip master.zip \
+       && rm -rf /master.zip \
+       && cd /tds_fdw-master \
+          && make USE_PGXS=1 \
+          && make USE_PGXS=1 install \
+          && cd / \
+          && rm -rf /tds_fdw-master
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306

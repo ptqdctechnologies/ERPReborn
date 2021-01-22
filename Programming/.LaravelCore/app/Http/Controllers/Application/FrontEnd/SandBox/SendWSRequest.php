@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIAuthentication_setLogin()
             {
             //---Parameter Set---
-            $varUserID = 'teguh.pratamaxx';
+            $varUserID = 'teguh.pratama';
             $varUserPassword = 'teguhpratama789';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
@@ -28,7 +28,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 $varUserID, 
                 $varUserPassword
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIAuthenticationJQuery_setLogin()
             {
