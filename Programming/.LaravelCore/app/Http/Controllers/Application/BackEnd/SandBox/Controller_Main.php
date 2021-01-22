@@ -33,6 +33,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
         public function testSDK()
             {
+            //---Parameter Set---
+            //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::
+//            (new \App\Models\Database\SchSysConfig\General::class)->
+            
+  //          SELECT "SchSysConfig"."FuncSys_General_GetAPIWebToken_SysEngine"()
+            //---Core---
+            $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                'environment.general.session.getUserPrivilegesMenu', 
+                'latest', 
+                [
+                ]
+                );
+            dd($x);
 /*
         echo "Contacting Machine...\n";
 
@@ -72,7 +86,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $y = $x->getDeviceSerialNumber();
 
 //            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
-            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
+//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
 //            echo  $x->getDeviceSerialNumber()."<br><br>";
 //            echo  $x->getDeviceTime()."<br><br>";
             

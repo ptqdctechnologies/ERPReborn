@@ -544,6 +544,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
+        'App\\Http\\Controllers\\loginController' => __DIR__ . '/../..' . '/app/Http/Controllers/loginController.php',
         'App\\Http\\Controllers\\procurementTransactionArf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionArf.php',
         'App\\Http\\Controllers\\procurementTransactionAsf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionAsf.php',
         'App\\Http\\Controllers\\procurementTransactionBrf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionBrf.php',
