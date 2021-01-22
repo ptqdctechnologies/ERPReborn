@@ -173,8 +173,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }
                     //---> Jika Otentikasi gagal
-                    else 
-                        { 
+                    else
+                        {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 401, 'Invalid LDAP Authentication');
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
