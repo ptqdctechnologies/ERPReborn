@@ -34,10 +34,10 @@
                   <td><label>Project Code</label></td>
                   <td>
                     <div class="input-group">
-                      <input id="projectcode" style="border-radius:0;" name="project_code" type="text" class="form-control">
+                      <input id="projectcode" style="border-radius:0;" name="project_code" class="form-control">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#"><i data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                          <a href="#"><i id="projectcode2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
                         </span>
                       </div>
                     </div>
@@ -51,10 +51,10 @@
                   <td><label>Site Code</label></td>
                   <td>
                     <div class="input-group">
-                      <input id="subprojectc" style="border-radius:0;" name="site_code" type="text" class="form-control">
+                      <input id="subprojectc" style="border-radius:0;" name="site_code" class="form-control">
                       <div class="input-group-append">
                         <span style="border-radius:0;" class="input-group-text form-control">
-                          <a href="#"><i data-toggle="modal" data-target="#mySPC" class="fas fa-gift" style="color:grey;"></i></a>
+                          <a href="#"><i id="subprojectc2" data-toggle="modal" data-target="#mySPC" class="fas fa-gift" style="color:grey;"></i></a>
                         </span>
                       </div>
                     </div>
