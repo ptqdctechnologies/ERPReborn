@@ -89,12 +89,3 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Reset">
-                    <i class="fa fa-times" aria-hidden="true">Reset</i>
-                </button>
-                <a href="#" class="btn btn-outline-success btn-sm float-right"><i data-toggle="modal" data-target="#mySearchArf" class="fas fa-gift" aria-hidden="true">Search ARF</i></a>
-            </div>
-        </div>
-    </div>
-</form>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
+use PDO;
 
 class procurementTransactionArf extends Controller
 {
@@ -12,14 +13,10 @@ class procurementTransactionArf extends Controller
     public function teststores(Request $request)
     {
 
-        echo "d";
-        die;
         $data = json_decode($request->getContent(), true);
         $dataAll = array();
         $files = [];
         foreach ($data as $i => $v) {
-            echo $x = $v['filenames'];
-            die;
 
             foreach ($x as $file) {
 
@@ -32,8 +29,7 @@ class procurementTransactionArf extends Controller
         }
 
         dd($files);
-
-
+ 
         $data = json_decode($request->getContent(), true);
         $dataAll = array();
         $cek = [];
@@ -41,49 +37,8 @@ class procurementTransactionArf extends Controller
 
             $cek[] = $v['filenames'];
 
-            // $files = [];
-            // foreach ($cek as $file) {
-            //     $name = time() . rand(1, 100) . '.' . $file->extension();
-            //     $files[] = $name;
-            // }
         }
         dd($cek);
-
-        // array_push($dataAll, array(
-
-        //     'kode_salesorder' => $v['kode_salesorder'],
-        //     'id_langganan' => $v['id_langganan'],
-        //     'tanggal' => $v['tanggal'],
-        //     'jatuh_tempo' => $v['jatuh_tempo'],
-        //     'status' => "Sales",
-        //     'tanggal_update' => $v['tanggal_update'],
-        //     'id_karyawan' => $v['id_karyawan'],
-        //     'id_divisi' => $v['id_divisi'],
-        //     'kondisi' => $v['kondisi'],
-        //     'kondisi2' => $v['kondisi2'],
-        // ));
-
-
-        // echo $request->origin_budget;die;
-
-        // $files = [];
-        // if ($request->filenames) {
-
-        //     foreach ($request->filenames as $file) {
-
-        //         $name = time() . rand(1, 100) . '.' . $file->extension();
-
-        //         // $file->move(public_path('files'), $name);
-
-        //         $files[] = $name;
-        //     }
-        // }
-
-        // dd($files);
-
-        // $file = new File();
-        // $file->filenames = $files;
-        // $file->save();
     }
 
 
@@ -96,13 +51,6 @@ class procurementTransactionArf extends Controller
     {
         return view('ProcurementAndCommercial.Transactions.ARF.createARF');
     }
-
-    public function test()
-    {
-        return view('Authentication.login');
-    }
-
-
     public function arflistcancel()
     {
         return redirect()->back();

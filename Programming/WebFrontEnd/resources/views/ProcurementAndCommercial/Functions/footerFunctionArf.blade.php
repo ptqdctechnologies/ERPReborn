@@ -5,9 +5,76 @@
         $("#detailArfList").hide();
         $("#detailTransAvail").hide();
         $("#removeButton").hide();
+        $(".boqDetailClass").hide();
     });
 </script>
 <!--  END SHOW HIDE AVAILABEL -->
+
+<script>
+    function validateForm() {
+
+        var project_code = document.forms["formArf1"]["project_code"].value;
+        var site_code = document.forms["formArf1"]["site_code"].value;
+        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
+        var bank_name = document.forms["formArf1"]["bank_name"].value;
+        var account_name = document.forms["formArf1"]["account_name"].value;
+        var account_number = document.forms["formArf1"]["account_number"].value;
+        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
+        var filenames = document.forms["formArf1"]["filenames"].value;
+        if (project_code == "") {
+            Swal.fire("Error !", "Project code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (site_code == "") {
+            Swal.fire("Error !", "Site code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (beneficiary == "") {
+            Swal.fire("Error !", "Beneficiary tidak boleh kosong !", "error");
+            return false;
+        }
+        if (bank_name == "") {
+            Swal.fire("Error !", "Bank name code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (account_name == "") {
+            Swal.fire("Error !", "Account name code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (account_number == "") {
+            Swal.fire("Error !", "Account number code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (internal_notes == "") {
+            Swal.fire("Error !", "Internal notes code tidak boleh kosong !", "error");
+            return false;
+        }
+        if (filenames == "") {
+            Swal.fire("Error !", "Filenames tidak boleh kosong !", "error");
+            return false;
+        }
+        else{
+            $(".boqDetailClass").show();
+            $("#projectcode").prop("disabled", true);
+            $("#subprojectc").prop("disabled", true);
+            $("#projectcode2").prop("disabled", true);
+            $("#subprojectc2").prop("disabled", true);
+        }
+        
+    }
+</script>
+<!-- <script>
+    $(document).ready(function() {
+        $('.submitDetailTransactionAttach').click(function() {
+            $(".boqDetailClass").show();
+            $("#projectcode").prop("disabled", true);
+            $("#subprojectc").prop("disabled", true);
+            $("#projectcode2").prop("disabled", true);
+            $("#subprojectc2").prop("disabled", true);
+            
+        });
+    });
+</script> -->
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -26,6 +93,7 @@
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
+            $("#putProductId2").prop("disabled", true);
 
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
@@ -59,6 +127,7 @@
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
+            $("#putProductId2").prop("disabled", true);
 
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
@@ -91,6 +160,7 @@
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
+            $("#putProductId2").prop("disabled", true);
 
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
@@ -123,6 +193,7 @@
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
+            $("#putProductId2").prop("disabled", true);
 
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
@@ -153,15 +224,35 @@
 </script>
 
 <script>
-    var x = 1, y = 0; xx = 0;//initlal text box count
+    var x = 1,
+        y = 0;
+    xx = 0; //initlal text box count
 
-    $('#buttonArfList').click(function () {
+    $('#buttonArfList').click(function() {
+
+        var requester_name = document.forms["formArf2"]["requester_name"].value;
+        var qtyx = document.forms["formArf2"]["qtyx"].value;
+        var remark = document.forms["formArf2"]["remark"].value;
+
+        if (requester_name == "") {
+            Swal.fire("Error !", "Requester name tidak boleh kosong !", "error");
+            return false;
+        }
+        if (qtyx == 0) {
+            Swal.fire("Error !", "Qty tidak boleh kosong !", "error");
+            return false;
+        }
+        if (remark == "") {
+            Swal.fire("Error !", "Remark tidak boleh kosong !", "error");
+            return false;
+        }
+
 
         $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
         $("#detailArfList").show();
         var datas = [];
 
-        for(var i=1; i<=x; i++){
+        for (var i = 1; i <= x; i++) {
             var data = {
                 origin_budget: $('#origin_budget').val(),
                 projectcode: $('#projectcode').val(),
@@ -185,7 +276,7 @@
                 putCurrency: $('#putCurrency').val(),
                 totalArfDetails: $('#totalArfDetails').val(),
                 putRemark: $('#putRemark').val(),
-                filenames: $('#filenames_' + i ).val(),
+                filenames: $('#filenames_' + i).val(),
             }
             datas.push(data);
         }
@@ -193,7 +284,7 @@
         var json_object = JSON.stringify(datas);
         // console.log(json_object);
 
-        $.ajax({                        
+        $.ajax({
             type: "POST",
             url: '{{route('ARF.store')}}',
             data: json_object,
@@ -201,16 +292,16 @@
             processData: true,
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            , success: function(data){
+            },
+            success: function(data) {
                 Swal.fire("Success !", "Data Berhasil Ditambahkan", "success");
                 console.log(data);
                 y++;
-                $.each(data, function (key, val) {
-                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');                    
-                
+                $.each(data, function(key, val) {
+                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
+
                     $('.ChangeQtys').keyup(function() {
-                    
+
                         var qtyReq = $(this).val();
                         if (qtyReq == 0 || qtyReq == '') {
                             qtyReq = 0;
@@ -235,46 +326,47 @@
                     });
 
                 });
-            }, 
+            },
             error: function(data) {
                 Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-            } 
+            }
         });
 
-    });        
+    });
 
 
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
-    $('.add_field_button').click(function () {
-            cek = 0;
-            addColomn();
+    $('.add_field_button').click(function() {
+        cek = 0;
+        addColomn();
     });
-    function addColomn(){ //on add input button click
-        if(cek == 0){
+
+    function addColomn() { //on add input button click
+        if (cek == 0) {
             cek++;
             x++; //text box increment
             $(wrapper).append(
 
-                '<div class="col-md-12">'
-                +   '<div class="form-group">'
-                +       '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">'
-                +           '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">'
-                +           '<div class="input-group-btn">'
-                +               '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>'
-                +           '</div>'
-                +       '</div>'
-                +    '</div>'
-                +'</div>'
+                '<div class="col-md-12">' +
+                '<div class="form-group">' +
+                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
+                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
+                '<div class="input-group-btn">' +
+                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
 
             ); //add input box                
-        }                        
+        }
     }
 
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent().parent().parent('div').remove(); x--;
+    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+        e.preventDefault();
+        $(this).parent().parent().parent('div').remove();
+        x--;
     })
-
-
 </script>
 
 
@@ -282,21 +374,21 @@
 <script>
     // var y = 1; //initlal text box count
 
-    $('#saveArfList').click(function () {
+    $('#saveArfList').click(function() {
         var datax = [];
-        for(var i=1; i<=y; i++){
+        for (var i = 1; i <= y; i++) {
             var data = {
-                lastWorkId: $('#lastWorkId_' + i ).html(),
-                lastWorkName: $('#lastWorkName_' + i ).html(),
-                lastProductId: $('#lastProductId_' + i ).html(),
-                lastProductName: $('#lastProductName_' + i ).html(),
-                lastQty: $('#lastQty_' + i ).val(),
-                lastUom: $('#lastUom_' + i ).html(),
-                lastPrice: $('#lastPrice_' + i ).html(),
-                totalArfDetails: $('#totalArfDetails_' + i ).html(),
-                lastCurrency: $('#lastCurrency_' + i ).html(),
-                lastRemark: $('#lastRemark_' + i ).html(),
-                
+                lastWorkId: $('#lastWorkId_' + i).html(),
+                lastWorkName: $('#lastWorkName_' + i).html(),
+                lastProductId: $('#lastProductId_' + i).html(),
+                lastProductName: $('#lastProductName_' + i).html(),
+                lastQty: $('#lastQty_' + i).val(),
+                lastUom: $('#lastUom_' + i).html(),
+                lastPrice: $('#lastPrice_' + i).html(),
+                totalArfDetails: $('#totalArfDetails_' + i).html(),
+                lastCurrency: $('#lastCurrency_' + i).html(),
+                lastRemark: $('#lastRemark_' + i).html(),
+
             }
             datax.push(data);
         }
@@ -304,7 +396,7 @@
         var json_object = JSON.stringify(datax);
         console.log(json_object);
 
-        $.ajax({                        
+        $.ajax({
             type: "POST",
             url: '{{route('ARF.tests')}}',
             data: json_object,
@@ -312,13 +404,13 @@
             processData: true,
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            , success: function(data){
+            },
+            success: function(data) {
                 console.log(data);
-            }, 
+            },
             error: function(data) {
                 Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-            } 
+            }
         });
     });
 </script>
@@ -327,7 +419,7 @@
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-            
+
             var qtyReq = $(this).val();
             if (qtyReq == 0 || qtyReq == '') {
                 qtyReq = 0;
@@ -358,4 +450,22 @@
             $(this).parents("#control-group").remove();
         });
     });
+</script>
+<!-- <script>
+    function validasi() {
+        var beneficiary = document.getElementById("beneficiary").value;
+        var bank_name = document.getElementById("bank_name").value;
+        var account_name = document.getElementById("account_name").value;
+        var account_number = document.getElementById("account_number").value;
+        var internal_notes = document.getElementById("internal_notes").value;
+        if (beneficiary != "" && bank_name != "" && account_name != "" && account_number != "" && internal_notes != "") {
+            return true;
+        } else {
+            alert('Anda harus mengisi data dengan lengkap !');
+        }
+    }
+</script> -->
+
+<script>
+
 </script>

@@ -1,74 +1,79 @@
 @extends('Partials.app')
-  @section('main')
-    @include('Partials.navbar')
-    @include('Partials.sidebar')
+@section('main')
+@include('Partials.navbar')
+@include('Partials.sidebar')
+@include('ProcurementAndCommercial.Functions.manager')
+@include('ProcurementAndCommercial.Functions.currency')
+@include('ProcurementAndCommercial.Functions.financeStaff')
+@include('ProcurementAndCommercial.Functions.searchBrf')
+<div class="content-wrapper">
+  <section class="content">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="tab-content p-3" id="nav-tabContent">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <label class="card-title">
+                    Create New ASF
+                  </label>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                    </button>
+                  </div>
+                </div>
+                @include('ProcurementAndCommercial.Functions.sectHeaderAsf')
+                <br>
+                <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Reset">
+                  <i class="fa fa-times" aria-hidden="true">Reset</i>
+                </button>
+                <a href="#" class="btn btn-outline-success btn-sm float-right"><i data-toggle="modal" data-target="#mySearchBrf" class="fas fa-gift" aria-hidden="true">Search BRF</i></a>
+              </div>
+            </div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
-    <div class="content-wrapper">
-      <section class="content">
-        <div class="container-fluid">
-
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <label class="card-title">
+            ARF Detail
+          </label>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+            </button>
+          </div>
+        </div>
+        @include('ProcurementAndCommercial.Functions.sectArfDetail')
+      </div>
+    </div>
+    <form action="">
+      <div class="row">
+        <div class="col-12">
           <div class="card">
-            <div class="card-body">
+            <div class="card-header">
+              <label class="card-title">
+                Detail Advance Settlement Form (ASF)
+              </label>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                  <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body detailASF">
               <div class="row">
-                <div class="col-md-12">
-                  <div class="card-header">
-                    <label class="card-title">File Attachment</label>
-                  </div>
-                </div>
-                
                 <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
-                  <div class="form-group">
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Select a file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text">Upload</span>
-                      </div>
-                    </div>
-                  </div>                      
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="card-header">                          
-                      </div>
-                      <div class="card-body table-responsive p-0" style="height: 200px;">
-                        <table id="example1" class="table table-head-fixed text-nowrap table-striped">
-                          <thead>
-                            <tr>
-                              <th>No</th>
-                              <th>File Name</th>
-                              <th>Action</th>                                
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>                                
-                              <td>1</td>
-                              <td>This is file name</td>
-                              <td>                                  
-                                <a class="btn btn-danger btn-sm" href="#">
-                                  <i class="fas fa-trash"></i>
-                                </a>
-                              </td>
-                            </tr>                         
-                          </tbody>
-                        </table>
-                      </div>                        
-                    </div>
-                  </div>
-                </div>
-                </div>
-                </div>
-
-                <div class="col-md-6">
-                <div class="card">
-                  <div class="card-body">
                   <div class="form-group">
                     <table>
                       <tr>
-                        <td><label>Requester</label></td>
+                        <td><label>ARF Number</label></td>
                         <td>
                           <div class="input-group">
                             <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
@@ -76,423 +81,352 @@
                         </td>
                       </tr>
                       <tr>
-                        <td><label>Manager Name</label></td>
+                        <td><label>ARF Date</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Project Code</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
                         <td>
                           <div class="input-group">
                             <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
-                            <div class="input-group-append">
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#"><i data-toggle="modal" data-target="#myProject" class="fas fa-gift"></i></a>
-                              </span>
-                            </div>
-                            <input id="projectname" style="border-radius:0;" type="text" class="form-control" placeholder="Text Input">
                           </div>
                         </td>
                       </tr>
                       <tr>
-                        <td><label>Currency</label></td>
+                        <td><label>Site Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            <div class="input-group-append">
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#"><i data-toggle="modal" data-target="#myRequester" class="fas fa-gift"></i></a>
-                              </span>
-                            </div>
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
-                      </tr>
-                      <tr>
-                        <td><label>PIC Name</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td><label>Finance Receiving Name</label></td>
                         <td>
                           <div class="input-group">
                             <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
-                            <div class="input-group-append">
-                              <span style="border-radius:0;" class="input-group-text form-control">
-                                <a href="#"><i data-toggle="modal" data-target="#myProject" class="fas fa-gift"></i></a>
-                              </span>
-                            </div>
-                            <input id="projectname" style="border-radius:0;" type="text" class="form-control" placeholder="Text Input">
                           </div>
                         </td>
                       </tr>
                       <tr>
-                        <td><label>Remark</label></td>
-                        <td>
-                          <textarea name="" id="" cols="53" rows="3"></textarea>
-                        </td>
-                      </tr>
-                      <tr>
-                      <td><label>Total</label></td>
+                        <td><label>CFS Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
+                            <input id="" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
                     </table>
                   </div>
-                  <br><br><br><br><br>
-                </div>                
-              </div>                                  
-              </div>              
-              </div>              
-              <a class="btn btn-danger btn-sm float-right" href="#">
-                <i class="fa fa-times" aria-hidden="true"></i>
-                Cancel
-              </a>
-              <a class="btn btn-primary btn-sm float-right" href="#">
-                <i class="fa fa-check-square" aria-hidden="true"></i>
-                Submit
-              </a>
-            </div>
-            
-            <div class="card">
-              <div class="card-body">
-                <div class="col-md-12">
-                  <div class="card-header">
-                    <h3 class="card-title">ARF Detail</h3>
-                  </div>
-                  <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table id="example1" class="table table-head-fixed text-nowrap table-striped">
-                      <thead>
-                        <tr>
-                          <th>No Trans</th>
-                          <th>Work ID</th>
-                          <th>Work Name</th>
-                          <th>Product ID</th>
-                          <th>Name Material</th>
-                          <th>Unit</th>
-                          <th>Unit Price</th>
-                          <th>QTY</th>
-                          <th>Total Price</th>
-                          <th>Currency</th>
-                          <th>Description</th>
-                          <th>Available</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                        </tr>
-                      </tbody>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <table>
+                      <tr>
+                        <div>
+                          <label>
+                            <strong>Balance</strong><br>
+                          </label>
+                        </div>
+                      </tr>
+                      <tr>
+                        <td><label>Total ARF</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Total ASF</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Balance</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="card">
-              <div class="card-body">
-                <div class="row">                  
-                  <div class="col-md-6">
-                  <div class="card-header">
-                      <label class="card-title">Detail Business Trip Settlement Form</label>
-                    </div>
-
-                  <div class="card">
-                    <div class="card-body">
-                    <div class="form-group">
-                      <table>
-                        <tr>
-                          <td><label>BRF Number</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>BRF Date</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Project Code</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Site Code</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>CFS Code</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>                        
-                      </table>
-                    </div>
-                  </div>
-                  </div>
-                  </div>
-
-                  <div class="col-md-6">
-                  <div class="card-header">
-                      <label class="card-title">Balance</label>
-                    </div>
-                  <div class="card">
-                    <div class="card-body">
-                    <div class="form-group">
-                      <table>
-                        <tr>
-                          <td><label>Total ARF</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Total BSF</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Balance</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>                        
-                      </table>
-                    </div>
-                    <br><br><br><br>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6">
-                <div class="card-header">
-                      <label class="card-title">Expense Claim</label>
-                    </div>
-
-                  <div class="card">
-                    <div class="card-body">
-                    <div class="form-group">
-                      <table>                        
-                          <td><label>QTY</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Price</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Total</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                  </div>
-                  </div>
-                
-                  <div class="col-md-6">
-                  <div class="card-header">
-                      <label class="card-title">Amount Due to Company</label>
-                    </div>
-
-                  <div class="card">
-                    <div class="card-body">
-                    <div class="form-group">
-                      <table>                        
-                        <tr>
-                          <td><label>QTY</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Price</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td><label>Total</label></td>
-                          <td>
-                            <div class="input-group">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                              <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
-                            </div>
-                          </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              </div>
-              </div>
-            </div>
-            
-            <div class="card">
-              <div class="card-body">
-                <div class="col-md-12">
-                  <div class="card-header">
-                    <h3 class="card-title">Amount Due To Company Cart</h3>
-                  </div>
-                  <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table id="example1" class="table table-head-fixed text-nowrap table-striped">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>No Trans</th>
-                          <th>Work ID</th>
-                          <th>Work Name</th>
-                          <th>Product ID</th>
-                          <th>Name Material</th>
-                          <th>Unit</th>
-                          <th>Unit Price</th>
-                          <th>QTY</th>
-                          <th>Total Price</th>
-                          <th>Description</th>
-                          <th>CFS Code</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td></td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                        </tr>
-                      </tbody>
+            <div class="card-body detailASF">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <table>
+                      <tr>
+                        <div>
+                          <label>
+                            <strong>Expense Claim</strong><br>
+                          </label>
+                        </div>
+                      </tr>
+                      <tr>
+                        <td><label>QTY</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 43px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Price</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 43px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Total</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 43px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
                     </table>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-body">
-                <div class="col-md-12">
-                  <div class="card-header">
-                    <h3 class="card-title">Expense Claim Cart</h3>
-                  </div>
-                  <div class="card-body table-responsive p-0" style="height: 300px;">
-                    <table id="example1" class="table table-head-fixed text-nowrap table-striped">
-                      <thead>
-                        <tr>
-                          <th></th>
-                          <th>No Trans</th>
-                          <th>Work ID</th>
-                          <th>Work Name</th>
-                          <th>Product ID</th>
-                          <th>Name Material</th>
-                          <th>Unit</th>
-                          <th>Unit Price</th>
-                          <th>QTY</th>
-                          <th>Total Price</th>
-                          <th>Description</th>
-                          <th>CFS Code</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>
-                            <a class="btn btn-warning btn-sm" href="#">
-                              <i class="fas fa-pencil-alt"></i>
-                            </a>
-                            <a class="btn btn-danger btn-sm" href="#">
-                              <i class="fas fa-trash"></i>
-                            </a>
-                          </td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                          <td>yes</td>
-                        </tr>
-                      </tbody>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <table>
+
+                      <tr>
+                        <div>
+                          <label>
+                            <strong>Amount Due to Company</strong><br>
+                          </label>
+                        </div>
+                      </tr>
+                      <tr>
+                        <td><label>QTY</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 23px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Price</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 23px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td><label>Total</label></td>
+                        <td>
+                          <div class="input-group" style="padding-left: 23px;">
+                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
                     </table>
                   </div>
+                  <br>
+                  <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Reset">
+                    <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
+                  </button>
+                  <a href="#" class="btn btn-outline-success btn-sm float-right"><i class="fas fa-plus" aria-hidden="true">Add to List Cart</i></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </form>
+
+    <!--|-------------------------------------------------------------------------|
+                  |                               End ARF Chart                             |
+                  |-------------------------------------------------------------------------|-->
+
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <label class="card-title">Amount Due to Company Cart</label>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 230px;" id="amountCompanyCart">
+          <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Action</th>
+                <th>No Trans</th>
+                <th>Work Id</th>
+                <th>Work Name</th>
+                <th>Product ID</th>
+                <th>Name Material</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>QTY</th>
+                <th>Total Price</th>
+                <th>Description</th>
+                <th>CFS Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                      <td>1</td>
+                      <td>
+
+                        <a class="btn btn-outline-secondary btn-sm" href="#">
+                          <i class="fas fa-trash"></i>
+                        </a>
+                      </td>
+                      <td>1</td>
+                      <td>2</td>
+                      <td>3</td>
+                      <td>4</td>
+                      <td>5</td>
+                      <td>6</td>
+                      <td>7</td>
+                      <td>8</td>
+                      <td>9</td>
+                      <td>10</td>
+                      <td>11</td>
+                    </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-    @include('Partials.footer')
-            
-  @endsection
+
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <label class="card-title">Expense Claim Cart</label>
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+              <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body table-responsive p-0" style="height: 230px;" id="expenseClaimCart">
+          <table id="editableAsf" class="table table-head-fixed text-nowrap table-striped">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Action</th>
+                <th>No Trans</th>
+                <th>Work ID</th>
+                <th>Work Name</th>
+                <th>Product ID</th>
+                <th>Name Material</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>QTY</th>
+                <th>Total Price</th>
+                <th>Description</th>
+                <th>CSF Code</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- <tr>
+                      <td>6</td>
+
+                      <td>3</td>
+                      <td>4</td>
+                      <td>5</td>
+                      <td>6</td>
+                      <td>7</td>
+                      <td>8</td>
+                      <td>9</td>
+                      <td>10</td>
+                      <td>11</td>
+                      <td>11</td>
+                      <td>11</td>
+                    </tr> -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <button type="reset" class="btn btn-outline-danger btn-sm float-right">
+      <i class="fa fa-times" aria-hidden="true"></i>
+      Cancel ASF List (Cart)
+    </button>
+    <button type="submit" class="btn btn-outline-success btn-sm float-right">
+      <i class="fa fa-save" aria-hidden="true"></i>
+      Save ASF List(Cart)
+    </button>
+</div>
+</div>
+</div>
+</section>
+</div>
+@include('Partials.footer')
+@include('ProcurementAndCommercial.Functions.footerFunctionAsf')
+@endsection

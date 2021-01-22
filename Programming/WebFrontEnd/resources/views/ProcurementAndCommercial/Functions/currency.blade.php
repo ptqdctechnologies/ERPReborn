@@ -13,13 +13,13 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td><label>Currency Code</label></td>
+                                <td><label>Code</label></td>
                                 <td>
                                     <div class="input-group">
                                         <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_currency" onkeyup="searchArfCurrencyCode()">
                                     </div>
                                 </td>
-                                <td><label>Currency Name</label></td>
+                                <td><label>Name</label></td>
                                 <td>
                                     <div class="input-group">
                                         <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_currency" onkeyup="searchArfCurrencyName()">
