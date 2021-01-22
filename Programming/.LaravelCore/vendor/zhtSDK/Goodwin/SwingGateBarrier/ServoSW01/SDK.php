@@ -58,10 +58,79 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varTimeOutInSeconds = 3;
+
+/*
+            require_once($this->varSDKPath.'/Compatible/GitHub_vodvud_php_zklib/zklib/ZKLib.php');
+            $zk = new \ZKLib($varHostIP, $varHostPort);
+            if($zk->connect())
+                {
+                echo "Connect";
+                }
+            else
+                {
+                echo "failed";                
+                }
+*/            
             
+/*
             require_once($this->varSDKPath.'/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php');
             $this->ObjLib = new \ZKLibrary($this->varHostIP, $this->varHostPort);
-            $this->ObjLib->setTimeout($this->varTimeOutInSeconds);            
+            $this->ObjLib->setTimeout($this->varTimeOutInSeconds);
+
+            if($this->ObjLib->connect())
+                {
+                echo "connect";
+       //         //$varReturn = $this->ObjLib->getAttendance();
+         //       $this->ObjLib->disconnect();
+                }
+*/
+
+/*
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADFactory.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TAD.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADResponse.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Providers/TADSoap.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Providers/TADZKLib.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/ConnectionError.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/FilterArgumentError.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedArgument.php');
+            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedCommand.php');
+            
+            $tad_factory = new \TADPHP\TADFactory(['ip'=>$varHostIP, 'com_key'=>0]);
+            $tad = $tad_factory->get_instance();
+            //echo $tad->get_date();
+            
+            $commands_list = $tad->commands_available();
+            var_dump($commands_list); echo "<br><br>";
+
+            // Get a list of commands implemented via TADPHP\TADSoap.
+            $soap_commands = $tad->soap_commands_available();
+            var_dump($soap_commands); echo "<br><br>";
+            
+            // Get a list of commands implemented via TAD\PHP\TADSoap.
+            $zklib_commands = $tad->zklib_commands_available();
+            var_dump($zklib_commands); echo "<br><br>";
+
+//            echo $tad->get_date();
+//            echo $tad->get_firmware_version();
+            
+            echo $tad->get_att_log();
+            
+            echo "<br><br>";
+  */
+//            echo phpinfo();
+
+/*            $varConnODBC =  \odbc_connect('FingerPrint', 'Admin', '');
+            if(!$varConnODBC)
+                {
+                echo "kebuka";
+                }
+            else
+                {
+                echo "gagal";
+                }*/
+            $conn = new \PDO('odbc:FingerPrint', 'Admin');  //("odbc:FingerPrint");
+            var_dump($conn);
             }
 
 
@@ -118,7 +187,15 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
             {
             $varReturn = null;
             try {
-                if($this->ObjLib->connect())
+$Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
+var_dump($Connect);
+
+//if($this->ObjLib->connect())
+//{
+//    echo "OK";
+//}
+                
+/*                if($this->ObjLib->connect())
                     {
                     $varReturn = $this->ObjLib->getSerialNumber();
                     $this->ObjLib->disconnect();
@@ -126,9 +203,9 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
                 else
                     {
                     throw new \Exception("Connection Failed");
-                    }
+                    }*/
                 return $varReturn;                
-                } 
+                }
             catch (\Exception $ex) {
                 }
             }

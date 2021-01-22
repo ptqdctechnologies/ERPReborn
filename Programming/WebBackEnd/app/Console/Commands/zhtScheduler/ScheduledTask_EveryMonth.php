@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Console\Commands
+namespace App\Console\Commands\zhtScheduler
     {
     use Illuminate\Console\Command;
 
-    class ScheduledTask_EveryTwoHours extends Command
+    class ScheduledTask_EveryMonth extends Command
         {
         /**
          * The name and signature of the console command.
          *
          * @var string
          */
-        protected $signature = 'scheduledTask:everyTwoHours';
+        protected $signature = 'scheduledTask:everyMonth';
 
         /**
          * The console command description.
          *
          * @var string
          */
-        protected $description = 'Laravel Console Agent - Every Two Hours';
+        protected $description = 'Laravel Console Agent - Every Month (on First Day of Month at 00:00)';
 
         /**
          * Create a new command instance.
@@ -37,12 +37,10 @@ namespace App\Console\Commands
          */
         public function handle()
             {
-            //$this->info('Execute Every Two Hours');
-            
-            $varFilePath = getcwd().'/app/Console/Commands/zhtScheduler/Log/ScheduledTask_EveryTwoHours.log';
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyMonth/core.log';
             shell_exec("touch ".$varFilePath);
-            $this->info($varFilePath);
-            
+            //$this->info($varFilePath);
+
             return 1;
             //    return 0;
             }

@@ -33,6 +33,37 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
         public function testSDK()
             {
+/*
+        echo "Contacting Machine...\n";
+
+    $KEY='';
+    
+    $Connect = fsockopen('192.168.16.111', 80, $errno, $errstr, 3);
+    if($Connect) {
+        $soap_request="<?xml version=\"1.0\" standalone=\"no\"?><SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP-ENV:Body><GetUserTemplate><ArgComKey xsi:type=\"xsd:integer\">".$KEY."</ArgComKey><Arg><PIN xsi:type=\"xsd:integer\">1</PIN><FingerID xsi:type=\"xsd:integer\">1</FingerID></Arg></GetUserTemplate></SOAP-ENV:Body></SOAP-ENV:Envelope>";
+        $newLine="\r\n";
+        fputs($Connect, "POST /iWsService HTTP/1.0".$newLine);
+        fputs($Connect, "Content-Type: text/xml".$newLine);
+        fputs($Connect, "Content-Length: ".strlen($soap_request).$newLine.$newLine);
+        fputs($Connect, $soap_request.$newLine);
+        $buffer="";
+        while($Response=fgets($Connect, 1024)){
+            $buffer=$buffer.$Response;
+            }
+        } 
+    else 
+        die("Koneksi Gagal\n");
+
+    print_r($buffer);
+
+
+*/
+            
+            
+            
+            
+            
+            
             $varUserSession=0;
 //            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
@@ -40,18 +71,26 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $y = $x->getDataAttendance('+07', '2020-01-01');
 //            $y = $x->getDeviceSerialNumber();
 
-            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.1.204', 4370);
-            echo  $x->getDeviceSerialNumber()."<br><br>";
-            echo  $x->getDeviceTime()."<br><br>";
+//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
+            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
+//            echo  $x->getDeviceSerialNumber()."<br><br>";
+//            echo  $x->getDeviceTime()."<br><br>";
             
+            
+//$x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
+//$x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
+//$y = $x->getDeviceSerialNumber();
+
 //            $y = $x->getDataAttendance();
-//            dd($y);
+//            var_dump($y);
+
+            echo "Done";
             
             //dd($y);
             
             
 //            $x = new \SDK\Goodwin\SwingGateBarrier\ServoSW01\SDK();
-            
+   
             }
 
         public function testMinIO()

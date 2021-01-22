@@ -28,7 +28,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 $varUserID, 
                 $varUserPassword
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIAuthenticationJQuery_setLogin()
             {

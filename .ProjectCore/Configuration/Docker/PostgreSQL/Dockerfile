@@ -25,17 +25,39 @@ RUN apt-get update \
 
 RUN apt-get install -y lsb-release \
     && wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb \
-    && dpkg -i mysql-apt-config_0.8.13-1_all.deb \
+       && dpkg -i mysql-apt-config_0.8.13-1_all.deb \
     && apt-get update \
-    && apt-get install -y mariadb-server \
     && wget https://github.com/EnterpriseDB/mysql_fdw/archive/master.zip \
+       && apt-get install -y mariadb-server \
        && unzip master.zip \
        && rm -rf /master.zip \
-    && cd /mysql_fdw-master \
-       && export PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
-       && PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
-       && cd / \
-       && rm -rf /mysql_fdw-master
+       && cd /mysql_fdw-master \
+          && export PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
+          && PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
+          && cd / \
+          && rm -rf /mysql_fdw-master \
+    && wget https://github.com/CartoDB/odbc_fdw/archive/master.zip \
+       && apt-get install -y \
+          unixodbc-dev \
+       && unzip master.zip \
+       && rm -rf /master.zip \
+       && cd /odbc_fdw-master \
+          && make \
+          && make install \
+          && cd / \
+          && rm -rf /odbc_fdw-master \
+    && wget https://github.com/tds-fdw/tds_fdw/archive/master.zip \
+       && apt-get install -y \
+          libsybdb5 \
+          freetds-dev \
+          freetds-common \
+       && unzip master.zip \
+       && rm -rf /master.zip \
+       && cd /tds_fdw-master \
+          && make USE_PGXS=1 \
+          && make USE_PGXS=1 install \
+          && cd / \
+          && rm -rf /tds_fdw-master
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306

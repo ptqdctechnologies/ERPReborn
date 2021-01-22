@@ -1,24 +1,24 @@
 <?php
 
-namespace App\Console\Commands
+namespace App\Console\Commands\zhtScheduler
     {
     use Illuminate\Console\Command;
 
-    class ScheduledTasK_EveryMinute extends Command
+    class ScheduledTask_EveryYear extends Command
         {
         /**
          * The name and signature of the console command.
          *
          * @var string
          */
-        protected $signature = 'scheduledTask:everyMinute';
+        protected $signature = 'scheduledTask:everyYear';
 
         /**
          * The console command description.
          *
          * @var string
          */
-        protected $description = 'Laravel Console Agent - Every Minute';
+        protected $description = 'Laravel Console Agent - Every Year (on First Day of Year at 00:00)';
 
         /**
          * Create a new command instance.
@@ -37,10 +37,9 @@ namespace App\Console\Commands
          */
         public function handle()
             {
-//            $this->info('Execute Every Minute');
-            $varFilePath = getcwd().'/app/Console/Commands/zhtScheduler/Log/ScheduledTask_EveryMinute.log';
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyYear/core.log';
             shell_exec("touch ".$varFilePath);
-            $this->info($varFilePath);
+            //$this->info($varFilePath);
 
             return 1;
             //    return 0;

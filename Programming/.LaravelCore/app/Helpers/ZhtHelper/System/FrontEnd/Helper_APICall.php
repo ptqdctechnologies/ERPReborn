@@ -67,7 +67,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     else
                         {
                         echo $varResponseData['data']['message'];
-                        die();
+                        $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
+                        $varReturn = $varResponseData;
+                        //die();
                         }
 //                        \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_GMTToOtherTimeZone($varUserSession, 'Tue, 25 Aug 2020 08:23:38 GMT', 7);                   
 //phpinfo();

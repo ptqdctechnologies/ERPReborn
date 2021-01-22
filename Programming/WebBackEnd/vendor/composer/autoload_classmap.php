@@ -6,8 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryDay' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryDay.php',
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryHour' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryHour.php',
     'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryMinute' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryMinute.php',
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryMonth' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryMonth.php',
     'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryTwoHours' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryTwoHours.php',
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryWeek' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryWeek.php',
+    'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryYear' => $baseDir . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryYear.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
@@ -2797,6 +2802,7 @@ return array(
     'Illuminate\\Queue\\Events\\JobFailed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobFailed.php',
     'Illuminate\\Queue\\Events\\JobProcessed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
     'Illuminate\\Queue\\Events\\JobProcessing' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
+    'Illuminate\\Queue\\Events\\JobQueued' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
     'Illuminate\\Queue\\Events\\Looping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/Looping.php',
     'Illuminate\\Queue\\Events\\WorkerStopping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/WorkerStopping.php',
     'Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseFailedJobProvider.php',
@@ -5996,7 +6002,7 @@ return array(
     'Whoops\\Util\\SystemFacade' => $vendorDir . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
     'Whoops\\Util\\TemplateHelper' => $vendorDir . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
     'XdgBaseDir\\Xdg' => $vendorDir . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
-    'am05zk' => $vendorDir . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
+    'am05zk' => $vendorDir . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Compatible/GitHub_am05mhz_am05zk/am05zk.php',
     'phpDocumentor\\Reflection\\DocBlock' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
     'phpDocumentor\\Reflection\\DocBlockFactory' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
     'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => $vendorDir . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

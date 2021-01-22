@@ -548,8 +548,13 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
     );
 
     public static $classMap = array (
+        'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryDay' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryDay.php',
+        'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryHour' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryHour.php',
         'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryMinute' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryMinute.php',
+        'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryMonth' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryMonth.php',
         'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryTwoHours' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryTwoHours.php',
+        'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryWeek' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryWeek.php',
+        'App\\Console\\Commands\\zhtScheduler\\ScheduledTask_EveryYear' => __DIR__ . '/../..' . '/app/Console/Commands/zhtScheduler/ScheduledTask_EveryYear.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
@@ -3339,6 +3344,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\Queue\\Events\\JobFailed' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobFailed.php',
         'Illuminate\\Queue\\Events\\JobProcessed' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
         'Illuminate\\Queue\\Events\\JobProcessing' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
+        'Illuminate\\Queue\\Events\\JobQueued' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
         'Illuminate\\Queue\\Events\\Looping' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/Looping.php',
         'Illuminate\\Queue\\Events\\WorkerStopping' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Events/WorkerStopping.php',
         'Illuminate\\Queue\\Failed\\DatabaseFailedJobProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Queue/Failed/DatabaseFailedJobProvider.php',
@@ -6538,7 +6544,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
-        'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Original/am05zk.php',
+        'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Compatible/GitHub_am05mhz_am05zk/am05zk.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',
