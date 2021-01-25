@@ -651,12 +651,17 @@ namespace App\Helpers\ZhtHelper\System
             $varReturn=null;
             
             try {
-                if(is_file(getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                if(is_file(getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                    {$varPathFile=getcwd().'/./../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
                     {$varPathFile=getcwd().'/./../../.LaravelCore/config/Application/BackEnd/environment.txt';}
                 elseif(is_file(getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
                     {$varPathFile=getcwd().'/./../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
                 elseif(is_file(getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
                     {$varPathFile=getcwd().'/./../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+                elseif(is_file(getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt')==true)
+                    {$varPathFile=getcwd().'/./../../../../../.LaravelCore/config/Application/BackEnd/environment.txt';}
+
                 $varFileContent = file_get_contents($varPathFile);
                 $varArrayTemp=explode("\n", $varFileContent);
                 for($i=0; $i!=count($varArrayTemp); $i++)

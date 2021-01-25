@@ -218,6 +218,30 @@ namespace App\Models\Cache
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataExpireAt                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-25                                                                                           |
+        | ▪ Description     : Menyimpan Expired DateTime data dengan key tertentu (varKey)                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varKey ► Data Key                                                                                        |
+        |      ▪ (mixed)  varValue ► Data Value                                                                                    |
+        |      ▪ (string) varExpireDateTime ► Expiry Date Time                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataExpireAt($varUserSession, string $varKey, string $varExpireDateTime)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Cache\Helper_Redis::setExpireAt($varUserSession, $this->varKeyHeader.'::'.$varKey, $varExpireDateTime);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

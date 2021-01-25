@@ -153,34 +153,53 @@ namespace App\Helpers\ZhtHelper\Cache
             $varData = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getKeyList($varUserSession, $varKeyHeader.'*');
             $varFinishDateTime = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getDateTime($varUserSession);
             $varExecutionTime  = \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeIntervalFromUnixTime($varUserSession, ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varFinishDateTime)) - ((double) \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varStartDateTime)));
-            $varRowCount = count($varData); 
-            for($i=0; $i!=$varRowCount; $i++)
-                {
-                $varKey = $varKeyHeader.(explode($varKeyHeader, $varData[$i]))[1];
-                $varTemp[$varKey] = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
-                }
-            arsort($varTemp);
 
-            $i=0;
-            foreach ($varTemp as $varKey => $varTTL) 
-                {
-                $varReturn[$i] = [
-                    'Sys_ID' => $varKey,
-                    'TTL' => $varTTL,
-                    'Value'=> \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey)
-                    ];
-                $i++;
-                }
+//$varReturn = $varData;   
+            $varReturn = [];
             
-            $varReturn = [
-                'Process' => [
-                    'StartDateTime' => $varStartDateTime,
-                    'FinishDateTime' => $varFinishDateTime,
-                    'ExecutionTime' => $varExecutionTime,
-                    ],
-                'Data' => $varReturn,
-                'RowCount' => $varRowCount
-            ];
+            $varRowCount = count($varData); 
+            if($varRowCount > 0)
+                {
+                for($i=0; $i!=$varRowCount; $i++)
+                    {
+                    $varKey = $varKeyHeader.(explode($varKeyHeader, $varData[$i]))[1];
+                    $varTemp[$varKey] = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getTTL($varUserSession, $varKey);
+                    }
+                arsort($varTemp);
+
+                $i=0;
+                foreach ($varTemp as $varKey => $varTTL) 
+                    {
+                    $varReturn[$i] = [
+                        'Sys_ID' => $varKey,
+                        'TTL' => $varTTL,
+                        'Value'=> \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue($varUserSession, $varKey)
+                        ];
+                    $i++;
+                    }
+
+                $varReturn = [
+                    'Process' => [
+                        'StartDateTime' => $varStartDateTime,
+                        'FinishDateTime' => $varFinishDateTime,
+                        'ExecutionTime' => $varExecutionTime,
+                        ],
+                    'Data' => $varReturn,
+                    'RowCount' => $varRowCount
+                    ];
+                }
+            else
+                {
+                $varReturn = [
+                    'Process' => [
+                        'StartDateTime' => $varStartDateTime,
+                        'FinishDateTime' => $varFinishDateTime,
+                        'ExecutionTime' => $varExecutionTime,
+                        ],
+                    'Data' => [],
+                    'RowCount' => $varRowCount
+                    ];
+                }
             
             return $varReturn;
             }
@@ -489,6 +508,49 @@ namespace App\Helpers\ZhtHelper\Cache
                         {
                         $varReturn = true;
                         }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setExpireAt                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-25                                                                                           |
+        | ▪ Description     : Menyimpan Expired DateTime pada data                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (string) varUserSession                                                                                           |
+        |      ▪ (string) varKey ► Kata Kunci                                                                                      |
+        |      ▪ (string) varExpireDateTime ► Expiry Date Time                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setExpireAt($varUserSession, string $varKey, string $varExpireDateTime)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Expire at '.$varExpireDateTime.' for data with key `'.$varKey.'`');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(self::getStatusAvailability($varUserSession)==false)
+                        {
+                        throw new \Exception('Redis not available');
+                        }
+                    \Illuminate\Support\Facades\Redis::expireAt($varKey, strtotime($varExpireDateTime));
+                    $varReturn = true;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

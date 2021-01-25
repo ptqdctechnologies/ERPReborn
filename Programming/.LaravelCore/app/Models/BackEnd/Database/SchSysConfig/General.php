@@ -29,7 +29,8 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
-            return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+            var_dump($varReturn);
+            //return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
 
 
