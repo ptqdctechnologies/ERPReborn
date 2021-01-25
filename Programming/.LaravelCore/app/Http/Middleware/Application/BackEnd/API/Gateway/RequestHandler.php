@@ -33,21 +33,24 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'HTTP Authorization Requests must be in Bearer Mode']));
                     }
                 //--->---> Check API Web Token Existence
-                if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
-                    {
-                    throw new \Exception(implode($varDataSeparatorTag, 
-                        [403, 'API Web Token does not exist']));
-                    }
-                //--->---> Check API Web Token Expiry
-                else
-                    {
-                    if((new \App\Models\Cache\General\APIWebToken())->isDataExpired($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == true)
+//                if(strcmp(((explode(' ', $varHTTPHeader['authorization']))[1]), ((new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession)))!=0)
+  //                  {
+                    if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
                         {
                         throw new \Exception(implode($varDataSeparatorTag, 
-                            [403, 'API Web Token has been expired']));
-                        }
-                    }
-                //--->---> Check Date Time on HTTP Header
+                            [403, 'API Web Token does not exist']));
+                        }                    
+                    //--->---> Check API Web Token Expiry
+                    else
+                        {
+                        if((new \App\Models\Cache\General\APIWebToken())->isDataExpired($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == true)
+                            {
+                            throw new \Exception(implode($varDataSeparatorTag, 
+                                [403, 'API Web Token has been expired']));
+                            }
+                        }                    
+    //                }
+/*                //--->---> Check Date Time on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
@@ -77,6 +80,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request has expired']));
                     }
+ */
                 //--->---> Check Content Integrity
                 if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
                     {

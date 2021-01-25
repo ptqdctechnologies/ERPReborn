@@ -18,6 +18,22 @@ namespace App\Models\Database\SchSysConfig
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
+        public function getAPIWebToken_SysEngine($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_GetAPIWebToken_SysEngine',
+                    [
+                    ]
+                    )
+                );
+            var_dump($varReturn);
+            //return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |

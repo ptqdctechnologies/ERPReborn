@@ -473,6 +473,7 @@ namespace App\Helpers\ZhtHelper\Database
                         //echo $varSQLQuery."<br><br>";
                         if(self::getStatusAvailability($varUserSession)==true)
                             {
+//echo $varSQLQuery."<br><br>";
                             //---> Cek apakah SQLQuery Proper
                             if(self::isValid_SQLSyntax($varUserSession, $varSQLQuery) == FALSE)
                                 {

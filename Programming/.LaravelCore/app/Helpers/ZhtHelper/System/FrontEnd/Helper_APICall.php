@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Helpers                                                                                                   |
-| ▪ Name Space : \App\Helpers\ZhtHelper\System\BackEnd                                                                             |
+| ▪ Name Space : \App\Helpers\ZhtHelper\System\FrontEnd                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -293,7 +293,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         else
                             {
                             echo $varResponseData['data']['message'];
-                            die();
+                            $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
+                            $varReturn = $varResponseData;
+                            //die();
                             }                        
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
