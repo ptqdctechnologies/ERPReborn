@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.171.21",
-            "version_normalized": "3.171.21.0",
+            "version": "3.172.0",
+            "version_normalized": "3.172.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0455d92bb12d44f80db96a4e70861d186063e9e5"
+                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0455d92bb12d44f80db96a4e70861d186063e9e5",
-                "reference": "0455d92bb12d44f80db96a4e70861d186063e9e5",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5a5e66c4d54c392042820703eeb8a6bd3d222924",
+                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-01-21T19:15:43+00:00",
+            "time": "2021-01-22T19:21:38+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.171.21"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.0"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -874,17 +874,17 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.9.1",
-            "version_normalized": "2.9.1.0",
+            "version": "2.9.2",
+            "version_normalized": "2.9.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "307fb34a5ab697461ec4c9db865b20ff2fd40771"
+                "reference": "df7933820090489623ce0be5e85c7e693638e536"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/307fb34a5ab697461ec4c9db865b20ff2fd40771",
-                "reference": "307fb34a5ab697461ec4c9db865b20ff2fd40771",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/df7933820090489623ce0be5e85c7e693638e536",
+                "reference": "df7933820090489623ce0be5e85c7e693638e536",
                 "shasum": ""
             },
             "require": {
@@ -900,7 +900,7 @@
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
                 "whoops/soap": "Formats errors as SOAP responses"
             },
-            "time": "2020-11-01T12:00:00+00:00",
+            "time": "2021-01-24T12:00:00+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -933,6 +933,16 @@
                 "library",
                 "throwable",
                 "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/filp/whoops/issues",
+                "source": "https://github.com/filp/whoops/tree/2.9.2"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/denis-sokolov",
+                    "type": "github"
+                }
             ],
             "install-path": "../filp/whoops"
         },
@@ -1417,17 +1427,17 @@
         },
         {
             "name": "intervention/httpauth",
-            "version": "3.0.2",
-            "version_normalized": "3.0.2.0",
+            "version": "3.0.3",
+            "version_normalized": "3.0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Intervention/httpauth.git",
-                "reference": "36ee7550c7d86b658e82b92cfcbf5ceb0e3e53f8"
+                "reference": "7742aa013e1a72f94379cb6623286f06fa1ea5f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Intervention/httpauth/zipball/36ee7550c7d86b658e82b92cfcbf5ceb0e3e53f8",
-                "reference": "36ee7550c7d86b658e82b92cfcbf5ceb0e3e53f8",
+                "url": "https://api.github.com/repos/Intervention/httpauth/zipball/7742aa013e1a72f94379cb6623286f06fa1ea5f7",
+                "reference": "7742aa013e1a72f94379cb6623286f06fa1ea5f7",
                 "shasum": ""
             },
             "require": {
@@ -1437,7 +1447,7 @@
                 "phpstan/phpstan": "^0.12.11",
                 "phpunit/phpunit": "^9.0"
             },
-            "time": "2020-11-27T17:04:27+00:00",
+            "time": "2021-01-22T15:08:35+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -1475,7 +1485,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Intervention/httpauth/issues",
-                "source": "https://github.com/Intervention/httpauth/tree/3.0.2"
+                "source": "https://github.com/Intervention/httpauth/tree/3.0.3"
             },
             "install-path": "../intervention/httpauth"
         },

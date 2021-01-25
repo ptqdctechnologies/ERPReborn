@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '8397242629058e6d1b18495b9beb5ecd6a0a9951',
+    'reference' => '9a371aad6046a88196fa74270f6f08d669879717',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.171.21',
-      'version' => '3.171.21.0',
+      'pretty_version' => '3.172.0',
+      'version' => '3.172.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0455d92bb12d44f80db96a4e70861d186063e9e5',
+      'reference' => '5a5e66c4d54c392042820703eeb8a6bd3d222924',
     ),
     'brick/math' => 
     array (
@@ -157,12 +157,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.9.1',
-      'version' => '2.9.1.0',
+      'pretty_version' => '2.9.2',
+      'version' => '2.9.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '307fb34a5ab697461ec4c9db865b20ff2fd40771',
+      'reference' => 'df7933820090489623ce0be5e85c7e693638e536',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -446,12 +446,12 @@ private static $installed = array (
     ),
     'intervention/httpauth' => 
     array (
-      'pretty_version' => '3.0.2',
-      'version' => '3.0.2.0',
+      'pretty_version' => '3.0.3',
+      'version' => '3.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '36ee7550c7d86b658e82b92cfcbf5ceb0e3e53f8',
+      'reference' => '7742aa013e1a72f94379cb6623286f06fa1ea5f7',
     ),
     'kodova/hamcrest-php' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '8397242629058e6d1b18495b9beb5ecd6a0a9951',
+      'reference' => '9a371aad6046a88196fa74270f6f08d669879717',
     ),
     'laravel/tinker' => 
     array (

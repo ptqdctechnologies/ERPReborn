@@ -533,6 +533,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_String' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_String.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_API' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_API.php',
+        'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_APICall' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_APICall.php',
         'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_APIResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_APIResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_APICall' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_APICall.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
