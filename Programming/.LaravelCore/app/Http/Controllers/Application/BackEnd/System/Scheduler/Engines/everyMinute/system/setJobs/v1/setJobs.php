@@ -109,7 +109,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'sessionStartDateTimeTZ' => $varBufferDB['SessionStartDateTimeTZ'],
                         'sessionAutoStartDateTimeTZ' => $varBufferDB['SessionAutoStartDateTimeTZ'],
                         'sessionAutoFinishDateTimeTZ' => $varBufferDB['SessionAutoFinishDateTimeTZ'],
-                        'userPrivilegesMenu' => null
+                        'userPrivilegesMenu' => json_encode([])
                         ]), 
                     10);
                 (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, substr($varBufferDB['SessionAutoFinishDateTimeTZ'], 0, 19));
