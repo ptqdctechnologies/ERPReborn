@@ -1,11 +1,13 @@
 #!/bin/bash
 
+varTitle='( PHPApacheBackEnd )';
+
 if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
-   echo "Initializing Cron on php-apache-backend Container";
+   echo -e "\e[1;33m"$varTitle" ► Cron Service Initialization...\e[0m";
       /etc/init.d/cron restart;
-   echo "Optimizing PHP-Artisan on php-apache-backend Container";
-      cd WebBackEnd/;
+   echo -e "\e[1;33m"$varTitle" ► PHP-Artisan Optimization...\e[0m";
+      cd /var/www/html/WebBackEnd/;
       php artisan optimize;
       cd -;
    
