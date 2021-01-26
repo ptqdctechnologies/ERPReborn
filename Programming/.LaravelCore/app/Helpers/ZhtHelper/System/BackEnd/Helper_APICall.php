@@ -71,13 +71,15 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             ],
                         'data' => $varData
                         ];
-                    
+                 
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         'http://'.\App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession).'/api/gateway',
                         $varDataArray
                         );
-
+                    
+                    dd($varResponseData);
+/*
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
                         $varReturn = $varResponseData;
@@ -91,6 +93,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             //die();
                             }                        
                         }
+ */
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

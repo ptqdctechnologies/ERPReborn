@@ -1,8 +1,10 @@
 #!/bin/bash
 
+varTitle='( Samba )';
+
 if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
-   echo "Initializing Samba Container";
+   echo -e "\e[1;33m"$varTitle" ► Samba Service Initialization...\e[0m";
 
    samba-tool domain passwordsettings set --complexity=off;
    samba-tool domain passwordsettings set --max-pwd-age=0;

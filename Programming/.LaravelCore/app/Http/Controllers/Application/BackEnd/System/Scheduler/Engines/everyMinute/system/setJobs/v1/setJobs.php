@@ -69,9 +69,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             {
             $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             //---> Jika Belum dideklarasikan
-//            if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, $varAPIWebToken) == false)
+            if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, $varAPIWebToken) == false)
                 {
-/*                $varSQLQuery = '
+                $varSQLQuery = '
                     SELECT
                         "APIWebToken",
                         CASE
@@ -94,9 +94,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         "Sys_RPK" ASC
                     ';
 
-echo $varSQLQuery;
-*/                
-/*                $varBufferDB = (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLQuery))['Data'][0];
+                $varBufferDB = (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLQuery))['Data'][0];
 
                 //dd($varBufferDB);
                 
@@ -114,11 +112,10 @@ echo $varSQLQuery;
                         ]), 
                     10);
                 (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, substr($varBufferDB['SessionAutoFinishDateTimeTZ'], 0, 19));
-*/
                 }
 
-//            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-25 14:10:00');
-//            dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+//            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-26 10:04:00');
+//            var_dump((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
             }
         }
     }

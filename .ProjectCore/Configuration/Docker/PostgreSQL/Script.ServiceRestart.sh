@@ -1,8 +1,10 @@
 #!/bin/bash
 
+varTitle='( PostgreSQL )';
+
 if [ ! -f /zhtConf/tmp/processSign/.initialized ]; then
    #sleep 30;
-   echo "Initializing MariaDB (MySQL) on PostgreSQL Container";
+   echo -e "\e[1;33m"$varTitle" ► MariaDB (MySQL) Service Initialization...\e[0m";
    #service postgresql restart;
    service mysql restart;
    touch /zhtConf/tmp/processSign/.initialized;

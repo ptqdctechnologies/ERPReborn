@@ -48,8 +48,8 @@ namespace App\Console\Commands\zhtScheduler
             
             //echo getcwd();
       
-            \Illuminate\Support\Facades\DB::select('SELECT NOW();');
-            echo "done";
+//            \Illuminate\Support\Facades\DB::select('SELECT NOW();');
+//            echo "done";
             
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             (new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyMinute\system\setJobs\v1\setJobs())->loadAllJobs($varUserSession);

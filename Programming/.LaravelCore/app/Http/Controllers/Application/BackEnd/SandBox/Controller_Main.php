@@ -43,14 +43,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
  
  //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(0, 'USER_SESSION_ID_SYSTEM');
  //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $varUserSession = 0;
-            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+//            $varUserSession = 0;
+  //          $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             
             
             
-            var_dump((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+    //        var_dump((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
 //            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-25 14:10:00');
-                dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+      //          dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
 
             
             //(new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyMinute\system\setJobs\v1\setJobs())->setAPIWebTokenSysEngine(000);
@@ -60,14 +60,14 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
  //           dd($x);
             
             
-/*            $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+            $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 'environment.general.session.getUserPrivilegesMenu', 
                 'latest', 
                 [
                 ]
                 );
-            dd($x);*/
+            dd($x);
 /*
         echo "Contacting Machine...\n";
 

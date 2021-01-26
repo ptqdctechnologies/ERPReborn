@@ -18,6 +18,20 @@ namespace App\Models\Database\SchSysConfig
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAPIWebToken_SysEngine                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-25                                                                                           |
+        | ▪ Description     : Mendapatkan APIWebToken SysEngine                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function getAPIWebToken_SysEngine($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -29,8 +43,7 @@ namespace App\Models\Database\SchSysConfig
                     ]
                     )
                 );
-            var_dump($varReturn);
-            //return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+            return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
             }
 
 
