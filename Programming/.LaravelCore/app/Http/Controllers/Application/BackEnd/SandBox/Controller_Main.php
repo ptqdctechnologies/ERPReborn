@@ -49,7 +49,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
 //            dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
 //            (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-25 14:10:00');
-      //          dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+
+//$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
+//dd((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
 
             
             //(new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyMinute\system\setJobs\v1\setJobs())->setAPIWebTokenSysEngine(000);
@@ -58,17 +60,75 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            $x = \App\Helpers\ZhtHelper\Cache\Helper_Redis::getAllRecord(0, 'ERPReborn::APIWebToken::');
 //            dd($x);
             
-            
+/*
             $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession),
-                //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTYzMDgxMn0.gter-UCXr4MhH0ldwM3roszGevAj-bbUq42IBBYrTF4',
+                //(new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession),
+                'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg',
                 'environment.general.session.getUserPrivilegesMenu', 
                 'latest', 
                 [
                 ]
                 );
             dd($x);
+*/
+
+//            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
+
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY1NTkwN30.YAzgSdGcWbh10uJufmVbjyO2J3bhBoMg7ZDVkqxqD1Q';
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            //dd($varAPIWebToken);
+//$varDataSession = \App\Helpers\ZhtHelper\General\Helper_Session::get(\App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationID());
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
+                'latest', 
+                [
+                'entities' => [
+                    'IPAddress' => '192.168.1.203',
+                    'port' => 4370, 
+                    'serialNumber' => 'AEYU202860040',
+                    'timeZoneOffset' => '+07',
+                    'startDateTime' => '2021-01-01'
+                    ]
+                ]
+                );
+//echo "xxx";
+            var_dump(json_encode($varData));
+            
+            
+            
+/*    
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY1NTkwN30.YAzgSdGcWbh10uJufmVbjyO2J3bhBoMg7ZDVkqxqD1Q';
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.master.getDataListTradeMark', 
+                'latest', 
+                [
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            
+*/            
+            
+            
+            
+            
+            
+            
+            
 /*
         echo "Contacting Machine...\n";
 

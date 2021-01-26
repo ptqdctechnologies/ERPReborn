@@ -234,8 +234,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getServerIPAddress                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-22                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-01-26                                                                                           |
         | ▪ Description     : Mendapatkan IP Address dari Server                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -251,7 +251,20 @@ namespace App\Helpers\ZhtHelper\General
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Server IP Address');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = $_SERVER['HTTP_HOST'];
+                    if(!empty($_SERVER['HTTP_CLIENT_IP'])) {  
+                        $varReturn = $_SERVER['HTTP_CLIENT_IP'];  
+                        }
+                    elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {  
+                        $varReturn = $_SERVER['HTTP_X_FORWARDED_FOR'];  
+                        }
+                    elseif(!empty($_SERVER['HTTP_HOST'])) {  
+                        $varReturn = $_SERVER['HTTP_HOST'];  
+                        }
+                    else
+                        {
+                        //$host= gethostname();
+                        $varReturn = gethostbyname(gethostname());
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     }
                 catch (\Exception $ex) {

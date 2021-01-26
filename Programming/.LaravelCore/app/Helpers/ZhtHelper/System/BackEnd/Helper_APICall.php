@@ -22,8 +22,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-22                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-01-26                                                                                           |
         | ▪ Description     : Memanggil API Gateway                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,13 +71,11 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             ],
                         'data' => $varData
                         ];
-                 
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         'http://'.\App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession).'/api/gateway',
                         $varDataArray
                         );
-
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
                         $varReturn = $varResponseData;
@@ -91,6 +89,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             //die();
                             }                        
                         }
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
