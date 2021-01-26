@@ -37,25 +37,15 @@ namespace App\Console\Commands\zhtScheduler
          */
         public function handle()
             {
-//            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyMinute/core.log';
-//            shell_exec("touch ".$varFilePath);
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyMinute/core.log';
+            shell_exec("touch ".$varFilePath);
             //$this->info($varFilePath);
 
-//            echo "xxx";
-  //          echo "\n\n";
-            
-    //        echo is_file('./../.LaravelCore/config/Application/BackEnd/environment.txt');
-            
-            //echo getcwd();
-      
-//            \Illuminate\Support\Facades\DB::select('SELECT NOW();');
-//            echo "done";
-            
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             (new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyMinute\system\setJobs\v1\setJobs())->loadAllJobs($varUserSession);
 
             return 1;
-            //    return 0;
+            //return 0;
             }
         }
     }

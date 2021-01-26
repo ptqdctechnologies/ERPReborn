@@ -36,14 +36,14 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGateway($varUserSession, string $varAPIKey, $varAPIVersion=null, array $varData=null)
+        public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+                    //$varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
 
                     if(!$varAPIVersion)
                         {
@@ -77,9 +77,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         'http://'.\App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession).'/api/gateway',
                         $varDataArray
                         );
-                    
-                    dd($varResponseData);
-/*
+
                     if($varResponseData['metadata']['HTTPStatusCode']==200)
                         {
                         $varReturn = $varResponseData;
@@ -93,7 +91,6 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             //die();
                             }                        
                         }
- */
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

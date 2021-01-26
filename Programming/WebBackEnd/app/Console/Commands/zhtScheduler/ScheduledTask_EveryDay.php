@@ -41,8 +41,11 @@ namespace App\Console\Commands\zhtScheduler
             shell_exec("touch ".$varFilePath);
             //$this->info($varFilePath);
 
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            (new \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyDay\system\setJobs\v1\setJobs())->loadAllJobs($varUserSession);
+
             return 1;
-            //    return 0;
+            //return 0;
             }
         }
     }
