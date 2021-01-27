@@ -340,6 +340,8 @@ return array(
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_User' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_User.php',
+    'App\\Models\\Database\\SchSysConfig\\TblLog_Device_PersonAccess' => $baseDir . '/app/Models/Database/SchSysConfig/TblLog_Device_PersonAccess.php',
+    'App\\Models\\Database\\SchSysConfig\\TblLog_Device_PersonAccessFetch' => $baseDir . '/app/Models/Database/SchSysConfig/TblLog_Device_PersonAccessFetch.php',
     'App\\Models\\Database\\SchSysConfig\\TblLog_UserLoginSession' => $baseDir . '/app/Models/Database/SchSysConfig/TblLog_UserLoginSession.php',
     'App\\Models\\Database\\SchSysConfig\\TblRotateLog_API' => $baseDir . '/app/Models/Database/SchSysConfig/TblRotateLog_API.php',
     'App\\Models\\Database\\SchSysConfig_Initialize\\General' => $baseDir . '/app/Models/Database/SchSysConfig_Initialize/General.php',

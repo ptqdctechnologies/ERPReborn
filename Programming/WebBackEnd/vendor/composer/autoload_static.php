@@ -882,6 +882,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_User' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_User.php',
+        'App\\Models\\Database\\SchSysConfig\\TblLog_Device_PersonAccess' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblLog_Device_PersonAccess.php',
+        'App\\Models\\Database\\SchSysConfig\\TblLog_Device_PersonAccessFetch' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblLog_Device_PersonAccessFetch.php',
         'App\\Models\\Database\\SchSysConfig\\TblLog_UserLoginSession' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblLog_UserLoginSession.php',
         'App\\Models\\Database\\SchSysConfig\\TblRotateLog_API' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblRotateLog_API.php',
         'App\\Models\\Database\\SchSysConfig_Initialize\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig_Initialize/General.php',

@@ -49,6 +49,67 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentDateTimeTZ                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Description     : Get Current Date Time with TimeZone                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getCurrentDateTimeTZ($varUserSession)
+            {
+            $varTimeZoneNames = 'Asia/Jakarta';
+            
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,            
+                'SELECT EXTRACT(hour FROM (SELECT utc_offset FROM "pg_timezone_names" WHERE "name" ILIKE \''.$varTimeZoneNames.'\')::time)::smallint AS "UTCOffset";'
+                );
+            $varUTCOffset = $varReturn['Data'][0]['UTCOffset'];
+            $varUTCOffset = ($varUTCOffset > 0 ? '+' : '-').(strlen($varUTCOffset) == 2 ? '' : '0').$varUTCOffset;
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT (SELECT NOW() AT TIME ZONE \''.$varTimeZoneNames.'\') || \''.$varUTCOffset.'\' AS "Result";'
+                //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT NOW()::timestamptz;'
+                );
+            return $varReturn['Data'][0]['Result'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentYear                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-27                                                                                           |
+        | ▪ Description     : Get Current Year                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getCurrentYear($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT DATE_PART(\'YEAR\', \''.$this->getCurrentDateTimeTZ($varUserSession).'\'::timestamptz);'
+                //'SELECT DATE_PART(\'YEAR\', (SELECT NOW() AT TIME ZONE \'Asia/Jakarta\')::timestamptz);'
+                //'SET TIMEZONE=\'Asia/Jakarta\'; SELECT DATE_PART(\'YEAR\', NOW());'
+                );
+            return (int) $varReturn['Data'][0]['date_part'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

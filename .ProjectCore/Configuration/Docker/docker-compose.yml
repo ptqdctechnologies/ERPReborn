@@ -91,6 +91,9 @@ services:
       MYSQL_USER: 'SysEngine'
       MYSQL_PASSWORD: '748159263'
       MYSQL_ROOT_PASSWORD: '748159263'
+      TZ: 'Asia/Jakarta'
+        #TZ: 'GMT+7'
+        #PGTZ: 'GMT+7'
       #PG_MODE=primary
       #PG_PRIMARY_USER=postgres
       #PG_PRIMARY_PASSWORD=yoursecurepassword
