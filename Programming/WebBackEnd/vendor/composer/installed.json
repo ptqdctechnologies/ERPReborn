@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.172.0",
-            "version_normalized": "3.172.0.0",
+            "version": "3.172.1",
+            "version_normalized": "3.172.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924"
+                "reference": "28a0929598be6e9e0b652091712068d37acd9d0a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5a5e66c4d54c392042820703eeb8a6bd3d222924",
-                "reference": "5a5e66c4d54c392042820703eeb8a6bd3d222924",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/28a0929598be6e9e0b652091712068d37acd9d0a",
+                "reference": "28a0929598be6e9e0b652091712068d37acd9d0a",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-01-22T19:21:38+00:00",
+            "time": "2021-01-26T19:11:49+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.172.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -685,17 +685,17 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.5.8",
-            "version_normalized": "2.5.8.0",
+            "version": "2.5.9",
+            "version_normalized": "2.5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "8e907d81244649c5ea746e2ec30c32c5f59df472"
+                "reference": "66b3138ecce38024723fb3bfc66ef8852a779ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/8e907d81244649c5ea746e2ec30c32c5f59df472",
-                "reference": "8e907d81244649c5ea746e2ec30c32c5f59df472",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/66b3138ecce38024723fb3bfc66ef8852a779ea9",
+                "reference": "66b3138ecce38024723fb3bfc66ef8852a779ea9",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
             "suggest": {
                 "laravel/telescope": "^3.1"
             },
-            "time": "2020-12-29T09:12:55+00:00",
+            "time": "2021-01-26T14:45:19+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1491,17 +1491,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.24.0",
-            "version_normalized": "8.24.0.0",
+            "version": "v8.25.0",
+            "version_normalized": "8.25.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "d16e9f875e4d7609a05d5007393e22ba95efd1fc"
+                "reference": "05da44d6823c2923597519ac10151f5827a24f80"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/d16e9f875e4d7609a05d5007393e22ba95efd1fc",
-                "reference": "d16e9f875e4d7609a05d5007393e22ba95efd1fc",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/05da44d6823c2923597519ac10151f5827a24f80",
+                "reference": "05da44d6823c2923597519ac10151f5827a24f80",
                 "shasum": ""
             },
             "require": {
@@ -1588,6 +1588,7 @@
             },
             "suggest": {
                 "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.155).",
+                "brianium/paratest": "Required to run tests in parallel (^6.0).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6|^3.0).",
                 "ext-ftp": "Required to use the Flysystem FTP driver.",
                 "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
@@ -1614,7 +1615,7 @@
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
             },
-            "time": "2021-01-21T14:19:29+00:00",
+            "time": "2021-01-26T14:40:21+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1661,17 +1662,17 @@
         },
         {
             "name": "laravel/tinker",
-            "version": "v2.5.0",
-            "version_normalized": "2.5.0.0",
+            "version": "v2.6.0",
+            "version_normalized": "2.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/tinker.git",
-                "reference": "45884b526e10a88a1b179fa1a1a24d5468c668c2"
+                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/tinker/zipball/45884b526e10a88a1b179fa1a1a24d5468c668c2",
-                "reference": "45884b526e10a88a1b179fa1a1a24d5468c668c2",
+                "url": "https://api.github.com/repos/laravel/tinker/zipball/daae1c43f1300fe88c05d83db6f3d8f76677ad88",
+                "reference": "daae1c43f1300fe88c05d83db6f3d8f76677ad88",
                 "shasum": ""
             },
             "require": {
@@ -1689,7 +1690,7 @@
             "suggest": {
                 "illuminate/database": "The Illuminate Database package (^6.0|^7.0|^8.0)."
             },
-            "time": "2020-10-29T13:07:12+00:00",
+            "time": "2021-01-26T20:35:18+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1724,6 +1725,10 @@
                 "laravel",
                 "psysh"
             ],
+            "support": {
+                "issues": "https://github.com/laravel/tinker/issues",
+                "source": "https://github.com/laravel/tinker/tree/v2.6.0"
+            },
             "install-path": "../laravel/tinker"
         },
         {

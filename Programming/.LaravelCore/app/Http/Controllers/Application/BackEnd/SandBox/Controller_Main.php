@@ -75,6 +75,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
 //            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
 
+$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
+//$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
+dd($x);
+            
+            
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY1NTkwN30.YAzgSdGcWbh10uJufmVbjyO2J3bhBoMg7ZDVkqxqD1Q';
             $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             //dd($varAPIWebToken);
