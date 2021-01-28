@@ -149,6 +149,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         private function getAttendance_Solution_x601(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)
             {
             try {
+                //--->
+                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+                    {
+                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
+                    }
+ //               $varLastRecordDateTimeTZ = '2021-01-27 00:00:00+07';
+//dd($varLastRecordDateTimeTZ);
+                
+                //--->
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
@@ -160,19 +169,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'port' => $varHostPort, 
                         'serialNumber' => $varSerialNumber,
                         'timeZoneOffset' => $varTimeZoneOffset,
-                        'startDateTime' => '2021-01-01'
+                        'startDateTime' => '2000-01-01'
+//                        'startDateTime' => '2021-01-28'
                         ]
                     ]
-                    );
-                var_dump($varData);
-                //var_dump(json_encode($varData));
+                    )['data'];
+
 
 //$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
 //$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession);
 //dd();
 
-
-/*                
+                //--->
                 $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccessFetch())->setDataInsert(
                     $varUserSession, 
                     null, 
@@ -182,12 +190,37 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     //'NOW()'
                     (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
                     )['SignRecordID'];
-                var_dump($varLog_Device_PersonAccessFetch_RefID);
-*/
-
+//                var_dump($varLog_Device_PersonAccessFetch_RefID);
                 
-
+//$varLog_Device_PersonAccessFetch_RefID = 122;
+                //--->
+                for($i=0; $i!=count($varData); $i++)
+                    {
+                    if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
+                        {
+                        echo "\nxxx ".$varData[$i]['dateTimeTZ'];
+                        echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
+                        (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccess())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            substr($varData[$i]['dateTimeTZ'], 0, 4), 
+                            11000000000003, 
+                            $varLog_Device_PersonAccessFetch_RefID, 
+                            $varData[$i]['dateTimeTZ'], 
+                            $varData[$i]['ID'], 
+                            null
+                            );                
+                        }
+                    }
                 
+                echo "\n\n";
+                echo $varLastRecordDateTimeTZ;
+                echo "\n\n";
+                echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ);
+                echo "\n\n";
+                echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, '2020-10-30 17:09:26.000010+07');
+                echo "\n\n";
+                //echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, '2020-01-01');
                 } 
             catch (\Exception $ex) {
                 }
@@ -196,6 +229,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         private function getAttendance_ALBox_FP800(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)
             {
             try {
+                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+                    {
+                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
+                    }
+
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 

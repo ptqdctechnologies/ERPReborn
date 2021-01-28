@@ -47,6 +47,28 @@ namespace App\Models\Database\SchSysConfig
             }
 
 
+        public function getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, int $varGoodsIdentityID, string $varTimeZoneOffset = null)
+            {
+            if(!$varTimeZoneOffset)
+                {
+                $varTimeZoneOffset = 'UTC';                
+                }
+
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.Func_Device_PersonAccess_GetLastRecordDateTimeTZ',
+                    [
+                        [$varGoodsIdentityID, 'bigint'],
+                        [$varTimeZoneOffset, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0]['Func_Device_PersonAccess_GetLastRecordDateTimeTZ'];
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getCurrentDateTimeTZ                                                                                 |
