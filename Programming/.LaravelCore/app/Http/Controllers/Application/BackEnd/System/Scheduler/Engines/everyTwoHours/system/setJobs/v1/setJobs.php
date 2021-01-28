@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
 
         private function getAttendance(int $varUserSession)
             {
-            $varList = [/*
+            $varList = [
                     //---> Finger Print HO Ruang Server
                     [
                     'GoodsIdentity_RefID' => 17000000000003,
@@ -97,7 +97,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     'HostPort' => 4370,
                     'SerialNumber' => 'AEYU202860040',
                     'TimeZoneOffset' => '+07'
-                    ],*/
+                    ],
                     //---> Finger Print HO Lantai 3
                     [
                     'GoodsIdentity_RefID' => 17000000000007,
@@ -154,8 +154,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     {
                     $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
                     }
- //               $varLastRecordDateTimeTZ = '2021-01-27 00:00:00+07';
-//dd($varLastRecordDateTimeTZ);
                 
                 //--->
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
@@ -170,15 +168,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'serialNumber' => $varSerialNumber,
                         'timeZoneOffset' => $varTimeZoneOffset,
                         'startDateTime' => '2000-01-01'
-//                        'startDateTime' => '2021-01-28'
                         ]
                     ]
                     )['data'];
-
-
-//$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
-//$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession);
-//dd();
 
                 //--->
                 $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccessFetch())->setDataInsert(
@@ -187,12 +179,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
                     11000000000003, 
                     $varGoodsIdentity_RefID, 
-                    //'NOW()'
                     (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
                     )['SignRecordID'];
-//                var_dump($varLog_Device_PersonAccessFetch_RefID);
-                
-//$varLog_Device_PersonAccessFetch_RefID = 122;
+
                 //--->
                 for($i=0; $i!=count($varData); $i++)
                     {
@@ -212,15 +201,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                             );                
                         }
                     }
-                
-                echo "\n\n";
-                echo $varLastRecordDateTimeTZ;
-                echo "\n\n";
-                echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ);
-                echo "\n\n";
-                echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, '2020-10-30 17:09:26.000010+07');
-                echo "\n\n";
-                //echo \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, '2020-01-01');
                 } 
             catch (\Exception $ex) {
                 }
@@ -245,11 +225,40 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                         'port' => $varHostPort, 
                         'serialNumber' => $varSerialNumber,
                         'timeZoneOffset' => '+07',
-                        'startDateTime' => '2021-01-01'
+                        'startDateTime' => '2000-01-01'
                         ]
                     ]
-                    );
-                var_dump($varData);                
+                    )['data'];
+
+                //--->
+                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccessFetch())->setDataInsert(
+                    $varUserSession, 
+                    null, 
+                    (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
+                    11000000000003, 
+                    $varGoodsIdentity_RefID, 
+                    (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
+                    )['SignRecordID'];
+
+                //--->
+                for($i=0; $i!=count($varData); $i++)
+                    {
+                    if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
+                        {
+                        echo "\nxxx ".$varData[$i]['dateTimeTZ'];
+                        echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
+                        (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccess())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            substr($varData[$i]['dateTimeTZ'], 0, 4), 
+                            11000000000003, 
+                            $varLog_Device_PersonAccessFetch_RefID, 
+                            $varData[$i]['dateTimeTZ'], 
+                            $varData[$i]['ID'], 
+                            null
+                            );                
+                        }
+                    }
                 } 
             catch (\Exception $ex) {
                 }
