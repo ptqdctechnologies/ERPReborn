@@ -5871,6 +5871,7 @@ return array(
     'Symfony\\Component\\Translation\\MessageCatalogue' => $vendorDir . '/symfony/translation/MessageCatalogue.php',
     'Symfony\\Component\\Translation\\MessageCatalogueInterface' => $vendorDir . '/symfony/translation/MessageCatalogueInterface.php',
     'Symfony\\Component\\Translation\\MetadataAwareInterface' => $vendorDir . '/symfony/translation/MetadataAwareInterface.php',
+    'Symfony\\Component\\Translation\\PluralizationRules' => $vendorDir . '/symfony/translation/PluralizationRules.php',
     'Symfony\\Component\\Translation\\PseudoLocalizationTranslator' => $vendorDir . '/symfony/translation/PseudoLocalizationTranslator.php',
     'Symfony\\Component\\Translation\\Reader\\TranslationReader' => $vendorDir . '/symfony/translation/Reader/TranslationReader.php',
     'Symfony\\Component\\Translation\\Reader\\TranslationReaderInterface' => $vendorDir . '/symfony/translation/Reader/TranslationReaderInterface.php',
