@@ -74,7 +74,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 */
 
 //            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMTY0OTg4MH0.b8sC25pQR8WIebqTxKUIvP4WATtKMJwGA81yh1DZhsg';
-
+/*
 $x = (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
 //$x = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
 dd($x);
@@ -103,7 +103,7 @@ dd($x);
 //echo "xxx";
             var_dump(json_encode($varData));
             
-            
+*/            
             
 /*    
             //---Parameter Set---
@@ -167,9 +167,10 @@ dd($x);
             
             $varUserSession=0;
 //            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
-//            $y = $x->getDataAttendance('+07', '2020-01-01');
+            $y = $x->getDataAttendance('+07', '2020-01-01');
+            var_dump($y);
 //            $y = $x->getDeviceSerialNumber();
 
 //            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
