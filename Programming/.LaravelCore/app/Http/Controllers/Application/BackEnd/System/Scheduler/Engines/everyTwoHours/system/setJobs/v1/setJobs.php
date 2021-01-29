@@ -187,8 +187,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     {
                     if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
                         {
-                        echo "\nxxx ".$varData[$i]['dateTimeTZ'];
-                        echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
+                        //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
+                        //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
                         (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccess())->setDataInsert(
                             $varUserSession, 
                             null, 
@@ -245,8 +245,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     {
                     if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
                         {
-                        echo "\nxxx ".$varData[$i]['dateTimeTZ'];
-                        echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
+                        //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
+                        //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
                         (new \App\Models\Database\SchSysConfig\TblLog_Device_PersonAccess())->setDataInsert(
                             $varUserSession, 
                             null, 
