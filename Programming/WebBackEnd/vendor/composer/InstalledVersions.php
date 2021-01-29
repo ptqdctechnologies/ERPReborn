@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '60ca9b2ec8345f6e93eca75e92536805a0cc6b30',
+    'reference' => '777dc3c098fa4d5847b05f969cd72f9b5349efc2',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.172.2',
-      'version' => '3.172.2.0',
+      'pretty_version' => '3.172.3',
+      'version' => '3.172.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '47a4f005e51ffe158526f7ef7b5723b4313f823c',
+      'reference' => '14fd73f12fc70d5f48e034f5dfc33136136adb61',
     ),
     'brick/math' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '60ca9b2ec8345f6e93eca75e92536805a0cc6b30',
+      'reference' => '777dc3c098fa4d5847b05f969cd72f9b5349efc2',
     ),
     'laravel/tinker' => 
     array (
@@ -581,12 +581,12 @@ private static $installed = array (
     ),
     'nesbot/carbon' => 
     array (
-      'pretty_version' => '2.43.0',
-      'version' => '2.43.0.0',
+      'pretty_version' => '2.44.0',
+      'version' => '2.44.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd32c57d8389113742f4a88725a170236470012e2',
+      'reference' => 'e6ef33cb1f67a4bed831ed6d0f7e156739a5d8cd',
     ),
     'nikic/php-parser' => 
     array (
