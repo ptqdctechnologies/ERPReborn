@@ -86,6 +86,62 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDateFromIndonesianDateString                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-02-02                                                                                           |
+        | ▪ Description     : Mengkonversi Tanggal dalam format Indonesia kedalam Data Tanggal                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (stirng) varIndonesianDateString ► Tanggal Format Indonesia                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDateFromIndonesianDateString($varUserSession, string $varIndonesianDateString)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Convert Indonesia Date to Date');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn = explode(' ', trim($varIndonesianDateString));
+                    $varReturn = 
+                        str_pad((int) trim($varReturn[2]), 4, '0', STR_PAD_LEFT).
+                        '-'.
+                        (strcmp((string) trim($varReturn[1]), 'Januari')==0 ? '01' : 
+                            (strcmp((string) trim($varReturn[1]), 'Pebruari')==0 ? '02' : 
+                                (strcmp((string) trim($varReturn[1]), 'Maret')==0 ? '03' : 
+                                    (strcmp((string) trim($varReturn[1]), 'April')==0 ? '04' : 
+                                        (strcmp((string) trim($varReturn[1]), 'Mei')==0 ? '05' : 
+                                            (strcmp((string) trim($varReturn[1]), 'Juni')==0 ? '06' : 
+                                                (strcmp((string) trim($varReturn[1]), 'Juli')==0 ? '07' : 
+                                                    (strcmp((string) trim($varReturn[1]), 'Agustus')==0 ? '08' : 
+                                                        (strcmp((string) trim($varReturn[1]), 'September')==0 ? '09' : 
+                                                            (strcmp((string) trim($varReturn[1]), 'Oktober')==0 ? '10' : 
+                                                                (strcmp((string) trim($varReturn[1]), 'November')==0 ? '11' : 
+                                                                    (strcmp((string) trim($varReturn[1]), 'Desember')==0 ? '12' : 
+                                                                        ''
+                        )))))))))))).
+                        '-'.
+                        str_pad((int) trim($varReturn[0]), 2, '0', STR_PAD_LEFT);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+                
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateTimeFromUnixTime                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |

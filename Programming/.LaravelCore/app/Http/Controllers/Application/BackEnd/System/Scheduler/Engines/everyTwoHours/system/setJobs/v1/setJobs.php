@@ -65,11 +65,112 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             /*
             ..... Call all functions will be loaded .....
             */
-            $this->getAttendance($varUserSession);
+            //$this->getAttendance($varUserSession);
+            $this->getTaxExchangeRate($varUserSession);
             }
 
+        private function getTaxExchangeRate(int $varUserSession)
+            {
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+
+            $varCurrentDate = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
+//            $varCurrentDate = substr((new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession), 0, 10).' 00:00:00';
+//            $varCurrentDate = '2017-01-01';
+//            $varCurrentDate = '2011-01-01';
+//            $varCurrentDate = '2021-01-01';
+            $varCurrentDate = '2013-01-02 00:00:00 +07';
+ //           echo $varCurrentDate;
+ //           echo "\n\n";
+            
+
+            $varCurrenDateTimeTZUnixTime = \App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varCurrentDate);
+            //echo date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);
+            //echo "\n";
+
+            for($i=0; $i!=(7*52); $i++)
+                {
+                echo date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);
+                $varCurrentDate = date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);
+                echo "\n";
+//                echo '
+//
+//                    ';                
+
+                try
+                    {
+                    $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'instruction.server.externalServer.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate',
+                        'latest', 
+                        [
+                        'entities' => [
+                            'date' => substr($varCurrentDate, 0, 10)
+                            ]
+                        ]
+                        );
+//                    var_dump($varData);
+                    
+
+                    $varKMKNumber = $varData['data']['KMK']['number'];
+                    $varValidStartDateTimeTZ = $varData['data']['KMK']['startDateTimeTZ'];
+                    $varValidFinishDateTimeTZ = $varData['data']['KMK']['finishDateTimeTZ'];
+
+                    foreach($varData['data']['exchangeRate'] as $varISOCode => $varExchangeRate) {
+                        (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateTax())->setDataImport($varUserSession, substr($varCurrentDate, 0, 10), $varISOCode, $varExchangeRate, $varValidStartDateTimeTZ, $varValidFinishDateTimeTZ, $varKMKNumber);
+                        }
+
+                    } 
+                catch (\Exception $ex) {
+
+                    }
+
+
+
+
+                $varCurrenDateTimeTZUnixTime+=(7*24*60*60);
+                }
+            
+/*            
+            try
+                {
+                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.externalServer.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate',
+                    'latest', 
+                    [
+                    'entities' => [
+                        'date' => $varCurrentDate
+                        ]
+                    ]
+                    );
+                
+                $varKMKNumber = $varData['data']['KMK']['number'];
+                $varValidStartDateTimeTZ = $varData['data']['KMK']['startDateTimeTZ'];
+                $varValidFinishDateTimeTZ = $varData['data']['KMK']['finishDateTimeTZ'];
+                
+                foreach($varData['data']['exchangeRate'] as $varISOCode => $varExchangeRate) {
+                    (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateTax())->setDataImport($varUserSession, $varCurrentDate, $varISOCode, $varExchangeRate, $varValidStartDateTimeTZ, $varValidFinishDateTimeTZ, $varKMKNumber);
+                    }
+                
+                } 
+            catch (\Exception $ex) {
+
+                }
+            
+
+//            (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateTax())->setDataImport($varUserSession, 'USD', $varCurrentDate, $varExchangeRate);
+            
+            
+*/            
+            //\App\Helpers\ZhtHelper\General\Helper_DateTime::
+            }
+            
         private function getAttendance(int $varUserSession)
             {
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            
             $varList = [
                     //---> Finger Print HO Ruang Server
                     [
@@ -108,8 +209,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                     'TimeZoneOffset' => '+07'
                     ]
                 ];
-            
-            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             
             for($i=0; $i!=count($varList); $i++)
                 {
