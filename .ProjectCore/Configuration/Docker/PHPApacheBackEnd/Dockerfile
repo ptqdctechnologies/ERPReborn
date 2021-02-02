@@ -57,8 +57,8 @@ RUN chmod 0644 /etc/cron.d/cronLaravel \
 #CMD printenv > /etc/environment && echo "cron starting..." && (cron) && : > /var/log/cron.log && tail -f /var/log/cron.log
 
 #--->Increase Memory
-RUN cd /usr/local/etc/php/conf.d/ && \
-  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+RUN cd /usr/local/etc/php/conf.d/ \
+    && echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
 #ADD . /var/www
 #ADD ./public /var/www/html
@@ -67,6 +67,10 @@ RUN cd /usr/local/etc/php/conf.d/ && \
 #COPY . /var/www/html/
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/vhost.conf /etc/apache2/sites-available/000-default.conf
 #RUN cd .. && cp ./../.ZhtConf/Docker/PHP/vhost.conf /etc/apache2/sites-available/000-default.conf & cd -
+
+RUN cd /usr/local/share/ca-certificates/ \
+    && ln -s /etc/ssl/certs/ca-certificates.crt ca-certificates.crt \
+    && cd -
 
 #---> Set Ulang Kepemilikan File
 RUN chown -R www-data:www-data /var/www \

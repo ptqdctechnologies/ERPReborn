@@ -33,6 +33,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
         public function testSDK()
             {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+$client = new \GuzzleHttp\Client();
+$res = $client->request('GET', 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date=02-01-2013');
+echo $res->getStatusCode();
+
+
+
+
+
+
+
+
+
             //---Parameter Set---
             //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::
 //            (new \App\Models\Database\SchSysConfig\General::class)->
@@ -42,7 +56,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
  
  //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(0, 'USER_SESSION_ID_SYSTEM');
-            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
   //          $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             
             
@@ -165,12 +178,11 @@ dd($x);
             
             
             
-            $varUserSession=0;
 //            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
-            $y = $x->getDataAttendance('+07', '2020-01-01');
-            var_dump($y);
+//            $y = $x->getDataAttendance('+07', '2020-01-01');
+//            var_dump($y);
 //            $y = $x->getDeviceSerialNumber();
 
 //            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
