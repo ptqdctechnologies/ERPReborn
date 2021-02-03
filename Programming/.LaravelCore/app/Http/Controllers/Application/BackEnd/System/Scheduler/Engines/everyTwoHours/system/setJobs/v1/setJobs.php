@@ -79,6 +79,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
 //            $varCurrentDate = '2011-01-01';
 //            $varCurrentDate = '2021-01-01';
             $varCurrentDate = '2013-01-02 00:00:00 +07';
+            $varCurrentDate = '2019-12-25 00:00:00 +07';
+            $varCurrentDate = '2021-02-03 00:00:00 +07';
  //           echo $varCurrentDate;
  //           echo "\n\n";
             
@@ -87,7 +89,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             //echo date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);
             //echo "\n";
 
-            for($i=0; $i!=(7*52); $i++)
+//            for($i=0; $i!=(7*52); $i++)
+            for($i=0; $i!=(4); $i++)
                 {
                 echo date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);
                 $varCurrentDate = date("Y-m-d H:i:s +07", $varCurrenDateTimeTZUnixTime);

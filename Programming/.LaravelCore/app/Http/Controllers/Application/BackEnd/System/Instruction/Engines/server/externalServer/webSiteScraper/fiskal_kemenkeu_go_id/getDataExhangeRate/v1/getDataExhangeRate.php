@@ -86,7 +86,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                             {
                             $varISOCode = explode(')</td>', explode('(', explode('<td', $varResponse[$i+1])[2])[1])[0];
                             $varExchangeRate = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', explode('<td', $varResponse[$i+1])[3])[1])[0])[1])), 2, '.', '');
-                            $varData['ExchangeRate'][$varISOCode] = number_format((float) $varExchangeRate * (strcmp($varISOCode, 'JPY')==0 ? (1/1000) : 1), 2, '.', '');
+                            $varData['ExchangeRate'][$varISOCode] = number_format((float) $varExchangeRate * (strcmp($varISOCode, 'JPY')==0 ? (1/100) : 1), 2, '.', '');
                             }
    
                         
