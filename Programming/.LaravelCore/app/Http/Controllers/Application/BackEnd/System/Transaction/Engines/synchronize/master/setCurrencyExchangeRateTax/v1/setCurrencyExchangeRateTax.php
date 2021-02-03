@@ -119,7 +119,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
-                    'instruction.server.externalServer.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate',
+                    'instruction.server.internal.webBackEnd.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate',
                     'latest', 
                     [
                     'entities' => [

@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of instruction.server.externalServer.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate (version 1)",
+"description": "JSON Request Schema of instruction.server.internal.webBackEnd.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "instruction.server.externalServer.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate" ]
+                        "enum": [ "instruction.server.internal.webBackEnd.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
