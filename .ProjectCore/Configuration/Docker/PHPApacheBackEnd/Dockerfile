@@ -56,9 +56,16 @@ RUN chmod 0644 /etc/cron.d/cronLaravel \
 
 #CMD printenv > /etc/environment && echo "cron starting..." && (cron) && : > /var/log/cron.log && tail -f /var/log/cron.log
 
+#--->CA Certificate
+RUN cd /usr/local/share/ca-certificates/ \
+    && ln -s /etc/ssl/certs/ca-certificates.crt ca-certificates.crt \
+    && cd - \
+    && update-ca-certificates \
+    && export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
 #--->Increase Memory
-RUN cd /usr/local/etc/php/conf.d/ && \
-  echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
+RUN cd /usr/local/etc/php/conf.d/ \
+    && echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
 #ADD . /var/www
 #ADD ./public /var/www/html

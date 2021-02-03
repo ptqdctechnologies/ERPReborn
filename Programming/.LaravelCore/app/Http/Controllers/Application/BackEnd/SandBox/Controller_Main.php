@@ -33,6 +33,96 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
         public function testSDK()
             {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
+            dd($x);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//var_dump(openssl_get_cert_locations());
+            
+//$client = new \GuzzleHttp\Client();
+//$res = $client->request('GET', 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date=02-01-2013');
+//echo $res->getStatusCode();
+
+//CURLOPT_SSL_VERIFYPEER => 0,
+/*
+$varDate =  '02-01-2013'; 
+$varDate =  '02-12-2013'; 
+$varURL = 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date='.$varDate;
+$ch = curl_init($varURL);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+$varResponse = curl_exec($ch);
+curl_close($ch);
+
+$varReturn=null;
+$varResponse = (explode('<!-- FOOTER -->', (explode('<h1 class="jumbo-header">Kurs Pajak</h1>', $varResponse))[1]))[0];
+$varReturn['KMK']['Number'] = (string) explode('</strong></p>', explode('<p><strong>', (explode('Tanggal Berlaku:', $varResponse))[0])[1])[0];
+$varReturn['KMK']['StartDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, trim(explode('-', trim(explode('</i>', explode('<i> Tanggal Berlaku:', $varResponse)[1])[0]))[0]));
+$varReturn['KMK']['FinishDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, trim(explode('-', trim(explode('</i>', explode('<i> Tanggal Berlaku:', $varResponse)[1])[0]))[1]));
+$varResponse = explode('<tr>', explode('</tbody>', explode('<tbody>', (explode('<div class="table-responsive">', $varResponse))[1])[1])[0]);
+
+//var_dump($varResponse[1]);
+
+for($i=0; $i!=25; $i++)
+    {
+    $varISOCode = explode(')</td>', explode('(', explode('<td', $varResponse[$i+1])[2])[1])[0];
+    $varExchangeRate = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', explode('<td', $varResponse[$i+1])[3])[1])[0])[1])), 2, '.', '');
+    $varReturn['ExchangeRate'][$varISOCode] = number_format((float) $varExchangeRate * (strcmp($varISOCode, 'JPY')==0 ? (1/1000) : 1), 2, '.', '');
+    }
+
+
+/*
+$varReturn['ExchangeRate']['USD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[1])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['AUD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[2])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['CAD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[3])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['DKK'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[4])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['HKD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[5])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['MYR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[6])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['NZD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[7])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['NOK'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[8])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['GBP'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[9])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['SGD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[10])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['SEK'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[11])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['CHF'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[12])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['JPY'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[13])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['JPY'] = number_format($varReturn['ExchangeRate']['JPY'] / 100, 2, '.', '');
+$varReturn['ExchangeRate']['MMK'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[14])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['INR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[15])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['KWD'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[16])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['PKR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[17])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['PHP'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[18])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['SAR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[19])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['LKR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[20])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['THB'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[21])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['BND'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[22])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['EUR'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[23])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['CNY'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[24])[1])[0])[1])), 2, '.', '');
+$varReturn['ExchangeRate']['KRW'] = number_format((float) str_replace(',', '.', str_replace('.', '', explode('>', explode('</', explode('div', $varResponse[25])[1])[0])[1])), 2, '.', '');
+*/
+
+// do anything you want with your response
+//
+
+//dd($varReturn);
+
+
+
+
+
             //---Parameter Set---
             //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::
 //            (new \App\Models\Database\SchSysConfig\General::class)->
@@ -42,7 +132,6 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
  
  //           $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(0, 'USER_SESSION_ID_SYSTEM');
-            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
   //          $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
             
             
@@ -165,12 +254,11 @@ dd($x);
             
             
             
-            $varUserSession=0;
 //            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
 //            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
-            $y = $x->getDataAttendance('+07', '2020-01-01');
-            var_dump($y);
+//            $y = $x->getDataAttendance('+07', '2020-01-01');
+//            var_dump($y);
 //            $y = $x->getDeviceSerialNumber();
 
 //            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
@@ -187,12 +275,6 @@ dd($x);
 //            var_dump($y);
 
             echo "Done";
-            
-            //dd($y);
-            
-            
-//            $x = new \SDK\Goodwin\SwingGateBarrier\ServoSW01\SDK();
-   
             }
 
         public function testMinIO()

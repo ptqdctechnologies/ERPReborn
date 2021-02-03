@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private $varAPIIdentity;
+        private $varShedule;
 
 
         /*
@@ -43,6 +44,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         function __construct()
             {
             $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
+            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
+
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
+            shell_exec("touch ".$varFilePath);
             }
 
 
@@ -62,9 +67,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         */
         public function loadAllJobs(int $varUserSession)
             {
+            $varReturn = true;
+            
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            
             /*
             ..... Call all functions will be loaded .....
             */
+            
+            return $varReturn;
             }
         }
     }
