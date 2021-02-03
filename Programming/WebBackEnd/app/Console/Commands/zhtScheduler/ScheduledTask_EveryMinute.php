@@ -37,8 +37,6 @@ namespace App\Console\Commands\zhtScheduler
          */
         public function handle()
             {
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/everyMinute/core.log';
-            shell_exec("touch ".$varFilePath);
             //$this->info($varFilePath);
 
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();

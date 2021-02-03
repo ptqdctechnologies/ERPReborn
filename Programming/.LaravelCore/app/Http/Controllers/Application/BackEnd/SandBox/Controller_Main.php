@@ -35,6 +35,22 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
+            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
+            dd($x);
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 //var_dump(openssl_get_cert_locations());
             
 //$client = new \GuzzleHttp\Client();
@@ -42,7 +58,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //echo $res->getStatusCode();
 
 //CURLOPT_SSL_VERIFYPEER => 0,
-
+/*
 $varDate =  '02-01-2013'; 
 $varDate =  '02-12-2013'; 
 $varURL = 'https://fiskal.kemenkeu.go.id/informasi-publik/kurs-pajak?date='.$varDate;
@@ -101,7 +117,7 @@ $varReturn['ExchangeRate']['KRW'] = number_format((float) str_replace(',', '.', 
 // do anything you want with your response
 //
 
-dd($varReturn);
+//dd($varReturn);
 
 
 
@@ -259,12 +275,6 @@ dd($x);
 //            var_dump($y);
 
             echo "Done";
-            
-            //dd($y);
-            
-            
-//            $x = new \SDK\Goodwin\SwingGateBarrier\ServoSW01\SDK();
-   
             }
 
         public function testMinIO()

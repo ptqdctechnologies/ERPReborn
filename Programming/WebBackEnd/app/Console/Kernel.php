@@ -34,10 +34,10 @@ class Kernel extends ConsoleKernel
             ->hourly()
             ->appendOutputTo('/var/log/cron.log');
         
-/*        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryTwoHours::class, ['--no-ansi'])
+        $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryTwoHours::class, ['--no-ansi'])
             ->everyTwoHours()
             ->appendOutputTo('/var/log/cron.log');
-*/
+
         $schedule->command(\App\Console\Commands\zhtScheduler\ScheduledTask_EveryDay::class, ['--no-ansi'])
             ->daily()
             ->appendOutputTo('/var/log/cron.log');

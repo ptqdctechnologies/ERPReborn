@@ -24,6 +24,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private $varAPIIdentity;
+        private $varShedule;
 
 
         /*
@@ -43,6 +44,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         function __construct()
             {
             $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
+            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
+
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
+            shell_exec("touch ".$varFilePath);
             }
 
 
@@ -62,61 +67,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         */
         public function loadAllJobs(int $varUserSession)
             {
-            $this->setAPIWebTokenSysEngine($varUserSession);
-            }
+            $varReturn = true;
             
-        private function setAPIWebTokenSysEngine(int $varUserSession)
-            {
             $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-            //---> Jika Belum dideklarasikan
-            if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, $varAPIWebToken) == false)
-                {
-                $varSQLQuery = '
-                    SELECT
-                        "APIWebToken",
-                        CASE
-                            WHEN ("Sys_PID" IS NOT NULL) THEN
-                                "Sys_PID"
-                            WHEN ("Sys_SID" IS NOT NULL) THEN
-                                "Sys_SID"
-                	END AS "Sys_ID",
-                        "User_RefID",
-                        "UserRole_RefID",
-                        "Branch_RefID",
-                        "SessionStartDateTimeTZ",
-                        "SessionAutoStartDateTimeTZ",
-                        "SessionAutoFinishDateTimeTZ"
-                    FROM
-                        "SchSysConfig"."TblLog_UserLoginSession"
-                    WHERE
-                        "APIWebToken" = \''.$varAPIWebToken.'\'
-                    ORDER BY 
-                        "Sys_RPK" ASC
-                    ';
+            
+            //---> API Call : Set UserSession for SysEngine
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/environment.general.session.setUserSessionSysEngine';
+            shell_exec("touch ".$varFilePath);
+            (new \App\Http\Controllers\Application\BackEnd\System\Environment\Engines\general\session\setUserSessionSysEngine\v1\setUserSessionSysEngine())->main(
+                $varUserSession, 
+                []
+                );
 
-                $varBufferDB = (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLQuery))['Data'][0];
-
-                //dd($varBufferDB);
-                
-                $varRedisID = (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
-                    $varUserSession, 
-                    $varAPIWebToken,
-                    json_encode([
-                        'userLoginSession_RefID' => $varBufferDB['Sys_ID'],
-                        'user_RefID' => $varBufferDB['User_RefID'],
-                        'userRole_RefID' => $varBufferDB['UserRole_RefID'],
-                        'branch_RefID' => $varBufferDB['Branch_RefID'],
-                        'sessionStartDateTimeTZ' => $varBufferDB['SessionStartDateTimeTZ'],
-                        'sessionAutoStartDateTimeTZ' => $varBufferDB['SessionAutoStartDateTimeTZ'],
-                        'sessionAutoFinishDateTimeTZ' => $varBufferDB['SessionAutoFinishDateTimeTZ'],
-                        'userPrivilegesMenu' => json_encode([])
-                        ]), 
-                    10);
-                (new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, substr($varBufferDB['SessionAutoFinishDateTimeTZ'], 0, 19));
-                }
-
-            //(new \App\Models\Cache\General\APIWebToken())->setDataExpireAt($varUserSession, $varAPIWebToken, '2021-01-26 10:04:00');
-            //var_dump((new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession));
+            return $varReturn;
             }
         }
     }
