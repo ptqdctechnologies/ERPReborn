@@ -66,7 +66,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             ..... Call all functions will be loaded .....
             */
             //$this->getAttendance($varUserSession);
-            $this->getTaxExchangeRate($varUserSession);
+            //$this->getTaxExchangeRate($varUserSession);
+            
+            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+            
+            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.synchronize.master.setCurrencyExchangeRateTax', 
+                'latest', 
+                [
+                ]
+                );
+            //var_dump($varData);
+
+            //echo $varAPIWebToken;
+            //echo "\n\n";            
             }
 
         private function getTaxExchangeRate(int $varUserSession)

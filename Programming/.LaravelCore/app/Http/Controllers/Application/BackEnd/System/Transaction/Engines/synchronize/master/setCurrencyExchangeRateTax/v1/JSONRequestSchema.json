@@ -1,3 +1,32 @@
 {
-    "name": "zheta"
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.synchronize.master.setCurrencyExchangeRateTax (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.synchronize.master.setCurrencyExchangeRateTax" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "additionalProperties": false
+        }
+    },
+"required": [ "metadata", "data" ]
 }

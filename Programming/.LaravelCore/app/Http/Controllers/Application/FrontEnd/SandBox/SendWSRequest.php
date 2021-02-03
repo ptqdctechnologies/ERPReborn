@@ -5398,6 +5398,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             dd($varJQueryFunction);
             }
 
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.synchronize.sysConfig.setLog_Device_PersonAccess                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataSynchronizeLog_Device_PersonAccess()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMjMyMDI4NH0.b70OlF6S53UnCt5A8QR9qdPg1nx8BeDqTM9WxETHnSE';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.synchronize.sysConfig.setLog_Device_PersonAccess', 
+                'latest', 
+                [
+                ]
+                );
+            var_dump($varData);
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
