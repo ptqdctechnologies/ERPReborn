@@ -49,6 +49,7 @@ services:
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
         #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
       - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/tmp/download:/zhtConf/tmp/download'
       - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
 #    links:
 #      - 'db-postgresql'

@@ -111,7 +111,7 @@ namespace App\Helpers\ZhtHelper\General
                         str_pad((int) trim($varReturn[2]), 4, '0', STR_PAD_LEFT).
                         '-'.
                         (strcmp((string) trim($varReturn[1]), 'Januari')==0 ? '01' : 
-                            (strcmp((string) trim($varReturn[1]), 'Pebruari')==0 ? '02' : 
+                            ((strcmp((string) trim($varReturn[1]), 'Februari')==0 || strcmp((string) trim($varReturn[1]), 'Pebruari')==0) ? '02' : 
                                 (strcmp((string) trim($varReturn[1]), 'Maret')==0 ? '03' : 
                                     (strcmp((string) trim($varReturn[1]), 'April')==0 ? '04' : 
                                         (strcmp((string) trim($varReturn[1]), 'Mei')==0 ? '05' : 
