@@ -14,8 +14,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getDataExhangeRate                                                                                           |
-    | ▪ Description : Menangani API instruction.server.internal.webBackEnd.webSiteScraper.fiskal_kemenkeu_go_id.getDataExhangeRate |
-    |                 Version 1                                                                                                    |
+    | ▪ Description : Menangani API instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.                            |
+    |                 getDataExchangeRateTimeSeriesFromOfflineFile Version 1                                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getDataExchangeRateTimeSeriesFromOfflineFile extends \App\Http\Controllers\Controller
@@ -111,9 +111,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                                     $varDataReturnNew[$i] = $varDataReturn[$i];                                
                                     }
                                 }
-                                
-                            //dd($varData);
-                            //dd($varResponse);
                             }
                             
                         $varDataSend =

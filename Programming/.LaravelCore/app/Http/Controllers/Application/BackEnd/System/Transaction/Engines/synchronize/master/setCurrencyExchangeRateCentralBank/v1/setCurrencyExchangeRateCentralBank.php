@@ -71,7 +71,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                                 "message" => "Data Synchronization Successful" 
                                 ];
                             }
-//$varDataSend = $this->setCentralBankExchangeRate($varUserSession);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -153,10 +152,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                             );
                         }
                     }
-/*                
+                
                 //---> Pengambilan Data dari File Offline
                 $varOfflineFileList = [
-                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-AUD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-AUD.html',
                     '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-BND.html',
     //                '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CAD.html',
       //              '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CHF.html',
@@ -214,7 +213,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         }                    
                     }
 
- */
+                //--->
                 } 
             catch (\Exception $ex) {
                 $varReturn = false;                

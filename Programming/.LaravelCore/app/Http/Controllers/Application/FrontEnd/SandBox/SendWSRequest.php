@@ -8098,6 +8098,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
             
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function APIGateway_getWebSiteScraper_CentralBankExchangeRateData()
             {
             //---Parameter Set---
@@ -8112,9 +8118,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 ]
                 );
-                                
-            dd($varData);
             var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getWebSiteScraper_CentralBankExchangeRateData()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMjQ4ODQ4Nn0.BFGcoPsKmJNZ04bzAjVPo30eo9m6I2I9pYvbNVEeN2I';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate',
+                'latest', 
+                '{'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
             }
 
 
@@ -8141,10 +8162,47 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            dd($varData);
             var_dump(json_encode($varData));
             }
-            
+        public function APIGatewayJQuery_getWebSiteScraper_CentralBankExchangeRateTimeSeriesDataFromOfflineFile()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMjQ4ODQ4Nn0.BFGcoPsKmJNZ04bzAjVPo30eo9m6I2I9pYvbNVEeN2I';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_PathFile" size="100" value="/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-JPY.html">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataExchangeRateTimeSeriesFromOfflineFile',
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"pathFile" : document.getElementById("dataInput_PathFile").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             
             
             

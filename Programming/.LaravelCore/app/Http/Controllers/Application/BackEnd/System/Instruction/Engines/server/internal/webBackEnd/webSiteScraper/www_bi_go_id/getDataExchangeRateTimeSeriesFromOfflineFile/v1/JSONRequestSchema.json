@@ -1,3 +1,45 @@
 {
-    "name": "zheta"
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataExchangeRateTimeSeriesFromOfflineFile (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataExchangeRateTimeSeriesFromOfflineFile" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "pathFile": {
+                        "type": [ "string" ],
+                        "maxLength": 256
+                        }
+                    },
+                "required": [ "pathFile" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
 }
