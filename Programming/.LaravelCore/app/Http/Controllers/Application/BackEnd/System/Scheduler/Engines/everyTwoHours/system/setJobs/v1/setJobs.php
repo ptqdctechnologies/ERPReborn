@@ -129,7 +129,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 [
                 ]
                 );
-/*            
+
             //---> API Call : Tax Exchange Rate
             $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateTax';
             shell_exec("touch ".$varFilePath);
@@ -141,7 +141,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 [
                 ]
                 );
-           
+
             //---> API Call : Person Access Device Log
             $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.sysConfig.setLog_Device_PersonAccess';
             shell_exec("touch ".$varFilePath);
@@ -153,7 +153,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 [
                 ]
                 );
-*/
+
             return $varReturn;
             }
         }
