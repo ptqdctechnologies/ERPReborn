@@ -34,9 +34,46 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testSDK()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
             
-$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
-var_dump($x);
+            
+            
+                $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+                $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
+
+
+                //---> Pengambilan Data dari Online
+                $varDataOnline = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate',
+                    'latest', 
+                    [
+                    ]
+                    );
+                
+                
+                if($varDataOnline['metadata']['HTTPStatusCode']==200)
+                    {
+                    
+                    //throw new \Exception(json_encode($varDataOnline['metadata']['HTTPStatusCode']));
+
+                    for($i=0; $i!=count($varDataOnline['data']); $i++)
+                        {
+                        (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
+                            $varUserSession, 
+                            $varDataOnline['data'][$i]['validStartDateTimeTZ'],
+                            $varDataOnline['data'][$i]['ISOCode'],
+                            $varDataOnline['data'][$i]['exchangeRateBuy'],
+                            $varDataOnline['data'][$i]['exchangeRateSell']
+                            );
+                        }
+                    }
+
+
+            
+//$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
+//var_dump($x);
             //$x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
             //dd($x);
             

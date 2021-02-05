@@ -116,9 +116,71 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
                 $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
 
+                //---> Pengambilan Data dari Online
+                $varDataOnline = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate',
+                    'latest', 
+                    [
+                    ]
+                    );
+                if($varDataOnline['metadata']['HTTPStatusCode']==200)
+                    {
+                    for($i=0; $i!=count($varDataOnline['data']); $i++)
+                        {
+                        //---> Cek Currency Symbol
+                        if(!(new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, $varDataOnline['data'][$i]['ISOCode']))
+                            {
+                            (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->setDataInsert(
+                                $varUserSession, 
+                                null, 
+                                substr((new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession), 0, 4), 
+                                11000000000001,
+                                $varDataOnline['data'][$i]['ISOCode'],
+                                null, 
+                                null
+                                );
+                            }
+                        
+                        //---> Insert Data
+                        (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
+                            $varUserSession, 
+                            $varDataOnline['data'][$i]['validStartDateTimeTZ'],
+                            $varDataOnline['data'][$i]['ISOCode'],
+                            $varDataOnline['data'][$i]['exchangeRateBuy'],
+                            $varDataOnline['data'][$i]['exchangeRateSell']
+                            );
+                        }
+                    }
+/*                
                 //---> Pengambilan Data dari File Offline
                 $varOfflineFileList = [
-                    '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html'
+                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-AUD.html',
+                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-BND.html',
+    //                '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CAD.html',
+      //              '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CHF.html',
+       //             '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNH.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNY.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-DKK.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-EUR.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-GBP.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-HKD.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-JPY.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KRW.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KWD.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-LAK.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-MYR.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NOK.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NZD.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PGK.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PHP.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SAR.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SEK.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SGD.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-USD.html',
+        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
                     ];
 
                 for($i=0; $i!=count($varOfflineFileList); $i++)
@@ -138,32 +200,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                     if($varData['metadata']['HTTPStatusCode']==200)
                         {
                         //---> Simpan Data
-//                        for($j=0; $j!=count($varData['data']); $j++)
-                        for($j=0; $j!=10; $j++)
+                        for($j=0; $j!=count($varData['data']); $j++)
+//                        for($j=0; $j!=10; $j++)
                             {
-                            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
+                            (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
                                 $varUserSession, 
-                                //$varCurrentDateTimeTZ, 
                                 $varData['data'][$j]['validStartDateTimeTZ'],
                                 $varData['data'][$j]['ISOCode'],
                                 $varData['data'][$j]['exchangeRateBuy'],
-                                $varData['data'][$j]['exchangeRateSell'],
-                                $varData['data'][$j]['validStartDateTimeTZ'],
-                                $varData['data'][$j]['validFinishDateTimeTZ']
-                                //'9999-12-31 23:59:59 +07'
+                                $varData['data'][$j]['exchangeRateSell']
                                 );
-                            
-                            
-                            //$varReturn = ['Result' => $varData];
-                            //$varReturn[$j] = 'x'; 
                             }
-                        
-                        
-//                        $varReturn = ['Result' => $varData];
-//                        $varReturn = ['Result' => count($varData['data'])];
-//                        $varReturn = ['Result' => $x];
                         }                    
                     }
+
+ */
                 } 
             catch (\Exception $ex) {
                 $varReturn = false;                

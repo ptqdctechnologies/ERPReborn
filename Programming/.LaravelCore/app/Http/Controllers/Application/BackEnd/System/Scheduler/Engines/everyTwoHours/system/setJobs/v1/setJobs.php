@@ -118,7 +118,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             ..... Call all functions will be loaded .....
             */
 
-            //---> API Call : Exchange Rate
+            //---> API Call : Central Bank Exchange Rate
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateCentralBank';
+            shell_exec("touch ".$varFilePath);
+            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.synchronize.master.setCurrencyExchangeRateCentralBank',
+                'latest', 
+                [
+                ]
+                );
+/*            
+            //---> API Call : Tax Exchange Rate
             $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateTax';
             shell_exec("touch ".$varFilePath);
             $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
@@ -141,7 +153,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 [
                 ]
                 );
-
+*/
             return $varReturn;
             }
         }

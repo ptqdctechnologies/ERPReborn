@@ -63,7 +63,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
                         $varPathFile = $varData['entities']['pathFile'];    //    '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html';
-                        if(is_file($varPathFile)==true)
+                        if(is_file($varPathFile)==false)
+                            {
+                            throw new \Exception('File Not Found');
+                            }
+                        else
                             {
                             $varResponse = file_get_contents($varPathFile);
                             
@@ -83,9 +87,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                                     {
                                     $varResponseSplit = explode('<td', $varResponse[$i]); 
                                     $varBaseCurrencyRatio = (int) trim(explode('>', explode('</', $varResponseSplit[1])[0])[1]);
-                                    $varExchangeRateSell = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[2])[0])[1]))) / $varBaseCurrencyRatio), 2, '.', '');
-                                    $varExchangeRateBuy = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[3])[0])[1]))) / $varBaseCurrencyRatio), 2, '.', '');
-                                    $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 2, '.', '');
+                                    $varExchangeRateSell = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[2])[0])[1]))) / $varBaseCurrencyRatio), 5, '.', '');
+                                    $varExchangeRateBuy = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[3])[0])[1]))) / $varBaseCurrencyRatio), 5, '.', '');
+                                    $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 5, '.', '');
                                     $varStartDateTimeTZ = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, trim(explode('>', explode('</', $varResponseSplit[4])[0])[1])).' 00:00:00 +07';
                                     $varDataReturn[count($varResponse)-$i-1] = [
                                         //'Currency_RefID' => $varCurrencyRefID,
@@ -111,7 +115,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\se
                             //dd($varData);
                             //dd($varResponse);
                             }
-
+                            
                         $varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession,
                                 $varDataReturnNew
