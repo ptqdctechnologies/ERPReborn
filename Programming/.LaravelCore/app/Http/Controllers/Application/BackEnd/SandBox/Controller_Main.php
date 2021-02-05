@@ -35,15 +35,124 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
-            $x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
-            dd($x);
             
             
             
+                $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
+                $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
+
+
+                //---> Pengambilan Data dari Online
+                $varDataOnline = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate',
+                    'latest', 
+                    [
+                    ]
+                    );
+                
+                
+                if($varDataOnline['metadata']['HTTPStatusCode']==200)
+                    {
+                    
+                    //throw new \Exception(json_encode($varDataOnline['metadata']['HTTPStatusCode']));
+
+                    for($i=0; $i!=count($varDataOnline['data']); $i++)
+                        {
+                        (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
+                            $varUserSession, 
+                            $varDataOnline['data'][$i]['validStartDateTimeTZ'],
+                            $varDataOnline['data'][$i]['ISOCode'],
+                            $varDataOnline['data'][$i]['exchangeRateBuy'],
+                            $varDataOnline['data'][$i]['exchangeRateSell']
+                            );
+                        }
+                    }
+
+
+            
+//$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
+//var_dump($x);
+            //$x = (new \App\Models\Cache\General\APIWebToken())->getAllDataRecord($varUserSession);
+            //dd($x);
+            
+            /*
+                        $varURL = 'https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/Default.aspx';
+                        $ch = curl_init($varURL);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                        $varResponse = curl_exec($ch);
+                        curl_close($ch);
+            
+                        $varDate = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, explode('</span>', explode('Update Terakhir&nbsp;<span>', explode('<table', $varResponse)[1])[1])[0]);
+                        $varData['Validity']['StartDateTimeTZ'] = $varDate.' 00:00:00 +07';
+                        $varData['Validity']['FinishDateTimeTZ'] = $varDate.' 23:59:59 +07';
+                        
+                        $varResponse = explode('<tr>', explode('<tbody>', explode('</table', explode('<table', $varResponse)[2])[0])[1]);
+                        for ($i=1; $i!=count($varResponse); $i++)
+                            {
+                            $varResponseSplit = explode('<td', $varResponse[$i]);
+                            $varISOCode = trim(explode('<', explode('class="text-right">', $varResponseSplit[1])[1])[0]);
+                            $varBaseCurrencyRatio = (int) trim(explode('<', explode('class="text-right">', $varResponseSplit[2])[1])[0]);
+                            $varExchangeRateSell = number_format((((float) str_replace(',', '.', str_replace('.', '', trim(explode('<', explode('class="text-right">', $varResponseSplit[3])[1])[0])))) / $varBaseCurrencyRatio), 2, '.', '');
+                            $varExchangeRateBuy = number_format((((float) str_replace(',', '.', str_replace('.', '', trim(explode('<', explode('class="text-right">', $varResponseSplit[4])[1])[0])))) / $varBaseCurrencyRatio), 2, '.', '');
+                            $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 2, '.', '');
+                            var_dump($varISOCode).' ---> '.var_dump($varExchangeRateSell).' ---> '.var_dump($varExchangeRateBuy).' ---> '.var_dump($varExchangeRateMiddle);
+//                            dd($varResponseSplit[2]);
+                            echo "<br><br>---------------<br><br>";
+                            }
+            */
+
+/*
+                        $varPathFile = '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html';
+                        if(is_file($varPathFile)==true)
+                            {
+                            $varResponse = file_get_contents($varPathFile);
+                            
+                            $varISOCode = trim(explode('</span>', explode('MATA UANG', $varResponse)[1])[0]);
+                            
+                            
+                                                       
+                            $varResponse = explode('<tr>', explode('<tbody>', explode('</table', explode('<table', $varResponse)[1])[0])[1]);
+                           
+                            for ($i=2; $i!=count($varResponse); $i++)
+                                {
+                                $varResponseSplit = explode('<td', $varResponse[$i]); 
+                                //$varBaseCurrencyRatio = (int) trim(explode('<', explode('class="text-right">', $varResponseSplit[1])[0])[0]);
+                                $varBaseCurrencyRatio = (int) trim(explode('>', explode('</', $varResponseSplit[1])[0])[1]);
+                                $varExchangeRateSell = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[2])[0])[1]))) / $varBaseCurrencyRatio), 2, '.', '');
+                                $varExchangeRateBuy = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[3])[0])[1]))) / $varBaseCurrencyRatio), 2, '.', '');
+                                $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 2, '.', '');
+                                $varStartDateTimeTZ = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, trim(explode('>', explode('</', $varResponseSplit[4])[0])[1])).' 00:00:00 +07';
+//                                var_dump($varISOCode).' ---> '.var_dump($varExchangeRateSell).' ---> '.var_dump($varExchangeRateBuy).' ---> '.var_dump($varExchangeRateMiddle);
+  //                              echo "<br><br>---------------<br><br>";
+                                $varData[count($varResponse)-$i-1] = [
+                                    'ValidStartDateTimeTZ' => $varStartDateTimeTZ,
+                                    'ValidFinishDateTimeTZ' => '9999-12-31 23:59:59 +07',
+                                    'ExchangeRateBuy' => $varExchangeRateBuy,
+                                    'ExchangeRateSell' => $varExchangeRateSell
+                                    ]; 
+                                }
+                            for($i=0; $i!=(count($varData)-1); $i++)
+                                {
+                                $varData[$i]['ValidFinishDateTimeTZ'] = date('Y-m-d H:i:s', (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i+1]['ValidStartDateTimeTZ']) - 1)).' +07';
+                                }
+                                
+                                
+                            dd($varData);
+                            //dd($varResponse);
+                            }
+                        
+                        //$varResponse = explode('<table', $varResponse)[2];
+
+                        
+                        //dd($varResponse);
+            
+                        //dd($varData);
             
             
-            
-            
+*/            
             
             
             

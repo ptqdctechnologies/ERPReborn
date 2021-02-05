@@ -37,6 +37,37 @@ namespace App\Models\Database\SchData_OLTP_Master
             parent::__construct(__CLASS__);
             }
 
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrencyIDByISOCode                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-02-04                                                                                           |
+        | ▪ Description     : Data Initialize                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varISOCode ► ISO Code                                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getCurrencyIDByISOCode($varUserSession, string $varISOCode)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    parent::getSchemaName($varUserSession).'.Func_General_GetCurrencyIDByISOCode',
+                    [
+                        [$varISOCode, 'varchar']
+                    ]
+                    )
+                );
+            return $varReturn['Data'][0]['Func_General_GetCurrencyIDByISOCode'];
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

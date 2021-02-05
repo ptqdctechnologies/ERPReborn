@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2020-12-19
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2021-02-03
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage PHPApacheBackEnd 
@@ -18,10 +18,10 @@ clear;
 varDirectory="./../ERPReborn-PermanentStorage/PHPApacheBackEnd";
 
 if [ ! -d $varDirectory ]; then
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMinute;
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyHour;
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyTwoHours;
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyDay;
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMonth;
-   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyYear;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMinute/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyHour/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyTwoHours/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyDay/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMonth/jobs;
+   sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyYear/jobs;
 fi

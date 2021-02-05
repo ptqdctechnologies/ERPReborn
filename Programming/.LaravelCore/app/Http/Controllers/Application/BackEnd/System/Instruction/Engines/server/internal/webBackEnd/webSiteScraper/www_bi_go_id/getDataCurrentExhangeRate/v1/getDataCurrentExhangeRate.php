@@ -3,36 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyTwoHours\system\setJobs\v1                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\webBackEnd\webSiteScraper    |
+|                \www_bi_go_id\getDataCurrentExhangeRate\v1                                                                        | 
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyTwoHours\system\setJobs\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\webBackEnd\webSiteScraper\www_bi_go_id\getDataCurrentExhangeRate\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setJobs                                                                                                      |
-    | ▪ Description : Menangani API scheduler.everyTwoHours.system.setJobs Version 1                                               |
+    | ▪ Class Name  : getDataExhangeRate                                                                                           |
+    | ▪ Description : Menangani API instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.getDataCurrentExhangeRate   |
+    |                 Version 1                                                                                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setJobs extends \App\Http\Controllers\Controller
+    class getDataCurrentExhangeRate extends \App\Http\Controllers\Controller
         {
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | Class Properties                                                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private $varAPIIdentity;
-        private $varShedule;
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Last Update     : 2021-02-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,11 +36,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         */
         function __construct()
             {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
-            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
-
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
-            shell_exec("touch ".$varFilePath);
             }
 
 
@@ -56,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Last Update     : 2021-02-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -74,6 +62,39 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
+                        $varURL = 'https://www.bi.go.id/id/statistik/informasi-kurs/transaksi-bi/Default.aspx';
+                        $ch = curl_init($varURL);
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+                        $varResponse = curl_exec($ch);
+                        curl_close($ch);
+            
+                        $varDate = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, explode('</span>', explode('Update Terakhir&nbsp;<span>', explode('<table', $varResponse)[1])[1])[0]);
+                        //$varData['Validity']['StartDateTimeTZ'] = $varDate.' 00:00:00 +07';
+                        //$varData['Validity']['FinishDateTimeTZ'] = $varDate.' 23:59:59 +07';
+                        
+                        $varResponse = explode('<tr>', explode('<tbody>', explode('</table', explode('<table', $varResponse)[2])[0])[1]);
+                        for ($i=1; $i!=count($varResponse); $i++)
+                            {
+                            $varResponseSplit = explode('<td', $varResponse[$i]);
+                            $varISOCode = trim(explode('<', explode('class="text-right">', $varResponseSplit[1])[1])[0]);
+                            $varBaseCurrencyRatio = (int) trim(explode('<', explode('class="text-right">', $varResponseSplit[2])[1])[0]);
+                            $varExchangeRateSell = number_format((((float) str_replace(',', '.', str_replace('.', '', trim(explode('<', explode('class="text-right">', $varResponseSplit[3])[1])[0])))) / $varBaseCurrencyRatio), 5, '.', '');
+                            $varExchangeRateBuy = number_format((((float) str_replace(',', '.', str_replace('.', '', trim(explode('<', explode('class="text-right">', $varResponseSplit[4])[1])[0])))) / $varBaseCurrencyRatio), 5, '.', '');
+                            $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 5, '.', '');
+                            $varData[$i-1] = [
+                                'ISOCode' => $varISOCode,
+                                'ExchangeRateBuy' => $varExchangeRateBuy,
+                                'ExchangeRateSell' => $varExchangeRateSell,
+                                'ValidStartDateTimeTZ' => $varDate.' 00:00:00 +07'
+                                ];
+                            }
+                        
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession,
+                                $varData
+                                );
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -91,70 +112,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : loadAllJobs                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
-        | ▪ Description     : loadAllJobs                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function loadAllJobs(int $varUserSession)
-            {
-            $varReturn = true;
-            
-            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-
-            /*
-            ..... Call all functions will be loaded .....
-            */
-
-            //---> API Call : Central Bank Exchange Rate
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateCentralBank';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.master.setCurrencyExchangeRateCentralBank',
-                'latest', 
-                [
-                ]
-                );
-
-            //---> API Call : Tax Exchange Rate
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateTax';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.master.setCurrencyExchangeRateTax', 
-                'latest', 
-                [
-                ]
-                );
-
-            //---> API Call : Person Access Device Log
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.sysConfig.setLog_Device_PersonAccess';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.sysConfig.setLog_Device_PersonAccess', 
-                'latest', 
-                [
-                ]
-                );
-
-            return $varReturn;
             }
         }
     }

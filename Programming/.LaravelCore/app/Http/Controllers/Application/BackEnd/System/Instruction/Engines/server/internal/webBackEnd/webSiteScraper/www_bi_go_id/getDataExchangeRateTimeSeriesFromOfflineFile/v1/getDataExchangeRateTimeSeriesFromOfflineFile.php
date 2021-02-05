@@ -3,36 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyTwoHours\system\setJobs\v1                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\webBackEnd\webSiteScraper    |
+|                \www_bi_go_id\getDataExchangeRateTimeSeriesFromOfflineFile\v1                                                     | 
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\everyTwoHours\system\setJobs\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\server\internal\webBackEnd\webSiteScraper\www_bi_go_id\getDataExchangeRateTimeSeriesFromOfflineFile\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setJobs                                                                                                      |
-    | ▪ Description : Menangani API scheduler.everyTwoHours.system.setJobs Version 1                                               |
+    | ▪ Class Name  : getDataExhangeRate                                                                                           |
+    | ▪ Description : Menangani API instruction.server.internal.webBackEnd.webSiteScraper.www_bi_go_id.                            |
+    |                 getDataExchangeRateTimeSeriesFromOfflineFile Version 1                                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setJobs extends \App\Http\Controllers\Controller
+    class getDataExchangeRateTimeSeriesFromOfflineFile extends \App\Http\Controllers\Controller
         {
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | Class Properties                                                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private $varAPIIdentity;
-        private $varShedule;
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Last Update     : 2021-02-04                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,11 +36,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         */
         function __construct()
             {
-            $this->varAPIIdentity = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getAPIIdentityFromClassFullName(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), __CLASS__);
-            $this->varSheduleIdentity = ((explode('.', ($this->varAPIIdentity)['Key']))[1]);
-
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/core.log';
-            shell_exec("touch ".$varFilePath);
             }
 
 
@@ -56,7 +44,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Last Update     : 2021-02-04                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -74,6 +62,62 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
+                        $varPathFile = $varData['entities']['pathFile'];    //    '/zhtConf/tmp/download/Kurs-BI-20130102-20200203/Kurs-BI-USD.html';
+                        if(is_file($varPathFile)==false)
+                            {
+                            throw new \Exception('File Not Found');
+                            }
+                        else
+                            {
+                            $varResponse = file_get_contents($varPathFile);
+                            
+                            $varISOCode = trim(explode('</span>', explode('MATA UANG', $varResponse)[1])[0]);
+
+                            //---> Jika ISO Code Tidak ditemukan
+                            if(!($varCurrencyRefID = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, $varISOCode)))
+                                {
+                                throw new \Exception('Unidentified Currency ISO Code');
+                                }
+                            //---> Jika ISO Code ada
+                            else
+                                {
+                                $varResponse = explode('<tr>', explode('<tbody>', explode('</table', explode('<table', $varResponse)[1])[0])[1]);
+
+                                for ($i=2; $i!=count($varResponse); $i++)
+                                    {
+                                    $varResponseSplit = explode('<td', $varResponse[$i]); 
+                                    $varBaseCurrencyRatio = (int) trim(explode('>', explode('</', $varResponseSplit[1])[0])[1]);
+                                    $varExchangeRateSell = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[2])[0])[1]))) / $varBaseCurrencyRatio), 5, '.', '');
+                                    $varExchangeRateBuy = number_format(((float) str_replace(',', '.', str_replace('.', '', trim(explode('>', explode('</', $varResponseSplit[3])[0])[1]))) / $varBaseCurrencyRatio), 5, '.', '');
+                                    $varExchangeRateMiddle = number_format((((float) $varExchangeRateSell + (float) $varExchangeRateBuy) / 2), 5, '.', '');
+                                    $varStartDateTimeTZ = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateFromIndonesianDateString($varUserSession, trim(explode('>', explode('</', $varResponseSplit[4])[0])[1])).' 00:00:00 +07';
+                                    $varDataReturn[count($varResponse)-$i-1] = [
+                                        //'Currency_RefID' => $varCurrencyRefID,
+                                        'ISOCode' => $varISOCode,
+                                        'ExchangeRateBuy' => $varExchangeRateBuy,
+                                        'ExchangeRateSell' => $varExchangeRateSell,
+                                        'ValidStartDateTimeTZ' => $varStartDateTimeTZ,
+                                        'ValidFinishDateTimeTZ' => '9999-12-31 23:59:59 +07'
+                                        ]; 
+                                    }
+
+                                for($i=0; $i!=(count($varDataReturn)-1); $i++)
+                                    {
+                                    $varDataReturn[$i]['ValidFinishDateTimeTZ'] = date('Y-m-d H:i:s', (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varDataReturn[$i+1]['ValidStartDateTimeTZ']) - 1)).' +07';
+                                    }
+
+                                for($i=0; $i!=count($varDataReturn); $i++)
+                                    {
+                                    $varDataReturnNew[$i] = $varDataReturn[$i];                                
+                                    }
+                                }
+                            }
+                            
+                        $varDataSend =
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession,
+                                $varDataReturnNew
+                                );
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
@@ -91,70 +135,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : loadAllJobs                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
-        | ▪ Description     : loadAllJobs                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function loadAllJobs(int $varUserSession)
-            {
-            $varReturn = true;
-            
-            $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-
-            /*
-            ..... Call all functions will be loaded .....
-            */
-
-            //---> API Call : Central Bank Exchange Rate
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateCentralBank';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.master.setCurrencyExchangeRateCentralBank',
-                'latest', 
-                [
-                ]
-                );
-
-            //---> API Call : Tax Exchange Rate
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.master.setCurrencyExchangeRateTax';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.master.setCurrencyExchangeRateTax', 
-                'latest', 
-                [
-                ]
-                );
-
-            //---> API Call : Person Access Device Log
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.sysConfig.setLog_Device_PersonAccess';
-            shell_exec("touch ".$varFilePath);
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.synchronize.sysConfig.setLog_Device_PersonAccess', 
-                'latest', 
-                [
-                ]
-                );
-
-            return $varReturn;
             }
         }
     }

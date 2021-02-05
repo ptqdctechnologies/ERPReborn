@@ -185,8 +185,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataRead                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-09                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-02-05                                                                                           |
         | ▪ Description     : Mendapatkan Engine Data Send untuk Data Read                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -198,15 +198,48 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function getEngineDataSend_DataRead($varUserSession, array $varDataSend)
             {
+            if(is_array($varDataSend) == FALSE)
+                {
+                throw new \Exception('Data Read Failed');
+                }
+            else
+                {
+                if(count($varDataSend)==0)
+                    {
+                    $varReturn = [];
+                    }
+                else
+                    {
+                    $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                    }
+                return $varReturn;
+                
+                }
+/*
             if($varDataSend)
                 {
-                $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                if(is_array($varDataSend) == FALSE)
+                    {
+                    throw new \Exception('Data Read Failed');
+                    }
+                else
+                    {
+                    if(count($varDataSend)==0)
+                        {
+                        $varReturn = [];
+                        }
+                    else
+                        {
+                        $varReturn = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase($varUserSession, $varDataSend);
+                        }
+                    }
                 return $varReturn;
                 }
             else
                 {
                 throw new \Exception('Data Read Failed');
                 }            
+ */
             }
 
 
