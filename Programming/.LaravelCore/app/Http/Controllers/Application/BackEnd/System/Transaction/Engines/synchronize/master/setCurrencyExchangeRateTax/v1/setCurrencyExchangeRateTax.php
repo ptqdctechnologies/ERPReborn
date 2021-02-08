@@ -134,7 +134,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 
                 //---> Simpan Data
                 foreach($varData['data']['exchangeRate'] as $varISOCode => $varExchangeRate) {
-                    (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateTax())->setDataImport($varUserSession, $varCurrentDate, $varISOCode, $varExchangeRate, $varValidStartDateTimeTZ, $varValidFinishDateTimeTZ, $varKMKNumber);
+                    $varBaseCurrencyISOCode = 'IDR';
+                    (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateTax())->setDataImport(
+                        $varUserSession, 
+                        $varCurrentDate, 
+                        $varBaseCurrencyISOCode,
+                        $varISOCode, 
+                        $varExchangeRate, 
+                        $varValidStartDateTimeTZ, 
+                        $varValidFinishDateTimeTZ, 
+                        $varKMKNumber
+                        );
                     }
                 } 
             catch (\Exception $ex) {
