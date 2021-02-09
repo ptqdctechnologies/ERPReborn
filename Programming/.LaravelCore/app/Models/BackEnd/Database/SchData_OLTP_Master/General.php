@@ -20,6 +20,50 @@ namespace App\Models\Database\SchData_OLTP_Master
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-02-09                                                                                           |
+        | ▪ Description     : Mendapatkan Kurs Tengah Bank Sentral berdasarkan ISO Code Mata Uang                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varDateTimeTZ ► Date Time TimeZone                                                                       |
+        |      ▪ (string) varCurrencyISOCode ► Currency ISO Code                                                                   |
+        |      ▪ (string) varBaseCurrencyISOCode ► Base Currency ISO Code (Optional)                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (float)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode($varUserSession, string $varDateTimeTZ, string $varCurrencyISOCode, string $varBaseCurrencyISOCode = null)
+            {
+            try {
+                if(!$varBaseCurrencyISOCode)
+                    {
+                    $varBaseCurrencyISOCode = 'IDR';
+                    }
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_General_GetCurrencyExchangeRateCentralBankByISOCode',
+                        [
+                            [$varDateTimeTZ, 'timestamptz' ],
+                            [$varBaseCurrencyISOCode, 'varchar'],
+                            [$varCurrencyISOCode, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'][0]['Func_General_GetCurrencyExchangeRateCentralBankByISOCode'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_BloodAglutinogenType                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
