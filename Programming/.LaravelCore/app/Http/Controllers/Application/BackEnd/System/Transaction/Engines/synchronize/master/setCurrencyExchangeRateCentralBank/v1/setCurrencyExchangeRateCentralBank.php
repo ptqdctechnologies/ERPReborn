@@ -171,18 +171,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-JPY.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KRW.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KWD.html',
-                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-LAK.html',
-                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-MYR.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-LAK.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-MYR.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NOK.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NZD.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PGK.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PHP.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SAR.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SEK.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SGD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
+                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SGD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-USD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
                     ];
 
                 for($i=0; $i!=count($varOfflineFileList); $i++)
