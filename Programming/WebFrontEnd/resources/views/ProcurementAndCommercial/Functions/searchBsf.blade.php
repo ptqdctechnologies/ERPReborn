@@ -1,4 +1,4 @@
-<div id="mySearchBrf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchBsf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,10 +10,10 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td><label>BRF Number</label></td>
+                                <td><label>BSF Number</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="brf_number" onkeyup="searchBrfNumber()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="bsf_number" onkeyup="searchBrfNumber()">
                                         <br><br><br>
                                     </div>
                                 </td>
@@ -23,14 +23,14 @@
                                 <td><label>Project Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_brf" onkeyup="searchBrfProjectCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_bsf" onkeyup="searchBrfProjectCode()">
                                         <br><br><br>
                                     </div>
                                 </td>
                                 <td><label>Site Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_brf" onkeyup="searchBrfSiteCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_bsf" onkeyup="searchBrfSiteCode()">
                                         <br><br><br>
                                     </div>
                                 </td>
@@ -46,8 +46,7 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>BRF No</th>
-                                            <th>BRFP No</th>
+                                            <th>BSF No</th>
                                             <th>Project ID</th>
                                             <th>Project Name</th>
                                             <th>Site Code</th>
@@ -64,12 +63,7 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="brf_no {{ $i }}">BRF No {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="bsf_no {{ $i }}">BSF No {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -109,7 +103,7 @@
     function searchBrfNumber() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("brf_number");
+        input = document.getElementById("bsf_number");
         filter = input.value.toUpperCase();
         table = document.getElementById("searchBrfTable");
         tr = table.getElementsByTagName("tr");
@@ -131,7 +125,7 @@
     function searchBrfProjectCode() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("project_code_brf");
+        input = document.getElementById("project_code_bsf");
         filter = input.value.toUpperCase();
         table = document.getElementById("searchBrfTable");
         tr = table.getElementsByTagName("tr");
@@ -153,7 +147,7 @@
     function searchBrfSiteCode() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("site_code_brf");
+        input = document.getElementById("site_code_bsf");
         filter = input.value.toUpperCase();
         table = document.getElementById("searchBrfTable");
         tr = table.getElementsByTagName("tr");
@@ -182,7 +176,7 @@
             var name = $this.data("name");
             $("#managerUid").val(code);
             $("#managerName").val(name);
-            $("#searchBrfNumberRevision").val(code);
+            $("#searchBsfNumberRevision").val(code);
         });
     });
 </script>

@@ -18,7 +18,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add New Progress Piece Meal
+                                            Add New Material Receive
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -26,166 +26,176 @@
                                             </button>
                                         </div>
                                     </div>
-                                    @include('ProcurementAndCommercial.Functions.setHeaderPPM')
 
-                                    <a href="#" class="btn btn-danger btn-sm float-right" style="margin-left: 10px;">Cancel</a>
-                                    <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
-                                        <i class="fa fa-times" aria-hidden="true">Reset</i>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            @csrf
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <table>
+                                                        <tr>
+                                                            <td><label>Material Source</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <select class="form-control select2bs4" style="width: 100%;" name="origin_budget" id="origin_budget">
+                                                                        <option selected="selected">Project</option>
+                                                                        <option>Overhead</option>
+                                                                        <option>Sales</option>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="btn btn-danger btn-sm float-right" style="margin-left: 10px;">Cancel</a>
+                                        <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
+                                            <i class="fa fa-times" aria-hidden="true">Reset</i>
+                                        </button>
+                                        <a href="#" class="btn btn-success btn-sm float-right" style="margin-left: 10px;margin-right:10px;"><i class="fa fa-plus" aria-hidden="true">Submit</i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <label class="card-title">
+                                    PO Detail
+                                </label>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                     </button>
-                                    <a href="#" class="btn btn-success btn-sm float-right" style="margin-left: 10px;margin-right:10px;"><i class="fa fa-plus" aria-hidden="true">Submit</i></a>
+                                </div>
+                            </div>
+                            @include('ProcurementAndCommercial.Functions.sectPoDetail')
+                        </div>
+                    </div>
+                </div>
+
+                <form action="" name="formAsf1">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <label class="card-title">
+                                        Detail Material Receive
+                                    </label>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="detailPPM">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <td><label>Porject Code</label></td>
+                                                        <td>
+                                                            <input required="" id="putWorkId" style="border-radius:0;" type="text" class="form-control" value="">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Site Code</label></td>
+                                                        <td>
+                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Work ID</label></td>
+                                                        <td>
+                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Product ID</label></td>
+                                                        <td>
+                                                            <input name="qty" id="putQty" style="border-radius:0;" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>QTY</label></td>
+                                                        <td>
+                                                            <input name="price" id="putPrice" style="border-radius:0;" type="text" class="form-control">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Remark</label></td>
+                                                        <td>
+                                                            <textarea name="internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <table>
+                                                    <tr>
+                                                        <div>
+                                                            <label>
+                                                                <strong>Balance</strong><br>
+                                                            </label>
+                                                        </div>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Qty in PO</label></td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input name="total_arf" id="total_arf" style="border-radius:0;" type="text" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>QTY in Material Receive</label></td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input name="total_asf" id="total_asf" style="border-radius:0;" type="text" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><label>Balance in ppmListQty</label></td>
+                                                        <td>
+                                                            <div class="input-group">
+                                                                <input name="balance" id="balance" style="border-radius:0;" type="text" class="form-control">
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <br><br><br><br><br><br>
+                                            <a href="{{ url('ppmList/cancel/') }}" class="btn btn-danger btn-sm float-right remove-arf-list" title="Cancel">
+                                                <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
+                                            </a>
+                                            <button type="submit" class="btn btn-success btn-sm float-right" style="margin-right:5px;" title="Add to ARF List(Cart)">
+                                                <i class="fas fa-plus" aria-hidden="true">Add to Material Receive</i>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </form>
 
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <label class="card-title">
-                                    BOQ Details
-                                </label>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            @include('ProcurementAndCommercial.Functions.sectBOQPPM')
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <label class="card-title">
-                                    Detail Progress Piece Meal
-                                </label>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body" id="detailPPM">
-                                <form method="post" action="" enctype="multipart/form-data" class="arfForm2">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <table>
-                                                    <tr>
-                                                        <td><label>Work Id</label></td>
-                                                        <td>
-                                                            <input required="" id="putWorkId" style="border-radius:0;" type="text" class="form-control" value="">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><label>Product Id</label></td>
-                                                        <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><label>Product Name</label></td>
-                                                        <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><label>Qty</label></td>
-                                                        <td>
-                                                            <input name="qty" id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" value="0">
-                                                            <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                                                        </td>
-                                                        <td>
-                                                            <input required="" readonly="" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><label>Unit Price</label></td>
-                                                        <td>
-                                                            <input name="price" id="putPrice" style="border-radius:0;" type="text" class="form-control">
-                                                        </td>
-                                                        <td>
-                                                            <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><label>Total</label></td>
-                                                        <td>
-                                                            <input name="price" id="totalprDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                        </td>
-                                                        <td>
-                                                            <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <div class="card-title" style="border:5px solid #DCDCDC;width:100%;">
-                                                        <p style="position:relative;text-align:center;top:7px;">Available Total</p>
-                                                    </div>
-                                                    <div class="card-body table-responsive p-0 available" style="height: 100px;">
-                                                        <table>
-                                                            <tbody>
-                                                                <br>
-                                                                <tr>
-                                                                    <td title="Total BOQ Detail"><label>Total BOQ</label></td>
-                                                                    <td>:</td>
-                                                                    <td style="font-weight:bold;">
-                                                                        <input name="price" id="totalBOQ" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
-                                                                    </td>
-                                                                    <td>IDR</td>
-                                                                </tr>
-                                                                <br>
-                                                                <tr>
-                                                                    <td><label>Requester Total</label></td>
-                                                                    <td>:</td>
-                                                                    <td style="font-weight:bold;">
-                                                                        <input name="price" id="totalRequester" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
-                                                                    </td>
-                                                                    <td>IDR</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><label>Balance</label></td>
-                                                                    <td>:</td>
-                                                                    <td style="font-weight:bold;color:red;">
-                                                                        <input name="price" id="totalBalance" style="border-radius:0;background-color:white;border:1px solid white;color:red;" type="text" class="form-control" readonly="">
-                                                                    </td>
-                                                                    <td>IDR</td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <button type="reset" class="btn btn-outline btn-danger btn-sm float-right detailTransaction">
-                                                <i class="fa fa-times" aria-hidden="true" title="Cancel to Add ARF List Cart">Cancel</i>
-                                            </button>
-                                            <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="buttonArfList" style="margin-right: 5px;">
-                                                <i class="fa fa-plus" aria-hidden="true" title="Add to ARF List">Add to PPM List Cart</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <form method="post" action="" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <label class="card-title">
-                                        Progress Piece Meal List (Cart)
+                                        Material Receive List (Cart)
                                     </label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -197,13 +207,15 @@
                                     <table class="table table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
-                                                <th>Delete</th>
+                                                <th></th>
+                                                <th></th>
+                                                <th>Project</th>
+                                                <th>Site</th>
+                                                <th>Work ID</th>
                                                 <th>Product Id</th>
-                                                <th>Description</th>
+                                                <th>Product Name</th>
                                                 <th>Qty</th>
                                                 <th>Uom</th>
-                                                <th>Price</th>
-                                                <th>Total</th>
                                             </tr>
                                         </thead>
                                         <tbody id="removeppmList">
@@ -216,6 +228,8 @@
                                                 <td contenteditable="true"><input name="qty" id="ppmListQty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off"></td>
                                                 <td contenteditable="false" id="ppmListUom"></td>
                                                 <td contenteditable="false" id="ppmListPrice"></td>
+                                                <td contenteditable="false" id="ppmListTotal"></td>
+                                                <td contenteditable="false" id="ppmListTotal"></td>
                                                 <td contenteditable="false" id="ppmListTotal"></td>
                                             </tr>
                                         </tbody>

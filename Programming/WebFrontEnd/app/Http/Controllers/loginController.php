@@ -16,23 +16,60 @@ class loginController extends Controller
 
     public function loginStore(Request $request)
     {
-        echo $username = $request->input('username');
-        echo $password = $request->input('password');die;
+        $username = $request->input('username');
+        $password = $request->input('password');
         
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $username,
             $password
         );
-
-        dd($varData);
-        // if($varData){
-        //     return view('Layouts.dashboard');
-        // }
+        if($varData['metadata']['HTTPStatusCode'] == '401'){
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        }
+        else{
+            return response()->json($varData['data']['optionList']);
+            // return view('Layouts.dashboard');
+        }
+    }
+    public function loginStores(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+        
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $username,
+            $password
+        );
+        if($varData['metadata']['HTTPStatusCode'] == '401'){
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        }
+        else{
+            return response()->json($varData['data']['optionList'][0]['userRole']);
+            // return view('Layouts.dashboard');
+        }
+    }
+    public function loginStorex(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+        
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $username,
+            $password
+        );
+        if($varData['metadata']['HTTPStatusCode'] == '401'){
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        }
+        else{
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        }
     }
 
     public function logout(Request $request) {
-        Auth::logout();
-        return redirect('/login');
+        // Auth::logout();
+        return redirect('/');
       }
 }

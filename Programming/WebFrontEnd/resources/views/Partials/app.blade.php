@@ -26,12 +26,9 @@
 
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
-
     <!-- sweetalert -->
     <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
-
-
-    <!-- EDITABLE -->
+    
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
@@ -106,120 +103,6 @@
         });
     });
 </script>
-
-
-<!-- ATTACHMENTS -->
-
-<script>
-    $(function() {
-        bsCustomFileInput.init();
-    });
-</script>
-
-<!-- ARF -->
-
-
-
-<!-- VALIDATION -->
-
-<script>
-    $(function() {
-        $.validator.setDefaults({
-            submitHandler: function() {
-                alert("Form successful submitted!");
-            }
-        });
-        $('#arfForm').validate({
-            rules: {
-                project_code: {
-                    maxlength: 10,
-                    required: true,
-                },
-                projek_name: {
-                    required: true,
-                },
-                site_code: {
-                    required: true
-                },
-                site_name: {
-                    required: true
-                },
-                currency_code: {
-                    required: true
-                },
-                currency_name: {
-                    required: true
-                },
-                manager_code: {
-                    required: true
-                },
-                manager_name: {
-                    required: true
-                },
-                finance_code: {
-                    required: true
-                },
-                finance_name: {
-                    required: true
-                },
-                beneficiary: {
-                    required: true
-                },
-                bank_name: {
-                    required: true
-                },
-                account_name: {
-                    required: true
-                },
-                account_number: {
-                    required: true
-                },
-                origin_budget: {
-                    required: true
-                },
-                internal_notes: {
-                    required: true
-                },
-                filenames: {
-                    required: true
-                },
-                requester_name: {
-                    required: true
-                },
-                remark: {
-                    required: true
-                },
-                nec_at: {
-                    required: true
-                },
-            },
-            messages: {
-                email: {
-                    // required: "Please enter a email address",
-                    email: "Please enter a vaild email address"
-                },
-                password: {
-                    // required: "Please provide a password",
-                    minlength: "Your password must be at least 5 characters long"
-                },
-
-                terms: "Please accept our terms"
-            },
-            errorElement: 'span',
-            errorPlacement: function(error, element) {
-                // error.addClass('invalid-feedback');
-                // element.closest('.form-group').append(error);
-            },
-            highlight: function(element, errorClass, validClass) {
-                $(element).addClass('is-invalid');
-            },
-            unhighlight: function(element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
-            }
-        });
-    });
-</script>
-
 </html>
 <!--|-----------------------------------------------------------|
     |                      End Extends                          |

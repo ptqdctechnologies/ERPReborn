@@ -51,22 +51,20 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="form-group input_fields_wrap">
-                <div class="input-group control-group" style="width:100%;">
-                    <input type="file" class="form-control filenames_1" id="filenames_1" style="height:26px;">
-                    <div class="input-group-btn">
-                        <!-- <button class="btn btn-outline-success btn-sm fileInputMultiArf" type="button"><i class="glyphicon glyphicon-plus"></i>Add</button> -->
-                        <a class="btn btn-outline btn-success btn-sm add_field_button" style="color: white;">Add</a>
+            <div class="card-body table-responsive p-0" style="height: 100px;width:100%;">
+                <table class="table table-head-fixed text-nowrap">
+                    <div class="form-group input_fields_wrap">
+                        <div class="input-group control-group" style="width:100%;">
+                            <input type="file" class="form-control filenames_1" id="filenames_1" style="height:26px;" name="filenames">
+                            <div class="input-group-btn">
+                                <a class="btn btn-outline btn-success btn-sm add_field_button">
+                                    <i class="fas fa-plus" aria-hidden="true" title="Add File" style="color:white;">Add</i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </table>
             </div>
-            <br>
-            <button type="reset" class="btn btn-outline-danger btn-sm float-right" title="Cancel">
-                <i class="fa fa-times" aria-hidden="true">Cancel</i>
-            </button>
-            <button type="submit" class="btn btn-outline-success btn-sm float-right" title="Submit" style="margin-right:5px;" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false">
-                <i class="fas fa-plus" aria-hidden="true">Submit</i>
-            </button>
         </div>
     </div>
 </div>

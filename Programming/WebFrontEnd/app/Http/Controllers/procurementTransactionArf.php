@@ -242,4 +242,9 @@ class procurementTransactionArf extends Controller
         dd($dataAll);
         // return view('ProcurementAndCommercial.Transactions.ARF.createARF');
     }
+
+    public function revisionArfIndex(Request $request)
+    {
+        return view('ProcurementAndCommercial.Transactions.ARF.revisionARF');
+    }
 }

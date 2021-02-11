@@ -90,4 +90,8 @@ class procurementTransactionBsf extends Controller
     {
         //
     }
+    public function revisionBsfIndex(Request $request)
+    {
+        return view('ProcurementAndCommercial.Transactions.BSF.revisionBSF');
+    }
 }

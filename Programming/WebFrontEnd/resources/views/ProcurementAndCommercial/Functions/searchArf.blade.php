@@ -59,26 +59,26 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}">Trano {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-name="Project Name {{ $i }}">Trano {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="projeck_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-projectId="projeck_id {{ $i }}">Project ID {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-projectName="project_name {{ $i }}">Project Name {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-siteCode="site_code {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <p>Site Name {{$i}}</p>
+                                                <p data-siteName="site_name {{ $i }}">Site Name {{$i}}</p>
                                             </td>
                                             </tr>
                                             @endfor
@@ -172,6 +172,122 @@
             var name = $this.data("name");
             $("#managerUid").val(code);
             $("#managerName").val(name);
+            $("#searchArfNumberRevision").val(code);
         });
     });
 </script>
+<!-- 
+<script>
+    var x = 1,y = 0;
+
+    $(".klikSearchArfTrano").on('click', function(e) {
+        e.preventDefault();
+        var $this = $(this);
+        var trano = $this.data("trano");
+        var projectId = $this.data("projectId");
+        alert(projectId);
+        var ProjectName = $this.data("ProjectName");
+        var siteCode = $this.data("siteCode");
+        var siteName = $this.data("siteName");
+
+        var datas = [];
+
+        for (var i = 1; i <= x; i++) {
+            var data = {
+                trano: $this.data("trano"),
+                projectId: $this.data("projectId"),
+                ProjectName: $this.data("ProjectName"),
+                siteCode: $this.data("siteCode"),
+                siteName: $this.data("siteName"),
+            }
+            datas.push(data);
+        }
+
+        var json_object = JSON.stringify(datas);
+        console.log(json_object);
+
+        $.ajax({
+            type: "POST",
+            url: '{{route('ARF.store')}}',
+            data: json_object,
+            contentType: "application/json",
+            processData: true,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(data) {
+                Swal.fire("Success !", "Data Berhasil Ditambahkan", "success");
+                console.log(data);
+                y++;
+                $.each(data, function(key, val) {
+                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
+
+                    $('.ChangeQtys').keyup(function() {
+
+                        var qtyReq = $(this).val();
+                        if (qtyReq == 0 || qtyReq == '') {
+                            qtyReq = 0;
+                        }
+                        var putQty = val.putQtys;
+                        var putPrice = val.putPrice;
+                        var total = parseFloat(putQty * putPrice);
+                        var total2 = parseFloat(qtyReq * putPrice);
+
+                        if (qtyReq == '') {
+                            $("#buttonArfList").prop("disabled", true);
+                            $("#saveArfList").prop("disabled", true);
+                        } else if (total2 > total) {
+                            Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                            $('#totalArfDetails_' + y + '').html(0);
+                            $("#saveArfList").prop("disabled", true);
+                        } else {
+                            var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                            $('#totalArfDetails_' + y + '').html(totalReq);
+                            $("#saveArfList").prop("disabled", false);
+                        }
+
+                    });
+
+                });
+            },
+            error: function(data) {
+                Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
+            }
+        });
+
+    });
+
+
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    $('.add_field_button').click(function() {
+        cek = 0;
+        addColomn();
+    });
+
+    function addColomn() { //on add input button click
+        if (cek == 0) {
+            cek++;
+            x++; //text box increment
+            $(wrapper).append(
+
+                '<div class="col-md-12">' +
+                '<div class="form-group">' +
+                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
+                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
+                '<div class="input-group-btn">' +
+                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+
+            ); //add input box                
+        }
+    }
+
+    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+        e.preventDefault();
+        $(this).parent().parent().parent('div').remove();
+        x--;
+    })
+</script> -->

@@ -1,8 +1,8 @@
-<div id="myManagerArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myfinanceArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 class="modal-title"><label for=""> Choose Manager</label></h4>
+        <h4 class="modal-title"><label for=""> Choose Finance</label></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
@@ -10,16 +10,16 @@
           <div class="form-group">
             <table>
               <tr>
-                <td><label>Uid</label></td>
+                <td><label>Finance Uid</label></td>
                 <td>
                   <div class="input-group">
-                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="uid_manager_arf" onkeyup="managerArfUid()">
+                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="uid_finance_arf" onkeyup="financeArfUid()">
                   </div>
                 </td>
-                <td><label>Name</label></td>
+                <td><label>Finance Name</label></td>
                 <td>
                   <div class="input-group">
-                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_arf_manager" onkeyup="managerArfName()">
+                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_arf_finance" onkeyup="financeArfName()">
                   </div>
                 </td>
               </tr>
@@ -30,11 +30,11 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body table-responsive p-0" style="height: 400px;">
-                <table class="table table-head-fixed text-nowrap" id="managerArf">
+                <table class="table table-head-fixed text-nowrap" id="financeArf">
                   <tr>
                     <th>No</th>
-                    <th>Manager Uid</th>
-                    <th>Manager Name</th>
+                    <th>Finance Uid</th>
+                    <th>Finance Name</th>
                   </tr>
                   @php $no=1; @endphp
                   @for($i = 1; $i < 20; $i++)
@@ -42,11 +42,11 @@
                       <td>{{ $no++ }}</td>
                       <td>
                           <span class="tag tag-success">
-                              <p data-dismiss="modal" class="klikManagerArf" data-id="Manager {{ $i }}" data-name="name {{ $i }}">Manager {{$i}}</p>
+                              <p data-dismiss="modal" class="klikFinanceArf" data-id="Finance Staff Uid {{ $i }}" data-name="Finance Name {{ $i }}">Finance Staff Uid {{$i}}</p>
                           </span>
                       </td>
                       <td>
-                          <p>Manager Name {{$i}}</p>
+                          <p>Finance Staff Name {{$i}}</p>
                       </td>
                   </tr>
                   @endfor
@@ -65,12 +65,12 @@
 
 
 <script>
-  function managerArfUid() {
+  function financeArfUid() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("uid_manager_arf");
+    input = document.getElementById("uid_finance_arf");
     filter = input.value.toUpperCase();
-    table = document.getElementById("managerArf");
+    table = document.getElementById("financeArf");
     tr = table.getElementsByTagName("tr");
 
     // Loop through all table rows, and hide those who don't match the search query
@@ -87,12 +87,12 @@
     }
   }
 
-  function managerArfName() {
+  function financeArfName() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("name_arf_manager");
+    input = document.getElementById("name_arf_finance");
     filter = input.value.toUpperCase();
-    table = document.getElementById("managerArf");
+    table = document.getElementById("financeArf");
     tr = table.getElementsByTagName("tr");
 
     // Loop through all table rows, and hide those who don't match the search query
@@ -109,16 +109,15 @@
     }
   }
 </script>
-
 <script>
   $(function() {
-    $(".klikManagerArf").on('click', function(e) {
+    $(".klikFinanceArf").on('click', function(e) {
       e.preventDefault(); // in chase you change to a link or button
       var $this = $(this);
       var uid = $this.data("id");
       var name = $this.data("name");
-      $("#managerAsfUid").val(uid);
-      $("#managerAsfName").val(name);
+      $("#financeArfUid").val(uid);
+      $("#financeArfName").val(name);
     });
   });
 </script>

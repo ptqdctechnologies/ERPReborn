@@ -81,4 +81,8 @@ class procurementTransactionPPM extends Controller
     {
         //
     }
+    public function revisionPPMIndex(Request $request)
+    {
+        return view('ProcurementAndCommercial.Transactions.PPM.revisionPPM');
+    }
 }

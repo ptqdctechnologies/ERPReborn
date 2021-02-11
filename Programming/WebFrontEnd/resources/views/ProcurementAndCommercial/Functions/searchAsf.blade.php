@@ -1,8 +1,8 @@
-<div id="mySearchBrf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchAsf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose No Trans</label>
+                <label class="card-title">Choose ARF</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -10,27 +10,33 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td><label>BRF Number</label></td>
+                                <td><label>ASF Number</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="brf_number" onkeyup="searchBrfNumber()">
-                                        <br><br><br>
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="asf_number_revision" onkeyup="searchAsfNumberRevision()">
+                                        <br><br>
                                     </div>
                                 </td>
-
+                                <td><label>ARF Number</label></td>
+                                <td>
+                                    <div class="input-group">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="arf_number_revision" onkeyup="searchArfNumberRevision()">
+                                        <br><br>
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <td><label>Project Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_brf" onkeyup="searchBrfProjectCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_asf_revision" onkeyup="searchAsfProjectCodeRevision()">
                                         <br><br><br>
                                     </div>
                                 </td>
                                 <td><label>Site Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_brf" onkeyup="searchBrfSiteCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_asf_revision" onkeyup="searchAsfSiteCodeRevision()">
                                         <br><br><br>
                                     </div>
                                 </td>
@@ -42,12 +48,12 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="searchBrfTable">
+                                <table class="table table-head-fixed text-nowrap" id="searchAsfTableRevision`">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>BRF No</th>
-                                            <th>BRFP No</th>
+                                            <th>Trano</th>
+                                            <th>ARF Number</th>
                                             <th>Project ID</th>
                                             <th>Project Name</th>
                                             <th>Site Code</th>
@@ -57,38 +63,34 @@
                                     <tbody>
                                         @php $no=1; @endphp
                                         @for($i = 1; $i < 20; $i++) <tr>
+                                            <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal">{{ $no++ }}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="trano {{ $i }}" data-name="Project Name {{ $i }}">Trano {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="brf_no {{ $i }}">BRF No {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="trano {{ $i }}" data-arfNumber="Arf Number {{ $i }}">ARF Number {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="trano {{ $i }}" data-projectId="projeck_id {{ $i }}">Project ID {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="trano {{ $i }}" data-projectName="project_name {{ $i }}">Project Name {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="trano {{ $i }}" data-siteCode="site_code {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <p>Site Name {{$i}}</p>
+                                                <p data-siteName="site_name {{ $i }}">Site Name {{$i}}</p>
                                             </td>
                                             </tr>
                                             @endfor
@@ -106,12 +108,12 @@
     |                            End Function My Project Code                          |
     |----------------------------------------------------------------------------------|-->
 <script>
-    function searchBrfNumber() {
+    function searchAsfNumberRevision() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("brf_number");
+        input = document.getElementById("asf_number_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("searchAsfTableRevision`");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -127,13 +129,34 @@
             }
         }
     }
-
-    function searchBrfProjectCode() {
+    function searchArfNumberRevision() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("project_code_brf");
+        input = document.getElementById("arf_number_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("searchAsfTableRevision`");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    function searchAsfProjectCodeRevision() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("project_code_asf_revision");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("searchAsfTableRevision`");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -150,12 +173,12 @@
         }
     }
 
-    function searchBrfSiteCode() {
+    function searchAsfSiteCodeRevision() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("site_code_brf");
+        input = document.getElementById("site_code_asf_revision");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("searchAsfTableRevision`");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -175,14 +198,12 @@
 
 <script>
     $(function() {
-        $(".klikSearchArf").on('click', function(e) {
+        $(".klikSearchAsf").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
-            $("#managerUid").val(code);
-            $("#managerName").val(name);
-            $("#searchBrfNumberRevision").val(code);
+            $("#searchAsfNumberRevision").val(code);
         });
     });
 </script>
