@@ -35,13 +35,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
+            $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode($varUserSession, '2021-01-01', 'AUD', 'ID2');
+            dd($x);
             
             
             
                 $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
                 $varCurrentDateTimeTZ = (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ($varUserSession);
 
-
+/*
                 //---> Pengambilan Data dari Online
                 $varDataOnline = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -70,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                         }
                     }
 
-
+*/
             
 //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, 'USD');
 //var_dump($x);

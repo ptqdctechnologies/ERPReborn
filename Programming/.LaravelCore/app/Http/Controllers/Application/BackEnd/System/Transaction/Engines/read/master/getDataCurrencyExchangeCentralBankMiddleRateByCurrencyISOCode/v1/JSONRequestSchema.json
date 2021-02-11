@@ -1,0 +1,52 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.read.master.getDataCurrencyExchangeCentralBankMiddleRateByCurrencyISOCode (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.read.master.getDataCurrencyExchangeCentralBankMiddleRateByCurrencyISOCode" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities": {
+                "type": "object",
+                "properties": {
+                    "dateTimeTZ": {
+                        "type": "string",
+                        "minLength": 10
+                        },
+                    "currencyISOCode": {
+                        "type": "string",
+                        "length": 3
+                        },
+                    "baseCurrencyISOCode": {
+                        "type": [ "string", "null" ]
+                        }
+                    },
+                "required": [ "dateTimeTZ", "currencyISOCode", "baseCurrencyISOCode" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

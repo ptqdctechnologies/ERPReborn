@@ -40,7 +40,7 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         public function setDataImport(
             $varUserSession, 
-            string $varDateTimeTZ, string $varISOCode, $varExchangeRateBuy, $varExchangeRateSell)
+            string $varDateTimeTZ, string $varBaseCurrencyISOCode, string $varISOCode, $varExchangeRateBuy, $varExchangeRateSell)
             {
             //---> Cek apakah sudah ada record
 
@@ -83,6 +83,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             WHEN ("SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_SID" IS NOT NULL) THEN
                                 "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_SID"
                         END AS "Sys_ID",
+                        "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."BaseCurrency_RefID",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Currency_RefID",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."ExchangeRateBuy",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."ExchangeRateSell",
@@ -120,6 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                             WHEN ("SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_SID" IS NOT NULL) THEN
                                 "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Sys_SID"
                         END AS "Sys_ID",
+                        "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."BaseCurrency_RefID",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."Currency_RefID",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."ExchangeRateBuy",
                         "SchData-OLTP-Master"."TblCurrencyExchangeRateCentralBank"."ExchangeRateSell",
@@ -158,6 +160,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         null,
                         substr($varBufferDBPrevious['Data'][0]['ValidStartDateTimeTZ'], 0, 4), 
                         11000000000001,
+                        $varBufferDBPrevious['Data'][0]['BaseCurrency_RefID'],
                         $varBufferDBPrevious['Data'][0]['Currency_RefID'],
                         $varBufferDBPrevious['Data'][0]['ExchangeRateBuy'], 
                         $varBufferDBPrevious['Data'][0]['ExchangeRateSell'],
@@ -183,6 +186,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                     null, 
                     substr($varDateTimeTZ, 0, 4), 
                     11000000000001,
+                    (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, $varBaseCurrencyISOCode),
                     (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, $varISOCode),
                     $varExchangeRateBuy, 
                     $varExchangeRateSell, 
@@ -198,8 +202,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-02-04                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2021-02-08                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -207,6 +211,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varExchangeRateBuy ► Buy Exchange Rate                                                                   |
         |      ▪ (float)  varExchangeRateSell ► Sell Exchange Rate                                                                 |
@@ -219,7 +224,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            int $varBaseCurrency_RefID = null, int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -232,6 +237,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        [$varBaseCurrency_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varExchangeRateBuy, 'numeric'],
                         [$varExchangeRateSell, 'numeric'],
@@ -248,8 +254,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-02-04                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2021-02-08                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -258,6 +264,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varExchangeRateBuy ► Buy Exchange Rate                                                                   |
         |      ▪ (float)  varExchangeRateSell ► Sell Exchange Rate                                                                 |
@@ -270,7 +277,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            int $varBaseCurrency_RefID = null, int $varCurrency_RefID = null, float $varExchangeRateBuy = null, float $varExchangeRateSell = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -283,6 +290,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        [$varBaseCurrency_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varExchangeRateBuy, 'numeric'],
                         [$varExchangeRateSell, 'numeric'],

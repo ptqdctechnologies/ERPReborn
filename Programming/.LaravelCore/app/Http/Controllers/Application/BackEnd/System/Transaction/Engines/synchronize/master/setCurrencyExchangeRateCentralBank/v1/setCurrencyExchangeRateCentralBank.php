@@ -131,6 +131,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         //---> Cek Currency Symbol
                         if(!(new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->getCurrencyIDByISOCode($varUserSession, $varDataOnline['data'][$i]['ISOCode']))
                             {
+                            //---> Insert Data Currency Bila ISO tidak ditemukan
                             (new \App\Models\Database\SchData_OLTP_Master\TblCurrency())->setDataInsert(
                                 $varUserSession, 
                                 null, 
@@ -143,9 +144,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                             }
                         
                         //---> Insert Data
+                        $varBaseCurrencyISOCode = 'IDR';
                         (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
                             $varUserSession, 
                             $varDataOnline['data'][$i]['validStartDateTimeTZ'],
+                            $varBaseCurrencyISOCode,
                             $varDataOnline['data'][$i]['ISOCode'],
                             $varDataOnline['data'][$i]['exchangeRateBuy'],
                             $varDataOnline['data'][$i]['exchangeRateSell']
@@ -156,30 +159,30 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 //---> Pengambilan Data dari File Offline
                 $varOfflineFileList = [
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-AUD.html',
-                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-BND.html',
-    //                '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CAD.html',
-      //              '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CHF.html',
-       //             '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNH.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNY.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-DKK.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-EUR.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-GBP.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-HKD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-JPY.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KRW.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KWD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-LAK.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-MYR.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-BND.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CAD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CHF.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNH.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-CNY.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-DKK.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-EUR.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-GBP.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-HKD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-JPY.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KRW.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-KWD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-LAK.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-MYR.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NOK.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-NZD.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PGK.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-PHP.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SAR.html',
         //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SEK.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SGD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
+                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-SGD.html',
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-USD.html',
-        //            '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
+//                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
                     ];
 
                 for($i=0; $i!=count($varOfflineFileList); $i++)
@@ -202,9 +205,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         for($j=0; $j!=count($varData['data']); $j++)
 //                        for($j=0; $j!=10; $j++)
                             {
+                            $varBaseCurrencyISOCode = 'IDR';
                             (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRateCentralBank())->setDataImport(
                                 $varUserSession, 
                                 $varData['data'][$j]['validStartDateTimeTZ'],
+                                $varBaseCurrencyISOCode,
                                 $varData['data'][$j]['ISOCode'],
                                 $varData['data'][$j]['exchangeRateBuy'],
                                 $varData['data'][$j]['exchangeRateSell']
