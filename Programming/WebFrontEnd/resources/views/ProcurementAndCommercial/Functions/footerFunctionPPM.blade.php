@@ -1,58 +1,11 @@
 <!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".available").hide();
-        $("#detailArfList").hide();
-        $("#detailTransAvail").hide();
-        $("#removeButton").hide();
+        $("#detailPPM").hide();
+        $("#detailPPMList").hide();
     });
 </script>
 <!--  END SHOW HIDE AVAILABEL -->
-
-<script>
-    function validateForm() {
-
-        var project_code = document.forms["formArf1"]["project_code"].value;
-        var site_code = document.forms["formArf1"]["site_code"].value;
-        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
-        var bank_name = document.forms["formArf1"]["bank_name"].value;
-        var account_name = document.forms["formArf1"]["account_name"].value;
-        var account_number = document.forms["formArf1"]["account_number"].value;
-        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
-        var filenames = document.forms["formArf1"]["filenames"].value;
-        if (project_code == "") {
-            Swal.fire("Error !", "Project code tidak boleh kosong !", "error");
-        }
-        else if (site_code == "") {
-            Swal.fire("Error !", "Site code tidak boleh kosong !", "error");
-        }
-        else if (beneficiary == "") {
-            Swal.fire("Error !", "Beneficiary tidak boleh kosong !", "error");
-        }
-        else if (bank_name == "") {
-            Swal.fire("Error !", "Bank name code tidak boleh kosong !", "error");
-        }
-        else if (account_name == "") {
-            Swal.fire("Error !", "Account name code tidak boleh kosong !", "error");
-        }
-        else if (account_number == "") {
-            Swal.fire("Error !", "Account number code tidak boleh kosong !", "error");
-        }
-        else if (internal_notes == "") {
-            Swal.fire("Error !", "Internal notes code tidak boleh kosong !", "error");
-        }
-        else if (filenames == "") {
-            Swal.fire("Error !", "Filenames tidak boleh kosong !", "error");
-        }
-        else{
-            $("#projectcode").prop("disabled", true);
-            $("#subprojectc").prop("disabled", true);
-            $("#projectcode2").prop("disabled", true);
-            $("#subprojectc2").prop("disabled", true);
-        }
-    }
-</script>
-
 <script type="text/javascript">
     $(document).ready(function() {
         $(".detailTransaction").click(function() {
@@ -60,18 +13,13 @@
         });
     });
 </script>
-
 <script>
     $(document).ready(function() {
-
         $('.klikDetail1').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-            $("#putProductId2").prop("disabled", true);
-
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
             var get31 = $("#getProductId1").html();
@@ -96,16 +44,12 @@
             $("#putProductName").val(get71);
             $("#putUom").val(get81);
             $("#putCurrency").val(get91);
-
         });
         $('.klikDetail2').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-            $("#putProductId2").prop("disabled", true);
-
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
             var get32 = $("#getProductId2").html();
@@ -132,13 +76,10 @@
             $("#putCurrency").val(get92);
         });
         $('.klikDetail3').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-            $("#putProductId2").prop("disabled", true);
-
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
             var get33 = $("#getProductId3").html();
@@ -165,13 +106,10 @@
             $("#putCurrency").val(get93);
         });
         $('.klikDetail4').click(function() {
-
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#buttonPrList").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
-            $("#putProductId2").prop("disabled", true);
-
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
             var get34 = $("#getProductId4").html();
@@ -199,34 +137,16 @@
         });
     });
 </script>
-
 <script>
-    var x = 1,
-        y = 0;
-    xx = 0; //initlal text box count
+    var x = 1, y = 0; //initlal text box count
 
-    $('#buttonArfList').click(function() {
-
-        var requester_name = document.forms["formArf2"]["requester_name"].value;
-        var qtyx = document.forms["formArf2"]["qtyx"].value;
-        var remark = document.forms["formArf2"]["remark"].value;
-
-        if (requester_name == "") {
-            Swal.fire("Error !", "Requester name tidak boleh kosong !", "error");
-        }
-        if (qtyx == 0) {
-            Swal.fire("Error !", "Qty tidak boleh kosong !", "error");
-        }
-        if (remark == "") {
-            Swal.fire("Error !", "Remark tidak boleh kosong !", "error");
-        }
-
+    $('#buttonArfList').click(function () {
 
         $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
         $("#detailArfList").show();
         var datas = [];
 
-        for (var i = 1; i <= x; i++) {
+        for(var i=1; i<=x; i++){
             var data = {
                 origin_budget: $('#origin_budget').val(),
                 projectcode: $('#projectcode').val(),
@@ -244,13 +164,12 @@
                 putProductId: $('#putProductId').val(),
                 putProductName: $('#putProductName').val(),
                 putQty: $('#qtyCek').val(),
-                putQtys: $('#putQty').val(),
                 putUom: $('#putUom').val(),
                 putPrice: $('#putPrice').val(),
                 putCurrency: $('#putCurrency').val(),
                 totalArfDetails: $('#totalArfDetails').val(),
                 putRemark: $('#putRemark').val(),
-                filenames: $('#filenames_' + i).val(),
+                filenames: $('#filenames_' + i ).val(),
             }
             datas.push(data);
         }
@@ -258,90 +177,61 @@
         var json_object = JSON.stringify(datas);
         // console.log(json_object);
 
-        $.ajax({
+        $.ajax({                        
             type: "POST",
-            url: '{{route('ARF.store')}}',
+            url: '{{route("ARF.store")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            success: function(data) {
+            }
+            , success: function(data){
                 Swal.fire("Success !", "Data Berhasil Ditambahkan", "success");
                 console.log(data);
                 y++;
-                $.each(data, function(key, val) {
-                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
-
-                    $('.ChangeQtys').keyup(function() {
-
-                        var qtyReq = $(this).val();
-                        if (qtyReq == 0 || qtyReq == '') {
-                            qtyReq = 0;
-                        }
-                        var putQty = val.putQtys;
-                        var putPrice = val.putPrice;
-                        var total = parseFloat(putQty * putPrice);
-                        var total2 = parseFloat(qtyReq * putPrice);
-
-                        if (qtyReq == '') {
-                            $("#buttonArfList").prop("disabled", true);
-                            $("#saveArfList").prop("disabled", true);
-                        } else if (total2 > total) {
-                            Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                            $('#totalArfDetails_' + y + '').html(0);
-                            $("#saveArfList").prop("disabled", true);
-                        } else {
-                            var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                            $('#totalArfDetails_' + y + '').html(totalReq);
-                            $("#saveArfList").prop("disabled", false);
-                        }
-
-                    });
-
+                $.each(data, function (key, val) {
+                    $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');                    
                 });
+                
             },
             error: function(data) {
                 Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-            }
+            } 
         });
-
     });
 
-
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
-    $('.add_field_button').click(function() {
+    $('.add_field_button').click(function () {
         cek = 0;
         addColomn();
     });
-
-    function addColomn() { //on add input button click
-        if (cek == 0) {
+    function addColomn(){ //on add input button click
+        if(cek == 0){
             cek++;
             x++; //text box increment
             $(wrapper).append(
 
-                '<div class="col-md-12">' +
-                '<div class="form-group">' +
-                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
-                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
-                '<div class="input-group-btn">' +
-                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '</div>'
+                '<div class="col-md-12">'
+                +   '<div class="form-group">'
+                +       '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">'
+                +           '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">'
+                +           '<div class="input-group-btn">'
+                +               '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>'
+                +           '</div>'
+                +       '</div>'
+                +    '</div>'
+                +'</div>'
 
             ); //add input box                
-        }
+        }                        
     }
 
-    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-        e.preventDefault();
-        $(this).parent().parent().parent('div').remove();
-        x--;
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent().parent().parent('div').remove(); x--;
     })
+
+
 </script>
 
 
@@ -349,21 +239,21 @@
 <script>
     // var y = 1; //initlal text box count
 
-    $('#saveArfList').click(function() {
+    $('#saveArfList').click(function () {
         var datax = [];
-        for (var i = 1; i <= y; i++) {
+        for(var i=1; i<=y; i++){
             var data = {
-                lastWorkId: $('#lastWorkId_' + i).html(),
-                lastWorkName: $('#lastWorkName_' + i).html(),
-                lastProductId: $('#lastProductId_' + i).html(),
-                lastProductName: $('#lastProductName_' + i).html(),
-                lastQty: $('#lastQty_' + i).val(),
-                lastUom: $('#lastUom_' + i).html(),
-                lastPrice: $('#lastPrice_' + i).html(),
-                totalArfDetails: $('#totalArfDetails_' + i).html(),
-                lastCurrency: $('#lastCurrency_' + i).html(),
-                lastRemark: $('#lastRemark_' + i).html(),
-
+                lastWorkId: $('#lastWorkId_' + i ).html(),
+                lastWorkName: $('#lastWorkName_' + i ).html(),
+                lastProductId: $('#lastProductId_' + i ).html(),
+                lastProductName: $('#lastProductName_' + i ).html(),
+                lastQty: $('#lastQty_' + i ).val(),
+                lastUom: $('#lastUom_' + i ).html(),
+                lastPrice: $('#lastPrice_' + i ).html(),
+                totalArfDetails: $('#totalArfDetails_' + i ).html(),
+                lastCurrency: $('#lastCurrency_' + i ).html(),
+                lastRemark: $('#lastRemark_' + i ).html(),
+                
             }
             datax.push(data);
         }
@@ -373,19 +263,19 @@
 
         $.ajax({
             type: "POST",
-            url: '{{route('ARF.tests')}}',
+            url: '{{route("ARF.tests")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,
             headers: {
                 'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            success: function(data) {
+            }
+            , success: function(data){
                 console.log(data);
-            },
+            }, 
             error: function(data) {
                 Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-            }
+            } 
         });
     });
 </script>
@@ -394,7 +284,7 @@
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-
+            
             var qtyReq = $(this).val();
             if (qtyReq == 0 || qtyReq == '') {
                 qtyReq = 0;
@@ -405,11 +295,10 @@
             var total2 = parseFloat(qtyReq * putPrice);
 
             if (qtyReq == '') {
-                $("#buttonArfList").prop("disabled", true);             
+                $("#buttonArfList").prop("disabled", true);
             } else if (total2 > total) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);               
+                $("#buttonArfList").prop("disabled", true);
             } else {
                 var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
@@ -420,6 +309,37 @@
     });
 </script>
 
+<script>
+    $('document').ready(function() {
+        $('.ChangeQtys').keyup(function() {
+            console.log('hello');
+            
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($("#putQtybyId").val());
+            var putPrice = parseFloat($('#arfListPrice').html());
+            var total = parseFloat(putQty * putPrice);
+            var total2 = parseFloat(qtyReq * putPrice);
+
+            if (qtyReq == '') {
+                $("#buttonArfList").prop("disabled", true);
+                $("#saveArfList").prop("disabled", true);
+            } else if (total2 > total) {
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $("#saveArfList").prop("disabled", true);
+            } else {
+                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#arfListTotal').html(totalReq);
+                $("#saveArfList").prop("disabled", false);
+            }
+
+        });
+    });
+</script>
+
+
 <script type="text/javascript">
     $(document).ready(function() {
         $("body").on("click", ".remove-attachment", function() {
@@ -428,6 +348,91 @@
     });
 </script>
 
-<script>
 
+
+<script>
+    $('document').ready(function() {
+        $('.ChangeQty').keyup(function() {
+
+        var qtyReq = $(this).val();
+        if (qtyReq == 0 || qtyReq == '') {
+            qtyReq = 0;
+        }
+        var putQty = parseFloat($('#putQty').val());
+        var putPrice = parseFloat($('#putPrice').val());
+
+        if (qtyReq == '') {
+            $("#buttonPrList").prop("disabled", true);
+        } else if (qtyReq > putQty) {
+            alert("Your Request Is Over Budget");
+            $("#buttonPrList").prop("disabled", true);
+        } else {
+            var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
+            var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $('#totalprDetails').val(totalReq);
+            $("#buttonPrList").prop("disabled", false);
+        }
+
+        });
+    });
+</script>
+<script>
+    $('document').ready(function() {
+        $('.ChangeQtys').keyup(function() {
+
+            var qtyReq = $(this).val();
+            if (qtyReq == 0 || qtyReq == '') {
+                qtyReq = 0;
+            }
+            var putQty = parseFloat($('#putQty').val());
+            var putPrice = parseFloat($('#putPrice').val());
+
+            if (qtyReq == '') {} else if (qtyReq > putQty) {
+                alert("Your Request Is Over Budget");
+            } else {
+                var totalReq = parseFloat(qtyReq) * parseFloat(putPrice);
+                var totalReq = parseFloat(totalReq).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                $('#prListTotal').html(totalReq);
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('#buttonPrList').click(function() {
+            $("#removeButton").show();
+            $("#detailprList").show();
+            var list1 = $("#putWorkId").val();
+            var list2 = $("#putWorkName").val();
+            var list3 = $("#putProductId").val();
+            var list4 = $("#putProductName").val();
+            var list5 = $("#qtyCek").val();
+            var list6 = $("#putUom").val();
+            var list7 = $("#putPrice").val();
+            var list8 = $("#totalprDetails").val();
+            var list9 = $("#putCurrency").val();
+            var list10 = $("#putRemark").val();
+            $("#prListWorkId").html(list1);
+            $("#prListWorkName").html(list2);
+            $("#prListProductId").html(list3);
+            $("#prListProductName").html(list4);
+            $("#prListQty").val(list5);
+            $("#prListUom").html(list6);
+            $("#prListPrice").html(list7);
+            $("#prListTotal").html(list8);
+            $("#prListCurrency").html(list9);
+            $("#prListRemark").html(list10);
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.klikcek').click(function() {
+            var list1 = $("#prListQty").val();
+            alert(list1);
+        });
+    });
 </script>

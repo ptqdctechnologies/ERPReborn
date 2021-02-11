@@ -2,27 +2,18 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
-class procurementTransactionBrf extends Controller
+class logisticMaterialReceive extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function createBRF()
+    public function index()
     {
-        return view('ProcurementAndCommercial.Transactions.BRF.createBRF');
+        return view('Logistic.Transactions.MaterialReceive.materialReceive');
     }
-
-    public function BRFtoBRFP()
-    {
-        return view('ProcurementAndCommercial.Transactions.BRF.BRFtoBRFP');
-    }
-
-    public function fundBRF()
-    {
-        return view('ProcurementAndCommercial.Transactions.BRF.fundBRF');
-    }
+   
     
 
     /**
@@ -90,8 +81,8 @@ class procurementTransactionBrf extends Controller
     {
         //
     }
-    public function revisionBrfIndex(Request $request)
+    public function revisionMaterialReceive(Request $request)
     {
-        return view('ProcurementAndCommercial.Transactions.BRF.revisionBRF');
+        return view('Logistic.Transactions.MaterialReceive.revisionMaterialReceive');
     }
 }

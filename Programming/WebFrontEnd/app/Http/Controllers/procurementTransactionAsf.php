@@ -119,4 +119,8 @@ class procurementTransactionAsf extends Controller
     {
         //
     }
+    public function revisionAsfIndex(Request $request)
+    {
+        return view('ProcurementAndCommercial.Transactions.ASF.revisionASF');
+    }
 }

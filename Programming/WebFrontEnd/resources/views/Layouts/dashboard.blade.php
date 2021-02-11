@@ -2,10 +2,6 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('ProcurementAndCommercial.Transactions.ASF.managerName')
-@include('ProcurementAndCommercial.Transactions.ASF.currency')
-@include('ProcurementAndCommercial.Transactions.ASF.finance')
-@include('ProcurementAndCommercial.Transactions.ASF.searchArf')
 
 <div class="content-wrapper">
     <section class="content">

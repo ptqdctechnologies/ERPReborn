@@ -5,7 +5,8 @@
 @include('getFunction.getManager')
 @include('getFunction.getCurrency')
 @include('getFunction.getFinanceStaff')
-@include('ProcurementAndCommercial.Functions.searchBrf')
+@include('ProcurementAndCommercial.Functions.searchArf')
+
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">
@@ -16,7 +17,7 @@
               <div class="card">
                 <div class="card-header">
                   <label class="card-title">
-                    Create New BSF
+                    Create New ASF
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -25,11 +26,10 @@
                   </div>
                 </div>
                 @include('ProcurementAndCommercial.Functions.sectHeaderAsf')
-                <br>
                 <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
                   <i class="fa fa-times" aria-hidden="true">Reset</i>
                 </button>
-                <a href="#" class="btn btn-success btn-sm float-right"><i data-toggle="modal" data-target="#mySearchBrf" class="fas fa-gift" aria-hidden="true">Search BRF</i></a>
+                <a href="#" class="btn btn-success btn-sm float-right"><i data-toggle="modal" data-target="#mySearchArf" class="fas fa-gift" aria-hidden="true">Search ARF</i></a>
               </div>
             </div>
           </div>
@@ -53,13 +53,13 @@
         @include('ProcurementAndCommercial.Functions.sectArfDetail')
       </div>
     </div>
-    <form action="">
+    <form action="" name="formAsf1">
       <div class="row">
         <div class="col-12">
           <div class="card">
             <div class="card-header">
               <label class="card-title">
-                Detail Bussiness Trip Settlement Form (BSF)
+                Detail Advance Settlement Form (ASF)
               </label>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -73,18 +73,18 @@
                   <div class="form-group">
                     <table>
                       <tr>
-                        <td><label>BRF Number</label></td>
+                        <td><label>ARF Number</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="arf_number" id="arf_number" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
                       <tr>
-                        <td><label>BRF Date</label></td>
+                        <td><label>ARF Date</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="arf_date" id="arf_date" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -92,12 +92,12 @@
                         <td><label>Project Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="project_code" id="project_code" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="project_code2" id="project_code2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -105,12 +105,12 @@
                         <td><label>Site Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="site_code" id="site_code" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="site_code2" id="site_code2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -118,7 +118,7 @@
                         <td><label>CFS Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="" style="border-radius:0;" type="text" class="form-control">
+                            <input name="cfs_code" id="cfs_code" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -140,25 +140,25 @@
                         <td><label>Total ARF</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_arf" id="total_arf" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_arf2" id="total_arf2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
                       <tr>
-                        <td><label>Total BSF</label></td>
+                        <td><label>Total ASF</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_asf" id="total_asf" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_asf2" id="total_asf2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -166,12 +166,12 @@
                         <td><label>Balance</label></td>
                         <td>
                           <div class="input-group">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="balance" id="balance" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="balance2" id="balance2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -197,12 +197,12 @@
                         <td><label>QTY</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 43px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="qty_expense" id="qty_expense" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="qty_expense2" id="qty_expense2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -210,12 +210,12 @@
                         <td><label>Price</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 43px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="price_expense" id="price_expense" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="price_expense2" id="price_expense2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -223,12 +223,12 @@
                         <td><label>Total</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 43px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_expense" id="total_expense" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_expense2" id="total_expense2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -251,12 +251,12 @@
                         <td><label>QTY</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 23px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="qty_amount" id="qty_amount" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="qty_amount2" id="qty_amount2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -264,12 +264,12 @@
                         <td><label>Price</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 23px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="price_amount" id="price_amount" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="price_amount2" id="price_amount2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -277,12 +277,12 @@
                         <td><label>Total</label></td>
                         <td>
                           <div class="input-group" style="padding-left: 23px;">
-                            <input id="subprojectc" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_amount" id="total_amount" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                            <input name="total_amount2" id="total_amount2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
@@ -292,7 +292,7 @@
                   <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
                     <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
                   </button>
-                  <a href="#" class="btn btn-success btn-sm float-right"><i class="fas fa-plus" aria-hidden="true">Add to List Cart</i></a>
+                  <a class="btn btn-success btn-sm float-right" href="javascript:validateFormDetailAsf()"><i class="fas fa-plus" aria-hidden="true">Add to List Cart</i></a>
                 </div>
               </div>
             </div>
@@ -367,15 +367,15 @@
               </table>
             </div>
           </div>
-          <button type="reset" class="btn btn-danger btn-sm float-right">
-            <i class="fa fa-times" aria-hidden="true"></i>
-            Cancel BSF List (Cart)
-          </button>
-          <button type="submit" class="btn btn-success btn-sm float-right">
-            <i class="fa fa-save" aria-hidden="true"></i>
-            Save BSF List(Cart)
-          </button>
         </div>
+        <button type="reset" class="btn btn-danger btn-sm float-right">
+          <i class="fa fa-times" aria-hidden="true"></i>
+          Cancel ASF List (Cart)
+        </button>
+        <button type="submit" class="btn btn-success btn-sm float-right">
+          <i class="fa fa-save" aria-hidden="true"></i>
+          Save ASF List(Cart)
+        </button>
       </div>
     </div>
   </section>

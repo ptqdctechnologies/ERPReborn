@@ -49,8 +49,12 @@ Route::get('createAFESwitching','projectManagementAFE@createAFESwitching')->name
 Route::get('openProject','projectManagementCEPS@openProject')->name('CEPS.openProject');
 Route::get('closeProject','projectManagementCEPS@closeProject')->name('CEPS.closeProject');
 
+// MAterial Receive
+Route::post('revisionMaterialReceive','logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
+Route::get('createMaterialReceive','logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
 // PPM
+Route::post('revisionPPMIndex','procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
 Route::get('addPPM','procurementTransactionPPM@addPPM')->name('PPM.addPPM');
 
 
@@ -85,21 +89,22 @@ Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('
 Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
 
 // BSF
+Route::post('revisionBsfIndex','procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
 Route::get('BSF','procurementTransactionBsf@createBSF')->name('BSF.createBSF');
-Route::get('BSFtoBRF','procurementTransactionBsf@BSFtoBRF')->name('BSF.BSFtoBRF');
 
 
 // BRF
+Route::post('revisionBrfIndex','procurementTransactionBrf@revisionBrfIndex')->name('BRF.revisionBrf');
 Route::get('BRF','procurementTransactionBrf@createBRF')->name('BRF.createBRF');
-Route::get('fundBRF','procurementTransactionBrf@fundBRF')->name('BRF.fundBRF');
-Route::get('BRFtoBRFP','procurementTransactionBrf@BRFtoBRFP')->name('BRF.BRFtoBRFP');
 
 // LOGIN
 
 
-Route::post('/ARF/loginStore/','loginController@loginStore')->name('auth.loginStore');
-Route::get('login','loginController@login')->name('auth.login');
-Route::get('logout','loginController@login')->name('auth.logout');
+Route::get('ARF/loginStore','loginController@loginStore')->name('auth.loginStore');
+Route::get('ARF/loginStorex','loginController@loginStorex')->name('auth.loginStorex');
+Route::get('ARF/loginStores','loginController@loginStores')->name('auth.loginStores');
+Route::get('/','loginController@login')->name('auth.login');
+Route::get('logout','loginController@logout')->name('auth.logout');
 
 
 //ARF
@@ -115,15 +120,20 @@ Route::get('/test/store2','procurementTransactionArf@teststore2');
 
 Route::get('arflist/cancel/','procurementTransactionArf@arflistcancel');
 Route::post('tests','procurementTransactionArf@tests')->name('ARF.tests');
+
+Route::post('revisionArfIndex','procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
+
 Route::resource('ARF','procurementTransactionArf');
 
 
 // ASF
 Route::post('editableAsf','procurementTransactionAsf@editableAsf')->name('ASF.editableAsf');
-
 Route::get('store','procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
 Route::get('createASFSales','procurementTransactionAsf@indexSales')->name('ASF.indexSales');
 Route::get('createASFPulsaVoucher','procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
+
+Route::post('revisionAsfIndex','procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
+
 Route::resource('ASF','procurementTransactionAsf');
 
 // Dashboard

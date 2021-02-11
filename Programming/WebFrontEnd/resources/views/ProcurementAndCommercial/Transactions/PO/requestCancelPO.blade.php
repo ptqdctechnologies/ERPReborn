@@ -1,25 +1,25 @@
 @extends('Partials.app')
-    @section('main')
-        @include('Partials.navbar')
-        @include('Partials.sidebar')
+@section('main')
+@include('Partials.navbar')
+@include('Partials.sidebar')
 
-        <div class="content-wrapper">
-            <section class="content">
-                <div class="container-fluid">
+<div class="content-wrapper">
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card">
+                <div class="tab-content p-3" id="nav-tabContent">
+
                     <div class="card">
-                        <div class="tab-content p-3" id="nav-tabContent">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="card-header">
-                                                <label class="card-title">Form Request Cancel Purchase Order (PO)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                        <div class="card">
-                                            <div class="card-body">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card-header">
+                                        <label class="card-title">Form Request Cancel Purchase Order (PO)</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-body">
                                             <div class="form-group">
                                                 <table>
                                                     <tr>
@@ -45,7 +45,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td><label>Reason</label></td>
-                                                        <td> 
+                                                        <td>
                                                             <div class="input-group">
                                                                 <textarea name="" id="" cols="30" rows="3"></textarea>
                                                             </div>
@@ -54,27 +54,27 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-              
                         </div>
-                    </div>  
-                </div>  
-            </section>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        @include('Partials.footer')
-        <script type="text/javascript">
-            $(document).ready(function() {
-                $(".btn-success").click(function(){ 
-                    var html = $(".clone").html();
-                    $(".increment").after(html);
-                });
-                $("body").on("click",".btn-danger",function(){ 
-                    $(this).parents(".control-group").remove();
-                });
-            });
-        </script>
-    @endsection
+    </section>
+</div>
+@include('Partials.footer')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".btn-success").click(function() {
+            var html = $(".clone").html();
+            $(".increment").after(html);
+        });
+        $("body").on("click", ".btn-danger", function() {
+            $(this).parents(".control-group").remove();
+        });
+    });
+</script>
+@endsection

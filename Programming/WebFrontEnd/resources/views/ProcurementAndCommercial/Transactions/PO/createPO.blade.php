@@ -2,17 +2,16 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('ProcurementAndCommercial.Functions.project')
-@include('ProcurementAndCommercial.Functions.supplier')
-@include('ProcurementAndCommercial.Functions.currency')
-@include('ProcurementAndCommercial.Functions.deliverTo')
+@include('getFunction.getProject')
+@include('getFunction.getSupplier')
+@include('getFunction.getCurrency')
+@include('getFunction.getDeliverTo')
 @include('ProcurementAndCommercial.Functions.searchPR')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-
                 <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                     <div class="row">
                         <div class="col-12">
@@ -190,7 +189,6 @@
                                                     <i class="fa fa-times" aria-hidden="true">Reset</i>
                                                 </button>
                                                 <a href="#" class="btn btn-outline-success btn-sm float-right"><i data-toggle="modal" data-target="#mySearchPr" class="fas fa-gift" aria-hidden="true">Search PR</i></a>
-
                                             </div>
                                         </div>
                                     </div>
@@ -271,7 +269,6 @@
                         </div>
                     </div>
                 </div>
-
 
                 <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
                     <div class="row">
