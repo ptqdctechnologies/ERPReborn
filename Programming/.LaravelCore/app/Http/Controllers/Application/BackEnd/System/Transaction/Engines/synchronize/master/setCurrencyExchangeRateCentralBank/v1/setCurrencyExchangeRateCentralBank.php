@@ -183,6 +183,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-THB.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-USD.html',
 //                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210204/Kurs-Transaksi-BI-VND.html'
+                    '/zhtConf/tmp/download/Kurs-BI-20100104-20210215/Kurs-Transaksi-BI-PGK.html'
                     ];
 
                 for($i=0; $i!=count($varOfflineFileList); $i++)
