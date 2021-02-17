@@ -2,6 +2,14 @@
 
 All notable changes to `ignition` will be documented in this file
 
+## 2.5.13 - 2021-02-16
+
+- remove custom grouping
+
+## 2.5.12 - 2021-02-15
+
+- fix wrong config usage (#354)
+
 ## 2.5.11 - 2021-02-05
 
 - fix memory leaks caused by log and query recorder (#344)
