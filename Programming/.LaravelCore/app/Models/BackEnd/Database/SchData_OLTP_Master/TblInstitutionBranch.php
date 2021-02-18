@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
@@ -23,7 +23,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-17                                                                                           |
+        | ▪ Last Update     : 2021-02-18                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-17                                                                                           |
+        | ▪ Last Update     : 2021-02-18                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,19 +51,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varExchangeRate ► Exchange Rate                                                                          |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (int)    varInstitution_RefID ► Institution Reference ID                                                          |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
+        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function setDataInsert(
+        public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, float $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            int $varInstitution_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,16 +76,16 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'], 
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRate, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
+                        [$varInstitution_RefID, 'bigint'],
+                        [$varName, 'varchar'],
+                        [$varAddress, 'varchar'],
+                        [$varCountryAdministrativeAreaLevel, 'bigint'],
+                        [$varPostalCode, 'varchar']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
 
 
         /*
@@ -93,7 +93,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-17                                                                                           |
+        | ▪ Last Update     : 2021-02-18                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -102,19 +102,19 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varExchangeRate ► Exchange Rate                                                                          |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
+        |      ▪ (int)    varInstitution_RefID ► Institution Reference ID                                                          |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel_RefID ► Country Administrative Area Level Reference ID                 |
+        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function setDataUpdate(
+        public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varCurrency_RefID = null, float $varExchangeRate = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
+            int $varInstitution_RefID = null, string $varName = null, string $varAddress = null, int $varCountryAdministrativeAreaLevel = null, string $varPostalCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,15 +127,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'], 
-                        [$varCurrency_RefID, 'bigint'],
-                        [$varExchangeRate, 'numeric'],
-                        [$varValidStartDateTimeTZ, 'timestamptz'],
-                        [$varValidFinishDateTimeTZ, 'timestamptz']
+                        [$varInstitution_RefID, 'bigint'],
+                        [$varName, 'varchar'],
+                        [$varAddress, 'varchar'],
+                        [$varCountryAdministrativeAreaLevel, 'bigint'],
+                        [$varPostalCode, 'varchar']
                     ],
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
         }
     }

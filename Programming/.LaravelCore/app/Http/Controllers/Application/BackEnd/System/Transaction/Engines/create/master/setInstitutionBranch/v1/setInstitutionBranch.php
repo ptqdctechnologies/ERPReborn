@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\master                           |
-|                \setBusinessDocumentVersion\v1                                                                                    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setInstitutionBranch\v1        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\master\setBusinessDocumentVersion\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setInstitutionBranch\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBusinessDocument                                                                                          |
-    | ▪ Description : Menangani API transaction.synchronize.master.setBusinessDocumentVersion Version 1                            |
+    | ▪ Class Name  : setInstitutionBranch                                                                                         |
+    | ▪ Description : Menangani API transaction.create.master.setInstitutionBranch Version 1                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBusinessDocumentVersion extends \App\Http\Controllers\Controller
+    class setInstitutionBranch extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,12 +56,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Synchronize Business Document Version Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Institution Type Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataSynchronize($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentVersion())->setDataSynchronize(
-                            $varUserSession
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblInstitutionBranch())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            null,
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            $varData['entities']['institution_RefID'],
+                            $varData['entities']['name'],
+                            $varData['entities']['address'],
+                            $varData['entities']['countryAdministrativeAreaLevel_RefID'],
+                            $varData['entities']['postalCode']
                             ))))
                             {
                             throw new \Exception();
@@ -88,5 +95,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             }
         }
     }
-
-?>

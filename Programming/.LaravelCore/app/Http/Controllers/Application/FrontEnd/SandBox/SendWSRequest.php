@@ -851,6 +851,168 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setInstitution                                                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateInstitution()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitution', 
+                'latest', 
+                [
+                'entities' => [
+                    'name' => 'New Institution Name',
+                    'institutionType_RefID' => 141000000000003
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateInstitution()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Name" value="New Institution Name">';
+            echo '<input type="text" id="dataInput_InstitutionType_RefID" value=141000000000003>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitution', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"institutionType_RefID" : parseInt(document.getElementById("dataInput_InstitutionType_RefID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setInstitutionBranch                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateInstitutionBranch()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitutionBranch', 
+                'latest', 
+                [
+                'entities' => [
+                    'institution_RefID' => 123000000000062,
+                    'name' => 'New Institution Branch Name',
+                    'address' => 'Address',
+                    'countryAdministrativeAreaLevel_RefID' => null,
+                    'postalCode' => '12345',
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateInstitutionBranch()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Institution_RefID" value=123000000000062>';
+            echo '<input type="text" id="dataInput_Name" value="New Institution Name">';
+            echo '<input type="text" id="dataInput_Address" value="Address">';
+            echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel_RefID" value=null>';
+            echo '<input type="text" id="dataInput_PostalCode" value="12345">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitutionBranch', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"institution_RefID" : parseInt(document.getElementById("dataInput_Institution_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"address" : document.getElementById("dataInput_Address").value, '.
+                        '"countryAdministrativeAreaLevel_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel_RefID").value), '.
+                        '"postalCode" : document.getElementById("dataInput_PostalCode").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setInstitutionType                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateInstitutionType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitutionType', 
+                'latest', 
+                [
+                'entities' => [
+                    'name' => 'New Institution Type Name',
+                    'prefix' => 'Prefix',
+                    'suffix' => 'Suffix',
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateInstitutionType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_Name" value="New Institution Type Name">';
+            echo '<input type="text" id="dataInput_Prefix" value="Prefix">';
+            echo '<input type="text" id="dataInput_Suffix" value="Suffix">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setInstitutionType', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"prefix" : document.getElementById("dataInput_Prefix").value, '.
+                        '"suffix" : document.getElementById("dataInput_Suffix").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.master.setPeriod                                                                      |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -6420,7 +6582,178 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             dd($varJQueryFunction);
             }
 
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setInstitution                                                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateInstitution()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitution', 
+                'latest', 
+                [
+                'recordID' => 123000000000001,
+                'entities' => [
+                    'name' => 'New Institution Name',
+                    'institutionType_RefID' => 141000000000003
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateInstitution()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=123000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="New Institution Name">';
+            echo '<input type="text" id="dataInput_InstitutionType_RefID" value=141000000000003>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitution', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"institutionType_RefID" : parseInt(document.getElementById("dataInput_InstitutionType_RefID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setInstitutionBranch                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateInstitutionBranch()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitutionBranch', 
+                'latest', 
+                [
+                'recordID' => 124000000000001,
+                'entities' => [
+                    'institution_RefID' => 123000000000062,
+                    'name' => 'New Institution Branch Name',
+                    'address' => 'Address',
+                    'countryAdministrativeAreaLevel_RefID' => null,
+                    'postalCode' => '12345',
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateInstitutionBranch()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=124000000000001>';
+            echo '<input type="text" id="dataInput_Institution_RefID" value=123000000000062>';
+            echo '<input type="text" id="dataInput_Name" value="New Institution Name">';
+            echo '<input type="text" id="dataInput_Address" value="Address">';
+            echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel_RefID" value=null>';
+            echo '<input type="text" id="dataInput_PostalCode" value="12345">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitutionBranch', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"institution_RefID" : parseInt(document.getElementById("dataInput_Institution_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"address" : document.getElementById("dataInput_Address").value, '.
+                        '"countryAdministrativeAreaLevel_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel_RefID").value), '.
+                        '"postalCode" : document.getElementById("dataInput_PostalCode").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setInstitutionType                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateInstitutionType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitutionType', 
+                'latest', 
+                [
+                'recordID' => 141000000000001,
+                'entities' => [
+                    'name' => 'Update Institution Type Name',
+                    'prefix' => 'Prefix',
+                    'suffix' => 'Suffix',
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateInstitutionType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxMzYxNzIyOX0.5LevR-dSRMMHvJlu9Y6bZQEhyvgy9ZbVxMCPZUZj3Nw';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=141000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Update Update Institution Type Name">';
+            echo '<input type="text" id="dataInput_Prefix" value="Prefix">';
+            echo '<input type="text" id="dataInput_Suffix" value="Suffix">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setInstitutionType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"prefix" : document.getElementById("dataInput_Prefix").value, '.
+                        '"suffix" : document.getElementById("dataInput_Suffix").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }           
+            
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.update.master.setPeriod                                                                      |

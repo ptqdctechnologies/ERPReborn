@@ -5,18 +5,18 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblInstitution                                                                                               |
+    | ▪ Class Name  : TblInstitutionType                                                                                           |
     | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblInstitution                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblInstitution extends \App\Models\Database\DefaultClassPrototype
+    class TblInstitutionType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -52,7 +52,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varInstitutionType_RefID ► Institution Type Reference ID                                                 |
+        |      ▪ (string) varPrefix ► Prefix                                                                                       |
+        |      ▪ (string) varSuffix ► Suffix                                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, int $varInstitutionType_RefID = null)
+            string $varName = null, string $varPrefix = null, string $varSuffix = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -73,8 +74,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar'], 
-                        [$varInstitutionType_RefID, 'bigint']
+                        [$varName, 'varchar'],
+                        [$varPrefix, 'varchar'],
+                        [$varSuffix, 'varchar']
                     ]
                     )
                 );
@@ -97,7 +99,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varInstitutionType_RefID ► Institution Type Reference ID                                                 |
+        |      ▪ (string) varPrefix ► Prefix                                                                                       |
+        |      ▪ (string) varSuffix ► Suffix                                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,7 +108,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, int $varInstitutionType_RefID = null)
+            string $varName = null, string $varPrefix = null, string $varSuffix = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -118,8 +121,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar'], 
-                        [$varInstitutionType_RefID, 'bigint']
+                        [$varName, 'varchar'],
+                        [$varPrefix, 'varchar'],
+                        [$varSuffix, 'varchar']
                     ],
                     )
                 );

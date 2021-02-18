@@ -1,0 +1,60 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.master.setInstitutionType (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.master.setInstitutionType" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1
+                },
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "prefix": {
+                        "type": [ "string", "null" ],
+                        "minLength": 0,
+                        "maxLength": 16
+                        },
+                    "suffix": {
+                        "type": [ "string", "null" ],
+                        "minLength": 0,
+                        "maxLength": 16
+                        }
+                    },
+                "required": [ "name", "prefix", "suffix" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
