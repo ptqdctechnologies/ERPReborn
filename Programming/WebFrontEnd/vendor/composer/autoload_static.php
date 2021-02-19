@@ -31,9 +31,9 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
-        '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
     );
 
@@ -546,6 +546,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
         'App\\Http\\Controllers\\loginController' => __DIR__ . '/../..' . '/app/Http/Controllers/loginController.php',
+        'App\\Http\\Controllers\\logisticMaterialReceive' => __DIR__ . '/../..' . '/app/Http/Controllers/logisticMaterialReceive.php',
         'App\\Http\\Controllers\\procurementTransactionArf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionArf.php',
         'App\\Http\\Controllers\\procurementTransactionAsf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionAsf.php',
         'App\\Http\\Controllers\\procurementTransactionBrf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionBrf.php',
