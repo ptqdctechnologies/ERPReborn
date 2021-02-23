@@ -5,25 +5,25 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_CustomerRelation                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_CustomerRelation
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblCustomer                                                                                                  |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblCustomer                                      |
+    | ▪ Class Name  : TblSalesOrder                                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblSalesOrder                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCustomer extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesOrder extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-19                                                                                           |
+        | ▪ Last Update     : 2021-02-23                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -50,8 +50,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
-        |      ▪ (string) varCode ► Entity Code                                                                                    |
+        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,7 +59,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varEntity_RefID = null, string $varCode = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varCustomer_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -72,8 +72,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varEntity_RefID, 'bigint'],
-                        [$varCode, 'varchar']
+                        [$varBusinessDocumentVersion_RefID, 'bigint'],
+                        [$varCustomer_RefID, 'bigint']
                     ]
                     )
                 );
@@ -95,8 +95,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varEntity_RefID ► Entity Reference ID                                                                    |
-        |      ▪ (string) varCode ► Entity Code                                                                                    |
+        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -104,7 +104,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varEntity_RefID = null, string $varCode = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varCustomer_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -117,8 +117,8 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varEntity_RefID, 'bigint'],
-                        [$varCode, 'varchar']
+                        [$varBusinessDocumentVersion_RefID, 'bigint'],
+                        [$varCustomer_RefID, 'bigint']
                     ],
                     )
                 );
