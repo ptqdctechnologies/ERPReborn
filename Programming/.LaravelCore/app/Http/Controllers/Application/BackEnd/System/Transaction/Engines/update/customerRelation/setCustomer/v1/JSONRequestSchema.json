@@ -1,0 +1,54 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.customerRelation.setCustomer (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.customerRelation.setCustomer" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1
+                },
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "entity_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1
+                        },
+                    "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 10
+                        }
+                    },
+                "required": [ "entity_RefID", "code" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
