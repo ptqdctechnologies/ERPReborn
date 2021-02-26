@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.173.15",
-            "version_normalized": "3.173.15.0",
+            "version": "3.173.17",
+            "version_normalized": "3.173.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "8d9fd59b9a25fe5b615bd94ced9c1539340452f6"
+                "reference": "d3657af3d93285f4cb0f59dd94d065f59cf89cf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/8d9fd59b9a25fe5b615bd94ced9c1539340452f6",
-                "reference": "8d9fd59b9a25fe5b615bd94ced9c1539340452f6",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d3657af3d93285f4cb0f59dd94d065f59cf89cf5",
+                "reference": "d3657af3d93285f4cb0f59dd94d065f59cf89cf5",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-02-23T19:13:28+00:00",
+            "time": "2021-02-25T19:13:34+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.15"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.173.17"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -2099,17 +2099,17 @@
         },
         {
             "name": "mockery/mockery",
-            "version": "1.4.2",
-            "version_normalized": "1.4.2.0",
+            "version": "1.4.3",
+            "version_normalized": "1.4.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mockery/mockery.git",
-                "reference": "20cab678faed06fac225193be281ea0fddb43b93"
+                "reference": "d1339f64479af1bee0e82a0413813fe5345a54ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mockery/mockery/zipball/20cab678faed06fac225193be281ea0fddb43b93",
-                "reference": "20cab678faed06fac225193be281ea0fddb43b93",
+                "url": "https://api.github.com/repos/mockery/mockery/zipball/d1339f64479af1bee0e82a0413813fe5345a54ea",
+                "reference": "d1339f64479af1bee0e82a0413813fe5345a54ea",
                 "shasum": ""
             },
             "require": {
@@ -2123,7 +2123,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^8.5 || ^9.3"
             },
-            "time": "2020-08-11T18:10:13+00:00",
+            "time": "2021-02-24T09:51:49+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2166,6 +2166,10 @@
                 "test double",
                 "testing"
             ],
+            "support": {
+                "issues": "https://github.com/mockery/mockery/issues",
+                "source": "https://github.com/mockery/mockery/tree/1.4.3"
+            },
             "install-path": "../mockery/mockery"
         },
         {
