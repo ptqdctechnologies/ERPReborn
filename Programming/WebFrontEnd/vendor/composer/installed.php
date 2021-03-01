@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '05ea6f1f9635e10723f320d18c7d599bc7f33a3c',
+    'reference' => 'bb06685e27e353084ae3a384d1ee0ca0658f65ed',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '05ea6f1f9635e10723f320d18c7d599bc7f33a3c',
+      'reference' => 'bb06685e27e353084ae3a384d1ee0ca0658f65ed',
     ),
     'laravel/tinker' => 
     array (
@@ -494,12 +494,12 @@
     ),
     'mockery/mockery' => 
     array (
-      'pretty_version' => '1.4.2',
-      'version' => '1.4.2.0',
+      'pretty_version' => '1.4.3',
+      'version' => '1.4.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '20cab678faed06fac225193be281ea0fddb43b93',
+      'reference' => 'd1339f64479af1bee0e82a0413813fe5345a54ea',
     ),
     'monolog/monolog' => 
     array (
