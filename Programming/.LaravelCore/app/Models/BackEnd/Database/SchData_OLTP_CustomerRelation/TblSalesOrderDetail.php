@@ -12,18 +12,18 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblSalesOrder                                                                                                |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblSalesOrder                                    |
+    | ▪ Class Name  : TblSalesOrderDetail                                                                                          |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-CustomerRelation ► TblSalesOrderDetail                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblSalesOrder extends \App\Models\Database\DefaultClassPrototype
+    class TblSalesOrderDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -50,8 +50,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,7 +58,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varCustomer_RefID = null)
+            int $varSalesOrder_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -72,8 +71,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varCustomer_RefID, 'bigint']
+                        [$varSalesOrder_RefID, 'bigint']
                     ]
                     )
                 );
@@ -116,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -125,8 +123,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -134,7 +131,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varCustomer_RefID = null)
+            int $varSalesOrder_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -147,8 +144,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varCustomer_RefID, 'bigint']
+                        [$varSalesOrder_RefID, 'bigint']
                     ],
                     )
                 );
