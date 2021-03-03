@@ -1209,6 +1209,7 @@ return array(
     'Illuminate\\Cache\\TaggedCache' => $vendorDir . '/laravel/framework/src/Illuminate/Cache/TaggedCache.php',
     'Illuminate\\Config\\Repository' => $vendorDir . '/laravel/framework/src/Illuminate/Config/Repository.php',
     'Illuminate\\Console\\Application' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Application.php',
+    'Illuminate\\Console\\BufferedConsoleOutput' => $vendorDir . '/laravel/framework/src/Illuminate/Console/BufferedConsoleOutput.php',
     'Illuminate\\Console\\Command' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Command.php',
     'Illuminate\\Console\\Concerns\\CallsCommands' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php',
     'Illuminate\\Console\\Concerns\\HasParameters' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/HasParameters.php',
