@@ -109,7 +109,11 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         //---> Non Guzzle Mode
                         $varReturn = $varObjRequest->header($varKey);
-                        if(count($varReturn)==1)
+                        if(is_string($varReturn)==TRUE)
+                            {
+                            $varReturn = $varReturn[0];
+                            }
+                        elseif(count($varReturn)==1)
                             {
                             $varReturn = $varReturn[0];
                             }
@@ -204,7 +208,14 @@ namespace App\Helpers\ZhtHelper\System
                                             ],
                                         ],
                                     'data' => [
-                                        'message' => 'Data integrity check failed (MD5 Payload Inconsistency)'
+'message' => 'Data integrity check failed (MD5 Payload Inconsistency)',
+'md5' => $varDataHeaderMD5,
+'Response' =>  ((array) $varResponseData)[0],
+                                        
+                                        
+//'ccc' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponseData)
+
+//                                        'message' => 'Data integrity check failed (MD5 Payload Inconsistency)'
                                         ]
                                     ];
                                 //echo abort(403, 'xxxxx');

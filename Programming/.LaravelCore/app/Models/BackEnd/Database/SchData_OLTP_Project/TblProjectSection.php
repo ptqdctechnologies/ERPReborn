@@ -102,7 +102,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function setDataSynchronize($varUserSession)
+        public function setDataSynchronize($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -114,7 +114,7 @@ namespace App\Models\Database\SchData_OLTP_Project
                 );
             $varReturn = [];
             return $varReturn;
-            }*/
+            }
 
 
         /*
