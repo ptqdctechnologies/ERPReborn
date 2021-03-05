@@ -282,7 +282,11 @@ namespace App\Helpers\ZhtHelper\System
                         catch (\Exception $ex) {
                             try {
                                 $varReturn = $varObjResponse->headers->get($varKey);
-                                if(count($varReturn)==1)
+                                if(is_string($varReturn)==TRUE)
+                                    {
+                                    $varReturn = $varReturn[0];
+                                    }
+                                elseif(count($varReturn)==1)
                                     {
                                     $varReturn = $varReturn[0];
                                     }
