@@ -23,11 +23,11 @@ varFileName='/var/lib/mysql/temp/dump.sql';
 varDBMasterHost='192.168.1.24';
 varDBMasterPort='3306';
 
-sudo docker exec -it postgresql /bin/bash -c "mysqldump --verbose -h "$varDBMasterHost" -P "$varDBName" -u \""$varRoleName"\" --password=\"$(echo '748159263')\" --database \""$varDBName"\" > "$varFileName";";
+#sudo docker exec -it postgresql /bin/bash -c "mysqldump --verbose -h "$varDBMasterHost" -P "$varDBName" -u \""$varRoleName"\" --password=\"$(echo '748159263')\" --database \""$varDBName"\" > "$varFileName";";
 sudo docker exec -it postgresql /bin/bash -c "mysql --verbose -u root -e \"DROP DATABASE IF EXISTS "$varDBName"; CREATE DATABASE "$varDBName";\"";
 sudo docker exec -it postgresql /bin/bash -c "mysql --verbose -u root -e \"DROP USER IF EXISTS "$varRoleName"; CREATE USER "$varRoleName" IDENTIFIED BY '"$varRolePassword"';\"";
 sudo docker exec -it postgresql /bin/bash -c "sed -i "$varFileName" -e 's/utf8mb4_0900_ai_ci/utf8mb4_unicode_ci/g';";
 sudo docker exec -it postgresql /bin/bash -c "mysql --verbose -u root -e \"GRANT ALL PRIVILEGES ON *.* TO '"$varRoleName"';\"";
 sudo docker exec -it postgresql /bin/bash -c "mysql -u "$varRoleName" --password=\"$(echo '748159263')\" --database \""$varDBName"\" < "$varFileName";";
-sudo docker exec -it postgresql /bin/bash -c "rm -rf "$varFileName;
+#sudo docker exec -it postgresql /bin/bash -c "rm -rf "$varFileName;
 echo "";
