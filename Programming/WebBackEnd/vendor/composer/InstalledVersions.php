@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '0c22908548d154f9d7544099fbd3b1a483a9cc50',
+    'reference' => '6c20d64445dcb149efe2e0a9184af973d4d34f8d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.173.27',
-      'version' => '3.173.27.0',
+      'pretty_version' => '3.173.28',
+      'version' => '3.173.28.0',
       'aliases' => 
       array (
       ),
-      'reference' => '80d9e123864834779bf532c1fe3b5923483df835',
+      'reference' => '593baa5930896bb443c437032daf4016e1e3878d',
     ),
     'brick/math' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '0c22908548d154f9d7544099fbd3b1a483a9cc50',
+      'reference' => '6c20d64445dcb149efe2e0a9184af973d4d34f8d',
     ),
     'laravel/tinker' => 
     array (
@@ -842,12 +842,12 @@ private static $installed = array (
     ),
     'psy/psysh' => 
     array (
-      'pretty_version' => 'v0.10.6',
-      'version' => '0.10.6.0',
+      'pretty_version' => 'v0.10.7',
+      'version' => '0.10.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6f990c19f91729de8b31e639d6e204ea59f19cf3',
+      'reference' => 'a395af46999a12006213c0c8346c9445eb31640c',
     ),
     'ralouphie/getallheaders' => 
     array (
