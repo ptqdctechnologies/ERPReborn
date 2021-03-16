@@ -725,6 +725,8 @@ return array(
     'Aws\\Exception\\UnresolvedApiException' => $vendorDir . '/aws/aws-sdk-php/src/Exception/UnresolvedApiException.php',
     'Aws\\Exception\\UnresolvedEndpointException' => $vendorDir . '/aws/aws-sdk-php/src/Exception/UnresolvedEndpointException.php',
     'Aws\\Exception\\UnresolvedSignatureException' => $vendorDir . '/aws/aws-sdk-php/src/Exception/UnresolvedSignatureException.php',
+    'Aws\\FIS\\Exception\\FISException' => $vendorDir . '/aws/aws-sdk-php/src/FIS/Exception/FISException.php',
+    'Aws\\FIS\\FISClient' => $vendorDir . '/aws/aws-sdk-php/src/FIS/FISClient.php',
     'Aws\\FMS\\Exception\\FMSException' => $vendorDir . '/aws/aws-sdk-php/src/FMS/Exception/FMSException.php',
     'Aws\\FMS\\FMSClient' => $vendorDir . '/aws/aws-sdk-php/src/FMS/FMSClient.php',
     'Aws\\FSx\\Exception\\FSxException' => $vendorDir . '/aws/aws-sdk-php/src/FSx/Exception/FSxException.php',
