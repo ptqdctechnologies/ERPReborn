@@ -6077,6 +6077,46 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             dd($varJQueryFunction);
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.synchronize.production.setBillOfMaterial                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataSynchronizeBillOfMaterial()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxNTI3NjY0MX0.4HsdLreslU4cobMrkwudzYT3jxdNhOE4DEbyuk4ZY8E';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.synchronize.production.setBillOfMaterial', 
+                'latest', 
+                [
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataSynchronizeBillOfMaterial()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoidGVndWgucHJhdGFtYSIsImlhdCI6MTYxNTI3NjY0MX0.4HsdLreslU4cobMrkwudzYT3jxdNhOE4DEbyuk4ZY8E';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.synchronize.production.setBillOfMaterial', 
+                'latest', 
+                '{'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
             
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
