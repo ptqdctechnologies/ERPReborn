@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd78dabd5920d4cbff1e064b743816fb4aa1ab46c',
+    'reference' => 'a010f77b8d10a805d6eee703cc7652ee400fcfba',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.174.0',
-      'version' => '3.174.0.0',
+      'pretty_version' => '3.174.1',
+      'version' => '3.174.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b3ddabdcbbc2340c5312446f3a2109342974b020',
+      'reference' => 'b481fd0dab83b9ed6eab35279e1a43e3a875c87e',
     ),
     'brick/math' => 
     array (
@@ -144,12 +144,12 @@
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.9.2',
-      'version' => '2.9.2.0',
+      'pretty_version' => '2.10.0',
+      'version' => '2.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'df7933820090489623ce0be5e85c7e693638e536',
+      'reference' => '6ecda5217bf048088b891f7403b262906be5a957',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -218,217 +218,217 @@
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/broadcasting' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/bus' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/collections' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/container' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/contracts' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/cookie' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/database' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/encryption' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/events' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/hashing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/log' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/macroable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/mail' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/notifications' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/pagination' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/pipeline' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/queue' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/redis' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/session' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/support' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/testing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/validation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'illuminate/view' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.32.1',
+        0 => 'v8.33.1',
       ),
     ),
     'intervention/httpauth' => 
@@ -449,12 +449,12 @@
     ),
     'laravel/framework' => 
     array (
-      'pretty_version' => 'v8.32.1',
-      'version' => '8.32.1.0',
+      'pretty_version' => 'v8.33.1',
+      'version' => '8.33.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7c37b64f8153c16b6406f5c28cf37828ebbe8846',
+      'reference' => '354c57b8cb457549114074c500944455a288d6cc',
     ),
     'laravel/laravel' => 
     array (
@@ -463,7 +463,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd78dabd5920d4cbff1e064b743816fb4aa1ab46c',
+      'reference' => 'a010f77b8d10a805d6eee703cc7652ee400fcfba',
     ),
     'laravel/tinker' => 
     array (
