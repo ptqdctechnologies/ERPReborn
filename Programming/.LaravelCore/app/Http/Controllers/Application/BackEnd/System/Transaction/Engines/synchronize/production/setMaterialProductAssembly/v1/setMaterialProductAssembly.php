@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\production\setBillOfMaterial\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\production                       |
+|                \setMaterialProductAssembly\v1                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\production\setBillOfMaterial\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\production\setMaterialProductAssembly\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBillOfMaterial                                                                                            |
-    | ▪ Description : Menangani API transaction.synchronize.production.setBillOfMaterial Version 1                                 |
+    | ▪ Class Name  : setMaterialProductAssembly                                                                                   |
+    | ▪ Description : Menangani API transaction.synchronize.production.setMaterialProductAssembly Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBillOfMaterial extends \App\Http\Controllers\Controller
+    class setMaterialProductAssembly extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,11 +57,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Synchronize Bill Of Material Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Synchronize Material Product Assembly Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataSynchronize($varUserSession, (new \App\Models\Database\SchData_OLTP_Production\TblBillOfMaterial())->setDataSynchronize(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataSynchronize($varUserSession, (new \App\Models\Database\SchData_OLTP_Production\TblMaterialProductAssembly())->setDataSynchronize(
                             $varUserSession
                             ))))
                             {
