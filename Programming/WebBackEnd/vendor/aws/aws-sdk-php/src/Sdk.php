@@ -196,6 +196,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionEmr(array $args = [])
  * @method \Aws\EventBridge\EventBridgeClient createEventBridge(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEventBridge(array $args = [])
+ * @method \Aws\FIS\FISClient createFIS(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionFIS(array $args = [])
  * @method \Aws\FMS\FMSClient createFMS(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionFMS(array $args = [])
  * @method \Aws\FSx\FSxClient createFSx(array $args = [])
@@ -521,7 +523,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.173.25';
+    const VERSION = '3.174.1';
 
     /** @var array Arguments for creating clients */
     private $args;

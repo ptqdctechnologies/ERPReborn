@@ -23,4 +23,6 @@ if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory/data;
    sudo mkdir -p $varDirectory/config/samba;
    sudo mkdir -p $varDirectory/config/openvpn;
+
+   chmod 777 $varDirectory/data;
 fi
