@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'a7686f0bf9494d59c40a4247a0a482a1d183442c',
+    'reference' => '4fada5fa9523efd10a88200be90a574189f7bc49',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.174.1',
-      'version' => '3.174.1.0',
+      'pretty_version' => '3.174.3',
+      'version' => '3.174.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b481fd0dab83b9ed6eab35279e1a43e3a875c87e',
+      'reference' => 'd58a350b23810a3930f432364af2d7589cf672b3',
     ),
     'brick/math' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a7686f0bf9494d59c40a4247a0a482a1d183442c',
+      'reference' => '4fada5fa9523efd10a88200be90a574189f7bc49',
     ),
     'laravel/tinker' => 
     array (
@@ -680,12 +680,12 @@ private static $installed = array (
     ),
     'phpspec/prophecy' => 
     array (
-      'pretty_version' => '1.12.2',
-      'version' => '1.12.2.0',
+      'pretty_version' => '1.13.0',
+      'version' => '1.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '245710e971a030f42e08f4912863805570f23d39',
+      'reference' => 'be1996ed8adc35c3fd795488a653f4b518be70ea',
     ),
     'phpunit/php-code-coverage' => 
     array (
@@ -734,12 +734,12 @@ private static $installed = array (
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.2',
-      'version' => '9.5.2.0',
+      'pretty_version' => '9.5.3',
+      'version' => '9.5.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f661659747f2f87f9e72095bb207bceb0f151cb4',
+      'reference' => '27241ac75fc37ecf862b6e002bf713b6566cbe41',
     ),
     'predis/predis' => 
     array (
