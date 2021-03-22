@@ -1018,6 +1018,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\Arn\\ArnInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/ArnInterface.php',
         'Aws\\Arn\\ArnParser' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/ArnParser.php',
         'Aws\\Arn\\Exception\\InvalidArnException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/Exception/InvalidArnException.php',
+        'Aws\\Arn\\ObjectLambdaAccessPointArn' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/ObjectLambdaAccessPointArn.php',
         'Aws\\Arn\\ResourceTypeAndIdTrait' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/ResourceTypeAndIdTrait.php',
         'Aws\\Arn\\S3\\AccessPointArn' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/S3/AccessPointArn.php',
         'Aws\\Arn\\S3\\BucketArnInterface' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Arn/S3/BucketArnInterface.php',

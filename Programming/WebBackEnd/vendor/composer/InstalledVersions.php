@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4fada5fa9523efd10a88200be90a574189f7bc49',
+    'reference' => '7b320eabbff26cdbd2dcd759c1f46ebf4298debb',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.174.3',
-      'version' => '3.174.3.0',
+      'pretty_version' => '3.175.0',
+      'version' => '3.175.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd58a350b23810a3930f432364af2d7589cf672b3',
+      'reference' => '31baa9e0c4330f01eb74b8a7ef086e9d34f8391e',
     ),
     'brick/math' => 
     array (
@@ -157,12 +157,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.10.0',
-      'version' => '2.10.0.0',
+      'pretty_version' => '2.11.0',
+      'version' => '2.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6ecda5217bf048088b891f7403b262906be5a957',
+      'reference' => 'f6e14679f948d8a5cfb866fa7065a30c66bd64d3',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -211,12 +211,12 @@ private static $installed = array (
     ),
     'guzzlehttp/psr7' => 
     array (
-      'pretty_version' => '1.7.0',
-      'version' => '1.7.0.0',
+      'pretty_version' => '1.8.1',
+      'version' => '1.8.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '53330f47520498c0ae1f61f7e2c90f55690c06a3',
+      'reference' => '35ea11d335fd638b5882ff1725228b3d35496ab1',
     ),
     'hamcrest/hamcrest-php' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4fada5fa9523efd10a88200be90a574189f7bc49',
+      'reference' => '7b320eabbff26cdbd2dcd759c1f46ebf4298debb',
     ),
     'laravel/tinker' => 
     array (

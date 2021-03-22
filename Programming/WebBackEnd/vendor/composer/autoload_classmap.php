@@ -476,6 +476,7 @@ return array(
     'Aws\\Arn\\ArnInterface' => $vendorDir . '/aws/aws-sdk-php/src/Arn/ArnInterface.php',
     'Aws\\Arn\\ArnParser' => $vendorDir . '/aws/aws-sdk-php/src/Arn/ArnParser.php',
     'Aws\\Arn\\Exception\\InvalidArnException' => $vendorDir . '/aws/aws-sdk-php/src/Arn/Exception/InvalidArnException.php',
+    'Aws\\Arn\\ObjectLambdaAccessPointArn' => $vendorDir . '/aws/aws-sdk-php/src/Arn/ObjectLambdaAccessPointArn.php',
     'Aws\\Arn\\ResourceTypeAndIdTrait' => $vendorDir . '/aws/aws-sdk-php/src/Arn/ResourceTypeAndIdTrait.php',
     'Aws\\Arn\\S3\\AccessPointArn' => $vendorDir . '/aws/aws-sdk-php/src/Arn/S3/AccessPointArn.php',
     'Aws\\Arn\\S3\\BucketArnInterface' => $vendorDir . '/aws/aws-sdk-php/src/Arn/S3/BucketArnInterface.php',
