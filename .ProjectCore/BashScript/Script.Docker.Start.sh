@@ -19,7 +19,7 @@ clear;
 #sudo echo never > /sys/kernel/mm/transparent_hugepage/enabled;
 
 #---> General
-printf "▪ ▪ ▪ Laravel Folder Ownership Reinitializing ▪ ▪ ▪\n";
+printf "▪ ▪ ▪ Reinitializing Laravel Folder Ownership ▪ ▪ ▪\n";
 #./BashScript/Script.Laravel.ComposerUpdate.sh;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 
@@ -29,12 +29,12 @@ printf "\n▪ ▪ ▪ Laravel Dump Autoload ▪ ▪ ▪\n";
 printf "\n▪ ▪ ▪ Docker Service Restart ▪ ▪ ▪\n";
 sudo systemctl restart docker;
 
-printf "\n▪ ▪ ▪ Docker's Unused Object Prune ▪ ▪ ▪\n";
+printf "\n▪ ▪ ▪ Pruning Docker's Unused Objects ▪ ▪ ▪\n";
 sudo docker network prune --force;
 sudo docker container prune --force;
 
 #---> Execute WatchDog Script
-printf "\n▪ ▪ ▪ System Watchdog Script Inialization ▪ ▪ ▪\n";
+printf "\n▪ ▪ ▪ Initializing System Watchdog Script ▪ ▪ ▪\n";
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPostgreSQL.sh &
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerSamba.sh &
 sudo ./BashScript/Script.System.WatchDog.Docker.ContainerPHPApacheBackEnd.sh &
