@@ -861,6 +861,8 @@ return array(
     'Aws\\Lightsail\\LightsailClient' => $vendorDir . '/aws/aws-sdk-php/src/Lightsail/LightsailClient.php',
     'Aws\\LocationService\\Exception\\LocationServiceException' => $vendorDir . '/aws/aws-sdk-php/src/LocationService/Exception/LocationServiceException.php',
     'Aws\\LocationService\\LocationServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/LocationService/LocationServiceClient.php',
+    'Aws\\LookoutMetrics\\Exception\\LookoutMetricsException' => $vendorDir . '/aws/aws-sdk-php/src/LookoutMetrics/Exception/LookoutMetricsException.php',
+    'Aws\\LookoutMetrics\\LookoutMetricsClient' => $vendorDir . '/aws/aws-sdk-php/src/LookoutMetrics/LookoutMetricsClient.php',
     'Aws\\LookoutforVision\\Exception\\LookoutforVisionException' => $vendorDir . '/aws/aws-sdk-php/src/LookoutforVision/Exception/LookoutforVisionException.php',
     'Aws\\LookoutforVision\\LookoutforVisionClient' => $vendorDir . '/aws/aws-sdk-php/src/LookoutforVision/LookoutforVisionClient.php',
     'Aws\\LruArrayCache' => $vendorDir . '/aws/aws-sdk-php/src/LruArrayCache.php',

@@ -1403,6 +1403,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\Lightsail\\LightsailClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Lightsail/LightsailClient.php',
         'Aws\\LocationService\\Exception\\LocationServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LocationService/Exception/LocationServiceException.php',
         'Aws\\LocationService\\LocationServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LocationService/LocationServiceClient.php',
+        'Aws\\LookoutMetrics\\Exception\\LookoutMetricsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutMetrics/Exception/LookoutMetricsException.php',
+        'Aws\\LookoutMetrics\\LookoutMetricsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutMetrics/LookoutMetricsClient.php',
         'Aws\\LookoutforVision\\Exception\\LookoutforVisionException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutforVision/Exception/LookoutforVisionException.php',
         'Aws\\LookoutforVision\\LookoutforVisionClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutforVision/LookoutforVisionClient.php',
         'Aws\\LruArrayCache' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LruArrayCache.php',
