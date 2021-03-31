@@ -1,3 +1,11 @@
+# 2.12.0
+
+* Hide non-string values in super globals when requested.
+
+# 2.11.0
+
+* Customize exit code
+
 # 2.10.0
 
 * Better chaining on handler classes
