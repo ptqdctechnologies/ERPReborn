@@ -2,9 +2,17 @@
 
 All notable changes to `ignition` will be documented in this file
 
+## 2.7.0 - 2021-03-30
+
+- adds a debug warning when having debug enabled on a non-local environment (#366)
+
+## 2.6.1 - 2021-03-30
+
+- Disable executing solutions on non-local environments or from non-local IP addresses (#364)
+
 ## 2.6.0 - 2021-03-24
 
-- add extra output to test command when executing verbosely.
+- add extra output to test command when executing verbosely
 
 ## 2.5.14 - 2021-03-03
 
