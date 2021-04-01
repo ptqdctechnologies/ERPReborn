@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '52b76afe3a1cc85f747470ad75e82cf3db6d4bdf',
+    'reference' => '53d9f400d35ce13ebeccb533a00d9dda66d7b597',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -99,12 +99,12 @@
     ),
     'facade/flare-client-php' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ef0f5bce23b30b32d98fd9bb49c6fa37b40eb546',
+      'reference' => '9dd6f2b56486d939c4467b3f35475d44af57cf17',
     ),
     'facade/ignition' => 
     array (
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '52b76afe3a1cc85f747470ad75e82cf3db6d4bdf',
+      'reference' => '53d9f400d35ce13ebeccb533a00d9dda66d7b597',
     ),
     'laravel/tinker' => 
     array (
