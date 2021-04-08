@@ -1703,6 +1703,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\imagebuilder\\imagebuilderClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/imagebuilder/imagebuilderClient.php',
         'Aws\\kendra\\Exception\\kendraException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/kendra/Exception/kendraException.php',
         'Aws\\kendra\\kendraClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/kendra/kendraClient.php',
+        'Aws\\mgn\\Exception\\mgnException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/mgn/Exception/mgnException.php',
+        'Aws\\mgn\\mgnClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/mgn/mgnClient.php',
         'Aws\\signer\\Exception\\signerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/signer/Exception/signerException.php',
         'Aws\\signer\\signerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/signer/signerClient.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',

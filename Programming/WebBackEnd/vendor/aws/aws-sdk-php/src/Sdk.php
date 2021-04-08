@@ -520,12 +520,14 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionimagebuilder(array $args = [])
  * @method \Aws\kendra\kendraClient createkendra(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionkendra(array $args = [])
+ * @method \Aws\mgn\mgnClient createmgn(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionmgn(array $args = [])
  * @method \Aws\signer\signerClient createsigner(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionsigner(array $args = [])
  */
 class Sdk
 {
-    const VERSION = '3.176.7';
+    const VERSION = '3.177.0';
 
     /** @var array Arguments for creating clients */
     private $args;

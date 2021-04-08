@@ -1161,6 +1161,8 @@ return array(
     'Aws\\imagebuilder\\imagebuilderClient' => $vendorDir . '/aws/aws-sdk-php/src/imagebuilder/imagebuilderClient.php',
     'Aws\\kendra\\Exception\\kendraException' => $vendorDir . '/aws/aws-sdk-php/src/kendra/Exception/kendraException.php',
     'Aws\\kendra\\kendraClient' => $vendorDir . '/aws/aws-sdk-php/src/kendra/kendraClient.php',
+    'Aws\\mgn\\Exception\\mgnException' => $vendorDir . '/aws/aws-sdk-php/src/mgn/Exception/mgnException.php',
+    'Aws\\mgn\\mgnClient' => $vendorDir . '/aws/aws-sdk-php/src/mgn/mgnClient.php',
     'Aws\\signer\\Exception\\signerException' => $vendorDir . '/aws/aws-sdk-php/src/signer/Exception/signerException.php',
     'Aws\\signer\\signerClient' => $vendorDir . '/aws/aws-sdk-php/src/signer/signerClient.php',
     'Brick\\Math\\BigDecimal' => $vendorDir . '/brick/math/src/BigDecimal.php',
