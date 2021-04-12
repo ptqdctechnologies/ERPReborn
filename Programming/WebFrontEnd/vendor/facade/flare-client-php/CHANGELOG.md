@@ -2,6 +2,14 @@
 
 All notable changes to `flare-client-php` will be documented in this file
 
+## 1.6.1 - 2021-04-08
+
+- make `censorRequestBodyFields` chainable
+
+## 1.6.0 - 2021-04-08
+
+- add ability to censor request body fields (#18)
+
 ## 1.5.0 - 2021-03-31
 
 - add `determineVersionUsing`

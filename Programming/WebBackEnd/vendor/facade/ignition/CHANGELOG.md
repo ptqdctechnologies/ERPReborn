@@ -2,6 +2,22 @@
 
 All notable changes to `ignition` will be documented in this file
 
+## 2.8.3 - 2021-04-09
+
+- support Octane (#379)
+
+## 2.8.2 - 2021-04-08
+
+- censor passwords by default (#377)
+
+## 2.8.1 - 2021-04-08
+
+- add `censor_request_body_fields` default config option
+
+## 2.8.0 - 2021-04-08
+
+- add `censor_request_body_fields` config option
+
 ## 2.7.0 - 2021-03-30
 
 - adds a debug warning when having debug enabled on a non-local environment (#366)
