@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.178.1",
-            "version_normalized": "3.178.1.0",
+            "version": "3.178.2",
+            "version_normalized": "3.178.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "45692b97e12a2eed540c0afd106f143aad15e622"
+                "reference": "ba05bc572302c124960c2b0a9813169e790fcac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/45692b97e12a2eed540c0afd106f143aad15e622",
-                "reference": "45692b97e12a2eed540c0afd106f143aad15e622",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ba05bc572302c124960c2b0a9813169e790fcac6",
+                "reference": "ba05bc572302c124960c2b0a9813169e790fcac6",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-04-09T18:13:02+00:00",
+            "time": "2021-04-12T18:16:30+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.178.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.178.2"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -585,17 +585,17 @@
         },
         {
             "name": "facade/flare-client-php",
-            "version": "1.6.1",
-            "version_normalized": "1.6.1.0",
+            "version": "1.7.0",
+            "version_normalized": "1.7.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/flare-client-php.git",
-                "reference": "f2b0969f2d9594704be74dbeb25b201570a98098"
+                "reference": "6bf380035890cb0a09b9628c491ae3866b858522"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/flare-client-php/zipball/f2b0969f2d9594704be74dbeb25b201570a98098",
-                "reference": "f2b0969f2d9594704be74dbeb25b201570a98098",
+                "url": "https://api.github.com/repos/facade/flare-client-php/zipball/6bf380035890cb0a09b9628c491ae3866b858522",
+                "reference": "6bf380035890cb0a09b9628c491ae3866b858522",
                 "shasum": ""
             },
             "require": {
@@ -611,7 +611,7 @@
                 "phpunit/phpunit": "^7.5.16",
                 "spatie/phpunit-snapshot-assertions": "^2.0"
             },
-            "time": "2021-04-08T08:50:01+00:00",
+            "time": "2021-04-12T09:30:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -641,7 +641,7 @@
             ],
             "support": {
                 "issues": "https://github.com/facade/flare-client-php/issues",
-                "source": "https://github.com/facade/flare-client-php/tree/1.6.1"
+                "source": "https://github.com/facade/flare-client-php/tree/1.7.0"
             },
             "funding": [
                 {
