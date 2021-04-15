@@ -46,10 +46,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'X' => 
-        array (
-            'XdgBaseDir\\' => 11,
-        ),
         'W' => 
         array (
             'Whoops\\' => 7,
@@ -188,10 +184,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'XdgBaseDir\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
         ),
         'Whoops\\' => 
         array (
@@ -886,6 +878,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Facade\\FlareClient\\Http\\Response' => __DIR__ . '/..' . '/facade/flare-client-php/src/Http/Response.php',
         'Facade\\FlareClient\\Middleware\\AddGlows' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AddGlows.php',
         'Facade\\FlareClient\\Middleware\\AnonymizeIp' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AnonymizeIp.php',
+        'Facade\\FlareClient\\Middleware\\CensorRequestBodyFields' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/CensorRequestBodyFields.php',
         'Facade\\FlareClient\\Report' => __DIR__ . '/..' . '/facade/flare-client-php/src/Report.php',
         'Facade\\FlareClient\\Solutions\\ReportSolution' => __DIR__ . '/..' . '/facade/flare-client-php/src/Solutions/ReportSolution.php',
         'Facade\\FlareClient\\Stacktrace\\Codesnippet' => __DIR__ . '/..' . '/facade/flare-client-php/src/Stacktrace/Codesnippet.php',
@@ -2176,6 +2169,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Http\\Client\\Factory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Factory.php',
         'Illuminate\\Http\\Client\\HttpClientException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/HttpClientException.php',
         'Illuminate\\Http\\Client\\PendingRequest' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/PendingRequest.php',
+        'Illuminate\\Http\\Client\\Pool' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Pool.php',
         'Illuminate\\Http\\Client\\Request' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Request.php',
         'Illuminate\\Http\\Client\\RequestException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/RequestException.php',
         'Illuminate\\Http\\Client\\Response' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Response.php',
@@ -4269,6 +4263,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Psy\\ConsoleColorFactory' => __DIR__ . '/..' . '/psy/psysh/src/ConsoleColorFactory.php',
         'Psy\\Context' => __DIR__ . '/..' . '/psy/psysh/src/Context.php',
         'Psy\\ContextAware' => __DIR__ . '/..' . '/psy/psysh/src/ContextAware.php',
+        'Psy\\EnvInterface' => __DIR__ . '/..' . '/psy/psysh/src/EnvInterface.php',
         'Psy\\Exception\\BreakException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/BreakException.php',
         'Psy\\Exception\\DeprecatedException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/DeprecatedException.php',
         'Psy\\Exception\\ErrorException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/ErrorException.php',
@@ -4314,6 +4309,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Psy\\Shell' => __DIR__ . '/..' . '/psy/psysh/src/Shell.php',
         'Psy\\Sudo' => __DIR__ . '/..' . '/psy/psysh/src/Sudo.php',
         'Psy\\Sudo\\SudoVisitor' => __DIR__ . '/..' . '/psy/psysh/src/Sudo/SudoVisitor.php',
+        'Psy\\SuperglobalsEnv' => __DIR__ . '/..' . '/psy/psysh/src/SuperglobalsEnv.php',
         'Psy\\TabCompletion\\AutoCompleter' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/AutoCompleter.php',
         'Psy\\TabCompletion\\Matcher\\AbstractContextAwareMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractContextAwareMatcher.php',
         'Psy\\TabCompletion\\Matcher\\AbstractDefaultParametersMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractDefaultParametersMatcher.php',
@@ -5372,7 +5368,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
-        'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

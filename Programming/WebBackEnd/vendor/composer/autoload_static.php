@@ -9,8 +9,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
     public static $files = array (
         'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
+        '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         'f598d06aa772fa33d905e87be6398fb1' => __DIR__ . '/..' . '/symfony/polyfill-intl-idn/bootstrap.php',
@@ -48,10 +48,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'X' => 
-        array (
-            'XdgBaseDir\\' => 11,
         ),
         'W' => 
         array (
@@ -201,10 +197,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'XdgBaseDir\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src',
         ),
         'Whoops\\' => 
         array (
@@ -1403,6 +1395,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\Lightsail\\LightsailClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Lightsail/LightsailClient.php',
         'Aws\\LocationService\\Exception\\LocationServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LocationService/Exception/LocationServiceException.php',
         'Aws\\LocationService\\LocationServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LocationService/LocationServiceClient.php',
+        'Aws\\LookoutEquipment\\Exception\\LookoutEquipmentException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutEquipment/Exception/LookoutEquipmentException.php',
+        'Aws\\LookoutEquipment\\LookoutEquipmentClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutEquipment/LookoutEquipmentClient.php',
         'Aws\\LookoutMetrics\\Exception\\LookoutMetricsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutMetrics/Exception/LookoutMetricsException.php',
         'Aws\\LookoutMetrics\\LookoutMetricsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutMetrics/LookoutMetricsClient.php',
         'Aws\\LookoutforVision\\Exception\\LookoutforVisionException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/LookoutforVision/Exception/LookoutforVisionException.php',
@@ -1703,6 +1697,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\imagebuilder\\imagebuilderClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/imagebuilder/imagebuilderClient.php',
         'Aws\\kendra\\Exception\\kendraException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/kendra/Exception/kendraException.php',
         'Aws\\kendra\\kendraClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/kendra/kendraClient.php',
+        'Aws\\mgn\\Exception\\mgnException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/mgn/Exception/mgnException.php',
+        'Aws\\mgn\\mgnClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/mgn/mgnClient.php',
         'Aws\\signer\\Exception\\signerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/signer/Exception/signerException.php',
         'Aws\\signer\\signerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/signer/signerClient.php',
         'Brick\\Math\\BigDecimal' => __DIR__ . '/..' . '/brick/math/src/BigDecimal.php',
@@ -2006,6 +2002,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Facade\\FlareClient\\Http\\Response' => __DIR__ . '/..' . '/facade/flare-client-php/src/Http/Response.php',
         'Facade\\FlareClient\\Middleware\\AddGlows' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AddGlows.php',
         'Facade\\FlareClient\\Middleware\\AnonymizeIp' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/AnonymizeIp.php',
+        'Facade\\FlareClient\\Middleware\\CensorRequestBodyFields' => __DIR__ . '/..' . '/facade/flare-client-php/src/Middleware/CensorRequestBodyFields.php',
         'Facade\\FlareClient\\Report' => __DIR__ . '/..' . '/facade/flare-client-php/src/Report.php',
         'Facade\\FlareClient\\Solutions\\ReportSolution' => __DIR__ . '/..' . '/facade/flare-client-php/src/Solutions/ReportSolution.php',
         'Facade\\FlareClient\\Stacktrace\\Codesnippet' => __DIR__ . '/..' . '/facade/flare-client-php/src/Stacktrace/Codesnippet.php',
@@ -3296,6 +3293,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\Http\\Client\\Factory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Factory.php',
         'Illuminate\\Http\\Client\\HttpClientException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/HttpClientException.php',
         'Illuminate\\Http\\Client\\PendingRequest' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/PendingRequest.php',
+        'Illuminate\\Http\\Client\\Pool' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Pool.php',
         'Illuminate\\Http\\Client\\Request' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Request.php',
         'Illuminate\\Http\\Client\\RequestException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/RequestException.php',
         'Illuminate\\Http\\Client\\Response' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Http/Client/Response.php',
@@ -5374,6 +5372,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Psy\\ConsoleColorFactory' => __DIR__ . '/..' . '/psy/psysh/src/ConsoleColorFactory.php',
         'Psy\\Context' => __DIR__ . '/..' . '/psy/psysh/src/Context.php',
         'Psy\\ContextAware' => __DIR__ . '/..' . '/psy/psysh/src/ContextAware.php',
+        'Psy\\EnvInterface' => __DIR__ . '/..' . '/psy/psysh/src/EnvInterface.php',
         'Psy\\Exception\\BreakException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/BreakException.php',
         'Psy\\Exception\\DeprecatedException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/DeprecatedException.php',
         'Psy\\Exception\\ErrorException' => __DIR__ . '/..' . '/psy/psysh/src/Exception/ErrorException.php',
@@ -5419,6 +5418,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Psy\\Shell' => __DIR__ . '/..' . '/psy/psysh/src/Shell.php',
         'Psy\\Sudo' => __DIR__ . '/..' . '/psy/psysh/src/Sudo.php',
         'Psy\\Sudo\\SudoVisitor' => __DIR__ . '/..' . '/psy/psysh/src/Sudo/SudoVisitor.php',
+        'Psy\\SuperglobalsEnv' => __DIR__ . '/..' . '/psy/psysh/src/SuperglobalsEnv.php',
         'Psy\\TabCompletion\\AutoCompleter' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/AutoCompleter.php',
         'Psy\\TabCompletion\\Matcher\\AbstractContextAwareMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractContextAwareMatcher.php',
         'Psy\\TabCompletion\\Matcher\\AbstractDefaultParametersMatcher' => __DIR__ . '/..' . '/psy/psysh/src/TabCompletion/Matcher/AbstractDefaultParametersMatcher.php',
@@ -6631,7 +6631,6 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Whoops\\Util\\Misc' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/Misc.php',
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
-        'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
         'am05zk' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/Compatible/GitHub_am05mhz_am05zk/am05zk.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
