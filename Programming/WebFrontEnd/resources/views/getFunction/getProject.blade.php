@@ -40,7 +40,7 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++)
+                                        @for($i = 1; $i < 5; $i++)
                                         <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
@@ -120,7 +120,9 @@
             var code = $this.data("id");
             var name = $this.data("name");
             $("#projectcode").val(code);
+            $("#projectcode2").val(name);
             $("#projectname").val(name);
+            $("#headerProjectCode").val(code);
         });
     });
 </script>

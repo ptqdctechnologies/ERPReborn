@@ -9,49 +9,23 @@ class procurementTransactionAsf extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
-    public function editableAsf(Request $request)
-    {
-    	if($request->ajax())
-    	{
-    		if($request->action == 'edit')
-    		{
-              
-    			$data = array(
-    				'first_name'	=>	$request->first_name,
-    				'last_name'		=>	$request->last_name,
-    				'gender'		=>	$request->gender
-    			);
-    			DB::table('sample_datas')
-    				->where('id', $request->id)
-    				->update($data);
-    		}
-    		if($request->action == 'delete')
-    		{
-    			DB::table('sample_datas')
-    				->where('id', $request->id)
-    				->delete();
-    		}
-    		return response()->json($request);
-    	}
-    }
     public function index()
     {
-        return view('ProcurementAndCommercial.Transactions.ASF.createASF');
+        return view('Advance.Advance.Transactions.createASF');
     }
 
     public function indexOverhead()
     {
-        return view('ProcurementAndCommercial.Transactions.ASF.createASFOverhead');
+        return view('Advance.Advance.Transactions.createASFOverhead');
     }
 
     public function indexSales()
     {
-        return view('ProcurementAndCommercial.Transactions.ASF.createASFSales');
+        return view('Advance.Advance.Transactions.createASFSales');
     }
     public function indexPulsaVoucher()
     {
-        return view('ProcurementAndCommercial.Transactions.ASF.createASFPulsaVoucher');
+        return view('Advance.Advance.Transactions.createASFPulsaVoucher');
     }
 
     /**
@@ -120,7 +94,56 @@ class procurementTransactionAsf extends Controller
         //
     }
     public function revisionAsfIndex(Request $request)
-    {
-        return view('ProcurementAndCommercial.Transactions.ASF.revisionASF');
+    {   
+        if ($request->searchArfNumberRevision == 'Q00018 1') {
+            $arfNumberAsf = "05020242 1";
+            $requester = "Requester 1";
+            $managerAsfUid = "ManagerAsfUid 1";
+            $managerAsfName = "Manager Asf Name 1";
+            $currency = "Currency 1";
+            $financeArfUid = "Finance Arf Uid 1";
+            $financeArfName = "Finance Arf Name 1";
+            $remark = "Remark 1";
+            $total = "100001";
+            $totalDetail = "IDR";
+        }
+        else if ($request->searchArfNumberRevision == 'Q00018 2') {
+            $arfNumberAsf = "05020242 2";
+            $requester = "Requester 2";
+            $managerAsfUid = "ManagerAsfUid 2";
+            $managerAsfName = "Manager Asf Name 2";
+            $currency = "Currency 2";
+            $financeArfUid = "Finance Arf Uid 2";
+            $financeArfName = "Finance Arf Name 2";
+            $remark = "Remark 2";
+            $total = "100002";
+            $totalDetail = "IDR";
+        }
+        else if ($request->searchArfNumberRevision == 'Q00018 3') {
+            $arfNumberAsf = "05020242 3";
+            $requester = "Requester 3";
+            $managerAsfUid = "ManagerAsfUid 3";
+            $managerAsfName = "Manager Asf Name 3";
+            $currency = "Currency 3";
+            $financeArfUid = "Finance Arf Uid 3";
+            $financeArfName = "Finance Arf Name 3";
+            $remark = "Remark 3";
+            $total = "100003";
+            $totalDetail = "IDR";
+        }
+        else if ($request->searchArfNumberRevision == 'Q00018 4') {
+            $arfNumberAsf = "05020242 4";
+            $requester = "Requester 4";
+            $managerAsfUid = "ManagerAsfUid 4";
+            $managerAsfName = "Manager Asf Name 4";
+            $currency = "Currency 4";
+            $financeArfUid = "Finance Arf Uid 4";
+            $financeArfName = "Finance Arf Name 4";
+            $remark = "Remark 4";
+            $total = "100004";
+            $totalDetail = "IDR";
+        }
+
+        return view('Advance.Advance.Transactions.revisionASF', compact('arfNumberAsf','requester','managerAsfUid','managerAsfName','currency','financeArfUid','financeArfName','remark','total','totalDetail'));
     }
 }

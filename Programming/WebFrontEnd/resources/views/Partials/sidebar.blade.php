@@ -1,19 +1,20 @@
-@include('ProcurementAndCommercial.Transactions.ARF.popupRevisionARF')
-@include('ProcurementAndCommercial.Transactions.ASF.popupRevisionASF')
-@include('ProcurementAndCommercial.Transactions.BRF.popupRevisionBRF')
-@include('ProcurementAndCommercial.Transactions.BSF.popupRevisionBSF')
+@include('Advance.Advance.Transactions.popupRevisionARF')
+@include('Advance.Advance.Transactions.popupRevisionASF')
+@include('Advance.BussinesTrip.Transactions.popupRevisionBRF')
+@include('Advance.BussinesTrip.Transactions.popupRevisionBSF')
+@include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
 @include('ProcurementAndCommercial.Transactions.PPM.popupRevisionPPM')
 @include('Logistic.Transactions.MaterialReceive.popupRevisionMaterialReceive')
-@include('ProcurementAndCommercial.Functions.searchArf')
-@include('ProcurementAndCommercial.Functions.searchAsf')
-@include('ProcurementAndCommercial.Functions.searchBrf')
-@include('ProcurementAndCommercial.Functions.searchBsf')
+@include('Advance.Advance.Functions.PopUp.searchArfRevision')
+@include('Advance.Advance.Functions.PopUp.searchAsf')
+@include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
+@include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
 @include('ProcurementAndCommercial.Functions.searchPpm')
 @include('Logistic.Functions.searchMaterialReceive')
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
-        <img src="/AdminLTE-master/dist/img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <img src="/AdminLTE-master/dist/img/favicon.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light"><label for="">ERP QDC</label></span>
     </a>
     <div class="sidebar">
@@ -86,574 +87,575 @@
                         </li>
                     </ul>
                 </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
                         <label>
-                            Procurement and Commercial
+                            Account
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
+                        <label>
+                            Advance
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Advance</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>ARF & ASF</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ARF Aging</label>
+                                                <label>Advance Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ARF Detail</label>
+                                                <label>Advance Summary Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ASF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ARF Summary</label>
+                                                <label>Advance Settlement Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ARF to ASF</label>
+                                                <label>Advance Settlement Summary Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ARF to ASF RSE</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ASF Detail</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>ASF Summary</label>
+                                                <label>Advance to Settlement Report</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Procurement Request</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Outstanding PR to PO</label>
+                                                <label>Create Advance Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Outstanding PR to PO (Details)</label>
+                                                <label>Advance Request Revision</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ASF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PR Detail</label>
+                                                <label>Create Advance Settlement</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PR Summary</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PR to DOR</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PR to PO</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>PO & RPI</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Outstanding PO to RPI</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PO Detail</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PO Summary</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PO Tax Summary</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PO to RPI</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>PO to RPI - RSE</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>RPI Detail</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>RPI Summary</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Reimbursement</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Outstanding Reimbursement Debit Note Report</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Reimbursement Debit Note</label>
+                                                <label>Advance Settlement Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../index2.html" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Business Trip</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Advance Request Form</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
+                                                <label>Business Trip Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
+                                                <label>Business Trip Summary Report</label>
                                             </a>
                                         </li>
-                                    </ul>
-
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Advance Settlement Form</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('ASF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create ASF</label>
+                                                <label>Business Trip Settlement Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ASF</label>
+                                                <label>Business Trip Settlement Summary Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Business Trip to Settlement Report</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Business Trip Request Form</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('BRF.createBRF') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create BRF</label>
+                                                <label>Create Business Trip Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#brfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision BRF</label>
+                                                <label>Business Trip Request Revision</label>
                                             </a>
                                         </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Business Trip Settlement Form</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('BSF.createBSF') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create BSF</label>
+                                                <label>Create Business Trip Settlement</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#bsfNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#bsfNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision BSF</label>
+                                                <label>Business Trip Settlement Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Reimbursement</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>PPN Reimbursement</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
-
                                     </a>
-
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PPNRem.createPPNRem') }}" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Add New PPN-REM</label>
+                                                <label>Reimbursement Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit PPN-REM</label>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('PPNRem.createPPNRemSet') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Add New PPN-REM Settlement</label>
+                                                <label>Reimbursement Summary Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="{{ route('ASF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit PPN-REM Settlement</label>
+                                                <label>Debit Note Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Debit Note Summary Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Reimbursement to Debit Note Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('BRF.createBRF') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Reimbursement</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#brfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Reimbursement Revision</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('BSF.createBSF') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Debit Note</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#bsfNumberPopup">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Debit Note Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
+                        <label>
+                            Bank
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Receive & Spend Money</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Progress Piece Meal</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Receive Money Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Spend Money Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Receive Money</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Receive Money Revision</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('ASF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Spend Money</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Spend Money Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
+                        <label>
+                            Budget
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Budget</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Modification Budget</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Modification Budget Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Modification Budget</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Modification Budget Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
+                        <label>
+                            Human Resources 
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Piece Meal</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Piece Meal Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Piece Meal Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="{{ route('PPM.addPPM') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Add Progress Piece Meal</label>
+                                                <label>Create Piece Meal</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#ppmNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision PPM</label>
+                                                <label>Piece Meal Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Salary</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Procurement Request</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
-
                                     </a>
-
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PR.createPR') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create PR</label>
+                                                <label>Salary Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit PPN-REM</label>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="{{ route('PPNRem.createPPNRemSet') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Add New PPN-REM Settlement</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit PPN-REM Settlement</label>
+                                                <label>Salary Summary Report</label>
                                             </a>
                                         </li>
                                     </ul>
-
-                                </li>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Purchase Order</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PO.createPO') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create new PO</label>
+                                                <label>Create Salary</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('PO.createPOverhead') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create new PO (Overhead)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('PO.createPOSales') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create new PO (Sales)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing PO</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing PO (Overhead)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing PO (Sales)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('PO.fileUploadPO') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>File Upload</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('PO.requestCancelPO') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Request Cancel PO</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Remaks PO</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Reimbursement Expenditure</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('RE.createREtoCustomer') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Reimbursement to Customer</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('PO.createPOverhead') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing Reimbursement to Customer</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RE.createPaymentRE') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Payment Reimbursement</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing Payment to Customer</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RE.createDebitNote') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Debit Note Reimbursement</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing Debit Note Reimbursement</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RE.createPaidDebitNote') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Paid Debit Note Reimbursement</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('PO.requestCancelPO') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing Paid Debit Note Reimbursement</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Request Payment for Invoice</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('RPI.createRPI') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create RPI</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RPI.createRPIOverhead') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create RPI (Overhead)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RPI.createRPISales') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create RPI (Sales)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing RPI</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing RPI (Overhead)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Existing RPI (Sales)</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('RPI.fileUpload') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>File Upload</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Update Request Price</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('URP.createURP') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create URP</label>
+                                                <label>Salary Revision</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -666,758 +668,284 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
                         <label>
-                            Project Management
+                            Inventory
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>PR Reallocation</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Budget</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>BOQ3 Report</label>
+                                                <label>PR Reallocation Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Detail BOQ3</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Detail Project Budget</label>
-                                            </a>
-                                        </li>
-
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Monthly Progress Report</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Project Budget</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Spend Budget Report</label>
+                                                <label>PR Reallocation Summary Report</label>
                                             </a>
                                         </li>
                                     </ul>
-
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>CFS List</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>CFS Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>General Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>General Report (Overhead)</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>S-Curve Report</label>
-                                    </a>
-                                </li>
+                                </li>   
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../index2.html" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Budget</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
-                                                <i class="nav-icon-sm fas fa-folder" style="color:#ADD8E6;"></i>
-                                                <label>Approval For Expenditure</label>
-                                                <i class="right fas fa-angle-left"></i>
-                                            </a>
-                                            <ul class="nav nav-treeview">
-                                                <li class="nav-item">
-                                                    <a href="{{ route('AFE.createAFE') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Create AFE</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('AFE.createAFESwitching') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Create AFE - Switching Currency</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing AFE</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing AFE - Switching Currency</label>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon-sm fas fa-folder" style="color:#ADD8E6;"></i>
-                                                <label>Project Budget</label>
-                                                <i class="right fas fa-angle-left"></i>
-                                            </a>
-                                            <ul class="nav nav-treeview">
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createProject') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Create New Project</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createSiteProject') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Add New Site on Project</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createProjectBudget') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Input Project Budget</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing Temporary BOQ3</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createNonProjectOverheadBudget') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Input Non Project / Overhead Budget</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createBudgetPeriodeNonProject') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Add New Budget Periode Non Project</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing Site BOQ3</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing CFS BOQ3</label>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="nav-icon-sm fas fa-folder" style="color:#ADD8E6;"></i>
-                                                <label>Register Customer PO</label>
-                                                <i class="right fas fa-angle-left"></i>
-                                            </a>
-                                            <ul class="nav nav-treeview">
-                                                <li class="nav-item">
-                                                    <a href="{{ route('RCPO.createRegisterCustomerOrder') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Register New Customer Order</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('RCPO.editExistingCustomerOrder') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Edit Existing Customer PO</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="#" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>All Pending Customer PO</label>
-                                                    </a>
-                                                </li>
-                                                <li class="nav-item">
-                                                    <a href="{{ route('PB.createNonProjectOverheadBudget') }}" class="nav-link">
-                                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                        <label>Register Customer Order Report</label>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>CE Project/Site</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('CEPS.openProject') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Open Project</label>
+                                                <label>Create PR Reallocation</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('CEPS.closeProject') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Close Project</label>
+                                                <label>PR Reallocation Revision</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master CFS</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('MCFS.createCFSCode') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create CFS Code</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('MCFS.editCFSCode') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit CFS Code</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('MCFS.viewCFSList') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>View CFS Code</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Engineer Work</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('MEW.addMEW') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Add Enginer Work</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('MEW.editMEW') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit Enginer Work</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Project Progress</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('PP.createPP') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New Project Progress</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Timesheet</label>
-                                    </a>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
-                        <label>
-                            Logistic
-                        </label>
-                        <i class="right fas fa-angle-left"></i>
-                    </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Delivery Order Request</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Delivery Order</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>DO Detail</label>
+                                                <label>DOR Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>DO Request Detail</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>DO Request Summary</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>DO Request to DO</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Outstanding DOR to DO </label>
+                                                <label>DOR Summary Report</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Material Receive</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('DOR.index') }}"" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Cancel</label>
+                                                <label>Create DOR</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                        <a href="#" class="nav-link" data-toggle="modal" data-target="#revisionDorPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Form Supplier</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Return</label>
+                                                <label>DOR Revision</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Closing Inventory Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Current Inventory Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Fixed ATR</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master List</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master List (New Project)</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Price History Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Stock Card</label>
-                                    </a>
                                 </li>
                             </ul>
                         </li>
-
+                    </ul>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="../index2.html" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Delivery Order</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Closing</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
+                                                <label>DO Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>DO Summary Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>DO to DOR Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create DOR</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
+                                                <label>DOR Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
-
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Material Receive</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Delivery Order</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
+                                                <label>Material Receive Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
+                                                <label>Material Receive Summary Report</label>
                                             </a>
                                         </li>
                                     </ul>
-                                </li>
-
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Delivery Order Requester</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Fixed Assets</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Material Receive</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('MR.createMaterialReceive') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Material Receive</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#materialReceiveNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision Material Receive</label>
+                                                <label>Material Receive Revision</label>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Material Return</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master List</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
-
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
+                                                <label>Material Return Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Material Return Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('MRET.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Material Return</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Specialist Supplier</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Supplier</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Type Supplier</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Unit Of Measurement</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Warehouse</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Cancel</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#ADFF2F;"></i>
-                                        <label>Master Return</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create New ARF</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Revision ARF</label>
+                                                <label>Material Return Revision</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1430,440 +958,243 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
                         <label>
-                            Finance
+                            Purchase
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Procurement Request</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AP Aging</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AP Aging Original Currency</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AP Aging Tax</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AP Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AR Aging</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AR Aging Original Currency</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AR Aging Tax</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AR Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Balance Sheet</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Balance Sheet Closed</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Bank Charge Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Bank Payment Voucher Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Bank Receive Money Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>CO to Invoice</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Debit Note Aged Receivables</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Depreciation Fixed Asset Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Detail Journal Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>General Journal Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>General Ledger Detail Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Invoice</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Invoice Summary</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Journal Report</label>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Kas Bank Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Outstanding CIP</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Payment Final Detail</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Payment Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Profit & Loss</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Profil & Loss Closed</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>REM Aging</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Request Invoice to Invoice</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>RPC Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Settlement Journal Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Tax Recon Report</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Trial Balance</label>
-                                    </a>
-                                </li>
-
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Procurement Request Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Procurement Request Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>AP</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>ASF Journal</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Bank Payment Voucher</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Bank Transaction</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Cancel Invoice</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Cancel PO</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Cancel RPI</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Closing</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Depreciation Fixed Asset</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Exchange Rate</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>General Journal</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Inventory Adjustment</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Invoice</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Layout Balance Sheet</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Layout Profit and Loss</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Markup Limit For Door</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master Bank</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master COA</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master COA-Bank</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master COA Mapping</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master Kategori Fixed Asset</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master Periode</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Overhead Cost Charging</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Payment</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Petty Cash</label>
-                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('PR.createPR') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Procurement Request</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Procurement Request Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
-                        <label>
-                            Human Resource
-                        </label>
-                        <i class="right fas fa-angle-left"></i>
-                    </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Purchase Order</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Timesheet Detail</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Purchase Order Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Purchase Order Summary Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>PR to PO Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Timesheet Summary</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Purchase Order</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Purchase Order Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Account Payable</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Timesheet Periode</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Account Payable Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Account Payable Summary Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>PO to AP Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Account Payable</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Account Payable Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>PPN Reimbursement</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>PPN Rem Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>PPN Rem Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create PPN Reimbursement</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>PPN Reimbursement Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
                     </ul>
                 </li>
-
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
@@ -1875,158 +1206,109 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Reports</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Customer Order</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Customer Order Report</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Request Price Report</label>
-                                    </a>
-                                </li>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Customer Order Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Customer Order Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transactions</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Customer Order</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Master Customer</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Request Price</label>
-                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('CO.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Customer Order</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Customer Order Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
-                        <label>
-                            Admin
-                        </label>
-                        <i class="right fas fa-angle-left"></i>
-                    </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Menu</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Invoice</label>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Menu Management</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Invoice Detail Report</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Invoice Summary Report</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>   
                             </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Setting</label>
-                            </a>
-
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>News</label>
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
                                     </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Pulsa</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Transaction Number</label>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>User</label>
-                            </a>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>User Management</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>User Role</label>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Workflow</label>
-                            </a>
-
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Document</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Nominal Limit</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Notification</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Workflow</label>
-                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Invoice</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Invoice Revision</label>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

@@ -16,6 +16,7 @@ class loginController extends Controller
 
     public function loginStore(Request $request)
     {
+        echo "d";die;
         $username = $request->input('username');
         $password = $request->input('password');
         
@@ -24,6 +25,7 @@ class loginController extends Controller
             $username,
             $password
         );
+        dd($varData);
         if($varData['metadata']['HTTPStatusCode'] == '401'){
             return response()->json($varData['metadata']['HTTPStatusCode']);
         }
