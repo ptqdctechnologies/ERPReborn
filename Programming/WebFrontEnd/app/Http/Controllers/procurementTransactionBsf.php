@@ -11,17 +11,17 @@ class procurementTransactionBsf extends Controller
      */
     public function createBSF()
     {
-        return view('ProcurementAndCommercial.Transactions.BSF.createBSF');
+        return view('Advance.BussinesTrip.Transactions.createBSF');
     }
 
     public function BSFtoBRF()
     {
-        return view('ProcurementAndCommercial.Transactions.BSF.BSFtoBRF');
+        return view('Advance.BussinesTrip.Transactions.BSFtoBRF');
     }
 
     public function fundBRF()
     {
-        return view('ProcurementAndCommercial.Transactions.BRF.fundBRF');
+        return view('Advance.BussinesTrip.Transactions.fundBRF');
     }
     
 
@@ -43,7 +43,49 @@ class procurementTransactionBsf extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = json_decode($request->getContent(), true);
+        $dataAll = array();
+
+        foreach ($data as $i => $v) {
+
+            array_push($dataAll, array(
+                'filenames' => $v['filenames']
+
+            ));
+        }
+        $data2 = json_decode($request->getContent(), true);
+        $dataAll2 = array();
+
+        foreach ($data2 as $i => $v) {
+
+            array_push($dataAll2, array(
+                'origin_budget' => $v['origin_budget'],
+                'projectcode' => $v['projectcode'],
+                'projectname' => $v['projectname'],
+                'subprojectc' => $v['subprojectc'],
+                'subprojectn' => $v['subprojectn'],
+                'beneficiary' => $v['beneficiary'],
+                'bank_name' => $v['bank_name'],
+                'account_name' => $v['account_name'],
+                'account_number' => $v['account_number'],
+                'internal_notes' => $v['internal_notes'],
+                'requestNameArf' => $v['requestNameArf'],
+                'putWorkId' => $v['putWorkId'],
+                'putWorkName' => $v['putWorkName'],
+                'putProductId' => $v['putProductId'],
+                'putProductName' => $v['putProductName'],
+                'putQty' => $v['putQty'],
+                'putQtys' => $v['putQtys'],
+                'putUom' => $v['putUom'],
+                'putPrice' => $v['putPrice'],
+                'putCurrency' => $v['putCurrency'],
+                'totalArfDetails' => $v['totalArfDetails'],
+                'putRemark' => $v['putRemark'],
+
+            ));
+            break;
+        }
+        return response()->json($dataAll2);
     }
 
     /**
@@ -92,6 +134,6 @@ class procurementTransactionBsf extends Controller
     }
     public function revisionBsfIndex(Request $request)
     {
-        return view('ProcurementAndCommercial.Transactions.BSF.revisionBSF');
+        return view('Advance.BussinesTrip.Transactions.revisionBSF');
     }
 }

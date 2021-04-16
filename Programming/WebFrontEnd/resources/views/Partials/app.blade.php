@@ -1,7 +1,4 @@
-<!--|-----------------------------------------------------------|
-    |                          Extends                          |
-    |-----------------------------------------------------------|-->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,14 +24,11 @@
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- sweetalert -->
-    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
+
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
     
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -44,7 +38,6 @@
     </div>
 </body>
 
-<!--<script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script> -->
 <script src="{{ asset('AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -81,29 +74,7 @@
 <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
 
 <!-- sweetalert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 
-<script>
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    $(function() {
-        $("#examples").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-        $('#examplesz').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
-</script>
 </html>
-<!--|-----------------------------------------------------------|
-    |                      End Extends                          |
-    |-----------------------------------------------------------|-->

@@ -74,12 +74,12 @@
                                     </button>
                                 </div>
                             </div>
-                            @include('ProcurementAndCommercial.Functions.sectPoDetail')
+                            @include('Logistic.Functions.sectPoDetail')
                         </div>
                     </div>
                 </div>
 
-                <form action="" name="formAsf1">
+                <form action="" name="formDetailMaterialReceive">
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -93,7 +93,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="card-body" id="detailPPM">
+                                <div class="card-body" id="detailMaterialReceive">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -101,37 +101,37 @@
                                                     <tr>
                                                         <td><label>Porject Code</label></td>
                                                         <td>
-                                                            <input required="" id="putWorkId" style="border-radius:0;" type="text" class="form-control" value="">
+                                                            <input required="" id="project_code" style="border-radius:0;" type="text" class="form-control" value="">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Site Code</label></td>
                                                         <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                            <input required="" id="site_code" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Work ID</label></td>
                                                         <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                            <input required="" id="work_id" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Product ID</label></td>
                                                         <td>
-                                                            <input name="qty" id="putQty" style="border-radius:0;" type="text" class="form-control">
+                                                            <input name="product" id="product_id" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label>QTY</label></td>
+                                                        <td><label>Qty</label></td>
                                                         <td>
-                                                            <input name="price" id="putPrice" style="border-radius:0;" type="text" class="form-control">
+                                                            <input name="qty" id="qty" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Remark</label></td>
                                                         <td>
-                                                            <textarea name="internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                                                            <textarea name="internal_notes" id="remark" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -152,7 +152,7 @@
                                                         <td><label>Qty in PO</label></td>
                                                         <td>
                                                             <div class="input-group">
-                                                                <input name="total_arf" id="total_arf" style="border-radius:0;" type="text" class="form-control">
+                                                                <input name="total_arf" id="qty_in_po" style="border-radius:0;" type="text" class="form-control">
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -160,15 +160,15 @@
                                                         <td><label>QTY in Material Receive</label></td>
                                                         <td>
                                                             <div class="input-group">
-                                                                <input name="total_asf" id="total_asf" style="border-radius:0;" type="text" class="form-control">
+                                                                <input name="total_asf" id="qty_in_mr" style="border-radius:0;" type="text" class="form-control">
                                                             </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td><label>Balance in ppmListQty</label></td>
+                                                        <td><label>Balance in PPM ListQty</label></td>
                                                         <td>
                                                             <div class="input-group">
-                                                                <input name="balance" id="balance" style="border-radius:0;" type="text" class="form-control">
+                                                                <input name="balance" id="balance_in_ppm_list" style="border-radius:0;" type="text" class="form-control">
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -178,9 +178,7 @@
                                             <a href="{{ url('ppmList/cancel/') }}" class="btn btn-danger btn-sm float-right remove-arf-list" title="Cancel">
                                                 <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
                                             </a>
-                                            <button type="submit" class="btn btn-success btn-sm float-right" style="margin-right:5px;" title="Add to ARF List(Cart)">
-                                                <i class="fas fa-plus" aria-hidden="true">Add to Material Receive</i>
-                                            </button>
+                                            <a class="btn btn-success btn-sm float-right" href="javascript:validateFormMaterialReceiveList()"><i class="fas fa-plus" aria-hidden="true">Add to Material Receive</i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +201,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div class="card-body table-responsive p-0" id="detailPPMList">
+                                <div class="card-body table-responsive p-0" id="detailMaterialReceiveList">
                                     <table class="table table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
@@ -219,19 +217,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="removeppmList">
-                                            <tr>
-                                                <td>
-                                                    <center><button type="button" class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-arf-list" id="removeButton"><i class="fa fa-trash"></i></button></center>
-                                                </td>
-                                                <td contenteditable="false" id="ppmListProductId"></td>
-                                                <td contenteditable="false" id="ppmListProductName"></td>
-                                                <td contenteditable="true"><input name="qty" id="ppmListQty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off"></td>
-                                                <td contenteditable="false" id="ppmListUom"></td>
-                                                <td contenteditable="false" id="ppmListPrice"></td>
-                                                <td contenteditable="false" id="ppmListTotal"></td>
-                                                <td contenteditable="false" id="ppmListTotal"></td>
-                                                <td contenteditable="false" id="ppmListTotal"></td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -251,5 +237,5 @@
 </section>
 </div>
 @include('Partials.footer')
-@include('ProcurementAndCommercial.Functions.footerFunctionPPM')
+@include('Logistic.Functions.footerLogisiticMaterialReceive')
 @endsection
