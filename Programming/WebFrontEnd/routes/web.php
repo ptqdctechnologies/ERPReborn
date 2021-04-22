@@ -108,13 +108,14 @@ Route::post('revisionDorIndex','procurementTransactionDor@revisionDorIndex')->na
 // MRET
 Route::get('createMret','procurementTransactionMret@index')->name('MRET.index');
 Route::post('MRET/store','procurementTransactionMret@store')->name('MRET.store');
-Route::post('revisionMRETIndex','procurementTransactionMret@revisionMRETIndex')->name('MRET.revisionMRET');
+Route::post('revisionMRETIndex','procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
 
 //CO
 
 
 // LOGIN
 Route::get('CO','controllerSalesCo@index')->name('CO.index');
+Route::get('revisionCo','controllerSalesCo@revisionCo')->name('CO.revisionCo');
 
 
 
@@ -152,6 +153,11 @@ Route::get('createASFPulsaVoucher','procurementTransactionAsf@indexPulsaVoucher'
 Route::post('revisionAsf','procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
 
 Route::resource('ASF','procurementTransactionAsf');
+
+//MASTER DATA
+Route::get('tranoType','masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
+Route::get('tranoNumber','masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
+
 
 // Dashboard
 Route::get('projectDashboard','homeController@projectDashboard')->name('home.projectDashboard');

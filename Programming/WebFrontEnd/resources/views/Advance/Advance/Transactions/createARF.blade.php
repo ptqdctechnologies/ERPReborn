@@ -340,7 +340,7 @@
               </div>
 
               <div class="card-body table-responsive p-0" id="detailArfList">
-                <table class="table table-head-fixed text-nowrap">
+                <table id="table1" class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>Delete</th>

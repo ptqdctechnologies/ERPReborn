@@ -344,8 +344,8 @@
               </div>
             </div>
 
-            <div class="card-body table-responsive p-0" style="height: 230px;" id="amountCompanyCart">
-              <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+            <div class="card-body table-responsive p-0" id="amountCompanyCart">
+              <table id="table2" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
                     <th>No</th>
@@ -384,8 +384,8 @@
               </div>
             </div>
 
-            <div class="card-body table-responsive p-0" style="height: 230px;" id="amountCompanyCart">
-              <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+            <div class="card-body table-responsive p-0" id="amountCompanyCart">
+              <table id="table3" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
                     <th>No</th>

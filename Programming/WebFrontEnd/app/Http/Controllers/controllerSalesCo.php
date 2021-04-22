@@ -16,7 +16,12 @@ class controllerSalesCo extends Controller
      */
     public function index()
     {
-        return view('Sales.Transactions.CO.index');
+        return view('Sales.CO.Transactions.index');
+    }
+
+    public function revisionCo()
+    {
+        return view('Sales.CO.Transactions.revisionCo');
     }
     public function arflistcancel()
     {

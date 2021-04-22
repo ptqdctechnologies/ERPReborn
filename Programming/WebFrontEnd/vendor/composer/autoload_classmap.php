@@ -47,6 +47,7 @@ return array(
     'App\\Http\\Controllers\\homeController' => $baseDir . '/app/Http/Controllers/homeController.php',
     'App\\Http\\Controllers\\loginController' => $baseDir . '/app/Http/Controllers/loginController.php',
     'App\\Http\\Controllers\\logisticMaterialReceive' => $baseDir . '/app/Http/Controllers/logisticMaterialReceive.php',
+    'App\\Http\\Controllers\\masterDataTransactionNumber' => $baseDir . '/app/Http/Controllers/masterDataTransactionNumber.php',
     'App\\Http\\Controllers\\procurementTransactionArf' => $baseDir . '/app/Http/Controllers/procurementTransactionArf.php',
     'App\\Http\\Controllers\\procurementTransactionAsf' => $baseDir . '/app/Http/Controllers/procurementTransactionAsf.php',
     'App\\Http\\Controllers\\procurementTransactionBrf' => $baseDir . '/app/Http/Controllers/procurementTransactionBrf.php',

@@ -223,7 +223,7 @@
                             </div>
 
                             <div class="card-body table-responsive p-0" id="detailDorList">
-                                <table class="table table-head-fixed text-nowrap">
+                                <table id="table2" class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Edit</th>

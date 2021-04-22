@@ -1,4 +1,4 @@
-<div id="mySearchPr" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myMaterialReturn" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -75,27 +75,27 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPrMret" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchMret" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPrMret" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchMret" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPrMret" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchMret" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPrMret" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchMret" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPrMret" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchMret" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -186,113 +186,11 @@
 
 <script>
     $(function() {
-        $(".klikSearchPrMret").on('click', function(e) {
+        $(".klikSearchMret").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
-            var name = $this.data("name");
-            $("#managerUid").val(code);
-            $("#managerName").val(name);
-            $("#headerPrNumber").val(code);
-            $("#searchDorNumberRevision").val(code);
-
-            $(".tableArfDetail").show();
-
-            //Batas
-
-            $("#arfNumberAsf").prop("disabled", true);
-
-            $("#requester").val("requester 1");
-            $("#managerAsfUid").val("Manager 1");
-            $("#managerAsfName").val("Manager Detail 1");
-            $("#currency").val("IDR");
-            $("#financeArfUid").val("finance 1");
-            $("#financeArfName").val("Finance Detail 1");
-            $("#remark").val("Remark 1");
-            $("#total").val("100000");
-            $("#totalDetail").val("Rp");
-
-            //End batas
-            
-            var datas = [];
-
-            for (var i = 1; i <= x; i++) {
-                var data = {
-                    origin_budget: "x",
-                    projectcode: "x",
-                    projectname: "x",
-                    subprojectc: "x",
-                    subprojectn: "x",
-                    beneficiary: "x",
-                    bank_name: "x",
-                    account_name: "x",
-                    account_number: "x",
-                    internal_notes: "x",
-                    requestNameArf: "x",
-                    putWorkId: "x",
-                    putWorkName: "x",
-                    putProductId: "x",
-                    putProductName: "x",
-                    putQty: "x",
-                    putQtys: "x",
-                    putUom: "x",
-                    putPrice: "x",
-                    putCurrency: "x",
-                    totalArfDetails: "x",
-                    putRemark: "x",
-                    filenames: "x",
-                }
-                datas.push(data);
-            }
-
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
-
-            $.ajax({
-                type: "POST",
-                url: '{{route('ARF.store')}}',
-                data: json_object,
-                contentType: "application/json",
-                processData: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    y++;
-                    $.each(data, function(key, val) {
-                        $('#tablePrDetailDor').append('<tr id="control-group"><td><center><a class="btn btn-outline-success btn-rounded btn-sm" style="border-radius: 100px;" href="javascript:buttonPlus()"><i class="fa fa-plus"></i></a></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
-                    });
-                },
-                error: function(data) {
-                    Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-                }
-            });
+            $("#codeMaterialReturn").val(code);
         });
     });
-</script>
-
-<script>
-    function buttonPlus() {
-        $("#detailDor").show();
-        $("#prNumberDorDetail").val("x");
-        $("#projectDorDetail").val("x");
-        $("#projectDorDetail2").val("x");
-        $("#siteDorDetail").val("x");
-        $("#siteDorDetail2").val("x");
-        $("#workIdDorDetail").val("x");
-        $("#workIdDorDetail2").val("x");
-        $("#productIdDorDetail").val("x");
-        $("#productIdDorDetail2").val("x");
-        $("#priceDorDetail").val("x");
-        $("#averageDorDetail").val("x");
-        $("#qtyDorDetail").val("x");
-        $("#qtyDorDetail2").val("x");
-        $("#discountDorDetail").val("x");
-        $("#discountDorDetail2").val("x");
-        $("#afterDiscountDorDetail").val("x");
-        $("#prQty").val("x");
-        $("#inDorQty").val("x");
-        $("#balanceQty").val("x");
-        $("#newBalanceQty").val("x");
-    }
 </script>

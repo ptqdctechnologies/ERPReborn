@@ -319,8 +319,18 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-body table-responsive p-0" style="height: 230px;" id="amountCompanyCart">
-                <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+              <div class="card-header">
+                <label class="card-title">
+                  Amount Due to Company Cart
+                </label>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0" id="amountCompanyCart">
+                <table id="table2" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -349,8 +359,18 @@
         <div class="row">
           <div class="col-12">
             <div class="card">
-              <div class="card-body table-responsive p-0" style="height: 230px;" id="expenseClaimCart">
-                <table id="editableAsf" class="table table-head-fixed text-nowrap table-striped">
+              <div class="card-header">
+                <label class="card-title">
+                  Expense Claim Cart
+                </label>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0" id="expenseClaimCart">
+                <table id="table3" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th>No</th>

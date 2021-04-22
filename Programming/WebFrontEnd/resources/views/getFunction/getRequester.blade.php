@@ -88,6 +88,7 @@
             var $this = $(this);
             var name = $this.data("id");
             $("#requester_name").val(name);
+            $("#requestNameArf").val(name);
             $("#budget_name").val(name);
             
         });

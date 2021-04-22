@@ -3,6 +3,7 @@
         $(".detailASF").hide();
         $("#detailArfList").hide();
         $("#buttonDetailBsf").prop("disabled", true);
+        $("#amountCompanyCart").hide();
         $("#saveBsf").prop("disabled", true);
     });
 </script>

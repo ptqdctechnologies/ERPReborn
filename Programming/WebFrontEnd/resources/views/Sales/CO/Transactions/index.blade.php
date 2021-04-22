@@ -7,15 +7,15 @@
 @include('getFunction.getRequester')
 @include('getFunction.getProduk')
 @include('getFunction.getProduk')
-@include('ProcurementAndCommercial.Functions.searchRegisterCo')
-@include('ProcurementAndCommercial.Functions.searchCustomer')
-@include('ProcurementAndCommercial.Functions.sectBOQ2')
+@include('Sales.CO.Functions.PopUp.searchRegisterCo')
+@include('Sales.CO.Functions.PopUp.searchCustomer')
+@include('getFunction.BOQ2')
 
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-            <form method="post" enctype="multipart/form-data" action="#" name="formArf1">
+            <form method="post" enctype="multipart/form-data" action="#" name="formCo2">
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row">
                         <div class="col-12">
@@ -54,9 +54,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
-
-            <form action="" name="formAsf1">
+            
                 <div class="tab-content p-3" id="nav-tabContent">
                     <div class="row detailASF">
                         <div class="col-12">
@@ -275,7 +273,7 @@
                                             <td><label>Description</label></td>
                                             <td>
                                             <div class="input-group">
-                                                <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
+                                                <textarea name="description2" id="description2" cols="30" rows="3" class="form-control"></textarea>
                                             </div>
                                             </td>
                                         </tr>
@@ -319,7 +317,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body table-responsive p-0">
-                                <table class="table table-head-fixed text-nowrap">
+                                <table id="table1" class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Action</th>
@@ -349,5 +347,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('ProcurementAndCommercial.Functions.footerFunctionCo')
+@include('Sales.CO.Functions.Footer.footerCo')
 @endsection
