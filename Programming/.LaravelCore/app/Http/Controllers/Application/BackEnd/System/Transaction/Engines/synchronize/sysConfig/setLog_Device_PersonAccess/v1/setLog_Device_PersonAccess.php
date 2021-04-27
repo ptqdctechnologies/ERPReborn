@@ -94,7 +94,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setTaxExchangeRate                                                                                   |
+        | ▪ Method Name     : setAttendanceDeviceLog                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-02-03                                                                                           |
