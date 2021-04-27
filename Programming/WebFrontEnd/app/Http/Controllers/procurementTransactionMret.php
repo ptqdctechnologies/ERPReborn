@@ -241,9 +241,9 @@ class procurementTransactionMret extends Controller
         // return view('Inventory.MaterialReturn.Transactions.createMret');
     }
 
-    public function revisionArfIndex(Request $request)
+    public function revisionMret(Request $request)
     {
-        if ($request->searchArfNumberRevision == 'Q000181') {
+        if ($request->codeMaterialReturn == 'Q000181') {
             $project = "Project Code 1";
             $projectDetail = "Project Detail 1";
             $site = "Site Code 1";
@@ -268,7 +268,7 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        else if ($request->searchArfNumberRevision == 'Q000182') {
+        else if ($request->codeMaterialReturn == 'Q000182') {
             $project = "Project Code 2";
             $projectDetail = "Project Detail 2";
             $site = "Site Code 2";
@@ -293,7 +293,7 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        else if ($request->searchArfNumberRevision == 'Q000183') {
+        else if ($request->codeMaterialReturn == 'Q000183') {
             $project = "Project Code 3";
             $projectDetail = "Project Detail 3";
             $site = "Site Code 3";
@@ -318,9 +318,6 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-
-
-
-        return view('Inventory.MaterialReturn.Transactions.createMret', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
+        return view('Inventory.MaterialReturn.Transactions.revisionMret', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
     }
 }

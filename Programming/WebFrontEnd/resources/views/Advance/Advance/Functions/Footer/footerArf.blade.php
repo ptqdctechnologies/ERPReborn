@@ -81,9 +81,9 @@
         }
         else if (sitecode == "") {
             document.formArf1.sitecode.focus() ;
-            document.formArf1.subprojectn.focus() ;
+            document.formArf1.sitecode2.focus() ;
             document.formArf1.sitecode.style.border = "1px solid red";
-            document.formArf1.subprojectn.style.border = "1px solid red";
+            document.formArf1.sitecode2.style.border = "1px solid red";
             document.getElementById("iconSite").style.border = "1px solid red";
             document.getElementById("iconSite").style.borderRadius = "100pt";
             document.getElementById("iconSite").style.paddingRight = "7px";
@@ -111,8 +111,8 @@
             document.getElementById("iconRequester").innerHTML = "&#33";
 
             $("#iconSite").hide();
-            document.formArf1.subprojectc.style.border = "1px solid #ced4da";
-            document.formArf1.subprojectn.style.border = "1px solid #ced4da";
+            document.formArf1.sitecode.style.border = "1px solid #ced4da";
+            document.formArf1.sitecode2.style.border = "1px solid #ced4da";
             
             return false;
         }
@@ -204,7 +204,7 @@
         }
         else{
             $("#projectcode").prop("disabled", true);
-            $("#subprojectc").prop("disabled", true);
+            $("#sitecode").prop("disabled", true);
             $("#projectcode2").prop("disabled", true);
             $("#sitecode2").prop("disabled", true);
             $("#product-comments-tab").prop("disabled", false);
@@ -441,8 +441,8 @@
                     origin_budget: $('#origin_budget').val(),
                     projectcode: $('#projectcode').val(),
                     projectname: $('#projectname').val(),
-                    subprojectc: $('#subprojectc').val(),
-                    subprojectn: $('#subprojectn').val(),
+                    sitecode: $('#sitecode').val(),
+                    sitecode2: $('#sitecode2').val(),
                     beneficiary: $('#beneficiary').val(),
                     bank_name: $('#bank_name').val(),
                     account_name: $('#account_name').val(),
@@ -468,7 +468,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('ARF.store')}}',
+                url: '{{route("ARF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -480,7 +480,7 @@
                     console.log(data);
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
+                        $('#tableArfListCart').append('<tr><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
 
                         $('.ChangeQtys').keyup(function() {
 
@@ -522,7 +522,7 @@
                 }
             });
 
-            alert('sss');
+            $("#saveArfList").prop("disabled", false);
             $("#iconProductId").hide();
             $("#iconQty").hide();
             $("#iconUnitPrice").hide();

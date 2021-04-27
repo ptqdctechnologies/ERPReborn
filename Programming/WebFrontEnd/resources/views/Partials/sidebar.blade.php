@@ -3,13 +3,12 @@
 @include('Advance.BussinesTrip.Transactions.popupRevisionBRF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBSF')
 @include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
-@include('ProcurementAndCommercial.Transactions.PPM.popupRevisionPPM')
-@include('Logistic.Transactions.MaterialReceive.popupRevisionMaterialReceive')
+@include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
 @include('Advance.Advance.Functions.PopUp.searchArfRevision')
 @include('Advance.Advance.Functions.PopUp.searchAsf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
-@include('ProcurementAndCommercial.Functions.searchPpm')
+@include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
 @include('Logistic.Functions.searchMaterialReceive')
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -88,11 +87,76 @@
                     </ul>
                 </li>
 
+
+
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
                         <label>
-                            Account
+                            Master Data
+                        </label>
+                        <i class="right fas fa-angle-left"></i>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Transaction Number</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('tranoType.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Trano Type Manager</label>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('tranoNumber.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Trano Number Manager</label>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>UOM</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Product ID</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Supplier</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Periode</label>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
+                        <label>
+                            Accounting
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
@@ -152,7 +216,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -237,7 +301,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -322,7 +386,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -398,7 +462,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -468,7 +532,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -517,7 +581,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -549,7 +613,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
                         <label>
-                            Human Resources 
+                            Human Resources
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
@@ -581,7 +645,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -636,7 +700,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -700,7 +764,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -755,7 +819,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -766,13 +830,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('DOR.index') }}"" class="nav-link">
+                                            <a href="{{ route('DOR.index') }}"" class=" nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create DOR</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                        <a href="#" class="nav-link" data-toggle="modal" data-target="#revisionDorPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#revisionDorPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>DOR Revision</label>
                                             </a>
@@ -816,7 +880,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -871,7 +935,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -926,7 +990,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -942,8 +1006,9 @@
                                                 <label>Create Material Return</label>
                                             </a>
                                         </li>
+
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#revisionMretPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Material Return Revision</label>
                                             </a>
@@ -990,7 +1055,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -1051,7 +1116,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -1112,7 +1177,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -1167,7 +1232,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -1231,7 +1296,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
@@ -1248,7 +1313,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="{{ route('CO.revisionCo') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Customer Order Revision</label>
                                             </a>
@@ -1286,7 +1351,7 @@
                                             </a>
                                         </li>
                                     </ul>
-                                </li>   
+                                </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">

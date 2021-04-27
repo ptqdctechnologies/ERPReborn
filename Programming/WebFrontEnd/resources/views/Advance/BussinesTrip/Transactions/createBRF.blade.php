@@ -180,8 +180,8 @@
                     </button>
                   </div>
                 </div>
-                <div class="card-body table-responsive p-0" style="height: 250px;" id="brfhide2">
-                  <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+                <div class="card-body table-responsive p-0" id="brfhide2">
+                  <table id="table1" class="table table-head-fixed text-nowrap table-striped">
                     <thead>
                       <tr>
                         <th>Transport Type</th>
@@ -214,8 +214,8 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body table-responsive p-0" style="height: 250px;" id="brfhide3">
-                <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+              <div class="card-body table-responsive p-0" id="brfhide3">
+                <table id="table2" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th>Work ID</th>
@@ -388,7 +388,7 @@
               <div class="card">
                 <div class="card-header">
                   <label class="card-title">
-                    Business Trip CostPayment
+                    Business Trip Cost Payment
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -461,6 +461,9 @@
                                 <input id="allowance" style="border-radius:0;" type="number" class="form-control">
                               </div>
                             </td>
+                            <td>
+                              <div id="iconAllowance" style="color: red;margin-left:5px;"></div>
+                            </td>
                           </tr>
                           <tr>
                             <td><label>Transport</label></td>
@@ -468,6 +471,9 @@
                               <div class="input-group">
                                 <input id="transport" style="border-radius:0;" type="number" class="form-control">
                               </div>
+                            </td>
+                            <td>
+                              <div id="iconTransport" style="color: red;margin-left:5px;"></div>
                             </td>
                           </tr>
                         </table>
@@ -484,6 +490,9 @@
                                 <input id="airport_tax" style="border-radius:0;" type="number" class="form-control">
                               </div>
                             </td>
+                            <td>
+                              <div id="iconAirportTax" style="color: red;margin-left:5px;"></div>
+                            </td>
                           </tr>
                           <tr>
                             <td><label>Accomodation</label></td>
@@ -491,6 +500,9 @@
                               <div class="input-group">
                                 <input id="accomodation" style="border-radius:0;" type="number" class="form-control">
                               </div>
+                            </td>
+                            <td>
+                              <div id="iconAccomodation" style="color: red;margin-left:5px;"></div>
                             </td>
                           </tr>
                         </table>
@@ -506,6 +518,9 @@
                               <div class="input-group">
                                 <input id="other" style="border-radius:0;" type="number" class="form-control">
                               </div>
+                            </td>
+                            <td>
+                              <div id="iconOther" style="color: red;margin-left:5px;"></div>
                             </td>
                           </tr>
                           <tr style="display: none;">
@@ -542,8 +557,8 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body table-responsive p-0 brfhide6" style="height: 250px;">
-                <table id="example1" class="table table-head-fixed text-nowrap table-striped">
+              <div class="card-body table-responsive p-0 brfhide6">
+                <table id="table3" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th></th>

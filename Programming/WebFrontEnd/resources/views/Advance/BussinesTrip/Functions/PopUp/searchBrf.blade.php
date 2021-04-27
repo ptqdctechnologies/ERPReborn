@@ -64,27 +64,27 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikSearchBrf" data-id="brf_no {{ $i }}">BRF No {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="brf_no {{ $i }}">BRF No {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikSearchBrf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikSearchBrf" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikSearchBrf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikSearchBrf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -175,13 +175,13 @@
 
 <script>
     $(function() {
-        $("#klikSearchBrf").on('click', function(e) {
+        $(".klikSearchBrf").on('click', function(e) {
+            
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
-            var name = $this.data("name");
             $("#arfNumberAsf").val(code);
-            $("#searchBrfNumberRevision").val(code);
+            $("#brf_number").val(code);
             $(".tableArfDetail").show();
             $("#buttonDetailBsf").prop("disabled", false);
 

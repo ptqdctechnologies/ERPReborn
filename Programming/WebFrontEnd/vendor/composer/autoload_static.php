@@ -540,6 +540,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
         'App\\Http\\Controllers\\loginController' => __DIR__ . '/../..' . '/app/Http/Controllers/loginController.php',
         'App\\Http\\Controllers\\logisticMaterialReceive' => __DIR__ . '/../..' . '/app/Http/Controllers/logisticMaterialReceive.php',
+        'App\\Http\\Controllers\\masterDataTransactionNumber' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataTransactionNumber.php',
         'App\\Http\\Controllers\\procurementTransactionArf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionArf.php',
         'App\\Http\\Controllers\\procurementTransactionAsf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionAsf.php',
         'App\\Http\\Controllers\\procurementTransactionBrf' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionBrf.php',

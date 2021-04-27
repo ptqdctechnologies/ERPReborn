@@ -119,15 +119,60 @@
     var other = document.forms["formAsfPaymentSequence"]["other"].value;
 
     if (allowance == "") {
-      Swal.fire("Error !", "Please Input Allowance !", "error");
+      document.formAsfPaymentSequence.allowance.focus() ;
+      document.formAsfPaymentSequence.allowance.style.border = "1px solid red";
+      document.getElementById("iconAllowance").style.border = "1px solid red";
+      document.getElementById("iconAllowance").style.borderRadius = "100pt";
+      document.getElementById("iconAllowance").style.paddingRight = "7px";
+      document.getElementById("iconAllowance").style.paddingLeft = "8px";
+      document.getElementById("iconAllowance").style.paddingTop = "3px";
+      document.getElementById("iconAllowance").style.paddingBottom = "3px";
+      document.getElementById("iconAllowance").innerHTML = "&#33";
+      return false;
     } else if (transport == "") {
-      Swal.fire("Error !", "Please Input Transport !", "error");
+      document.formAsfPaymentSequence.transport.focus() ;
+      document.formAsfPaymentSequence.transport.style.border = "1px solid red";
+      document.getElementById("iconTransport").style.border = "1px solid red";
+      document.getElementById("iconTransport").style.borderRadius = "100pt";
+      document.getElementById("iconTransport").style.paddingRight = "7px";
+      document.getElementById("iconTransport").style.paddingLeft = "8px";
+      document.getElementById("iconTransport").style.paddingTop = "3px";
+      document.getElementById("iconTransport").style.paddingBottom = "3px";
+      document.getElementById("iconTransport").innerHTML = "&#33";
+      return false;
     } else if (airport_tax == "") {
-      Swal.fire("Error !", "Please Input Airport Tax !", "error");
+      document.formAsfPaymentSequence.airport_tax.focus() ;
+      document.formAsfPaymentSequence.airport_tax.style.border = "1px solid red";
+      document.getElementById("iconAirportTax").style.border = "1px solid red";
+      document.getElementById("iconAirportTax").style.borderRadius = "100pt";
+      document.getElementById("iconAirportTax").style.paddingRight = "7px";
+      document.getElementById("iconAirportTax").style.paddingLeft = "8px";
+      document.getElementById("iconAirportTax").style.paddingTop = "3px";
+      document.getElementById("iconAirportTax").style.paddingBottom = "3px";
+      document.getElementById("iconAirportTax").innerHTML = "&#33";
+      return false;
     } else if (accomodation == "") {
-      Swal.fire("Error !", "Please Input Accomodation !", "error");
+      document.formAsfPaymentSequence.accomodation.focus() ;
+      document.formAsfPaymentSequence.accomodation.style.border = "1px solid red";
+      document.getElementById("iconAccomodation").style.border = "1px solid red";
+      document.getElementById("iconAccomodation").style.borderRadius = "100pt";
+      document.getElementById("iconAccomodation").style.paddingRight = "7px";
+      document.getElementById("iconAccomodation").style.paddingLeft = "8px";
+      document.getElementById("iconAccomodation").style.paddingTop = "3px";
+      document.getElementById("iconAccomodation").style.paddingBottom = "3px";
+      document.getElementById("iconAccomodation").innerHTML = "&#33";
+      return false;
     } else if (other == "") {
-      Swal.fire("Error !", "Please Input Other !", "error");
+      document.formAsfPaymentSequence.other.focus() ;
+      document.formAsfPaymentSequence.other.style.border = "1px solid red";
+      document.getElementById("iconOther").style.border = "1px solid red";
+      document.getElementById("iconOther").style.borderRadius = "100pt";
+      document.getElementById("iconOther").style.paddingRight = "7px";
+      document.getElementById("iconOther").style.paddingLeft = "8px";
+      document.getElementById("iconOther").style.paddingTop = "3px";
+      document.getElementById("iconOther").style.paddingBottom = "3px";
+      document.getElementById("iconOther").innerHTML = "&#33";
+      return false;
     } else {
 
       
@@ -214,6 +259,7 @@
         }
       }
     }
+    $("#saveBrfList").prop("disabled", false);
   }
 </script>
 
@@ -223,115 +269,81 @@
 <script>
   $('#saveBrfList').click(function() {
 
-    var origin_budget = document.forms["formHeaderBrf"]["origin_budget"].value;
-    var projectcode = document.forms["formHeaderBrf"]["projectcode"].value;
-    var sitecode = document.forms["formHeaderBrf"]["sitecode"].value;
-    var requestNameArf = document.forms["formHeaderBrf"]["requestNameArf"].value;
-    var jobTitle = document.forms["formHeaderBrf"]["jobTitle"].value;
-    var department = document.forms["formHeaderBrf"]["department"].value;
-    var reasonTravel = document.forms["formHeaderBrf"]["reasonTravel"].value;
-    var headStationLocation = document.forms["formHeaderBrf"]["headStationLocation"].value;
-    var bussinesLocation = document.forms["formHeaderBrf"]["bussinesLocation"].value;
-    var contactPhone = document.forms["formHeaderBrf"]["contactPhone"].value;
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-sm',
+      cancelButtonClass: 'btn btn-danger  btn-sm',
+      buttonsStyling: true,
+    })
 
-    if (origin_budget == "") {
-      Swal.fire("Error !", "Please Input Origin Budget !", "error");
-    } else if (projectcode == "") {
-      Swal.fire("Error !", "Please Input Project Code !", "error");
-    } else if (sitecode == "") {
-      Swal.fire("Error !", "Please Input Site Code !", "error");
-    } else if (requestNameArf == "") {
-      Swal.fire("Error !", "Please Input Requester !", "error");
-    } else if (jobTitle == "") {
-      Swal.fire("Error !", "Please Input Job Title !", "error");
-    } else if (department == "") {
-      Swal.fire("Error !", "Please Input Department !", "error");
-    } else if (reasonTravel == "") {
-      Swal.fire("Error !", "Please Input Reason Travel !", "error");
-    } else if (headStationLocation == "") {
-      Swal.fire("Error !", "Please Input Head Station Location !", "error");
-    } else if (bussinesLocation == "") {
-      Swal.fire("Error !", "Please Input Bussines Trip Location !", "error");
-    } else if (contactPhone == "") {
-      Swal.fire("Error !", "Please Input Contact Phone !", "error");
-    } else {
+    swalWithBootstrapButtons.fire({
 
-      const swalWithBootstrapButtons = Swal.mixin({
-        confirmButtonClass: 'btn btn-success btn-sm',
-        cancelButtonClass: 'btn btn-danger  btn-sm',
-        buttonsStyling: true,
-      })
+      title: 'Are you sure?',
+      text: "Save this data?",
+      type: 'question',
 
-      swalWithBootstrapButtons.fire({
+      showCancelButton: true,
+      confirmButtonText: 'Yes, save it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Succesful!',
+          'Data has been updated !',
+          'success'
+        )
 
-        title: 'Are you sure?',
-        text: "Save this data?",
-        type: 'question',
+        //Batas
 
-        showCancelButton: true,
-        confirmButtonText: 'Yes, save it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'Succesful!',
-            'Data has been updated !',
-            'success'
-          )
+        var datax = [];
+        for (var i = 1; i <= y; i++) {
+          var data = {
+            lastWorkId: $('#lastWorkId_' + i).html(),
+            lastWorkName: $('#lastWorkName_' + i).html(),
+            lastProductId: $('#lastProductId_' + i).html(),
+            lastProductName: $('#lastProductName_' + i).html(),
+            lastQty: $('#lastQty_' + i).val(),
+            lastUom: $('#lastUom_' + i).html(),
+            lastPrice: $('#lastPrice_' + i).html(),
+            totalArfDetails: $('#totalArfDetails_' + i).html(),
+            lastCurrency: $('#lastCurrency_' + i).html(),
+            lastRemark: $('#lastRemark_' + i).html(),
 
-          //Batas
-
-          var datax = [];
-          for (var i = 1; i <= y; i++) {
-            var data = {
-              lastWorkId: $('#lastWorkId_' + i).html(),
-              lastWorkName: $('#lastWorkName_' + i).html(),
-              lastProductId: $('#lastProductId_' + i).html(),
-              lastProductName: $('#lastProductName_' + i).html(),
-              lastQty: $('#lastQty_' + i).val(),
-              lastUom: $('#lastUom_' + i).html(),
-              lastPrice: $('#lastPrice_' + i).html(),
-              totalArfDetails: $('#totalArfDetails_' + i).html(),
-              lastCurrency: $('#lastCurrency_' + i).html(),
-              lastRemark: $('#lastRemark_' + i).html(),
-
-            }
-            datax.push(data);
           }
-
-          var json_object = JSON.stringify(datax);
-          console.log(json_object);
-
-          $.ajax({
-            type: "POST",
-            url: '{{route('ARF.tests')}}',
-            data: json_object,
-            contentType: "application/json",
-            processData: true,
-            headers: {
-              'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            },
-            success: function(data) {
-              console.log(data);
-            },
-            error: function(data) {
-              Swal.fire("Error !", "Data Canceled Added", "error");
-            }
-          });
-
-          //EndBatas
-
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Process Canceled !',
-            'error'
-          )
+          datax.push(data);
         }
-      })
-    }
+
+        var json_object = JSON.stringify(datax);
+        console.log(json_object);
+
+        $.ajax({
+          type: "POST",
+          url: '{{route('ARF.tests')}}',
+          data: json_object,
+          contentType: "application/json",
+          processData: true,
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(data) {
+            Swal.fire("Error !", "Data Canceled Added", "error");
+          }
+        });
+
+        //EndBatas
+
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Process Canceled !',
+          'error'
+        )
+      }
+    })
   });
 </script>
