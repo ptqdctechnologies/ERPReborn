@@ -1,6 +1,3 @@
-<!--|----------------------------------------------------------------------------------|
-    |                               Function My Requester                              |
-    |----------------------------------------------------------------------------------|-->
 <div id="myRequesterNameArf" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -90,7 +87,10 @@
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var name = $this.data("id");
+            $("#requester_name").val(name);
             $("#requestNameArf").val(name);
+            $("#budget_name").val(name);
+            
         });
     });
 </script>

@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="card-body" id="detailPPM">
-                                <form method="post" action="" enctype="multipart/form-data" class="arfForm2">
+                                <form method="post" action="" enctype="multipart/form-data" name="formDetailPPM">
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group">
@@ -80,26 +80,25 @@
                                                     <tr>
                                                         <td><label>Work Id</label></td>
                                                         <td>
-                                                            <input required="" id="putWorkId" style="border-radius:0;" type="text" class="form-control" value="">
+                                                            <input required="" id="work_id" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Product Id</label></td>
                                                         <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                            <input required="" id="product_id" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Product Name</label></td>
                                                         <td>
-                                                            <input required="" id="putProductId" style="border-radius:0;" type="text" class="form-control">
+                                                            <input required="" id="product_name" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td><label>Qty</label></td>
                                                         <td>
-                                                            <input name="qty" id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty" value="0">
-                                                            <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
+                                                            <input name="qty" id="qty" style="border-radius:0;" type="text" class="form-control" value="0">
                                                         </td>
                                                         <td>
                                                             <input required="" readonly="" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control">
@@ -108,7 +107,7 @@
                                                     <tr>
                                                         <td><label>Unit Price</label></td>
                                                         <td>
-                                                            <input name="price" id="putPrice" style="border-radius:0;" type="text" class="form-control">
+                                                            <input name="price" id="unit_price" style="border-radius:0;" type="text" class="form-control">
                                                         </td>
                                                         <td>
                                                             <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
@@ -117,7 +116,7 @@
                                                     <tr>
                                                         <td><label>Total</label></td>
                                                         <td>
-                                                            <input name="price" id="totalprDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                            <input name="price" id="total" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                         </td>
                                                         <td>
                                                             <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
@@ -169,9 +168,7 @@
                                             <button type="reset" class="btn btn-outline btn-danger btn-sm float-right detailTransaction">
                                                 <i class="fa fa-times" aria-hidden="true" title="Cancel to Add ARF List Cart">Cancel</i>
                                             </button>
-                                            <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="buttonArfList" style="margin-right: 5px;">
-                                                <i class="fa fa-plus" aria-hidden="true" title="Add to ARF List">Add to PPM List Cart</i>
-                                            </button>
+                                            <a class="btn btn-success btn-sm float-right" href="javascript:validateFormDetailPPM()"><i class="fas fa-plus" aria-hidden="true">Add to PPM List Cart</i></a>
                                         </div>
                                     </div>
                                 </form>
@@ -207,17 +204,7 @@
                                             </tr>
                                         </thead>
                                         <tbody id="removeppmList">
-                                            <tr>
-                                                <td>
-                                                    <center><button type="button" class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-arf-list" id="removeButton"><i class="fa fa-trash"></i></button></center>
-                                                </td>
-                                                <td contenteditable="false" id="ppmListProductId"></td>
-                                                <td contenteditable="false" id="ppmListProductName"></td>
-                                                <td contenteditable="true"><input name="qty" id="ppmListQty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off"></td>
-                                                <td contenteditable="false" id="ppmListUom"></td>
-                                                <td contenteditable="false" id="ppmListPrice"></td>
-                                                <td contenteditable="false" id="ppmListTotal"></td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </div>

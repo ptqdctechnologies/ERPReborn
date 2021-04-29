@@ -1,7 +1,4 @@
-<!--|-----------------------------------------------------------|
-    |                          Extends                          |
-    |-----------------------------------------------------------|-->
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,83 +24,87 @@
     <!-- Bootstrap4 Duallistbox -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
     <!-- sweetalert -->
-    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
     
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="https://markcell.github.io/jquery-tabledit/assets/js/tabledit.min.js"></script>
-
 </head>
 
 <body class="hold-transition sidebar-mini">
-    <div class="wrapper">
-        @yield('main')
-        <aside class="control-sidebar control-sidebar-dark"></aside>
-    </div>
-</body>
+  <div class="wrapper">
+      @yield('main')
+      <aside class="control-sidebar control-sidebar-dark"></aside>
+  </div>
 
-<!--<script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script> -->
-<script src="{{ asset('AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-<script>
-    $.widget.bridge('uibutton', $.ui.button)
-</script>
-<script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <!-- sweetalert -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 
-<!-- jquery-validation -->
-<script src="{{ asset('AdminLTE-master/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/jquery-validation/additional-methods.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+  <script>
+      $.widget.bridge('uibutton', $.ui.button)
+  </script>
+  <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-<script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+  <!-- jquery-validation -->
+  <script src="{{ asset('AdminLTE-master/plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/jquery-validation/additional-methods.min.js') }}"></script>
 
-<script src="{{ asset('AdminLTE-master/plugins/chart.js/Chart.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/sparklines/sparkline.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/summernote/summernote-bs4.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/dist/js/pages/dashboard.js') }}"></script>
-<script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 
-<!-- Bootstrap4 Duallistbox -->
-<script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/chart.js/Chart.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/sparklines/sparkline.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/jqvmap/jquery.vmap.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/jqvmap/maps/jquery.vmap.usa.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/jquery-knob/jquery.knob.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/daterangepicker/daterangepicker.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/summernote/summernote-bs4.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/dist/js/pages/dashboard.js') }}"></script>
+  <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
 
-<!-- DataTables -->
-<script src="{{ asset('AdminLTE-master/plugins/datatables/jquery.dataTables.min.js')}}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
-<script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+  <!-- Bootstrap4 Duallistbox -->
+  <script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
 
-<!-- sweetalert -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <!-- jQuery -->
+  <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js')}}"></script>
+  <!-- Bootstrap 4 -->
+  <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
-<script>
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    $(function() {
-        $("#examples").DataTable({
-            "responsive": true,
-            "autoWidth": false,
-        });
-        $('#examplesz').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
+  <!-- DataTables -->
+  <script src="{{ asset('AdminLTE-master/plugins/datatables/jquery.dataTables.min.js')}}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+  <script src="{{ asset('AdminLTE-master/plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+  <!-- page script -->
+  <script>
+    $(function () {
+      $("#table1").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $("#table2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $("#table3").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+      });
+      $('#example2').DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+      });
     });
-</script>
+  </script>
+
+</body>
 </html>
-<!--|-----------------------------------------------------------|
-    |                      End Extends                          |
-    |-----------------------------------------------------------|-->
