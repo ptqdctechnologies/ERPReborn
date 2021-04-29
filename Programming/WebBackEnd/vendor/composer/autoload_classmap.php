@@ -925,6 +925,8 @@ return array(
     'Aws\\NetworkFirewall\\NetworkFirewallClient' => $vendorDir . '/aws/aws-sdk-php/src/NetworkFirewall/NetworkFirewallClient.php',
     'Aws\\NetworkManager\\Exception\\NetworkManagerException' => $vendorDir . '/aws/aws-sdk-php/src/NetworkManager/Exception/NetworkManagerException.php',
     'Aws\\NetworkManager\\NetworkManagerClient' => $vendorDir . '/aws/aws-sdk-php/src/NetworkManager/NetworkManagerClient.php',
+    'Aws\\NimbleStudio\\Exception\\NimbleStudioException' => $vendorDir . '/aws/aws-sdk-php/src/NimbleStudio/Exception/NimbleStudioException.php',
+    'Aws\\NimbleStudio\\NimbleStudioClient' => $vendorDir . '/aws/aws-sdk-php/src/NimbleStudio/NimbleStudioClient.php',
     'Aws\\OpsWorksCM\\Exception\\OpsWorksCMException' => $vendorDir . '/aws/aws-sdk-php/src/OpsWorksCM/Exception/OpsWorksCMException.php',
     'Aws\\OpsWorksCM\\OpsWorksCMClient' => $vendorDir . '/aws/aws-sdk-php/src/OpsWorksCM/OpsWorksCMClient.php',
     'Aws\\OpsWorks\\Exception\\OpsWorksException' => $vendorDir . '/aws/aws-sdk-php/src/OpsWorks/Exception/OpsWorksException.php',
