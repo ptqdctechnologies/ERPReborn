@@ -43,6 +43,10 @@ RUN apt-get update \
        unixodbc-dev \
        && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
        && docker-php-ext-install pdo_odbc \
+    && apt-get install -y mdbtools \
+       odbc-mdbtools \
+    && apt-get install -y sshpass \
+       sshfs \
     && apt-get install -y cron;
 
 ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
