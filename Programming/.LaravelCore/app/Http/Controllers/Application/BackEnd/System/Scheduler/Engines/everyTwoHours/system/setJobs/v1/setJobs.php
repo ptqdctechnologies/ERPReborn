@@ -143,12 +143,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
                 );
 
             //---> API Call : Person Access Device Log
-            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.sysConfig.setLog_Device_PersonAccess';
+            $varFilePath = '/zhtConf/log/lastSession/scheduledTask/'.$this->varSheduleIdentity.'/jobs/transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess';
             shell_exec("touch ".$varFilePath);
             $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.synchronize.sysConfig.setLog_Device_PersonAccess', 
+                'transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess', 
                 'latest', 
                 [
                 ]
