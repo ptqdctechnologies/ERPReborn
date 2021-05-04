@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '0ba97b02ac9488bdb9c0a04a0527bb74ce71ab03',
+    'reference' => 'ec1358784330334e962688ebaaabd60ff881cfc1',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -436,7 +436,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '0ba97b02ac9488bdb9c0a04a0527bb74ce71ab03',
+      'reference' => 'ec1358784330334e962688ebaaabd60ff881cfc1',
     ),
     'laravel/tinker' => 
     array (
@@ -532,12 +532,12 @@
     ),
     'nikic/php-parser' => 
     array (
-      'pretty_version' => 'v4.10.4',
-      'version' => '4.10.4.0',
+      'pretty_version' => 'v4.10.5',
+      'version' => '4.10.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6d052fc58cb876152f89f532b95a8d7907e7f0e',
+      'reference' => '4432ba399e47c66624bc73c8c0f811e5c109576f',
     ),
     'nunomaduro/collision' => 
     array (
@@ -749,12 +749,12 @@
     ),
     'psr/log' => 
     array (
-      'pretty_version' => '1.1.3',
-      'version' => '1.1.3.0',
+      'pretty_version' => '1.1.4',
+      'version' => '1.1.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
+      'reference' => 'd49695b909c3b7628b6289db5479a1c204601f11',
     ),
     'psr/log-implementation' => 
     array (
