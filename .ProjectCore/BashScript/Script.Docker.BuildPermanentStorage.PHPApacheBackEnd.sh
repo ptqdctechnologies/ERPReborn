@@ -17,6 +17,7 @@ clear;
 
 varDirectory="./../ERPReborn-PermanentStorage/PHPApacheBackEnd";
 
+sudo mkdir -p $varDirectory/zhtConf/log/lastSession/cron.d;
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyMinute/jobs;
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyHour/jobs;

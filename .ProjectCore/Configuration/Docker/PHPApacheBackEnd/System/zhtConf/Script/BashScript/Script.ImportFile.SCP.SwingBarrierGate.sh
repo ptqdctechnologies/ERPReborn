@@ -1,5 +1,7 @@
 #!/bin/bash
 
+touch /zhtConf/log/lastSession/cron.d/Script.ImportFile.SCP.SwingBarrierGate.sh;
+
 varCommand="scp -T -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
 varHostIP="192.168.0.7";
 varUserName="IT";

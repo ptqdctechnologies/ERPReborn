@@ -72,15 +72,92 @@ namespace App\Helpers\ZhtHelper\Database
             self::init($varUserSession, $varDSNString, $userName, $userPassword, $varOptions);
             }
 
-
-        public static function getQueryExecution($varUserSession, $varSQLQuery)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getQueryExecution                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2020-10-19                                                                                           |
+        | ▪ Description     : Mendapatkan data dari database sesuai syntax query (varSQL)                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQL ► SQL                                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getQueryExecution($varUserSession, $varSQL)
             {
-            foreach(self::$ObjODBC->query($varSQLQuery, \PDO::FETCH_ASSOC) as $row)
-                {
-                echo '<pre>';
-                var_dump( $row );
-                echo '</pre>';
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn['Process']['StartDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
+                    //---> Inisialisasi [Data], [RowCount]
+                    $i=0;
+                    foreach(self::getQueryExecutionDataFetch($varUserSession, $varSQL) as $row)
+                        {
+                        $varData[] = (array) $row;
+                        $i++;
+                        }
+                    $varReturn['Data'] = $varData;
+                    $varReturn['RowCount']=$i;
+                    do
+                        {
+                        $varReturn['Process']['FinishDateTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getCurrentDateTimeString($varUserSession);
+                        $varReturn['Process']['ExecutionTime'] = \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringDifference($varUserSession, $varReturn['Process']['StartDateTime'], $varReturn['Process']['FinishDateTime']);
+                        }
+                    while ($varReturn['Process']['ExecutionTime'] < 0);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
                 }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+            
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getQueryExecutionDataFetch                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-05-04                                                                                           |
+        | ▪ Description     : Mengambil data dari database sesuai syntax query (varSQL)                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed) varUserSession ► User Session                                                                             |
+        |      ▪ (string) varSQL ► SQL                                                                                             |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array) varReturn                                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private static function getQueryExecutionDataFetch($varUserSession, $varSQL)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax `'.$varSQL.'`');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn = self::$ObjODBC->query($varSQL, \PDO::FETCH_ASSOC);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
         }
     }

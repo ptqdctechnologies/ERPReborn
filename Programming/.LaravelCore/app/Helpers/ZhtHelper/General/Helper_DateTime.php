@@ -86,6 +86,42 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCurrentDateTimeString                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-05-04                                                                                           |
+        | ▪ Description     : Mendapatkan Waktu Saat Ini                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getCurrentDateTimeString($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Current Date Time');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn = self::getDateTimeFromUnixTime($varUserSession, self::getUnixTime($varUserSession)).'.'.self::getMicroTime($varUserSession);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDateFromIndonesianDateString                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -181,6 +217,62 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
+       /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDateTimeStringDifference                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-05-04                                                                                           |
+        | ▪ Description     : Mendapatkan Waktu Saat Ini                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDateTimeStringDifference($varUserSession, string $varStartDateTimeTZ, string $varFinishDateTimeTZ)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Date Time String Difference');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varStartDateTimeArray=explode('.', $varStartDateTimeTZ);
+                    $varFinishDateTimeArray=explode('.', $varFinishDateTimeTZ);
+                    
+                    $varUniversalSecondsDifference = (self::getUnixTime($varUserSession, $varFinishDateTimeArray[0])-self::getUnixTime($varUserSession, $varStartDateTimeArray[0]));
+                    
+                    $varSecondsRemain = $varUniversalSecondsDifference;
+                    $varHoursDifference = ($varSecondsRemain - ($varSecondsRemain % 3600))/3600;
+                    $varSecondsRemain = $varSecondsRemain - ($varHoursDifference*3600);
+                    $varMinutesDifference = ($varSecondsRemain - ($varSecondsRemain % 60))/60;
+                    $varSecondsRemain = $varSecondsRemain - ($varMinutesDifference*60);
+                    $varSecondsDifference = $varSecondsRemain;       
+                    
+                    
+                    
+                    $varReturn = 
+                        str_pad($varHoursDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varMinutesDifference, 2, '0', STR_PAD_LEFT).':'.
+                        str_pad($varSecondsDifference, 2, '0', STR_PAD_LEFT).'.'.
+                        explode('.', number_format($varUniversalSecondsDifference + ((float)('0.'.$varFinishDateTimeArray[1]) - (float)('0.'.$varStartDateTimeArray[0])), 6, '.', ','))[1];
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getGMTDateTime                                                                                       |
@@ -244,7 +336,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getMicroTime()
+        public static function getMicroTime($varUserSession)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -253,8 +345,9 @@ namespace App\Helpers\ZhtHelper\General
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varMicroDate = microtime();
                     $varDateArray = explode(" ", $varMicroDate);
-                    $varMicroSecond = substr($varDateArray[1], 0, 6);
+                    $varMicroSecond = substr($varDateArray[0], 2, 6);
                     $varReturn=$varMicroSecond;
+                    //$varReturn=$varMicroDate;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
