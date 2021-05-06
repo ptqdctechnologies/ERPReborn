@@ -23,8 +23,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         '37a3dc5111fe8f707ab4c132ef1dbc62' => __DIR__ . '/..' . '/guzzlehttp/guzzle/src/functions_include.php',
         'b067bc7112e384b61c701452d53a14a8' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/JmesPath.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
-        '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
         'def43f6c87e4f8dfd0c9e1b1bab14fe8' => __DIR__ . '/..' . '/symfony/polyfill-iconv/bootstrap.php',
+        '8a9dc1de0ca7e01f3e08231539562f61' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/functions.php',
         '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'a1105708a18b76903365ca1c4aa61b02' => __DIR__ . '/..' . '/symfony/translation/Resources/functions.php',
         '538ca81a9a966a6716601ecf48f4eaef' => __DIR__ . '/..' . '/opis/closure/functions.php',
@@ -603,6 +603,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Environment\\Engines\\general\\session\\setUserSessionSysEngine\\v1\\setUserSessionSysEngine' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Environment/Engines/general/session/setUserSessionSysEngine/v1/setUserSessionSysEngine.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\device\\fingerprintAttendance\\ALBox\\FP800\\getDataAttendance\\v1\\getDataAttendance' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/device/fingerprintAttendance/ALBox/FP800/getDataAttendance/v1/getDataAttendance.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\device\\fingerprintAttendance\\Solution\\x601\\getDataAttendance\\v1\\getDataAttendance' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/device/fingerprintAttendance/Solution/x601/getDataAttendance/v1/getDataAttendance.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\device\\swingBarrierGate\\Goodwin\\ServoSW01\\getDataAttendance\\v1\\getDataAttendance' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/device/swingBarrierGate/Goodwin/ServoSW01/getDataAttendance/v1/getDataAttendance.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\server\\internal\\webBackEnd\\webSiteScraper\\fiskal_kemenkeu_go_id\\getDataExhangeRate\\v1\\getDataExhangeRate' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/server/internal/webBackEnd/webSiteScraper/fiskal_kemenkeu_go_id/getDataExhangeRate/v1/getDataExhangeRate.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\server\\internal\\webBackEnd\\webSiteScraper\\www_bi_go_id\\getDataCurrentExhangeRate\\v1\\getDataCurrentExhangeRate' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/server/internal/webBackEnd/webSiteScraper/www_bi_go_id/getDataCurrentExhangeRate/v1/getDataCurrentExhangeRate.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Instruction\\Engines\\server\\internal\\webBackEnd\\webSiteScraper\\www_bi_go_id\\getDataExchangeRateTimeSeriesFromOfflineFile\\v1\\getDataExchangeRateTimeSeriesFromOfflineFile' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Instruction/Engines/server/internal/webBackEnd/webSiteScraper/www_bi_go_id/getDataExchangeRateTimeSeriesFromOfflineFile/v1/getDataExchangeRateTimeSeriesFromOfflineFile.php',
@@ -6734,8 +6735,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
         'zhtSDK\\ALBox\\FingerprintAttendance\\FP800\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/SDK.php',
-        'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
+        'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/OLD.php',
         'zhtSDK\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Solution/FingerprintAttendance/x601/SDK.php',
+        'zhtSDK\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/ZKTeco/PersonAttendance/InBio260/SDK.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

@@ -560,17 +560,17 @@
         },
         {
             "name": "facade/ignition",
-            "version": "2.8.4",
-            "version_normalized": "2.8.4.0",
+            "version": "2.9.0",
+            "version_normalized": "2.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "87fb348dab0ae1a7c206c3e902a5a44ba541742f"
+                "reference": "e7db3b601ce742568b92648818ef903904d20164"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/87fb348dab0ae1a7c206c3e902a5a44ba541742f",
-                "reference": "87fb348dab0ae1a7c206c3e902a5a44ba541742f",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/e7db3b601ce742568b92648818ef903904d20164",
+                "reference": "e7db3b601ce742568b92648818ef903904d20164",
                 "shasum": ""
             },
             "require": {
@@ -594,7 +594,7 @@
             "suggest": {
                 "laravel/telescope": "^3.1"
             },
-            "time": "2021-04-29T13:55:26+00:00",
+            "time": "2021-05-05T06:45:12+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
