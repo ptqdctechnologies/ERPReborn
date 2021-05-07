@@ -6735,7 +6735,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
         'zhtSDK\\ALBox\\FingerprintAttendance\\FP800\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/ALBox/FingerprintAttendance/FP800/SDK.php',
-        'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/OLD.php',
+        'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
         'zhtSDK\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Solution/FingerprintAttendance/x601/SDK.php',
         'zhtSDK\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/ZKTeco/PersonAttendance/InBio260/SDK.php',
     );

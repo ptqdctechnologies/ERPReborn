@@ -6201,7 +6201,7 @@ return array(
     'phpDocumentor\\Reflection\\Utils' => $vendorDir . '/phpdocumentor/reflection-docblock/src/Utils.php',
     'voku\\helper\\ASCII' => $vendorDir . '/voku/portable-ascii/src/voku/helper/ASCII.php',
     'zhtSDK\\ALBox\\FingerprintAttendance\\FP800\\zhtSDK' => $vendorDir . '/zhtSDK/ALBox/FingerprintAttendance/FP800/SDK.php',
-    'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => $vendorDir . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/OLD.php',
+    'zhtSDK\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => $vendorDir . '/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
     'zhtSDK\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => $vendorDir . '/zhtSDK/Solution/FingerprintAttendance/x601/SDK.php',
     'zhtSDK\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => $vendorDir . '/zhtSDK/ZKTeco/PersonAttendance/InBio260/SDK.php',
 );

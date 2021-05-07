@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "instruction.device.swingBarrierGate.Servo.SW01.getDataAttendance" ]
+                        "enum": [ "instruction.device.swingBarrierGate.Goodwin.ServoSW01.getDataAttendance" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,20 +30,6 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "IPAddress": {
-                        "type": [ "string" ],
-                        "minLength": 7,
-                        "maxLength": 15
-                        },
-                    "port": {
-                        "type": [ "integer" ],
-                        "minimum": 0,
-                        "maximum": 65353
-                        },
-                    "serialNumber": {
-                        "type": [ "string", "null" ],
-                        "maxLength": 128
-                        },
                     "timeZoneOffset": {
                         "type": [ "string", "null" ],
                         "maxLength": 3
@@ -53,7 +39,7 @@
                         "maxLength": 26
                         }
                     },
-                "required": [ "IPAddress", "port", "serialNumber", "timeZoneOffset", "startDateTime" ]
+                "required": [ "timeZoneOffset", "startDateTime" ]
                 }
             },
         "required": [ "entities" ]

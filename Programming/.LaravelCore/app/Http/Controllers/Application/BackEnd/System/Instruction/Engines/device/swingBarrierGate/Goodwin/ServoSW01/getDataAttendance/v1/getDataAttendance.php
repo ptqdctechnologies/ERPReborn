@@ -61,12 +61,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = (new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK(
-                            $varUserSession, 
-                            $varData['entities']['IPAddress'],
-                            $varData['entities']['port'],
-                            $varData['entities']['serialNumber']
-                            ))->getDataAttendance(
+                        $varDataSend = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+                            $varUserSession,
+                            ))->getDataAttendanceFromLocalDatabase(
+                                '/zhtConf/tmp/download/SwingBarrierGate.mdb',
+                                '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
                                 $varData['entities']['timeZoneOffset'], 
                                 $varData['entities']['startDateTime']
                                 );

@@ -150,6 +150,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
+                        ],
+                        //---> Swing Barrier Gate Lantai 1
+                        [
+                        'GoodsIdentity_RefID' => 17000000000008,
+                        'Device' => 'Goodwin.ServoSW01',
+                        'HostIP' => NULL,
+                        'HostPort' => NULL,
+                        'SerialNumber' => NULL,
+                        'TimeZoneOffset' => '+07'
                         ]
                     ];
 
@@ -183,6 +192,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                                 );
                             break;
                             }
+                        case 'Goodwin.ServoSW01':
+                            {
+                            $this->getAttendanceDeviceLog_Goodwin_ServoSW01(
+                                $varUserSession,
+                                $varAPIWebToken,
+                                $varList[$i]['GoodsIdentity_RefID'],
+                                $varList[$i]['TimeZoneOffset']
+                                );
+                            break;
+                            }
                         default:
                             {
                             break;
@@ -195,6 +214,63 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 }
 
             return $varReturn;
+            }
+
+        private function getAttendanceDeviceLog_Goodwin_ServoSW01(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varTimeZoneOffset)
+            {
+            try {
+                //--->
+                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+                    {
+                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
+                    }
+
+                //--->
+                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'instruction.device.swingBarrierGate.Goodwin.ServoSW01.getDataAttendance', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        'timeZoneOffset' => $varTimeZoneOffset,
+                        'startDateTime' => '2000-01-01'
+                        ]
+                    ]
+                    )['data'];
+
+                //--->
+                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccessFetch())->setDataInsert(
+                    $varUserSession, 
+                    null, 
+                    (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
+                    11000000000003, 
+                    $varGoodsIdentity_RefID, 
+                    (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
+                    )['SignRecordID'];
+
+                //--->
+                for($i=0; $i!=count($varData); $i++)
+                    {
+                    if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
+                        {
+                        //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
+                        //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
+                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            substr($varData[$i]['dateTimeTZ'], 0, 4), 
+                            11000000000003, 
+                            $varLog_Device_PersonAccessFetch_RefID, 
+                            $varData[$i]['dateTimeTZ'], 
+                            $varData[$i]['ID'], 
+                            null
+                            );
+                        }
+                    }
+                } 
+            catch (Exception $ex) {
+                }
             }
 
         private function getAttendanceDeviceLog_Solution_x601(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)

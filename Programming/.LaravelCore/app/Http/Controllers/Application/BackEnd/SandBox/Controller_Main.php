@@ -15,78 +15,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testClass()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            
+            /*          
             $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
-                    '/zhtConf/tmp/download/SwingBarrierGate.mdb'
-                    ))->getDataAttendance(
+                    ))->getDataAttendanceFromLocalDatabase(
+                        '/zhtConf/tmp/download/SwingBarrierGate.mdb',
+                        '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
                         '+07',
                         '2021-01-01 00:00:00'
                         );
-            
-            
-            
-            
-            
-/*            //---> Table UserInfo
-            $varSQL = '
-                SELECT 
-                    *
-                FROM 
-                    USERINFO
-                ';
-            $varDataMDB = \App\Helpers\ZhtHelper\Database\Helper_ODBC::getQueryExecution($varUserSession, $varSQL);
-            $varSQLBuilder_TblUserInfo='';
-            for($i=0; $i!=$varDataMDB['RowCount']; $i++)
-                {
-                if(strcmp($varSQLBuilder_TblUserInfo, '')!=0)
-                    {
-                    $varSQLBuilder_TblUserInfo .= ' UNION ';
-                    }
-                $varSQLBuilder_TblUserInfo .= 
-                    'SELECT '.
-                        ''.$varDataMDB['Data'][$i]['USERID'].'::bigint AS "UserID", '.
-                        '\''.$varDataMDB['Data'][$i]['name'].'\'::varchar AS "UserName"';
-                }
-            //echo $varSQLBuilder_TblUserInfo;
-            //---> Table CheckInOut
-            $varSQL = '
-                SELECT 
-                    *
-                FROM 
-                    CHECKINOUT
-                ';
-            $varDataMDB = \App\Helpers\ZhtHelper\Database\Helper_ODBC::getQueryExecution($varUserSession, $varSQL);
-            $varSQLBuilder_TblCheckInOut='';
-            for($i=0; $i!=$varDataMDB['RowCount']; $i++)
-//            for($i=0; $i!=1000; $i++)
-                {
-                if(strcmp($varSQLBuilder_TblCheckInOut, '')!=0)
-                    {
-                    $varSQLBuilder_TblCheckInOut .= ' UNION ';
-                    }
-                $varSQLBuilder_TblCheckInOut .= 
-                    'SELECT '.
-                        '\''.$varDataMDB['Data'][$i]['CHECKTIME'].'\'::timestamp AS "CheckIn", '.
-                        ''.$varDataMDB['Data'][$i]['USERID'].'::bigint AS "UserID"';
-                }
-//            var_dump($varSQLBuilder_TblCheckInOut);
-                
-            $varSQLBuilder = '
-                SELECT
-                    *
-                FROM
-                    ('.$varSQLBuilder_TblUserInfo.') AS "VirtTblUserInfo"
-                        LEFT JOIN
-                            ('.$varSQLBuilder_TblCheckInOut.') AS "VirtTblCheckInOut"
-                                ON
-                                    "VirtTblUserInfo"."UserID" = "VirtTblCheckInOut"."UserID"
-                ';
-            //echo  $varSQLBuilder;
-            
-            //var_dump($varSQLBuilder);
-            
-            $x = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($varUserSession, $varSQLBuilder);
             var_dump($x);*/
             }
 
