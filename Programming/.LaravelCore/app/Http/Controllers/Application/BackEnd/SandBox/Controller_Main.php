@@ -11,7 +11,43 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
-        
+
+        public function testClass()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            /*          
+            $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+                    $varUserSession,
+                    ))->getDataAttendanceFromLocalDatabase(
+                        '/zhtConf/tmp/download/SwingBarrierGate.mdb',
+                        '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
+                        '+07',
+                        '2021-01-01 00:00:00'
+                        );
+            var_dump($x);*/
+            }
+
+            
+           
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         public function webServices()
             {           
             $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest(000000);
@@ -30,6 +66,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //return response()->json(['name' => 'Virat Gandhi', 'state' => 'Gujarat']);
             return \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::setResponse(000000, $varDataSend);
             }
+
+            
 
         public function testSDK()
             {

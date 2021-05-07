@@ -49,14 +49,21 @@ RUN apt-get update \
        sshfs \
     && apt-get install -y cron;
 
-ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
+#ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
+#RUN chmod 0644 /etc/cron.d/cronLaravel \
+#    && touch /var/log/cron.log
 
 #       && docker-php-ext-configure odbc --with-unixODBC=shared,/usr \
 #       && docker-php-ext-install odbc \
 
-RUN chmod 0644 /etc/cron.d/cronLaravel \
-    && touch /var/log/cron.log
+#ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh /etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh
+
+#RUN chmod 0644 /etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh \
+#    && touch /var/log/cron.log
+
+
+RUN touch /var/log/cron.log
 
 #CMD printenv > /etc/environment && echo "cron starting..." && (cron) && : > /var/log/cron.log && tail -f /var/log/cron.log
 

@@ -9,12 +9,8 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
         | ▪ Class Attributes                                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private $varSDKPath;
         private $varUserSession;
-        private $varHostIP;
-        private $varHostPort;
-        private $varTimeOutInSeconds;
-        private $ObjLib;
+        private $varDatabaseFilePath;
 
 
         /*
@@ -22,18 +18,19 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Last Update     : 2021-05-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varDatabaseFilePath ► Database File Path                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function __construct($varUserSession, string $varHostIP, int $varHostPort)
+        public function __construct($varUserSession)
             {
-            $this->init($varUserSession, $varHostIP, $varHostPort);
+            $this->init($varUserSession);
             }
 
 
@@ -42,7 +39,7 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Last Update     : 2021-05-05                                                                                           |
         | ▪ Description     : System's Init                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,231 +48,144 @@ namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function init($varUserSession, string $varHostIP, int $varHostPort)
+        private function init($varUserSession)
             {
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01';
-            $this->varHostIP = $varHostIP;
-            $this->varHostPort = $varHostPort;
-            $this->varTimeOutInSeconds = 3;
-
-/*
-            require_once($this->varSDKPath.'/Compatible/GitHub_vodvud_php_zklib/zklib/ZKLib.php');
-            $zk = new \ZKLib($varHostIP, $varHostPort);
-            if($zk->connect())
-                {
-                echo "Connect";
-                }
-            else
-                {
-                echo "failed";                
-                }
-*/            
-            
-/*
-            require_once($this->varSDKPath.'/Compatible/GitHub_kamshory_ZKLibrary/zklibrary.php');
-            $this->ObjLib = new \ZKLibrary($this->varHostIP, $this->varHostPort);
-            $this->ObjLib->setTimeout($this->varTimeOutInSeconds);
-
-            if($this->ObjLib->connect())
-                {
-                echo "connect";
-       //         //$varReturn = $this->ObjLib->getAttendance();
-         //       $this->ObjLib->disconnect();
-                }
-*/
-
-/*
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADFactory.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TAD.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/TADResponse.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Providers/TADSoap.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Providers/TADZKLib.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/ConnectionError.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/FilterArgumentError.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedArgument.php');
-            require_once($this->varSDKPath.'/Compatible/GitHub_cobisja_tad-php/lib/Exceptions/UnrecognizedCommand.php');
-            
-            $tad_factory = new \TADPHP\TADFactory(['ip'=>$varHostIP, 'com_key'=>0]);
-            $tad = $tad_factory->get_instance();
-            //echo $tad->get_date();
-            
-            $commands_list = $tad->commands_available();
-            var_dump($commands_list); echo "<br><br>";
-
-            // Get a list of commands implemented via TADPHP\TADSoap.
-            $soap_commands = $tad->soap_commands_available();
-            var_dump($soap_commands); echo "<br><br>";
-            
-            // Get a list of commands implemented via TAD\PHP\TADSoap.
-            $zklib_commands = $tad->zklib_commands_available();
-            var_dump($zklib_commands); echo "<br><br>";
-
-//            echo $tad->get_date();
-//            echo $tad->get_firmware_version();
-            
-            echo $tad->get_att_log();
-            
-            echo "<br><br>";
-  */
-//            echo phpinfo();
-
-/*            $varConnODBC =  \odbc_connect('FingerPrint', 'Admin', '');
-            if(!$varConnODBC)
-                {
-                echo "kebuka";
-                }
-            else
-                {
-                echo "gagal";
-                }*/
-            $conn = new \PDO('odbc:FingerPrint', 'Admin');  //("odbc:FingerPrint");
-            var_dump($conn);
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataAttendance                                                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
-        | ▪ Description     : Mendapatkan Seluruh Data                                                                             |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varTimeZoneOffset ► Time Zone Offset                                                                     |
-        |      ▪ (string) varCutOffStartDateTime ► CutOff Start Date Time                                                          |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDataAttendance()
+        public function getDataAttendanceFromLocalDatabase(string $varDatabaseFilePath, string $varTemporaryDatabase, string $varTimeZoneOffset = null, $varCutOffStartDateTime = null)
             {
-            $varReturn = null;
             try {
-                if($this->ObjLib->connect())
+               //---> Sync
+                \App\Helpers\ZhtHelper\Database\Helper_ODBC::init_MicrosoftAccess($this->varUserSession, $varDatabaseFilePath);
+                //---> Table CheckInOut Access
+                $varSQL = '
+                    SELECT 
+                        *
+                    FROM 
+                        CHECKINOUT
+                    ';
+                $varDataMDB = \App\Helpers\ZhtHelper\Database\Helper_ODBC::getQueryExecution($this->varUserSession, $varSQL);
+                $varSQLBuilder_TblCheckInOut='';
+                for($i=0; $i!=$varDataMDB['RowCount']; $i++)
                     {
-                    $varReturn = $this->ObjLib->getAttendance();
-                    $this->ObjLib->disconnect();
+                    if($i>0)
+                        {
+                        $varSQLBuilder_TblCheckInOut .= ', ';
+                        }
+                    $varSQLBuilder_TblCheckInOut .= 
+                        '('.
+                        ($i+1).', '.
+                        '\''.$varDataMDB['Data'][$i]['CHECKTIME'].'\', '.
+                        $varDataMDB['Data'][$i]['USERID'].', '.
+                        '\''.$varDataMDB['Data'][$i]['sn'].'\', '.
+                        $varDataMDB['Data'][$i]['SENSORID'].', '.
+                        $varDataMDB['Data'][$i]['LOGID'].''.
+                        ')';
                     }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }
-                return $varReturn;                
-                } 
-            catch (\Exception $ex) {
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDeviceSerialNumber                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
-        | ▪ Description     : Mendapatkan Nomor Seri Alat                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDeviceSerialNumber()
-            {
-            $varReturn = null;
-            try {
-$Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
-var_dump($Connect);
-
-//if($this->ObjLib->connect())
-//{
-//    echo "OK";
-//}
                 
-/*                if($this->ObjLib->connect())
-                    {
-                    $varReturn = $this->ObjLib->getSerialNumber();
-                    $this->ObjLib->disconnect();
-                    }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }*/
-                return $varReturn;                
-                }
-            catch (\Exception $ex) {
-                }
-            }
+                //---> Delete Temporary Table If Exist
+                $varSQLBuilder = '
+                    DROP TABLE IF EXISTS '.$varTemporaryDatabase.';
+                    ';
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);
 
+                //---> Create Temporary Table
+                $varSQLBuilder = '
+                    CREATE TABLE '.$varTemporaryDatabase.' (
+                        "ID" bigint, 
+                        "CheckTime" timestamp without time zone, 
+                        "UserID" bigint, 
+                        "CardSerialNumber" character varying(64) COLLATE pg_catalog."default",
+                        "SensorID" smallint,
+                        "LogID" bigint
+                        );
+                    ';
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDeviceTime                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
-        | ▪ Description     : Mendapatkan Waktu pada Alat                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDeviceTime()
-            {
-            $varReturn = null;
-            try {
-                if($this->ObjLib->connect())
+                //---> Insert Data To Temporary Table
+                $varSQLBuilder = '
+                    INSERT INTO
+                        '.$varTemporaryDatabase.'
+                    VALUES
+                        '.$varSQLBuilder_TblCheckInOut.';
+                    ';
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);
+
+                //---> Data Processing on Temporary Table
+                $varSQL = '
+                    SELECT
+                        "SubSQL"."ID",
+                        "SubSQL"."dateTimeTZ"
+                    FROM
+                        (
+                        SELECT
+                            "UserID" AS "ID",
+                            ("CheckTime"::varchar || \''.$varTimeZoneOffset.'\'::varchar)::timestamptz AS "dateTimeTZ",
+                            ROW_NUMBER() OVER(ORDER BY "CheckTime" ASC, "LogID" ASC) AS "OrderSequence"
+                        FROM 
+                            "SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"
+                        WHERE
+                            "CheckTime" >= \'2021-01-14 00:00:00\'::timestamp
+                        ) AS "SubSQL"
+                    --WHERE
+                    --    "SubSQL"."dateTimeTZ" >= \'2021-05-06 00:00:00+07\'::timestamptz
+                    ORDER BY
+                        "SubSQL"."dateTimeTZ" ASC, 
+                        "SubSQL"."OrderSequence" ASC
+                    ';
+                
+                $varSQL = '
+                    SELECT
+                        "SubSQL"."ID",
+                        "SubSQL"."dateTimeTZ"
+                    FROM
+                        (
+                        SELECT
+                            "SubSQL"."ID",
+                            "SubSQL"."dateTimeTZ",
+                            "CardSerialNumber",
+                            ROW_NUMBER() OVER(PARTITION BY "SubSQL"."ID", "dateTimeTZ" ORDER BY "OrderSequence" ASC) AS "FilterSequence",
+                            ROW_NUMBER() OVER(ORDER BY "SubSQL"."OrderSequence" ASC, "SubSQL"."ID" ASC) AS "OrderSequence"
+                        FROM
+                            (
+                            SELECT
+                                "UserID" AS "ID",
+                                ("CheckTime"::varchar || \''.$varTimeZoneOffset.'\'::varchar)::timestamptz AS "dateTimeTZ",
+                                "CardSerialNumber",
+                                ROW_NUMBER() OVER(ORDER BY "CheckTime" ASC, "LogID" ASC) AS "OrderSequence"
+                            FROM 
+                                "SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"
+                            WHERE
+                                "CheckTime" >= \'2021-01-14 00:00:00\'::timestamp
+                            ) AS "SubSQL"
+                        ) AS "SubSQL"
+                    WHERE
+                        "SubSQL"."FilterSequence" = 1
+                    ORDER BY
+                        "SubSQL"."OrderSequence" ASC
+                    ';
+                
+                $varDataBuffer = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($this->varUserSession, $varSQL);
+                for($i=0; $i!=$varDataBuffer['RowCount']; $i++)
                     {
-                    $varReturn = $this->ObjLib->getTime();
-                    $this->ObjLib->disconnect();
+                    $varReturn[]=[
+                        'ID' => $varDataBuffer['Data'][$i]['ID'],
+                        'dateTimeTZ' => $varDataBuffer['Data'][$i]['dateTimeTZ']
+                        ];
                     }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }
-                return $varReturn;                
+
+                //---> Delete Temporary Table If Exist
+                $varSQLBuilder = '
+                    DROP TABLE IF EXISTS '.$varTemporaryDatabase.';
+                    ';
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);                
                 } 
             catch (\Exception $ex) {
+                throw new \Exception("Error");
                 }
+            return $varReturn;
             }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDeviceUser                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
-        | ▪ Description     : Mendapatkan Identitas Pengguna pada Alat                                                             |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getDeviceUser()
-            {
-            $varReturn = null;
-            try {
-                if($this->ObjLib->connect())
-                    {
-                    $varReturn = $this->ObjLib->getUser();
-                    $this->ObjLib->disconnect();
-                    }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }
-                return $varReturn;                
-                } 
-            catch (\Exception $ex) {
-                }
-            }            
         }
     }

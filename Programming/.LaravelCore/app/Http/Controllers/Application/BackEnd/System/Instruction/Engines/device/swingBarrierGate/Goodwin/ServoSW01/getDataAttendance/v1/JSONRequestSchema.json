@@ -1,0 +1,49 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of instruction.device.swingBarrierGate.Servo.SW01.getDataAttendance (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "instruction.device.swingBarrierGate.Goodwin.ServoSW01.getDataAttendance" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "timeZoneOffset": {
+                        "type": [ "string", "null" ],
+                        "maxLength": 3
+                        },
+                    "startDateTime": {
+                        "type": [ "string", "null" ],
+                        "maxLength": 26
+                        }
+                    },
+                "required": [ "timeZoneOffset", "startDateTime" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

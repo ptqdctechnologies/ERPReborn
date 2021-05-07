@@ -930,6 +930,28 @@ namespace App\Helpers\ZhtHelper\Database
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setStatementExecution                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-05-05                                                                                           |
+        | ▪ Description     : Mengeksekusi SQL Statement (DDL)                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSQL ► SQL Syntax                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setStatementExecution($varUserSession, $varSQL)
+            {
+            $varReturn = \Illuminate\Support\Facades\DB::statement($varSQL);
+            return $varReturn;
+            }
         }
     }
 

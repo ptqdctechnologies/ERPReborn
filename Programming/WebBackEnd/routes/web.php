@@ -28,6 +28,7 @@ Route::get('/', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testRedis', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testRedis');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testJQuery', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testJQuery');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testSDK', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testSDK');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testClass', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testClass');
 
 
 
