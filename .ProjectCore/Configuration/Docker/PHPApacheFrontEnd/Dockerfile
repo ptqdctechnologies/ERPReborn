@@ -1,10 +1,20 @@
 FROM php:8.0-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
+RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
+    && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+
+#RUN apt-get update --fix-missing \
 RUN apt-get update \
-    && apt-get install -y \ 
-       apt-utils \ 
+    && apt-get upgrade -y \
+    && apt-get autoremove -y
+
+RUN apt-get install -y \
+       apt-utils \
        libpq-dev \
+       software-properties-common
+
+RUN apt-get install -y \ 
        vim \
     && pecl install redis \
     && docker-php-ext-enable redis \
