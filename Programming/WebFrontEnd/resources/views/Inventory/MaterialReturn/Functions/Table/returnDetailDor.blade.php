@@ -1,5 +1,5 @@
 <div class="card-body table-responsive p-0">
-    <table id="table1" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
+    <table id="tableDetailDorMret" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
         <thead>
             <tr>
                 <th>Action</th>
@@ -14,6 +14,5 @@
                 <th>Currency</th>
             </tr>
         </thead>
-        <tbody id="tableDetailDorMret"></tbody>
         </table>
         </div>

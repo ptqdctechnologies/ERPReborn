@@ -61,16 +61,16 @@
                                 <td><label>Requester Name</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input name="requester_name" id="requestNameArf" style="border-radius:0;" type="text" class="form-control" readonly required>
+                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="requester_name2" data-toggle="modal" data-target="#myRequesterNameArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
                                       </span>
                                     </div>
                                   </div>
                                 </td>
                                 <td>
-                                  <div id="iconRequester" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconRequester" style="color: red;margin-left:5px;" title="Please input requester name"></div>
                                 </td>
                               </tr>
                               <tr>
@@ -79,7 +79,7 @@
                                   <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
                                 </td>
                                 <td>
-                                  <div id="iconBeneficiary" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconBeneficiary" style="color: red;margin-left:5px;" title="Please input beneficiary"></div>
                                 </td>
                               </tr>
                               <tr>
@@ -88,7 +88,7 @@
                                   <textarea name="internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
                                 </td>
                                 <td>
-                                  <div id="iconInternal" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconInternal" style="color: red;margin-left:5px;" title="Please input internal notes"></div>
                                 </td>
 
                               </tr>
@@ -105,7 +105,7 @@
                                   <input name="bank_name" id="bank_name" style="border-radius:0;" type="text" class="form-control">
                                 </td>
                                 <td>
-                                  <div id="iconBankName" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconBankName" style="color: red;margin-left:5px;" title="Please input bank name"></div>
                                 </td>
                               </tr>
                               <tr>
@@ -114,18 +114,18 @@
                                   <input name="account_name" id="account_name" style="border-radius:0;" type="text" class="form-control">
                                 </td>
                                 <td>
-                                  <div id="iconAccountName" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconAccountName" style="color: red;margin-left:5px;" title="Please input account name"></div>
                                 </td>
                               </tr>
                               <tr>
                                 <td><label>Account Number</label></td>
                                 <td>
-                                  <input name="account_number" id="account_number" style="border-radius:0;" type="text" class="form-control">
+                                  <input name="account_number" id="account_number" style="border-radius:0;" type="number" class="form-control">
                                 </td>
                                 <td>
-                                  <div id="iconAccountNumber" style="color: red;margin-left:5px;"></div>
+                                  <div id="iconAccountNumber" style="color: red;margin-left:5px;" title="Please input account name"></div>
                                 </td>
-                              </tr>                              
+                              </tr>
                             </table>
                           </div>
                         </div>
@@ -216,13 +216,13 @@
                                 <input name="product_name" id="putProductName" style="border-radius:0;width:95px;" type="text" class="form-control" readonly="">
                               </td>
                               <td>
-                                <div id="iconProductId" style="color: red;margin-left:5px;"></div>
+                                <div id="iconProductId" style="color: red;margin-left:5px;" title="Please input product id"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Qty</label></td>
                               <td>
-                                <input name="qtyx" id="qtyCek" style="border-radius:0;width:90px;" type="text" class="form-control ChangeQty" value="0" autocomplete="off">
+                                <input name="qtyx" id="qtyCek" style="border-radius:0;width:90px;" type="number" class="form-control ChangeQty quantity" value="0" autocomplete="off">
                                 <span id="putQtybyId"></span>
                                 <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                               </td>
@@ -230,20 +230,20 @@
                                 <input name="qty_detail" id="putUom" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="">
                               </td>
                               <td>
-                                <div id="iconQty" style="color: red;margin-left:5px;"></div>
+                                <div id="iconQty" style="color: red;margin-left:5px;" title="Please input qty"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Unit Price</label></td>
                               <td>
-                                <input name="price" id="priceCek" style="border-radius:0;width:90px;" type="text" class="form-control ChangePrice" value="0">
+                                <input name="price" id="priceCek" style="border-radius:0;width:90px;" type="text" class="form-control ChangePrice uang" value="0" autocomplete="off">
                                 <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                               </td>
                               <td>
                                 <input name="price_detail" id="putCurrency" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="">
                               </td>
                               <td>
-                                <div id="iconUnitPrice" style="color: red;margin-left:5px;"></div>
+                                <div id="iconUnitPrice" style="color: red;position:relative;right:30px;"></div>
                               </td>
                             </tr>
                             <tr>
@@ -265,7 +265,7 @@
                                 <textarea name="remark" id="putRemark" rows="5" cols="51" class="form-control" required=""></textarea>
                               </td>
                               <td>
-                                <div id="iconRemark" style="color: red;margin-left:5px;"></div>
+                                <div id="iconRemark" style="color: red;margin-left:5px;" title="Please input remark"></div>
                               </td>
                             </tr>
                           </table>
@@ -340,7 +340,7 @@
               </div>
 
               <div class="card-body table-responsive p-0" id="detailArfList">
-                <table id="table1" class="table table-head-fixed text-nowrap">
+                <table id="tableArf" class="table table-head-fixed text-nowrap">
                   <thead>
                     <tr>
                       <th>Delete</th>
@@ -354,7 +354,6 @@
                       <th>Remark</th>
                     </tr>
                   </thead>
-                  <tbody id="tableArfListCart"></tbody>
                 </table>
               </div>
             </div>
@@ -364,7 +363,6 @@
             <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveArfList" style="margin-right: 5px;">
               <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
             </button>
-
           </div>
         </div>
       </div>

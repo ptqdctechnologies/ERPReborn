@@ -1,4 +1,4 @@
-<div id="myRequesterNameArf" class="modal fade" role="dialog">
+<div id="myRequester" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -38,7 +38,7 @@
                                         <td>{{ $no++ }}</td>
                                         <td>
                                             <span class="tag tag-success">
-                                                <p data-dismiss="modal" class="klikRequesterArf" data-id="name {{ $i }}">name {{$i}}</p>
+                                                <p data-dismiss="modal" class="klikRequester" data-id="name {{ $i }}">name {{$i}}</p>
                                             </span>
                                         </td>
                                     </tr>
@@ -83,12 +83,11 @@
 
 <script>
     $(function() {
-        $(".klikRequesterArf").on('click', function(e) {
+        $(".klikRequester").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var name = $this.data("id");
-            $("#requester_name").val(name);
-            $("#requestNameArf").val(name);
+            $("#request_name").val(name);
             $("#budget_name").val(name);
             
         });

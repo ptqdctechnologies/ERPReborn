@@ -15,7 +15,7 @@
               </div>
             </td>
             <td>
-              <div id="iconBudget" style="color: red;margin-left:5px;"></div>
+              <div id="iconBudget" style="color: red;margin-left:5px;" title="Please input origin budget"></div>
             </td>
           </tr>
         </table>
@@ -40,7 +40,7 @@
               <input id="projectname" style="border-radius:0;" class="form-control" name="projek_name" readonly>
             </td>
             <td>
-              <div id="iconProject" style="color: red;margin-left:5px;"></div>
+              <div id="iconProject" style="color: red;margin-left:5px;" title="Please input project code"></div>
             </td>
           </tr>
         </table>
@@ -65,7 +65,7 @@
               <input id="sitename" style="border-radius:0;" class="form-control" name="site_name" readonly>
             </td>
             <td>
-              <div id="iconSite" style="color: red;margin-left:5px;"></div>
+              <div id="iconSite" style="color: red;margin-left:5px;" title="Please input site code"></div>
             </td>
           </tr>
         </table>

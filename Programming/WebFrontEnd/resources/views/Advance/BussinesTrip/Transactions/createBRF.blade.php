@@ -2,10 +2,6 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getRequester')
-@include('getFunction.getProduk')
 
 <div class="content-wrapper">
   <section class="content">
@@ -108,7 +104,7 @@
                                       <!-- <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
                                       <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y h:i A') }}"/>
                                       <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
                                     </div>
                                   </div>
@@ -122,7 +118,7 @@
                                       <!-- <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
                                       <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y h:i A') }}"/>
                                       <div class="input-group-append" data-target="#endate" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
                                     </div>
                                   </div>
@@ -215,9 +211,10 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0" id="brfhide3">
-                <table id="table2" class="table table-head-fixed text-nowrap table-striped">
+                <table id="tableBudgetBrf" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
+                      <th>Add</th>
                       <th>Work ID</th>
                       <th>Work Name</th>
                       <th>Product ID</th>
@@ -229,8 +226,6 @@
                       <th>Applied</th>
                     </tr>
                   </thead>
-                  <tbody id="tableBudgetBrf">
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -558,10 +553,10 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
-                <table id="table3" class="table table-head-fixed text-nowrap table-striped">
+                <table id="tableBrf" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
-                      <th></th>
+                      <th>Delete</th>
                       <th>Payment Sequence</th>
                       <th>Allowance</th>
                       <th>Transport</th>
@@ -570,8 +565,6 @@
                       <th>Others</th>
                     </tr>
                   </thead>
-                  <tbody id="tableBrf">
-                  </tbody>
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">

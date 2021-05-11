@@ -15,7 +15,7 @@
     <section class="content">
         <div class="container-fluid">
             <div class="card">
-                <form method="post" enctype="multipart/form-data" action="#" name="formArf1">
+                <form method="post" enctype="multipart/form-data" action="#" name="formCo2">
                     <div class="tab-content p-3" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -54,9 +54,7 @@
                             </div>
                         </div>
                     </div>
-                </form>
 
-                <form action="" name="formAsf1">
                     <div class="tab-content p-3" id="nav-tabContent">
                         <div class="row detailASF">
                             <div class="col-12">
@@ -275,7 +273,7 @@
                                                             <td><label>Description</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <textarea name="description" id="description" cols="30" rows="3" class="form-control"></textarea>
+                                                                    <textarea name="description2" id="description2" cols="30" rows="3" class="form-control"></textarea>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -319,7 +317,7 @@
                                     </div>
                                 </div>
                                 <div class="card-body table-responsive p-0">
-                                    <table id="table1" class="table table-head-fixed text-nowrap">
+                                    <table id="tableCoCart" class="table table-head-fixed text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>Action</th>
@@ -334,7 +332,6 @@
                                                 <th>Description</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="tableCoCart"></tbody>
                                     </table>
                                 </div>
                             </div>

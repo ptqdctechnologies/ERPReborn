@@ -32,7 +32,7 @@
                               <td><label>Trano Type</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input autocomplete="off" id="projectcode" name="projectcode" class="form-control">
+                                  <input autocomplete="off" id="tranoType" name="tranoType" class="form-control">
                                 </div>
                               </td>
                             </tr>
@@ -41,7 +41,7 @@
                               <td><label>Trano Prefix (Ex.PR01, PO01) </label></td>
                               <td>
                                 <div class="input-group">
-                                  <input autocomplete="off" id="projectcode" name="projectcode" class="form-control">
+                                  <input autocomplete="off" id="tranoPrefix" name="tranoPrefix" class="form-control">
                                 </div>
                               </td>
                             </tr>
@@ -49,13 +49,13 @@
                               <td><label>Remark</label></td>
                               <td>
                                 <div class="input-group">
-                                  <textarea name="" id="address" cols="30" rows="4" class="form-control"></textarea>
+                                  <textarea name="" id="remark" cols="30" rows="4" class="form-control"></textarea>
                                 </div>
                               </td>
                             </tr>
                           </table>
                         </div>
-                        <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveArfList" style="margin-right: 5px;">
+                        <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="addTranoType" style="margin-right: 5px;">
                           <i class="fas fa-plus" aria-hidden="true" title="Submit to Advance">Create</i>
                         </button>
                       </div>
@@ -79,7 +79,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table id="table1" class="table table-bordered table-striped">
+                  <table id="tableTranoType" class="table table-bordered table-striped">
                     <thead>
                       <tr>
                         <th>Delete</th>
@@ -88,18 +88,6 @@
                         <th>Ket</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <button type="reset" class="btn btn-danger btn-sm float-right" title="Delete" style="border-radius: 100px;position:relative;right:120px;">
-                            <i class="fas fa-minus" aria-hidden="true"></i>
-                          </button>
-                        </td>
-                        <td>x</td>
-                        <td>x</td>
-                        <td>x</td>
-                      </tr>
-                    </tbody>
                   </table>
                 </div>
               </div>
@@ -111,4 +99,5 @@
   </section>
 </div>
 @include('Partials.footer')
+@include('Master.transactionNumber.Functions.Footer.footerTranoType')
 @endsection

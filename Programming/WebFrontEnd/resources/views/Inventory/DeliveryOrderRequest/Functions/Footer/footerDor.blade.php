@@ -117,14 +117,14 @@
                     origin_budget: "xxxx",
                     projectcode: "xxxx",
                     projectname: "xxxx",
-                    subprojectc: "xxxx",
-                    subprojectn: "xxxx",
+                    sitecode: "xxxx",
+                    sitecode2: "xxxx",
                     beneficiary: "xxxx",
                     bank_name: "xxxx",
                     account_name: "xxxx",
                     account_number: "xxxx",
                     internal_notes: "xxxx",
-                    requestNameArf: "xxxx",
+                    request_name: "xxxx",
                     putWorkId: "xxxx",
                     putWorkName: "xxxx",
                     putProductId: "xxxx",
@@ -146,20 +146,31 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('ARF.store')}}',
+                url: '{{route("ARF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+
                 success: function(data) {
-                    Swal.fire("Success !", "Data Has Been Updated", "success");
-                    console.log(data);
-                    y++;
-                    $.each(data, function(key, val) {
-                        $('#tableDorCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td></tr>');
-                    });
+
+                  Swal.fire("Success !", "Data add to cart", "success");
+                  y++;
+                  $.each(data, function(key, val) {
+
+                      var t = $('#tableDorCart').DataTable();
+                      t.row.add([
+                          '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
+                          '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                          '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                          '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                          '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                          '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                          '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>'
+                      ]).draw();
+                  });
                 },
                 error: function(data) {
                     Swal.fire("Error !", "Data Canceled Added", "error");

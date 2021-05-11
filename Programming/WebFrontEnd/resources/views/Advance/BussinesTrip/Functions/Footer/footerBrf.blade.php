@@ -15,35 +15,34 @@
 </script>
 
 <script>
-    $(function() {
-        $("#origin_budget").on('click', function(e) {
-            e.preventDefault();
+  $(function() {
+    $("#origin_budget").on('click', function(e) {
+      e.preventDefault();
 
-            var val = $("#origin_budget").val();
-            if(val == ""){
-                $("#projectcode2").prop("disabled", true);
-            }
-            else{
-                $("#projectcode2").prop("disabled", false);
-            }
+      var val = $("#origin_budget").val();
+      if (val == "") {
+        $("#projectcode2").prop("disabled", true);
+      } else {
+        $("#projectcode2").prop("disabled", false);
+      }
 
-            $(".budgetDetail").show();
-            $("#sequenceRequest").val('1');
-            $("#sequence").val('1');
-            $("#sequenceRequest").prop("disabled", true);
-            
-        });
+      $(".budgetDetail").show();
+      $("#sequenceRequest").val('1');
+      $("#sequence").val('1');
+      $("#sequenceRequest").prop("disabled", true);
 
-        $("#projectcode2").on('click', function(e) {
-            e.preventDefault();
-            $("#sitecode2").prop("disabled", false);
-        });
-
-        $("#sitecode2").on('click', function(e) {
-            e.preventDefault();
-            $("#requester_name2").prop("disabled", false);
-        });
     });
+
+    $("#projectcode2").on('click', function(e) {
+      e.preventDefault();
+      $("#sitecode2").prop("disabled", false);
+    });
+
+    $("#sitecode2").on('click', function(e) {
+      e.preventDefault();
+      $("#requester_name2").prop("disabled", false);
+    });
+  });
 </script>
 
 <script>
@@ -105,12 +104,12 @@
 <script>
   var varTotal = 0;
   var valAllowance = 0;
-  var valTransport =0;
-  var valAirportTax =0;
+  var valTransport = 0;
+  var valAirportTax = 0;
   var valAccomodation = 0;
   var valOthers = 0;
   var varTotalBrf = 0;
-  
+
   function validateFormAsfPaymentSequence() {
     var allowance = document.forms["formAsfPaymentSequence"]["allowance"].value;
     var transport = document.forms["formAsfPaymentSequence"]["transport"].value;
@@ -119,7 +118,7 @@
     var other = document.forms["formAsfPaymentSequence"]["other"].value;
 
     if (allowance == "") {
-      document.formAsfPaymentSequence.allowance.focus() ;
+      document.formAsfPaymentSequence.allowance.focus();
       document.formAsfPaymentSequence.allowance.style.border = "1px solid red";
       document.getElementById("iconAllowance").style.border = "1px solid red";
       document.getElementById("iconAllowance").style.borderRadius = "100pt";
@@ -130,7 +129,7 @@
       document.getElementById("iconAllowance").innerHTML = "&#33";
       return false;
     } else if (transport == "") {
-      document.formAsfPaymentSequence.transport.focus() ;
+      document.formAsfPaymentSequence.transport.focus();
       document.formAsfPaymentSequence.transport.style.border = "1px solid red";
       document.getElementById("iconTransport").style.border = "1px solid red";
       document.getElementById("iconTransport").style.borderRadius = "100pt";
@@ -141,7 +140,7 @@
       document.getElementById("iconTransport").innerHTML = "&#33";
       return false;
     } else if (airport_tax == "") {
-      document.formAsfPaymentSequence.airport_tax.focus() ;
+      document.formAsfPaymentSequence.airport_tax.focus();
       document.formAsfPaymentSequence.airport_tax.style.border = "1px solid red";
       document.getElementById("iconAirportTax").style.border = "1px solid red";
       document.getElementById("iconAirportTax").style.borderRadius = "100pt";
@@ -152,7 +151,7 @@
       document.getElementById("iconAirportTax").innerHTML = "&#33";
       return false;
     } else if (accomodation == "") {
-      document.formAsfPaymentSequence.accomodation.focus() ;
+      document.formAsfPaymentSequence.accomodation.focus();
       document.formAsfPaymentSequence.accomodation.style.border = "1px solid red";
       document.getElementById("iconAccomodation").style.border = "1px solid red";
       document.getElementById("iconAccomodation").style.borderRadius = "100pt";
@@ -163,7 +162,7 @@
       document.getElementById("iconAccomodation").innerHTML = "&#33";
       return false;
     } else if (other == "") {
-      document.formAsfPaymentSequence.other.focus() ;
+      document.formAsfPaymentSequence.other.focus();
       document.formAsfPaymentSequence.other.style.border = "1px solid red";
       document.getElementById("iconOther").style.border = "1px solid red";
       document.getElementById("iconOther").style.borderRadius = "100pt";
@@ -175,7 +174,7 @@
       return false;
     } else {
 
-      
+
       var varBudgetRequest = $('#budgetRequest').val();
       var varSequenceReq = $('#sequenceRequest').val();
       var varSequence = $('#sequence').val();
@@ -184,12 +183,11 @@
       var varAirport_tax = $('#airport_tax').val();
       var varAccomodation = $('#accomodation').val();
       var varOther = $('#other').val();
-      var varSum = +varAllowance + +varTransport + +varAirport_tax + +varAccomodation + +varOther; 
-      
+      var varSum = +varAllowance + +varTransport + +varAirport_tax + +varAccomodation + +varOther;
+
       if (varSequence > varSequenceReq) {
         Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
-      }
-      else {
+      } else {
 
         for (var varLoop = varSequence; varLoop <= varSequence; ++varLoop) {
           $("#sum").val(varSum);
@@ -211,7 +209,7 @@
 
           $.ajax({
             type: "POST",
-            url: '{{route('BRF.storePaymentSequenceBrf')}}',
+            url: '{{route("BRF.storePaymentSequenceBrf")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,
@@ -224,11 +222,22 @@
               $.each(data, function(key, val) {
 
                 varTotal += +val.sum;
-                if(varBudgetRequest < varTotal){
+                if (varBudgetRequest < varTotal) {
                   Swal.fire("Error !", "Your request budget is not Sufficient", "error");
-                }
-                else{
-                  $('#tableBrf').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td style="text-align:center;"><span id="lastWorkId_' + y + '">' + val.sequence + '</span></td><td style="text-align:center;"><span id="lastWorkName_' + y + '">' + val.allowance + '</span></td><td style="text-align:center;"><span id="lastProductId_' + y + '">' + val.transport + '</span></td><td style="text-align:center;"><span id="lastProductName_' + y + '">' + val.airport_tax + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.accomodation + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.other + '</span></td></tr>');
+                } else {
+
+                  var t = $('#tableBrf').DataTable();
+                    t.row.add([
+                        '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
+                        '<span id="lastProductId_' + y + '">' + val.sequence + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.allowance + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.transport + '</span>',
+                        '<span id="lastProductName_' + y + '">' + val.airport_tax + '</span>',
+                        '<span id="lastPrice_' + y + '">' + val.accomodation + '</span>',
+                        '<span id="totalArfDetails_' + y + '">' + val.other + '</span>'
+                    ]).draw();
+
+                  // $('#').append('<tr id="control-group"><td></td><td style="text-align:center;"><span id="lastWorkId_' + y + '">' + val.sequence + '</span></td><td style="text-align:center;"><span id="lastWorkName_' + y + '">' + val.allowance + '</span></td><td style="text-align:center;"><span id="lastProductId_' + y + '">' + val.transport + '</span></td><td style="text-align:center;"><span id="lastProductName_' + y + '">' + val.airport_tax + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.accomodation + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.other + '</span></td></tr>');
                   $("#sequence").val(varLoop);
 
                   valAllowance += +val.allowance;
@@ -318,7 +327,7 @@
 
         $.ajax({
           type: "POST",
-          url: '{{route('ARF.tests')}}',
+          url: '{{route("ARF.tests")}}',
           data: json_object,
           contentType: "application/json",
           processData: true,

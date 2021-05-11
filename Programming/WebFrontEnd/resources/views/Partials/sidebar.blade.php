@@ -2,14 +2,30 @@
 @include('Advance.Advance.Transactions.popupRevisionASF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBRF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBSF')
-@include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
-@include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
 @include('Advance.Advance.Functions.PopUp.searchArfRevision')
 @include('Advance.Advance.Functions.PopUp.searchAsf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
 @include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
+@include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
+@include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
 @include('Logistic.Functions.searchMaterialReceive')
+@include('Master.supplier.Transactions.popupRevisionSupplier')
+
+@include('getFunction.getCurrency')
+@include('getFunction.getDeliverTo')
+@include('getFunction.getDelivery')
+@include('getFunction.getFinanceStaff')
+@include('getFunction.getManager')
+@include('getFunction.getPoTrano')
+@include('getFunction.getPr')
+@include('getFunction.getProduk')
+@include('getFunction.getProject')
+@include('getFunction.getReceive')
+@include('getFunction.getRequester')
+@include('getFunction.getSite')
+@include('getFunction.getSupplier')
+
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
@@ -87,9 +103,6 @@
                     </ul>
                 </li>
 
-
-
-
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
@@ -126,6 +139,30 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Supplier</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('supplier.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Add Supplier</label>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#supplierPopUp">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit Supplier</label>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('UOM.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
                                 <label>UOM</label>
                             </a>
@@ -136,21 +173,33 @@
                                 <label>Product ID</label>
                             </a>
                         </li>
+
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Supplier</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
                                 <label>Periode</label>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('COA.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>COA</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Project List</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('exchangeRate.index')}}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Exchange Rate</label>
+                            </a>
+                        </li>
                     </ul>
                 </li>
-
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -160,6 +209,102 @@
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>AP</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('editApNumber.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Edit AP Number</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('editApJournal.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Edit AP Journal</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('editApBankJournal.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Edit AP Bank Journal</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Bank Transaction</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>OCA</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Advance Request</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
 
                 <li class="nav-item has-treeview">
@@ -437,66 +582,65 @@
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Receive & Spend Money</label>
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Report</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Transaction</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                        <label>Report</label>
-                                        <i class="right fas fa-angle-left"></i>
+                                    <a href="{{ route('bankReceiveMoney.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Bank Receive Money</label>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Receive Money Report</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Spend Money Report</label>
-                                            </a>
-                                        </li>
-                                    </ul>
                                 </li>
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                        <label>Transaction</label>
-                                        <i class="right fas fa-angle-left"></i>
+                                    <a href="{{ route('editBankReceiveMoney.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit Bank Receive Money</label>
                                     </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Receive Money</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Receive Money Revision</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Spend Money</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#asfNumberPopup">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Spend Money Revision</label>
-                                            </a>
-                                        </li>
-                                    </ul>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('bankSpendMoney.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Bank Spend Money</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('bankSpendMoney.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit Bank Spend Money</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('bankChargers.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Bank Chargers Money</label>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('bankChargers.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit Bank Chargers Money</label>
+                                    </a>
                                 </li>
                             </ul>
                         </li>

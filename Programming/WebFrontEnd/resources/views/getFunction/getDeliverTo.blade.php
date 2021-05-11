@@ -115,7 +115,7 @@
 
 <script>
     $(function() {
-        $(".klikSearchArf").on('click', function(e) {
+        $(".klikSearchDeliverTo").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");

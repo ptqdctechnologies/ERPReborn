@@ -39,7 +39,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="kliktableReceive" data-name="Receive Name {{ $i }}">Receive Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikTableReceive" data-name="Receive Name {{ $i }}">Receive Name {{$i}}</p>
                                                 </span>
                                             </td>
                                         </tr>
@@ -85,7 +85,7 @@
 
 <script>
     $(function() {
-        $(".kliktableReceive").on('click', function(e) {
+        $(".klikTableReceive").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var nama = $this.data("name");

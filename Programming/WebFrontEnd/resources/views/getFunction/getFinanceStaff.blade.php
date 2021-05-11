@@ -1,4 +1,4 @@
-<div id="myfinanceArf" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myfinance" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -13,13 +13,13 @@
                 <td><label>Finance Uid</label></td>
                 <td>
                   <div class="input-group">
-                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="uid_finance_arf" onkeyup="financeArfUid()">
+                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="uid_finance" onkeyup="financeUid()">
                   </div>
                 </td>
                 <td><label>Finance Name</label></td>
                 <td>
                   <div class="input-group">
-                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_arf_finance" onkeyup="financeArfName()">
+                    <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_finance" onkeyup="financeName()">
                   </div>
                 </td>
               </tr>
@@ -30,7 +30,7 @@
           <div class="col-12">
             <div class="card">
               <div class="card-body table-responsive p-0" style="height: 400px;">
-                <table class="table table-head-fixed text-nowrap" id="financeArf">
+                <table class="table table-head-fixed text-nowrap" id="finance">
                   <tr>
                     <th>No</th>
                     <th>Finance Uid</th>
@@ -42,7 +42,7 @@
                       <td>{{ $no++ }}</td>
                       <td>
                           <span class="tag tag-success">
-                              <p data-dismiss="modal" class="klikFinanceArf" data-id="Finance Staff Uid {{ $i }}" data-name="Finance Name {{ $i }}">Finance Staff Uid {{$i}}</p>
+                              <p data-dismiss="modal" class="klikFinance" data-id="Finance Staff Uid {{ $i }}" data-name="Finance Name {{ $i }}">Finance Staff Uid {{$i}}</p>
                           </span>
                       </td>
                       <td>
@@ -65,12 +65,12 @@
 
 
 <script>
-  function financeArfUid() {
+  function financeUid() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("uid_finance_arf");
+    input = document.getElementById("uid_finance");
     filter = input.value.toUpperCase();
-    table = document.getElementById("financeArf");
+    table = document.getElementById("finance");
     tr = table.getElementsByTagName("tr");
 
     // Loop through all table rows, and hide those who don't match the search query
@@ -87,12 +87,12 @@
     }
   }
 
-  function financeArfName() {
+  function financeName() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("name_arf_finance");
+    input = document.getElementById("name_finance");
     filter = input.value.toUpperCase();
-    table = document.getElementById("financeArf");
+    table = document.getElementById("finance");
     tr = table.getElementsByTagName("tr");
 
     // Loop through all table rows, and hide those who don't match the search query
@@ -111,13 +111,13 @@
 </script>
 <script>
   $(function() {
-    $(".klikFinanceArf").on('click', function(e) {
+    $(".klikFinance").on('click', function(e) {
       e.preventDefault(); // in chase you change to a link or button
       var $this = $(this);
       var uid = $this.data("id");
       var name = $this.data("name");
-      $("#financeArfUid").val(uid);
-      $("#financeArfName").val(name);
+      $("#financeUid").val(uid);
+      $("#financeName").val(name);
     });
   });
 </script>

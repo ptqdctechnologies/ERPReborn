@@ -173,8 +173,6 @@
             var name = $this.data("name");
             $("#arfNumberAsf").val(code);
 
-            $(".tableArfDetail").show();
-
             //Batas
 
             $("#arfNumberAsf").prop("disabled", true);
@@ -198,8 +196,8 @@
                     origin_budget: "x",
                     projectcode: "x",
                     projectname: "x",
-                    subprojectc: "x",
-                    subprojectn: "x",
+                    sitecode: "x",
+                    sitecode2: "x",
                     beneficiary: "x",
                     bank_name: "x",
                     account_name: "x",
@@ -233,12 +231,22 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    // Swal.fire("Success !", "Data Berhasil Ditambahkan", "success");
-                    // console.log(data);
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
 
+                        var t = $('#tableArfDetail').DataTable();
+                            t.row.add( [
+                                '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                                '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                                '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                                '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                                '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                                '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                            ] ).draw();
                     });
                 },
                 error: function(data) {

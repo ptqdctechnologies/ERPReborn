@@ -108,14 +108,14 @@
                     origin_budget: "x",
                     projectcode: "x",
                     projectname: "x",
-                    subprojectc: "x",
-                    subprojectn: "x",
+                    sitecode: "x",
+                    sitecode2: "x",
                     beneficiary: "x",
                     bank_name: "x",
                     account_name: "x",
                     account_number: "x",
                     internal_notes: "x",
-                    requestNameArf: "x",
+                    request_name: "x",
                     putProductId: "x",
                     putProductName: "x",
                     putQty: "x",
@@ -135,7 +135,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('ARF.store')}}',
+                url: '{{route("ARF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -143,14 +143,44 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
                 success: function(data) {
-                    Swal.fire("Success !", "Data add to cart", "success");
-                    console.log(data);
-                    y++;
-                    $.each(data, function(key, val) {
-                        $('#tableAmountDuetoBsf').append('<tr id="control-group"><td><span id="lastWorkId_' + y + '">' + val.putProductId + '</span></td><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list addAsf" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
-                        $('#tableExpenseClaimBsf').append('<tr id="control-group"><td><span id="lastWorkId_' + y + '">' + val.putProductId + '</span></td><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list addAsf" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
 
-                    });
+                Swal.fire("Success !", "Data add to cart", "success");
+
+                $("#amountCompanyCart").show();
+
+                y++;
+                $.each(data, function(key, val) {
+
+                    var t = $('#tableAmountDuetoBsf').DataTable();
+                    t.row.add([
+                        '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                        '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                        '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                        '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                        '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                        '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                    ]).draw();
+
+                    var t = $('#tableExpenseClaimBsf').DataTable();
+                    t.row.add([
+                        '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                        '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                        '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                        '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                        '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                        '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                        '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                    ]).draw();
+                  });
                 },
                 error: function(data) {
                     Swal.fire("Error !", "Data Canceled Added", "error");
@@ -168,7 +198,7 @@
     // var origin_budget = document.forms["formHeaderBrf"]["origin_budget"].value;
     // var projectcode = document.forms["formHeaderBrf"]["projectcode"].value;
     // var sitecode = document.forms["formHeaderBrf"]["sitecode"].value;
-    // var requestNameArf = document.forms["formHeaderBrf"]["requestNameArf"].value;
+    // var request_name = document.forms["formHeaderBrf"]["request_name"].value;
     // var jobTitle = document.forms["formHeaderBrf"]["jobTitle"].value;
     // var department = document.forms["formHeaderBrf"]["department"].value;
     // var reasonTravel = document.forms["formHeaderBrf"]["reasonTravel"].value;
@@ -182,7 +212,7 @@
     //   Swal.fire("Error !", "Please Input Project Code !", "error");
     // } else if (sitecode == "") {
     //   Swal.fire("Error !", "Please Input Site Code !", "error");
-    // } else if (requestNameArf == "") {
+    // } else if (request_name == "") {
     //   Swal.fire("Error !", "Please Input Requester !", "error");
     // } else if (jobTitle == "") {
     //   Swal.fire("Error !", "Please Input Job Title !", "error");
@@ -247,7 +277,7 @@
 
           $.ajax({
             type: "POST",
-            url: '{{route('ARF.tests')}}',
+            url: '{{route("ARF.tests")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,

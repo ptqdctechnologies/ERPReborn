@@ -223,7 +223,7 @@
                             </div>
 
                             <div class="card-body table-responsive p-0" id="detailDorList">
-                                <table id="table2" class="table table-head-fixed text-nowrap">
+                                <table id="tableDorCart" class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Edit</th>
@@ -235,7 +235,6 @@
                                             <th>Product Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tableDorCart"></tbody>
                                 </table>
                             </div>
                         </div>

@@ -1,6 +1,6 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group">
                 <table>
                     <tr>
@@ -15,6 +15,12 @@
                             </div>
                         </td>
                     </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <table>
                     <tr>
                         <td><label>Project Code</label></td>
                         <td>
@@ -31,6 +37,12 @@
                             <input id="projectname" style="border-radius:0;" readonly class="form-control">
                         </td>
                     </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <table>
                     <tr>
                         <td><label>Site Code</label></td>
                         <td>
@@ -50,8 +62,12 @@
                 </table>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card-body table-responsive p-0" style="height: 100px;width:100%;">
+
+        <div class="col-md-8">
+            
+        </div>
+        <div class="col-md-4">
+            <div class="card-body table-responsive p-0" style="height: 120px;width:100%;">
                 <table class="table table-head-fixed text-nowrap">
                     <div class="form-group input_fields_wrap">
                         <div class="input-group control-group" style="width:100%;">

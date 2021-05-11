@@ -127,6 +127,7 @@
             var code = $this.data("id");
             var name = $this.data("name");
             $("#sitecode").val(code);
+            $("#sitecode2").val(name);
             $("#sitename").val(name);
 
             //Batas
@@ -180,7 +181,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('BRF.store')}}',
+                url: '{{route("BRF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -190,7 +191,21 @@
                 success: function(data) {
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tableBudgetBrf').append('<tr id="control-group"><td><center><a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:cek()"><i class="fa fa-plus" aria-hidden="true"></i></a></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td></tr>');
+
+                        var t = $('#tableBudgetBrf').DataTable();
+                        t.row.add([
+                            '<a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:cek()"><i class="fa fa-plus" aria-hidden="true"></i></a>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                        ]).draw();
                     });
                 },
                 error: function(data) {

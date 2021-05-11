@@ -16,13 +16,13 @@
                                 <td><label>Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_currency" onkeyup="searchArfCurrencyCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_currency" onkeyup="searchCurrencyCode()">
                                     </div>
                                 </td>
                                 <td><label>Name</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_currency" onkeyup="searchArfCurrencyName()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_currency" onkeyup="searchCurrencyName()">
                                     </div>
                                 </td>
                             </tr>
@@ -33,7 +33,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="currencyArf">
+                                <table class="table table-head-fixed text-nowrap" id="currency">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -48,7 +48,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikCurrencyArf" data-id="Currency Code {{ $i }}" data-name="name {{ $i }}">Currency Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikCurrency" data-id="Currency Code {{ $i }}" data-name="name {{ $i }}">Currency Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -70,12 +70,12 @@
     |                            End Function My Project Code                          |
     |----------------------------------------------------------------------------------|-->
 <script>
-    function searchArfCurrencyCode() {
+    function searchCurrencyCode() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("code_currency");
         filter = input.value.toUpperCase();
-        table = document.getElementById("currencyArf");
+        table = document.getElementById("currency");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -92,12 +92,12 @@
         }
     }
 
-    function searchArfCurrencyName() {
+    function searchCurrencyName() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("name_currency");
         filter = input.value.toUpperCase();
-        table = document.getElementById("currencyArf");
+        table = document.getElementById("currency");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -117,7 +117,7 @@
 
 <script>
     $(function() {
-        $(".klikCurrencyArf").on('click', function(e) {
+        $(".klikCurrency").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
