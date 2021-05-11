@@ -75,27 +75,27 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
@@ -186,7 +186,7 @@
 
 <script>
     $(function() {
-        $(".klikSearchArf").on('click', function(e) {
+        $(".klikSearchPr").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
@@ -250,7 +250,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('ARF.store')}}',
+                url: '{{route("ARF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -260,7 +260,21 @@
                 success: function(data) {
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tablePrDetailDor').append('<tr id="control-group"><td><center><a class="btn btn-outline-success btn-rounded btn-sm" style="border-radius: 100px;" href="javascript:buttonPlus()"><i class="fa fa-plus"></i></a></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
+
+                        var t = $('#tablePrDetailDor').DataTable();
+                        t.row.add([
+                            '<center><a class="btn btn-outline-success btn-rounded btn-sm" style="border-radius: 100px;" href="javascript:buttonPlus()"><i class="fa fa-plus"></i></a></center>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                        ]).draw();
                     });
                 },
                 error: function(data) {

@@ -100,115 +100,115 @@
         y = 0;
 
     $('#buttonAddCo').click(function() {
-        var status_co = document.forms["formCo2"]["status_co"].value;
-        var register_co = document.forms["formCo2"]["register_co"].value;
-        var customer = document.forms["formCo2"]["customer"].value;
-        var po_customer = document.forms["formCo2"]["po_customer"].value;
-        var value_idr = document.forms["formCo2"]["value_idr"].value;
-        var value_usd = document.forms["formCo2"]["value_usd"].value;
-        var description = document.forms["formCo2"]["description"].value;
-        var confirmation_form = document.forms["formCo2"]["confirmation_form"].value;
-        var customer_input = document.forms["formCo2"]["customer_input"].value;
-        var projectcode = document.forms["formCo2"]["projectcode"].value;
-        var sitecode = document.forms["formCo2"]["sitecode"].value;
-        var type = document.forms["formCo2"]["type"].value;
-        var rate_idr2 = document.forms["formCo2"]["rate_idr2"].value;
-        var value_idr2 = document.forms["formCo2"]["value_idr2"].value;
-        var value_usd2 = document.forms["formCo2"]["value_usd2"].value;
-        var description2 = document.forms["formCo2"]["description2"].value;
-        var top = document.forms["formCo2"]["top"].value;
+        // var status_co = document.forms["formCo2"]["status_co"].value;
+        // var register_co = document.forms["formCo2"]["register_co"].value;
+        // var customer = document.forms["formCo2"]["customer"].value;
+        // var po_customer = document.forms["formCo2"]["po_customer"].value;
+        // var value_idr = document.forms["formCo2"]["value_idr"].value;
+        // var value_usd = document.forms["formCo2"]["value_usd"].value;
+        // var description = document.forms["formCo2"]["description"].value;
+        // var confirmation_form = document.forms["formCo2"]["confirmation_form"].value;
+        // var customer_input = document.forms["formCo2"]["customer_input"].value;
+        // var projectcode = document.forms["formCo2"]["projectcode"].value;
+        // var sitecode = document.forms["formCo2"]["sitecode"].value;
+        // var type = document.forms["formCo2"]["type"].value;
+        // var rate_idr2 = document.forms["formCo2"]["rate_idr2"].value;
+        // var value_idr2 = document.forms["formCo2"]["value_idr2"].value;
+        // var value_usd2 = document.forms["formCo2"]["value_usd2"].value;
+        // var description2 = document.forms["formCo2"]["description2"].value;
+        // var top = document.forms["formCo2"]["top"].value;
         
-        if(status_co == "Original"){
-            if (register_co == "") {
-                document.formCo2.register_co.focus() ;
-                document.formCo2.register_co.style.border = "1px solid red";
-                document.getElementById("iconProductId").style.border = "1px solid red";
-                document.getElementById("iconProductId").style.borderRadius = "100pt";
-                document.getElementById("iconProductId").style.paddingRight = "7px";
-                document.getElementById("iconProductId").style.paddingLeft = "8px";
-                document.getElementById("iconProductId").style.paddingTop = "3px";
-                document.getElementById("iconProductId").style.paddingBottom = "3px";
-                document.getElementById("iconProductId").innerHTML = "&#33";
-                return false;
-            }
-            else if (customer == 0) {
-                document.formCo2.customer.focus() ;
-                document.formCo2.customer.style.border = "1px solid red";
-                document.getElementById("iconQty").style.border = "1px solid red";
-                document.getElementById("iconQty").style.borderRadius = "100pt";
-                document.getElementById("iconQty").style.paddingRight = "7px";
-                document.getElementById("iconQty").style.paddingLeft = "8px";
-                document.getElementById("iconQty").style.paddingTop = "3px";
-                document.getElementById("iconQty").style.paddingBottom = "3px";
-                document.getElementById("iconQty").innerHTML = "&#33";
-                return false;
-            }
-            else if (po_customer == "") {
-                document.formCo2.po_customer.focus() ;
-                document.formCo2.po_customer.style.border = "1px solid red";
-                document.getElementById("iconUnitPrice").style.border = "1px solid red";
-                document.getElementById("iconUnitPrice").style.borderRadius = "100pt";
-                document.getElementById("iconUnitPrice").style.paddingRight = "7px";
-                document.getElementById("iconUnitPrice").style.paddingLeft = "8px";
-                document.getElementById("iconUnitPrice").style.paddingTop = "3px";
-                document.getElementById("iconUnitPrice").style.paddingBottom = "3px";
-                document.getElementById("iconUnitPrice").innerHTML = "&#33";
-                return false;
-            }
-            else if (value_idr == "") {
-                document.formCo2.value_idr.focus() ;
-                document.formCo2.value_idr.style.border = "1px solid red";
-                document.getElementById("iconRemark").style.border = "1px solid red";
-                document.getElementById("iconRemark").style.borderRadius = "100pt";
-                document.getElementById("iconRemark").style.paddingRight = "7px";
-                document.getElementById("iconRemark").style.paddingLeft = "8px";
-                document.getElementById("iconRemark").style.paddingTop = "3px";
-                document.getElementById("iconRemark").style.paddingBottom = "3px";
-                document.getElementById("iconRemark").innerHTML = "&#33";
-                return false;
-            }
-            else if (value_usd == "") {
-                document.formCo2.value_usd.focus() ;
-                document.formCo2.value_usd.style.border = "1px solid red";
-                document.getElementById("iconRemark").style.border = "1px solid red";
-                document.getElementById("iconRemark").style.borderRadius = "100pt";
-                document.getElementById("iconRemark").style.paddingRight = "7px";
-                document.getElementById("iconRemark").style.paddingLeft = "8px";
-                document.getElementById("iconRemark").style.paddingTop = "3px";
-                document.getElementById("iconRemark").style.paddingBottom = "3px";
-                document.getElementById("iconRemark").innerHTML = "&#33";
-                return false;
-            }
-            else if (description == "") {
-                document.formCo2.description.focus() ;
-                document.formCo2.description.style.border = "1px solid red";
-                document.getElementById("iconRemark").style.border = "1px solid red";
-                document.getElementById("iconRemark").style.borderRadius = "100pt";
-                document.getElementById("iconRemark").style.paddingRight = "7px";
-                document.getElementById("iconRemark").style.paddingLeft = "8px";
-                document.getElementById("iconRemark").style.paddingTop = "3px";
-                document.getElementById("iconRemark").style.paddingBottom = "3px";
-                document.getElementById("iconRemark").innerHTML = "&#33";
-                return false;
-            }
-            else if (confirmation_form == "") {
-                document.formCo2.confirmation_form.focus() ;
-                document.formCo2.confirmation_form.style.border = "1px solid red";
-                document.getElementById("iconRemark").style.border = "1px solid red";
-                document.getElementById("iconRemark").style.borderRadius = "100pt";
-                document.getElementById("iconRemark").style.paddingRight = "7px";
-                document.getElementById("iconRemark").style.paddingLeft = "8px";
-                document.getElementById("iconRemark").style.paddingTop = "3px";
-                document.getElementById("iconRemark").style.paddingBottom = "3px";
-                document.getElementById("iconRemark").innerHTML = "&#33";
-                return false;
-            }
-        }
-        else if(status_co == "Estimate"){
+        // if(status_co == "Original"){
+        //     if (register_co == "") {
+        //         document.formCo2.register_co.focus() ;
+        //         document.formCo2.register_co.style.border = "1px solid red";
+        //         document.getElementById("iconProductId").style.border = "1px solid red";
+        //         document.getElementById("iconProductId").style.borderRadius = "100pt";
+        //         document.getElementById("iconProductId").style.paddingRight = "7px";
+        //         document.getElementById("iconProductId").style.paddingLeft = "8px";
+        //         document.getElementById("iconProductId").style.paddingTop = "3px";
+        //         document.getElementById("iconProductId").style.paddingBottom = "3px";
+        //         document.getElementById("iconProductId").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (customer == 0) {
+        //         document.formCo2.customer.focus() ;
+        //         document.formCo2.customer.style.border = "1px solid red";
+        //         document.getElementById("iconQty").style.border = "1px solid red";
+        //         document.getElementById("iconQty").style.borderRadius = "100pt";
+        //         document.getElementById("iconQty").style.paddingRight = "7px";
+        //         document.getElementById("iconQty").style.paddingLeft = "8px";
+        //         document.getElementById("iconQty").style.paddingTop = "3px";
+        //         document.getElementById("iconQty").style.paddingBottom = "3px";
+        //         document.getElementById("iconQty").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (po_customer == "") {
+        //         document.formCo2.po_customer.focus() ;
+        //         document.formCo2.po_customer.style.border = "1px solid red";
+        //         document.getElementById("iconUnitPrice").style.border = "1px solid red";
+        //         document.getElementById("iconUnitPrice").style.borderRadius = "100pt";
+        //         document.getElementById("iconUnitPrice").style.paddingRight = "7px";
+        //         document.getElementById("iconUnitPrice").style.paddingLeft = "8px";
+        //         document.getElementById("iconUnitPrice").style.paddingTop = "3px";
+        //         document.getElementById("iconUnitPrice").style.paddingBottom = "3px";
+        //         document.getElementById("iconUnitPrice").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (value_idr == "") {
+        //         document.formCo2.value_idr.focus() ;
+        //         document.formCo2.value_idr.style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.borderRadius = "100pt";
+        //         document.getElementById("iconRemark").style.paddingRight = "7px";
+        //         document.getElementById("iconRemark").style.paddingLeft = "8px";
+        //         document.getElementById("iconRemark").style.paddingTop = "3px";
+        //         document.getElementById("iconRemark").style.paddingBottom = "3px";
+        //         document.getElementById("iconRemark").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (value_usd == "") {
+        //         document.formCo2.value_usd.focus() ;
+        //         document.formCo2.value_usd.style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.borderRadius = "100pt";
+        //         document.getElementById("iconRemark").style.paddingRight = "7px";
+        //         document.getElementById("iconRemark").style.paddingLeft = "8px";
+        //         document.getElementById("iconRemark").style.paddingTop = "3px";
+        //         document.getElementById("iconRemark").style.paddingBottom = "3px";
+        //         document.getElementById("iconRemark").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (description == "") {
+        //         document.formCo2.description.focus() ;
+        //         document.formCo2.description.style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.borderRadius = "100pt";
+        //         document.getElementById("iconRemark").style.paddingRight = "7px";
+        //         document.getElementById("iconRemark").style.paddingLeft = "8px";
+        //         document.getElementById("iconRemark").style.paddingTop = "3px";
+        //         document.getElementById("iconRemark").style.paddingBottom = "3px";
+        //         document.getElementById("iconRemark").innerHTML = "&#33";
+        //         return false;
+        //     }
+        //     else if (confirmation_form == "") {
+        //         document.formCo2.confirmation_form.focus() ;
+        //         document.formCo2.confirmation_form.style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.border = "1px solid red";
+        //         document.getElementById("iconRemark").style.borderRadius = "100pt";
+        //         document.getElementById("iconRemark").style.paddingRight = "7px";
+        //         document.getElementById("iconRemark").style.paddingLeft = "8px";
+        //         document.getElementById("iconRemark").style.paddingTop = "3px";
+        //         document.getElementById("iconRemark").style.paddingBottom = "3px";
+        //         document.getElementById("iconRemark").innerHTML = "&#33";
+        //         return false;
+        //     }
+        // }
+        // else if(status_co == "Estimate"){
 
 
-        }
-        else{
+        // }
+        // else{
 
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
             $("#detailArfList").show();
@@ -219,14 +219,14 @@
                     origin_budget: "x",
                     projectcode: "x",
                     projectname: "x",
-                    subprojectc: "x",
-                    subprojectn: "x",
+                    sitecode: "x",
+                    sitecode2: "x",
                     beneficiary: "x",
                     bank_name: "x",
                     account_name: "x",
                     account_number: "x",
                     internal_notes: "x",
-                    requestNameArf: "x",
+                    request_name: "x",
                     putWorkId: "x",
                     putWorkName: "x",
                     putProductId: "x",
@@ -255,46 +255,28 @@
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
+
                 success: function(data) {
+
                     Swal.fire("Success !", "Data add to cart", "success");
-                    console.log(data);
+
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tableArfListCart').append('<tr id="control-group"><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
 
-                        $('.ChangeQtys').keyup(function() {
-
-                            var qtyReq = $(this).val();
-                            if (qtyReq == 0 || qtyReq == '') {
-                                qtyReq = 0;
-                            }
-                            var putQty = val.putQtys;
-                            var priceCek = val.priceCek;
-                            var total = parseFloat(putQty * priceCek);
-                            var total2 = parseFloat(qtyReq * priceCek);
-
-                            if (qtyReq == '') {
-                                $("#buttonArfList").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                            }
-                            else if (qtyReq > putQty) {
-                                Swal.fire("Error !", "Your Qty Is Over", "error");
-                                $("#qtyCek").val(0);
-                                $("#buttonArfList").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                            }
-                            else if (total2 > total) {
-                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                                $('#totalArfDetails_' + y + '').html(0);
-                                $("#saveArfList").prop("disabled", true);
-                            } else {
-                                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                $('#totalArfDetails_' + y + '').html(totalReq);
-                                $("#saveArfList").prop("disabled", false);
-                            }
-
-                        });
-
+                        var t = $('#tableCoCart').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                        ]).draw();
                     });
                 },
                 error: function(data) {
@@ -311,7 +293,7 @@
             document.formCo2.putPrice.style.border = "1px solid #ced4da";
             document.formCo2.putRemark.style.border = "1px solid #ced4da";
             
-        }
+        // }
 
     });
 </script>

@@ -15,12 +15,12 @@ class masterDataTransactionNumber extends Controller
      */
     public function indexTranoType()
     {
-        return view('Master.transactionNumber.indexTranoType');
+        return view('Master.transactionNumber.Transactions.indexTranoType');
     }
 
     public function indexTranoNumber()
     {
-        return view('Master.transactionNumber.indexTranoNumber');
+        return view('Master.transactionNumber.Transactions.indexTranoNumber');
     }
 
     public function create()
@@ -34,9 +34,23 @@ class masterDataTransactionNumber extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function storeTranoType(Request $request)
     {
         
+        $data = json_decode($request->getContent(), true);
+
+        $dataAll = array();
+
+        foreach ($data as $i => $v) {
+
+            array_push($dataAll, array(
+                'tranoType' => $v['tranoType'],
+                'tranoPrefix' => $v['tranoPrefix'],
+                'remark' => $v['remark'],
+            ));
+        }
+
+        return response()->json($dataAll);
     }
 
     

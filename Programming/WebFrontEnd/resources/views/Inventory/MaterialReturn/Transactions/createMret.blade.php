@@ -133,6 +133,13 @@
                                                         </tr>
                                                     </table>
                                                 </div>
+                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
+                                                    <i class="fa fa-times" aria-hidden="true" title="Cancel DOR List Cart">Cancel</i>
+                                                </button>
+                                                <button type="reset"class="btn btn-success btn-sm float-right" id="addMret" style="color:white;">
+                                                    <i class="fa fa-plus" aria-hidden="true"></i>
+                                                    Add to Material Return List Cart
+                                                    </button>
                                             </div>
                                         </div>
                                     </div>
@@ -157,7 +164,7 @@
                             </div>
 
                             <div class="card-body table-responsive p-0" id="detailDorList">
-                                <table id="table2" class="table table-head-fixed text-nowrap">
+                                <table id="tableMretCart" class="table table-head-fixed text-nowrap">
                                     <thead>
                                         <tr>
                                             <th>Action</th>
@@ -172,7 +179,6 @@
                                             <th>Currency</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="tableDorCart"></tbody>
                                 </table>
                             </div>
                         </div>

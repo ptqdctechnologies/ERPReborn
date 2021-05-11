@@ -5,9 +5,9 @@
         $("#detailTransAvail").hide();
         $("#projectcode2").prop("disabled", true);
         $("#sitecode2").prop("disabled", true);
-        $("#requester_name2").prop("disabled", true);
+        $("#request_name2").prop("disabled", true);
         $("#buttonArfList").prop("disabled", true);
-        $("#product-comments-tab").prop("disabled", true);
+        // $("#product-comments-tab").prop("disabled", true);
     });
 </script>
 
@@ -31,7 +31,7 @@
 
         $("#sitecode2").on('click', function(e) {
             e.preventDefault();
-            $("#requester_name2").prop("disabled", false);
+            $("#request_name2").prop("disabled", false);
         });
     });
 </script>
@@ -41,7 +41,7 @@
         var original_budget = document.forms["formArf1"]["origin_budget"].value;
         var projectcode = document.forms["formArf1"]["projectcode"].value;
         var sitecode = document.forms["formArf1"]["sitecode"].value;
-        var requester_name = document.forms["formArf1"]["requester_name"].value;
+        var request_name = document.forms["formArf1"]["request_name"].value;
         var beneficiary = document.forms["formArf1"]["beneficiary"].value;
         var bank_name = document.forms["formArf1"]["bank_name"].value;
         var account_name = document.forms["formArf1"]["account_name"].value;
@@ -99,9 +99,9 @@
             return false;
         }
         
-        else if (requester_name == "") {
-            document.formArf1.requester_name.focus() ;
-            document.formArf1.requester_name.style.border = "1px solid red";
+        else if (request_name == "") {
+            document.formArf1.request_name.focus() ;
+            document.formArf1.request_name.style.border = "1px solid red";
             document.getElementById("iconRequester").style.border = "1px solid red";
             document.getElementById("iconRequester").style.borderRadius = "100pt";
             document.getElementById("iconRequester").style.paddingRight = "7px";
@@ -129,7 +129,7 @@
             document.getElementById("iconBeneficiary").innerHTML = "&#33";
 
             $("#iconRequester").hide();
-            document.formArf1.requester_name.style.border = "1px solid #ced4da";
+            document.formArf1.request_name.style.border = "1px solid #ced4da";
 
             return false;
         }
@@ -203,6 +203,9 @@
             return false;
         }
         else{
+
+            Swal.fire("Success !", "Please select yout budget !", "success");
+
             $("#projectcode").prop("disabled", true);
             $("#sitecode").prop("disabled", true);
             $("#projectcode2").prop("disabled", true);
@@ -227,7 +230,7 @@
     $(document).ready(function() {
 
         $('.klikDetail1').click(function() {
-
+            
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
@@ -237,8 +240,8 @@
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
             var get31 = $("#getProductId1").html();
-            var get41 = $("#getQty1").html();
-            var get51 = $("#getPrice1").html();
+            var get41 = $("#getQty1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get51 = $("#getPrice1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get61 = $("#getRemark1").html();
             var get71 = $("#getProductName1").html();
             var get81 = $("#getUom1").html();
@@ -271,8 +274,8 @@
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
             var get32 = $("#getProductId2").html();
-            var get42 = $("#getQty2").html();
-            var get52 = $("#getPrice2").html();
+            var get42 = $("#getQty2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get52 = $("#getPrice2").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get62 = $("#getRemark2").html();
             var get72 = $("#getProductName2").html();
             var get82 = $("#getUom2").html();
@@ -304,8 +307,8 @@
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
             var get33 = $("#getProductId3").html();
-            var get43 = $("#getQty3").html();
-            var get53 = $("#getPrice3").html();
+            var get43 = $("#getQty3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get53 = $("#getPrice3").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get63 = $("#getRemark3").html();
             var get73 = $("#getProductName3").html();
             var get83 = $("#getUom3").html();
@@ -337,8 +340,8 @@
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
             var get34 = $("#getProductId4").html();
-            var get44 = $("#getQty4").html();
-            var get54 = $("#getPrice4").html();
+            var get44 = $("#getQty4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get54 = $("#getPrice4").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get64 = $("#getRemark4").html();
             var get74 = $("#getProductName4").html();
             var get84 = $("#getUom4").html();
@@ -367,10 +370,10 @@
         y = 0;
 
     $('#buttonArfList').click(function() {
-
+        
         var product_id = document.forms["formArf2"]["putProductId"].value;
         var qtyx = document.forms["formArf2"]["qtyCek"].value;
-        var putPrice = document.forms["formArf2"]["putPrice"].value;
+        var priceCek = document.forms["formArf2"]["priceCek"].value;
         var putRemark = document.forms["formArf2"]["putRemark"].value;
 
         if (product_id == "") {
@@ -401,9 +404,9 @@
             document.getElementById("iconQty").innerHTML = "&#33";
             return false;
         }
-        else if (putPrice == "") {
-            document.formArf2.putPrice.focus() ;
-            document.formArf2.putPrice.style.border = "1px solid red";
+        else if (priceCek == "") {
+            document.formArf2.priceCek.focus() ;
+            document.formArf2.priceCek.style.border = "1px solid red";
             document.getElementById("iconUnitPrice").style.border = "1px solid red";
             document.getElementById("iconUnitPrice").style.borderRadius = "100pt";
             document.getElementById("iconUnitPrice").style.paddingRight = "7px";
@@ -425,7 +428,7 @@
             document.getElementById("iconRemark").innerHTML = "&#33";
 
             $("#iconUnitPrice").hide();
-            document.formArf2.putPrice.style.border = "1px solid #ced4da";
+            document.formArf2.priceCek.style.border = "1px solid #ced4da";
             document.formArf2.putCurrency.style.border = "1px solid #ced4da";
 
             return false;
@@ -448,7 +451,7 @@
                     account_name: $('#account_name').val(),
                     account_number: $('#account_number').val(),
                     internal_notes: $('#internal_notes').val(),
-                    requestNameArf: $('#requestNameArf').val(),
+                    request_name: $('#request_name').val(),
                     putProductId: $('#putProductId').val(),
                     putProductName: $('#putProductName').val(),
                     putQty: $('#qtyCek').val(),
@@ -480,36 +483,49 @@
                     console.log(data);
                     y++;
                     $.each(data, function(key, val) {
-                        $('#tableArfListCart').append('<tr><td><center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastProductName_' + y + '">' + val.putProductName + '</span></td><td><input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastPrice_' + y + '">' + val.putPrice + '</span></td><td><span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span></td><td><span id="lastCurrency_' + y + '">' + val.putCurrency + '</span></td><td><span id="lastRemark_' + y + '">' + val.putRemark + '</span></td></tr>');
+
+                        var t = $('#tableArf').DataTable();
+                            t.row.add( [
+                                '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
+                                '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                                '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                                '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '>',
+                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                                '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                                '<span id="totalAkhir">' + val.totalArfDetails + '</span>',
+                                '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                            ] ).draw();
 
                         $('.ChangeQtys').keyup(function() {
-
-                            var qtyReq = $(this).val();
+                            
+                            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
                             if (qtyReq == 0 || qtyReq == '') {
                                 qtyReq = 0;
                             }
                             var putQty = val.putQtys;
-                            var priceCek = val.priceCek;
-                            var total = parseFloat(putQty * priceCek);
-                            var total2 = parseFloat(qtyReq * priceCek);
+                            var putPrice = val.putPrice;
+                            var awal = putQty * putPrice;
+                            var akhir = qtyReq * putPrice;
 
                             if (qtyReq == '') {
                                 $("#buttonArfList").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
                             }
                             else if (qtyReq > putQty) {
-                                Swal.fire("Error !", "Your Qty Is Over", "error");
-                                $("#qtyCek").val(0);
+                                Swal.fire("Error !", "Your Qty Request is Over", "error");
+                                $("#lastQty_' + y + '").val(0);
                                 $("#buttonArfList").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
                             }
-                            else if (total2 > total) {
+                            else if (akhir > awal) {
                                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                                $('#totalArfDetails_' + y + '').html(0);
+                                $("#lastQty_' + y + '").val(0);
+                                $('#totalAkhir').html(0);
                                 $("#saveArfList").prop("disabled", true);
                             } else {
-                                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                                $('#totalArfDetails_' + y + '').html(totalReq);
+                                var totalReq = parseFloat(akhir).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                $('#totalAkhir').html(totalReq);
                                 $("#saveArfList").prop("disabled", false);
                             }
 
@@ -542,7 +558,7 @@
     $('#saveArfList').click(function() {
 
         var original_budget = document.forms["formArf1"]["origin_budget"].value;
-        var requester_name = document.forms["formArf1"]["requester_name"].value;
+        var request_name = document.forms["formArf1"]["request_name"].value;
         var projectcode = document.forms["formArf1"]["projectcode"].value;
         var sitecode = document.forms["formArf1"]["sitecode"].value;
         var beneficiary = document.forms["formArf1"]["beneficiary"].value;
@@ -561,7 +577,7 @@
         else if (sitecode == "") {
             Swal.fire("Error !", "Please Input Site code !", "error");
         }
-        else if (requester_name == "") {
+        else if (request_name == "") {
             Swal.fire("Error !", "Please Input Requester Name !", "error");
         }
         else if (beneficiary == "") {
@@ -608,8 +624,6 @@
                 var datax = [];
                 for (var i = 1; i <= y; i++) {
                     var data = {
-                        lastWorkId: $('#lastWorkId_' + i).html(),
-                        lastWorkName: $('#lastWorkName_' + i).html(),
                         lastProductId: $('#lastProductId_' + i).html(),
                         lastProductName: $('#lastProductName_' + i).html(),
                         lastQty: $('#lastQty_' + i).val(),
@@ -628,7 +642,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '{{route('ARF.tests')}}',
+                    url: '{{route("ARF.tests")}}',
                     data: json_object,
                     contentType: "application/json",
                     processData: true,
@@ -659,27 +673,28 @@
     });
 </script>
 
-
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
 
-            var qtyReq = $(this).val();
+            var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
             if (qtyReq == 0 || qtyReq == '') {
                 qtyReq = 0;
             }
-            var putQty = parseFloat($('#putQty').val());
-            var priceCek = parseFloat($('#priceCek').val());
-            var total = parseFloat(putQty * priceCek);
-            var total2 = parseFloat(qtyReq * priceCek);
+            var putQty = $('#putQty').val();
+            var priceCek = $('#priceCek').val();
+            var total = putQty * priceCek;
+            var total2 = qtyReq * priceCek;
 
             if (qtyReq == '') {
                 $("#buttonArfList").prop("disabled", true);
-                $("#saveArfList").prop("disabled", true);         
+                $("#saveArfList").prop("disabled", true); 
+                $('#totalArfDetails').val(0);        
             }
             else if (qtyReq > putQty) {
-                Swal.fire("Error !", "Your Qty Is Over x", "error");
+                Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
+                $('#totalArfDetails').val(0);
                 $("#buttonArfList").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
             }
@@ -700,25 +715,26 @@
 <script>
     $('document').ready(function() {
         $('.ChangePrice').keyup(function() {
-            var priceReq = $(this).val();
+            var priceReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
             if (priceReq == 0 || priceReq == '') {
                 priceReq = 0;
             }
-            var qtyCek = parseFloat($('#qtyCek').val());
-            var putPrice = parseFloat($('#putPrice').val());
-
-            var total = parseFloat(qtyCek * priceReq);
-            var total2 = parseFloat(qtyCek * putPrice);
+            var qtyCek = $('#qtyCek').val();
+            var putPrice = $('#putPrice').val();
+            var total = qtyCek * priceReq;
+            var total2 = qtyCek * putPrice;
 
             if (priceReq == '') {
-                $("#buttonArfList").prop("disabled", true);             
+                $("#buttonArfList").prop("disabled", true);    
+                $('#totalArfDetails').val(0);         
             }
             else if (total > total2) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                $("#priceCek").val(0);
                 $('#totalArfDetails').val(0);
                 $("#buttonArfList").prop("disabled", true);               
             } else {
-                var totalReq = parseFloat(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                var totalReq = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
                 $("#buttonArfList").prop("disabled", false);
             }
@@ -772,4 +788,12 @@
             $(this).parents("#control-group").remove();
         });
     });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Format mata uang.
+        $( '.uang' ).mask('000.000.000.000', {reverse: true});
+        // $( '.quantity' ).mask('000.000.000', {reverse: true});
+    })
 </script>

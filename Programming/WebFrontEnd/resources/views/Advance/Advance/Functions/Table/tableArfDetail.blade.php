@@ -1,5 +1,5 @@
 <div class="card-body table-responsive p-0">
-    <table id="table1" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
+    <table id="tableArfDetail" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
         <thead>
             <tr>
                 <th>No Trans</th>
@@ -14,6 +14,5 @@
                 <th>Available</th>
             </tr>
         </thead>
-        <tbody id="tableArfListCart"></tbody>
     </table>
 </div>

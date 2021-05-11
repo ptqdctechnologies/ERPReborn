@@ -30,7 +30,7 @@
                                 <td><label>Trano</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="trano_number_ppnr" onkeyup="searchPPNTrano()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="trano_number" onkeyup="searchPPNTrano()">
                                     </div>
                                 </td>
                             </tr>
@@ -38,14 +38,14 @@
                                 <td><label>Project Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_ppn" onkeyup="searchPPNProjectCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code" onkeyup="searchPPNProjectCode()">
                                         <br><br><br>
                                     </div>
                                 </td>
                                 <td><label>Site Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_ppn" onkeyup="searchPPNSiteCode()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code" onkeyup="searchPPNSiteCode()">
                                         <br><br><br>
                                     </div>
                                 </td>
@@ -76,17 +76,17 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}">Trano {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchTrano" data-id="trano {{ $i }}">Trano {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="project_code {{ $i }}">Project Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchTrano" data-id="project_code {{ $i }}">Project Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="site_code {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchTrano" data-id="site_code {{ $i }}">Site Code {{$i}}</p>
                                                 </span>
                                             </td>
                                             </tr>
@@ -108,7 +108,7 @@
     function searchPPNTrano() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("trano_number_ppnr");
+        input = document.getElementById("trano_number");
         filter = input.value.toUpperCase();
         table = document.getElementById("ppnTable");
         tr = table.getElementsByTagName("tr");
@@ -130,7 +130,7 @@
     function searchPPNProjectCode() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("project_code_ppn");
+        input = document.getElementById("project_code");
         filter = input.value.toUpperCase();
         table = document.getElementById("ppnTable");
         tr = table.getElementsByTagName("tr");
@@ -152,7 +152,7 @@
     function searchPPNSiteCode() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("site_code_ppn");
+        input = document.getElementById("site_code");
         filter = input.value.toUpperCase();
         table = document.getElementById("ppnTable");
         tr = table.getElementsByTagName("tr");
@@ -174,7 +174,7 @@
 
 <script>
     $(function() {
-        $(".klikSearchArf").on('click', function(e) {
+        $(".klikSearchTrano").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");

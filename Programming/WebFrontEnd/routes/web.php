@@ -156,7 +156,25 @@ Route::resource('ASF','procurementTransactionAsf');
 
 //MASTER DATA
 Route::get('tranoType','masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
+Route::post('tranoTypeStore','masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
 Route::get('tranoNumber','masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
+Route::get('exchangeRate','masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
+Route::get('periode','masterDataPeriode@periode')->name('periode.index');
+Route::get('COA','masterDataCoa@Coa')->name('COA.index');
+Route::get('UOM','masterDataUom@Uom')->name('UOM.index');
+Route::get('Supplier','masterDataSupplier@supplier')->name('supplier.index');
+
+//Finance
+
+Route::get('editApNumber','finance@editApNumber')->name('editApNumber.index');
+Route::get('editApJournal','finance@editApJournal')->name('editApJournal.index');
+Route::get('editApBankJournal','finance@editApBankJournal')->name('editApBankJournal.index');
+Route::get('bankReceiveMoney','finance@bankReceiveMoney')->name('bankReceiveMoney.index');
+Route::get('editBankReceiveMoney','finance@editBankReceiveMoney')->name('editBankReceiveMoney.index');
+Route::get('bankSpendMoney','finance@bankSpendMoney')->name('bankSpendMoney.index');
+Route::get('editBankSpendMoney','finance@editBankSpendMoney')->name('editBankSpendMoney.index');
+Route::get('bankChargers','finance@bankChargers')->name('bankChargers.index');
+Route::get('editBankChargers','finance@editBankChargers')->name('editBankChargers.index');
 
 
 // Dashboard

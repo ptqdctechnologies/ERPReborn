@@ -16,13 +16,13 @@
                                 <td><label>Code</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_produk_arf" onkeyup="searchArfCodeProduk()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_produk" onkeyup="searchArfCodeProduk()">
                                     </div>
                                 </td>
                                 <td><label>Name</label></td>
                                 <td>
                                     <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_produk_arf" onkeyup="searchArfNameProduk()">
+                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_produk" onkeyup="searchArfNameProduk()">
                                     </div>
                                 </td>
                                 </tr>
@@ -48,7 +48,7 @@
                                                 <td>{{ $no++ }}</td>
                                                 <td>
                                                     <span class="tag tag-success">
-                                                        <p data-dismiss="modal" class="klikProductArf" data-id="Product Code {{ $i }}" data-name="Product Name {{ $i }}">Product Code {{$i}}</p>
+                                                        <p data-dismiss="modal" class="klikProduct" data-id="Product Code {{ $i }}" data-name="Product Name {{ $i }}">Product Code {{$i}}</p>
                                                     </span>
                                                 </td>
                                                 <td>
@@ -73,7 +73,7 @@
 function searchArfCodeProduk() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("code_produk_arf");
+  input = document.getElementById("code_produk");
   filter = input.value.toUpperCase();
   table = document.getElementById("produkArf");
   tr = table.getElementsByTagName("tr");
@@ -94,7 +94,7 @@ function searchArfCodeProduk() {
 function searchArfNameProduk() {
   // Declare variables
   var input, filter, table, tr, td, i, txtValue;
-  input = document.getElementById("name_produk_arf");
+  input = document.getElementById("name_produk");
   filter = input.value.toUpperCase();
   table = document.getElementById("produkArf");
   tr = table.getElementsByTagName("tr");
@@ -115,7 +115,7 @@ function searchArfNameProduk() {
 </script>
 <script>
     $(function() {
-        $(".klikProductArf").on('click', function(e) {
+        $(".klikProduct").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");

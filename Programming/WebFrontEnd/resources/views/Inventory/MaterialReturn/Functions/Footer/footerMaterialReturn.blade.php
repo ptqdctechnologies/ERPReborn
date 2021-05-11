@@ -1,142 +1,227 @@
 <!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
-    $(document).ready(function() {
-        // $(".headerDor1").hide();
-        // $(".headerDor2").hide();
-        // $(".headerDor3").hide();
-        // $("#detailDor").hide();
-        // $("#detailDorList").hide();
-        // $("#dorCart").hide();
-    });
+  $(document).ready(function() {
+    // $(".headerDor1").hide();
+    // $(".headerDor2").hide();
+    // $(".headerDor3").hide();
+    // $("#detailDor").hide();
+    // $("#detailDorList").hide();
+    // $("#dorCart").hide();
+  });
 </script>
 
 <script>
-    $(function() {
-        $(".warehouseMret").on('click', function(e) {
-            e.preventDefault();
-            var valAddress = $(".warehouseMret").val();
-            if(valAddress == "Jakarta"){
-              $("#address").val("Jakarta");
-            }
-            else if(valAddress == "Bandung"){
-              $("#address").val("Bandung");
-            }
-            else if(valAddress == "Surabaya"){
-              $("#address").val("Surabaya");
-            }
-        });
+  $(function() {
+    $(".warehouseMret").on('click', function(e) {
+      e.preventDefault();
+      var valAddress = $(".warehouseMret").val();
+      if (valAddress == "Jakarta") {
+        $("#address").val("Jakarta");
+      } else if (valAddress == "Bandung") {
+        $("#address").val("Bandung");
+      } else if (valAddress == "Surabaya") {
+        $("#address").val("Surabaya");
+      }
     });
+  });
 </script>
 <!--  END SHOW HIDE AVAILABEL -->
 
 <script>
+  var x = 1,
+    y = 0;
+  xx = 0; //initlal text box count
 
-    var x = 1,
-        y = 0;
-        xx = 0; //initlal text box count
+  function validateFormHeaderMret() {
+    var projectcode = document.forms["formHeaderMret"]["projectcode"].value;
+    var doNumberMret = document.forms["formHeaderMret"]["doNumberMret"].value;
+    var address = document.forms["formHeaderMret"]["address"].value;
+    var sitecode = document.forms["formHeaderMret"]["sitecode"].value;
+    var warehouseMret = document.forms["formHeaderMret"]["warehouseMret"].value;
+    var delivery = document.forms["formHeaderMret"]["delivery"].value;
+    var receive = document.forms["formHeaderMret"]["receive"].value;
 
-    function validateFormHeaderMret() {
-        var projectcode = document.forms["formHeaderMret"]["projectcode"].value;
-        var doNumberMret = document.forms["formHeaderMret"]["doNumberMret"].value;
-        var address = document.forms["formHeaderMret"]["address"].value;
-        var sitecode = document.forms["formHeaderMret"]["sitecode"].value;
-        var warehouseMret = document.forms["formHeaderMret"]["warehouseMret"].value;
-        var delivery = document.forms["formHeaderMret"]["delivery"].value;
-        var receive = document.forms["formHeaderMret"]["receive"].value;
-        
-        if (projectcode == "") {
-            Swal.fire("Error !", "Please Input Project Code !", "error");
-        }
-        else if (doNumberMret == "") {
-            Swal.fire("Error !", "Please Input DO Number !", "error");
-        }
-        else if (address == "") {
-            Swal.fire("Error !", "Please Input Address !", "error");
-        }
-        else if (sitecode == "") {
-            Swal.fire("Error !", "Please Input Site !", "error");
-        }
-        else if (warehouseMret == "") {
-            Swal.fire("Error !", "Please Input Warehouse !", "error");
-        }
-        else if (delivery == "") {
-            Swal.fire("Error !", "Please Input Delivery !", "error");
-        }
-        else if (receive == "") {
-            Swal.fire("Error !", "Please Input Receive !", "error");
-        }
-        else{
-            var datas = [];
+    if (projectcode == "") {
+      Swal.fire("Error !", "Please Input Project Code !", "error");
+    } else if (doNumberMret == "") {
+      Swal.fire("Error !", "Please Input DO Number !", "error");
+    } else if (address == "") {
+      Swal.fire("Error !", "Please Input Address !", "error");
+    } else if (sitecode == "") {
+      Swal.fire("Error !", "Please Input Site !", "error");
+    } else if (warehouseMret == "") {
+      Swal.fire("Error !", "Please Input Warehouse !", "error");
+    } else if (delivery == "") {
+      Swal.fire("Error !", "Please Input Delivery !", "error");
+    } else if (receive == "") {
+      Swal.fire("Error !", "Please Input Receive !", "error");
+    } else {
+      var datas = [];
 
-            for (var i = 1; i <= x; i++) {
-                var data = {
-                    origin_budget: "xxxx",
-                    projectcode: "xxxx",
-                    projectname: "xxxx",
-                    subprojectc: "xxxx",
-                    subprojectn: "xxxx",
-                    beneficiary: "xxxx",
-                    bank_name: "xxxx",
-                    account_name: "xxxx",
-                    account_number: "xxxx",
-                    internal_notes: "xxxx",
-                    requestNameArf: "xxxx",
-                    putWorkId: "xxxx",
-                    putWorkName: "xxxx",
-                    putProductId: "xxxx",
-                    putProductName: "xxxx",
-                    putQty: "xxxx",
-                    putQtys: "xxxx",
-                    putUom: "xxxx",
-                    putPrice: "xxxx",
-                    putCurrency: "xxxx",
-                    totalArfDetails: "xxxx",
-                    putRemark: "xxxx",
-                    filenames: "xxxx",
-                }
-                datas.push(data);
-            }
-
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
-
-            $.ajax({
-                type: "POST",
-                url: '{{route('ARF.store')}}',
-                data: json_object,
-                contentType: "application/json",
-                processData: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    Swal.fire("Success !", "Data Added to DO Detail", "success");
-                    console.log(data);
-                    y++;
-                    $.each(data, function(key, val) {
-                        $('#tableDetailDorMret').append('<tr id="control-group"><td><center><a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:cek()"><i class="fa fa-plus" aria-hidden="true"></i></a></center></td><td><span id="lastWorkId_' + y + '">' + val.putWorkId + '</span></td><td><span id="lastWorkName_' + y + '">' + val.putWorkName + '</span></td><td><span id="lastProductId_' + y + '">' + val.putProductId + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td><td><span id="lastUom_' + y + '">' + val.putUom + '</span></td></tr>');
-                    });
-                },
-                error: function(data) {
-                    Swal.fire("Error !", "Data Canceled Added", "error");
-                }
-            });
+      for (var i = 1; i <= x; i++) {
+        var data = {
+          origin_budget: "xxxx",
+          projectcode: "xxxx",
+          projectname: "xxxx",
+          sitecode: "xxxx",
+          sitecode2: "xxxx",
+          beneficiary: "xxxx",
+          bank_name: "xxxx",
+          account_name: "xxxx",
+          account_number: "xxxx",
+          internal_notes: "xxxx",
+          request_name: "xxxx",
+          putWorkId: "xxxx",
+          putWorkName: "xxxx",
+          putProductId: "xxxx",
+          putProductName: "xxxx",
+          putQty: "xxxx",
+          putQtys: "xxxx",
+          putUom: "xxxx",
+          putPrice: "xxxx",
+          putCurrency: "xxxx",
+          totalArfDetails: "xxxx",
+          putRemark: "xxxx",
+          filenames: "xxxx",
         }
+        datas.push(data);
+      }
+
+      var json_object = JSON.stringify(datas);
+      // console.log(json_object);
+
+      $.ajax({
+        type: "POST",
+        url: '{{route("ARF.store")}}',
+        data: json_object,
+        contentType: "application/json",
+        processData: true,
+        headers: {
+          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+
+
+        success: function(data) {
+
+          Swal.fire("Success !", "Data add to cart", "success");
+          y++;
+          $.each(data, function(key, val) {
+
+            var t = $('#tableDetailDorMret').DataTable();
+            t.row.add([
+              '<a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:cek()"><i class="fa fa-plus" aria-hidden="true"></i></a>',
+              '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+              '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+              '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+              '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+              '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+              '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+              '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+              '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+              '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>'
+            ]).draw();
+          });
+        },
+        error: function(data) {
+          Swal.fire("Error !", "Data Canceled Added", "error");
+        }
+      });
     }
+  }
 </script>
 
+
 <script>
-    function cek() {
-        $("#work_id").val("x");
-        $("#product_id").val("x");
-        $("#product_name").val("x");
-        $("#remark").val("x");
-        $("#nect_act").val("x");
-        $("#qty").val("x");
-        $("#qty2").val("x");
-        $("#unit_price").val("x");
-        $("#unit_price2").val("x");
+  var x = 1, y = 0, xx = 0; //initlal text box count
+
+  $('#addMret').click(function() {
+
+    var datas = [];
+
+    for (var i = 1; i <= x; i++) {
+      var data = {
+        origin_budget: "xxxx",
+        projectcode: "xxxx",
+        projectname: "xxxx",
+        sitecode: "xxxx",
+        sitecode2: "xxxx",
+        beneficiary: "xxxx",
+        bank_name: "xxxx",
+        account_name: "xxxx",
+        account_number: "xxxx",
+        internal_notes: "xxxx",
+        request_name: "xxxx",
+        putWorkId: "xxxx",
+        putWorkName: "xxxx",
+        putProductId: "xxxx",
+        putProductName: "xxxx",
+        putQty: "xxxx",
+        putQtys: "xxxx",
+        putUom: "xxxx",
+        putPrice: "xxxx",
+        putCurrency: "xxxx",
+        totalArfDetails: "xxxx",
+        putRemark: "xxxx",
+        filenames: "xxxx",
+      }
+      datas.push(data);
     }
+
+    var json_object = JSON.stringify(datas);
+    // console.log(json_object);
+
+    $.ajax({
+      type: "POST",
+      url: '{{route("ARF.store")}}',
+      data: json_object,
+      contentType: "application/json",
+      processData: true,
+      headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+      },
+
+
+      success: function(data) {
+
+        Swal.fire("Success !", "Data add to cart", "success");
+        y++;
+        $.each(data, function(key, val) {
+
+          var t = $('#tableMretCart').DataTable();
+          t.row.add([
+            '<a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:cek()"><i class="fa fa-plus" aria-hidden="true"></i></a>',
+            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>'
+          ]).draw();
+        });
+      },
+      error: function(data) {
+        Swal.fire("Error !", "Data Canceled Added", "error");
+      }
+    });
+  });
+</script>
+
+
+<script>
+  function cek() {
+    $("#work_id").val("x");
+    $("#product_id").val("x");
+    $("#product_name").val("x");
+    $("#remark").val("x");
+    $("#nect_act").val("x");
+    $("#qty").val("x");
+    $("#qty2").val("x");
+    $("#unit_price").val("x");
+    $("#unit_price2").val("x");
+  }
 </script>
 
 
@@ -180,22 +265,21 @@
       Swal.fire("Error !", "Please Input Address !", "error");
     } else if (headerWarehouse3 == "") {
       Swal.fire("Error !", "Please Input Warehouse !", "error");
-    }else if (headerAddress4 == "") {
+    } else if (headerAddress4 == "") {
       Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerSupplier == "") {
+    } else if (headerSupplier == "") {
       Swal.fire("Error !", "Please Input Supplier !", "error");
-    }else if (headerAddress5 == "") {
+    } else if (headerAddress5 == "") {
       Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerSiteName2 == "") {
+    } else if (headerSiteName2 == "") {
       Swal.fire("Error !", "Please Input Site Name !", "error");
-    }else if (headerAddress6 == "") {
+    } else if (headerAddress6 == "") {
       Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerReceiverName == "") {
+    } else if (headerReceiverName == "") {
       Swal.fire("Error !", "Please Input Receiver Name !", "error");
-    }else if (headerReceiverNumber == "") {
+    } else if (headerReceiverNumber == "") {
       Swal.fire("Error !", "Please Input Receiver Number !", "error");
-    }
-     else {
+    } else {
 
       const swalWithBootstrapButtons = Swal.mixin({
         confirmButtonClass: 'btn btn-success',
@@ -219,7 +303,7 @@
             'Succesful!',
             'Data has been updated !',
             'success'
-        )   
+          )
         } else if (
           result.dismiss === Swal.DismissReason.cancel
         ) {

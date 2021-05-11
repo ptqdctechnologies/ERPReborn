@@ -330,7 +330,7 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0" id="amountCompanyCart">
-                <table id="table2" class="table table-head-fixed text-nowrap table-striped">
+                <table id="tableAmountDuetoBsf" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -346,8 +346,6 @@
                       <th>CFS Code</th>
                     </tr>
                   </thead>
-                  <tbody id="tableAmountDuetoBsf">
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -370,7 +368,7 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0" id="expenseClaimCart">
-                <table id="table3" class="table table-head-fixed text-nowrap table-striped">
+                <table id="tableExpenseClaimBsf" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th>No</th>
@@ -386,7 +384,6 @@
                       <th>CSF Code</th>
                     </tr>
                   </thead>
-                  <tbody id="tableExpenseClaimBsf"></tbody>
                 </table>
               </div>
             </div>

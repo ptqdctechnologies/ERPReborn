@@ -98,8 +98,8 @@ class procurementTransactionAsf extends Controller
         if ($request->searchArfNumberRevision == 'Q00018 1') {
             $arfNumberAsf = "05020242 1";
             $requester = "Requester 1";
-            $managerAsfUid = "ManagerAsfUid 1";
-            $managerAsfName = "Manager Asf Name 1";
+            $managerUid = "ManagerUid 1";
+            $managerName = "Manager Asf Name 1";
             $currency = "Currency 1";
             $financeArfUid = "Finance Arf Uid 1";
             $financeArfName = "Finance Arf Name 1";
@@ -110,8 +110,8 @@ class procurementTransactionAsf extends Controller
         else if ($request->searchArfNumberRevision == 'Q00018 2') {
             $arfNumberAsf = "05020242 2";
             $requester = "Requester 2";
-            $managerAsfUid = "ManagerAsfUid 2";
-            $managerAsfName = "Manager Asf Name 2";
+            $managerUid = "ManagerUid 2";
+            $managerName = "Manager Asf Name 2";
             $currency = "Currency 2";
             $financeArfUid = "Finance Arf Uid 2";
             $financeArfName = "Finance Arf Name 2";
@@ -122,8 +122,8 @@ class procurementTransactionAsf extends Controller
         else if ($request->searchArfNumberRevision == 'Q00018 3') {
             $arfNumberAsf = "05020242 3";
             $requester = "Requester 3";
-            $managerAsfUid = "ManagerAsfUid 3";
-            $managerAsfName = "Manager Asf Name 3";
+            $managerUid = "ManagerUid 3";
+            $managerName = "Manager Asf Name 3";
             $currency = "Currency 3";
             $financeArfUid = "Finance Arf Uid 3";
             $financeArfName = "Finance Arf Name 3";
@@ -134,8 +134,8 @@ class procurementTransactionAsf extends Controller
         else if ($request->searchArfNumberRevision == 'Q00018 4') {
             $arfNumberAsf = "05020242 4";
             $requester = "Requester 4";
-            $managerAsfUid = "ManagerAsfUid 4";
-            $managerAsfName = "Manager Asf Name 4";
+            $managerUid = "ManagerUid 4";
+            $managerName = "Manager Asf Name 4";
             $currency = "Currency 4";
             $financeArfUid = "Finance Arf Uid 4";
             $financeArfName = "Finance Arf Name 4";
@@ -144,6 +144,6 @@ class procurementTransactionAsf extends Controller
             $totalDetail = "IDR";
         }
 
-        return view('Advance.Advance.Transactions.revisionASF', compact('arfNumberAsf','requester','managerAsfUid','managerAsfName','currency','financeArfUid','financeArfName','remark','total','totalDetail'));
+        return view('Advance.Advance.Transactions.revisionASF', compact('arfNumberAsf','requester','managerUid','managerName','currency','financeArfUid','financeArfName','remark','total','totalDetail'));
     }
 }

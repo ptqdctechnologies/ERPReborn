@@ -25,19 +25,47 @@
                                     <table id="table1" class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Delete</th>
+                                                <th>Add</th>
                                                 <th>Type</th>
                                                 <th>Trano Prefix</th>
+                                                <th>Last Trano</th>
+                                                <th>Last Month & Year</th>
                                                 <th>Ket</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <button type="reset" class="btn btn-success btn-sm float-right" title="Delete" style="border-radius: 100px;position:relative;right:120px;">
+                                                    <button type="reset" class="btn btn-success btn-sm float-right addTranoNumber1" style="border-radius: 100px;position:relative;right:40px;">
                                                         <i class="fas fa-check" aria-hidden="true"></i>
                                                     </button>
                                                 </td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button type="reset" class="btn btn-success btn-sm float-right addTranoNumber2" style="border-radius: 100px;position:relative;right:40px;">
+                                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                                <td>x</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <button type="reset" class="btn btn-success btn-sm float-right addTranoNumber3" style="border-radius: 100px;position:relative;right:40px;">
+                                                        <i class="fas fa-check" aria-hidden="true"></i>
+                                                    </button>
+                                                </td>
+                                                <td>x</td>
+                                                <td>x</td>
                                                 <td>x</td>
                                                 <td>x</td>
                                                 <td>x</td>
@@ -73,30 +101,44 @@
                                                             <td><label>Trano Type</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="projectcode" name="projectcode" class="form-control">
+                                                                    <input autocomplete="off" id="tranoType" name="tranoType" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
 
                                                         <tr>
-                                                            <td><label>Trano Prefix (Ex.PR01, PO01) </label></td>
+                                                            <td><label>Format Finance </label></td>
                                                             <td>
-                                                                <div class="input-group">
-                                                                    <input autocomplete="off" id="projectcode" name="projectcode" class="form-control">
+                                                                <div class="icheck-primary d-inline">
+                                                                    <input type="radio" id="formatFinance" name="formatFinance" value="Bus">
+                                                                    <label for="formatFinance">
+                                                                    </label>
                                                                 </div>
                                                             </td>
                                                         </tr>
+
+                                                        <tr>
+                                                            <td><label>Status Payment </label></td>
+                                                            <td>
+                                                                <div class="icheck-primary d-inline">
+                                                                    <input type="radio" id="formatFinance" name="formatFinance" value="Bus">
+                                                                    <label for="statusPayment">
+                                                                    </label>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
                                                         <tr>
                                                             <td><label>Remark</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <textarea name="" id="address" cols="30" rows="4" class="form-control"></textarea>
+                                                                    <textarea name="" id="remark" cols="30" rows="4" class="form-control"></textarea>
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </div>
-                                                <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveArfList" style="margin-right: 5px;">
+                                                <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveTranoNumber" style="margin-right: 5px;">
                                                     <i class="fas fa-plus" aria-hidden="true" title="Submit to Advance">Create</i>
                                                 </button>
                                             </div>
@@ -112,4 +154,5 @@
     </section>
 </div>
 @include('Partials.footer')
+@include('Master.transactionNumber.Functions.Footer.footerTranoNumber')
 @endsection

@@ -99,7 +99,7 @@ class procurementTransactionArf extends Controller
                 'account_name' => $v['account_name'],
                 'account_number' => $v['account_number'],
                 'internal_notes' => $v['internal_notes'],
-                'requestNameArf' => $v['requestNameArf'],
+                'request_name' => $v['request_name'],
                 'putProductId' => $v['putProductId'],
                 'putProductName' => $v['putProductName'],
                 'putQty' => $v['putQty'],
@@ -218,12 +218,8 @@ class procurementTransactionArf extends Controller
         $dataAll = array();
 
         foreach ($data as $i => $v) {
-            if ($v['lastWorkId'] == "") {
-                continue;
-            }
+
             array_push($dataAll, array(
-                'lastWorkId' => $v['lastWorkId'],
-                'lastWorkName' => $v['lastWorkName'],
                 'lastProductId' => $v['lastProductId'],
                 'lastProductName' => $v['lastProductName'],
                 'lastQty' => $v['lastQty'],
