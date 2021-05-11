@@ -4,61 +4,49 @@ ENV DEBIAN_FRONTEND=noninteractive
 #    && add-apt-repository ppa:ondrej/php \
 #    && apt-get install -y software-properties-common \
 
-#RUN printf "deb http://httpredir.debian.org/debian jessie-backports main non-free\ndeb-src http://httpredir.debian.org/debian jessie-backports main non-free" > /etc/apt/sources.list.d/backports.list
-
-RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
-    && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
-
-#RUN apt-get update --fix-missing \
 RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get autoremove -y
-
-RUN apt-get install -y \
-       apt-utils \
+    && apt-get install -y \ 
+       apt-utils \ 
        libpq-dev \
-       software-properties-common
-
-RUN apt-get install -y \
-    vim \ 
-    libbz2-dev \
+       vim \
+       libbz2-dev \
     && docker-php-ext-install \
        pdo \
        pdo_pgsql \
-      pgsql \
+       pgsql \
     && pecl install redis \
        && docker-php-ext-enable \
           redis \
     && docker-php-ext-install \
        sockets \
-      bz2 \
+       bz2 \
     && docker-php-ext-enable \ 
        sockets \
-   && apt-get install -y \
+    && apt-get install -y \
        libldap2-dev \
-      && docker-php-ext-configure \
+       && docker-php-ext-configure \
           ldap --with-libdir=lib/x86_64-linux-gnu/ \
        && docker-php-ext-install \
-         ldap \
+          ldap \
        && docker-php-ext-enable \
-         ldap \
+          ldap \
     && apt-get install -y \ 
-      libcurl4-gnutls-dev \
+       libcurl4-gnutls-dev \
        && docker-php-ext-install \
           curl \
-   && apt-get install -y \ 
+    && apt-get install -y \ 
        arp-scan \
-   && apt-get install -y libxml2-dev \
+    && apt-get install -y libxml2-dev \
        && docker-php-ext-install \
-         soap \
+          soap \
     && apt-get install -y unixodbc \
-      unixodbc-dev \
-      && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
+       unixodbc-dev \
+       && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
        && docker-php-ext-install pdo_odbc \
-   && apt-get install -y mdbtools \
+    && apt-get install -y mdbtools \
        odbc-mdbtools \
     && apt-get install -y sshpass \
-      sshfs \
+       sshfs \
     && apt-get install -y cron;
 
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
@@ -73,10 +61,6 @@ RUN apt-get install -y \
 
 #RUN chmod 0644 /etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh \
 #    && touch /var/log/cron.log
-
-ADD ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_* /etc/cron.d/
-RUN chmod 0644 /etc/cron.d/cron_Script_* \
-    && touch /var/log/cron.log
 
 
 RUN touch /var/log/cron.log

@@ -53,7 +53,9 @@ services:
       - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/tmp/download:/zhtConf/tmp/download'
       - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/Script:/zhtConf/Script'
       - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/odbc.ini:/etc/odbc.ini'
-      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d:/etc/cron.d'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d:/etc/cron.d'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh:/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh:/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh'
         #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh:/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh'
       - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
 #    links:
