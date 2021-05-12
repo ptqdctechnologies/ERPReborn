@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIAuthentication_setLogin()
             {
             //---Parameter Set---
-            $varUserID = 'teguh.pratama';
-            $varUserPassword = 'teguhpratama789';
+            $varUserID = 'sysadmin';
+            $varUserPassword = 'sysadmin1234';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -33,8 +33,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIAuthenticationJQuery_setLogin()
             {
             //---Parameter Set---
-            $varUserName = 'teguh.pratama';
-            $varUserPassword = 'teguhpratama789';
+            $varUserName = 'sysadmin';
+            $varUserPassword = 'sysadmin1234';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_UserName" value="'.$varUserName.'">';
