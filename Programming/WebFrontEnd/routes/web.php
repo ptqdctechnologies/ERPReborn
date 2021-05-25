@@ -161,8 +161,24 @@ Route::get('tranoNumber','masterDataTransactionNumber@indexTranoNumber')->name('
 Route::get('exchangeRate','masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
 Route::get('periode','masterDataPeriode@periode')->name('periode.index');
 Route::get('COA','masterDataCoa@Coa')->name('COA.index');
-Route::get('UOM','masterDataUom@Uom')->name('UOM.index');
+
+//Periode
+
+Route::get('periode','masterDataPeriode@periode')->name('periode.index');
+Route::get('addPeriode','masterDataPeriode@addPeriode')->name('periode.addPeriode');
+Route::post('revisionPeriode','masterDataPeriode@revisionPeriode')->name('periode.revisionPeriode');
+
+//Supplier
 Route::get('Supplier','masterDataSupplier@supplier')->name('supplier.index');
+Route::get('addSupplier','masterDataSupplier@addSupplier')->name('supplier.addSupplier');
+Route::post('revisionSupplier','masterDataSupplier@revisionSupplier')->name('supplier.revisionSupplier');
+
+// UOM
+
+Route::get('UOM','masterDataUom@Uom')->name('Uom.index');
+Route::get('addUom','masterDataUom@addUom')->name('addUom.index');
+Route::get('editUom','masterDataUom@editUom')->name('editUom.index');
+Route::post('revisionUom','masterDataUom@revisionUomIndex')->name('Uom.revisionUom');
 
 //Finance
 

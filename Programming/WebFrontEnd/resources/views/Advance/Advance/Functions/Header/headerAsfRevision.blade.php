@@ -33,7 +33,7 @@
                                     <input value="{{ $managerUid }}" required="" id="managerUid" style="border-radius:0;" name="managerAsfUid" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i data-toggle="modal" data-target="#myManagerArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a href="#"><i data-toggle="modal" data-target="#myManager" class="fas fa-gift" style="color:grey;"></i></a>
                                         </span>
                                     </div>
                                 </div>
@@ -46,7 +46,7 @@
                             <td><label>Currency</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input value="{{ $currency }}" required="" id="currency" style="border-radius:0;" name="currency" type="text" class="form-control" readonly>
+                                    <input value="{{ $currency }}" required="" id="currencyCode" style="border-radius:0;" name="currencyCode" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
@@ -65,16 +65,16 @@
                             <td><label>Finance Receiving Name</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input value="{{ $financeArfUid }}" required="" id="financeArfUid" style="border-radius:0;" name="financeArfUid" type="text" class="form-control" readonly>
+                                    <input value="{{ $financeUid }}" required="" id="financeUid" style="border-radius:0;" name="financefUid" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i data-toggle="modal" data-target="#myfinanceArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a href="#"><i data-toggle="modal" data-target="#myfinance" class="fas fa-gift" style="color:grey;"></i></a>
                                         </span>
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <input value="{{ $financeArfName }}" required="" id="financeArfName" style="border-radius:0;" readonly="" class="form-control">
+                                <input value="{{ $financeName }}" required="" id="financeName" style="border-radius:0;" readonly="" class="form-control">
                             </td>
                         </tr>
                         <tr>

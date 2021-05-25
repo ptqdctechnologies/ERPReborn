@@ -1,5 +1,5 @@
 <div class="card-body table-responsive p-0">
-    <table id="tableArfDetail" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
+    <table id="tableArfDetail" class="table table-head-fixed text-nowrap table-striped">
         <thead>
             <tr>
                 <th>No Trans</th>

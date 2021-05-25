@@ -18,41 +18,15 @@ class masterDataUom extends Controller
         return view('Master.UOM.Transactions.indexUom');
     }
 
-    public function indexTranoNumber()
+    public function addUom()
+    {
+        return view('Master.UOM.Transactions.addUom');
+    }
+
+    public function editUom()
     {
         return view('Master.transactionNumber.Transactions.indexTranoNumber');
     }
-
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeTranoType(Request $request)
-    {
-        
-        $data = json_decode($request->getContent(), true);
-
-        $dataAll = array();
-
-        foreach ($data as $i => $v) {
-
-            array_push($dataAll, array(
-                'tranoType' => $v['tranoType'],
-                'tranoPrefix' => $v['tranoPrefix'],
-                'remark' => $v['remark'],
-            ));
-        }
-
-        return response()->json($dataAll);
-    }
-
     
 
     /**
@@ -98,6 +72,13 @@ class masterDataUom extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function revisionUomIndex(Request $request)
+    {
+
+        return view('Master.UOM.Transactions.revisionUom');
     }
 
 }

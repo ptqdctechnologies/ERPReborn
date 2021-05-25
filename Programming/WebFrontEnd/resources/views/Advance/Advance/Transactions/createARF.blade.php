@@ -34,7 +34,7 @@
             <nav class="w-100 pageArfBoq">
               <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true"><span style="font-weight:bold;padding:40px;color:black;">Advance</span></a>&nbsp&nbsp&nbsp
-                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Budget</span></a>
+                <a class="nav-item nav-link" id="buttonBudget" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Budget</span></a>
               </div><br>
             </nav>
 
@@ -159,7 +159,7 @@
             </div>
         </form>
 
-        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="buttonBudget">
           <div class="row">
             <div class="col-12">
               <div class="card">

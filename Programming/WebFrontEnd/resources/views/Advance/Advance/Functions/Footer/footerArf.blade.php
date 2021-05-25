@@ -7,7 +7,7 @@
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#buttonArfList").prop("disabled", true);
-        // $("#product-comments-tab").prop("disabled", true);
+        $("#buttonBudget").prop("disabled", true);
     });
 </script>
 
@@ -203,14 +203,13 @@
             return false;
         }
         else{
-
             Swal.fire("Success !", "Please select yout budget !", "success");
 
             $("#projectcode").prop("disabled", true);
             $("#sitecode").prop("disabled", true);
             $("#projectcode2").prop("disabled", true);
             $("#sitecode2").prop("disabled", true);
-            $("#product-comments-tab").prop("disabled", false);
+            $("#buttonBudget").prop("disabled", false);
 
             $("#iconAccountNumber").hide();
             document.formArf1.account_number.style.border = "1px solid #ced4da";

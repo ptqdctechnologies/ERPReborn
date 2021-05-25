@@ -228,7 +228,7 @@
                     account_name: "x",
                     account_number: "x",
                     internal_notes: "x",
-                    requestNameArf: "x",
+                    request_name: "x",
                     putWorkId: "x",
                     putWorkName: "x",
                     putProductId: "x",

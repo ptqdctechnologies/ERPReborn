@@ -207,10 +207,6 @@
 
                                             </div>
                                         </div>
-
-
-
-
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4">
@@ -458,5 +454,5 @@
 </div>
 
 @include('Partials.footer')
-@include('Advance.BussinesTrip.Functions.Footer.footerBrf')
+@include('Master.supplier.Functions.Footer.footerSupplier')
 @endsection

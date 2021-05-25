@@ -18,14 +18,14 @@ class masterDataPeriode extends Controller
         return view('Master.periode.Transactions.indexPeriode');
     }
 
-    public function indexTranoNumber()
+    public function addPeriode()
     {
-        return view('Master.transactionNumber.Transactions.indexTranoNumber');
+        return view('Master.periode.Transactions.addPeriode');
     }
-
-    public function create()
+    
+    public function revisionPeriode(Request $request)
     {
-        //
+        return view('Master.periode.Transactions.revisionPeriode');
     }
 
     /**

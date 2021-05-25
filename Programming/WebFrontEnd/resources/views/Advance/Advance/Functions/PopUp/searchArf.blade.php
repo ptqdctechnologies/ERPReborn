@@ -180,9 +180,9 @@
             $("#requester").val("requester 1");
             $("#managerAsfUid").val("Manager 1");
             $("#managerAsfName").val("Manager Detail 1");
-            $("#currency").val("IDR");
-            $("#financeArfUid").val("finance 1");
-            $("#financeArfName").val("Finance Detail 1");
+            $("#currencyCode").val("IDR");
+            $("#financeUid").val("finance 1");
+            $("#financeName").val("Finance Detail 1");
             $("#remark").val("Remark 1");
             $("#total").val("100000");
             $("#totalDetail").val("Rp");
@@ -203,7 +203,7 @@
                     account_name: "x",
                     account_number: "x",
                     internal_notes: "x",
-                    requestNameArf: "x",
+                    request_name: "x",
                     putProductId: "x",
                     putProductName: "x",
                     putQty: "x",
@@ -223,7 +223,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route('ARF.store')}}',
+                url: '{{route("ARF.store")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -269,10 +269,10 @@
 
             $("#arf_number").val("ARF-0001");
             $("#arf_date").val("23-02-2021");
-            $("#project_code").val("041111101");
-            $("#project_code2").val("PLN");
-            $("#site_code").val("001");
-            $("#site_code2").val("Bogor");
+            $("#projectcode").val("041111101");
+            $("#projectcode2").val("PLN");
+            $("#sitecode").val("001");
+            $("#sitecode2").val("Bogor");
             $("#cfs_code").val("x");
             $("#total_arf").val("11,1000,000");
             $("#total_arf2").val("IDR");

@@ -11,6 +11,7 @@
 @include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
 @include('Logistic.Functions.searchMaterialReceive')
 @include('Master.supplier.Transactions.popupRevisionSupplier')
+@include('Master.UOM.Transactions.popupRevisionUom')
 
 @include('getFunction.getCurrency')
 @include('getFunction.getDeliverTo')
@@ -25,7 +26,7 @@
 @include('getFunction.getRequester')
 @include('getFunction.getSite')
 @include('getFunction.getSupplier')
-
+@include('getFunction.getUom')
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
@@ -144,8 +145,15 @@
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                            <li class="nav-item">
                                     <a href="{{ route('supplier.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Index Supplier</label>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('supplier.addSupplier') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                         <label>Add Supplier</label>
                                     </a>
@@ -162,22 +170,72 @@
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{ route('UOM.index') }}" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
                                 <label>UOM</label>
+                                <i class="right fas fa-angle-left"></i>
                             </a>
+                            <ul class="nav nav-treeview">
+                                
+                                <li class="nav-item">
+                                    <a href="{{ route('Uom.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Data UOM</label>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('addUom.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Add UOM</label>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#uomPopUp">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit UOM</label>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
+                    </ul>
+
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Periode</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                    <a href="{{ route('periode.index') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Index Periode</label>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a href="{{ route('periode.addPeriode') }}" class="nav-link">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Add Periode</label>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#periodePopUp">
+                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                        <label>Edit Periode</label>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+
+                    <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
                                 <label>Product ID</label>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{ route('periode.index') }}" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Periode</label>
                             </a>
                         </li>
                         <li class="nav-item">

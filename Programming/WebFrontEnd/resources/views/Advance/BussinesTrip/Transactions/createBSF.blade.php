@@ -88,12 +88,12 @@
                           <td><label>Project Code</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="project_code" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="projectcode" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="project_code2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="projectcode2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -108,12 +108,12 @@
                           <td><label>Site Code</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="site_code" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="sitecode" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="site_code2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="sitecode2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>

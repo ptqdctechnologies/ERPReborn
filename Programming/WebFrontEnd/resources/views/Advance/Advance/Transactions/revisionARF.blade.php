@@ -34,7 +34,7 @@
             <nav class="w-100 pageArfBoq">
               <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true"><span style="font-weight:bold;padding:40px;color:black;">Advance</span></a>&nbsp&nbsp&nbsp
-                <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Budget</span></a>
+                <a class="nav-item nav-link" id="buttonBudget" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Budget</span></a>
               </div><br>
             </nav>
 
@@ -61,10 +61,10 @@
                                 <td><label>Requester Name</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input name="requester_name" id="requestNameArf" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $requester }}">
+                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly value="{{ $requester }}">
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="requester_name2" data-toggle="modal" data-target="#myRequesterNameArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequesterNameArf" class="fas fa-gift" style="color:grey;"></i></a>
                                       </span>
                                     </div>
                                   </div>
@@ -106,7 +106,7 @@
                                 <td>
                                   <div id="iconBankName" style="color: red;margin-left:5px;"></div>
                                 </td>
-                              </tr>  
+                              </tr>
                               <tr>
                                 <td><label>Account Name</label></td>
                                 <td>
@@ -124,7 +124,7 @@
                                 <td>
                                   <div id="iconAccountNumber" style="color: red;margin-left:5px;"></div>
                                 </td>
-                              </tr>                          
+                              </tr>
                             </table>
                           </div>
                         </div>
@@ -158,7 +158,7 @@
             </div>
         </form>
 
-        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
+        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="buttonBudget">
           <div class="row">
             <div class="col-12">
               <div class="card">
@@ -221,28 +221,28 @@
                             <tr>
                               <td><label>Qty</label></td>
                               <td>
-                                <input name="qtyx" id="qtyCek" style="border-radius:0;width:90px;" type="text" class="form-control ChangeQty" value="0" autocomplete="off" value="{{ $qty }}">
+                                <input name="qtyx" id="qtyCek" style="border-radius:0;width:90px;" type="number" class="form-control ChangeQty quantity" value="0" autocomplete="off">
                                 <span id="putQtybyId"></span>
                                 <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                               </td>
                               <td>
-                                <input name="qty_detail" id="putUom" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="" value="{{ $qtyDetail }}">
+                                <input name="qty_detail" id="putUom" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="">
                               </td>
                               <td>
-                                <div id="iconQty" style="color: red;margin-left:5px;"></div>
+                                <div id="iconQty" style="color: red;margin-left:5px;" title="Please input qty"></div>
                               </td>
                             </tr>
                             <tr>
                               <td><label>Unit Price</label></td>
                               <td>
-                                <input name="price" id="priceCek" style="border-radius:0;width:90px;" type="number" class="form-control ChangePrice" value="0" value="{{ $unitPrice }}" autocomplete="off">
+                                <input name="price" id="priceCek" style="border-radius:0;width:90px;" type="text" class="form-control ChangePrice uang" value="0" autocomplete="off">
                                 <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                               </td>
                               <td>
-                                <input name="price_detail" id="putCurrency" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="" value="{{ $unitPriceDetail }}">
+                                <input name="price_detail" id="putCurrency" style="border-radius:0;width:50px;" type="text" class="form-control" readonly="">
                               </td>
                               <td>
-                                <div id="iconUnitPrice" style="color: red;margin-left:5px;"></div>
+                                <div id="iconUnitPrice" style="color: red;position:relative;right:30px;"></div>
                               </td>
                             </tr>
                             <tr>

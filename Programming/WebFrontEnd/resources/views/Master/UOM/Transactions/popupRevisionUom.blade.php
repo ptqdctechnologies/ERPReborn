@@ -1,22 +1,22 @@
-<div id="supplierPopUp" class="modal fade" role="dialog" style="margin-top: 250px;margin-left:8px;">
+<div id="uomPopUp" class="modal fade" role="dialog" style="margin-top: 250px;margin-left:8px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <form action="{{ route('supplier.revisionSupplier') }}" method="post">
+                    <form action="{{ route('Uom.revisionUom') }}" method="post">
                     @csrf
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label style="margin-left: 85px;">Supplier Code</label></td>
+                                            <td><label style="margin-left: 85px;">UOM Code</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input required="" id="suppliercode" style="border-radius:0;" name="searchArfNumberRevision" type="text" class="form-control">
+                                                    <input required="" id="uomCode" style="border-radius:0;" name="uomCode" type="text" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="#"><i data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
+                                                            <a href="#"><i data-toggle="modal" data-target="#mySearchUomRevision" class="fas fa-gift" style="color:grey;"></i></a>
                                                         </span>
                                                     </div>
                                                 </div>

@@ -17,40 +17,14 @@ class masterDataSupplier extends Controller
     {
         return view('Master.supplier.Transactions.indexSupplier');
     }
-
-    public function indexTranoNumber()
+    public function addSupplier()
     {
-        return view('Master.transactionNumber.Transactions.indexTranoNumber');
+        return view('Master.supplier.Transactions.addSupplier');
     }
-
-    public function create()
+    
+    public function revisionSupplier(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function storeTranoType(Request $request)
-    {
-        
-        $data = json_decode($request->getContent(), true);
-
-        $dataAll = array();
-
-        foreach ($data as $i => $v) {
-
-            array_push($dataAll, array(
-                'tranoType' => $v['tranoType'],
-                'tranoPrefix' => $v['tranoPrefix'],
-                'remark' => $v['remark'],
-            ));
-        }
-
-        return response()->json($dataAll);
+        return view('Master.supplier.Transactions.revisionSupplier');
     }
 
     
