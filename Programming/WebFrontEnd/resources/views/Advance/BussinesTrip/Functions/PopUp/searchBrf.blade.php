@@ -176,7 +176,6 @@
 <script>
     $(function() {
         $(".klikSearchBrf").on('click', function(e) {
-            
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var code = $this.data("id");
@@ -190,11 +189,11 @@
             $("#arfNumberAsf").prop("disabled", true);
 
             $("#requester").val("requester 1");
-            $("#managerAsfUid").val("Manager 1");
-            $("#managerAsfName").val("Manager Detail 1");
-            $("#currency").val("IDR");
-            $("#financeArfUid").val("finance 1");
-            $("#financeArfName").val("Finance Detail 1");
+            $("#managerUid").val("Manager 1");
+            $("#managerName").val("Manager Detail 1");
+            $("#currencyCode").val("IDR");
+            $("#financeUid").val("finance 1");
+            $("#financeName").val("Finance Detail 1");
             $("#remark").val("Remark 1");
             $("#total").val("100000");
             $("#totalDetail").val("Rp");
@@ -213,7 +212,7 @@
                     account_name: "x",
                     account_number: "x",    
                     internal_notes: "x",
-                    requestNameArf: "x",
+                    request_name: "x",
                     putWorkId: "x",
                     putWorkName: "x",
                     putProductId: "x",
@@ -283,10 +282,10 @@
 
             $("#brf_number2").val("ARF-0001");
             $("#brf_date").val("23-02-2021");
-            $("#project_code").val("041111101");
-            $("#project_code2").val("PLN");
-            $("#site_code").val("001");
-            $("#site_code2").val("Bogor");
+            $("#projectcode").val("041111101");
+            $("#projectcode2").val("PLN");
+            $("#sitecode").val("001");
+            $("#sitecode2").val("Bogor");
             $("#cfs_code").val("x");
             $("#total_arf").val("11,000,000");
             $("#total_arf2").val("IDR");

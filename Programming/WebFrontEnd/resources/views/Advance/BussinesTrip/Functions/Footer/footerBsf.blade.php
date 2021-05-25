@@ -45,8 +45,8 @@
     $('#buttonDetailBsf').click(function() {
         var brf_number2 = document.forms["formValidationBsf"]["brf_number2"].value;
         var brf_date = document.forms["formValidationBsf"]["brf_date"].value;
-        var project_code = document.forms["formValidationBsf"]["project_code"].value;
-        var site_code = document.forms["formValidationBsf"]["site_code"].value;
+        var projectcode = document.forms["formValidationBsf"]["projectcode"].value;
+        var sitecode = document.forms["formValidationBsf"]["sitecode"].value;
         var cfs_code = document.forms["formValidationBsf"]["cfs_code"].value;
         var total_arf = document.forms["formValidationBsf"]["total_arf"].value;
         var total_bsf = document.forms["formValidationBsf"]["total_bsf"].value;
@@ -64,10 +64,10 @@
         else if (brf_date == "") {
             Swal.fire("Error !", "BRF Date tidak boleh kosong !", "error");
         }
-        else if (project_code == "") {
+        else if (projectcode == "") {
             Swal.fire("Error !", "Project Code tidak boleh kosong !", "error");
         }
-        else if (site_code == "") {
+        else if (sitecode == "") {
             Swal.fire("Error !", "Site Code tidak boleh kosong !", "error");
         }
         else if (cfs_code == "") {
@@ -150,7 +150,6 @@
 
                 y++;
                 $.each(data, function(key, val) {
-
                     var t = $('#tableAmountDuetoBsf').DataTable();
                     t.row.add([
                         '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
