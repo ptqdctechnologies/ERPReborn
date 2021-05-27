@@ -7832,10 +7832,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -7888,10 +7891,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -7946,10 +7952,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_BusinessDocumentType_RefID" value=77000000000002>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8003,10 +8012,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8059,10 +8071,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8115,10 +8130,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8173,10 +8191,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_Country_RefID" value=20000000000078>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8232,10 +8253,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel1_RefID" value=21000000000013>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8291,10 +8315,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel2_RefID" value=22000000000192>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8350,10 +8377,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_CountryAdministrativeAreaLevel3_RefID" value=23000000002670>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8407,10 +8437,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8465,10 +8498,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_TradeMark_RefID" value=15000000000002>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8522,10 +8558,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8578,10 +8617,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8636,10 +8678,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_Person_RefID" value=25000000000241>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8694,10 +8739,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8750,10 +8798,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8806,10 +8857,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8862,10 +8916,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8918,10 +8975,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -8974,14 +9034,76 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.production.getDataListMaterialProductAssembly', 
+                'latest', 
+                '{'.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.production.getDataListMaterialProductComponent                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataListMaterialProductComponent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.production.getDataListMaterialProductComponent', 
+                'latest', 
+                [
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListMaterialProductComponent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.production.getDataListMaterialProductComponent', 
                 'latest', 
                 '{'.
                     '"SQLStatement" : {'.
@@ -9030,10 +9152,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjIwODIyNzJ9.MmnjYBX-JAwTr5-EAcRjAhh9K3gMRURZ4X9BngM9sq0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -9088,10 +9213,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_Project_RefID" value=46000000000001>';
-            echo '<input type="text" id="dataInput_SQLStatement_pick" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_sort" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_filter" value="">';
-            echo '<input type="text" id="dataInput_SQLStatement_paging" value="">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
