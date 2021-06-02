@@ -15,6 +15,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testClass()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varBranchID = 11000000000004;
+            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
+            var_dump($x);
             /*          
             $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
