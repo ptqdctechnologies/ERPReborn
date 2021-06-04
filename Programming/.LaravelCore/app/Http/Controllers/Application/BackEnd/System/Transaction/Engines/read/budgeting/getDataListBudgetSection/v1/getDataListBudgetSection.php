@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListBudget                                                                                            |
+    | ▪ Class Name  : getDataListBudgetSection                                                                                     |
     | ▪ Description : Menangani API transaction.read.budgeting.getDataListBudgetSection Version 1                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
