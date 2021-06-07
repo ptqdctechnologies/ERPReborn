@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'fd4e8cfba9f6d6f12ad264eff669b0f787d95934',
+    'reference' => '5c2d644e20c527ca96fe8f33a0c13b6f6198a960',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.183.12',
-      'version' => '3.183.12.0',
+      'pretty_version' => '3.183.13',
+      'version' => '3.183.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ee5225729f6428870b5168576b0450c0bb668976',
+      'reference' => '0e0be404854482b7cae61ef9f707c7a876b43cdf',
     ),
     'brick/math' => 
     array (
@@ -148,12 +148,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.12.1',
-      'version' => '2.12.1.0',
+      'pretty_version' => '2.13.0',
+      'version' => '2.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c13c0be93cff50f88bbd70827d993026821914dd',
+      'reference' => '2edbc73a4687d9085c8f20f398eebade844e8424',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -467,7 +467,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'fd4e8cfba9f6d6f12ad264eff669b0f787d95934',
+      'reference' => '5c2d644e20c527ca96fe8f33a0c13b6f6198a960',
     ),
     'laravel/tinker' => 
     array (
@@ -725,12 +725,12 @@ private static $installed = array (
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.4',
-      'version' => '9.5.4.0',
+      'pretty_version' => '9.5.5',
+      'version' => '9.5.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c73c6737305e779771147af66c96ca6a7ed8a741',
+      'reference' => '89ff45ea9d70e35522fb6654a2ebc221158de276',
     ),
     'predis/predis' => 
     array (
@@ -1002,12 +1002,12 @@ private static $installed = array (
     ),
     'sebastian/type' => 
     array (
-      'pretty_version' => '2.3.1',
-      'version' => '2.3.1.0',
+      'pretty_version' => '2.3.2',
+      'version' => '2.3.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '81cd61ab7bbf2de744aba0ea61fae32f721df3d2',
+      'reference' => '0d1c587401514d17e8f9258a27e23527cb1b06c1',
     ),
     'sebastian/version' => 
     array (
