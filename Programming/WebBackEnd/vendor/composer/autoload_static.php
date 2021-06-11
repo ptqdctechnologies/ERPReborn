@@ -1516,6 +1516,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\Pricing\\PricingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
         'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',
         'Aws\\PrometheusService\\PrometheusServiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrometheusService/PrometheusServiceClient.php',
+        'Aws\\Proton\\Exception\\ProtonException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Proton/Exception/ProtonException.php',
+        'Aws\\Proton\\ProtonClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Proton/ProtonClient.php',
         'Aws\\Psr16CacheAdapter' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Psr16CacheAdapter.php',
         'Aws\\PsrCacheAdapter' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PsrCacheAdapter.php',
         'Aws\\QLDBSession\\Exception\\QLDBSessionException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/QLDBSession/Exception/QLDBSessionException.php',

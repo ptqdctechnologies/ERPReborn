@@ -982,6 +982,8 @@ return array(
     'Aws\\Pricing\\PricingClient' => $vendorDir . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
     'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => $vendorDir . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',
     'Aws\\PrometheusService\\PrometheusServiceClient' => $vendorDir . '/aws/aws-sdk-php/src/PrometheusService/PrometheusServiceClient.php',
+    'Aws\\Proton\\Exception\\ProtonException' => $vendorDir . '/aws/aws-sdk-php/src/Proton/Exception/ProtonException.php',
+    'Aws\\Proton\\ProtonClient' => $vendorDir . '/aws/aws-sdk-php/src/Proton/ProtonClient.php',
     'Aws\\Psr16CacheAdapter' => $vendorDir . '/aws/aws-sdk-php/src/Psr16CacheAdapter.php',
     'Aws\\PsrCacheAdapter' => $vendorDir . '/aws/aws-sdk-php/src/PsrCacheAdapter.php',
     'Aws\\QLDBSession\\Exception\\QLDBSessionException' => $vendorDir . '/aws/aws-sdk-php/src/QLDBSession/Exception/QLDBSessionException.php',
