@@ -22,8 +22,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varUserName = 'sysadmin';
             $varUserPassword = 'sysadmin1234';
-            $varUserName = 'teguh.pratama';
-            $varUserPassword = 'teguhpratama1234';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),

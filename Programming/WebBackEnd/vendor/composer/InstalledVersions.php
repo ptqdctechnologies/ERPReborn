@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '7c49c6e1fefe3c17183e2a4b7a024bd15402ad78',
+    'reference' => '35e56176c6e36b486c019123e2f7e4567433aa4e',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.184.1',
-      'version' => '3.184.1.0',
+      'pretty_version' => '3.184.2',
+      'version' => '3.184.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2450c0568aae59842b5e4cdf50a12c213ed9640e',
+      'reference' => '78fe691ab466fecf195209672f6c00c5d4ed219a',
     ),
     'brick/math' => 
     array (
@@ -121,12 +121,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.10.1',
-      'version' => '2.10.1.0',
+      'pretty_version' => '2.10.2',
+      'version' => '2.10.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '508d80f91de953617977e5666f8953669b6e81f2',
+      'reference' => '43688227bbf27c43bc1ad83af224f135b6ef0ff4',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -467,7 +467,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '7c49c6e1fefe3c17183e2a4b7a024bd15402ad78',
+      'reference' => '35e56176c6e36b486c019123e2f7e4567433aa4e',
     ),
     'laravel/tinker' => 
     array (
@@ -948,12 +948,12 @@ private static $installed = array (
     ),
     'sebastian/global-state' => 
     array (
-      'pretty_version' => '5.0.2',
-      'version' => '5.0.2.0',
+      'pretty_version' => '5.0.3',
+      'version' => '5.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a90ccbddffa067b51f574dea6eb25d5680839455',
+      'reference' => '23bd5951f7ff26f12d4e3242864df3e08dec4e49',
     ),
     'sebastian/lines-of-code' => 
     array (
