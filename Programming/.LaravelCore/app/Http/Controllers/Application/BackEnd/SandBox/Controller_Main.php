@@ -16,8 +16,24 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
-            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
+            
+            
+            
+            //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
+            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->setDataInsert(
+                $varUserSession, 
+                null, 
+                null,
+                $varBranchID,
+                'Budget Non Project 2019',
+                '2019-01-01 00:00:00 +07',
+                '2019-12-31 23:59:00 +07'
+                );
+
             var_dump($x);
+            
+            
+            
             /*          
             $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
