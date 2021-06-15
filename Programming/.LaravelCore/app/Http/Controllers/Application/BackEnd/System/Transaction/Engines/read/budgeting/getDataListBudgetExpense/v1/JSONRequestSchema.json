@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.budgeting.getDataListBudgetLine (version 1)",
+"description": "JSON Request Schema of transaction.read.budgeting.getDataListBudgetExpense (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.budgeting.getDataListBudgetLine" ]
+                        "enum": [ "transaction.read.budgeting.getDataListBudgetExpense" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,7 +27,7 @@
     "data": {
         "type": "object",
         "properties": {
-            "budgetSection_RefID": {
+            "budget_RefID": {
                 "type": "integer",
                 "minimum": 0
                 },
@@ -50,7 +50,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "budgetSection_RefID", "SQLStatement" ]
+        "required": [ "budget_RefID", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

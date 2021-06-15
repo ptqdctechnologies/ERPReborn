@@ -5,25 +5,25 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Budgeting                                                                       |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Budgeting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBudgetSection                                                                                             |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetSection                                        |
+    | ▪ Class Name  : TblBudgetExpense                                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetExpense                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBudgetSection extends \App\Models\Database\DefaultClassPrototype
+    class TblBudgetExpense extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -52,7 +52,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBudget_RefID ► Budget Branch Reference ID                                                             |
-        |      ▪ (int)    varBudgetOwner_RefID ► Budget Ownwe Branch Reference ID                                                  |
+        |      ▪ (int)    varBudgetExpenseGroup_RefID ► Budget Expense Group Reference ID                                          |
+        |      ▪ (int)    varBudgetExpenseOwner_RefID ► Budget Expense Owner Branch Reference ID                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudget_RefID = null, int $varBudgetOwner_RefID = null)
+            int $varBudget_RefID = null, int $varBudgetExpenseGroup_RefID = null, int $varBudgetExpenseOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -74,7 +75,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBudget_RefID, 'bigint'],
-                        [$varBudgetOwner_RefID, 'bigint']
+                        [$varBudgetExpenseGroup_RefID, 'bigint'],
+                        [$varBudgetExpenseOwner_RefID, 'bigint']
                     ]
                     )
                 );
@@ -87,7 +89,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -97,7 +99,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBudget_RefID ► Budget Branch Reference ID                                                             |
-        |      ▪ (int)    varBudgetOwner_RefID ► Budget Ownwe Branch Reference ID                                                  |
+        |      ▪ (int)    varBudgetExpenseGroup_RefID ► Budget Expense Group Reference ID                                          |
+        |      ▪ (int)    varBudgetExpenseOwner_RefID ► Budget Expense Owner Branch Reference ID                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,7 +108,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudget_RefID = null, int $varBudgetOwner_RefID = null)
+            int $varBudget_RefID = null, int $varBudgetExpenseGroup_RefID = null, int $varBudgetExpenseOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -119,7 +122,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBudget_RefID, 'bigint'],
-                        [$varBudgetOwner_RefID, 'bigint']
+                        [$varBudgetExpenseGroup_RefID, 'bigint'],
+                        [$varBudgetExpenseOwner_RefID, 'bigint']
                     ],
                     )
                 );
