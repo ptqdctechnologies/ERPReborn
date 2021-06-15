@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\budgeting\setBudgetGroup\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLine\v1     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\budgeting\setBudgetGroup\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLine\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBudgetGroup                                                                                               |
-    | ▪ Description : Menangani API transaction.delete.budgeting.setBudgetGroup Version 1                                          |
+    | ▪ Class Name  : setBudget                                                                                                    |
+    | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseLine Version 1                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBudgetGroup extends \App\Http\Controllers\Controller
+    class setBudgetExpenseLine extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-19                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-19                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,13 +56,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Budget Group Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Budget Expense Line Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetGroup())->setDataDelete(
-                            $varUserSession,
-                            $varData['recordID']
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseLine())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            null,
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            $varData['entities']['budgetExpense_RefID'],
+                            $varData['entities']['name'],
+                            $varData['entities']['code']
                             ))))
                             {
                             throw new \Exception();
@@ -88,5 +93,3 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
             }
         }
     }
-
-?>

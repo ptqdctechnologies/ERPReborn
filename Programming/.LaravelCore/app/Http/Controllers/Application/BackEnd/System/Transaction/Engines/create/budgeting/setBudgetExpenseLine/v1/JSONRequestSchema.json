@@ -1,0 +1,55 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.budgeting.setBudgetExpenseLine (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.budgeting.setBudgetExpenseLine" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "budgetExpense_RefID": {
+                        "type": "integer",
+                        "minimum": 1
+                        },
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 128
+                        },
+                    "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 20
+                        }
+                    },
+                "required": [ "budgetExpense_RefID", "name", "code" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
