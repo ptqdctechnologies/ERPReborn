@@ -42,8 +42,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-06-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,11 +51,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersionRefID ► Business Document Version Reference ID                                 |
-        |      ▪ (int)    varBudgetTypeRefID ► Budget Type Reference ID                                                            |
-        |      ▪ (int)    varProjectRefID ► Project Reference ID                                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varRequesterPersonRefID ► Requester Person Reference ID                                                  |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersionRefID = null, int $varBudgetTypeRefID = null, int $varProjectRefID = null, string $varName = null, int $varRequesterPersonRefID = null)
+            string $varName = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +74,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersionRefID, 'bigint'],
-                        [$varBudgetTypeRefID, 'bigint'],
-                        [$varProjectRefID, 'bigint'],
-                        [$varName, 'varchar'],
-                        [$varRequesterPersonRefID, 'bigint']
+			[$varName, 'varchar'],
+			[$varValidStartDateTimeTZ, 'timestamptz'],
+			[$varValidFinishDateTimeTZ, 'timestamptz']
                     ]
                     )
                 );
@@ -92,8 +88,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-10                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-06-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -102,11 +98,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersionRefID ► Business Document Version Reference ID                                 |
-        |      ▪ (int)    varBudgetTypeRefID ► Budget Type Reference ID                                                            |
-        |      ▪ (int)    varProjectRefID ► Project Reference ID                                                                   |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varRequesterPersonRefID ► Requester Person Reference ID                                                  |
+        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,7 +108,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersionRefID = null, int $varBudgetTypeRefID = null, int $varProjectRefID = null, string $varName = null, int $varRequesterPersonRefID = null)
+            string $varName = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -127,11 +121,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersionRefID, 'bigint'],
-                        [$varBudgetTypeRefID, 'bigint'],
-                        [$varProjectRefID, 'bigint'],
-                        [$varName, 'varchar'],
-                        [$varRequesterPersonRefID, 'bigint']
+			[$varName, 'varchar'],
+			[$varValidStartDateTimeTZ, 'timestamptz'],
+			[$varValidFinishDateTimeTZ, 'timestamptz']
                     ],
                     )
                 );
