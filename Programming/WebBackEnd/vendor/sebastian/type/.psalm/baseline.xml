@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.x-dev@">
+  <file src="src/ReflectionMapper.php">
+    <MixedInferredReturnType occurrences="2">
+      <code>?ReflectionType</code>
+      <code>bool</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="2">
+      <code>$method-&gt;getTentativeReturnType()</code>
+      <code>$method-&gt;hasTentativeReturnType()</code>
+    </MixedReturnStatement>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>assert($returnType instanceof ReflectionUnionType)</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="src/SimpleType.php">
+    <MissingParamType occurrences="1">
+      <code>$value</code>
+    </MissingParamType>
+    <MissingReturnType occurrences="1">
+      <code>value</code>
+    </MissingReturnType>
+  </file>
+  <file src="src/Type.php">
+    <MissingParamType occurrences="1">
+      <code>$value</code>
+    </MissingParamType>
+    <MixedArgument occurrences="1">
+      <code>$value</code>
+    </MixedArgument>
+  </file>
+  <file src="src/UnionType.php">
+    <MixedPropertyTypeCoercion occurrences="1">
+      <code>$types</code>
+    </MixedPropertyTypeCoercion>
+  </file>
+</files>
