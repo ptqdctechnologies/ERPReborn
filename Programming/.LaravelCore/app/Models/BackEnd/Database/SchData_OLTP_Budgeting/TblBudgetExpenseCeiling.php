@@ -16,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
     | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetExpenseCeiling                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBudget extends \App\Models\Database\DefaultClassPrototype
+    class TblBudgetExpenseCeiling extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

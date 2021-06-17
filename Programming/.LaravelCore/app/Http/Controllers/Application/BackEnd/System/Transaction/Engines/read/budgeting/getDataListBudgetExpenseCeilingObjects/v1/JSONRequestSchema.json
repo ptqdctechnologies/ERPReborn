@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.budgeting.getDataListBudgetCeiling (version 1)",
+"description": "JSON Request Schema of transaction.read.budgeting.getDataListBudgetExpenseCeilingObjects (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.budgeting.getDataListBudgetCeiling" ]
+                        "enum": [ "transaction.read.budgeting.getDataListBudgetExpenseCeilingObjects" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,7 +27,7 @@
     "data": {
         "type": "object",
         "properties": {
-            "budgetLine_RefID": {
+            "budgetExpenseCeiling_RefID": {
                 "type": "integer",
                 "minimum": 0
                 },
@@ -50,7 +50,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "budgetLine_RefID", "SQLStatement" ]
+        "required": [ "budgetExpenseCeiling_RefID", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]
