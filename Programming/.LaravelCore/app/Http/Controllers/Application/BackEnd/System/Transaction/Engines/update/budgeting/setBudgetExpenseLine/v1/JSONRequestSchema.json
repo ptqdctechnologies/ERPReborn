@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.budgeting.setBudgetExpense (version 1)",
+"description": "JSON Request Schema of transaction.update.budgeting.setBudgetExpenseLine (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.budgeting.setBudgetExpense" ]
+                        "enum": [ "transaction.update.budgeting.setBudgetExpenseLine" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,26 +27,33 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities" : {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1
+                },
+            "entities" :
+                {
                 "type": "object",
                 "properties": {
-                    "budget_RefID": {
+                    "budgetExpense_RefID": {
                         "type": "integer",
                         "minimum": 1
                         },
-                    "budgetExpenseGroup_RefID": {
-                        "type": "integer",
-                        "minimum": 1
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 128
                         },
-                    "budgetExpenseOwner_RefID": {
-                        "type": "integer",
-                        "minimum": 1
+                    "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 20
                         }
                     },
-                "required": [ "budget_RefID", "budgetExpenseGroup_RefID", "budgetExpenseOwner_RefID" ]
+                "required": [ "budgetExpense_RefID", "name", "code" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]

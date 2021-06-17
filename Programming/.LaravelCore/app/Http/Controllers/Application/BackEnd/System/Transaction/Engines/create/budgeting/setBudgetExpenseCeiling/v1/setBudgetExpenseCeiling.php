@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLine\v1     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseCeiling\v1  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLine\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseCeiling\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBudgetExpenseLine                                                                                         |
-    | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseLine Version 1                                    |
+    | ▪ Class Name  : setBudgetExpenseCeiling                                                                                      |
+    | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseCeiling Version 1                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBudgetExpenseLine extends \App\Http\Controllers\Controller
+    class setBudgetExpenseCeiling extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,18 +56,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Budget Expense Line Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Budget Expense Ceiling Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseLine())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseCeiling())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['budgetExpense_RefID'],
-                            $varData['entities']['name'],
-                            $varData['entities']['code']
+                            $varData['entities']['budgetExpenseLine_RefID'],
+                            $varData['entities']['validStartDateTimeTZ'],
+                            $varData['entities']['validFinishDateTimeTZ'],
+                            $varData['entities']['currency_RefID'],
+                            $varData['entities']['currencyExchangeRate'],
+                            $varData['entities']['currencyValue']
                             ))))
                             {
                             throw new \Exception();
