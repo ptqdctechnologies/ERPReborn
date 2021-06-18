@@ -20,7 +20,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             
             //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
-            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->setDataInsert(
+            $x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_BudgetExpenseCeilingObjects($varUserSession, $varBranchID, 106000000000001);
+            /*$x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->setDataInsert(
                 $varUserSession, 
                 null, 
                 null,
@@ -28,7 +29,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 'Budget Non Project 2019',
                 '2019-01-01 00:00:00 +07',
                 '2019-12-31 23:59:00 +07'
-                );
+                );*/
 
             var_dump($x);
             

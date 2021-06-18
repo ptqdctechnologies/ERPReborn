@@ -5,25 +5,25 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Budgeting                                                                       |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Budgeting
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblBudgetExpenseCeiling                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetExpenseCeiling                                 |
+    | ▪ Class Name  : TblBudgetExpenseCeilingObjects                                                                               |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Budgeting ► TblBudgetExpenseCeilingObjects                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblBudgetExpenseCeiling extends \App\Models\Database\DefaultClassPrototype
+    class TblBudgetExpenseCeilingObjects extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-16                                                                                           |
+        | ▪ Last Update     : 2021-06-18                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-06-16                                                                                           |
+        | ▪ Last Update     : 2021-06-18                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,12 +51,14 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varBudgetExpenseCeiling_RefID ► Budget Expense Ceiling Reference ID                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -64,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudgetExpenseLine_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null)
+            int $varBudgetExpenseCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,13 +78,14 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-			[$varBudgetExpenseLine_RefID, 'bigint'],
-			[$varValidStartDateTimeTZ, 'timestamptz'],
-			[$varValidFinishDateTimeTZ, 'timestamptz'],
-			[$varCurrency_RefID, 'bigint'],
-			[$varCurrencyExchangeRate, 'numeric'],
-			[$varCurrencyValue, 'numeric']
+                        [$varSysBranchRefID, 'bigint'],                       
+                        [$varBudgetExpenseCeiling_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varProductUnitPriceCurrencyValue, 'numeric']
                     ]
                     )
                 );
@@ -104,12 +107,13 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBudgetExpenseLine_RefID ► Budget Expense Line Reference ID                                            |
-        |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
-        |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
-        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
-        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varBudgetExpenseCeiling_RefID ► Budget Expense Ceiling Reference ID                                      |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
+        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
+        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -117,7 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudgetExpenseLine_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null)
+            int $varBudgetExpenseCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -130,12 +134,13 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-			[$varBudgetExpenseLine_RefID, 'bigint'],
-			[$varValidStartDateTimeTZ, 'timestamptz'],
-			[$varValidFinishDateTimeTZ, 'timestamptz'],
-			[$varCurrency_RefID, 'bigint'],
-			[$varCurrencyExchangeRate, 'numeric'],
-			[$varCurrencyValue, 'numeric']
+                        [$varBudgetExpenseCeiling_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
+                        [$varQuantity, 'numeric'],
+                        [$varQuantityUnit_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
+                        [$varProductUnitPriceCurrencyValue, 'numeric']
                     ],
                     )
                 );
