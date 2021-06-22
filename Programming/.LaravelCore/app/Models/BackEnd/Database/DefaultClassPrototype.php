@@ -110,7 +110,7 @@ namespace App\Models\Database
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataRecord($varUserSession, int $varRecordID)
+        public function getDataRecord($varUserSession, int $varBranchID, int $varRecordID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
             return $varReturn['Data'];
