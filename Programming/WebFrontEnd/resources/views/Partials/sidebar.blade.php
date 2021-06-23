@@ -215,13 +215,13 @@
                                 </li>
 
                                 <li class="nav-item">
-                                    <a href="{{ route('periode.addPeriode') }}" class="nav-link">
+                                    <a href="{{ route('periode.create') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                         <label>Add Periode</label>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#periodePopUp">
+                                    <a href="{{ route('periode.ubah') }}" class="nav-link">
                                         <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                         <label>Edit Periode</label>
                                     </a>

@@ -7,209 +7,203 @@ use Illuminate\Support\Facades\Route;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
+| Here is where you can register wyeb routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// PP
-Route::get('createPP','projectManagementPP@createPP')->name('PP.createPP');
-
-// MEW
-Route::get('addMEW','projectManagementMEW@addMEW')->name('MEW.addMEW');
-Route::get('editMEW','projectManagementMEW@editMEW')->name('MEW.editMEW');
-
-// MCFS
-Route::get('createCFSCode','projectManagementMCFS@createCFSCode')->name('MCFS.createCFSCode');
-Route::get('editCFSCode','projectManagementMCFS@editCFSCode')->name('MCFS.editCFSCode');
-Route::get('viewCFSList','projectManagementMCFS@viewCFSList')->name('MCFS.viewCFSList');
-
-// RCPO
-Route::get('createRegisterCustomerOrder','projectManagementRCPO@createRegisterCustomerOrder')->name('RCPO.createRegisterCustomerOrder');
-Route::get('editExistingCustomerOrder','projectManagementRCPO@editExistingCustomerOrder')->name('RCPO.editExistingCustomerOrder');
-
-// PB
-Route::get('createProject','projectManagementPB@createProject')->name('PB.createProject');
-Route::get('createSiteProject','projectManagementPB@createSiteProject')->name('PB.createSiteProject');
-Route::get('createProjectBudget','projectManagementPB@createProjectBudget')->name('PB.createProjectBudget');
-Route::get('createNonProjectOverheadBudget','projectManagementPB@createNonProjectOverheadBudget')->name('PB.createNonProjectOverheadBudget');
-Route::get('createBudgetPeriodeNonProject','projectManagementPB@createBudgetPeriodeNonProject')->name('PB.createBudgetPeriodeNonProject');
-
-// AFE
-Route::get('createAFE','projectManagementAFE@createAFE')->name('AFE.createAFE');
-Route::get('createAFESwitching','projectManagementAFE@createAFESwitching')->name('AFE.createAFESwitching');
-
-
-// CEPS
-Route::get('openProject','projectManagementCEPS@openProject')->name('CEPS.openProject');
-Route::get('closeProject','projectManagementCEPS@closeProject')->name('CEPS.closeProject');
-
-// MAterial Receive
-Route::post('revisionMaterialReceive','logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
-Route::get('createMaterialReceive','logisticMaterialReceive@index')->name('MR.createMaterialReceive');
-
-// PPM
-Route::post('revisionPPMIndex','procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
-Route::get('addPPM','procurementTransactionPPM@addPPM')->name('PPM.addPPM');
-
-
-// RPI
-Route::get('createRPI','procurementTransactionRPI@createRPI')->name('RPI.createRPI');
-Route::get('createRPIOverhead','procurementTransactionRPI@createRPIOverhead')->name('RPI.createRPIOverhead');
-Route::get('createRPISales','procurementTransactionRPI@createRPISales')->name('RPI.createRPISales');
-Route::get('fileUpload','procurementTransactionRPI@fileUpload')->name('RPI.fileUpload');
-
-// RE
-Route::get('createREtoCustomer','procurementTransactionRE@createREtoCustomer')->name('RE.createREtoCustomer');
-Route::get('createPaymentRE','procurementTransactionRE@createPaymentRE')->name('RE.createPaymentRE');
-Route::get('createDebitNote','procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
-Route::get('createPaidDebitNote','procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
-
-
-// PR
-Route::get('createPR','procurementTransactionPR@createPR')->name('PR.createPR');
-
-// URP
-Route::get('createURP','procurementTransactionURP@createURP')->name('URP.createURP');
-
-// PPNRem
-Route::get('PPNRem','procurementTransactionPPNRem@createPPNRem')->name('PPNRem.createPPNRem');
-Route::get('PPNRemSet','procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
-
-// PO
-Route::get('PO','procurementTransactionPO@createPO')->name('PO.createPO');
-Route::get('createPOverhead','procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
-Route::get('createPOSales','procurementTransactionPO@createPOSales')->name('PO.createPOSales');
-Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
-Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
-
-// BSF
-Route::post('revisionBsf','procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
-Route::post('BSF/store','procurementTransactionBsf@store')->name('BSF.store');
-Route::get('BSF','procurementTransactionBsf@createBSF')->name('BSF.createBSF');
-
-
-// BRF
-Route::post('revisionBrf','procurementTransactionBrf@revisionBrfIndex')->name('BRF.revisionBrf');
-Route::get('BRF','procurementTransactionBrf@createBRF')->name('BRF.createBRF');
-Route::post('BRF/store','procurementTransactionBrf@store')->name('BRF.store');
-Route::post('BRF/storePaymentSequence','procurementTransactionBrf@storePaymentSequenceBrf')->name('BRF.storePaymentSequenceBrf');
-
-// DOR
-Route::get('DOR','procurementTransactionDor@index')->name('DOR.index');
-Route::post('DOR/store','procurementTransactionDor@store')->name('DOR.store');
-Route::post('revisionDorIndex','procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
-
-// MRET
-Route::get('createMret','procurementTransactionMret@index')->name('MRET.index');
-Route::post('MRET/store','procurementTransactionMret@store')->name('MRET.store');
-Route::post('revisionMRETIndex','procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
-
-//CO
-
-
 // LOGIN
-Route::get('CO','controllerSalesCo@index')->name('CO.index');
-Route::get('revisionCo','controllerSalesCo@revisionCo')->name('CO.revisionCo');
+
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
+Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
+Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
 
 
+Route::group(['middleware' => 'SessionLogin'], function () {
 
-Route::get('ARF/loginStore','loginController@loginStore')->name('auth.loginStore');
-Route::get('ARF/loginStorex','loginController@loginStorex')->name('auth.loginStorex');
-Route::get('ARF/loginStores','loginController@loginStores')->name('auth.loginStores');
-Route::get('/','loginController@login')->name('auth.login');
-Route::get('logout','loginController@logout')->name('auth.logout');
+    Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+    
+    // ARF
+    Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
+    Route::resource('ARF', 'procurementTransactionArf');
 
+    // PP
+    Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
 
-//ARF
+    // MEW
+    Route::get('addMEW', 'projectManagementMEW@addMEW')->name('MEW.addMEW');
+    Route::get('editMEW', 'projectManagementMEW@editMEW')->name('MEW.editMEW');
 
-Route::get('/test/store/','procurementTransactionArf@teststore')->name('test.store');
+    // MCFS
+    Route::get('createCFSCode', 'projectManagementMCFS@createCFSCode')->name('MCFS.createCFSCode');
+    Route::get('editCFSCode', 'projectManagementMCFS@editCFSCode')->name('MCFS.editCFSCode');
+    Route::get('viewCFSList', 'projectManagementMCFS@viewCFSList')->name('MCFS.viewCFSList');
 
-Route::get('/test/storeLogin/','procurementTransactionArf@teststoreLogin')->name('test.storeLogin');
+    // RCPO
+    Route::get('createRegisterCustomerOrder', 'projectManagementRCPO@createRegisterCustomerOrder')->name('RCPO.createRegisterCustomerOrder');
+    Route::get('editExistingCustomerOrder', 'projectManagementRCPO@editExistingCustomerOrder')->name('RCPO.editExistingCustomerOrder');
 
+    // PB
+    Route::get('createProject', 'projectManagementPB@createProject')->name('PB.createProject');
+    Route::get('createSiteProject', 'projectManagementPB@createSiteProject')->name('PB.createSiteProject');
+    Route::get('createProjectBudget', 'projectManagementPB@createProjectBudget')->name('PB.createProjectBudget');
+    Route::get('createNonProjectOverheadBudget', 'projectManagementPB@createNonProjectOverheadBudget')->name('PB.createNonProjectOverheadBudget');
+    Route::get('createBudgetPeriodeNonProject', 'projectManagementPB@createBudgetPeriodeNonProject')->name('PB.createBudgetPeriodeNonProject');
 
-Route::get('/test/stores/','procurementTransactionArf@teststores')->name('test.stores');
-
-Route::get('/test/store2','procurementTransactionArf@teststore2');
-
-Route::get('arflist/cancel/','procurementTransactionArf@arflistcancel');
-Route::post('tests','procurementTransactionArf@tests')->name('ARF.tests');
-
-Route::post('revisionArf','procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
-
-Route::resource('ARF','procurementTransactionArf');
-
-
-// ASF
-Route::get('store','procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
-Route::get('createASFSales','procurementTransactionAsf@indexSales')->name('ASF.indexSales');
-Route::get('createASFPulsaVoucher','procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
-
-Route::post('revisionAsf','procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
-
-Route::resource('ASF','procurementTransactionAsf');
-
-//MASTER DATA
-Route::get('tranoType','masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
-Route::post('tranoTypeStore','masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
-Route::get('tranoNumber','masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
-Route::get('exchangeRate','masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
-Route::get('periode','masterDataPeriode@periode')->name('periode.index');
-Route::get('COA','masterDataCoa@Coa')->name('COA.index');
-
-//Periode
-
-Route::get('periode','masterDataPeriode@periode')->name('periode.index');
-Route::get('addPeriode','masterDataPeriode@addPeriode')->name('periode.addPeriode');
-Route::post('revisionPeriode','masterDataPeriode@revisionPeriode')->name('periode.revisionPeriode');
-
-//Supplier
-Route::get('Supplier','masterDataSupplier@supplier')->name('supplier.index');
-Route::get('addSupplier','masterDataSupplier@addSupplier')->name('supplier.addSupplier');
-Route::post('revisionSupplier','masterDataSupplier@revisionSupplier')->name('supplier.revisionSupplier');
-
-// UOM
-
-Route::get('UOM','masterDataUom@Uom')->name('Uom.index');
-Route::get('addUom','masterDataUom@addUom')->name('addUom.index');
-Route::get('editUom','masterDataUom@editUom')->name('editUom.index');
-Route::post('revisionUom','masterDataUom@revisionUomIndex')->name('Uom.revisionUom');
-
-//Finance
-
-Route::get('editApNumber','finance@editApNumber')->name('editApNumber.index');
-Route::get('editApJournal','finance@editApJournal')->name('editApJournal.index');
-Route::get('editApBankJournal','finance@editApBankJournal')->name('editApBankJournal.index');
-Route::get('bankReceiveMoney','finance@bankReceiveMoney')->name('bankReceiveMoney.index');
-Route::get('editBankReceiveMoney','finance@editBankReceiveMoney')->name('editBankReceiveMoney.index');
-Route::get('bankSpendMoney','finance@bankSpendMoney')->name('bankSpendMoney.index');
-Route::get('editBankSpendMoney','finance@editBankSpendMoney')->name('editBankSpendMoney.index');
-Route::get('bankChargers','finance@bankChargers')->name('bankChargers.index');
-Route::get('editBankChargers','finance@editBankChargers')->name('editBankChargers.index');
+    // AFE
+    Route::get('createAFE', 'projectManagementAFE@createAFE')->name('AFE.createAFE');
+    Route::get('createAFESwitching', 'projectManagementAFE@createAFESwitching')->name('AFE.createAFESwitching');
 
 
-// Dashboard
-Route::get('projectDashboard','homeController@projectDashboard')->name('home.projectDashboard');
-Route::get('checkDocument','homeController@checkDocument')->name('home.checkDocument');
-Route::get('myDocument','homeController@myDocument')->name('home.myDocument');
-Route::get('submittedDocument','homeController@submittedDocument')->name('home.submittedDocument');
-Route::get('approvedDocument','homeController@approvedDocument')->name('home.approvedDocument');
-Route::get('documentWorkflow','homeController@documentWorkflow')->name('home.documentWorkflow');
+    // CEPS
+    Route::get('openProject', 'projectManagementCEPS@openProject')->name('CEPS.openProject');
+    Route::get('closeProject', 'projectManagementCEPS@closeProject')->name('CEPS.closeProject');
+
+    // MAterial Receive
+    Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
+    Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
+
+    // PPM
+    Route::post('revisionPPMIndex', 'procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
+    Route::get('addPPM', 'procurementTransactionPPM@addPPM')->name('PPM.addPPM');
+
+
+    // RPI
+    Route::get('createRPI', 'procurementTransactionRPI@createRPI')->name('RPI.createRPI');
+    Route::get('createRPIOverhead', 'procurementTransactionRPI@createRPIOverhead')->name('RPI.createRPIOverhead');
+    Route::get('createRPISales', 'procurementTransactionRPI@createRPISales')->name('RPI.createRPISales');
+    Route::get('fileUpload', 'procurementTransactionRPI@fileUpload')->name('RPI.fileUpload');
+
+    // RE
+    Route::get('createREtoCustomer', 'procurementTransactionRE@createREtoCustomer')->name('RE.createREtoCustomer');
+    Route::get('createPaymentRE', 'procurementTransactionRE@createPaymentRE')->name('RE.createPaymentRE');
+    Route::get('createDebitNote', 'procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
+    Route::get('createPaidDebitNote', 'procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
+
+
+    // PR
+    Route::get('createPR', 'procurementTransactionPR@createPR')->name('PR.createPR');
+
+    // URP
+    Route::get('createURP', 'procurementTransactionURP@createURP')->name('URP.createURP');
+
+    // PPNRem
+    Route::get('PPNRem', 'procurementTransactionPPNRem@createPPNRem')->name('PPNRem.createPPNRem');
+    Route::get('PPNRemSet', 'procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
+
+    // PO
+    Route::get('PO', 'procurementTransactionPO@createPO')->name('PO.createPO');
+    Route::get('createPOverhead', 'procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
+    Route::get('createPOSales', 'procurementTransactionPO@createPOSales')->name('PO.createPOSales');
+    Route::get('requestCancelPO', 'procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
+    Route::get('fileUploadPO', 'procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
+
+    // BSF
+    Route::post('revisionBsf', 'procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
+    Route::post('BSF/store', 'procurementTransactionBsf@store')->name('BSF.store');
+    Route::get('BSF', 'procurementTransactionBsf@createBSF')->name('BSF.createBSF');
+
+
+    // BRF
+    Route::post('revisionBrf', 'procurementTransactionBrf@revisionBrfIndex')->name('BRF.revisionBrf');
+    Route::get('BRF', 'procurementTransactionBrf@createBRF')->name('BRF.createBRF');
+    Route::post('BRF/store', 'procurementTransactionBrf@store')->name('BRF.store');
+    Route::post('BRF/storePaymentSequence', 'procurementTransactionBrf@storePaymentSequenceBrf')->name('BRF.storePaymentSequenceBrf');
+
+    // DOR
+    Route::get('DOR', 'procurementTransactionDor@index')->name('DOR.index');
+    Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
+    Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
+
+    // MRET
+    Route::get('createMret', 'procurementTransactionMret@index')->name('MRET.index');
+    Route::post('MRET/store', 'procurementTransactionMret@store')->name('MRET.store');
+    Route::post('revisionMRETIndex', 'procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
+
+    //CO
+
+    Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
+    Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
+
+
+    Route::get('/test/store/', 'procurementTransactionArf@teststore')->name('test.store');
+
+    Route::get('/test/storeLogin/', 'procurementTransactionArf@teststoreLogin')->name('test.storeLogin');
+
+
+    Route::get('/test/stores/', 'procurementTransactionArf@teststores')->name('test.stores');
+
+    Route::get('/test/store2', 'procurementTransactionArf@teststore2');
+
+    Route::get('arflist/cancel/', 'procurementTransactionArf@arflistcancel');
+    Route::post('tests', 'procurementTransactionArf@tests')->name('ARF.tests');
+
+    // ASF
+    Route::get('store', 'procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
+    Route::get('createASFSales', 'procurementTransactionAsf@indexSales')->name('ASF.indexSales');
+    Route::get('createASFPulsaVoucher', 'procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
+
+    Route::post('revisionAsf', 'procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
+
+    Route::resource('ASF', 'procurementTransactionAsf');
+
+    //MASTER DATA
+    Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
+    Route::post('tranoTypeStore', 'masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
+    Route::get('tranoNumber', 'masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
+    Route::get('exchangeRate', 'masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
+    Route::get('COA', 'masterDataCoa@Coa')->name('COA.index');
+
+    //Periode
+    Route::get('periode/ubah', 'masterDataPeriode@ubah')->name('periode.ubah');
+    Route::resource('periode', 'masterDataPeriode');
+
+    //Supplier
+    Route::get('Supplier', 'masterDataSupplier@supplier')->name('supplier.index');
+    Route::get('addSupplier', 'masterDataSupplier@addSupplier')->name('supplier.addSupplier');
+    Route::post('revisionSupplier', 'masterDataSupplier@revisionSupplier')->name('supplier.revisionSupplier');
+
+    // UOM
+
+    Route::get('UOM', 'masterDataUom@Uom')->name('Uom.index');
+    Route::get('addUom', 'masterDataUom@addUom')->name('addUom.index');
+    Route::get('editUom', 'masterDataUom@editUom')->name('editUom.index');
+    Route::post('revisionUom', 'masterDataUom@revisionUomIndex')->name('Uom.revisionUom');
+
+    //Finance
+
+    Route::get('editApNumber', 'finance@editApNumber')->name('editApNumber.index');
+    Route::get('editApJournal', 'finance@editApJournal')->name('editApJournal.index');
+    Route::get('editApBankJournal', 'finance@editApBankJournal')->name('editApBankJournal.index');
+    Route::get('bankReceiveMoney', 'finance@bankReceiveMoney')->name('bankReceiveMoney.index');
+    Route::get('editBankReceiveMoney', 'finance@editBankReceiveMoney')->name('editBankReceiveMoney.index');
+    Route::get('bankSpendMoney', 'finance@bankSpendMoney')->name('bankSpendMoney.index');
+    Route::get('editBankSpendMoney', 'finance@editBankSpendMoney')->name('editBankSpendMoney.index');
+    Route::get('bankChargers', 'finance@bankChargers')->name('bankChargers.index');
+    Route::get('editBankChargers', 'finance@editBankChargers')->name('editBankChargers.index');
+
+
+    // Dashboard
+    Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
+    Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
+    Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
+    Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
+    Route::get('approvedDocument', 'homeController@approvedDocument')->name('home.approvedDocument');
+    Route::get('documentWorkflow', 'homeController@documentWorkflow')->name('home.documentWorkflow');
+});
+
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
 
 Route::get('showLogOutput', function () {
     return view('zhtHelperLogOutputShow');
-    })->middleware('web');
-    
+})->middleware('web');
+
 Route::get('showLogError', function () {
     return view('zhtHelperLogErrorShow');
-    })->middleware('web');
+})->middleware('web');
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIAuthentication_sendAuthRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIAuthentication_SendAuthRequest', 'webWithoutCSRF');
 
@@ -295,21 +289,6 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateReligion', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateReligion', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataCreateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataCreateTradeMark', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateTradeMark', 'webWithoutCSRF');
-
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : transaction.create.budgeting....                                                                                 |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataCreateBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataCreateBudget', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateBudget', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataCreateBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataCreateBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataCreateBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataCreateBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataCreateBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataCreateBudgetExpenseLine', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataCreateBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataCreateBudgetExpenseLine', 'webWithoutCSRF');
 
 
 /*
@@ -414,14 +393,12 @@ Route::get('showLogError', function () {
 */
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudget', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudget', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetExpenseLine', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetExpenseLine', 'webWithoutCSRF');
-
-
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetGroup', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetGroup', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetLine', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetLine', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetSection', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetSection', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetSection', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetSection', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataDeleteBudgetType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataDeleteBudgetType', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataDeleteBudgetType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataDeleteBudgetType', 'webWithoutCSRF');
 
@@ -641,18 +618,14 @@ Route::get('showLogError', function () {
 */
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudget', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudget', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudget', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetExpenseLine', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetExpenseLine', 'webWithoutCSRF');
-
-
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetCeiling', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetCeiling', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetCeiling', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetCeiling', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetCeilingObjects', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetCeilingObjects', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetCeilingObjects', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetCeilingObjects', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetLine', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetLine', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListBudgetSection', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListBudgetSection', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListBudgetSection', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListBudgetSection', 'webWithoutCSRF');
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -734,19 +707,6 @@ Route::get('showLogError', function () {
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : transaction.undelete.budgeting....                                                                               |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUndeleteBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUndeleteBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUndeleteBudgetExpense', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUndeleteBudgetExpense', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUndeleteBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUndeleteBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUndeleteBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUndeleteBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUndeleteBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUndeleteBudgetExpenseLine', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUndeleteBudgetExpenseLine', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUndeleteBudgetExpenseLine', 'webWithoutCSRF');
-
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : transaction.update.master....                                                                                    |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
@@ -780,14 +740,6 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateReligion', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateReligion', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUpdateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUpdateTradeMark', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateTradeMark', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateTradeMark', 'webWithoutCSRF');
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : transaction.update.budgeting....                                                                                 |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUpdateBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUpdateBudgetExpenseGroup', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateBudgetExpenseGroup', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateBudgetExpenseGroup', 'webWithoutCSRF');
 
 
 /*

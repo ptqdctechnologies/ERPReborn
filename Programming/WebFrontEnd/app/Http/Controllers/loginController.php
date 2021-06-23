@@ -1,5 +1,7 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Illuminate\Http\Request;
 
 class loginController extends Controller
@@ -9,45 +11,43 @@ class loginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function login()
+    public function index()
     {
         return view('Authentication.login');
     }
 
     public function loginStore(Request $request)
     {
-        echo "d";die;
         $username = $request->input('username');
         $password = $request->input('password');
-        
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $username,
-            $password
+            'sysadmin',
+            'sysadmin1234'
         );
-        dd($varData);
-        if($varData['metadata']['HTTPStatusCode'] == '401'){
-            return response()->json($varData['metadata']['HTTPStatusCode']);
+
+        if ($varData['metadata']['HTTPStatusCode'] == '401') {
+            session(['LoginSuccess' => true]);
+            return redirect('/projectDashboard');
         }
-        else{
-            return response()->json($varData['data']['optionList']);
-            // return view('Layouts.dashboard');
-        }
+        return redirect('/')->with('message', 'Email atau Password Salah');
     }
+
+
     public function loginStores(Request $request)
     {
         $username = $request->input('username');
         $password = $request->input('password');
-        
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $username,
             $password
         );
-        if($varData['metadata']['HTTPStatusCode'] == '401'){
+        if ($varData['metadata']['HTTPStatusCode'] == '401') {
             return response()->json($varData['metadata']['HTTPStatusCode']);
-        }
-        else{
+        } else {
             return response()->json($varData['data']['optionList'][0]['userRole']);
             // return view('Layouts.dashboard');
         }
@@ -56,22 +56,16 @@ class loginController extends Controller
     {
         $username = $request->input('username');
         $password = $request->input('password');
-        
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $username,
             $password
         );
-        if($varData['metadata']['HTTPStatusCode'] == '401'){
+        if ($varData['metadata']['HTTPStatusCode'] == '401') {
             return response()->json($varData['metadata']['HTTPStatusCode']);
-        }
-        else{
+        } else {
             return response()->json($varData['metadata']['HTTPStatusCode']);
         }
     }
-
-    public function logout(Request $request) {
-        // Auth::logout();
-        return redirect('/');
-      }
 }
