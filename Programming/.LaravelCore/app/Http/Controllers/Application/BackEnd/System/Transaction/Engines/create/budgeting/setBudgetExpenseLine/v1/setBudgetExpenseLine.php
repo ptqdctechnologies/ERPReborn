@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBudget                                                                                                    |
+    | ▪ Class Name  : setBudgetExpenseLine                                                                                         |
     | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseLine Version 1                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */

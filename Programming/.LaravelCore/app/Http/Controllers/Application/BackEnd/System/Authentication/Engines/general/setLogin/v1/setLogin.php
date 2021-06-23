@@ -139,7 +139,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
                         $varSysID = $varBufferDB['SignRecordID'];
-                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord($varUserSession, $varSysID);
+                        $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
+                            $varUserSession, 
+                            $varSysID
+                            );
 
                         //---> Insert Data to Redis
                         $varRedisID = (new \App\Models\Cache\General\APIWebToken())->setDataInsert(
