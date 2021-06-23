@@ -8,14 +8,14 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="#" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('periode.store') }}" name="formHeaderMret">
+                        @csrf
                         <div class="row">
-                            @csrf
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add Trano Type
+                                            Set Periode
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -29,34 +29,68 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <td><label>Trano Type</label></td>
+                                                            <td><label>Periode Code</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="tranoType" name="tranoType" class="form-control">
+                                                                    <input autocomplete="off" id="periode_code" name="periode_code" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
 
                                                         <tr>
-                                                            <td><label>Trano Prefix (Ex.PR01, PO01) </label></td>
+                                                            <td><label>Year </label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="tranoPrefix" name="tranoPrefix" class="form-control">
+                                                                    <input autocomplete="off" id="tranoPrefix" name="tranoPrefix" class="form-control" value="2021">
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td><label>Remark</label></td>
+                                                            <td><label>Month</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <textarea name="" id="remark" cols="30" rows="4" class="form-control"></textarea>
+                                                                    <select name="" id="" class="form-control">
+                                                                        <option value="">Januari</option>
+                                                                        <option value="">Februari</option>
+                                                                        <option value="">Maret</option>
+                                                                        <option value="">April</option>
+                                                                        <option value="">Mei</option>
+                                                                        <option value="">Juni</option>
+                                                                        <option value="">Juli</option>
+                                                                        <option value="">Agustus</option>
+                                                                        <option value="">September</option>
+                                                                        <option value="">Oktober</option>
+                                                                        <option value="">November</option>
+                                                                        <option value="">Desember</option>
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label>Start Date</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" type="date" id="tranoPrefix" name="tranoPrefix" class="form-control">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label>End Date</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" type="date" id="tranoPrefix" name="tranoPrefix" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
                                                     </table>
                                                 </div>
-                                                <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="addTranoType" style="margin-right: 5px;">
-                                                    <i class="fas fa-plus" aria-hidden="true" title="Submit to Advance">Create</i>
+                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right" id="addTranoType" style="margin-right: 5px;">
+                                                    <i class="fas fa-plus" aria-hidden="true">Reset</i>
+                                                </button>
+                                                <button type="submit" class="btn btn-outline btn-success btn-sm float-right" style="margin-right: 5px;">
+                                                    <i class="fas fa-plus" aria-hidden="true">Submit</i>
                                                 </button>
                                             </div>
                                         </div>
