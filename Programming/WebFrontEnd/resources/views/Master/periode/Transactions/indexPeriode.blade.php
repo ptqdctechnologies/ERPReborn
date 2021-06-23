@@ -20,30 +20,48 @@
                                         </button>
                                     </div>
                                 </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                    <table id="table1" class="table table-bordered table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Periode Code</th>
-                                                <th>Year</th>
-                                                <th>Month</th>
-                                                <th>Start Date</th>
-                                                <th>End Date</th>
-                                                <th>Active</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>April 2016</td>
-                                                <td>2016</td>
-                                                <td>4</td>
-                                                <td>2016-4-10</td>
-                                                <td>2016-4-20</td>
-                                                <td>ACTIVE</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+
+                                <div class="card">
+                                    <div class="card-header">
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        <table id="example1" class="table table-bordered table-striped">
+
+                                            <a href="{{ route('periode.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+
+                                            <thead>
+                                                <tr>
+                                                    <th>Sys ID</th>
+                                                    <th>Sys Branch Ref ID</th>
+                                                    <th>Name</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach($data as $datas)
+                                                <tr>
+                                                    <td>{{$datas['sys_ID']}}</td>
+                                                    <td>{{$datas['sys_Branch_RefID']}}</td>
+                                                    <td>{{$datas['name']}}</td>
+                                                    <td>
+                                                        <center>
+                                                            
+
+                                                            <form action="{{ route('periode.destroy', $datas['sys_ID']) }}" method="post">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <a href="{{ route('periode.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
+                                                                <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
+                                                            </form>
+                                                        </center>
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.card-body -->
                                 </div>
                             </div>
                         </div>
@@ -54,5 +72,5 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Master.transactionNumber.Functions.Footer.footerTranoNumber')
+<!-- @include('Master.periode.Functions.Footer.footerPeriode') -->
 @endsection

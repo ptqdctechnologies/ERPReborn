@@ -15,7 +15,7 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
     <!-- sweetalert -->
-    <link rel="stylesheet" href="https://lipis.github.io/bootstrap-sweetalert/dist/sweetalert.css" />
+    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminltesweatalert.min.css') }}">
     <style>
         #dis1 {
             border-radius: 20px;
@@ -149,29 +149,68 @@
         <span class="loader"></span>
         <div class="textLoader">
             <center>
-            <b>Please Wait ... </b>
+                <b>Please Wait ... </b>
             </center>
         </div>
     </div>
+
     <div class="login-box">
+
+        @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        @if ($message = Session::get('error'))
+        <div class="alert alert-danger alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        <!-- @if ($message = Session::get('warning'))
+        <div class="alert alert-warning alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        @if ($message = Session::get('info'))
+        <div class="alert alert-info alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+        @endif
+
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            Please check the form below for errors
+        </div>
+        @endif -->
+
         <div class="login-logo">
             <img src="/AdminLTE-master/dist/img/qdc.png" width="160" alt=""><br>
         </div>
         <!-- /.login-logo -->
         <div id="cek1">
             <div class="card-body login-card-body" id="dis1">
-                <form action="#" method="post" name="formLogin">
+                <form action="{{ route('login') }}" method="post" name="formLogin">
                     @csrf
                     <div class="input-group mb-4">
-                        <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="">
+                        <input type="text" class="form-control username" placeholder="Username" name="username" id="dis2" required="" autocomplete="off" autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
+
                     </div>
+
                     <div class="input-group mb-4">
-                        <input type="password" class="form-control password" placeholder="Password" name="password" id="dis2" required="">
+                        <input type="password" class="form-control password" placeholder="Password" name="password" id="dis2" required="" autocomplete="off">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -194,8 +233,10 @@
                         </div>
                         <!-- /.col -->
                         <div class="col-4">
+
+                            <button class="btn btn-primary btn-block btn-sm submitx" type="submit" style="color: white;">Login</button>
                             <a class="btn btn-primary btn-block btn-sm submits" style="color: white;">Login</a>
-                            <a class="btn btn-primary btn-block btn-sm submitx" href="javascript:validateFormLogin()" style="color: white;">Login</a>
+                            <!-- <a class="btn btn-primary btn-block btn-sm submitx" href="javascript:validateFormLogin()" style="color: white;">Login</a> -->
                         </div>
                         <!-- /.col -->
                     </div>
@@ -212,7 +253,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('AdminLTE-master/dist/js/adminlte.min.js') }}"></script>
     <!-- sweetalert -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -220,8 +261,9 @@
             $(".user_role").hide();
             $(".login").hide();
             $(".submitx").hide();
+            $(".submitx").prop("disabled", true);
             $("#loading").hide();
-            $(".loader").hide();            
+            $(".loader").hide();
         });
     </script>
     <script type="text/javascript">
@@ -235,7 +277,7 @@
 
                 $.ajax({
                     type: 'GET',
-                    url: '{!! route('auth.loginStore') !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
+                    url: '{!! route("loginStore") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
                     success: function(data) {
                         console.log(data);
                         var len = 0;
@@ -253,19 +295,26 @@
                                 }, delay);
                             });
 
+
+                            $(".branch_name").empty();
+
+                            var option = "<option value='" + '' + "'>" + 'Select Branch Name' + "</option>";
+                            $(".branch_name").append(option);
+
                             len = data.length;
                             for (var i = 0; i < len; i++) {
                                 var id = data[i].branch_RefID;
                                 var name = data[i].branchName;
-                                var option = "<option value='" + id + "'>" + name + "</option>";
-                                $(".branch_name").append(option);
+                                var option2 = "<option value='" + id + "'>" + name + "</option>";
+                                $(".branch_name").append(option2);
                             }
-                            $(".username").prop("disabled", true);
-                            $(".password").prop("disabled", true);
+                            $(".username").prop("readonly", true);
+                            $(".password").prop("readonly", true);
                             $(".branch_name").show();
                             $(".user_role").show();
                             $(".submits").hide();
                             $(".submitx").show();
+                            $(".submitx").prop("disabled", false);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
@@ -288,26 +337,21 @@
 
                 var id = $(this).val();
 
-                if(id != ""){
+                if (id != "") {
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route('auth.loginStores') !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
+                        url: '{!! route("loginStores") !!}?username=' + $('.username').val() + '&password=' + $('.password').val() + '&branch_name=' + $('.branch_name').val(),
                         success: function(data) {
                             console.log(data);
                             var len = 0;
                             if (data == '401') {
                                 Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                             } else {
-                                var delay = 500;
-                                $(document).ready(function() {
-                                    $("#loading").show();
-                                    $(".loader").show();
 
-                                    setTimeout(function() {
-                                        $("#loading").hide();
-                                        $(".loader").hide();
-                                    }, delay);
-                                });
+                                $(".user_role").empty();
+
+                                var option = "<option value='" + '' + "'>" + 'Select User Role' + "</option>";
+                                $(".user_role").append(option);
 
                                 len = data.length;
                                 for (var i = 0; i < len; i++) {
@@ -326,17 +370,15 @@
             });
         });
     </script>
-    <script>
+    <!-- <script>
         function validateFormLogin() {
             var branch_name = document.forms["formLogin"]["branch_name"].value;
             var user_role = document.forms["formLogin"]["user_role"].value;
             if (branch_name == "") {
                 Swal.fire("Error !", "Branch name tidak boleh kosong !", "error");
-            }
-            else if (user_role == "") {
+            } else if (user_role == "") {
                 Swal.fire("Error !", "User role tidak boleh kosong !", "error");
-            }
-            else{
+            } else {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -345,7 +387,7 @@
                 $(document).ready(function() {
                     $.ajax({
                         type: 'GET',
-                        url: '{!! route('auth.loginStorex') !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
+                        url: '{!! route("loginStorex") !!}?username=' + $('.username').val() + '&password=' + $('.password').val(),
                         success: function(data) {
                             if (data == '401') {
                                 window.location.href = "/";
@@ -357,6 +399,7 @@
                 });
             }
         }
-    </script>
+    </script> -->
 </body>
+
 </html>
