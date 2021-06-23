@@ -105,12 +105,13 @@ namespace App\Models\Database
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataRecord($varUserSession, int $varBranchID, int $varRecordID)
+        public function getDataRecord($varUserSession, int $varRecordID, int $varBranchID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
             return $varReturn['Data'];
