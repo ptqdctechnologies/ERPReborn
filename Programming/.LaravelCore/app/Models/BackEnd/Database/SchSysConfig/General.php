@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchSysConfig                                                                                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020, 2021 Zheta (teguhpjs@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchSysConfig
@@ -135,7 +135,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-28                                                                                           |
+        | ▪ Last Update     : 2020-08-24                                                                                           |
         | ▪ Description     : Cek eksistensi APIWebToken pada sistem                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -145,7 +145,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function isExist_APIWebToken($varUserSession, $varAPIWebToken)
+        public function isExist_APIWebToken($varUserSession, string $varAPIWebToken)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -158,6 +158,51 @@ namespace App\Models\Database\SchSysConfig
                     )
                 );
             return $varReturn['Data'][0]['FuncSys_General_GetExistantionOnSystem_APIWebToken'];
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isSet_UserSessionBranchAndUserRole                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-06-24                                                                                           |
+        | ▪ Description     : Cek eksistensi apakah UserSessionBranch And UserRole sudah diset untuk APIWebToken tertentu          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isSet_UserSessionBranchAndUserRole($varUserSession, string $varAPIWebToken)
+            {
+            $varSQLQuery = '
+                SELECT
+                    CASE
+                        WHEN (COUNT("Sys_RPK") = 0) THEN
+                            FALSE
+                        ELSE
+                            TRUE
+                    END AS "Sign"
+                FROM
+                    "SchSysConfig"."TblLog_UserLoginSession"
+                WHERE
+                    "APIWebToken" = \''.$varAPIWebToken.'\'
+                    AND
+                        (
+                        "Branch_RefID" IS NOT NULL
+                        OR
+                        "UserRole_RefID" IS NOT NULL
+                        )
+                ';
+            
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                $varSQLQuery
+                );
+            
+            return (boolean) $varReturn['Data'][0]['Sign'];
             }
 
 

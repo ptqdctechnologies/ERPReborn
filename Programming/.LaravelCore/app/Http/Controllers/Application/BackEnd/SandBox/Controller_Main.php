@@ -17,8 +17,11 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
             
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1MTA4MTd9.x5JoljxmAweGkby7jWzJTIfW-zhE1ftBLB5x0zPoPAM';
             
-            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getDataRecord($varUserSession, $varBranchID);
+            $x = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
+            
+            //$x = (new \App\Models\Database\SchData_OLTP_Master\TblCountry())->getDataRecord($varUserSession, $varBranchID);
             //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_Budget($varUserSession, $varBranchID);
             //$x = (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_BudgetExpenseCeilingObjects($varUserSession, $varBranchID, 106000000000001);
             /*$x = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget())->setDataInsert(

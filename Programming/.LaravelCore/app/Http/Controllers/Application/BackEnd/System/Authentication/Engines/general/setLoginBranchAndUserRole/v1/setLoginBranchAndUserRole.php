@@ -91,7 +91,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         {
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'User Role ID was not found in the register list');
                         }
-                    
+                    elseif(self::isSet($varUserSession, $varAPIWebToken)==true)
+                        {
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 403, 'Branch ID and User Role ID already choosen');                        
+                        }
+                        
                     if(!$varReturn)
                         {
                         //---> Mendapatkan User Privileges Menu
@@ -100,7 +104,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                                 $varUserSession, 
                                 \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_CamelCase(
                                     $varUserSession, 
-                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, $varUserRoleID, $varBranchID)
+                        //            \App\Helpers\ZhtHelper\System\Helper_Environment::getApplicationUserRolePrivilegesMenu($varUserSession, 95000000000003, 11000000000004)
                                     )
                                 );
                         //---> Update Database
@@ -126,6 +131,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isSet                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-06-24                                                                                           |
+        | ▪ Description     : Mengecek apakah sudah dilakukan pengesetan UserSessionBranch dan UserRole                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function isSet($varUserSession, string $varAPIWebToken)
+            {
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->isSet_UserSessionBranchAndUserRole($varUserSession, $varAPIWebToken);
+            return $varReturn;
             }
         }
     }
