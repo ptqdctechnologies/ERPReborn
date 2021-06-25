@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.production.getDataListMaterialProductAssembly (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.project.getProjectSectionItem (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.production.getDataListMaterialProductAssembly" ]
+                        "enum": [ "transaction.read.dataList.project.getProjectSectionItem" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,6 +27,10 @@
     "data": {
         "type": "object",
         "properties": {
+            "project_RefID": {
+                "type": "integer",
+                "minimum": 0
+                },
             "SQLStatement": {
                 "type": "object",
                 "properties": {
@@ -46,7 +50,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "SQLStatement" ]
+        "required": [ "project_RefID", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

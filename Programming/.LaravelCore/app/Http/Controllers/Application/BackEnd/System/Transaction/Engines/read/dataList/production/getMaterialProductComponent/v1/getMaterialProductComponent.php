@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\project\getDataListProject\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\production                     |
+|                \getMaterialProductComponent\v1                                                                                   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\project\getDataListProject\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\production\getMaterialProductComponent\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListProject                                                                                           |
-    | ▪ Description : Menangani API transaction.read.project.getDataListProject Version 1                                          |
+    | ▪ Class Name  : getMaterialProductComponent                                                                                  |
+    | ▪ Description : Menangani API transaction.read.dataList.production.getMaterialProductComponent Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataListProject extends \App\Http\Controllers\Controller
+    class getMaterialProductComponent extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,7 +57,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Project Data List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Material Product Component Data List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
@@ -64,7 +65,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             {
                             throw new \Exception('SQL Injection Threat Prevention');
                             }
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Project\General())->getDataList_Project(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Production\General())->getDataList_MaterialProductComponent(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
                             $varData['SQLStatement']['pick'], 
