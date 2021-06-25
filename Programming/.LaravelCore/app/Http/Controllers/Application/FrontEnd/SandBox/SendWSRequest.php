@@ -9647,6 +9647,135 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataRecord.project.getProject                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataRecordProject()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProject', 
+                'latest', 
+                [
+                'recordID' => 46000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataRecordProject()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordID" value=46000000000001>';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProject', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataRecord.project.getProjectSection                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataRecordProjectSection()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProjectSection', 
+                'latest', 
+                [
+                'recordID' => 110000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataRecordProjectSection()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordID" value=110000000000001>';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProjectSection', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataRecord.project.getProjectSectionItem                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataRecordProjectSectionItem()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProjectSectionItem', 
+                'latest', 
+                [
+                'recordID' => 143000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataRecordProjectSectionItem()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjQ1ODQyMjZ9.YKkMFb_cTmXXPhEPd2ZdvlyGMs3_wHcMAgIpRb1kZoY';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordID" value=143000000000001>';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.project.getProjectSectionItem', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.synchronize.customerRelation.setSalesContract                                                |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
