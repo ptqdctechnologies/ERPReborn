@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting                               |
-|                \getDataRecordBudgetExpenseCeiling\v1                                                                             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting                    |
+|                \getBudgetExpenseCeiling\v1                                                                                       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudgetExpenseCeiling\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudgetExpenseCeiling\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataRecordBudgetExpenseCeiling                                                                                   |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataRecordBudgetExpenseCeiling Version 1                                |
+    | ▪ Class Name  : getBudgetExpenseCeiling                                                                                      |
+    | ▪ Description : Menangani API transaction.read.dataRecord.budgeting.getBudgetExpenseCeiling Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataRecordBudgetExpenseCeiling extends \App\Http\Controllers\Controller
+    class getBudgetExpenseCeiling extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

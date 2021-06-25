@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudgetExpense\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudgetExpense   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudgetExpense\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudgetExpense\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataRecordBudgetExpense                                                                                   |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataRecordBudgetExpense Version 1                                |
+    | ▪ Class Name  : getBudgetExpense                                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataRecord.budgeting.getBudgetExpense Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataRecordBudgetExpense extends \App\Http\Controllers\Controller
+    class getBudgetExpense extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

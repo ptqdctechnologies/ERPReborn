@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudgetExpense\v1   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting\getBudgetExpense\v1  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudgetExpense\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting\getBudgetExpense\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListBudgetExpense                                                                                     |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataListBudgetExpense Version 1                                  |
+    | ▪ Class Name  : getBudgetExpense                                                                                             |
+    | ▪ Description : Menangani API transaction.read.dataList.budgeting.getBudgetExpense Version 1                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataListBudgetExpense extends \App\Http\Controllers\Controller
+    class getBudgetExpense extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

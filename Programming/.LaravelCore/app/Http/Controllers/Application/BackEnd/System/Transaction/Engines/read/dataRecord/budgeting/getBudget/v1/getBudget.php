@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudget\v1        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudget\v1       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudget\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudget\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataRecordBudget                                                                                          |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataRecordBudget Version 1                                       |
+    | ▪ Class Name  : getBudget                                                                                                    |
+    | ▪ Description : Menangani API transaction.read.dataRecord.budgeting.getBudget Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataRecordBudget extends \App\Http\Controllers\Controller
+    class getBudget extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
