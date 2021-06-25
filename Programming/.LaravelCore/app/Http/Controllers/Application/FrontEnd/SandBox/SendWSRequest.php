@@ -9100,7 +9100,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.master.dataRecord.getCountryAdministrativeAreaLevel4', 
+                'transaction.read.dataRecord.master.getCountryAdministrativeAreaLevel4', 
                 'latest', 
                 [
                 'recordID' => 24000000000001
