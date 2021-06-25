@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudgetExpenseGroup |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting                      |
+|                \getBudgetExpenseGroup\v1                                                                                         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudgetExpenseGroup\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting\getBudgetExpenseGroup\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListBudgetExpenseGroup                                                                                |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataListBudgetExpenseGroup Version 1                             |
+    | ▪ Class Name  : getBudgetExpenseGroup                                                                                        |
+    | ▪ Description : Menangani API transaction.read.dataList.budgeting.getBudgetExpenseGroup Version 1                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataListBudgetExpenseGroup extends \App\Http\Controllers\Controller
+    class getBudgetExpenseGroup extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

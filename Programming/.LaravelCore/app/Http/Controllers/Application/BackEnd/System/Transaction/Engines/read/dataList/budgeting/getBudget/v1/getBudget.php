@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudget\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting\getBudget\v1         |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataListBudget\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataList\budgeting\getBudget\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataListBudget                                                                                            |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataListBudget Version 1                                         |
+    | ▪ Class Name  : getBudget                                                                                                    |
+    | ▪ Description : Menangani API transaction.read.dataList.budgeting.getBudget Version 1                                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataListBudget extends \App\Http\Controllers\Controller
+    class getBudget extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

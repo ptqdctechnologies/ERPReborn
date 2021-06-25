@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting                               |
-|                \getDataRecordBudgetExpenseLine\v1                                                                                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting                    |
+|                \getBudgetExpenseLine\v1                                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\budgeting\getDataRecordBudgetExpenseLine\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\budgeting\getBudgetExpenseLine\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDataRecordBudgetExpenseLine                                                                               |
-    | ▪ Description : Menangani API transaction.read.budgeting.getDataRecordBudgetExpenseLine Version 1                            |
+    | ▪ Class Name  : getBudgetExpenseLine                                                                                         |
+    | ▪ Description : Menangani API transaction.read.dataRecord.budgeting.getBudgetExpenseLine Version 1                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getDataRecordBudgetExpenseLine extends \App\Http\Controllers\Controller
+    class getBudgetExpenseLine extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
