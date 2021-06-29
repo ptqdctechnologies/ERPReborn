@@ -14,4 +14,5 @@
 
 clear;
 
-sudo docker pull dpage/pgadmin4;
+#sudo docker pull dpage/pgadmin4;
+sudo docker pull dpage/pgadmin4:5.2;

@@ -130,7 +130,8 @@ services:
   #---> Services : PGAdmin4
   pgadmin4:
     container_name: 'pgadmin4'
-    image: 'dpage/pgadmin4:latest'
+      #image: 'dpage/pgadmin4:latest'
+    image: 'dpage/pgadmin4:5.2'
     restart: 'unless-stopped'
     ports:
       - '15050:80'
