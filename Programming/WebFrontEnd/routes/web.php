@@ -25,6 +25,18 @@ Route::group(['middleware' => 'SessionLogin'], function () {
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     
+    
+    //Periode
+    Route::resource('Periode', 'masterDataPeriode');
+    //ProductType
+    Route::resource('ProductType', 'masterDataProductType');
+    //Religion
+    Route::resource('Religion', 'masterDataReligion');
+    //Currency
+    Route::resource('Currency', 'masterDataCurrency');
+    //Country
+    Route::resource('Country', 'masterDataCountry');
+
     // ARF
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
@@ -155,10 +167,6 @@ Route::group(['middleware' => 'SessionLogin'], function () {
     Route::get('tranoNumber', 'masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
     Route::get('exchangeRate', 'masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
     Route::get('COA', 'masterDataCoa@Coa')->name('COA.index');
-
-    //Periode
-    Route::get('periode/ubah', 'masterDataPeriode@ubah')->name('periode.ubah');
-    Route::resource('periode', 'masterDataPeriode');
 
     //Supplier
     Route::get('Supplier', 'masterDataSupplier@supplier')->name('supplier.index');

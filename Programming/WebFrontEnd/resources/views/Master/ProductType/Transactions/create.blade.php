@@ -8,14 +8,14 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="{{ route('periode.store') }}" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('ProductType.store') }}" name="formHeaderMret">
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Set Periode
+                                            Set Product Type
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -105,5 +105,4 @@
     </section>
 </div>
 @include('Partials.footer')
-@include('Master.transactionNumber.Functions.Footer.footerTranoType')
 @endsection

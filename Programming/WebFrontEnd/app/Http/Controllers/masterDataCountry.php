@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataPeriode extends Controller
+class masterDataCountry extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,7 +20,7 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListPeriod',
+            'transaction.read.master.getDataListCountry',
             'latest',
             [
                 'SQLStatement' => [
@@ -31,12 +31,12 @@ class masterDataPeriode extends Controller
                 ]
             ]
         );
-        return view('Master.Periode.Transactions.index')->with('data', $varData['data']);
+        return view('Master.Country.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.Periode.Transactions.create');
+        return view('Master.Country.Transactions.create');
     }
 
     public function store(Request $request)
@@ -46,15 +46,15 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.create.master.setPeriod',
+            'transaction.create.master.setCountry',
             'latest',
             [
                 'entities' => [
-                    'name' => $request->periode_code
+                    'name' => $request->Country_code
                 ]
             ]
         );
-        return redirect()->route('Periode.index');
+        return redirect()->route('Country.index');
     }
 
     public function show($id)
@@ -77,7 +77,7 @@ class masterDataPeriode extends Controller
         );
         // dd($varData);
 
-        return view('Master.Periode.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.Country.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
@@ -87,17 +87,17 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setPeriod',
+            'transaction.update.master.setCountry',
             'latest',
             [
                 'recordID' => (int)$id,
                 'entities' => [
-                    'name' => $request->periode_code
+                    'name' => $request->Country_code
                 ]
             ]
         );
 
-        return redirect()->route('Periode.index');
+        return redirect()->route('Country.index');
     }
 
     public function destroy(Request $request, $id)
@@ -107,12 +107,12 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setPeriod',
+            'transaction.delete.master.setCountry',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('Periode.index');
+        return redirect()->route('Country.index');
     }
 }
