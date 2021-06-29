@@ -113,7 +113,7 @@
                         <i class="right fas fa-angle-left"></i>
                     </a>
 
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
@@ -197,41 +197,43 @@
                                 </li>
                             </ul>
                         </li>
-                    </ul>
+                    </ul> -->
 
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
                                 <label>Periode</label>
-                                <i class="right fas fa-angle-left"></i>
                             </a>
-                            <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                    <a href="{{ route('periode.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Index Periode</label>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{ route('periode.create') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Add Periode</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('periode.ubah') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Edit Periode</label>
-                                    </a>
-                                </li>
-                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ProductType.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Product Type</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Religion.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Religion</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Currency.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Currency</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Country.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country</label>
+                            </a>
                         </li>
                     </ul>
 
 
-                    <ul class="nav nav-treeview">
+                    <!-- <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
@@ -257,7 +259,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">

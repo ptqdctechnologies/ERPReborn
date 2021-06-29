@@ -13,7 +13,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <label class="card-title">Periode</label>
+                                    <label class="card-title">Product Type</label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
@@ -28,7 +28,7 @@
                                     <div class="card-body">
                                         <table id="example1" class="table table-bordered table-striped">
 
-                                            <a href="{{ route('periode.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                            <a href="{{ route('ProductType.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                             <thead>
                                                 <tr>
@@ -48,10 +48,10 @@
                                                         <center>
                                                             
 
-                                                            <form action="{{ route('periode.destroy', $datas['sys_ID']) }}" method="post">
+                                                            <form action="{{ route('ProductType.destroy', $datas['sys_ID']) }}" method="post">
                                                                 @method('DELETE')
                                                                 @csrf
-                                                                <a href="{{ route('periode.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
+                                                                <a href="{{ route('ProductType.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
                                                                 <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
                                                             </form>
                                                         </center>
@@ -72,5 +72,4 @@
     </section>
 </div>
 @include('Partials.footer')
-<!-- @include('Master.periode.Functions.Footer.footerPeriode') -->
 @endsection

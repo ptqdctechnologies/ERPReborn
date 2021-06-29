@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataPeriode extends Controller
+class masterDataProductType extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,10 @@ class masterDataPeriode extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListPeriod',
+            'transaction.read.master.getDataListProductType',
             'latest',
             [
                 'SQLStatement' => [
@@ -31,22 +30,21 @@ class masterDataPeriode extends Controller
                 ]
             ]
         );
-        return view('Master.Periode.Transactions.index')->with('data', $varData['data']);
+        return view('Master.ProductType.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.Periode.Transactions.create');
+        return view('Master.ProductType.Transactions.create');
     }
 
     public function store(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.create.master.setPeriod',
+            'transaction.create.master.setProductType',
             'latest',
             [
                 'entities' => [
@@ -54,7 +52,7 @@ class masterDataPeriode extends Controller
                 ]
             ]
         );
-        return redirect()->route('Periode.index');
+        return redirect()->route('ProductType.index');
     }
 
     public function show($id)
@@ -65,29 +63,27 @@ class masterDataPeriode extends Controller
     public function edit(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataRecordReligion',
+            'transaction.read.master.getDataRecordProductType',
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
-        // dd($varData);
 
-        return view('Master.Periode.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.ProductType.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setPeriod',
+            'transaction.update.master.setProductType',
             'latest',
             [
                 'recordID' => (int)$id,
@@ -97,22 +93,23 @@ class masterDataPeriode extends Controller
             ]
         );
 
-        return redirect()->route('Periode.index');
+        return redirect()->route('ProductType.index');
     }
 
     public function destroy(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setPeriod',
+            'transaction.delete.master.setProductType',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('Periode.index');
+
+        return redirect()->route('ProductType.index');
     }
 }
