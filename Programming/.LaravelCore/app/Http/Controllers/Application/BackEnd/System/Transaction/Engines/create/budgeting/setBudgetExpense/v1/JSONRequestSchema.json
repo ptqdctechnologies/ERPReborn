@@ -32,15 +32,18 @@
                 "properties": {
                     "budget_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "budgetExpenseGroup_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "budgetExpenseOwner_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         }
                     },
                 "required": [ "budget_RefID", "budgetExpenseGroup_RefID", "budgetExpenseOwner_RefID" ]

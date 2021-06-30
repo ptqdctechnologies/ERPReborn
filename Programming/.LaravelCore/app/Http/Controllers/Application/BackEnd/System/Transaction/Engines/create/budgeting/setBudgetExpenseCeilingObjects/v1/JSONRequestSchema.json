@@ -32,22 +32,26 @@
                 "properties": {
                     "budgetExpenseCeiling_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "product_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "quantity": {
                         "type": "number"
                         },
                     "quantityUnit_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "productUnitPriceCurrency_RefID": {
                         "type": "integer",
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "productUnitPriceCurrencyExchangeRate": {
                         "type": "number"

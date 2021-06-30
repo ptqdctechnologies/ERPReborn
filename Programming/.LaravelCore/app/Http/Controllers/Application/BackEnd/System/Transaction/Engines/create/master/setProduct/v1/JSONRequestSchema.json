@@ -42,11 +42,13 @@
                         },
                     "productType_RefID" : {
                         "type": [ "integer" ],
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "quantityUnit_RefID" : {
                         "type": [ "integer" ],
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         }
                     },
                 "required": [ "code", "name", "productType_RefID", "quantityUnit_RefID" ]
