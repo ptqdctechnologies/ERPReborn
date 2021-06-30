@@ -1312,6 +1312,56 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setBusinessDocument                                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setBusinessDocument', 
+                'latest', 
+                [
+                'entities' => [
+                    'businessDocumentType_RefID' => 77000000000005,
+                    'documentNumber' => 'New SO Document Number'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_BusinessDocumentType_RefID" value=77000000000005>';
+            echo '<input type="text" id="dataInput_DocumentNumber" value="New SO Document Number">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setBusinessDocument', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"businessDocumentType_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentType_RefID").value), '.
+                        '"documentNumber" : document.getElementById("dataInput_DocumentNumber").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.master.setBusinessDocumentType                                                        |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -11539,6 +11589,59 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"type" : document.getElementById("dataInput_Type").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setBusinessDocument                                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocument', 
+                'latest', 
+                [
+                'recordID' => 74000000000001,
+                'entities' => [
+                    'businessDocumentType_RefID' => 77000000000005,
+                    'documentNumber' => 'Update SO Document Number'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=74000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentType_RefID" value=77000000000005>';
+            echo '<input type="text" id="dataInput_DocumentNumber" value="Update SO Document Number">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocument', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentType_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentType_RefID").value), '.
+                        '"documentNumber" : document.getElementById("dataInput_DocumentNumber").value'.
                         '}'.
                 '}'
                 ); 

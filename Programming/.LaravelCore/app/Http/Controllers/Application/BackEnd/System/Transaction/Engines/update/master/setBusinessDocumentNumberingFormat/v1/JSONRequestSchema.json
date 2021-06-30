@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setBusinessDocument (version 1)",
+"description": "JSON Request Schema of transaction.update.master.setBusinessDocumentNumberingFormat (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setBusinessDocument" ]
+                        "enum": [ "transaction.update.master.setBusinessDocumentNumberingFormat" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,24 +27,24 @@
     "data": {
         "type": "object",
         "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "businessDocumentType_RefID": {
-                        "type": [ "integer" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "documentNumber": {
-                        "type": [ "string" ],
+                    "name": {
+                        "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 32
+                        "maxLength": 256
                         }
                     },
-                "required": [ "businessDocumentType_RefID", "documentNumber" ]
+                "required": [ "name" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]
