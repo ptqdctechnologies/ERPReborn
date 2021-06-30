@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setGoodsModel (version 1)",
+"description": "JSON Request Schema of transaction.create.master.setBusinessDocumentNumbering (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setGoodsModel" ]
+                        "enum": [ "transaction.create.master.setBusinessDocumentNumbering" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,28 +30,41 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "tradeMark_RefID": {
+                    "businessDocumentNumberingFormat_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "goodsType_RefID": {
+                    "validStartDate": {
+                        "type": [ "string", "null" ],
+                        "format": "date",
+                        "minLength": 10,
+                        "maxLength": 10
+                        },
+                    "validFinishDate": {
+                        "type": [ "string", "null" ],
+                        "format": "date",
+                        "minLength": 10,
+                        "maxLength": 10
+                        },
+                    "lastSequenceNumber": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "modelName": {
+                    "lastRequestDocumentNumber": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
-                        "maxLength": 256
+                        "maxLength": 128
                         },
-                    "modelNumber": {
+                    "lastRequestDocumentDate": {
                         "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                        "format": "date",
+                        "minLength": 10,
+                        "maxLength": 10
                         }
                     },
-                "required": [ "tradeMark_RefID", "goodsType_RefID", "modelName", "modelNumber" ]
+                "required": [ "businessDocumentNumberingFormat_RefID", "validStartDate", "validFinishDate", "lastSequenceNumber", "lastRequestDocumentNumber", "lastRequestDocumentDate" ]
                 }
             },
         "required": [ "entities" ]

@@ -29,18 +29,21 @@
         "properties": {
             "recordID" : {
                 "type": "integer",
-                "minimum": 1
+                "minimum": 1,
+                "maximum": 9223372036854775807
                 },
             "entities" : {
                 "type": "object",
                 "properties": {
                     "tradeMark_RefID": {
                         "type": [ "integer", "null" ],
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "goodsType_RefID": {
                         "type": [ "integer", "null" ],
-                        "minimum": 1
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "modelName": {
                         "type": [ "string", "null" ],
