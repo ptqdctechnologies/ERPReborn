@@ -11,25 +11,41 @@ class procurementTransactionPO extends Controller
      */
     public function createPO()
     {
-        return view('ProcurementAndCommercial.Transactions.PO.createPO');
+        return view('Purchase.PurchaseOrder.Transactions.createPO');
+    }
+    public function revisionPO()
+    {
+        return view('Purchase.PurchaseOrder.Transactions.editExisting');
     }
 
     public function createPOverhead()
     {
-        return view('ProcurementAndCommercial.Transactions.PO.createPOverhead');
+        return view('Purchase.PurchaseOrder.Transactions.createPOverhead');
     }
 
     public function createPOSales()
     {
-        return view('ProcurementAndCommercial.Transactions.PO.createPOSales');
+        return view('Purchase.PurchaseOrder.Transactions.createPOSales');
     }
     public function requestCancelPO()
     {
-        return view('ProcurementAndCommercial.Transactions.PO.requestCancelPO');
+        return view('Purchase.PurchaseOrder.Transactions.requestCancelPO');
     }
     public function fileUploadPO()
     {
-        return view('ProcurementAndCommercial.Transactions.PO.fileUploadPO');
+        return view('Purchase.PurchaseOrder.Transactions.fileUploadPO');
+    }
+    public function editExisting()
+    {
+        return view('Purchase.PurchaseOrder.Transactions.editExisting');
+    }
+    public function editExistingSales()
+    {
+        return view('Purchase.PurchaseOrder.Transactions.editExistingSales');
+    }
+    public function EditExistingOverhead()
+    {
+        return view('Purchase.PurchaseOrder.Transactions.editExistingOverhead');
     }
     
 

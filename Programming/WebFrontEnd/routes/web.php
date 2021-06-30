@@ -96,7 +96,17 @@ Route::group(['middleware' => 'SessionLogin'], function () {
 
 
     // PR
-    Route::get('createPR', 'procurementTransactionPR@createPR')->name('PR.createPR');
+    Route::get('PR','procurementTransactionPR@index')->name('PR.createPR');
+    Route::post('editExistingPR','procurementTransactionPR@editExistingPR')->name('PR.editExistingPR');
+    Route::post('editExistingOverheadPR','procurementTransactionPR@editExistingOverheadPR')->name('PR.editExistingOverheadPR');
+    Route::post('editExistingSalesPR','procurementTransactionPR@editExistingSalesPR')->name('PR.editExistingSalesPR');
+    Route::post('revisionPR','procurementTransactionPR@revisionPR')->name('PR.revisionPR');
+    Route::post('revisionSalesPR','procurementTransactionPR@revisionSalesPR')->name('PR.revisionSalesPR');
+    Route::post('revisionOverheadPR','procurementTransactionPR@revisionOverheadPR')->name('PR.revisionOverheadPR');
+    Route::get('arflist/cancel/','procurementTransactionPR@prlistcancel');
+    Route::post('tests1','procurementTransactionPR@tests1')->name('PR.tests1');
+    Route::get('storePR','procurementTransactionArf@store')->name('PR.storePR');
+    Route::resource('PR','procurementTransactionPR');
 
     // URP
     Route::get('createURP', 'procurementTransactionURP@createURP')->name('URP.createURP');
@@ -106,11 +116,12 @@ Route::group(['middleware' => 'SessionLogin'], function () {
     Route::get('PPNRemSet', 'procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
 
     // PO
-    Route::get('PO', 'procurementTransactionPO@createPO')->name('PO.createPO');
-    Route::get('createPOverhead', 'procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
-    Route::get('createPOSales', 'procurementTransactionPO@createPOSales')->name('PO.createPOSales');
-    Route::get('requestCancelPO', 'procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
-    Route::get('fileUploadPO', 'procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
+    Route::get('PO','procurementTransactionPO@createPO')->name('PO.createPO');
+    Route::post('revisionPO','procurementTransactionPO@revisionPO')->name('PO.revisionPO');
+    Route::get('createPOverhead','procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
+    Route::get('createPOSales','procurementTransactionPO@createPOSales')->name('PO.createPOSales');
+    Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
+    Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
 
     // BSF
     Route::post('revisionBsf', 'procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');

@@ -11,7 +11,7 @@ class procurementTransactionPPM extends Controller
      */
     public function addPPM()
     {
-        return view('ProcurementAndCommercial.Transactions.PPM.addPPM');
+        return view('HumanResources.PieceMeal.Transactions.addPPM');
     }
    
     
