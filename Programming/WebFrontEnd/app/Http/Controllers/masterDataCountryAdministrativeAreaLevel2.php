@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataCountry extends Controller
+class masterDataCountryAdministrativeAreaLevel2 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,10 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.master.getCountry',
+            'transaction.read.dataList.master.getCountryAdministrativeAreaLevel2',
             'latest',
             [
+                'countryAdministrativeAreaLevel1_RefID' => 21000000000013,
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -31,12 +32,12 @@ class masterDataCountry extends Controller
                 ]
             ]
         );
-        return view('Master.Country.Transactions.index')->with('data', $varData['data']);
+        return view('Master.CountryAdministrativeAreaLevel2.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.Country.Transactions.create');
+        return view('Master.CountryAdministrativeAreaLevel2.Transactions.create');
     }
 
     public function store(Request $request)
@@ -46,15 +47,17 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.create.master.setCountry',
+            'transaction.create.master.setCountryAdministrativeAreaLevel2',
             'latest',
             [
                 'entities' => [
-                    'name' => $request->Country_code
+                    'countryAdministrativeAreaLevel1_RefID' => 21000000000013,
+                    'name' => $request->CountryAdministrativeAreaLevel2_code
                 ]
             ]
         );
-        return redirect()->route('Country.index');
+
+        return redirect()->route('CountryAdministrativeAreaLevel2.index');
     }
 
     public function show($id)
@@ -69,14 +72,14 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataRecord.master.getCountry',
+            'transaction.read.dataRecord.master.getCountryAdministrativeAreaLevel2',
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
 
-        return view('Master.Country.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.CountryAdministrativeAreaLevel2.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
@@ -86,17 +89,18 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setCountry',
+            'transaction.update.master.setCountryAdministrativeAreaLevel2',
             'latest',
             [
                 'recordID' => (int)$id,
                 'entities' => [
-                    'name' => $request->Country_code
+                    'countryAdministrativeAreaLevel1_RefID' => 21000000000013,
+                    'name' => $request->CountryAdministrativeAreaLevel2_code
                 ]
             ]
         );
 
-        return redirect()->route('Country.index');
+        return redirect()->route('CountryAdministrativeAreaLevel2.index');
     }
 
     public function destroy(Request $request, $id)
@@ -106,12 +110,12 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setCountry',
+            'transaction.delete.master.setCountryAdministrativeAreaLevel2',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('Country.index');
+        return redirect()->route('CountryAdministrativeAreaLevel2.index');
     }
 }

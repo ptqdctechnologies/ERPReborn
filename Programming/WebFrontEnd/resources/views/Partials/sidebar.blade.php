@@ -112,94 +112,181 @@
                         </label>
                         <i class="right fas fa-angle-left"></i>
                     </a>
-
-                    <!-- <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Transaction Number</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="{{ route('tranoType.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Trano Type Manager</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('tranoNumber.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Trano Number Manager</label>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('BloodAglutinogenType.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Supplier</label>
-                                <i class="right fas fa-angle-left"></i>
+                                <label>Blood Aglutinogen</label>
                             </a>
-                            <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                    <a href="{{ route('supplier.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Index Supplier</label>
-                                    </a>
-                                </li>
-
-                                <li class="nav-item">
-                                    <a href="{{ route('supplier.addSupplier') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Add Supplier</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#supplierPopUp">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Edit Supplier</label>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-                    </ul>
-
-                    <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('BusinessDocument.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>UOM</label>
-                                <i class="right fas fa-angle-left"></i>
+                                <label>Bussines Document</label>
                             </a>
-                            <ul class="nav nav-treeview">
-                                
-                                <li class="nav-item">
-                                    <a href="{{ route('Uom.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Data UOM</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{ route('addUom.index') }}" class="nav-link">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Add UOM</label>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link" data-toggle="modal" data-target="#uomPopUp">
-                                        <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                        <label>Edit UOM</label>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-                    </ul> -->
-
-                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Authorization Current Stage</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Authorization Current History</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Numbering</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Numbering Format</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Tmp</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Type</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Version</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Bussines Document Version Tmp</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Citizen Family Card</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Citizen Family Card Member</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Citizen Identity</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Citizen Identity Card</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Country.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('CountryAdministrativeAreaLevel1.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country Administrative Area Level 1</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('CountryAdministrativeAreaLevel2.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country Administrative Area Level 2</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('CountryAdministrativeAreaLevel3.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country Administrative Area Level 3</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('CountryAdministrativeAreaLevel4.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Country Administrative Area Level 4</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Currency.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Currency</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Currency Exchange Rate Central Bank</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Currency Exchange Rate Tax</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Day Off Government Policy</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Day Off National</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Day Off Regional</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Goods Model</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Institution</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Institution Branch</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Institution Type</label>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('Periode.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
@@ -207,9 +294,45 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Person</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Person Account EMail</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Person Account Social Media</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Person Gender</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ProductType.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Product</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('ProductType.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
                                 <label>Product Type</label>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('ProductType.index') }}" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                <label>Quantity Unit</label>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -221,46 +344,17 @@
                         <li class="nav-item">
                             <a href="{{ route('Currency.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Currency</label>
+                                <label>Social Media</label>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('Country.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                <label>Country</label>
+                                <label>Trade Mark</label>
                             </a>
                         </li>
                     </ul>
-
-
-                    <!-- <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Product ID</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('COA.index') }}" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>COA</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Project List</label>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('exchangeRate.index')}}" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Exchange Rate</label>
-                            </a>
-                        </li>
-                    </ul>
-                </li> -->
-
+                </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-folder" style="color:#00FFFF;"></i>
