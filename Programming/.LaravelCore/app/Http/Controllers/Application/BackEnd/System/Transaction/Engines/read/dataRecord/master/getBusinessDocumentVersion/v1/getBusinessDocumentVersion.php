@@ -3,27 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setBusinessDocumentVersion\v1  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\master                       |
+|                \getBusinessDocumentVersion\v1                                                                                    |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setBusinessDocumentVersion\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\master\getBusinessDocumentVersion\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBusinessDocumentVersion                                                                                   |
-    | ▪ Description : Menangani API transaction.create.master.setBusinessDocumentVersion Version 1                                 |
+    | ▪ Class Name  : getBusinessDocumentVersion                                                                                   |
+    | ▪ Description : Menangani API transaction.read.dataRecord.master.getBusinessDocumentVersion Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBusinessDocumentVersion extends \App\Http\Controllers\Controller
+    class getBusinessDocumentVersion extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-07                                                                                           |
+        | ▪ Last Update     : 2021-07-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-12-07                                                                                           |
+        | ▪ Last Update     : 2021-07-01                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,20 +57,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Business Document Version Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Version Data Record (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentVersion())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentVersion())->getDataRecord(
                             $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['businessDocument_RefID'],
-                            $varData['entities']['version'],
-                            $varData['entities']['documentDateTimeTZ'],
-                            $varData['entities']['annotation'],
-                            $varData['entities']['documentOwner_RefID']
+                            $varData['recordID'],
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))
                             {
                             throw new \Exception();
@@ -78,7 +73,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data not found');
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -95,3 +90,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             }
         }
     }
+
+?>

@@ -1409,6 +1409,65 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setBusinessDocumentVersion                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setBusinessDocumentVersion', 
+                'latest', 
+                [
+                'entities' => [
+                    'businessDocument_RefID' => 74000000000001,
+                    'version' => 0,
+                    'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
+                    'annotation' => NULL,
+                    'documentOwner_RefID' => NULL                    
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_BusinessDocument_RefID" value=74000000000001>';
+            echo '<input type="text" id="dataInput_Version" value=0>';
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2009-04-17 00:00:00+07">';
+            echo '<input type="text" id="dataInput_Annotation" value="">';
+            echo '<input type="text" id="dataInput_DocumentOwner_RefID" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setBusinessDocumentVersion', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"businessDocument_RefID" : parseInt(document.getElementById("dataInput_BusinessDocument_RefID").value), '.
+                        '"version" : parseInt(document.getElementById("dataInput_Version").value), '.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"annotation" : document.getElementById("dataInput_Annotation").value, '.
+                        '"documentOwner_RefID" : parseInt(document.getElementById("dataInput_DocumentOwner_RefID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.master.setCountry                                                                     |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -9396,6 +9455,49 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataRecord.master.getBusinessDocumentVersion                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataRecordBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.master.getBusinessDocumentVersion', 
+                'latest', 
+                [
+                'recordID' => 75000000000001
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataRecordBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordID" value=75000000000001>';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataRecord.master.getBusinessDocumentVersion', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.read.dataRecord.master.getCitizenIdentity                                                    |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -11315,7 +11417,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.undelete.master.setCitizenFamilyCard                                                   |
+        | ▪ API Key     : transaction.undelete.master.setCitizenFamilyCard                                                         |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -11905,6 +12007,68 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setBusinessDocumentVersion                                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentVersion', 
+                'latest', 
+                [
+                'recordID' => 75000000000001,
+                'entities' => [
+                    'businessDocument_RefID' => 74000000000001,
+                    'version' => 0,
+                    'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
+                    'annotation' => NULL,
+                    'documentOwner_RefID' => NULL                    
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateBusinessDocumentVersion()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUxMDQ3Njl9.NrmocAWT3kdfGG0wu0octfJSZqrTzGIEFAgbQs7oZnQ';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=75000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocument_RefID" value=74000000000001>';
+            echo '<input type="text" id="dataInput_Version" value=0>';
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2009-04-17 00:00:00+07">';
+            echo '<input type="text" id="dataInput_Annotation" value="">';
+            echo '<input type="text" id="dataInput_DocumentOwner_RefID" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentVersion', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocument_RefID" : parseInt(document.getElementById("dataInput_BusinessDocument_RefID").value), '.
+                        '"version" : parseInt(document.getElementById("dataInput_Version").value), '.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"annotation" : document.getElementById("dataInput_Annotation").value, '.
+                        '"documentOwner_RefID" : parseInt(document.getElementById("dataInput_DocumentOwner_RefID").value)'.
                         '}'.
                 '}'
                 ); 
