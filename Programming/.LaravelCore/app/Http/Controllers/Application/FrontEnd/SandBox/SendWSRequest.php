@@ -11652,6 +11652,135 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setBusinessDocumentNumbering                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateBusinessDocumentNumbering()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentNumbering', 
+                'latest', 
+                [
+                'recordID' => 128000000000001,
+                'entities' => [
+                    'businessDocumentNumberingFormat_RefID' => 127000000000001,
+                    'validStartDate' => '2020-01-01',
+                    'validFinishDate' => '2020-12-31',
+                    'lastSequenceNumber' => 1,
+                    'lastRequestDocumentNumber' => 'Budget/QDC/2020/000001',
+                    'lastRequestDocumentDate' => '2020-01-01'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateBusinessDocumentNumbering()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=128000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentNumberingFormat_RefID" value=127000000000001>';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2020-01-01">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2020-12-31">';
+            echo '<input type="text" id="dataInput_LastSequenceNumber" value=1>';
+            echo '<input type="text" id="dataInput_LastRequestDocumentNumber" value="Budget/QDC/2020/000001">';
+            echo '<input type="text" id="dataInput_LastRequestDocumentDate" value="2020-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentNumbering', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentNumberingFormat_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentNumberingFormat_RefID").value), '.
+                        '"validStartDate" : document.getElementById("dataInput_ValidStartDate").value, ' .
+                        '"validFinishDate" : document.getElementById("dataInput_ValidFinishDate").value, ' .
+                        '"lastSequenceNumber" : parseInt(document.getElementById("dataInput_LastSequenceNumber").value), ' .
+                        '"lastRequestDocumentNumber" : document.getElementById("dataInput_LastRequestDocumentNumber").value, ' .
+                        '"lastRequestDocumentDate" : document.getElementById("dataInput_LastRequestDocumentDate").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setBusinessDocumentNumberingFormat                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateBusinessDocumentNumberingFormat()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentNumberingFormat', 
+                'latest', 
+                [
+                'recordID' => 127000000000001,
+                'entities' => [
+                    'businessDocumentType_RefID' => 77000000000033,
+                    'period_RefID' => 59000000000010,
+                    'validStartDate' => '2020-01-01',
+                    'validFinishDate' => '9999-12-31',
+                    'numberingFormat' => 'Budget/QDC/<Year::4>/<AutoNumber::6::0>'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateBusinessDocumentNumberingFormat()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjUwMjA1OTZ9.-_UkK5_yoqX79Q0-NR7dzKnp68jVs4HuFGkzbtToNlo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=128000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentNumberingFormat_RefID" value=127000000000001>';
+            echo '<input type="text" id="dataInput_ValidStartDate" value="2020-01-01">';
+            echo '<input type="text" id="dataInput_ValidFinishDate" value="2020-12-31">';
+            echo '<input type="text" id="dataInput_LastSequenceNumber" value=1>';
+            echo '<input type="text" id="dataInput_LastRequestDocumentNumber" value="Budget-QDC-2020-000001">';
+            echo '<input type="text" id="dataInput_LastRequestDocumentDate" value="2020-01-01">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setBusinessDocumentNumberingFormat', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentNumberingFormat_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentNumberingFormat_RefID").value), '.
+                        '"validStartDate" : (document.getElementById("dataInput_ValidStartDate").value), ' .
+                        '"validFinishDate" : (document.getElementById("dataInput_ValidFinishDate").value), ' .
+                        '"lastSequenceNumber" : parseInt(document.getElementById("dataInput_LastSequenceNumber").value), ' .
+                        '"lastRequestDocumentNumber" : document.getElementById("dataInput_LastRequestDocumentNumber").value, ' .
+                        '"lastRequestDocumentDate" : (document.getElementById("dataInput_LastRequestDocumentDate").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.update.master.setBloodAglutinogenType                                                        |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+

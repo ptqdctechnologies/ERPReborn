@@ -78,6 +78,27 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'Request has expired']));
                     }
  */
+
+                    
+                    $check=str_replace('\\', '\\', \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)));
+
+                    throw new \Exception(implode($varDataSeparatorTag, 
+                        [403, 
+                            "<br>HTTP MD5 Header : ".$varHTTPHeader['content-md5'].
+                            "<br><br>Data Load : ".\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)).
+                            
+                            "<br><br>HTTP MD5 Header : ".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $check).                            
+                            "<br><br>Data Load : ".$check.                            
+                            
+                            "<br><br>".
+                            
+                            $varHTTPHeader['content-md5'].' <----> '. 
+                            \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, 
+                                str_replace(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)), '\\/', '/')
+                                ) 
+                            ]));
+    
+
                 //--->---> Check Content Integrity
                 if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
                     {

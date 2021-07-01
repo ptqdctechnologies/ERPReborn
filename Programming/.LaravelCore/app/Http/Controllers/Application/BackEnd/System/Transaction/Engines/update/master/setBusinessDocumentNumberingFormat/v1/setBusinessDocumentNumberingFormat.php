@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setBusinessDocumentNumbering   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master                                |
+|                \setBusinessDocumentNumberingFormat\v1                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setBusinessDocumentNumbering\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setBusinessDocumentNumberingFormat\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBusinessDocumentNumbering                                                                                          |
-    | ▪ Description : Menangani API transaction.update.master.setBusinessDocumentNumbering Version 1                                        |
+    | ▪ Class Name  : setBusinessDocumentNumberingFormat                                                                           |
+    | ▪ Description : Menangani API transaction.update.master.setBusinessDocumentNumberingFormat Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBusinessDocumentNumbering extends \App\Http\Controllers\Controller
+    class setBusinessDocumentNumberingFormat extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,11 +57,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Business Document Numbering Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Business Document Numbering Format Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentNumbering())->setDataUpdate(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBusinessDocumentNumberingFormat())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
