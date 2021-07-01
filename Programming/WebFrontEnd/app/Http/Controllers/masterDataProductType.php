@@ -19,7 +19,7 @@ class masterDataProductType extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListProductType',
+            'transaction.read.dataList.master.getProductType',
             'latest',
             [
                 'SQLStatement' => [
@@ -66,7 +66,7 @@ class masterDataProductType extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataRecordProductType',
+            'transaction.read.dataRecord.master.getProductType', 
             'latest',
             [
                 'recordID' => (int)$id,

@@ -16,11 +16,10 @@ class masterDataReligion extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListReligion',
+            'transaction.read.dataList.master.getReligion',
             'latest',
             [
                 'SQLStatement' => [
@@ -69,12 +68,13 @@ class masterDataReligion extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataRecordReligion',
+            'transaction.read.dataRecord.master.getReligion',
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
+
         // dd($varData);
 
         return view('Master.Religion.Transactions.edit')->with('data', $varData['data']);

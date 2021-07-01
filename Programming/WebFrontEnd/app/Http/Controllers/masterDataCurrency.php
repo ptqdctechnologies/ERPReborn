@@ -16,11 +16,10 @@ class masterDataCurrency extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListCurrency',
+            'transaction.read.dataList.master.getCurrency',
             'latest',
             [
                 'SQLStatement' => [
@@ -43,6 +42,7 @@ class masterDataCurrency extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -50,10 +50,13 @@ class masterDataCurrency extends Controller
             'latest',
             [
                 'entities' => [
-                    'name' => $request->Currency_code
+                    'ISOCode' => 'XYZ',
+                    'name' => $request->Currency_code,
+                    'symbol' => 'xyz',
                 ]
             ]
         );
+
         return redirect()->route('Currency.index');
     }
 
@@ -69,14 +72,12 @@ class masterDataCurrency extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataRecordReligion',
+            'transaction.read.dataRecord.master.getCurrency', 
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
-        // dd($varData);
-
         return view('Master.Currency.Transactions.edit')->with('data', $varData['data']);
     }
 
@@ -92,7 +93,9 @@ class masterDataCurrency extends Controller
             [
                 'recordID' => (int)$id,
                 'entities' => [
-                    'name' => $request->Currency_code
+                    'ISOCode' => 'ABC',
+                    'name' => $request->Currency_code,
+                    'symbol' => '$Abc'
                 ]
             ]
         );

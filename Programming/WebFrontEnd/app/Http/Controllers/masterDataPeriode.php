@@ -20,7 +20,7 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataListPeriod',
+            'transaction.read.dataList.master.getPeriod',
             'latest',
             [
                 'SQLStatement' => [
@@ -69,7 +69,7 @@ class masterDataPeriode extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.master.getDataRecordReligion',
+            'transaction.read.dataRecord.master.getPeriod', 
             'latest',
             [
                 'recordID' => (int)$id,

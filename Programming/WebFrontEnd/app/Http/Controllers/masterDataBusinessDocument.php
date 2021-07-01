@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataCountry extends Controller
+class masterDataBusinessDocument extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,9 +20,10 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.master.getCountry',
+            'transaction.read.dataList.master.getBusinessDocument',
             'latest',
             [
+                'businessDocumentType_RefID' => 77000000000005,
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -31,12 +32,12 @@ class masterDataCountry extends Controller
                 ]
             ]
         );
-        return view('Master.Country.Transactions.index')->with('data', $varData['data']);
+        return view('Master.BusinessDocument.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.Country.Transactions.create');
+        return view('Master.BusinessDocument.Transactions.create');
     }
 
     public function store(Request $request)
@@ -46,15 +47,15 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.create.master.setCountry',
+            'transaction.create.master.setBusinessDocument',
             'latest',
             [
                 'entities' => [
-                    'name' => $request->Country_code
+                    'name' => $request->BusinessDocument_code
                 ]
             ]
         );
-        return redirect()->route('Country.index');
+        return redirect()->route('BusinessDocument.index');
     }
 
     public function show($id)
@@ -64,19 +65,20 @@ class masterDataCountry extends Controller
 
     public function edit(Request $request, $id)
     {
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataRecord.master.getCountry',
+            'transaction.read.dataRecord.master.getBusinessDocument',
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
+        // dd($varData);
 
-        return view('Master.Country.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.BusinessDocument.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
@@ -86,17 +88,17 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setCountry',
+            'transaction.update.master.setBusinessDocument',
             'latest',
             [
                 'recordID' => (int)$id,
                 'entities' => [
-                    'name' => $request->Country_code
+                    'name' => $request->BusinessDocument_code
                 ]
             ]
         );
 
-        return redirect()->route('Country.index');
+        return redirect()->route('BusinessDocument.index');
     }
 
     public function destroy(Request $request, $id)
@@ -106,12 +108,12 @@ class masterDataCountry extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setCountry',
+            'transaction.delete.master.setBusinessDocument',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('Country.index');
+        return redirect()->route('BusinessDocument.index');
     }
 }
