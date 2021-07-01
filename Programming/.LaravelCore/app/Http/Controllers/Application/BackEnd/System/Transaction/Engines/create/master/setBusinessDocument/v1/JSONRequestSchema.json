@@ -30,7 +30,7 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "businessDocument_RefID": {
+                    "businessDocumentType_RefID": {
                         "type": [ "integer" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -41,7 +41,7 @@
                         "maxLength": 32
                         }
                     },
-                "required": [ "businessDocument_RefID", "documentNumber" ]
+                "required": [ "businessDocumentType_RefID", "documentNumber" ]
                 }
             },
         "required": [ "entities" ]

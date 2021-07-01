@@ -98,8 +98,8 @@ namespace App\Models\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-01                                                                                           |
         | ▪ Description     : Get Data Record specific by RecordID (varRecordID)                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -113,8 +113,11 @@ namespace App\Models\Database
         */
         public function getDataRecord($varUserSession, int $varRecordID, int $varBranchID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
-            return $varReturn['Data'];
+            $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getHTMLEncode(
+                $varUserSession,
+                (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID))['Data']
+                );
+            return $varReturn;
             }
 
 
