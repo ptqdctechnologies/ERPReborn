@@ -51,12 +51,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-	|      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
-	|      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
+	|      ▪ (int)    varDocumentOwner_RefID ► Document Owner Reference ID                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -64,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
+            int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varDocumentOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -77,12 +76,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
                         [$varBusinessDocument_RefID, 'bigint'],
                         [$varVersion, 'smallint'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varAnnotation, 'varchar'],
-                        [$varCodeOfBudgeting_RefID, 'bigint']
+                        [$varDocumentOwner_RefID, 'bigint']
                     ]
                     )
                 );
@@ -135,12 +133,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-	|      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
 	|      ▪ (int)    varBusinessDocument_RefID ► Business Document Reference ID                                               |
         |      ▪ (int)    varVersion ► Document Version                                                                            |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (string) varAnnotation ► Annotation                                                                               |
-	|      ▪ (int)    varCodeOfBudgeting_RefID ► Code Of Budgeting Reference ID                                                |
+	|      ▪ (int)    varDocumentOwner_RefID ► Document Owner Reference ID                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -148,7 +145,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varCodeOfBudgeting_RefID = null)
+            int $varBusinessDocument_RefID = null, int $varVersion = null, string $varDocumentDateTimeTZ = null, string $varAnnotation = null, int $varDocumentOwner_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -161,12 +158,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
                         [$varBusinessDocument_RefID, 'bigint'],
                         [$varVersion, 'smallint'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varAnnotation, 'varchar'],
-                        [$varCodeOfBudgeting_RefID, 'bigint']
+                        [$varDocumentOwner_RefID, 'bigint']
                     ],
                     )
                 );

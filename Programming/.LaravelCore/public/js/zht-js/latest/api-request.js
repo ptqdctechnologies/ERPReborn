@@ -110,7 +110,7 @@ class zht_JSAPIRequest
     */
     getBase64OfMD5(varDataJSON)
         {
-        var varReturn = btoa(CryptoJS.MD5(varDataJSON));
+        var varReturn = btoa(CryptoJS.MD5(String(varDataJSON).replace(/\//g, '\\/')));
         return varReturn;
         }
 
@@ -229,6 +229,7 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
                         },
                     "data" : varDataJSObject
                     });
+                //console.log("xxxxxxxxxxxxxxxxxxxxxxxxxx");
                 //alert(varDataJSON);
                 //---> Request Parse
                 $.ajax(varURL, {
@@ -320,6 +321,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     */
     main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
         {
+        //alert(JSON.stringify(varDataJSObject));
         var varReturn = null;
         if (window.jQuery) {
             try
@@ -335,6 +337,7 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                     "data" : varDataJSObject
                     });
                 //alert(varDataJSON);
+                //alert(this.getBase64OfMD5(varDataJSON));
                 //---> Request Parse
                 $.ajax(varURL, {
                     async : false, 
