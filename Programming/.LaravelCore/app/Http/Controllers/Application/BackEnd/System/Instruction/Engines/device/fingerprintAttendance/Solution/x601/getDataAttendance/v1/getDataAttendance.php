@@ -6,7 +6,7 @@
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\Solution\x601   |  
 |                \getDataAttendance\v1                                                                                                    | 
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\fingerprintAttendance\Solution\x601\getDataAttendance\v1

@@ -113,11 +113,14 @@ namespace App\Models\Database
         */
         public function getDataRecord($varUserSession, int $varRecordID, int $varBranchID = null)
             {
+            /*
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getHTMLEncode(
                 $varUserSession,
                 (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID))['Data']
                 );
-            return $varReturn;
+            */
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
+            return $varReturn['Data'];
             }
 
 

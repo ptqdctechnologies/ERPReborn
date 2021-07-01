@@ -51,7 +51,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varSalesOrderDetail_RefID ► Sales Order Detail Reference ID                                              |
+        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,7 +59,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varSalesOrderDetail_RefID = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varSalesOrder_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -73,7 +73,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varSalesOrderDetail_RefID, 'bigint']
+                        [$varSalesOrder_RefID, 'bigint']
                     ]
                     )
                 );
@@ -126,7 +126,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varSalesOrderDetail_RefID ► Sales Order Detail Reference ID                                              |
+        |      ▪ (int)    varSalesOrder_RefID ► Sales Order Reference ID                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -134,7 +134,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varSalesOrderDetail_RefID = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varSalesOrder_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -148,7 +148,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varSalesOrderDetail_RefID, 'bigint']
+                        [$varSalesOrder_RefID, 'bigint']
                     ],
                     )
                 );
