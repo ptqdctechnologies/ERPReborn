@@ -110,12 +110,7 @@ class zht_JSAPIRequest
     */
     getBase64OfMD5(varDataJSON)
         {
-        //varReturn = new zht_JSCryptographyMD5(varDataJSON);
-        //.alert(md5("Test string"));
-        //alert('xxx');
-        var varReturn = btoa(CryptoJS.MD5(JSON.stringify(varDataJSON)));
-        //var varReturn = md5(varDataJSON);
-        //alert(varReturn);
+        var varReturn = btoa(CryptoJS.MD5(String(varDataJSON).replace(/\//g, '\\/')));
         return varReturn;
         }
 
