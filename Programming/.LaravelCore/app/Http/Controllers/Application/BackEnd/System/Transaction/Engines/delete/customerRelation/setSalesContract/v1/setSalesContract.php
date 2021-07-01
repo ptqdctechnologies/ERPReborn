@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\customerRelation\setSalesOrder\v1     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation\setSalesContract\v1  |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\customerRelation\setSalesOrder\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\customerRelation\setSalesContract\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setSalesOrder                                                                                                |
-    | ▪ Description : Menangani API transaction.create.customerRelation.setSalesOrder Version 1                                    |
+    | ▪ Class Name  : setSalesContract                                                                                             |
+    | ▪ Description : Menangani API transaction.delete.customerRelation.setSalesContract Version 1                                 |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setSalesOrder extends \App\Http\Controllers\Controller
+    class setSalesContract extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-02-23                                                                                           |
+        | ▪ Last Update     : 2020-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,17 +56,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Sales Order Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Sales Contract Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesOrder())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['businessDocumentVersion_RefID'],
-                            $varData['entities']['customer_RefID']
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesContract())->setDataDelete(
+                            $varUserSession,
+                            $varData['recordID']
                             ))))
                             {
                             throw new \Exception();
@@ -92,3 +88,5 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             }
         }
     }
+
+?>
