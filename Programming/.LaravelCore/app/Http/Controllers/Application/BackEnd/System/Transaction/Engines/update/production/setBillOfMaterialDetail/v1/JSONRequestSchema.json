@@ -1,0 +1,76 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.production.setBillOfMaterialDetail (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.production.setBillOfMaterialDetail" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "entities" :
+                {
+                "type": "object",
+                "properties": {
+                    "billOfMaterial_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                     "materialProduct_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                     "quantity": {
+                        "type": [ "number", "null" ]
+                        },
+                     "unitPriceCurrency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                     "unitPriceCurrencyExchangeRate": {
+                        "type": [ "number" ]
+                        },
+                     "unitPriceCurrencyValue": {
+                        "type": [ "number" ]
+                        },
+                     "projectSectionItem_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "billOfMaterial_RefID", "materialProduct_RefID", "quantity", "unitPriceCurrency_RefID", "unitPriceCurrencyExchangeRate", "unitPriceCurrencyValue", "projectSectionItem_RefID" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
