@@ -137,8 +137,8 @@ namespace App\Models\Database\SchData_OLTP_Production
             int $varBusinessDocumentVersion_RefID = null, int $varLevel = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
-                //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                     [
@@ -150,10 +150,9 @@ namespace App\Models\Database\SchData_OLTP_Production
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
                         [$varLevel, 'smallint']
                     ],
-                //    )
+                    )
                 );
-            dd($varReturn);
-            //return $varReturn['Data'][0];
+            return $varReturn['Data'][0];
             }
         }
     }

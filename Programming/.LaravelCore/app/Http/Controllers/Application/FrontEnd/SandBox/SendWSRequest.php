@@ -16107,7 +16107,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGateway_setDataUpdateBillOfMaterial()
             {
             //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU0NDkyODZ9.Kx4Ag5Xv0UNTn7Dp3dVhjJzN5J9ekLToFHALRZifMyY';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU0NjcxNTB9.vOHTIV7eOO1oh6mABRbgi8KTGhL2vJ9posH9MV_2Auk';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -16127,7 +16127,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         public function APIGatewayJQuery_setDataUpdateBillOfMaterial()
             {
             //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU0NDkyODZ9.Kx4Ag5Xv0UNTn7Dp3dVhjJzN5J9ekLToFHALRZifMyY';
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU0NjcxNTB9.vOHTIV7eOO1oh6mABRbgi8KTGhL2vJ9posH9MV_2Auk';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=147000000000001>';
