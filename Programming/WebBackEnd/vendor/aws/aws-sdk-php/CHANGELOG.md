@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.185.6 - 2021-07-02
+
+* `Aws\EC2` - This release removes network-insights-boundary
+* `Aws\ElasticLoadBalancingv2` - Documentation updates for elasticloadbalancingv2
+
 ## 3.185.5 - 2021-07-01
 
 * `Aws\EC2` - Adding a new reserved field to support future infrastructure improvements for Amazon EC2 Fleet.

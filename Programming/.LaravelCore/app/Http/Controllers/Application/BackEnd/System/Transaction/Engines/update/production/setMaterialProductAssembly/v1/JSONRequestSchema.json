@@ -1,0 +1,81 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.production.setMaterialProductAssembly (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.production.setMaterialProductAssembly" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "entities" :
+                {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "businessDocument_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "quantityUnit_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                     "validStartDateTimeTZ": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1}))$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                     "validFinishDateTimeTZ": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1}))$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                     "code": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 64
+                        }
+                    },
+                "required": [ "name", "businessDocument_RefID", "quantityUnit_RefID", "validStartDateTimeTZ", "validFinishDateTimeTZ", "code" ]
+                }
+            },
+        "required": [ "recordID", "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

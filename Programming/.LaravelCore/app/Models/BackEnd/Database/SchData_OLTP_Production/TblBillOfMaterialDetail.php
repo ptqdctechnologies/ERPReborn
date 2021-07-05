@@ -42,8 +42,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-03-23                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-05                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,7 +57,6 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varUnitPriceCurrency_RefID ► Unit Price Currency Reference ID                                            |
         |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |      ▪ (float)  varUnitPriceCurrencyValue ► Unit Price Currency Value                                                    |
-        |      ▪ (float)  varUnitPriceBaseCurrencyValue ► Unit Price Base Currency Value                                           |
         |      ▪ (int)    varBillOfQuantityGroup_RefID ► Bill Of Quantity Group Reference ID                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -66,7 +65,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBillOfMaterial_RefID = null, int $varMaterialProduct_RefID = null, float $varQuantity = null, int $varUnitPriceCurrency_RefID = null, float $varUnitPriceCurrencyExchangeRate = null, float $varUnitPriceCurrencyValue = null, float $varUnitPriceBaseCurrencyValue = null, int $varBillOfQuantityGroup_RefID = null)
+            int $varBillOfMaterial_RefID = null, int $varMaterialProduct_RefID = null, float $varQuantity = null, int $varUnitPriceCurrency_RefID = null, float $varUnitPriceCurrencyExchangeRate = null, float $varUnitPriceCurrencyValue = null, int $varBillOfQuantityGroup_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -85,7 +84,6 @@ namespace App\Models\Database\SchData_OLTP_Production
                         [$varUnitPriceCurrency_RefID, 'bigint'],
                         [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)'],
                         [$varUnitPriceCurrencyValue, 'numeric(20,2)'],
-                        [$varUnitPriceBaseCurrencyValue, 'numeric(20,2)'],
                         [$varBillOfQuantityGroup_RefID, 'bigint']
                     ]
                     )
@@ -127,8 +125,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-03-23                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-05                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -143,7 +141,6 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (int)    varUnitPriceCurrency_RefID ► Unit Price Currency Reference ID                                            |
         |      ▪ (float)  varUnitPriceCurrencyExchangeRate ► Unit Price Currency Exchange Rate                                     |
         |      ▪ (float)  varUnitPriceCurrencyValue ► Unit Price Currency Value                                                    |
-        |      ▪ (float)  varUnitPriceBaseCurrencyValue ► Unit Price Base Currency Value                                           |
         |      ▪ (int)    varBillOfQuantityGroup_RefID ► Bill Of Quantity Group Reference ID                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -152,7 +149,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBillOfMaterial_RefID = null, int $varMaterialProduct_RefID = null, float $varQuantity = null, int $varUnitPriceCurrency_RefID = null, float $varUnitPriceCurrencyExchangeRate = null, float $varUnitPriceCurrencyValue = null, float $varUnitPriceBaseCurrencyValue = null, int $varBillOfQuantityGroup_RefID = null)
+            int $varBillOfMaterial_RefID = null, int $varMaterialProduct_RefID = null, float $varQuantity = null, int $varUnitPriceCurrency_RefID = null, float $varUnitPriceCurrencyExchangeRate = null, float $varUnitPriceCurrencyValue = null, int $varBillOfQuantityGroup_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -171,7 +168,6 @@ namespace App\Models\Database\SchData_OLTP_Production
                         [$varUnitPriceCurrency_RefID, 'bigint'],
                         [$varUnitPriceCurrencyExchangeRate, 'numeric(20,2)'],
                         [$varUnitPriceCurrencyValue, 'numeric(20,2)'],
-                        [$varUnitPriceBaseCurrencyValue, 'numeric(20,2)'],
                         [$varBillOfQuantityGroup_RefID, 'bigint']
                     ],
                     )

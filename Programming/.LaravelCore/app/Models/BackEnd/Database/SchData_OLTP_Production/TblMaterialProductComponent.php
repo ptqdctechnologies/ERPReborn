@@ -42,8 +42,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-03-17                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-05                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,9 +51,9 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varBillOfMaterial_RefID ► Bill Of Material Reference ID                                                  |
-        |      ▪ (int)    varQuantityUnit_RefI ► Quantity Unit Reference ID                                                        |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (int)    varProductType_RefID ► Product Type Reference ID                                                         |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start Date Time With TimeZone                                            |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish Date Time With TimeZone                                          |
         |      ▪ (string) varCode ► Code                                                                                           |
@@ -64,7 +64,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, int $varProductType_RefID = null, int $varQuantityUnit_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, string $varCode= null)
+            int $varProduct_RefID = null, int $varProductType_RefID = null, int $varQuantityUnit_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, string $varCode= null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -77,7 +77,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varProductType_RefID, 'bigint'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
@@ -123,8 +123,8 @@ namespace App\Models\Database\SchData_OLTP_Production
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-03-17                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-05                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -133,9 +133,9 @@ namespace App\Models\Database\SchData_OLTP_Production
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varBillOfMaterial_RefID ► Bill Of Material Reference ID                                                  |
-        |      ▪ (int)    varQuantityUnit_RefI ► Quantity Unit Reference ID                                                        |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
+        |      ▪ (int)    varProductType_RefID ► Product Type Reference ID                                                         |
+        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start Date Time With TimeZone                                            |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish Date Time With TimeZone                                          |
         |      ▪ (string) varCode ► Code                                                                                           |
@@ -146,7 +146,7 @@ namespace App\Models\Database\SchData_OLTP_Production
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varName = null, int $varProductType_RefID = null, int $varQuantityUnit_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, string $varCode= null)
+            int $varProduct_RefID = null, int $varProductType_RefID = null, int $varQuantityUnit_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, string $varCode= null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -159,7 +159,7 @@ namespace App\Models\Database\SchData_OLTP_Production
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varName, 'varchar'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varProductType_RefID, 'bigint'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
