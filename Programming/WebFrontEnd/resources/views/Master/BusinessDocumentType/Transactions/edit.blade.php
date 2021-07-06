@@ -34,7 +34,7 @@
                                                             <td><label>Business Document</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="tranoType" name="BusinessDocument_code" class="form-control" value="{{ $datax['documentNumber'] }}">
+                                                                    <input autocomplete="off" id="tranoType" name="BusinessDocument_code" class="form-control" value="{{ $datax['name'] }}">
                                                                 </div>
                                                             </td>
                                                         </tr>

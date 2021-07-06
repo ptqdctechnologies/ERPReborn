@@ -156,13 +156,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                            <a href="{{ route('BusinessDocumentType.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
                                 <label>Bussines Document Type</label>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('Periode.index') }}" class="nav-link">
+                            <a href="{{ route('BusinessDocumentVersion.index') }}" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
                                 <label>Bussines Document Version</label>
                             </a>
@@ -1364,7 +1364,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PR.createPR') }}" class="nav-link">
+                                            <a href="" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Procurement Request</label>
                                             </a>

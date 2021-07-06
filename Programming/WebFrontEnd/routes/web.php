@@ -48,6 +48,11 @@ Route::group(['middleware' => 'SessionLogin'], function () {
     Route::resource('BloodAglutinogenType', 'masterDataBloodAglutinogenType');
     //BusinessDocument
     Route::resource('BusinessDocument', 'masterDataBusinessDocument');
+    //BusinessDocumentType
+    Route::resource('BusinessDocumentType', 'masterDataBusinessDocumentType');
+    //BusinessDocumentVersion
+    Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
+    
     // ARF
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');

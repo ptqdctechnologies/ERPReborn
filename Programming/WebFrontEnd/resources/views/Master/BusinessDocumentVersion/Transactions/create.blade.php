@@ -8,16 +8,14 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    @foreach($data as $datax)
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocument.update', $datax['sys_ID']) }}" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocument.store') }}" name="formHeaderMret">
+                        @csrf
                         <div class="row">
-                            @method('PUT')
-                            @csrf
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Edit Business Document
+                                            Set Business Document
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -30,11 +28,11 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <table>
-                                                        <tr>    
+                                                        <tr>
                                                             <td><label>Business Document</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="tranoType" name="BusinessDocument_code" class="form-control" value="{{ $datax['documentNumber'] }}">
+                                                                    <input autocomplete="off" id="BusinessDocument_code" name="BusinessDocument_code" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -91,7 +89,7 @@
                                                 <button type="reset" class="btn btn-outline btn-danger btn-sm float-right" id="addTranoType" style="margin-right: 5px;">
                                                     <i class="fas fa-plus" aria-hidden="true">Reset</i>
                                                 </button>
-                                                <button type="submit" class="btn btn-outline btn-success btn-sm float-right" id="addTranoType" style="margin-right: 5px;">
+                                                <button type="submit" class="btn btn-outline btn-success btn-sm float-right" style="margin-right: 5px;">
                                                     <i class="fas fa-plus" aria-hidden="true">Submit</i>
                                                 </button>
                                             </div>
@@ -101,7 +99,6 @@
                             </div>
                         </div>
                     </form>
-                    @endforeach
                 </div>
             </div>
         </div>
