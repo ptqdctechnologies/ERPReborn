@@ -23,50 +23,53 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core
                 //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                 //$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 $varUserSession = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System()))['userLoginSessionID'];
-                
-                $varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession);
+                if(!($varDataReceive = \App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))
+                    {
+                    abort(403, 'API Web Token does not exist');
+                    }
+                else
+                    {
+                    //$varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
+                    //dd($varDataReceive);
 
-//                $varDataReceive = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataReceive);
+                    $varAPIKey = 'core.API.gateway';
+                    $varAPIVersion = 'latest';
 
-//dd($varDataReceive);
-                
-                $varAPIKey = 'core.API.gateway';
-                $varAPIVersion = 'latest';
+                    $varData = [
+                        'metadata' => $varDataReceive['metadata'],
+                        'data' => $varDataReceive['data']
+                        ];
 
-                $varData = [
-                    'metadata' => $varDataReceive['metadata'],
-                    'data' => $varDataReceive['data']
-                    ];
-                
-                $varDataReceive = [
-                    'metadata' => [
-                        'API' => [
-                            'key' => $varAPIKey,
-                            'version' => $varAPIVersion
-                            ]
-                        ],
-                    'data' => $varData
-                    ];
+                    $varDataReceive = [
+                        'metadata' => [
+                            'API' => [
+                                'key' => $varAPIKey,
+                                'version' => $varAPIVersion
+                                ]
+                            ],
+                        'data' => $varData
+                        ];
 
-/*
-//echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                
-$varAPI = [
-    'service' => 'core',
-    'class' => 'API', 
-    'subClass' => 'gateway', 
-    'version' => 'latest'
-    ];
-$varData = [
-//    'userName' => 'teguh.pratama',
-//    'userPassword' => 'teguhpratama789'
-    ];
-//echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
-*/
-                //---> Method Call
-                $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
+    /*
+    //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~';                
+    $varAPI = [
+        'service' => 'core',
+        'class' => 'API', 
+        'subClass' => 'gateway', 
+        'version' => 'latest'
+        ];
+    $varData = [
+    //    'userName' => 'teguh.pratama',
+    //    'userPassword' => 'teguhpratama789'
+        ];
+    //echo '~~~~~~~~~~~~~~~~~~~~~~~~~~~'; 
+    */
+                    //---> Method Call
+                    $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setCallAPIEngine($varUserSession, $varAPIKey, $varAPIVersion, $varData, null, $varDataReceive);
 
-                //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
-                return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----    
+                    return \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::setResponse($varUserSession, $varDataSend);
+                    }
                 } 
 //            catch (\Exception $ex) {
 //                return \App\Helpers\ZhtHelper\System\Helper_HTTPError::setResponse($varUserSession, 422, $ex->getMessage());
