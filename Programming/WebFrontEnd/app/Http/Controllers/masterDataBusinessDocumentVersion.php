@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataBusinessDocument extends Controller
+class masterDataBusinessDocumentVersion extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,10 +20,9 @@ class masterDataBusinessDocument extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.master.getBusinessDocument',
+            'transaction.read.dataList.master.getBusinessDocumentVersion',
             'latest',
             [
-                'businessDocumentType_RefID' => 77000000000005,
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -32,12 +31,13 @@ class masterDataBusinessDocument extends Controller
                 ]
             ]
         );
-        return view('Master.BusinessDocument.Transactions.index')->with('data', $varData['data']);
+        dd($varData);
+        return view('Master.BusinessDocumentType.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.BusinessDocument.Transactions.create');
+        return view('Master.BusinessDocumentType.Transactions.create');
     }
 
     public function store(Request $request)
@@ -47,16 +47,19 @@ class masterDataBusinessDocument extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.create.master.setBusinessDocument',
+            'transaction.create.master.setBusinessDocumentVersion',
             'latest',
             [
                 'entities' => [
-                    'businessDocumentType_RefID' => 77000000000005,
-                    'documentNumber' => $request->BusinessDocument_code
+                    'businessDocument_RefID' => 74000000000001,
+                    'version' => 0,
+                    'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
+                    'annotation' => NULL,
+                    'documentOwner_RefID' => NULL
                 ]
             ]
         );
-        return redirect()->route('BusinessDocument.index');
+        return redirect()->route('BusinessDocumentType.index');
     }
 
     public function show($id)
@@ -71,7 +74,7 @@ class masterDataBusinessDocument extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataRecord.master.getBusinessDocument',
+            'transaction.read.dataRecord.master.getBusinessDocumentVersion',
             'latest',
             [
                 'recordID' => (int)$id,
@@ -79,7 +82,7 @@ class masterDataBusinessDocument extends Controller
         );
         // dd($varData);
 
-        return view('Master.BusinessDocument.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.BusinessDocumentType.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
@@ -89,18 +92,21 @@ class masterDataBusinessDocument extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setBusinessDocument',
+            'transaction.update.master.setBusinessDocumentVersion',
             'latest',
             [
                 'recordID' => (int)$id,
                 'entities' => [
-                    'businessDocumentType_RefID' => 77000000000005,
-                    'documentNumber' => $request->BusinessDocument_code
+                    'businessDocument_RefID' => 74000000000001,
+                    'version' => 0,
+                    'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
+                    'annotation' => NULL,
+                    'documentOwner_RefID' => NULL
                 ]
             ]
         );
 
-        return redirect()->route('BusinessDocument.index');
+        return redirect()->route('BusinessDocumentType.index');
     }
 
     public function destroy(Request $request, $id)
@@ -110,12 +116,12 @@ class masterDataBusinessDocument extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setBusinessDocument',
+            'transaction.delete.master.setBusinessDocumentVersion',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('BusinessDocument.index');
+        return redirect()->route('BusinessDocumentType.index');
     }
 }

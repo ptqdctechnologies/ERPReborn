@@ -42,7 +42,7 @@
                                                         <tr>
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
-                                                            <td>{{$datas['documentNumber']}}</td>
+                                                            <td>{{$datas['name']}}</td>
                                                             <td>
                                                                 <center>
 
@@ -60,8 +60,8 @@
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <!-- /.card-body -->
                                         </div>
+                                        <!-- /.card-body -->
                                     </div>
                                 </div>
                             </div>
