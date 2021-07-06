@@ -760,6 +760,55 @@ namespace App\Helpers\ZhtHelper\Database
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_SpecificWithFacade                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-06                                                                                           |
+        | ▪ Description     : Mendapatkan Literasi String untuk Query pengambilan Data Only berserta Facade ReferenceText untuk    |
+        |                     field ReferenceID tanpa menyertakan Field System sesuai Record ID tertentu (varRecordID)             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getQueryExecutionDataFetch_DataOnly_SpecificWithFacade($varUserSession, int $varRecordID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varSQL = '
+                        SELECT 
+                            "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade" AS "QueryBuilderString"
+                        FROM 
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade"('.$varRecordID.'::bigint)
+                        ';
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varSQL = $varData['Data'][0]['QueryBuilderString'];
+                    //--->
+                    //echo $varSQL."<br><br>";
+                    $varData = self::getQueryExecution($varUserSession, $varSQL);
+                    $varReturn = $varData;
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }            
             
 
         /*
