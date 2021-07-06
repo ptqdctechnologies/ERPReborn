@@ -98,8 +98,8 @@ namespace App\Models\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-01                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-06                                                                                           |
         | ▪ Description     : Get Data Record specific by RecordID (varRecordID)                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -119,8 +119,15 @@ namespace App\Models\Database
                 (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID))['Data']
                 );
             */
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
-            return $varReturn['Data'];
+            try
+                {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_SpecificWithFacade($varUserSession, $varRecordID);               
+                return $varReturn['Data'];
+                } 
+            catch (\Exception $ex) {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, $varRecordID);
+                return $varReturn['Data'];
+                }
             }
 
 
