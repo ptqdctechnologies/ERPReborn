@@ -53,6 +53,8 @@ return array(
     'App\\Http\\Controllers\\logisticMaterialReceive' => $baseDir . '/app/Http/Controllers/logisticMaterialReceive.php',
     'App\\Http\\Controllers\\masterDataBloodAglutinogenType' => $baseDir . '/app/Http/Controllers/masterDataBloodAglutinogenType.php',
     'App\\Http\\Controllers\\masterDataBusinessDocument' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocument.php',
+    'App\\Http\\Controllers\\masterDataBusinessDocumentType' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocumentType.php',
+    'App\\Http\\Controllers\\masterDataBusinessDocumentVersion' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocumentVersion.php',
     'App\\Http\\Controllers\\masterDataCoa' => $baseDir . '/app/Http/Controllers/masterDataCoa.php',
     'App\\Http\\Controllers\\masterDataCountry' => $baseDir . '/app/Http/Controllers/masterDataCountry.php',
     'App\\Http\\Controllers\\masterDataCountryAdministrativeAreaLevel1' => $baseDir . '/app/Http/Controllers/masterDataCountryAdministrativeAreaLevel1.php',
