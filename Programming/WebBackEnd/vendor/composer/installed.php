@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ae44516323329459a2372ba123bbdaaacdd9d96a',
+    'reference' => '1d1130a3c224aecfa89a91b81af52b574853c088',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -96,6 +96,15 @@
       array (
       ),
       'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
+    ),
+    'elibyy/tcpdf-laravel' => 
+    array (
+      'pretty_version' => '8.1.2',
+      'version' => '8.1.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '50a5c6bfc38fc0c03deb16d4065267f471c787d9',
     ),
     'facade/flare-client-php' => 
     array (
@@ -454,7 +463,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ae44516323329459a2372ba123bbdaaacdd9d96a',
+      'reference' => '1d1130a3c224aecfa89a91b81af52b574853c088',
     ),
     'laravel/tinker' => 
     array (
@@ -1288,6 +1297,15 @@
       array (
       ),
       'reference' => '46aa709affb9ad3355bd7a810f9662d71025c384',
+    ),
+    'tecnickcom/tcpdf' => 
+    array (
+      'pretty_version' => '6.4.1',
+      'version' => '6.4.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5ba838befdb37ef06a16d9f716f35eb03cb1b329',
     ),
     'theseer/tokenizer' => 
     array (
