@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_Project                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020, 2021 Zheta (teguhpjs@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_Project
@@ -42,8 +42,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-07                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,11 +51,11 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (string) varCode ► Project Code                                                                                   |
+        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (string) varName ► Project Name                                                                                   |
-        |      ▪ (string) varDateStart ► Project Starting Date                                                                     |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Project Finish Date Time TZ                                                   |
+        |      ▪ (string) varCode ► Project Code                                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            int $varBusinessDocumentVersion_RefID = null, string $varName = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,11 +76,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
+                        [$varBusinessDocumentVersion_RefID, 'bigint'],
                         [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varValidStartDateTimeTZ, 'timestamptz'],
+                        [$varvalidFinishDateTimeTZ, 'timestamptz'],
+                        [$varCode, 'varchar']
                     ]
                     )
                 );
@@ -121,8 +121,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-07                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -131,11 +131,11 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
-        |      ▪ (string) varCode ► Project Code                                                                                   |
+        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
         |      ▪ (string) varName ► Project Name                                                                                   |
-        |      ▪ (string) varDateStart ► Project Starting Date                                                                     |
-        |      ▪ (int)    varCustomer_RefID ► Customer Reference ID                                                                |
+        |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
+        |      ▪ (string) varValidFinishDateTimeTZ ► Project Finish Date Time TZ                                                   |
+        |      ▪ (string) varCode ► Project Code                                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -143,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, string $varCode = null, string $varName = null, string $varDateStart = null, int $varCustomer_RefID = null)
+            int $varBusinessDocumentVersion_RefID = null, string $varName = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -156,11 +156,11 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
-                        [$varCode, 'varchar'],
+                        [$varBusinessDocumentVersion_RefID, 'bigint'],
                         [$varName, 'varchar'],
-                        [$varDateStart, 'date'], 
-                        [$varCustomer_RefID, 'bigint']
+                        [$varValidStartDateTimeTZ, 'varchar'],
+                        [$varvalidFinishDateTimeTZ, 'varchar'],
+                        [$varCode, 'varchar']
                     ],
                     )
                 );
