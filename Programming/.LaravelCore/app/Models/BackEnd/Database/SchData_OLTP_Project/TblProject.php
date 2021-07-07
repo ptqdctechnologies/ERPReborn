@@ -158,8 +158,8 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysBranchRefID, 'bigint'],
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
                         [$varName, 'varchar'],
-                        [$varValidStartDateTimeTZ, 'varchar'],
-                        [$varvalidFinishDateTimeTZ, 'varchar'],
+                        [$varValidStartDateTimeTZ, 'timestamptz'],
+                        [$varvalidFinishDateTimeTZ, 'timestamptz'],
                         [$varCode, 'varchar']
                     ],
                     )

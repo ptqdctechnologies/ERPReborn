@@ -17264,7 +17264,183 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
             dd($varJQueryFunction);
             }
-            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.project.setProject                                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateProject()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.project.setProject', 
+                'latest', 
+                [
+                'recordID' => 46000000000001,
+                'entities' => [
+                    'businessDocumentVersion_RefID' => 75000000001485,
+                    'name' => 'Nokia 2G CME & TI Project',
+                    'validStartDateTimeTZ' => '2009-01-01 00:00:00+07',
+                    'validFinishDateTimeTZ' => '9999-12-31 23:59:59+07',
+                    'code' => 'Q000055'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateProject()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=46000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentVersion_RefID" value=75000000001485>';
+            echo '<input type="text" id="dataInput_Name" value="Nokia 2G CME & TI Project">';
+            echo '<input type="text" id="dataInput_ValidStartDateTimeTZ" value="2009-04-17 00:00:00+07">';
+            echo '<input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07">';
+            echo '<input type="text" id="dataInput_Code" value="Q000055">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.project.setProject', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentVersion_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentVersion_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"validStartDateTimeTZ" : document.getElementById("dataInput_ValidStartDateTimeTZ").value, '.
+                        '"validFinishDateTimeTZ" : document.getElementById("dataInput_ValidFinishDateTimeTZ").value, '.
+                        '"code" : document.getElementById("dataInput_Code").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.project.setProjectSection                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateProjectSection()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.project.setProjectSection', 
+                'latest', 
+                [
+                'recordID' => 110000000000001,
+                'entities' => [
+                    'businessDocumentVersion_RefID' => 75000000001609,
+                    'project_RefID' => 46000000000001,
+                    'name' => 'Non Section'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateProjectSection()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=110000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentVersion_RefID" value=75000000001609>';
+            echo '<input type="text" id="dataInput_Project_RefID" value=46000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Non Section">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.project.setProjectSection', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentVersion_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentVersion_RefID").value), '.
+                        '"project_RefID" : parseInt(document.getElementById("dataInput_Project_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.project.setProjectSectionItem                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateProjectSectionItem()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.project.setProjectSectionItem', 
+                'latest', 
+                [
+                'recordID' => 143000000000001,
+                'entities' => [
+                    'businessDocumentVersion_RefID' => 75000000004644,
+                    'projectSection_RefID' => 110000000000001,
+                    'name' => 'Overheads',
+                    'code' => '000'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateProjectSectionItem()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=143000000000001>';
+            echo '<input type="text" id="dataInput_BusinessDocumentVersion_RefID" value=75000000004644>';
+            echo '<input type="text" id="dataInput_ProjectSection_RefID" value=110000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Overheads">';
+            echo '<input type="text" id="dataInput_Code" value="000">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.project.setProjectSectionItem', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"businessDocumentVersion_RefID" : parseInt(document.getElementById("dataInput_BusinessDocumentVersion_RefID").value), '.
+                        '"projectSection_RefID" : parseInt(document.getElementById("dataInput_ProjectSection_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"code" : document.getElementById("dataInput_Code").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Click Me</button>";
+            dd($varJQueryFunction);
+            }
             
             
             
