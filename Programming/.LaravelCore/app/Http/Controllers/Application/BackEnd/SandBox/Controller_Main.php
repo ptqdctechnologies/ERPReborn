@@ -12,6 +12,28 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testPDF()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            
+            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
+            
+            $ObjPDF->SetTitle('Hello World');
+            $ObjPDF->AddPage();
+            $ObjPDF->Write(0, 'Hello World');
+            
+            //echo $varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
+            
+            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncode_PDFData($varUserSession, $ObjPDF);
+            
+            echo $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONDecode_PDFData($varUserSession, $varReturn);
+            
+            
+            //$varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
+            //\App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay($varUserSession, $varReturn, 'xxx.pdf');
+            }
+            
+            
         public function testClass()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();

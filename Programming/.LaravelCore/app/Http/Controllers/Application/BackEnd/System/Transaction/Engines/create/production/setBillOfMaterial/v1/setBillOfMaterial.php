@@ -54,7 +54,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         */
         function main($varUserSession, $varData)
             {
-            dd('xxxx');
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Bill Of Material Data (version 1)');
