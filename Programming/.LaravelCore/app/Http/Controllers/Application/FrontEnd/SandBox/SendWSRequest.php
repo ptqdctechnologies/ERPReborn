@@ -17530,7 +17530,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             
             
             
-            
+
+
+
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.supplyChain.getPurchaseOrder                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListPurchaseOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjU2MjY4OTl9.iQaUwN9VWc1hLgVshCeCL8GMOoZJ_CJW8_hS0hUDC0U';
+            //---Core---
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APIReport::setDataStreamToDisplay(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken, 
+                    'report.PDF.dataList.supplyChain.getPurchaseOrder', 
+                    'latest', 
+                    [
+                    'entities' => [
+                        ]
+                    ]
+                    )['data']['PDFData']
+                );
+            }            
             
             
             
@@ -17728,7 +17758,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
 
             
-            
+
             
             
 

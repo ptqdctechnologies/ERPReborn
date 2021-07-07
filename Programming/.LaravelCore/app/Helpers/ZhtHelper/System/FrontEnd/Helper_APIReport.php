@@ -18,9 +18,16 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
     */
     class Helper_APIReport
         {
-        public static function setDataStreamToDisplay($varUserSession, $varDataStream, string $varOutputFileName = null)
+        public static function setDataStreamToDisplay($varUserSession, $varDataStreamBase64Encoded, string $varOutputFileName = null)
             {
-            \App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay($varUserSession, $varDataStream, $varOutputFileName);
+            \App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                    $varUserSession,
+                    $varDataStreamBase64Encoded
+                    ), 
+                $varOutputFileName
+                );
             }
         }
     }
