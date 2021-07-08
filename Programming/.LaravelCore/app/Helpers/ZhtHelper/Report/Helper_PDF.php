@@ -18,13 +18,13 @@ namespace App\Helpers\ZhtHelper\Report
     */
     class Helper_PDF
         {
-       /*
+        /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | Class Properties                                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private static $varNameSpace;
-
+        protected static $ObjPDF;
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -77,16 +77,47 @@ namespace App\Helpers\ZhtHelper\Report
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function init($varUserSession)
+        public static function init($varUserSession, array $varParameter = null)
             {
             try {
-                $ObjPDF = new \TCPDF();
+                if(!$varParameter)
+                    {
+                    $varParameter = [
+                        'PageOrientation' => 'P',
+                        'Metric' => 'mm',
+                        'PaperSize' => 'A4'
+                        ];                
+                    }
+                $ObjPDF = new \zhtVendor\PDF\zhtVendor(
+                    $varParameter['PageOrientation'],
+                    $varParameter['Metric'],
+                    $varParameter['PaperSize'],
+                    true, 
+                    'UTF-8', 
+                    false
+                    );
                 } 
             catch (\Exception $ex) {
                 }
+            self::$ObjPDF = $ObjPDF;
             return $ObjPDF;
             }
+            
+            
+/*        public function __call($method, $args)
+            {
+            self::$ObjPDF = new \TCPDF();
+            if (isset(self::$ObjPDF::$method)) {
+                $func = self::$ObjPDF::$method;
+                return call_user_func_array($func, $args);
+                }
+             }*/
 
+             
+        public static function initPage()
+            {
+            echo "xxxxxxxxxxxxxxxxxx";
+            }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -137,4 +168,7 @@ namespace App\Helpers\ZhtHelper\Report
             echo $varDataStream;
             }
         }
+
+
+
     }

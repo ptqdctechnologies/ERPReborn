@@ -88,11 +88,44 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
 
         private function dataProcessing($varUserSession)
             {
+            //$x = new \zhtVendor\PDF\zhtVendor($varUserSession);
+            
+            
+            
+//            $ObjPDF = new \App\Helpers
+            
+            
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
             
-            $ObjPDF->SetTitle('Hello World');
+            $ObjPDF->SetCreator(PDF_CREATOR);
+            $ObjPDF->SetAuthor('Our Code World');
+            
+            
+            //dd(__DIR__);
+            
+            //'/images/Logo-Application.png'
+            
+            
+            
+            
+//            $ObjPDF->setHeaderCallback(function($pdf){
+                
+//                }
+            
+            
+            //$ObjPDF->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+            //$ObjPDF->setFooterData(array(0,64,0), array(0,64,128));
+            
+            
+           
+            //$ObjPDF->SetTitle('Hello World');
             $ObjPDF->AddPage();
-            $ObjPDF->Write(0, 'Hello World');
+            
+            
+            $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+                
+
+            //$ObjPDF->Write(0, 'Hello World');
             
             $varReturn = [
                 'encodeMethod' => 'Base64',
