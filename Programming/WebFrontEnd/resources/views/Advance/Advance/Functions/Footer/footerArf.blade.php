@@ -16,22 +16,11 @@
         $("#origin_budget").on('click', function(e) {
             e.preventDefault();
             var val = $("#origin_budget").val();
-            if(val == ""){
+            if (val == "") {
                 $("#projectcode2").prop("disabled", true);
-            }
-            else{
+            } else {
                 $("#projectcode2").prop("disabled", false);
             }
-        });
-
-        $("#projectcode2").on('click', function(e) {
-            e.preventDefault();
-            $("#sitecode2").prop("disabled", false);
-        });
-
-        $("#sitecode2").on('click', function(e) {
-            e.preventDefault();
-            $("#request_name2").prop("disabled", false);
         });
     });
 </script>
@@ -48,9 +37,9 @@
         var account_number = document.forms["formArf1"]["account_number"].value;
         var internal_notes = document.forms["formArf1"]["internal_notes"].value;
         var filenames = document.forms["formArf1"]["filenames"].value;
-        
+
         if (original_budget == "") {
-            document.formArf1.origin_budget.focus() ;
+            document.formArf1.origin_budget.focus();
             document.formArf1.origin_budget.style.border = "1px solid red";
             document.getElementById("iconBudget").style.border = "1px solid red";
             document.getElementById("iconBudget").style.borderRadius = "100pt";
@@ -60,10 +49,9 @@
             document.getElementById("iconBudget").style.paddingBottom = "3px";
             document.getElementById("iconBudget").innerHTML = "&#33";
             return false;
-        }
-        else if (projectcode == "") {
-            document.formArf1.projectcode.focus() ;
-            document.formArf1.projectname.focus() ;
+        } else if (projectcode == "") {
+            document.formArf1.projectcode.focus();
+            document.formArf1.projectname.focus();
             document.formArf1.projectcode.style.border = "1px solid red";
             document.formArf1.projectname.style.border = "1px solid red";
             document.getElementById("iconProject").style.border = "1px solid red";
@@ -78,10 +66,9 @@
             document.formArf1.origin_budget.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else if (sitecode == "") {
-            document.formArf1.sitecode.focus() ;
-            document.formArf1.sitecode2.focus() ;
+        } else if (sitecode == "") {
+            document.formArf1.sitecode.focus();
+            document.formArf1.sitecode2.focus();
             document.formArf1.sitecode.style.border = "1px solid red";
             document.formArf1.sitecode2.style.border = "1px solid red";
             document.getElementById("iconSite").style.border = "1px solid red";
@@ -97,10 +84,8 @@
             document.formArf1.projectname.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        
-        else if (request_name == "") {
-            document.formArf1.request_name.focus() ;
+        } else if (request_name == "") {
+            document.formArf1.request_name.focus();
             document.formArf1.request_name.style.border = "1px solid red";
             document.getElementById("iconRequester").style.border = "1px solid red";
             document.getElementById("iconRequester").style.borderRadius = "100pt";
@@ -113,12 +98,11 @@
             $("#iconSite").hide();
             document.formArf1.sitecode.style.border = "1px solid #ced4da";
             document.formArf1.sitecode2.style.border = "1px solid #ced4da";
-            
+
             return false;
-        }
-        else if (beneficiary == "") {
+        } else if (beneficiary == "") {
             $("#iconBeneficiary").show();
-            document.formArf1.beneficiary.focus() ;
+            document.formArf1.beneficiary.focus();
             document.formArf1.beneficiary.style.border = "1px solid red";
             document.getElementById("iconBeneficiary").style.border = "1px solid red";
             document.getElementById("iconBeneficiary").style.borderRadius = "100pt";
@@ -132,11 +116,9 @@
             document.formArf1.request_name.style.border = "1px solid #ced4da";
 
             return false;
-        }
-
-        else if (internal_notes == "") {
+        } else if (internal_notes == "") {
             $("#iconInternal").show();
-            document.formArf1.internal_notes.focus() ;
+            document.formArf1.internal_notes.focus();
             document.formArf1.internal_notes.style.border = "1px solid red";
             document.getElementById("iconInternal").style.border = "1px solid red";
             document.getElementById("iconInternal").style.borderRadius = "100pt";
@@ -150,10 +132,9 @@
             document.formArf1.beneficiary.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else if (bank_name == "") {
+        } else if (bank_name == "") {
             $("#iconBankName").show();
-            document.formArf1.bank_name.focus() ;
+            document.formArf1.bank_name.focus();
             document.formArf1.bank_name.style.border = "1px solid red";
             document.getElementById("iconBankName").style.border = "1px solid red";
             document.getElementById("iconBankName").style.borderRadius = "100pt";
@@ -162,15 +143,14 @@
             document.getElementById("iconBankName").style.paddingTop = "3px";
             document.getElementById("iconBankName").style.paddingBottom = "3px";
             document.getElementById("iconBankName").innerHTML = "&#33";
-            
+
             $("#iconInternal").hide();
             document.formArf1.internal_notes.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else if (account_name == "") {
+        } else if (account_name == "") {
             // $("#iconBudget").show();
-            document.formArf1.account_name.focus() ;
+            document.formArf1.account_name.focus();
             document.formArf1.account_name.style.border = "1px solid red";
             document.getElementById("iconAccountName").style.border = "1px solid red";
             document.getElementById("iconAccountName").style.borderRadius = "100pt";
@@ -179,15 +159,14 @@
             document.getElementById("iconAccountName").style.paddingTop = "3px";
             document.getElementById("iconAccountName").style.paddingBottom = "3px";
             document.getElementById("iconAccountName").innerHTML = "&#33";
-            
+
             $("#iconBankName").hide();
             document.formArf1.bank_name.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else if (account_number == "") {
+        } else if (account_number == "") {
             $("#iconAccountNumber").show();
-            document.formArf1.account_number.focus() ;
+            document.formArf1.account_number.focus();
             document.formArf1.account_number.style.border = "1px solid red";
             document.getElementById("iconAccountNumber").style.border = "1px solid red";
             document.getElementById("iconAccountNumber").style.borderRadius = "100pt";
@@ -196,13 +175,12 @@
             document.getElementById("iconAccountNumber").style.paddingTop = "3px";
             document.getElementById("iconAccountNumber").style.paddingBottom = "3px";
             document.getElementById("iconAccountNumber").innerHTML = "&#33";
-            
+
             $("#iconAccountName").hide();
             document.formArf1.account_name.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else{
+        } else {
             Swal.fire("Success !", "Please select yout budget !", "success");
 
             $("#projectcode").prop("disabled", true);
@@ -229,7 +207,7 @@
     $(document).ready(function() {
 
         $('.klikDetail1').click(function() {
-            
+
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
             $("#buttonArfList").prop("disabled", true);
             $(".available").show();
@@ -246,16 +224,15 @@
             var get81 = $("#getUom1").html();
             var get91 = $("#getCurrency1").html();
             var get101 = $("#getRequester1").html();
-            var totalBOQ1 = get41 * get51;
-            var totalBalance1 = totalBOQ1 - get101;
-            $("#totalBalance").val(totalBalance1);
-            $("#totalBOQ").val(totalBOQ1);
-            $("#totalRequester").val(get101);
+
+            var totalBudget = get41 * get51;
+            $("#totalBudget").val(totalBudget);
+
             $("#putWorkId").val(get11);
             $("#putWorkName").val(get21);
             $("#putProductId").val(get31);
             $("#putQty").val(get41);
-            $("#putPrice").val(get51);            
+            $("#putPrice").val(get51);
             $("#putRemark").val(get61);
             $("#putProductName").val(get71);
             $("#putUom").val(get81);
@@ -280,16 +257,17 @@
             var get82 = $("#getUom2").html();
             var get92 = $("#getCurrency2").html();
             var get102 = $("#getRequester2").html();
-            var totalBOQ2 = get42 * get52;
-            var totalBalance2 = totalBOQ2 - get102;
-            $("#totalBalance").val(totalBalance2);
-            $("#totalBOQ").val(totalBOQ2);
-            $("#totalRequester").val(get102);
+
+
+            var totalBudget = get42 * get52;
+            $("#totalBudget").val(totalBudget);
+
+
             $("#putWorkId").val(get12);
             $("#putWorkName").val(get22);
             $("#putProductId").val(get32);
             $("#putQty").val(get42);
-            $("#putPrice").val(get52);            
+            $("#putPrice").val(get52);
             $("#putRemark").val(get62);
             $("#putProductName").val(get72);
             $("#putUom").val(get82);
@@ -313,16 +291,17 @@
             var get83 = $("#getUom3").html();
             var get93 = $("#getCurrency3").html();
             var get103 = $("#getRequester3").html();
-            var totalBOQ3 = get43 * get53;
-            var totalBalance3 = totalBOQ3 - get103;
-            $("#totalBalance").val(totalBalance3);
-            $("#totalBOQ").val(totalBOQ3);
-            $("#totalRequester").val(get103);
+
+
+            var totalBudget = get43 * get53;
+            $("#totalBudget").val(totalBudget);
+
+
             $("#putWorkId").val(get13);
             $("#putWorkName").val(get23);
             $("#putProductId").val(get33);
             $("#putQty").val(get43);
-            $("#putPrice").val(get53);            
+            $("#putPrice").val(get53);
             $("#putRemark").val(get63);
             $("#putProductName").val(get73);
             $("#putUom").val(get83);
@@ -346,16 +325,17 @@
             var get84 = $("#getUom4").html();
             var get94 = $("#getCurrency4").html();
             var get104 = $("#getRequester4").html();
-            var totalBOQ4 = get44 * get54;
-            var totalBalance4 = totalBOQ4 - get104;
-            $("#totalBalance").val(totalBalance4);
-            $("#totalBOQ").val(totalBOQ4);
-            $("#totalRequester").val(get104);
+
+
+            var totalBudget = get44 * get54;
+            $("#totalBudget").val(totalBudget);
+
+
             $("#putWorkId").val(get14);
             $("#putWorkName").val(get24);
             $("#putProductId").val(get34);
             $("#putQty").val(get44);
-            $("#putPrice").val(get54);            
+            $("#putPrice").val(get54);
             $("#putRemark").val(get64);
             $("#putProductName").val(get74);
             $("#putUom").val(get84);
@@ -369,15 +349,15 @@
         y = 0;
 
     $('#buttonArfList').click(function() {
-        
+
         var product_id = document.forms["formArf2"]["putProductId"].value;
         var qtyx = document.forms["formArf2"]["qtyCek"].value;
         var priceCek = document.forms["formArf2"]["priceCek"].value;
         var putRemark = document.forms["formArf2"]["putRemark"].value;
 
         if (product_id == "") {
-            document.formArf2.putProductId.focus() ;
-            document.formArf2.putProductName.focus() ;
+            document.formArf2.putProductId.focus();
+            document.formArf2.putProductName.focus();
             document.formArf2.putProductId.style.border = "1px solid red";
             document.formArf2.putProductName.style.border = "1px solid red";
             document.getElementById("iconProductId").style.border = "1px solid red";
@@ -388,10 +368,9 @@
             document.getElementById("iconProductId").style.paddingBottom = "3px";
             document.getElementById("iconProductId").innerHTML = "&#33";
             return false;
-        }
-        else if (qtyx == 0) {
-            document.formArf2.qtyx.focus() ;
-            document.formArf2.putQty.focus() ;
+        } else if (qtyx == 0) {
+            document.formArf2.qtyx.focus();
+            document.formArf2.putQty.focus();
             document.formArf2.qtyx.style.border = "1px solid red";
             document.formArf2.putQty.style.border = "1px solid red";
             document.getElementById("iconQty").style.border = "1px solid red";
@@ -402,9 +381,8 @@
             document.getElementById("iconQty").style.paddingBottom = "3px";
             document.getElementById("iconQty").innerHTML = "&#33";
             return false;
-        }
-        else if (priceCek == "") {
-            document.formArf2.priceCek.focus() ;
+        } else if (priceCek == "") {
+            document.formArf2.priceCek.focus();
             document.formArf2.priceCek.style.border = "1px solid red";
             document.getElementById("iconUnitPrice").style.border = "1px solid red";
             document.getElementById("iconUnitPrice").style.borderRadius = "100pt";
@@ -414,9 +392,8 @@
             document.getElementById("iconUnitPrice").style.paddingBottom = "3px";
             document.getElementById("iconUnitPrice").innerHTML = "&#33";
             return false;
-        }
-        else if (putRemark == "") {
-            document.formArf2.putRemark.focus() ;
+        } else if (putRemark == "") {
+            document.formArf2.putRemark.focus();
             document.formArf2.putRemark.style.border = "1px solid red";
             document.getElementById("iconRemark").style.border = "1px solid red";
             document.getElementById("iconRemark").style.borderRadius = "100pt";
@@ -431,8 +408,7 @@
             document.formArf2.putCurrency.style.border = "1px solid #ced4da";
 
             return false;
-        }
-        else{
+        } else {
 
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
             $("#detailArfList").show();
@@ -484,20 +460,20 @@
                     $.each(data, function(key, val) {
 
                         var t = $('#tableArf').DataTable();
-                            t.row.add( [
-                                '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
-                                '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
-                                '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                                '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '>',
-                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                                '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
-                                '<span id="totalAkhir">' + val.totalArfDetails + '</span>',
-                                '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
-                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
-                            ] ).draw();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                            '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<span id="totalAkhir">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                        ]).draw();
 
                         $('.ChangeQtys').keyup(function() {
-                            
+
                             var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
                             if (qtyReq == 0 || qtyReq == '') {
                                 qtyReq = 0;
@@ -510,14 +486,12 @@
                             if (qtyReq == '') {
                                 $("#buttonArfList").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
-                            }
-                            else if (qtyReq > putQty) {
+                            } else if (qtyReq > putQty) {
                                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                                 $("#lastQty_' + y + '").val(0);
                                 $("#buttonArfList").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
-                            }
-                            else if (akhir > awal) {
+                            } else if (akhir > awal) {
                                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                                 $("#lastQty_' + y + '").val(0);
                                 $('#totalAkhir').html(0);
@@ -546,7 +520,7 @@
             document.formArf2.qtyx.style.border = "1px solid #ced4da";
             document.formArf2.putPrice.style.border = "1px solid #ced4da";
             document.formArf2.putRemark.style.border = "1px solid #ced4da";
-            
+
         }
 
     });
@@ -569,102 +543,93 @@
 
         if (original_budget == "") {
             Swal.fire("Error !", "Please Input Original Budget !", "error");
-        }
-        else if (projectcode == "") {
+        } else if (projectcode == "") {
             Swal.fire("Error !", "Please Input Project code !", "error");
-        }
-        else if (sitecode == "") {
+        } else if (sitecode == "") {
             Swal.fire("Error !", "Please Input Site code !", "error");
-        }
-        else if (request_name == "") {
+        } else if (request_name == "") {
             Swal.fire("Error !", "Please Input Requester Name !", "error");
-        }
-        else if (beneficiary == "") {
+        } else if (beneficiary == "") {
             Swal.fire("Error !", "Please Input Beneficiary !", "error");
-        }
-        else if (bank_name == "") {
+        } else if (bank_name == "") {
             Swal.fire("Error !", "Please Input Bank name code !", "error");
-        }
-        else if (account_name == "") {
+        } else if (account_name == "") {
             Swal.fire("Error !", "Please Input Account name code !", "error");
-        }
-        else if (account_number == "") {
+        } else if (account_number == "") {
             Swal.fire("Error !", "Please Input Account number code !", "error");
-        }
-        else if (internal_notes == "") {
+        } else if (internal_notes == "") {
             Swal.fire("Error !", "Please Input Internal notes code !", "error");
-        }
-        else{
+        } else {
 
             const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success',
-            cancelButtonClass: 'btn btn-danger',
-            buttonsStyling: true,
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: true,
             })
 
             swalWithBootstrapButtons.fire({
 
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-            
-            showCancelButton: true,
-            confirmButtonText: 'Yes, save it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
             }).then((result) => {
-            if (result.value) {
-                swalWithBootstrapButtons.fire(
-                'Succesful!',
-                'Data has been updated !',
-                'success'
-                )
-                //Batas
-                var datax = [];
-                for (var i = 1; i <= y; i++) {
-                    var data = {
-                        lastProductId: $('#lastProductId_' + i).html(),
-                        lastProductName: $('#lastProductName_' + i).html(),
-                        lastQty: $('#lastQty_' + i).val(),
-                        lastUom: $('#lastUom_' + i).html(),
-                        lastPrice: $('#lastPrice_' + i).html(),
-                        totalArfDetails: $('#totalArfDetails_' + i).html(),
-                        lastCurrency: $('#lastCurrency_' + i).html(),
-                        lastRemark: $('#lastRemark_' + i).html(),
+                if (result.value) {
+                    swalWithBootstrapButtons.fire(
+                        'Succesful!',
+                        'Data has been updated !',
+                        'success'
+                    )
+                    //Batas
+                    var datax = [];
+                    for (var i = 1; i <= y; i++) {
+                        var data = {
+                            lastProductId: $('#lastProductId_' + i).html(),
+                            lastProductName: $('#lastProductName_' + i).html(),
+                            lastQty: $('#lastQty_' + i).val(),
+                            lastUom: $('#lastUom_' + i).html(),
+                            lastPrice: $('#lastPrice_' + i).html(),
+                            totalArfDetails: $('#totalArfDetails_' + i).html(),
+                            lastCurrency: $('#lastCurrency_' + i).html(),
+                            lastRemark: $('#lastRemark_' + i).html(),
 
+                        }
+                        datax.push(data);
                     }
-                    datax.push(data);
-                }
 
-                var json_object = JSON.stringify(datax);
-                console.log(json_object);
+                    var json_object = JSON.stringify(datax);
+                    console.log(json_object);
 
-                $.ajax({
-                    type: "POST",
-                    url: '{{route("ARF.tests")}}',
-                    data: json_object,
-                    contentType: "application/json",
-                    processData: true,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(data) {
-                        Swal.fire("Error !", "Data Canceled Added", "error");
-                    }
-                });
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route("ARF.tests")}}',
+                        data: json_object,
+                        contentType: "application/json",
+                        processData: true,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        error: function(data) {
+                            Swal.fire("Error !", "Data Canceled Added", "error");
+                        }
+                    });
 
-                //EndBatas
+                    //EndBatas
 
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
                 ) {
                     swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Process Canceled !',
-                    'error'
+                        'Cancelled',
+                        'Process Canceled !',
+                        'error'
                     )
                 }
             })
@@ -675,7 +640,6 @@
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-
             var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
             if (qtyReq == 0 || qtyReq == '') {
                 qtyReq = 0;
@@ -687,24 +651,27 @@
 
             if (qtyReq == '') {
                 $("#buttonArfList").prop("disabled", true);
-                $("#saveArfList").prop("disabled", true); 
-                $('#totalArfDetails').val(0);        
-            }
-            else if (qtyReq > putQty) {
+                $("#saveArfList").prop("disabled", true);
+                $('#totalArfDetails').val(0);
+
+                $("#totalQtyRequest").val(qtyReq);
+
+            } else if (qtyReq > putQty) {
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
                 $('#totalArfDetails').val(0);
                 $("#buttonArfList").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
-            }
-             else if (total2 > total) {
+            } else if (total2 > total) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);               
+                $("#buttonArfList").prop("disabled", true);
             } else {
                 var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
                 $("#buttonArfList").prop("disabled", false);
+
+                $("#totalQtyRequest").val(qtyReq);
             }
 
         });
@@ -724,18 +691,26 @@
             var total2 = qtyCek * putPrice;
 
             if (priceReq == '') {
-                $("#buttonArfList").prop("disabled", true);    
-                $('#totalArfDetails').val(0);         
-            }
-            else if (total > total2) {
+                $("#buttonArfList").prop("disabled", true);
+                $('#totalArfDetails').val(0);
+
+                $("#totalRequester").val(total);
+
+            } else if (total > total2) {
                 Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
                 $("#priceCek").val(0);
                 $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);               
+                $("#buttonArfList").prop("disabled", true);
             } else {
                 var totalReq = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
                 $("#buttonArfList").prop("disabled", false);
+
+                var totalBudget = $("#totalBudget").val();
+                var totalBalance = (totalBudget - total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+                $("#totalRequester").val(totalReq);
+                $("#totalBalance").val(totalBalance);
             }
 
         });
@@ -743,7 +718,6 @@
 </script>
 
 <script>
-
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
     $('.add_field_button').click(function() {
         cek = 0;
@@ -754,8 +728,8 @@
         if (cek == 0) {
             cek++;
             x++; //text box increment
-            for($x=1; $x<5; $x++){
-                
+            for ($x = 1; $x < 5; $x++) {
+
             }
             $(wrapper).append(
 
@@ -790,9 +764,11 @@
 </script>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function() {
         // Format mata uang.
-        $( '.uang' ).mask('000.000.000.000', {reverse: true});
+        $('.uang').mask('000.000.000.000', {
+            reverse: true
+        });
         // $( '.quantity' ).mask('000.000.000', {reverse: true});
     })
 </script>

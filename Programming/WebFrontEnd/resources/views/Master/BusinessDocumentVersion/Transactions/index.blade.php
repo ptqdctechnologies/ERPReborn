@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('BusinessDocument.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('BusinessDocumentVersion.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
@@ -42,15 +42,15 @@
                                                         <tr>
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
-                                                            <td>{{$datas['name']}}</td>
+                                                            <td>{{$datas['documentNumber']}}</td>
                                                             <td>
                                                                 <center>
 
 
-                                                                    <form action="{{ route('BusinessDocument.destroy', $datas['sys_ID']) }}" method="post">
+                                                                    <form action="{{ route('BusinessDocumentVersion.destroy', $datas['sys_ID']) }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
-                                                                        <a href="{{ route('BusinessDocument.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
+                                                                        <a href="{{ route('BusinessDocumentVersion.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
                                                                         <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
                                                                     </form>
                                                                 </center>

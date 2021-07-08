@@ -34,17 +34,17 @@
             <td><span class="tag tag-success" id="getWorkName1">Project Overhead Actual</span></td>
             <td><span class="tag tag-success" id="getProductId1">810002-0000</span></td>
             <td><span class="tag tag-success" id="getProductName1">Stationary dan Printing</span></td>
-            <td><span class="tag tag-success" id="getQty11">10</span></td>
-            <td><span class="tag tag-success" id="getQty1">4</span></td>
+            <td><span class="tag tag-success" id="getQty11">1</span></td>
+            <td><span class="tag tag-success" id="getQty1">2</span></td>
             <td><span class="tag tag-success" id="getUom1">Ls</span></td>
             <td><span class="tag tag-success" id="getPrice1">@currency(1000000)</span></td>
-            <td><span class="tag tag-success" id="totalArf1">@currency(10000000)</span></td>
+            <td><span class="tag tag-success" id="totalArf1">@currency(2000000)</span></td>
             <td><span class="tag tag-success" id="getCurrency1">IDR</span></td>
             <td><span class="tag tag-success" id="getRequester1" style="display:none;">2000000</span></td>
             </tr>
             <tr>
                 <td>
-                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail4" title="Submit" style="border-radius: 100px;">
+                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail2" title="Submit" style="border-radius: 100px;">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                 </td>
@@ -60,17 +60,17 @@
                 <td><span class="tag tag-success" id="getWorkName2">Project Overhead Actual</span></td>
                 <td><span class="tag tag-success" id="getProductId2">820001-0000</span></td>
                 <td><span class="tag tag-success" id="getProductName2">Salaries</span></td>
-                <td><span class="tag tag-success" id="getQty22">9</span></td>
-                <td><span class="tag tag-success" id="getQty2">2</span></td>
+                <td><span class="tag tag-success" id="getQty22">2</span></td>
+                <td><span class="tag tag-success" id="getQty2">4</span></td>
                 <td><span class="tag tag-success" id="getUom2">Ls</span></td>
-                <td><span class="tag tag-success" id="getPrice2">@currency(300000000)</span></td>
-                <td><span class="tag tag-success" id="totalArf2">@currency(600000000)</span></td>
+                <td><span class="tag tag-success" id="getPrice2">@currency(20000000)</span></td>
+                <td><span class="tag tag-success" id="totalArf2">@currency(80000000)</span></td>
                 <td><span class="tag tag-success" id="getCurrency2">IDR</span></td>
                 <td><span class="tag tag-success" id="getRequester2" style="display:none;">300000000</span></td>
             </tr>
             <tr>
                 <td>
-                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail4" title="Submit" style="border-radius: 100px;">
+                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail3" title="Submit" style="border-radius: 100px;">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                 </td>
@@ -86,11 +86,11 @@
                 <td><span class="tag tag-success" id="getWorkName3">Project Overhead Actual</span></td>
                 <td><span class="tag tag-success" id="getProductId3">820002-0000</span></td>
                 <td><span class="tag tag-success" id="getProductName3">Site Office Rent/Warehouse</span></td>
-                <td><span class="tag tag-success" id="getQty33">8</span></td>
-                <td><span class="tag tag-success" id="getQty3">3</span></td>
+                <td><span class="tag tag-success" id="getQty33">3</span></td>
+                <td><span class="tag tag-success" id="getQty3">6</span></td>
                 <td><span class="tag tag-success" id="getUom3">Ls</span></td>
-                <td><span class="tag tag-success" id="getPrice3">@currency(20000000)</span></td>
-                <td><span class="tag tag-success" id="totalArf3">@currency(600000000)</span></td>
+                <td><span class="tag tag-success" id="getPrice3">@currency(10000000)</span></td>
+                <td><span class="tag tag-success" id="totalArf3">@currency(60000000)</span></td>
                 <td><span class="tag tag-success" id="getCurrency3">IDR</span></td>
                 <td><span class="tag tag-success" id="getRequester3" style="display:none;">40000000</span></td>
             </tr>
@@ -112,11 +112,11 @@
                 <td><span class="tag tag-success" id="getWorkName4">Project Overhead Actual</span></td>
                 <td><span class="tag tag-success" id="getProductId4">820009-0000</span></td>
                 <td><span class="tag tag-success" id="getProductName4">Entertainment</span></td>
-                <td><span class="tag tag-success" id="getQty44">7</span></td>
-                <td><span class="tag tag-success" id="getQty4">3</span></td>
+                <td><span class="tag tag-success" id="getQty44">4</span></td>
+                <td><span class="tag tag-success" id="getQty4">8</span></td>
                 <td><span class="tag tag-success" id="getUom4">Ls</span></td>
-                <td><span class="tag tag-success" id="getPrice4">@currency(25000000)</span></td>
-                <td><span class="tag tag-success" id="totalArf4">@currency(100000000)</span></td>
+                <td><span class="tag tag-success" id="getPrice4">@currency(2000000)</span></td>
+                <td><span class="tag tag-success" id="totalArf4">@currency(16000000)</span></td>
                 <td><span class="tag tag-success" id="getCurrency4">IDR</span></td>
                 <td><span class="tag tag-success" id="getRequester4" style="display:none;">50000000</span></td>
             </tr>

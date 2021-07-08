@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use DB;
 
-class masterDataBusinessDocumentVersion extends Controller
+class masterDataCitizenIdentity extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,14 +16,12 @@ class masterDataBusinessDocumentVersion extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataList.master.getBusinessDocumentVersion',
+            'transaction.read.dataList.master.getCitizenIdentity',
             'latest',
             [
-                'businessDocument_RefID' => 74000000000001,
                 'SQLStatement' => [
                     'pick' => null,
                     'sort' => null,
@@ -32,34 +30,34 @@ class masterDataBusinessDocumentVersion extends Controller
                 ]
             ]
         );
-        return view('Master.BusinessDocumentVersion.Transactions.index')->with('data', $varData['data']);
+        return view('Master.CitizenIdentity.Transactions.index')->with('data', $varData['data']);
     }
 
     public function create()
     {
-        return view('Master.BusinessDocumentVersion.Transactions.create');
+        return view('Master.CitizenIdentity.Transactions.create');
     }
 
     public function store(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.create.master.setBusinessDocumentVersion', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.create.master.setCitizenIdentity',
+            'latest',
             [
-            'entities' => [
-                'businessDocument_RefID' => 74000000000001,
-                'version' => 0,
-                'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
-                'annotation' => NULL,
-                'documentOwner_RefID' => NULL                    
+                'entities' => [
+                    'ISOCode' => 'XYZ',
+                    'name' => $request->CitizenIdentity_code,
+                    'symbol' => 'xyz',
                 ]
             ]
-            );
-        return redirect()->route('BusinessDocumentVersion.index');
+        );
+
+        return redirect()->route('CitizenIdentity.index');
     }
 
     public function show($id)
@@ -74,15 +72,13 @@ class masterDataBusinessDocumentVersion extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.read.dataRecord.master.getBusinessDocumentVersion',
+            'transaction.read.dataRecord.master.getCitizenIdentity', 
             'latest',
             [
                 'recordID' => (int)$id,
             ]
         );
-        // dd($varData);
-
-        return view('Master.BusinessDocumentVersion.Transactions.edit')->with('data', $varData['data']);
+        return view('Master.CitizenIdentity.Transactions.edit')->with('data', $varData['data']);
     }
 
     public function update(Request $request, $id)
@@ -92,21 +88,19 @@ class masterDataBusinessDocumentVersion extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.update.master.setBusinessDocumentVersion',
+            'transaction.update.master.setCitizenIdentity',
             'latest',
-            [
+            [       
                 'recordID' => (int)$id,
                 'entities' => [
-                    'businessDocument_RefID' => 74000000000001,
-                    'version' => 0,
-                    'documentDateTimeTZ' => '2009-04-17 00:00:00+07',
-                    'annotation' => NULL,
-                    'documentOwner_RefID' => NULL
+                    'ISOCode' => 'ABC',
+                    'name' => $request->CitizenIdentity_code,
+                    'symbol' => '$Abc'
                 ]
             ]
         );
 
-        return redirect()->route('BusinessDocumentVersion.index');
+        return redirect()->route('CitizenIdentity.index');
     }
 
     public function destroy(Request $request, $id)
@@ -116,12 +110,12 @@ class masterDataBusinessDocumentVersion extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
-            'transaction.delete.master.setBusinessDocumentVersion',
+            'transaction.delete.master.setCitizenIdentity',
             'latest',
             [
                 'recordID' => (int)$id
             ]
         );
-        return redirect()->route('BusinessDocumentVersion.index');
+        return redirect()->route('CitizenIdentity.index');
     }
 }

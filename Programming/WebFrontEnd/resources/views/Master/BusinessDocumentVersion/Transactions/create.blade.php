@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocument.store') }}" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocumentVersion.store') }}" name="formHeaderMret">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -32,7 +32,7 @@
                                                             <td><label>Business Document</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="BusinessDocument_code" name="BusinessDocument_code" class="form-control">
+                                                                    <input autocomplete="off" id="BusinessDocumentVersion_code" name="BusinessDocumentVersion_code" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>
