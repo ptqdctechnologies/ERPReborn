@@ -282,6 +282,7 @@
                               <table>
                                 <tbody>
                                   <tr>
+                                  <input name="price" id="totalBudget" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="" hidden>
                                     <td><label>Total Requested </label></td>
                                     <td>:</td>
                                     <td style="font-weight:bold;">
@@ -293,7 +294,7 @@
                                     <td title="Total BOQ Detail"><label>Total Qty Requested</label></td>
                                     <td>:</td>
                                     <td style="font-weight:bold;">
-                                      <input name="price" id="totalBOQ" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
+                                      <input name="price" id="totalQtyRequest" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
                                     </td>
                                   </tr>
                                   <br>

@@ -40,8 +40,7 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 5; $i++)
-                                        <tr>
+                                        @for($i = 1; $i < 5; $i++) <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
@@ -51,8 +50,8 @@
                                             <td>
                                                 <p>Project Name {{$i}}</p>
                                             </td>
-                                        </tr>
-                                        @endfor
+                                            </tr>
+                                            @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -123,6 +122,8 @@
             $("#projectcode2").val(name);
             $("#projectname").val(name);
             $("#headerProjectCode").val(code);
+
+            $("#sitecode2").prop("disabled", false);
         });
     });
 </script>

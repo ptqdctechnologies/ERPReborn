@@ -130,6 +130,8 @@
             $("#sitecode2").val(name);
             $("#sitename").val(name);
 
+            $("#request_name2").prop("disabled", false);
+
             //Batas
 
             $("#arfNumberAsf").prop("disabled", true);

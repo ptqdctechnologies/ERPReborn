@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     @foreach($data as $datax)
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocument.update', $datax['sys_ID']) }}" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BusinessDocumentVersion.update', $datax['sys_ID']) }}" name="formHeaderMret">
                         <div class="row">
                             @method('PUT')
                             @csrf
@@ -34,7 +34,7 @@
                                                             <td><label>Business Document</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="tranoType" name="BusinessDocument_code" class="form-control" value="{{ $datax['name'] }}">
+                                                                    <input autocomplete="off" id="tranoType" name="BusinessDocumentVersion_code" class="form-control" value="{{ $datax['documentNumber'] }}">
                                                                 </div>
                                                             </td>
                                                         </tr>
