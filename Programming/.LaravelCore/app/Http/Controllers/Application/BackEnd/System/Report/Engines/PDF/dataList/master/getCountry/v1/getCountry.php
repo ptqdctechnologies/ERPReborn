@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\supplyChain\getPurchaseOrder\v1      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1                 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\supplyChain\getPurchaseOrder\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPurchaseOrder                                                                                             |
-    | ▪ Description : Menangani API report.PDF.dataList.supplyChain.getPurchaseOrder Version 1                                     |
+    | ▪ Class Name  : getCountry                                                                                                   |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getCountry Version 1                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getPurchaseOrder extends \App\Http\Controllers\Controller
+    class getCountry extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-25                                                                                           |
+        | ▪ Last Update     : 2021-07-08                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-25                                                                                           |
+        | ▪ Last Update     : 2021-07-08                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

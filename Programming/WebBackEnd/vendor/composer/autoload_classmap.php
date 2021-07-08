@@ -44,6 +44,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_APICall' => $baseDir . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_APICall.php',
     'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_APIReport' => $baseDir . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_APIReport.php',
     'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_APIResponse' => $baseDir . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_APIResponse.php',
+    'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_API' => $baseDir . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_API.php',
     'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_APICall' => $baseDir . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_APICall.php',
     'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_APIReport' => $baseDir . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_APIReport.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
