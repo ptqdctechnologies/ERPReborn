@@ -88,7 +88,7 @@ namespace App\Helpers\ZhtHelper\Report
                         'PaperSize' => 'A4'
                         ];                
                     }
-                $ObjPDF = new \zhtVendor\PDF\zhtVendor(
+                $ObjPDF = new \zhtSDK\Software\PDF\TCPDF\zhtSDK(
                     $varParameter['PageOrientation'],
                     $varParameter['Metric'],
                     $varParameter['PaperSize'],

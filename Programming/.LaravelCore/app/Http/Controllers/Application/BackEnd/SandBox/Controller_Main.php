@@ -68,7 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             
             /*          
-            $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+            $x = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
                     ))->getDataAttendanceFromLocalDatabase(
                         '/zhtConf/tmp/download/SwingBarrierGate.mdb',
@@ -455,21 +455,21 @@ dd($x);
             
             
             
-//            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
-//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
+//            $x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
+//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
 //            $y = $x->getDataAttendance('+07', '2020-01-01');
 //            var_dump($y);
 //            $y = $x->getDeviceSerialNumber();
 
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
+//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
+//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
 //            echo  $x->getDeviceSerialNumber()."<br><br>";
 //            echo  $x->getDeviceTime()."<br><br>";
             
             
-//$x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
-//$x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
+//$x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
+//$x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
 //$y = $x->getDeviceSerialNumber();
 
 //            $y = $x->getDataAttendance();

@@ -1,6 +1,6 @@
 <?php
 
-namespace zhtSDK\Goodwin\SwingGateBarrier\ServoSW01
+namespace zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01
     {
     class zhtSDK
         {

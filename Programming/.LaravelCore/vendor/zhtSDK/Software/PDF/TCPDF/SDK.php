@@ -1,8 +1,8 @@
 <?php
 
-namespace zhtVendor\PDF
+namespace zhtSDK\Software\PDF\TCPDF
     {
-    class zhtVendor extends \TCPDF
+    class zhtSDK extends \TCPDF
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
