@@ -27,11 +27,19 @@ namespace zhtSDK\Software\PDF\TCPDF
         public function Header() {
             // Logo
             $image_file = K_PATH_IMAGES.'logo_example.jpg';
-            $this->Image($image_file, 10, 10, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-            // Set font
-            $this->SetFont('helvetica', 'B', 20);
+            $image_file = getcwd().'/images/Logo/AppObject_InstitutionBranch/Small/11000000000004.png';
+            //$this->Image($image_file, 100, 100, 15, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+            //$this->Image($image_file, 100, 100, 15, '', 'png', '', 'T', false, 300, '', false, false, 0, false, false, false);
+            $this->Image($image_file, 50, 50, 100, '', '', 'http://www.tcpdf.org', '', false, 300);
+            // // Set font
+            //$this->SetFont('helvetica', 'B', 20);
+            $this->SetXY(10, 20);
+            $this->SetFont('helvetica', 'B', 10);
             // Title
-            $this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+            //$this->Cell(0, 15, '<< TCPDF Example 003 >>', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+            $this->Cell(0, 15, K_PATH_IMAGES, 0, false, 'C', 0, '', 0, false, 'M', 'M');
+            $this->SetXY(10, 24);
+            $this->Cell(0, 15, $image_file, 0, false, 'C', 0, '', 0, false, 'M', 'M');
             }
 
         // Page footer overide

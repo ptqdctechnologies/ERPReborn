@@ -17,7 +17,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
             
-            $x = new \zhtVendor\PDF\zhtVendor($varUserSession);
+            $x = new \zhtSDK\Software\PDF\TCPDF\zhtSDK($varUserSession);
+            
+            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
+            
+            $ObjPDF->SetCreator(PDF_CREATOR);
+            $ObjPDF->SetAuthor('Our Code World');
+            $ObjPDF->AddPage();
+            $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+                
 
             //echo is_file(getcwd().'/../vendor/elibyy/tcpdf-laravel/src/TCPDF.php');
             

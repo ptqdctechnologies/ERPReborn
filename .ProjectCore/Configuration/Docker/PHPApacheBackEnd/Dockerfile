@@ -20,46 +20,51 @@ RUN apt-get install -y \
        software-properties-common
 
 RUN apt-get install -y \
-    vim \ 
-    libbz2-dev \
-    && docker-php-ext-install \
-       pdo \
-       pdo_pgsql \
+   vim \ 
+   libbz2-dev \
+   && docker-php-ext-install \
+      pdo \
+      pdo_pgsql \
       pgsql \
-    && pecl install redis \
+   && pecl install redis \
        && docker-php-ext-enable \
           redis \
-    && docker-php-ext-install \
-       sockets \
+   && docker-php-ext-install \
+      sockets \
       bz2 \
-    && docker-php-ext-enable \ 
-       sockets \
+   && docker-php-ext-enable \ 
+      sockets \
    && apt-get install -y \
-       libldap2-dev \
+      libldap2-dev \
       && docker-php-ext-configure \
           ldap --with-libdir=lib/x86_64-linux-gnu/ \
        && docker-php-ext-install \
-         ldap \
+          ldap \
        && docker-php-ext-enable \
-         ldap \
+          ldap \
     && apt-get install -y \ 
-      libcurl4-gnutls-dev \
+       libcurl4-gnutls-dev \
        && docker-php-ext-install \
           curl \
    && apt-get install -y \ 
-       arp-scan \
+      arp-scan \
    && apt-get install -y libxml2-dev \
-       && docker-php-ext-install \
+      && docker-php-ext-install \
          soap \
-    && apt-get install -y unixodbc \
-      unixodbc-dev \
+      && apt-get install -y unixodbc \
+         unixodbc-dev \
       && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
-       && docker-php-ext-install pdo_odbc \
+      && docker-php-ext-install pdo_odbc \
    && apt-get install -y mdbtools \
-       odbc-mdbtools \
-    && apt-get install -y sshpass \
+      odbc-mdbtools \
+   && apt-get install -y sshpass \
       sshfs \
-    && apt-get install -y cron;
+   && apt-get install -y cron \
+   && apt-get install -y \
+      libpng-dev \
+      zlib1g-dev \
+      && docker-php-ext-install \ 
+         gd;
 
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
