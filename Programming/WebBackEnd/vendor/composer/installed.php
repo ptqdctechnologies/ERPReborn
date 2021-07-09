@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'b6febdf44fc2847652ba51352b1a8b64a261e3b0',
+    'reference' => 'e415f5446605978c999c65f08ebc73845da7c9df',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -22,12 +22,12 @@
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.185.8',
-      'version' => '3.185.8.0',
+      'pretty_version' => '3.185.9',
+      'version' => '3.185.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd30661623a1835ba4bb406675f865c4b40b4b425',
+      'reference' => 'b92714fbe995195e9ba970cf52a2fa601b334725',
     ),
     'brick/math' => 
     array (
@@ -463,7 +463,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'b6febdf44fc2847652ba51352b1a8b64a261e3b0',
+      'reference' => 'e415f5446605978c999c65f08ebc73845da7c9df',
     ),
     'laravel/tinker' => 
     array (
