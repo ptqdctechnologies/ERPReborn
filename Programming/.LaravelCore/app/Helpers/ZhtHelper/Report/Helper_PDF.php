@@ -96,6 +96,7 @@ namespace App\Helpers\ZhtHelper\Report
                     'UTF-8', 
                     false
                     );
+                $ObjPDF->initUserSession($varUserSession);
                 } 
             catch (\Exception $ex) {
                 }
@@ -103,21 +104,22 @@ namespace App\Helpers\ZhtHelper\Report
             return $ObjPDF;
             }
             
-            
-/*        public function __call($method, $args)
+/*
+        public function __call($method, $args)
             {
             self::$ObjPDF = new \TCPDF();
             if (isset(self::$ObjPDF::$method)) {
                 $func = self::$ObjPDF::$method;
                 return call_user_func_array($func, $args);
                 }
-             }*/
+             }
 
              
         public static function initPage()
             {
             echo "xxxxxxxxxxxxxxxxxx";
             }
+*/
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
