@@ -1,6 +1,6 @@
 <?php
 
-namespace zhtSDK\Solution\FingerprintAttendance\x601
+namespace zhtSDK\Device\ALBox\FingerprintAttendance\FP800
     {
     class zhtSDK //extends AbstractHasDispatcher implements ClientInterface
         {
@@ -14,15 +14,15 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
         private $varHostIP;
         private $varHostPort;
         private $varTimeOutInSeconds;
+        private $ObjLib;
         private $varDeviceSerialNumber;
-
                 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,13 +57,17 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
         private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
             {
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Solution/FingerprintAttendance/x601';
+            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/ALBox/FingerprintAttendance/FP800';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
+            $this->varTimeOutInSeconds = 3;
+            
+            require_once($this->varSDKPath.'/Compatible/GitHub_am05mhz_am05zk/am05zk.php');
+            $this->ObjLib = new \am05zk($this->varHostIP, $this->varHostPort);
             }
 
-
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataAttendance                                                                                           |
@@ -81,7 +85,6 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
         */
         public function getDataAttendance(string $varTimeZoneOffset = null, $varCutOffStartDateTime = null)
             {
-            $varTimeOutInSeconds=3;
             $varReturn = null;
             try {
                 if(!$varTimeZoneOffset) {
@@ -90,53 +93,30 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
                 if(!$varCutOffStartDateTime) {
                     $varCutOffStartDateTime = '1970-01-01 00:00:00';
                     }
-
-                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $varTimeOutInSeconds);
-                $Key="0";
-                if($Connect) {
-                    $varSOAPRequest=
-                        "<GetAttLog>".
-                            "<ArgComKey xsi:type=\"xsd:integer\">".
-                                $Key.
-                            "</ArgComKey>".
-                            "<Arg>".
-                                "<PIN xsi:type=\"xsd:integer\">".
-                                    "All".
-                                "</PIN>".
-                            "</Arg>".
-                        "</GetAttLog>";
-                    $varNewLine="\r\n";
-                    fputs($Connect, "POST /iWsService HTTP/1.0".$varNewLine);
-                    fputs($Connect, "Content-Type: text/xml".$varNewLine);
-                    fputs($Connect, "Content-Length: ".strlen($varSOAPRequest).$varNewLine.$varNewLine);
-                    fputs($Connect, $varSOAPRequest.$varNewLine);
-                    $varDataBuffer = "";
-                    while($Response = fgets($Connect, 1024)) {
-                        $varDataBuffer = $varDataBuffer.$Response;
-                        }
-                    if(strcmp($varDataBuffer, "")!=0)
+                $Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
+                //$Key="0";
+                if($errno == 110) 
+                    {
+                    throw new \Exception("Connection Failed");
+                    }
+                else
+                    {
+                    if($this->ObjLib->connect())
                         {
-                        require_once($this->varSDKPath.'/Original/parse.php');
-                        $varDataBuffer = Parse_Data($varDataBuffer,"<GetAttLogResponse>","</GetAttLogResponse>");
-                        $varDataBuffer = explode("\r\n",$varDataBuffer);
+                        $varAttendaceRecord = $this->ObjLib->get_attendance(true);
                         $j=0;
-                        for($i=0; $i<count($varDataBuffer); $i++) {
-                            $varData = Parse_Data($varDataBuffer[$i],"<Row>","</Row>");
-                            $varDataPIN = Parse_Data($varData,"<PIN>","</PIN>");
-                            $varDataDateTime = Parse_Data($varData,"<DateTime>","</DateTime>");
-                            $varDataVerified = Parse_Data($varData,"<Verified>","</Verified>");
-                            $varDataStatus = Parse_Data($varData,"<Status>","</Status>");
-                            if(!empty($varDataPIN))
+                        for($i=0; $i!=count($varAttendaceRecord); $i++)
+                            {
+                            if(!empty($varAttendaceRecord[$i]['time']))
                                 {
-                                if(strtotime($varCutOffStartDateTime) <= strtotime($varDataDateTime))
-                                    {                                    
-                                    //echo $varDataPIN.'-->'.$varDataDateTime.'-->'.$varDataVerified.'-->'.$varDataStatus;
-                                    //echo "<br>----------------<br>";
-                                    $varReturn[$j]=[
-                                        'ID' =>  (int) $varDataPIN,
-                                        'dateTimeTZ' => $varDataDateTime.'.000000 '.$varTimeZoneOffset,
-                                        'signVerified' => (int) $varDataVerified,
-                                        'signStatus' => (int) $varDataStatus
+                                if(strtotime($varCutOffStartDateTime) <= strtotime($varAttendaceRecord[$i]['time']))
+                                //echo strtotime($varCutOffStartDateTime)." ---> ".strtotime($varAttendaceRecord[$i]['time'])."<br>";
+                                    {
+                                    $varReturn[$j] = [
+                                        'ID' =>  (int) $varAttendaceRecord[$i]['uid'],
+                                        'userName' =>  (int) $varAttendaceRecord[$i]['user'],
+                                        'dateTimeTZ' => $varAttendaceRecord[$i]['time'].'.000000 '.$varTimeZoneOffset,
+                                        'status' => (int) $varAttendaceRecord[$i]['status']
                                         ];
                                     $j++;
                                     }
@@ -144,13 +124,47 @@ namespace zhtSDK\Solution\FingerprintAttendance\x601
                             }
                         }
                     }
-                else
-                    {
-                    throw new \Exception("Connection Failed");
-                    }
                 } 
             catch (\Exception $ex) {
                 throw new \Exception("Connection Timeout");
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDeviceSerialNumber                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-01-13                                                                                           |
+        | ▪ Description     : Mendapatkan Nomor Seri Alat                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDeviceSerialNumber()
+            {
+            $varReturn = null;
+            try {
+                $Connect = @fsockopen($this->varHostIP, $this->varHostPort, $errno, $errstr, $this->varTimeOutInSeconds);
+                if($errno == 110) 
+                    {
+                    throw new \Exception("Connection Failed");
+                    }
+                else
+                    {
+                    if($this->ObjLib->connect())
+                        {
+                        $varReturn = str_replace('~SerialNumber=', '', $this->ObjLib->get_serial_number());
+                        $varReturn = preg_replace('/[\x00-\x1F\x7F]/', '', $varReturn);
+                        }
+                    }                
+                } 
+            catch (\Exception $ex) {
                 }
             return $varReturn;
             }

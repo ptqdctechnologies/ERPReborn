@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+                        $varDataSend = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                             $varUserSession,
                             ))->getDataAttendanceFromLocalDatabase(
                                 '/zhtConf/tmp/download/SwingBarrierGate.mdb',

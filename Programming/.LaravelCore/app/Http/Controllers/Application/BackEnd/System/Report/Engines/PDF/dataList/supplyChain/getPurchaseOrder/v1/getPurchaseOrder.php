@@ -59,21 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Purchase Order Data Record (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    
-
                     try{
-/*
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->getDataRecord(
-                            $varUserSession, 
-                            $varData['recordID'],
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
-                            ))))
+                        if(!($varDataSend = $this->dataProcessing($varUserSession)))
                             {
                             throw new \Exception();
                             }
-*/
-                        
-                        $varDataSend = $this->dataProcessing($varUserSession);
                             
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
@@ -81,9 +71,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                         $varErrorMessage = $ex->getMessage();
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data not found');
                         }
-                        
-                        
-                        
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -108,7 +95,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             $ObjPDF->Write(0, 'Hello World');
             
             $varReturn = [
-                'PDFData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncode_PDFData($varUserSession, $ObjPDF)
+                'encodeMethod' => 'Base64',
+                'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_PDFData($varUserSession, $ObjPDF)
                 ];
             return $varReturn;
             }

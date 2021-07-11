@@ -18,7 +18,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
     */
     class Helper_APIReport
         {
-        public static function getJSONEncode_PDFData($varUserSession, $varDataStreamPlain)
+        public static function getJSONEncodeBase64_PDFData($varUserSession, $varDataStreamPlain)
             {
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode(
                 $varUserSession, 
@@ -27,7 +27,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             return $varReturn;
             }
         
-        public static function getJSONDecode_PDFData($varUserSession, $varDataStreamEncoded)
+        public static function getJSONDecodeBase64_PDFData($varUserSession, $varDataStreamEncoded)
             {
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
                 $varUserSession, 

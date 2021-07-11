@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 3.185.10 - 2021-07-09
+
+* `Aws\FraudDetector` - This release adds support for ML Explainability to display model variable importance value in Amazon Fraud Detector.
+* `Aws\MediaConvert` - MediaConvert now supports color, style and position information passthrough from 608 and Teletext to SRT and WebVTT subtitles. MediaConvert now also supports Automatic QVBR quality levels for QVBR RateControlMode.
+* `Aws\SageMaker` - Releasing new APIs related to Tuning steps in model building pipelines.
+
+## 3.185.9 - 2021-07-08
+
+* `Aws\DevOpsGuru` - Add AnomalyReportedTimeRange field to include open and close time of anomalies.
+* `Aws\EKS` - Added waiters for EKS FargateProfiles.
+* `Aws\FMS` - AWS Firewall Manager now supports route table monitoring, and provides remediation action recommendations to security administrators for AWS Network Firewall policies with misconfigured routes.
+* `Aws\MediaTailor` - Add ListAlerts for Channel, Program, Source Location, and VOD Source to return alerts for resources.
+* `Aws\Outposts` - Added property filters for listOutposts
+* `Aws\SSMContacts` - Updated description for CreateContactChannel contactId.
+
+## 3.185.8 - 2021-07-07
+
+* `Aws\Chime` - Releasing new APIs for AWS Chime MediaCapturePipeline
+* `Aws\CloudFront` - Amazon CloudFront now provides two new APIs, ListConflictingAliases and AssociateAlias, that help locate and move Alternate Domain Names (CNAMEs) if you encounter the CNAMEAlreadyExists error code.
+* `Aws\EC2` - This release adds resource ids and tagging support for VPC security group rules.
+* `Aws\IAM` - Documentation updates for AWS Identity and Access Management (IAM).
+* `Aws\IoTSiteWise` - This release add storage configuration APIs for AWS IoT SiteWise.
+* `Aws\MQ` - adds support for modifying the maintenance window for brokers.
+* `Aws\STS` - Documentation updates for AWS Security Token Service.
+* `Aws\StorageGateway` - Adding support for oplocks for SMB file shares, S3 Access Point and S3 Private Link for all file shares and IP address support for file system associations
+
 ## 3.185.7 - 2021-07-06
 
 * `Aws\EKS` - Adding new error code UnsupportedAddonModification for Addons in EKS
