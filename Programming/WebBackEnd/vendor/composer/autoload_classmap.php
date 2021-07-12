@@ -1717,6 +1717,7 @@ return array(
     'Facade\\Ignition\\DumpRecorder\\MultiDumpHandler' => $vendorDir . '/facade/ignition/src/DumpRecorder/MultiDumpHandler.php',
     'Facade\\Ignition\\ErrorPage\\ErrorPageHandler' => $vendorDir . '/facade/ignition/src/ErrorPage/ErrorPageHandler.php',
     'Facade\\Ignition\\ErrorPage\\ErrorPageViewModel' => $vendorDir . '/facade/ignition/src/ErrorPage/ErrorPageViewModel.php',
+    'Facade\\Ignition\\ErrorPage\\IgnitionExceptionRenderer' => $vendorDir . '/facade/ignition/src/ErrorPage/IgnitionExceptionRenderer.php',
     'Facade\\Ignition\\ErrorPage\\IgnitionWhoopsHandler' => $vendorDir . '/facade/ignition/src/ErrorPage/IgnitionWhoopsHandler.php',
     'Facade\\Ignition\\ErrorPage\\Renderer' => $vendorDir . '/facade/ignition/src/ErrorPage/Renderer.php',
     'Facade\\Ignition\\Exceptions\\InvalidConfig' => $vendorDir . '/facade/ignition/src/Exceptions/InvalidConfig.php',
