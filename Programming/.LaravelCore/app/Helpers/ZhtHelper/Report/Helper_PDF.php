@@ -96,7 +96,7 @@ namespace App\Helpers\ZhtHelper\Report
                     'UTF-8', 
                     false
                     );
-                $ObjPDF->initUserSession($varUserSession);
+                $ObjPDF->zhtSetUserSession($varUserSession);                
                 } 
             catch (\Exception $ex) {
                 }
