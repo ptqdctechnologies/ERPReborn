@@ -86,44 +86,58 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         private function dataProcessing($varUserSession)
             {
-            //$x = new \zhtVendor\PDF\zhtVendor($varUserSession);
-            
-            
-            
-//            $ObjPDF = new \App\Helpers
-            
-            
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
             
-            $ObjPDF->SetCreator(PDF_CREATOR);
-            $ObjPDF->SetAuthor('Our Code World');
+            $ObjPDF->SetTitle('Country List Report');
             
-            
-            //dd(__DIR__);
-            
-            //'/images/Logo-Application.png'
-            
-            
-            
-            
-//            $ObjPDF->setHeaderCallback(function($pdf){
-                
-//                }
-            
-            
-            //$ObjPDF->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 001', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-            //$ObjPDF->setFooterData(array(0,64,0), array(0,64,128));
-            
-            
-           
-            //$ObjPDF->SetTitle('Hello World');
             $ObjPDF->AddPage();
+            $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
+            $ObjPDF->zhtSetContent_SubTitle($varUserSession, 'No : -');
+
+            $ObjPDF->SetXY($ObjPDF->GetX(), $ObjPDF->GetY());
+            $ObjPDF->Cell(0, 10, 'xxx', 1, false, 'C');
             
             
-            $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
-                
+            
+            $ObjPDF->AddPage();
+            $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
+
+
+            
+            /*
+            $ObjPDF->SetXY(($ObjPDF->zhtGetContentMargins($varUserSession))['left'], ($ObjPDF->zhtGetContentMargins($varUserSession))['top']);
+            $ObjPDF->SetFont('helvetica', 'B', 20);
+            $ObjPDF->Cell(0, 10, 'COUNTRY LIST', 0, false, 'C');
+*/            
+
+            $ObjPDF->Cell(0, 10, $ObjPDF->GetY(), 0, false, 'C');
+            
+            
+            /*
+            for($i=0; $i!=11; $i++)
+                {
+                //$ObjPDF->Cell(0, 15, 'xxx');
+                $ObjPDF->zhtGetContentMargins($varUserSession);
+                $ObjPDF->AddPage();
+                }
+            //$ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+            */    
 
             
             //$ObjPDF->Write(0, 'Hello World');

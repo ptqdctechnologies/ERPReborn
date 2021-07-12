@@ -57,6 +57,7 @@ return array(
     'App\\Http\\Controllers\\masterDataBusinessDocument' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocument.php',
     'App\\Http\\Controllers\\masterDataBusinessDocumentType' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocumentType.php',
     'App\\Http\\Controllers\\masterDataBusinessDocumentVersion' => $baseDir . '/app/Http/Controllers/masterDataBusinessDocumentVersion.php',
+    'App\\Http\\Controllers\\masterDataCitizenIdentity' => $baseDir . '/app/Http/Controllers/masterDataCitizenIdentity.php',
     'App\\Http\\Controllers\\masterDataCoa' => $baseDir . '/app/Http/Controllers/masterDataCoa.php',
     'App\\Http\\Controllers\\masterDataCountry' => $baseDir . '/app/Http/Controllers/masterDataCountry.php',
     'App\\Http\\Controllers\\masterDataCountryAdministrativeAreaLevel1' => $baseDir . '/app/Http/Controllers/masterDataCountryAdministrativeAreaLevel1.php',

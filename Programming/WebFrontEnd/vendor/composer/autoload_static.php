@@ -550,6 +550,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\masterDataBusinessDocument' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataBusinessDocument.php',
         'App\\Http\\Controllers\\masterDataBusinessDocumentType' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataBusinessDocumentType.php',
         'App\\Http\\Controllers\\masterDataBusinessDocumentVersion' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataBusinessDocumentVersion.php',
+        'App\\Http\\Controllers\\masterDataCitizenIdentity' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataCitizenIdentity.php',
         'App\\Http\\Controllers\\masterDataCoa' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataCoa.php',
         'App\\Http\\Controllers\\masterDataCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataCountry.php',
         'App\\Http\\Controllers\\masterDataCountryAdministrativeAreaLevel1' => __DIR__ . '/../..' . '/app/Http/Controllers/masterDataCountryAdministrativeAreaLevel1.php',
