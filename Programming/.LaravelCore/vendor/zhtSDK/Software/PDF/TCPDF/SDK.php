@@ -6,7 +6,8 @@ namespace zhtSDK\Software\PDF\TCPDF
         {
         private $varUserSession;
         private $varTotalPages;
-        private $varContentMargins;
+        private $varContentMargins;  // Content Margin diluar header dan footer
+        private $varCurrentPosition; // Save Last Coordinat
 
 
         /*
@@ -165,6 +166,26 @@ namespace zhtSDK\Software\PDF\TCPDF
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : zhtGetContentCoordinate_CurrentPosition                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-13                                                                                           |
+        | ▪ Description     : Fungsi Pemanggilan Koordinat Saat Ini                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function zhtGetContentCoordinate_CurrentPosition($varUserSession)
+            {
+            return $this->varCurrentPosition;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : zhtGetContentMargins                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -211,7 +232,30 @@ namespace zhtSDK\Software\PDF\TCPDF
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : zhtSetContentCoordinateStartPoint                                                                    |
+        | ▪ Method Name     : zhtSetContentCoordinate_CurrentPosition                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-13                                                                                           |
+        | ▪ Description     : Fungsi Pengesetan Koordinat Saat Ini                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function zhtSetContentCoordinate_CurrentPosition($varUserSession)
+            {
+            $this->varCurrentPosition = [
+                'X' => $this->GetX(), 
+                'Y' => $this->GetY()
+                ];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : zhtSetContentCoordinate_StartPoint                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-12                                                                                           |
@@ -223,9 +267,53 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function zhtSetContentCoordinateStartPoint($varUserSession)
+        public function zhtSetContentCoordinate_StartPoint($varUserSession)
             {
-            $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], ($this->zhtGetContentMargins($varUserSession))['top']);            
+            $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], ($this->zhtGetContentMargins($varUserSession))['top']);
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : zhtSetContent_CellTitle                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-12                                                                                           |
+        | ▪ Description     : Fungsi Pengesetan Content - Cell Title                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varCaption ► Data                                                                                        |
+        |      ▪ (int)    varCellWidth ► Cell Width                                                                                |
+        |      ▪ (int)    varCellHeight ► Cell Height                                                                              |
+        |      ▪ (int)    varX ► X                                                                                                 |
+        |      ▪ (int)    varY ► Y                                                                                                 |
+        |      ▪ (array)  varColor ► Color [R,G,B]                                                                                 |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function zhtSetContent_CellTitle($varUserSession, string $varCaption = null, int $varCellWidth = null, int $varCellHeight = null, int $varX = null, int $varY = null, array $varColor = null)
+            {
+            $this->SetXY(($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], ($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']);
+            if(!$varCellWidth)
+                {
+                $varCellWidth = 10;
+                }
+            if(!$varCellHeight)
+                {
+                $varCellHeight = 5;
+                }
+            if(!$varColor)
+                {
+                $varColor = [255, 255, 200];
+                }
+            $this->SetFont('helvetica', 'B', 8);
+            $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
+            $this->Cell($varCellWidth, $varCellHeight, $varCaption, 1, false, 'C', true, '', '', '', '', '', 'M');
+
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
 
 
@@ -252,6 +340,77 @@ namespace zhtSDK\Software\PDF\TCPDF
 
             $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], $this->GetY()+$varCellHeight);
             //$this->Cell(0, 10, $varTitle, 1, false, 'C');
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : zhtSetContent_TableHead                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-12                                                                                           |
+        | ▪ Description     : Fungsi Pengesetan Table Head Content                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function zhtSetContent_TableHead($varUserSession, array $varData = null)
+            {
+            $varDefaultCellHeight = 5;
+            $varMaxY = 0;
+            for($i=0; $i!=count($varData['Objects']); $i++)
+                {
+                $this->SetXY(
+                    $varData['Coordinat'][0] + $varData['Objects'][$i]['CoordinatOffset'][0], 
+                    $varData['Coordinat'][1] + $varData['Objects'][$i]['CoordinatOffset'][1]
+                    );
+                $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+                for($j=0; $j!=count($varData['Objects'][$i]['Cells']); $j++)
+                    {
+                    if(strcmp($varData['Objects'][$i]['Cells'][$j][0], '<BLANK_CELL>')==0)
+                        {
+                        $this->SetXY(
+                            ($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'] + ((count($varData['Objects'][$i]['Cells'][$j]) >= 2) ?  $varData['Objects'][$i]['Cells'][$j][1] : 0), 
+                            ($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                            );
+                        $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+                        }
+                    else
+                        {
+                        //---> Call zhtSetContent_CellTitle
+                        $this->zhtSetContent_CellTitle(
+                            $varUserSession,
+                            //$varData['Coordinat'][1] + $varData['Objects'][$i]['CoordinatOffset'][1],
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 1) ?  $varData['Objects'][$i]['Cells'][$j][0] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 2) ?  $varData['Objects'][$i]['Cells'][$j][1] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 3) ?  $varData['Objects'][$i]['Cells'][$j][2] : $varDefaultCellHeight),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 4) ?  $varData['Objects'][$i]['Cells'][$j][3] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 5) ?  $varData['Objects'][$i]['Cells'][$j][4] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 6) ?  $varData['Objects'][$i]['Cells'][$j][5] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 7) ?  $varData['Objects'][$i]['Cells'][$j][6] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 8) ?  $varData['Objects'][$i]['Cells'][$j][7] : null)
+                            );
+
+                        $varCurrentCellY = (
+                            $varData['Coordinat'][1]
+                            + $varData['Objects'][$i]['CoordinatOffset'][1]
+                            + ((count($varData['Objects'][$i]['Cells'][$j]) >= 3) ?  $varData['Objects'][$i]['Cells'][$j][2] : $varDefaultCellHeight)
+                            );
+
+                        if($varMaxY < $varCurrentCellY)
+                            {
+                            $varMaxY = $varCurrentCellY;
+                            }                        
+                        }
+                    }
+                }
+            $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], $varMaxY);           
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
 
 
@@ -273,12 +432,35 @@ namespace zhtSDK\Software\PDF\TCPDF
         public function zhtSetContent_Title($varUserSession, string $varTitle = '')
             {
             $varCellHeight = 10;
-            $this->zhtSetContentCoordinateStartPoint($varUserSession);
+            $this->zhtSetContentCoordinate_StartPoint($varUserSession);
             $this->SetFont('helvetica', 'B', 22);
             $this->Cell(0, $varCellHeight, $varTitle, 0, false, 'C');
 
             $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], $this->GetY()+$varCellHeight);
             //$this->Cell(0, 10, $varTitle, 1, false, 'C');
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : zhtSetContent_VerticalSpace                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-123                                                                                          |
+        | ▪ Description     : Fungsi Pengesetan Vertical Space Content                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varHeight ► Title                                                                                        |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function zhtSetContent_VerticalSpace($varUserSession, int $varHeight = 5)
+            {
+            $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], $this->GetY()+$varHeight);           
+            $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
 
 
