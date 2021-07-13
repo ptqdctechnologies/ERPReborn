@@ -125,23 +125,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                         'Cells' => [
                             ['NO', 10],
                             ['ID', 30],
-                            ['INDONESIAN NAME', 75, 30],
-                            ['INTERNATIONAL NAME', 75, 20]                        
+                            ['INDONESIAN NAME', 75],
+                            ['INTERNATIONAL NAME', 75]                        
                             ]
                         ],
-                        [
-                        'CoordinatOffset' => [0, 5],
-                        'Cells' => [
-                            ['NO', 10],
-                            ['<BLANK_CELL>', 30],
-                            ['INDONESIAN NAME', 75, 30],
-                            ['INTERNATIONAL NAME', 75, 20]                        
-                            ]
-                        ]
                     ]                    
                 ]
                 );
-            
+        
             
 
 
@@ -155,6 +146,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             $ObjPDF->AddPage();
             $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
 
+            $ObjPDF->zhtSetContent_TableHead(
+                $varUserSession,
+                [
+                'Coordinat' => [
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                    ],
+                'Objects' =>
+                    [
+                        [
+                        'CoordinatOffset' => [0, 0],
+                        'Cells' => [
+                            ['NO', 10],
+                            ['ID', 30],
+                            ['INDONESIAN NAME', 75],
+                            ['INTERNATIONAL NAME', 75]                        
+                            ]
+                        ],
+                    ]                    
+                ]
+                );
 
             
             /*

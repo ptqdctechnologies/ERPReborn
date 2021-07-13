@@ -365,13 +365,16 @@ namespace zhtSDK\Software\PDF\TCPDF
             $varMaxY = 0;
             for($i=0; $i!=count($varData['Objects']); $i++)
                 {
+                //---> Inisiasi Koordinat Baris
                 $this->SetXY(
                     $varData['Coordinat'][0] + $varData['Objects'][$i]['CoordinatOffset'][0], 
                     $varData['Coordinat'][1] + $varData['Objects'][$i]['CoordinatOffset'][1]
                     );
                 $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
+                //---> Pemrosesan Content Objects Cells
                 for($j=0; $j!=count($varData['Objects'][$i]['Cells']); $j++)
                     {
+                    //---> Jika Blank Cell
                     if(strcmp($varData['Objects'][$i]['Cells'][$j][0], '<BLANK_CELL>')==0)
                         {
                         $this->SetXY(
@@ -380,6 +383,7 @@ namespace zhtSDK\Software\PDF\TCPDF
                             );
                         $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
                         }
+                    //---> Jika Bukan Blank Cell
                     else
                         {
                         //---> Call zhtSetContent_CellTitle
@@ -412,6 +416,41 @@ namespace zhtSDK\Software\PDF\TCPDF
             $this->SetXY(($this->zhtGetContentMargins($varUserSession))['left'], $varMaxY);           
             $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
+        /*
+        Contoh Pemanggilan Method :
+        ----(START)----------------
+            $ObjPDF->zhtSetContent_TableHead(
+                $varUserSession,
+                [
+                'Coordinat' => [
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                    ],
+                'Objects' =>
+                    [
+                        [
+                        'CoordinatOffset' => [0, 0],
+                        'Cells' => [
+                            ['NO', 10],
+                            ['ID', 30],
+                            ['INDONESIAN NAME', 75, 30],
+                            ['INTERNATIONAL NAME', 75, 20]                        
+                            ]
+                        ],
+                        [
+                        'CoordinatOffset' => [0, 5],
+                        'Cells' => [
+                            ['NO', 10],
+                            ['<BLANK_CELL>', 30],
+                            ['INDONESIAN NAME', 75, 30],
+                            ['INTERNATIONAL NAME', 75, 20]                        
+                            ]
+                        ]
+                    ]                    
+                ]
+                );
+        ----( END )----------------
+        */
 
 
         /*
