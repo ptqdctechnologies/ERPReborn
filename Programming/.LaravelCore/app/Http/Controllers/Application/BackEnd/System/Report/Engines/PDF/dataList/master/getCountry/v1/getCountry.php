@@ -109,7 +109,44 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             $ObjPDF->AddPage();
             $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
             $ObjPDF->zhtSetContent_SubTitle($varUserSession, 'No : -');
+            $ObjPDF->zhtSetContent_VerticalSpace($varUserSession);
 
+            $ObjPDF->zhtSetContent_TableHead(
+                $varUserSession,
+                [
+                'Coordinat' => [
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
+                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                    ],
+                'Objects' =>
+                    [
+                        [
+                        'CoordinatOffset' => [0, 0],
+                        'Cells' => [
+                            ['NO', 10],
+                            ['ID', 30],
+                            ['INDONESIAN NAME', 75, 30],
+                            ['INTERNATIONAL NAME', 75, 20]                        
+                            ]
+                        ],
+                        [
+                        'CoordinatOffset' => [0, 5],
+                        'Cells' => [
+                            ['NO', 10],
+                            ['<BLANK_CELL>', 30],
+                            ['INDONESIAN NAME', 75, 30],
+                            ['INTERNATIONAL NAME', 75, 20]                        
+                            ]
+                        ]
+                    ]                    
+                ]
+                );
+            
+            
+
+
+            //$ObjPDF->zhtSetContent_VerticalSpace($varUserSession);
+            
             $ObjPDF->SetXY($ObjPDF->GetX(), $ObjPDF->GetY());
             $ObjPDF->Cell(0, 10, 'xxx', 1, false, 'C');
             
