@@ -56,11 +56,32 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Purchase Order Data Record (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = $this->dataProcessing($varUserSession)))
+                        if(!($varDataSend = $this->dataProcessing(
+                            $varUserSession,
+                            [
+                            'Title' => 'Country List',
+                            'SubTitle' => [
+                                ]
+                            ],
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
+                                    'transaction.read.dataList.master.getCountry', 
+                                    'latest', 
+                                    [
+                                    'SQLStatement' => [
+                                        'pick' => null,
+                                        'sort' => null,
+                                        'filter' => null,
+                                        'paging' => null
+                                        ]
+                                    ]
+                                    )['data']
+                            )))
                             {
                             throw new \Exception();
                             }
@@ -96,33 +117,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession)
+        private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null)
             {
             $varRecordList_FirstPage = 43;
             $varRecordList_OtherPages = 52;
-            
-            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                $varUserSession,
-                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                'transaction.read.dataList.master.getCountry', 
-                'latest', 
-                [
-                'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
-                    ]
-                ]
-                )['data'];
 
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
-            $ObjPDF->SetTitle('Country List Report');
-            for($i=0; $i!=count($varData); $i++)
+            $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
+            for($i=0; $i!=count($varDataList); $i++)
                 {                
                 //---> First Page
                 if(($ObjPDF->PageNo()) == 0)
@@ -131,7 +138,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                     if($j == 0)
                         {
                         $ObjPDF->AddPage();
-                        $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
+                        $ObjPDF->zhtSetContent_Title($varUserSession, strtoupper($varDataHeader['Title']));
+                        for($k=0; $k!=count($varDataHeader['SubTitle']); $k++)
+                            {
+                            $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
+                            }
                         $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
                         }
                     }
@@ -184,9 +195,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'CoordinatOffset' => [0, 0],
                             'Cells' => [
                                 [$i+1, 'C', 10],
-                                [$varData[$i]['sys_ID'], 'C', 30],
-                                [$varData[$i]['indonesianName'], 'L', 75],
-                                [$varData[$i]['internationalName'], 'L', 75]
+                                [$varDataList[$i]['sys_ID'], 'C', 30],
+                                [$varDataList[$i]['indonesianName'], 'L', 75],
+                                [$varDataList[$i]['internationalName'], 'L', 75]
                                 ]
                             ],
                         ]                    

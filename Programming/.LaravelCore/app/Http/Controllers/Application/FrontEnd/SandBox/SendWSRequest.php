@@ -558,10 +558,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getBloodAglutinogenType', 
                 'latest', 
                 [
-                'entities' => [
-                    'outputFileName' => 'DataList - BloodAglutinogenType.pdf',
-                    'parameter' => [                        
-                        ]
+                'outputFileName' => 'DataList - BloodAglutinogenType.pdf',
+                'parameter' => [
                     ]
                 ]
                 );
@@ -586,10 +584,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getBusinessDocumentType', 
                 'latest', 
                 [
-                'entities' => [
-                    'outputFileName' => 'DataList - BusinessDocumentType.pdf',
-                    'parameter' => [                        
-                        ]
+                'outputFileName' => 'DataList - BusinessDocumentType.pdf',
+                'parameter' => [
                     ]
                 ]
                 );
@@ -614,10 +610,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCountry', 
                 'latest', 
                 [
-                'entities' => [
-                    'outputFileName' => 'DataList - Country.pdf',
-                    'parameter' => [                        
-                        ]
+                'outputFileName' => 'DataList - Country.pdf',
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getCountryAdministrativeAreaLevel1                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getCountryAdministrativeAreaLevel1', 
+                'latest', 
+                [
+                'outputFileName' => 'DataList - Country Administrative Area Level 1.pdf',
+                'parameter' => [
+                    'country_RefID' => 20000000000078
                     ]
                 ]
                 );

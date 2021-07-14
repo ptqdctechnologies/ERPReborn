@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.PDF.dataList.master.getBloodAglutinogenType (version 1)",
+"description": "JSON Request Schema of report.PDF.dataList.master.getCountryAdministrativeAreaLevel1 (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.PDF.dataList.master.getBloodAglutinogenType" ]
+                        "enum": [ "report.PDF.dataList.master.getCountryAdministrativeAreaLevel1" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

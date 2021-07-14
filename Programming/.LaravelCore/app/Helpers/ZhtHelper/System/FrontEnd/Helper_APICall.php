@@ -532,13 +532,13 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         public static function setCallAPIGatewayReport($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData = null)
             {
             try {
-                if(!$varData['entities']['outputFileName'])
+                if(!$varData['outputFileName'])
                     {
                     $varOutputFileName = 'output.pdf';
                     }
                 else
                     {
-                    $varOutputFileName = $varData['entities']['outputFileName'];
+                    $varOutputFileName = $varData['outputFileName'];
                     }
 
                 $varUserSession = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getUserSessionByAPIWebToken(

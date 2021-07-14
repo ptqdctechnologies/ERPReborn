@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBusinessDocumentType\v1    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master                               |
+|                \getCountryAdministrativeAreaLevel1\v1                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBusinessDocumentType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountryAdministrativeAreaLevel1\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBusinessDocumentType                                                                                      |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getBusinessDocumentType Version 1                                   |
+    | ▪ Class Name  : getCountryAdministrativeAreaLevel1                                                                           |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getCountryAdministrativeAreaLevel1 Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBusinessDocumentType extends \App\Http\Controllers\Controller
+    class getCountryAdministrativeAreaLevel1 extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,23 +57,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Business Document Type Data List PDF Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Administrative Area Level 1 Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = $this->dataProcessing(
-                            $varUserSession,
+                            $varUserSession, 
                             [
-                            'Title' => 'Business Document Type List',
+                            'Title' => 'Country Administrative Area Level 1 List',
                             'SubTitle' => [
+                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['country_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getBusinessDocumentType', 
+                                    'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
                                     'latest', 
                                     [
+                                    'country_RefID' => $varData['parameter']['country_RefID'],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -117,7 +120,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varData ► Data                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -126,7 +128,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varRecordList_FirstPage = 43;
             $varRecordList_OtherPages = 52;
-
+            
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
             for($i=0; $i!=count($varDataList); $i++)
@@ -143,7 +145,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             {
                             $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
                             }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
+                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                       
                         }
                     }
                 //---> Other Pages
