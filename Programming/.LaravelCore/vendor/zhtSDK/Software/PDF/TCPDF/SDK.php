@@ -25,7 +25,7 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function __construct($varUserSession, $orientation='P', $unit='mm', $format='A4', $unicode=true, $encoding='UTF-8', $diskcache=false, $pdfa=false)
+        public function __construct($varUserSession, $varQRCode, $orientation='P', $unit='mm', $format='A4', $unicode=true, $encoding='UTF-8', $diskcache=false, $pdfa=false)
             {
             $this->varTotalPages = -1;
             $this->zhtInitContentMargins();
@@ -36,7 +36,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                 'Signature' => \App\Helpers\ZhtHelper\General\Helper_Hash::getMD5(
                     $varUserSession,
                     $varUserSession.\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR').$varIssuedDateTime
-                    )
+                    ),
+                'QRCode' => $varQRCode
                 ];
 
             //parent::__construct(__CLASS__);
@@ -139,7 +140,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                 $this->zhtSetLetterHead(
                     $this->varUserSession['UserSessionID'], 
                     getcwd().'/images/Logo/AppObject_InstitutionBranch/Small/'.$this->varUserSession['InstitutionBranch']['ID'].'.png',
-                    'abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890'
+                    $this->varDocument['QRCode']
+                    //'abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqrstuvwxyz1234567890'
                     );
                 //---> Update Top Content Margins 
                 $this->varContentMargins['top'] = ((int) ($this->GetY())) + 5;

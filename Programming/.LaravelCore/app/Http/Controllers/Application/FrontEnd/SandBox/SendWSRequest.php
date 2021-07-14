@@ -619,7 +619,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.PDF.dataList.master.getCountryAdministrativeAreaLevel1                                            |
@@ -640,6 +639,87 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'outputFileName' => 'DataList - Country Administrative Area Level 1.pdf',
                 'parameter' => [
                     'country_RefID' => 20000000000078
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getCountryAdministrativeAreaLevel2                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getCountryAdministrativeAreaLevel2', 
+                'latest', 
+                [
+                'outputFileName' => 'DataList - Country Administrative Area Level 2.pdf',
+                'parameter' => [
+                    'countryAdministrativeAreaLevel1_RefID' => 21000000000001
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getCountryAdministrativeAreaLevel3                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getCountryAdministrativeAreaLevel3', 
+                'latest', 
+                [
+                'outputFileName' => 'DataList - Country Administrative Area Level 3.pdf',
+                'parameter' => [
+                    'countryAdministrativeAreaLevel2_RefID' => 22000000000001
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getCountryAdministrativeAreaLevel4                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getCountryAdministrativeAreaLevel4', 
+                'latest', 
+                [
+                'outputFileName' => 'DataList - Country Administrative Area Level 4.pdf',
+                'parameter' => [
+                    'countryAdministrativeAreaLevel3_RefID' => 23000000000001
                     ]
                 ]
                 );

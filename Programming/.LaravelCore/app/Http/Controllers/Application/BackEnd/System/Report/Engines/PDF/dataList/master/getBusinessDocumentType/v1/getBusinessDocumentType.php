@@ -80,7 +80,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                         'paging' => null
                                         ]
                                     ]
-                                    )['data']
+                                    )['data'],
+                            \App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession)
                             )))
                             {
                             throw new \Exception();
@@ -116,18 +117,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varData ► Data                                                                                           |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (array)  varDataHeader ► Data Header (Optional)                                                                   |
+        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
+        |      ▪ (string) varQRCode ► QR Code (Optional)                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null)
+        private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
             {
             $varRecordList_FirstPage = 43;
             $varRecordList_OtherPages = 52;
 
-            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
+            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
             for($i=0; $i!=count($varDataList); $i++)
                 {                

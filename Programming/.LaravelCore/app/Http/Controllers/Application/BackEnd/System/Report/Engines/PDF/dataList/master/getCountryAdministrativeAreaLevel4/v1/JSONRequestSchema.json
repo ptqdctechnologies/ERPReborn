@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.PDF.dataList.master.getCountryAdministrativeAreaLevel1 (version 1)",
+"description": "JSON Request Schema of report.PDF.dataList.master.getCountryAdministrativeAreaLevel4 (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.PDF.dataList.master.getCountryAdministrativeAreaLevel1" ]
+                        "enum": [ "report.PDF.dataList.master.getCountryAdministrativeAreaLevel4" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -33,13 +33,13 @@
             "parameter": {
                 "type": "object",
                  "properties": {
-                    "country_RefID" : {
+                    "countryAdministrativeAreaLevel3_RefID" : {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "country_RefID" ]
+                "required": [ "countryAdministrativeAreaLevel3_RefID" ]
                 }
             },
         "required": [ "outputFileName", "parameter" ]

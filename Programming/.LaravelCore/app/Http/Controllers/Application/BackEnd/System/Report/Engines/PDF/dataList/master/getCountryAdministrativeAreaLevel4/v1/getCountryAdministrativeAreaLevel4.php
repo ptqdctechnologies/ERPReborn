@@ -3,27 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master                               |
+|                \getCountryAdministrativeAreaLevel4\v1                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountryAdministrativeAreaLevel4\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCountry                                                                                                   |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getCountry Version 1                                                |
+    | ▪ Class Name  : getCountryAdministrativeAreaLevel4                                                                           |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getCountryAdministrativeAreaLevel4 Version 1                        |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCountry extends \App\Http\Controllers\Controller
+    class getCountryAdministrativeAreaLevel4 extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Last Update     : 2021-07-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,23 +57,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Data List PDF Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Administrative Area Level 4 Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = $this->dataProcessing(
-                            $varUserSession,
+                            $varUserSession, 
                             [
-                            'Title' => 'Country List',
+                            'Title' => 'Country Administrative Area Level 4 List',
                             'SubTitle' => [
+                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['countryAdministrativeAreaLevel3_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getCountry', 
+                                    'transaction.read.dataList.master.getCountryAdministrativeAreaLevel4', 
                                     'latest', 
                                     [
+                                    'countryAdministrativeAreaLevel3_RefID' => $varData['parameter']['countryAdministrativeAreaLevel3_RefID'],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -129,7 +132,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varRecordList_FirstPage = 43;
             $varRecordList_OtherPages = 52;
-
+            
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
             for($i=0; $i!=count($varDataList); $i++)
@@ -146,7 +149,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             {
                             $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
                             }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
+                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                       
                         }
                     }
                 //---> Other Pages
@@ -176,8 +179,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10],
                                     ['ID', 'C', 30],
-                                    ['INDONESIAN NAME', 'C', 75],
-                                    ['INTERNATIONAL NAME', 'C', 75]
+                                    ['NAME', 'C', 150]
                                     ]
                                 ],
                             ]                    
@@ -199,8 +201,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10],
                                 [$varDataList[$i]['sys_ID'], 'C', 30],
-                                [$varDataList[$i]['indonesianName'], 'L', 75],
-                                [$varDataList[$i]['internationalName'], 'L', 75]
+                                [$varDataList[$i]['name'], 'L', 150]
                                 ]
                             ],
                         ]                    
