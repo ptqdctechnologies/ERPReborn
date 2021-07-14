@@ -89,6 +89,7 @@ namespace App\Helpers\ZhtHelper\Report
                         ];                
                     }
                 $ObjPDF = new \zhtSDK\Software\PDF\TCPDF\zhtSDK(
+                    $varUserSession,
                     $varParameter['PageOrientation'],
                     $varParameter['Metric'],
                     $varParameter['PaperSize'],

@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1                 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBloodAglutinogenType\v1    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCountry\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBloodAglutinogenType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCountry                                                                                                   |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getCountry Version 1                                                |
+    | ▪ Class Name  : getBloodAglutinogenType                                                                                      |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getBloodAglutinogenType Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCountry extends \App\Http\Controllers\Controller
+    class getBloodAglutinogenType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Last Update     : 2021-07-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -108,7 +108,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                 $varUserSession,
                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                'transaction.read.dataList.master.getCountry', 
+                'transaction.read.dataList.master.getBloodAglutinogenType', 
                 'latest', 
                 [
                 'SQLStatement' => [
@@ -121,7 +121,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                 )['data'];
 
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
-            $ObjPDF->SetTitle('Country List Report');
+            $ObjPDF->SetTitle('Blood Aglutinogen Type Report');
             for($i=0; $i!=count($varData); $i++)
                 {                
                 //---> First Page
@@ -131,7 +131,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                     if($j == 0)
                         {
                         $ObjPDF->AddPage();
-                        $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
+                        $ObjPDF->zhtSetContent_Title($varUserSession, 'BLOOD AGLUTINOGEN TYPE LIST');
+                        //$ObjPDF->zhtSetContent_SubTitle($varUserSession, 'No : -');
                         $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
                         }
                     }
@@ -162,8 +163,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10],
                                     ['ID', 'C', 30],
-                                    ['INDONESIAN NAME', 'C', 75],
-                                    ['INTERNATIONAL NAME', 'C', 75]                        
+                                    ['TYPE', 'C', 150]                        
                                     ]
                                 ],
                             ]                    
@@ -185,8 +185,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10],
                                 [$varData[$i]['sys_ID'], 'C', 30],
-                                [$varData[$i]['indonesianName'], 'L', 75],
-                                [$varData[$i]['internationalName'], 'L', 75]                        
+                                [$varData[$i]['type'], 'L', 150]                        
                                 ]
                             ],
                         ]                    
