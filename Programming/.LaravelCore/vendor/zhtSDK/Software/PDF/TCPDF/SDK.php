@@ -456,8 +456,12 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function zhtSetContent_SubTitle($varUserSession, string $varTitle = '')
+        public function zhtSetContent_SubTitle($varUserSession, string $varTitle = null)
             {
+            if(!$varTitle)
+                {
+                $varTitle = '';
+                }
             $varCellHeight = 6;
             $this->SetFont('helvetica', 'B', 12);
             $this->Cell(0, $varCellHeight, $varTitle, 0, false, 'C');

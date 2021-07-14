@@ -558,8 +558,35 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getBloodAglutinogenType', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - BloodAglutinogenType.pdf',
+                'outputFileName' => 'Data List - Blood Aglutinogen Type.pdf',
                 'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getBusinessDocument                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListBusinessDocument()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getBusinessDocument', 
+                'latest', 
+                [
+                'outputFileName' => 'Data List - Business Document.pdf',
+                'parameter' => [
+                    'businessDocumentType_RefID' => 77000000000005
                     ]
                 ]
                 );
@@ -584,7 +611,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getBusinessDocumentType', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - BusinessDocumentType.pdf',
+                'outputFileName' => 'Data List - Business Document Type.pdf',
                 'parameter' => [
                     ]
                 ]
@@ -610,7 +637,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCountry', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - Country.pdf',
+                'outputFileName' => 'Data List - Country.pdf',
                 'parameter' => [
                     ]
                 ]
@@ -636,7 +663,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCountryAdministrativeAreaLevel1', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - Country Administrative Area Level 1.pdf',
+                'outputFileName' => 'Data List - Country Administrative Area Level 1.pdf',
                 'parameter' => [
                     'country_RefID' => 20000000000078
                     ]
@@ -663,7 +690,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCountryAdministrativeAreaLevel2', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - Country Administrative Area Level 2.pdf',
+                'outputFileName' => 'Data List - Country Administrative Area Level 2.pdf',
                 'parameter' => [
                     'countryAdministrativeAreaLevel1_RefID' => 21000000000001
                     ]
@@ -690,7 +717,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCountryAdministrativeAreaLevel3', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - Country Administrative Area Level 3.pdf',
+                'outputFileName' => 'Data List - Country Administrative Area Level 3.pdf',
                 'parameter' => [
                     'countryAdministrativeAreaLevel2_RefID' => 22000000000001
                     ]
@@ -714,7 +741,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'report.PDF.dataList.master.getCountryAdministrativeAreaLevel4', 
+                'report.PDF.data List.master.getCountryAdministrativeAreaLevel4', 
                 'latest', 
                 [
                 'outputFileName' => 'DataList - Country Administrative Area Level 4.pdf',
@@ -744,7 +771,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'report.PDF.dataList.master.getCurrency', 
                 'latest', 
                 [
-                'outputFileName' => 'DataList - Currency.pdf',
+                'outputFileName' => 'Data List - Currency.pdf',
                 'parameter' => [
                     ]
                 ]

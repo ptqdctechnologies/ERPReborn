@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCurrency\v1                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBusinessDocument\v1        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getCurrency\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getBusinessDocument\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCurrency                                                                                                  |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getCurrency Version 1                                               |
+    | ▪ Class Name  : getBusinessDocument                                                                                          |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getBusinessDocument Version 1                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCurrency extends \App\Http\Controllers\Controller
+    class getBusinessDocument extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,23 +56,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Currency Data List PDF Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Administrative Area Level 1 Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = $this->dataProcessing(
-                            $varUserSession,
+                            $varUserSession, 
                             [
-                            'Title' => 'Currency List',
+                            'Title' => 'Business Document List',
                             'SubTitle' => [
+                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['businessDocumentType_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getCurrency', 
+                                    'transaction.read.dataList.master.getBusinessDocument', 
                                     'latest', 
                                     [
+                                    'businessDocumentType_RefID' => $varData['parameter']['businessDocumentType_RefID'],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -127,9 +129,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         */
         private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
             {
-            $varRecordList_FirstPage = 43;
+            $varRecordList_FirstPage = 41;
             $varRecordList_OtherPages = 52;
-
+            
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
             for($i=0; $i!=count($varDataList); $i++)
@@ -146,7 +148,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             {
                             $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
                             }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
+                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                       
                         }
                     }
                 //---> Other Pages
@@ -176,9 +178,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10],
                                     ['ID', 'C', 30],
-                                    ['ISO CODE', 'C', 30],
-                                    ['NAME', 'C', 80],
-                                    ['SYMBOL', 'C', 50]
+                                    ['DOCUMENT NUMBER', 'C', 150]
                                     ]
                                 ],
                             ]                    
@@ -200,9 +200,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10],
                                 [$varDataList[$i]['sys_ID'], 'C', 30],
-                                [$varDataList[$i]['ISOCode'], 'L', 30],
-                                [$varDataList[$i]['name'], 'L', 80],
-                                [$varDataList[$i]['symbol'], 'L', 50]
+                                [$varDataList[$i]['documentNumber'], 'L', 150]
                                 ]
                             ],
                         ]                    
