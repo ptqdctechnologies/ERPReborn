@@ -571,6 +571,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getBusinessDocumentType                                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListBusinessDocumentType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYyMjYxOTd9.KN9C_Lu2XcFkD7ORxfsOc6fqAmHlq9uC66s_XdAX0bc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getBusinessDocumentType', 
+                'latest', 
+                [
+                'entities' => [
+                    'outputFileName' => 'DataList - BusinessDocumentType.pdf',
+                    'parameter' => [                        
+                        ]
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.PDF.dataList.master.getCountry                                                                    |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+

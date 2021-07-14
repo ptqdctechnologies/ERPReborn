@@ -163,7 +163,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10],
                                     ['ID', 'C', 30],
-                                    ['TYPE', 'C', 150]                        
+                                    ['TYPE', 'C', 150]
                                     ]
                                 ],
                             ]                    
@@ -185,7 +185,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10],
                                 [$varData[$i]['sys_ID'], 'C', 30],
-                                [$varData[$i]['type'], 'L', 150]                        
+                                [$varData[$i]['type'], 'L', 150]
                                 ]
                             ],
                         ]                    
