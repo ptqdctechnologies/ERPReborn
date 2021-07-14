@@ -77,7 +77,7 @@ namespace App\Helpers\ZhtHelper\Report
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function init($varUserSession, array $varParameter = null)
+        public static function init($varUserSession, string $varQRCode = null, array $varParameter = null)
             {
             try {
                 if(!$varParameter)
@@ -89,6 +89,8 @@ namespace App\Helpers\ZhtHelper\Report
                         ];                
                     }
                 $ObjPDF = new \zhtSDK\Software\PDF\TCPDF\zhtSDK(
+                    $varUserSession,
+                    $varQRCode,
                     $varParameter['PageOrientation'],
                     $varParameter['Metric'],
                     $varParameter['PaperSize'],

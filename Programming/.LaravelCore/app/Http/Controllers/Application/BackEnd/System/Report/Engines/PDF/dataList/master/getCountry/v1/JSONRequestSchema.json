@@ -24,7 +24,17 @@
             },
         "required": [ "API" ]
         },
-    "data": {    
+    "data": {
+        "type": "object",
+        "properties": {
+            "outputFileName": {
+                "type": [ "string", "null" ]
+                },
+            "parameter": {
+                "additionalProperties": false
+                }
+            },
+        "required": [ "outputFileName", "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

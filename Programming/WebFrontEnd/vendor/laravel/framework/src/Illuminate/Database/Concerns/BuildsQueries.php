@@ -3,6 +3,7 @@
 namespace Illuminate\Database\Concerns;
 
 use Illuminate\Container\Container;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\MultipleRecordsFoundException;
 use Illuminate\Database\RecordsNotFoundException;
 use Illuminate\Pagination\CursorPaginator;
@@ -282,14 +283,79 @@ trait BuildsQueries
     }
 
     /**
-     * Pass the query to a given callback.
+     * Paginate the given query using a cursor paginator.
      *
-     * @param  callable  $callback
-     * @return $this
+     * @param  int  $perPage
+     * @param  array  $columns
+     * @param  string  $cursorName
+     * @param  string|null  $cursor
+     * @return \Illuminate\Contracts\Pagination\CursorPaginator
      */
-    public function tap($callback)
+    protected function paginateUsingCursor($perPage, $columns = ['*'], $cursorName = 'cursor', $cursor = null)
     {
-        return $this->when(true, $callback);
+        $cursor = $cursor ?: CursorPaginator::resolveCurrentCursor($cursorName);
+
+        $orders = $this->ensureOrderForCursorPagination(! is_null($cursor) && $cursor->pointsToPreviousItems());
+
+        if (! is_null($cursor)) {
+            $addCursorConditions = function (self $builder, $previousColumn, $i) use (&$addCursorConditions, $cursor, $orders) {
+                if (! is_null($previousColumn)) {
+                    $builder->where($previousColumn, '=', $cursor->parameter($previousColumn));
+                }
+
+                $builder->where(function (self $builder) use ($addCursorConditions, $cursor, $orders, $i) {
+                    ['column' => $column, 'direction' => $direction] = $orders[$i];
+
+                    $builder->where(
+                        $this->getOriginalColumnNameForCursorPagination($this, $column),
+                        $direction === 'asc' ? '>' : '<',
+                        $cursor->parameter($column)
+                    );
+
+                    if ($i < $orders->count() - 1) {
+                        $builder->orWhere(function (self $builder) use ($addCursorConditions, $column, $i) {
+                            $addCursorConditions($builder, $column, $i + 1);
+                        });
+                    }
+                });
+            };
+
+            $addCursorConditions($this, null, 0);
+        }
+
+        $this->limit($perPage + 1);
+
+        return $this->cursorPaginator($this->get($columns), $perPage, $cursor, [
+            'path' => Paginator::resolveCurrentPath(),
+            'cursorName' => $cursorName,
+            'parameters' => $orders->pluck('column')->toArray(),
+        ]);
+    }
+
+    /**
+     * Get the original column name of the given column, without any aliasing.
+     *
+     * @param  \Illuminate\Database\Query\Builder|\Illuminate\Database\Eloquent\Builder  $builder
+     * @param  string  $parameter
+     * @return string
+     */
+    protected function getOriginalColumnNameForCursorPagination($builder, string $parameter)
+    {
+        $columns = $builder instanceof Builder ? $builder->getQuery()->columns : $builder->columns;
+
+        if (! is_null($columns)) {
+            foreach ($columns as $column) {
+                if (stripos($column, ' as ') !== false) {
+                    [$original, $alias] = explode(' as ', $column);
+
+                    if ($parameter === $alias) {
+                        return $original;
+                    }
+                }
+            }
+        }
+
+        return $parameter;
     }
 
     /**
@@ -339,5 +405,16 @@ trait BuildsQueries
         return Container::getInstance()->makeWith(CursorPaginator::class, compact(
             'items', 'perPage', 'cursor', 'options'
         ));
+    }
+
+    /**
+     * Pass the query to a given callback.
+     *
+     * @param  callable  $callback
+     * @return $this
+     */
+    public function tap($callback)
+    {
+        return $this->when(true, $callback);
     }
 }

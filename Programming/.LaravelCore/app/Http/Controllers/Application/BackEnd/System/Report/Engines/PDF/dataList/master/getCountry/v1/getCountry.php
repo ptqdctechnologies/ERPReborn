@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Last Update     : 2021-07-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,11 +56,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Purchase Order Data Record (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = $this->dataProcessing($varUserSession)))
+                        if(!($varDataSend = $this->dataProcessing(
+                            $varUserSession,
+                            [
+                            'Title' => 'Country List',
+                            'SubTitle' => [
+                                ]
+                            ],
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
+                                    'transaction.read.dataList.master.getCountry', 
+                                    'latest', 
+                                    [
+                                    'SQLStatement' => [
+                                        'pick' => null,
+                                        'sort' => null,
+                                        'filter' => null,
+                                        'paging' => null
+                                        ]
+                                    ]
+                                    )['data'],
+                            \App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession)
+                            )))
                             {
                             throw new \Exception();
                             }
@@ -91,94 +113,104 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Last Update     : 2021-07-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (array)  varDataHeader ► Data Header (Optional)                                                                   |
+        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
+        |      ▪ (string) varQRCode ► QR Code (Optional)                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession)
+        private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
             {
-            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
-            
-            $ObjPDF->SetTitle('Country List Report');
-            
-            $ObjPDF->AddPage();
-            $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
-            $ObjPDF->zhtSetContent_SubTitle($varUserSession, 'No : -');
-            $ObjPDF->zhtSetContent_VerticalSpace($varUserSession);
+            $varRecordList_FirstPage = 43;
+            $varRecordList_OtherPages = 52;
 
-            $ObjPDF->zhtSetContent_TableHead(
-                $varUserSession,
-                [
-                'Coordinat' => [
-                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                    ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
-                    ],
-                'Objects' =>
-                    [
+            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
+            $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
+            for($i=0; $i!=count($varDataList); $i++)
+                {                
+                //---> First Page
+                if(($ObjPDF->PageNo()) == 0)
+                    {
+                    $j = ($i % $varRecordList_FirstPage); 
+                    if($j == 0)
+                        {
+                        $ObjPDF->AddPage();
+                        $ObjPDF->zhtSetContent_Title($varUserSession, strtoupper($varDataHeader['Title']));
+                        for($k=0; $k!=count($varDataHeader['SubTitle']); $k++)
+                            {
+                            $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
+                            }
+                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
+                        }
+                    }
+                //---> Other Pages
+                else
+                    {
+                    $j = (($i-$varRecordList_FirstPage) % $varRecordList_OtherPages);
+                    if($j == 0)
+                        {
+                        $ObjPDF->AddPage();
+                        }
+                    }
+
+                //---> Every Pages
+                if($j == 0)
+                    {
+                    $ObjPDF->zhtSetContent_TableHead(
+                        $varUserSession,
                         [
-                        'CoordinatOffset' => [0, 0],
-                        'Cells' => [
-                            ['NO', 10],
-                            ['ID', 30],
-                            ['INDONESIAN NAME', 75, 30],
-                            ['INTERNATIONAL NAME', 75, 20]                        
-                            ]
-                        ],
-                        [
-                        'CoordinatOffset' => [0, 5],
-                        'Cells' => [
-                            ['NO', 10],
-                            ['<BLANK_CELL>', 30],
-                            ['INDONESIAN NAME', 75, 30],
-                            ['INTERNATIONAL NAME', 75, 20]                        
-                            ]
+                        'Coordinat' => [
+                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
+                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                            ],
+                        'Objects' =>
+                            [
+                                [
+                                'CoordinatOffset' => [0, 0],
+                                'Cells' => [
+                                    ['NO', 'C', 10],
+                                    ['ID', 'C', 30],
+                                    ['INDONESIAN NAME', 'C', 75],
+                                    ['INTERNATIONAL NAME', 'C', 75]
+                                    ]
+                                ],
+                            ]                    
                         ]
-                    ]                    
-                ]
-                );
-            
-            
+                        );
+                    }
 
-
-            //$ObjPDF->zhtSetContent_VerticalSpace($varUserSession);
-            
-            $ObjPDF->SetXY($ObjPDF->GetX(), $ObjPDF->GetY());
-            $ObjPDF->Cell(0, 10, 'xxx', 1, false, 'C');
-            
-            
-            
-            $ObjPDF->AddPage();
-            $ObjPDF->zhtSetContent_Title($varUserSession, 'COUNTRY LIST');
-
-
-            
-            /*
-            $ObjPDF->SetXY(($ObjPDF->zhtGetContentMargins($varUserSession))['left'], ($ObjPDF->zhtGetContentMargins($varUserSession))['top']);
-            $ObjPDF->SetFont('helvetica', 'B', 20);
-            $ObjPDF->Cell(0, 10, 'COUNTRY LIST', 0, false, 'C');
-*/            
-
-            $ObjPDF->Cell(0, 10, $ObjPDF->GetY(), 0, false, 'C');
-            
-            
-            /*
-            for($i=0; $i!=11; $i++)
-                {
-                //$ObjPDF->Cell(0, 15, 'xxx');
-                $ObjPDF->zhtGetContentMargins($varUserSession);
-                $ObjPDF->AddPage();
+                $ObjPDF->zhtSetContent_TableContent(
+                    $varUserSession,
+                    [
+                    'Coordinat' => [
+                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
+                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                        ],
+                    'Objects' =>
+                        [
+                            [
+                            'CoordinatOffset' => [0, 0],
+                            'Cells' => [
+                                [$i+1, 'C', 10],
+                                [$varDataList[$i]['sys_ID'], 'C', 30],
+                                [$varDataList[$i]['indonesianName'], 'L', 75],
+                                [$varDataList[$i]['internationalName'], 'L', 75]
+                                ]
+                            ],
+                        ]                    
+                    ]
+                    );
                 }
-            //$ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
-            */    
 
-            
-            //$ObjPDF->Write(0, 'Hello World');
-            
+            $ObjPDF->zhtSetContent_HorizontalLine($varUserSession);
+
+            //---> Return Value
             $varReturn = [
                 'encodeMethod' => 'Base64',
                 'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_PDFData($varUserSession, $ObjPDF)
