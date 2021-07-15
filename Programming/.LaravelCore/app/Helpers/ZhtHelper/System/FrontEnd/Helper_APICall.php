@@ -20,6 +20,37 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserSessionByAPIWebToken                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Description     : Mendapatkan User Session berdasarkan API Web Token                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API Web Token                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getUserSessionByAPIWebToken($varUserSession, string $varAPIWebToken)
+            {
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                //\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varUserSession,
+                $varAPIWebToken, 
+                'environment.general.session.getData', 
+                'latest', 
+                [
+                ]
+                );
+            $varReturn = $varData['data']['userLoginSessionID'];
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIAuthentication                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -478,6 +509,85 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 */
+            
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIGatewayReport                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Description     : Memanggil API Report Gateway                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setCallAPIGatewayReport($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData = null)
+            {
+            try {
+                if(!$varData['outputFileName'])
+                    {
+                    $varOutputFileName = 'output.pdf';
+                    }
+                else
+                    {
+                    $varOutputFileName = $varData['outputFileName'];
+                    }
+
+                $varUserSession = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getUserSessionByAPIWebToken(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $varAPIWebToken);
+
+                $varDataReturn = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    $varUserSession,
+                    $varAPIWebToken, 
+                    $varAPIKey,
+                    $varAPIVersion,
+                    $varData
+                    );
+                
+                $varPDFStreamPlain = null;
+                switch($varDataReturn['data']['encodeMethod'])
+                    {
+                    case 'Base64':
+                        {
+                        $varPDFStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                            $varUserSession,
+                            $varDataReturn['data']['encodedStreamData']
+                            );
+                        break;
+                        }
+                    default:
+                        {
+                        throw new \Exception('encoding method not recognized');
+                        break;
+                        }
+                    }
+                
+                \App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay(
+                    $varUserSession, 
+                    $varPDFStreamPlain, 
+                    $varOutputFileName
+                    );
+                die();
+                } 
+            catch (\Exception $ex) {
+                $varErrorMessage = $ex->getMessage();
+                $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                    $varUserSession, 
+                    500, 
+                    $varErrorMessage
+                    );
+                return $varReturn;
+                }
+            }
         }
     }
 

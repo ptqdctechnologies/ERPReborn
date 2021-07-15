@@ -1,5 +1,65 @@
 # CHANGELOG
 
+## 3.185.13 - 2021-07-14
+
+* `Aws\ACM` - Added support for RSA 3072 SSL certificate import
+* `Aws\DatabaseMigrationService` - Release of feature needed for ECA-Endpoint settings. This allows customer to delete a field in endpoint settings by using --exact-settings flag in modify-endpoint api. This also displays default values for certain required fields of endpoint settings in describe-endpoint-settings api.
+* `Aws\Glue` - Add support for Event Driven Workflows
+* `Aws\HealthLake` - General availability for Amazon HealthLake. StartFHIRImportJob and StartFHIRExportJob APIs now require AWS KMS parameter. For more information, see the Amazon HealthLake Documentation https://docs.aws.amazon.com/healthlake/index.html.
+* `Aws\Lightsail` - This release adds support for the Amazon Lightsail object storage service, which allows you to create buckets and store objects.
+* `Aws\WellArchitected` - This update provides support for Well-Architected API users to mark answer choices as not applicable.
+
+## 3.185.12 - 2021-07-13
+
+* `Aws\` - Removes a broken smoke test for device farms
+* `Aws\AmplifyBackend` - Added Sign in with Apple OAuth provider.
+* `Aws\DevOpsGuru` - Add paginator for GetCostEstimation
+* `Aws\DirectConnect` - This release adds a new filed named awsLogicalDeviceId that it displays the AWS Direct Connect endpoint which terminates a physical connection's BGP Sessions.
+* `Aws\LexModelBuildingService` - Customers can now migrate bots built with Lex V1 APIs to V2 APIs. This release adds APIs to initiate and manage the migration of a bot.
+* `Aws\Pricing` - Documentation updates for api.pricing
+* `Aws\Redshift` - Release new APIs to support new Redshift feature - Authentication Profile
+* `Aws\SSM` - Changes to OpsCenter APIs to support a new feature, operational insights.
+
+## 3.185.11 - 2021-07-12
+
+* `Aws\EKS` - Documentation updates for Wesley to support the parallel node upgrade feature.
+* `Aws\kendra` - Amazon Kendra now supports Principal Store
+
+## 3.185.10 - 2021-07-09
+
+* `Aws\FraudDetector` - This release adds support for ML Explainability to display model variable importance value in Amazon Fraud Detector.
+* `Aws\MediaConvert` - MediaConvert now supports color, style and position information passthrough from 608 and Teletext to SRT and WebVTT subtitles. MediaConvert now also supports Automatic QVBR quality levels for QVBR RateControlMode.
+* `Aws\SageMaker` - Releasing new APIs related to Tuning steps in model building pipelines.
+
+## 3.185.9 - 2021-07-08
+
+* `Aws\DevOpsGuru` - Add AnomalyReportedTimeRange field to include open and close time of anomalies.
+* `Aws\EKS` - Added waiters for EKS FargateProfiles.
+* `Aws\FMS` - AWS Firewall Manager now supports route table monitoring, and provides remediation action recommendations to security administrators for AWS Network Firewall policies with misconfigured routes.
+* `Aws\MediaTailor` - Add ListAlerts for Channel, Program, Source Location, and VOD Source to return alerts for resources.
+* `Aws\Outposts` - Added property filters for listOutposts
+* `Aws\SSMContacts` - Updated description for CreateContactChannel contactId.
+
+## 3.185.8 - 2021-07-07
+
+* `Aws\Chime` - Releasing new APIs for AWS Chime MediaCapturePipeline
+* `Aws\CloudFront` - Amazon CloudFront now provides two new APIs, ListConflictingAliases and AssociateAlias, that help locate and move Alternate Domain Names (CNAMEs) if you encounter the CNAMEAlreadyExists error code.
+* `Aws\EC2` - This release adds resource ids and tagging support for VPC security group rules.
+* `Aws\IAM` - Documentation updates for AWS Identity and Access Management (IAM).
+* `Aws\IoTSiteWise` - This release add storage configuration APIs for AWS IoT SiteWise.
+* `Aws\MQ` - adds support for modifying the maintenance window for brokers.
+* `Aws\STS` - Documentation updates for AWS Security Token Service.
+* `Aws\StorageGateway` - Adding support for oplocks for SMB file shares, S3 Access Point and S3 Private Link for all file shares and IP address support for file system associations
+
+## 3.185.7 - 2021-07-06
+
+* `Aws\EKS` - Adding new error code UnsupportedAddonModification for Addons in EKS
+* `Aws\Lambda` - Added support for AmazonMQRabbitMQ as an event source. Added support for VIRTUAL_HOST as SourceAccessType for streams event source mappings.
+* `Aws\Macie2` - Sensitive data findings in Amazon Macie now include enhanced location data for JSON and JSON Lines files
+* `Aws\SNS` - Documentation updates for Amazon SNS.
+* `Aws\imagebuilder` - Adds support for specifying parameters to customize components for recipes. Expands configuration of the Amazon EC2 instances that are used for building and testing images, including the ability to specify commands to run on launch, and more control over installation and removal of the SSM agent.
+* `Aws\mgn` - Bug fix: Remove not supported EBS encryption type "NONE"
+
 ## 3.185.6 - 2021-07-02
 
 * `Aws\EC2` - This release removes network-insights-boundary

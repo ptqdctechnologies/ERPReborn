@@ -12,6 +12,41 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testPDF()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            
+            
+            $x = new \zhtSDK\Software\PDF\TCPDF\zhtSDK($varUserSession);
+            
+            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
+            
+            $ObjPDF->SetCreator(PDF_CREATOR);
+            $ObjPDF->SetAuthor('Our Code World');
+            $ObjPDF->AddPage();
+            $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
+                
+
+            //echo is_file(getcwd().'/../vendor/elibyy/tcpdf-laravel/src/TCPDF.php');
+            
+            //$ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession);
+            
+            //$ObjPDF->SetTitle('Hello World');
+            //$ObjPDF->AddPage();
+           // $ObjPDF->Write(0, 'Hello World');
+            
+            //echo $varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
+            
+            //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncode_PDFData($varUserSession, $ObjPDF);
+            
+            //echo $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONDecode_PDFData($varUserSession, $varReturn);
+            
+            
+            //$varReturn = \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $ObjPDF);
+            //\App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay($varUserSession, $varReturn, 'xxx.pdf');
+            }
+            
+            
         public function testClass()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
@@ -41,7 +76,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             
             /*          
-            $x = (new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+            $x = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
                     $varUserSession,
                     ))->getDataAttendanceFromLocalDatabase(
                         '/zhtConf/tmp/download/SwingBarrierGate.mdb',
@@ -428,21 +463,21 @@ dd($x);
             
             
             
-//            $x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
-//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
-//            $x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
+//            $x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.1.203', 4370, 'AEYU202860040');
+//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.10.225', 4370, '0011142201014');
+//            $x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.1.204', 4370, '2065682450035');
 //            $y = $x->getDataAttendance('+07', '2020-01-01');
 //            var_dump($y);
 //            $y = $x->getDeviceSerialNumber();
 
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
-//            $x = new \zhtSDK\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
+//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.111', 4370);
+//            $x = new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK($varUserSession, '192.168.16.112', 14370);
 //            echo  $x->getDeviceSerialNumber()."<br><br>";
 //            echo  $x->getDeviceTime()."<br><br>";
             
             
-//$x = new \zhtSDK\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
-//$x = new \zhtSDK\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
+//$x = new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK($varUserSession, '192.168.16.111', 4370, 'AEYU202860040');   
+//$x = new \zhtSDK\Device\ALBox\FingerprintAttendance\FP800\zhtSDK($varUserSession, '192.168.16.111', 4370, '0011142201014');
 //$y = $x->getDeviceSerialNumber();
 
 //            $y = $x->getDataAttendance();

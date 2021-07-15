@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2.5",
         "dragonmantank/cron-expression": "^3.0",
+        "elibyy/tcpdf-laravel": "^8.1",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -47,10 +48,11 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "vendor/zhtSDK/ALBox/FingerprintAttendance/FP800",
-            "vendor/zhtSDK/Goodwin/SwingGateBarrier/ServoSW01",
-            "vendor/zhtSDK/Solution/FingerprintAttendance/x601",
-            "vendor/zhtSDK/ZKTeco/PersonAttendance/InBio260"
+            "vendor/zhtSDK/Device/ALBox/FingerprintAttendance/FP800",
+            "vendor/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01",
+            "vendor/zhtSDK/Device/Solution/FingerprintAttendance/x601",
+            "vendor/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260",
+            "vendor/zhtSDK/Software/PDF/TCPDF"
         ]
     },
     "autoload-dev": {
