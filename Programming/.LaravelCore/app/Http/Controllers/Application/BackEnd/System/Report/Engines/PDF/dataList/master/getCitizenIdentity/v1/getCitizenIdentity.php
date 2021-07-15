@@ -177,11 +177,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10, $varCellHeight],
                                     ['ID', 'C', 30, $varCellHeight],
-                                    ['PERSON NAME', 'C', 25, $varCellHeight],
+                                    ['PERSON NAME', 'C', 30, $varCellHeight],
                                     ['PRINTED PERSON NAME', 'C', 25, $varCellHeight],
-                                    ['IDENTITY NUMBER', 'C', 28, $varCellHeight],
+                                    ['IDENTITY NUMBER', 'C', 30, $varCellHeight],
                                     ['GENDER', 'C', 15, $varCellHeight],
-                                    ['BIRTH PLACE AND DATE', 'C', 20, $varCellHeight],
+                                    ['BIRTH PLACE AND DATE', 'C', 30, $varCellHeight],
+                                    ['RELIGION', 'C', 20, $varCellHeight],
                                     ]
                                 ],
                             ]                    
@@ -190,9 +191,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                     }
 
                 $varCellHeight = 11;
-                $varDataList[$i]['gender'] = 'Wanita';
-                $varDataList[$i]['birthPlace'] = 'Jakarta Pusat aja';
-                $varDataList[$i]['birthDate'] = '27-21-1999';
+                //$varDataList[$i]['gender'] = 'Wanita';
+                //$varDataList[$i]['birthPlace'] = 'Jakarta Pusat aja';
+                //$varDataList[$i]['birthDate'] = '27-21-1999';
                 $ObjPDF->zhtSetContent_TableContent(
                     $varUserSession,
                     [
@@ -207,11 +208,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10, $varCellHeight],
                                 [$varDataList[$i]['sys_ID'], 'C', 30, $varCellHeight],
-                                [$varDataList[$i]['personName'], 'L', 25, $varCellHeight],
+                                [$varDataList[$i]['personName'], 'L', 30, $varCellHeight],
                                 [$varDataList[$i]['printedPersonName'], 'L', 25, $varCellHeight],
-                                [$varDataList[$i]['identityNumber'], 'L', 28, $varCellHeight],
+                                [$varDataList[$i]['identityNumber'], 'L', 30, $varCellHeight],
                                 [$varDataList[$i]['gender'], 'L', 15, $varCellHeight],
-                                [($varDataList[$i]['birthPlace'] ? $varDataList[$i]['birthPlace'].','.chr(10) : '').($varDataList[$i]['birthDate'] ? $varDataList[$i]['birthDate'] : ''), 'L', 20, $varCellHeight],
+                                [($varDataList[$i]['birthPlace'] ? $varDataList[$i]['birthPlace'].','.chr(10) : '').($varDataList[$i]['birthDate'] ? $varDataList[$i]['birthDate'] : ''), 'L', 30, $varCellHeight],
+                                [$varDataList[$i]['religion'], 'L', 20, $varCellHeight],
                                 
                                 
                                 //['Jakarta Pusat sebelah sono,'.chr(10).' 27-10-1981', 'L', 20, $varCellHeight],

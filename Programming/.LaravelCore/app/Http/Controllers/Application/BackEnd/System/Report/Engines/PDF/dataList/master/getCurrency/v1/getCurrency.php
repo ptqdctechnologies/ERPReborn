@@ -178,7 +178,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     ['ID', 'C', 30],
                                     ['ISO CODE', 'C', 30],
                                     ['NAME', 'C', 80],
-                                    ['SYMBOL', 'C', 50]
+                                    ['SYMBOL', 'C', 40]
                                     ]
                                 ],
                             ]                    
@@ -202,7 +202,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 [$varDataList[$i]['sys_ID'], 'C', 30],
                                 [$varDataList[$i]['ISOCode'], 'L', 30],
                                 [$varDataList[$i]['name'], 'L', 80],
-                                [$varDataList[$i]['symbol'], 'L', 50]
+                                [$varDataList[$i]['symbol'], 'L', 40, null, null, null, null, ['freeserif', '', 8]]
                                 ]
                             ],
                         ]                    
