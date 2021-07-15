@@ -354,8 +354,9 @@ namespace zhtSDK\Software\PDF\TCPDF
             $this->SetFont('helvetica', '', 8);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
             
-            $this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
-
+            //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
+            $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
+            
             $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
 
@@ -402,7 +403,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                 }
             $this->SetFont('helvetica', 'B', 8);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
-            $this->Cell($varCellWidth, $varCellHeight, $varCaption, 1, false, $varAlign, true, '', '', '', '', '', 'M');
+            //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 1, false, $varAlign, true, '', '', '', '', '', 'M');
+            $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 1, $varAlign, true, 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
 
             $this->zhtSetContentCoordinate_CurrentPosition($varUserSession);
             }
