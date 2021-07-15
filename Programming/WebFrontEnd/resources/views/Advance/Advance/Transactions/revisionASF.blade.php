@@ -2,9 +2,6 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getManager')
-@include('getFunction.getCurrency')
-@include('getFunction.getFinanceStaff')
 @include('Advance.Advance.Functions.PopUp.searchArf')
 
 <div class="content-wrapper">
@@ -15,9 +12,9 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <div class="card-header"> 
+                <div class="card-header">
                   <label class="card-title">
-                    Create New ASF
+                    Create New Settelement
                   </label>
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -25,7 +22,7 @@
                     </button>
                   </div>
                 </div>
-                @include('Advance.Advance.Functions.Header.headerAsfRevision')
+                @include('Advance.Advance.Functions.Header.headerAsf')
                 <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
                   <i class="fa fa-times" aria-hidden="true">Reset</i>
                 </button>
@@ -37,7 +34,7 @@
       </div>
     </div>
 
-    <div class="col-12">
+    <div class="col-12 tableArfDetail">
       <div class="card">
         <div class="card-header">
           <label class="card-title">
@@ -58,7 +55,7 @@
           <div class="card">
             <div class="card-header">
               <label class="card-title">
-              Detail Settelement
+                Detail Settelement
               </label>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -87,19 +84,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td><label>Project Code</label></td>
-                        <td>
-                          <div class="input-group">
-                            <input readonly name="project_code" id="project_code" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td>
-                        <td>
-                          <div class="input-group">
-                            <input readonly name="project_code2" id="project_code2" style="border-radius:0;" type="text" class="form-control">
-                          </div>
-                        </td>
-                      </tr>
+
                     </table>
                   </div>
                 </div>
@@ -108,19 +93,33 @@
                   <div class="form-group">
                     <table>
                       <tr>
-                        <td><label>Site Code</label></td>
+                        <td><label>Project Code</label></td>
                         <td>
                           <div class="input-group">
-                            <input readonly name="site_code" id="site_code" style="border-radius:0;" type="text" class="form-control">
+                            <input readonly name="projectcode" id="projectcode" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                         <td>
                           <div class="input-group">
-                            <input readonly name="site_code2" id="site_code2" style="border-radius:0;" type="text" class="form-control">
+                            <input readonly name="projectcode2" id="projectcode2" style="border-radius:0;" type="text" class="form-control">
                           </div>
                         </td>
                       </tr>
+
                       <tr>
+                        <td><label>Site Code</label></td>
+                        <td>
+                          <div class="input-group">
+                            <input readonly name="sitecode" id="sitecode" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input readonly name="sitecode2" id="sitecode2" style="border-radius:0;" type="text" class="form-control">
+                          </div>
+                        </td>
+                      </tr>
+                      <!-- <tr>
                         <td><label>CFS Code</label></td>
                         <td>
                           <div class="input-group">
@@ -130,7 +129,7 @@
                         <td>
                           <div id="iconCfsCode" style="color:red;margin-left:5px;"></div>
                         </td>
-                      </tr>
+                      </tr> -->
                     </table>
                   </div>
                 </div>
@@ -159,7 +158,7 @@
                         </td>
                       </tr>
                       <tr>
-                        <td><label>Total ASF</label></td>
+                        <td><label>Total Settelement</label></td>
                         <td>
                           <div class="input-group">
                             <input readonly name="total_asf" id="total_asf" style="border-radius:0;" type="text" class="form-control">
@@ -215,7 +214,7 @@
                           </div>
                         </td>
                         <td>
-                          <div id="iconQtyExpense" style="color:red;margin-left:5px;"></div>
+                          <div id="iconQtyExpense" style="color: red;margin-left:5px;"></div>
                         </td>
                       </tr>
                       <tr>
@@ -231,7 +230,7 @@
                           </div>
                         </td>
                         <td>
-                          <div id="iconPriceExpense" style="color:red;margin-left:5px;"></div>
+                          <div id="iconPriceExpense" style="color: red;margin-left:5px;"></div>
                         </td>
                       </tr>
                       <tr>
@@ -275,7 +274,7 @@
                           </div>
                         </td>
                         <td>
-                          <div id="iconQtyAmount" style="color:red;margin-left:5px;"></div>
+                          <div id="iconQtyAmount" style="color: red;margin-left:5px;"></div>
                         </td>
                       </tr>
                       <tr>
@@ -291,7 +290,7 @@
                           </div>
                         </td>
                         <td>
-                          <div id="iconPriceAmount" style="color:red;margin-left:5px;"></div>
+                          <div id="iconPriceAmount" style="color: red;margin-left:5px;"></div>
                         </td>
                       </tr>
                       <tr>
@@ -313,7 +312,10 @@
                   <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
                     <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
                   </button>
-                  <a class="btn btn-success btn-sm float-right" href="javascript:validateFormDetailAsf()" id="addAsfListCart"><i class="fas fa-plus" aria-hidden="true">Add to List Cart</i></a>
+
+                  <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
+                    <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                  </button>
                 </div>
               </div>
             </div>
@@ -348,17 +350,15 @@
               <table id="tableAmountDueto" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Action</th>
                     <th>No Trans</th>
                     <th>Product ID</th>
                     <th>Name Material</th>
-                    <th>Unit</th>
+                    <th>UOM</th>
                     <th>Unit Price</th>
                     <th>QTY</th>
-                    <th>Total Price</th>
+                    <th>Total</th>
                     <th>Description</th>
-                    <th>CFS Code</th>
                   </tr>
                 </thead>
               </table>
@@ -387,7 +387,6 @@
               <table id="tableExpenseClaim" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Action</th>
                     <th>No Trans</th>
                     <th>Product ID</th>
@@ -395,9 +394,8 @@
                     <th>Unit</th>
                     <th>Unit Price</th>
                     <th>QTY</th>
-                    <th>Total Price</th>
+                    <th>Total</th>
                     <th>Description</th>
-                    <th>CSF Code</th>
                   </tr>
                 </thead>
               </table>

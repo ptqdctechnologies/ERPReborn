@@ -84,6 +84,14 @@
                           </div>
                         </td>
                       </tr>
+
+                    </table>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <table>
                       <tr>
                         <td><label>Project Code</label></td>
                         <td>
@@ -97,13 +105,7 @@
                           </div>
                         </td>
                       </tr>
-                    </table>
-                  </div>
-                </div>
 
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <table>
                       <tr>
                         <td><label>Site Code</label></td>
                         <td>
@@ -117,7 +119,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
+                      <!-- <tr>
                         <td><label>CFS Code</label></td>
                         <td>
                           <div class="input-group">
@@ -127,7 +129,7 @@
                         <td>
                           <div id="iconCfsCode" style="color:red;margin-left:5px;"></div>
                         </td>
-                      </tr>
+                      </tr> -->
                     </table>
                   </div>
                 </div>
@@ -314,7 +316,7 @@
                   <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
                   </button>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -348,17 +350,15 @@
               <table id="tableAmountDueto" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Action</th>
                     <th>No Trans</th>
                     <th>Product ID</th>
                     <th>Name Material</th>
-                    <th>Unit</th>
+                    <th>UOM</th>
                     <th>Unit Price</th>
                     <th>QTY</th>
-                    <th>Total Price</th>
+                    <th>Total</th>
                     <th>Description</th>
-                    <th>CFS Code</th>
                   </tr>
                 </thead>
               </table>
@@ -387,7 +387,6 @@
               <table id="tableExpenseClaim" class="table table-head-fixed text-nowrap table-striped">
                 <thead>
                   <tr>
-                    <th>No</th>
                     <th>Action</th>
                     <th>No Trans</th>
                     <th>Product ID</th>
@@ -395,9 +394,8 @@
                     <th>Unit</th>
                     <th>Unit Price</th>
                     <th>QTY</th>
-                    <th>Total Price</th>
+                    <th>Total</th>
                     <th>Description</th>
-                    <th>CSF Code</th>
                   </tr>
                 </thead>
               </table>

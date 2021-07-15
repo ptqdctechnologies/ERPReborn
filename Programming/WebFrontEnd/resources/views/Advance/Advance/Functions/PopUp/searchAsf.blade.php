@@ -66,7 +66,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="Q00018 {{ $i }}" data-name="Project Name {{ $i }}">Q00018 {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsf" data-id="ARF-00{{ $i }}" data-name="Project Name {{ $i }}">ARF-00{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>

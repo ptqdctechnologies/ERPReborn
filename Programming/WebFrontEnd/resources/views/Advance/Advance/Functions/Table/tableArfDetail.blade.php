@@ -5,10 +5,10 @@
                 <th>No Trans</th>
                 <th>Product Id</th>
                 <th>Name Material</th>
-                <th>Unit</th>
+                <th>UOM</th>
                 <th>Unit Price</th>
                 <th>Qty</th>
-                <th>Total Price</th>
+                <th>Total</th>
                 <th>Currency</th>
                 <th>Descirption</th>
                 <th>Available</th>

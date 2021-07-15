@@ -60,26 +60,28 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-name="Project Name {{ $i }}">Trano {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">ARF-000{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-projectId="projeck_id {{ $i }}">Project ID {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">P000{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-projectName="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Besi {{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id="trano {{ $i }}" data-siteCode="site_code {{ $i }}">Site Code {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">S000{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
-                                                <p data-siteName="site_name {{ $i }}">Site Name {{$i}}</p>
+                                                <span class="tag tag-success">
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Test {{$i}}</p>
+                                                </span>
                                             </td>
                                             </tr>
                                             @endfor
@@ -169,14 +171,16 @@
         $(".klikSearchArf").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#arfNumberAsf").val(code);
+            $("#arfNumberAsf").val($this.data("id1"));
+            $("#hideProjectId").val($this.data("id2"));
+            $("#hideProjectName").val($this.data("id3"));
+            $("#hideSiteCode").val($this.data("id4"));
+            $("#hideSiteName").val($this.data("id5"));
+            
 
             //Batas
 
             $("#arfNumberAsf").prop("disabled", true);
-
             $("#requester").val("requester 1");
             $("#managerAsfUid").val("Manager 1");
             $("#managerAsfName").val("Manager Detail 1");
@@ -184,8 +188,8 @@
             $("#financeUid").val("finance 1");
             $("#financeName").val("Finance Detail 1");
             $("#remark").val("Remark 1");
-            $("#total").val("100000");
-            $("#totalDetail").val("Rp");
+            $("#total").val("90000000");
+            $("#totalDetail").val("IDR");
 
             //End batas
             
@@ -204,16 +208,17 @@
                     account_number: "x",
                     internal_notes: "x",
                     request_name: "x",
-                    putProductId: "x",
-                    putProductName: "x",
-                    putQty: "x",
-                    putQtys: "x",
-                    putUom: "x",
-                    putPrice: "x",
-                    putCurrency: "x",
-                    totalArfDetails: "x",
-                    putRemark: "x",
+                    putProductId: "820001-0000",
+                    putProductName: "Salaries",
+                    putQty: "4",
+                    putQtys: "4",
+                    putUom: "Ls",
+                    putPrice: "20.000.000",
+                    putCurrency: "IDR",
+                    totalArfDetails: "80000000",
+                    putRemark: "Test",
                     filenames: "x",
+                    trano: $('#arfNumberAsf').val(),
                 }
                 datas.push(data);
             }
@@ -237,15 +242,15 @@
                         var t = $('#tableArfDetail').DataTable();
                             t.row.add( [
                                 '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
-                                '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
-                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                                '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                                '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                                '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
-                                '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
-                                '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
-                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
-                                '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                                '<span id="lastProductId">' + val.putProductId + '</span>',
+                                '<span id="lastProductName">' + val.putProductName + '</span>',
+                                '<span id="lastUom">' + val.putUom + '</span>',
+                                '<span id="lastPrice">' + val.putPrice + '</span>',
+                                '<span id="lastQty">' + val.putQtys + '</span>',
+                                '<span id="totalArfDetails">' + val.totalArfDetails + '</span>',
+                                '<span id="lastCurrency">' + val.putCurrency + '</span>',
+                                '<span id="lastRemark">' + val.putRemark + '</span>',
+                                '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-blue" style="width: 90%;"></div></div><small><center>90 %</center></small>'
                             ] ).draw();
                     });
                 },
@@ -262,35 +267,35 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("body").on("click", ".addAsf", function() {
-
+            
             $("#addAsfListCart").prop("disabled", false);
-
             $(".detailASF").show();
-
-            $("#arf_number").val("ARF-0001");
+            $("#arf_number").val($('#arfNumberAsf').val());
             $("#arf_date").val("23-02-2021");
-            $("#projectcode").val("041111101");
-            $("#projectcode2").val("PLN");
-            $("#sitecode").val("001");
-            $("#sitecode2").val("Bogor");
+            $("#projectcode").val($('#hideProjectId').val());
+            $("#projectcode2").val($('#hideProjectName').val());
+            $("#sitecode").val($('#hideSiteCode').val());
+            $("#sitecode2").val($('#hideSiteName').val());
             $("#cfs_code").val("x");
-            $("#total_arf").val("11,1000,000");
+            $("#total_arf").val($('#total').val());
             $("#total_arf2").val("IDR");
-            $("#total_asf").val("12,1000,000");
+            $("#total_asf").val($('#totalArfDetails').html());
             $("#total_asf2").val("IDR");
-            $("#balance").val("1,000,000");
+
+            var balance = $('#total').val() - $('#totalArfDetails').html();
+            $("#balance").val(balance);
             $("#balance2").val("IDR");
-            $("#qty_expense").val("0,441");
-            $("#qty_expense2").val("ls");
-            $("#price_expense").val("26,000,000");
+            $("#qty_expense").val("2");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense").val("20,000,000");
             $("#price_expense2").val("IDR");
-            $("#total_expense").val("11,789,000");
+            $("#total_expense").val("40.000.000");
             $("#total_expense2").val("IDR");
-            $("#qty_amount").val("1,441");
-            $("#qty_amount2").val("ls");
-            $("#price_amount").val("22,000,000");
+            $("#qty_amount").val("2");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount").val("20,000,000");
             $("#price_amount2").val("IDR");
-            $("#total_amount").val("18,789,000");
+            $("#total_amount").val("20.000.000");
             $("#total_amount2").val("IDR");
 
         });
