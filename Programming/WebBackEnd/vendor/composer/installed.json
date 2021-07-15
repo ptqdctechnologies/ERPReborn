@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.185.12",
-            "version_normalized": "3.185.12.0",
+            "version": "3.185.13",
+            "version_normalized": "3.185.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "65299008b7a04245bf63cd71fca8e6d4ab3728bc"
+                "reference": "2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/65299008b7a04245bf63cd71fca8e6d4ab3728bc",
-                "reference": "65299008b7a04245bf63cd71fca8e6d4ab3728bc",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128",
+                "reference": "2c66ec7eab4ce3ca93f86295ac4e0fe56ddec128",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-07-13T19:37:41+00:00",
+            "time": "2021-07-14T18:15:40+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.12"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.13"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -2218,17 +2218,17 @@
         },
         {
             "name": "monolog/monolog",
-            "version": "2.3.0",
-            "version_normalized": "2.3.0.0",
+            "version": "2.3.1",
+            "version_normalized": "2.3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Seldaek/monolog.git",
-                "reference": "df991fd88693ab703aa403413d83e15f688dae33"
+                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/df991fd88693ab703aa403413d83e15f688dae33",
-                "reference": "df991fd88693ab703aa403413d83e15f688dae33",
+                "url": "https://api.github.com/repos/Seldaek/monolog/zipball/9738e495f288eec0b187e310b7cdbbb285777dbe",
+                "reference": "9738e495f288eec0b187e310b7cdbbb285777dbe",
                 "shasum": ""
             },
             "require": {
@@ -2268,7 +2268,7 @@
                 "rollbar/rollbar": "Allow sending log messages to Rollbar",
                 "ruflin/elastica": "Allow sending log messages to an Elastic Search server"
             },
-            "time": "2021-07-05T11:34:13+00:00",
+            "time": "2021-07-14T11:56:39+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2301,7 +2301,7 @@
             ],
             "support": {
                 "issues": "https://github.com/Seldaek/monolog/issues",
-                "source": "https://github.com/Seldaek/monolog/tree/2.3.0"
+                "source": "https://github.com/Seldaek/monolog/tree/2.3.1"
             },
             "funding": [
                 {
