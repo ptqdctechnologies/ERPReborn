@@ -13,31 +13,7 @@ class procurementTransactionArf extends Controller
     public function teststores(Request $request)
     {
 
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
-        $files = [];
-        foreach ($data as $i => $v) {
-
-            foreach ($x as $file) {
-
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-
-                // $file->move(public_path('files'), $name);
-
-                $files[] = $name;
-            }
-        }
-
-        dd($files);
-
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
-        $cek = [];
-        foreach ($data as $i => $v) {
-
-            $cek[] = $v['filenames'];
-        }
-        dd($cek);
+        
     }
 
 
@@ -109,6 +85,7 @@ class procurementTransactionArf extends Controller
                 'putCurrency' => $v['putCurrency'],
                 'totalArfDetails' => $v['totalArfDetails'],
                 'putRemark' => $v['putRemark'],
+                'trano' => $v['trano'],
 
             ));
             break;
@@ -141,26 +118,6 @@ class procurementTransactionArf extends Controller
             $password
         );
         return response()->json($varData['data']['optionList'][0]['userRole']);
-        // if ($varData = "Array") {
-        //     return response()->json(array(
-        //         'code'      =>  404,
-        //         'message'   =>  "hayyyy"
-        //     ), 404);
-        // } else {
-        //     return response()->json($varData['data']['optionList']);
-        // }
-
-        // $this->validate($request, [
-
-        //     'filenames' => 'required',
-
-        //     'filenames.*' => 'required'
-
-        // ]);
-
-
-
-        // return back()->with('success', 'Data Your files has been successfully added');
     }
 
 

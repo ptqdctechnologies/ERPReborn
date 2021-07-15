@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // LOGIN
+    Route::get('/', 'Auth\LoginController@index')->name('login');
+    Route::post('login', 'Auth\LoginController@login')->name('login');
+    Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
+    Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
+    Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
 
-Route::get('/', 'Auth\LoginController@index')->name('login');
-Route::post('login', 'Auth\LoginController@login')->name('login');
-Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
-Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
-Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
 
-
-Route::group(['middleware' => 'SessionLogin'], function () {
+Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-    
     
     //Periode
     Route::resource('Periode', 'masterDataPeriode');
@@ -186,6 +184,7 @@ Route::group(['middleware' => 'SessionLogin'], function () {
 
     Route::post('revisionAsf', 'procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
 
+    Route::post('addListCartAsf', 'procurementTransactionAsf@addListCartAsf')->name('ASF.addListCartAsf');
     Route::resource('ASF', 'procurementTransactionAsf');
 
     //MASTER DATA
@@ -1264,17 +1263,6 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateMaterialProductAssembly', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateMaterialProductAssembly', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setDataUpdateMaterialProductComponent', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setDataUpdateMaterialProductComponent', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_setDataUpdateMaterialProductComponent', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_setDataUpdateMaterialProductComponent', 'webWithoutCSRF');
-
-
-
-
-
-
-
-
-
-
-
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@SendRequest', 'webWithoutCSRF');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(FINISH)-----

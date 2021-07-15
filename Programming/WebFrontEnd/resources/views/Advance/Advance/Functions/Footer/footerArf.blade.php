@@ -437,6 +437,7 @@
                     totalArfDetails: $('#totalArfDetails').val(),
                     putRemark: $('#putRemark').val(),
                     filenames: $('#filenames_' + i).val(),
+                    trano: '',
                 }
                 datas.push(data);
             }
@@ -636,7 +637,7 @@
         }
     });
 </script>
-
+ 
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {

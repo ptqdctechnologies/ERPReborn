@@ -5,6 +5,9 @@
         $("#amountCompanyCart").hide();
         $("#addAsfListCart").prop("disabled", true);
         $("#saveAsfList").prop("disabled", true);
+        $("#ManagerNameId").prop("disabled", true);
+        $("#CurrencyId").prop("disabled", true);
+        $("#FinanceId").prop("disabled", true);
     });
 </script>
 
@@ -22,26 +25,27 @@
     xx = 0; //initlal text box count
 
     $('#addAsfListCart').click(function() {
-
-        var cfs_code = document.forms["formAsf1"]["cfs_code"].value;
+        // var cfs_code = document.forms["formAsf1"]["cfs_code"].value;
         var qty_expense = document.forms["formAsf1"]["qty_expense"].value;
         var price_expense = document.forms["formAsf1"]["price_expense"].value;
         var qty_amount = document.forms["formAsf1"]["qty_amount"].value;
         var price_amount = document.forms["formAsf1"]["price_amount"].value;
-        if (cfs_code == "") {
+        // if (cfs_code == "") {
 
-            document.formAsf1.cfs_code.focus();
-            document.formAsf1.cfs_code.style.border = "1px solid red";
-            document.getElementById("iconCfsCode").style.border = "1px solid red";
-            document.getElementById("iconCfsCode").style.borderRadius = "100pt";
-            document.getElementById("iconCfsCode").style.paddingRight = "3px";
-            document.getElementById("iconCfsCode").style.paddingLeft = "8px";
-            document.getElementById("iconCfsCode").style.paddingTop = "3px";
-            document.getElementById("iconCfsCode").style.paddingBottom = "3px";
-            document.getElementById("iconCfsCode").style.width = "21px";
-            document.getElementById("iconCfsCode").innerHTML = "&#33";
+        //     document.formAsf1.cfs_code.focus();
+        //     document.formAsf1.cfs_code.style.border = "1px solid red";
+        //     document.getElementById("iconCfsCode").style.border = "1px solid red";
+        //     document.getElementById("iconCfsCode").style.borderRadius = "100pt";
+        //     document.getElementById("iconCfsCode").style.paddingRight = "3px";
+        //     document.getElementById("iconCfsCode").style.paddingLeft = "8px";
+        //     document.getElementById("iconCfsCode").style.paddingTop = "3px";
+        //     document.getElementById("iconCfsCode").style.paddingBottom = "3px";
+        //     document.getElementById("iconCfsCode").style.width = "21px";
+        //     document.getElementById("iconCfsCode").innerHTML = "&#33";
 
-        } else if (qty_expense == "") {
+        // } else 
+        
+        if (qty_expense == "") {
 
             document.formAsf1.qty_expense.focus();
             document.formAsf1.qty_expense2.focus();
@@ -86,7 +90,6 @@
             document.getElementById("iconQtyAmount").innerHTML = "&#33";
             return false;
         } else if (price_amount == "") {
-            alert('d');
             document.formAsf1.price_amount.focus();
             document.formAsf1.price_amount2.focus();
             document.formAsf1.price_amount.style.border = "1px solid red";
@@ -106,29 +109,20 @@
 
             for (var i = 1; i <= x; i++) {
                 var data = {
-                    origin_budget: "x",
-                    projectcode: "x",
-                    projectname: "x",
-                    sitecode: "x",
-                    sitecode2: "x",
-                    beneficiary: "x",
-                    bank_name: "x",
-                    account_name: "x",
-                    account_number: "x",
-                    internal_notes: "x",
-                    request_name: "x",
-                    putWorkId: "x",
-                    putWorkName: "x",
-                    putProductId: "x",
-                    putProductName: "x",
-                    putQty: "x",
-                    putQtys: "x",
-                    putUom: "x",
-                    putPrice: "x",
-                    putCurrency: "x",
-                    totalArfDetails: "x",
-                    putRemark: "x",
-                    filenames: "x",
+                    
+
+                    trano : $('#arfNumberAsf').val(),
+                    productId : $('#lastProductId').html(),
+                    nameMaterial : $('#lastProductName').html(),
+                    uom : $('#lastUom').html(),
+                    unitPriceExpense : $('#price_expense').val(),
+                    qtyExpense : $('#qty_expense').val(),
+                    totalExpense : $('#total_expense').val(),
+                    unitPriceAmount : $('#price_amount').val(),
+                    qtyAmount : $('#qty_amount').val(),
+                    totalAmount : $('#total_amount').val(),
+                    description : $('#lastRemark').html(),
+                    
                 }
                 datas.push(data);
             }
@@ -138,7 +132,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{{route("ARF.store")}}',
+                url: '{{route("ASF.addListCartAsf")}}',
                 data: json_object,
                 contentType: "application/json",
                 processData: true,
@@ -154,32 +148,28 @@
 
                         var t = $('#tableAmountDueto').DataTable();
                         t.row.add([
-                            '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
-                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
-                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
-                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
-                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
+                            '<span id="productId' + y + '">' + val.productId + '</span>',
+                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
+                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
+                            '<span id="UnitPriceExpense_' + y + '">' + val.unitPriceExpense + '</span>',
+                            '<span id="QtyExpense_' + y + '">' + val.qtyExpense + '</span>',
+                            '<span id="TotalExpense_' + y + '">' + val.totalExpense + '</span>',
+                            '<span id="Description' + y + '">' + val.description + '</span>'
                         ]).draw();
 
                         var t = $('#tableExpenseClaim').DataTable();
                         t.row.add([
-                            '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
-                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
-                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
-                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
-                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
-                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
+                            '<span id="productId' + y + '">' + val.productId + '</span>',
+                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
+                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
+                            '<span id="UnitPriceAmount_' + y + '">' + val.unitPriceAmount + '</span>',
+                            '<span id="QtyAmount' + y + '">' + val.qtyAmount + '</span>',
+                            '<span id="TotalAmount_' + y + '">' + val.totalAmount + '</span>',
+                            '<span id="Description' + y + '">' + val.description + '</span>'
                         ]).draw();
                     });
                 },
