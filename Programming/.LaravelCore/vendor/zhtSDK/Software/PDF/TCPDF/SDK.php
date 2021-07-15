@@ -315,24 +315,24 @@ namespace zhtSDK\Software\PDF\TCPDF
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : zhtSetContent_CellContent                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-15                                                                                           |
         | ▪ Description     : Fungsi Pengesetan Content - Cell Content                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varCaption ► Data                                                                                        |
-        |      ▪ (string) varAlign ► Align                                                                                         |
         |      ▪ (int)    varCellWidth ► Cell Width                                                                                |
         |      ▪ (int)    varCellHeight ► Cell Height                                                                              |
         |      ▪ (int)    varX ► X                                                                                                 |
         |      ▪ (int)    varY ► Y                                                                                                 |
         |      ▪ (array)  varColor ► Color [R,G,B]                                                                                 |
+        |      ▪ (array)  varFont ► Font [Family,Format,Size]                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function zhtSetContent_CellContent($varUserSession, string $varCaption = null, string $varAlign = null, int $varCellWidth = null, int $varCellHeight = null, int $varX = null, int $varY = null, array $varColor = null)
+        public function zhtSetContent_CellContent($varUserSession, string $varCaption = null, string $varAlign = null, int $varCellWidth = null, int $varCellHeight = null, int $varX = null, int $varY = null, array $varColor = null, array $varFont = null)
             {
             $this->SetXY(($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], ($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']);
             if(!$varAlign)
@@ -351,7 +351,11 @@ namespace zhtSDK\Software\PDF\TCPDF
                 {
                 $varColor = [230, 230, 230];
                 }
-            $this->SetFont('helvetica', '', 8);
+            if(!$varFont)
+                {
+                $varFont = ['helvetica', '', 8];
+                }
+            $this->SetFont($varFont[0], $varFont[1], $varFont[2]);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
             
             //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
@@ -365,8 +369,8 @@ namespace zhtSDK\Software\PDF\TCPDF
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : zhtSetContent_CellTitle                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-15                                                                                           |
         | ▪ Description     : Fungsi Pengesetan Content - Cell Title                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -378,11 +382,12 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (int)    varX ► X                                                                                                 |
         |      ▪ (int)    varY ► Y                                                                                                 |
         |      ▪ (array)  varColor ► Color [R,G,B]                                                                                 |
+        |      ▪ (array)  varFont ► Font [Family,Format,Size]                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function zhtSetContent_CellTitle($varUserSession, string $varCaption = null, string $varAlign = null, int $varCellWidth = null, int $varCellHeight = null, int $varX = null, int $varY = null, array $varColor = null)
+        public function zhtSetContent_CellTitle($varUserSession, string $varCaption = null, string $varAlign = null, int $varCellWidth = null, int $varCellHeight = null, int $varX = null, int $varY = null, array $varColor = null, array $varFont = null)
             {
             $this->SetXY(($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], ($this->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']);
             if(!$varAlign)
@@ -401,7 +406,11 @@ namespace zhtSDK\Software\PDF\TCPDF
                 {
                 $varColor = [255, 255, 200];
                 }
-            $this->SetFont('helvetica', 'B', 8);
+            if(!$varFont)
+                {
+                $varFont = ['helvetica', 'B', 8];
+                }
+            $this->SetFont($varFont[0], $varFont[1], $varFont[2]);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
             //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 1, false, $varAlign, true, '', '', '', '', '', 'M');
             $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 1, $varAlign, true, 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
@@ -412,20 +421,14 @@ namespace zhtSDK\Software\PDF\TCPDF
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : zhtSetContent_HorizontalLine                                                                              |
+        | ▪ Method Name     : zhtSetContent_HorizontalLine                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-14                                                                                           |
-        | ▪ Description     : Fungsi Pengesetan Content - Horizontal Line                                                               |
+        | ▪ Description     : Fungsi Pengesetan Content - Horizontal Line                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varCaption ► Data                                                                                        |
-        |      ▪ (int)    varCellWidth ► Cell Width                                                                                |
-        |      ▪ (int)    varCellHeight ► Cell Height                                                                              |
-        |      ▪ (int)    varX ► X                                                                                                 |
-        |      ▪ (int)    varY ► Y                                                                                                 |
-        |      ▪ (array)  varColor ► Color [R,G,B]                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -531,7 +534,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 6) ?  $varData['Objects'][$i]['Cells'][$j][5] : null),
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 7) ?  $varData['Objects'][$i]['Cells'][$j][6] : null),
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 8) ?  $varData['Objects'][$i]['Cells'][$j][7] : null),
-                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 9) ?  $varData['Objects'][$i]['Cells'][$j][8] : null)
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 9) ?  $varData['Objects'][$i]['Cells'][$j][8] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 10) ?  $varData['Objects'][$i]['Cells'][$j][9] : null)
                             );
 
                         $varCurrentCellY = (
@@ -610,7 +614,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 6) ?  $varData['Objects'][$i]['Cells'][$j][5] : null),
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 7) ?  $varData['Objects'][$i]['Cells'][$j][6] : null),
                             ((count($varData['Objects'][$i]['Cells'][$j]) >= 8) ?  $varData['Objects'][$i]['Cells'][$j][7] : null),
-                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 9) ?  $varData['Objects'][$i]['Cells'][$j][8] : null)
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 9) ?  $varData['Objects'][$i]['Cells'][$j][8] : null),
+                            ((count($varData['Objects'][$i]['Cells'][$j]) >= 10) ?  $varData['Objects'][$i]['Cells'][$j][9] : null)
                             );
 
                         $varCurrentCellY = (
