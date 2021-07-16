@@ -127,8 +127,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         */
         private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
             {
-            $varRecordList_FirstPage = 43;
-            $varRecordList_OtherPages = 52;
+            $varRecordList_FirstPage = 14;
+            $varRecordList_OtherPages = 17;
 
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
