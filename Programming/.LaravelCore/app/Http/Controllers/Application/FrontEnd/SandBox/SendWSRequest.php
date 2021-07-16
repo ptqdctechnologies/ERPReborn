@@ -888,33 +888,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.PDF.dataList.master.getPersonAccountEMail                                                         |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getPDFDataListPersonAccountEMail()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYzOTkzMzF9.j5joPrGCVDpggyjelJ_T470SbftpjoK8Mu2DlA-Pv_c';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.PDF.dataList.master.getPersonAccountEMail', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Person Account EMail.pdf',
-                'parameter' => [
-                    'person_RefID' => 25000000000001
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.PDF.dataList.master.getPerson                                                                     |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -931,6 +904,85 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'outputFileName' => 'Data List - Person.pdf',
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getPersonAccountEMail                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListPersonAccountEMail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYzOTkzMzF9.j5joPrGCVDpggyjelJ_T470SbftpjoK8Mu2DlA-Pv_c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getPersonAccountEMail', 
+                'latest', 
+                [
+                'outputFileName' => 'Data List - Person Account E-Mail.pdf',
+                'parameter' => [
+                    'person_RefID' => 25000000000241
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getPersonGender                                                               |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListPersonGender()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYzOTkzMzF9.j5joPrGCVDpggyjelJ_T470SbftpjoK8Mu2DlA-Pv_c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getPersonGender', 
+                'latest', 
+                [
+                'outputFileName' => 'Data List - Person Gender.pdf',
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.master.getProductType                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListProductType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYzOTkzMzF9.j5joPrGCVDpggyjelJ_T470SbftpjoK8Mu2DlA-Pv_c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.master.getProductType', 
+                'latest', 
+                [
+                'outputFileName' => 'Data List - Product Type.pdf',
                 'parameter' => [
                     ]
                 ]

@@ -3,28 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master                               |
-|                \getPersonAccountEMail\v1                                                                                         |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getPersonGender\v1            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getPersonAccountEMail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getPersonGender\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPersonAccountEMail                                                                                        |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getPersonAccountEMail Version 1                                     |
+    | ▪ Class Name  : getPersonGender                                                                                                   |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getPersonGender Version 1                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getPersonAccountEMail extends \App\Http\Controllers\Controller
+    class getPersonGender extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2021-07-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2021-07-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,25 +56,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Person Account E-Mail Data List PDF Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Person Gender Data List PDF Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = $this->dataProcessing(
-                            $varUserSession, 
+                            $varUserSession,
                             [
-                            'Title' => 'Person Account E-Mail List',
+                            'Title' => 'Person Gender List',
                             'SubTitle' => [
-                                'Person : '.(new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['person_RefID']).' ('.$varData['parameter']['person_RefID'].')'
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getPersonAccountEMail', 
+                                    'transaction.read.dataList.master.getPersonGender', 
                                     'latest', 
                                     [
-                                    'person_RefID' => $varData['parameter']['person_RefID'],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -116,7 +113,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2021-07-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -132,7 +129,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varRecordList_FirstPage = 43;
             $varRecordList_OtherPages = 52;
-            
+
             $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
             $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
             for($i=0; $i!=count($varDataList); $i++)
@@ -149,7 +146,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             {
                             $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
                             }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                       
+                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
                         }
                     }
                 //---> Other Pages
@@ -179,7 +176,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 'Cells' => [
                                     ['NO', 'C', 10],
                                     ['ID', 'C', 30],
-                                    ['E-MAIL ACCOUNT', 'C', 150]
+                                    ['NAME', 'C', 150]
                                     ]
                                 ],
                             ]                    
@@ -201,7 +198,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             'Cells' => [
                                 [$i+1, 'C', 10],
                                 [$varDataList[$i]['sys_ID'], 'C', 30],
-                                [$varDataList[$i]['account'], 'L', 150]
+                                [$varDataList[$i]['name'], 'L', 150]
                                 ]
                             ],
                         ]                    
