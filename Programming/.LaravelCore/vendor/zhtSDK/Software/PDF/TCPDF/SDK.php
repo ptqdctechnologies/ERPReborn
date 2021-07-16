@@ -9,6 +9,7 @@ namespace zhtSDK\Software\PDF\TCPDF
         private $varContentMargins;     // Content Margin diluar header dan footer
         private $varCurrentPosition;    // Save Last Coordinat
         private $varDocument;           // Document ID
+        private $varAdditionalFonts;
 
 
         /*
@@ -42,6 +43,15 @@ namespace zhtSDK\Software\PDF\TCPDF
 
             //parent::__construct(__CLASS__);
             parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
+
+            $this->setAdditionalFonts();
+            }
+            
+        private function setAdditionalFonts()
+            {
+            $this->varAdditionalFonts = null;
+            $this->setFontSubsetting(true);
+            $this->varAdditionalFonts[] = \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32); 
             }
 
 
@@ -357,7 +367,12 @@ namespace zhtSDK\Software\PDF\TCPDF
                 }
             $this->SetFont($varFont[0], $varFont[1], $varFont[2]);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
-            
+
+            $varCaption = <<<EOD
+            $varCaption
+
+            EOD;
+
             //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
             $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
             

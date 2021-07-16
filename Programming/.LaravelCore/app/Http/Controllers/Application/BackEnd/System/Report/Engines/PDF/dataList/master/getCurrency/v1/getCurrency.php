@@ -203,6 +203,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                 [$varDataList[$i]['ISOCode'], 'L', 30],
                                 [$varDataList[$i]['name'], 'L', 80],
                                 [$varDataList[$i]['symbol'], 'L', 40, null, null, null, null, ['freeserif', '', 8]]
+//                                [$varDataList[$i]['symbol'], 'L', 40, null, null, null, null, ['arialuni', '', 8]]
                                 ]
                             ],
                         ]                    
