@@ -281,8 +281,8 @@ namespace zhtSDK\Software\PDF\TCPDF
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : zhtSetContentCoordinate_CurrentPosition                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-16                                                                                           |
         | ▪ Description     : Fungsi Pengesetan Koordinat Saat Ini                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -291,11 +291,19 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function zhtSetContentCoordinate_CurrentPosition($varUserSession)
+        public function zhtSetContentCoordinate_CurrentPosition($varUserSession, int $varX = null, int $varY = null)
             {
+            if(!$varX)
+                {
+                $varX = $this->GetX();
+                }
+            if(!$varY)
+                {
+                $varY = $this->GetY();
+                }
             $this->varCurrentPosition = [
-                'X' => $this->GetX(), 
-                'Y' => $this->GetY()
+                'X' => $varX, 
+                'Y' => $varY
                 ];
             }
 

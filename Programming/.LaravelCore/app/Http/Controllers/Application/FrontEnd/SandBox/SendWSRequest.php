@@ -543,6 +543,32 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.PDF.dataList.budgeting.getBudget                                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getPDFDataListBudget()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjYzOTkzMzF9.j5joPrGCVDpggyjelJ_T470SbftpjoK8Mu2DlA-Pv_c';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayReport(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.PDF.dataList.budgeting.getBudget', 
+                'latest', 
+                [
+                'outputFileName' => 'Data List - Budget.pdf',
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.PDF.dataList.master.getBloodAglutinogenType                                                       |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
