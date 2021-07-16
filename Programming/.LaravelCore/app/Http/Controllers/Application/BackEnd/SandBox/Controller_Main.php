@@ -14,6 +14,45 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
         public function testPDF()
             {
+            //echo is_file(getcwd().'/fonts/arial-unicode-ms.ttf');
+            
+//            \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/arial-unicode-ms.ttf', 'TrueTypeUnicode', '', 32);           
+            
+            $pdf = new \TCPDF();
+            
+            $pdf->setFontSubsetting(true);
+            \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32);            
+
+$pdf->SetFont('dejavusans', '', 12); // several fonts in TCPDF/fonts work
+$pdf->SetFont('freeserif', '', 12); // several fonts in TCPDF/fonts work
+$pdf->AddPage();
+//$txt = <<<EOD
+//$txt
+//EOD;
+
+
+
+$txt = <<<EOD
+﷼
+مرحبا يا عالم
+hello world
+EOD;
+
+$txt = '﷼';
+$txt = <<<EOD
+$txt
+
+EOD;
+
+
+//$pdf->setRTL(true); // optional here, depends on the desired BASE direction
+//$pdf->Write(0, $txt, '', 0, 'C', true, 0, false, false, 0); // 'C' for centered
+$pdf->MultiCell(100, 100, $txt, 1);
+$pdf->Output('hello_world_in_Arabic.pdf', 'I');
+            
+            
+
+/*            
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
             
@@ -25,7 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $ObjPDF->SetAuthor('Our Code World');
             $ObjPDF->AddPage();
             $ObjPDF->Write(0, \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('APP_NAME'));
-                
+  */              
 
             //echo is_file(getcwd().'/../vendor/elibyy/tcpdf-laravel/src/TCPDF.php');
             

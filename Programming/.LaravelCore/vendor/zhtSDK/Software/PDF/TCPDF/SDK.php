@@ -9,6 +9,7 @@ namespace zhtSDK\Software\PDF\TCPDF
         private $varContentMargins;     // Content Margin diluar header dan footer
         private $varCurrentPosition;    // Save Last Coordinat
         private $varDocument;           // Document ID
+        private $varAdditionalFonts;
 
 
         /*
@@ -42,6 +43,15 @@ namespace zhtSDK\Software\PDF\TCPDF
 
             //parent::__construct(__CLASS__);
             parent::__construct($orientation, $unit, $format, $unicode, $encoding, $diskcache, $pdfa);
+
+            $this->setAdditionalFonts();
+            }
+            
+        private function setAdditionalFonts()
+            {
+            $this->varAdditionalFonts = null;
+            $this->setFontSubsetting(true);
+            $this->varAdditionalFonts[] = \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32); 
             }
 
 
@@ -271,8 +281,8 @@ namespace zhtSDK\Software\PDF\TCPDF
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : zhtSetContentCoordinate_CurrentPosition                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-13                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-16                                                                                           |
         | ▪ Description     : Fungsi Pengesetan Koordinat Saat Ini                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -281,11 +291,19 @@ namespace zhtSDK\Software\PDF\TCPDF
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function zhtSetContentCoordinate_CurrentPosition($varUserSession)
+        public function zhtSetContentCoordinate_CurrentPosition($varUserSession, int $varX = null, int $varY = null)
             {
+            if(!$varX)
+                {
+                $varX = $this->GetX();
+                }
+            if(!$varY)
+                {
+                $varY = $this->GetY();
+                }
             $this->varCurrentPosition = [
-                'X' => $this->GetX(), 
-                'Y' => $this->GetY()
+                'X' => $varX, 
+                'Y' => $varY
                 ];
             }
 
@@ -357,7 +375,12 @@ namespace zhtSDK\Software\PDF\TCPDF
                 }
             $this->SetFont($varFont[0], $varFont[1], $varFont[2]);
             $this->SetFillColor($varColor[0], $varColor[1], $varColor[2]);
-            
+
+            $varCaption = <<<EOD
+            $varCaption
+
+            EOD;
+
             //$this->Cell($varCellWidth, $varCellHeight, $varCaption, 0, false, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), '', '', '', '', '', 'M');
             $this->MultiCell($varCellWidth, $varCellHeight, $varCaption, 0, $varAlign, ($this->varSignTableContentRecord == 0 ? true : false), 0, $varX, $varY, true, 0, false, true, $varCellHeight, 'M');
             
