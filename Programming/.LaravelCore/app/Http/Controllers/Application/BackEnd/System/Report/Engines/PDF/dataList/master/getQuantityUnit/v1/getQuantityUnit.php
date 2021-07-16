@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getProductType\v1             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getQuantityUnit\v1            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getProductType\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getQuantityUnit\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getProductType                                                                                               |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getProductType Version 1                                            |
+    | ▪ Class Name  : getQuantityUnit                                                                                               |
+    | ▪ Description : Menangani API report.PDF.dataList.master.getQuantityUnit Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getProductType extends \App\Http\Controllers\Controller
+    class getQuantityUnit extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,14 +63,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                         if(!($varDataSend = $this->dataProcessing(
                             $varUserSession,
                             [
-                            'Title' => 'Product Type List',
+                            'Title' => 'Quantity Unit List',
                             'SubTitle' => [
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getProductType', 
+                                    'transaction.read.dataList.master.getQuantityUnit', 
                                     'latest', 
                                     [
                                     'SQLStatement' => [
