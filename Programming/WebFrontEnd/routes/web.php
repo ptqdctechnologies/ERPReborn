@@ -270,6 +270,14 @@ Route::get('showLogError', function () {
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
+| Route for API : fileHandling.upload.setStagingFiles....                                                                          |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_setStagingFiles', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_setStagingFiles', 'webWithoutCSRF');
+
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : instruction.device.fingerprintAttendance.ALBox.FP800....                                                         |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
