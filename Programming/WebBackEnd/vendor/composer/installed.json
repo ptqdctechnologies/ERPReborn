@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.185.14",
-            "version_normalized": "3.185.14.0",
+            "version": "3.185.15",
+            "version_normalized": "3.185.15.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "9faaa7f7fafe569049bbb615767d8e3fa83d9fb7"
+                "reference": "7be5e72149456b0c184908c6ae58a65c4d2c4767"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9faaa7f7fafe569049bbb615767d8e3fa83d9fb7",
-                "reference": "9faaa7f7fafe569049bbb615767d8e3fa83d9fb7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7be5e72149456b0c184908c6ae58a65c4d2c4767",
+                "reference": "7be5e72149456b0c184908c6ae58a65c4d2c4767",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-07-15T18:15:50+00:00",
+            "time": "2021-07-16T18:14:19+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.14"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.185.15"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1833,17 +1833,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.5",
-            "version_normalized": "1.6.5.0",
+            "version": "1.6.6",
+            "version_normalized": "1.6.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f"
+                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
-                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
+                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/c4228d11e30d7493c6836d20872f9582d8ba6dcf",
+                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf",
                 "shasum": ""
             },
             "require": {
@@ -1866,7 +1866,7 @@
                 "scrutinizer/ocular": "^1.5",
                 "symfony/finder": "^4.2"
             },
-            "time": "2021-06-26T11:57:13+00:00",
+            "time": "2021-07-17T17:13:23+00:00",
             "bin": [
                 "bin/commonmark"
             ],

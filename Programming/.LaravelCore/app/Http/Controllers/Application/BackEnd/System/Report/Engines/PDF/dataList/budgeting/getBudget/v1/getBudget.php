@@ -184,15 +184,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                             ]                    
                         ]
                         );
-
-                    $ObjPDF->zhtSetContentCoordinate_CurrentPosition($varUserSession, $ObjPDF->GetX(), $ObjPDF->GetY()-5);
-                            
+                           
                     $ObjPDF->zhtSetContent_TableHead(
                         $varUserSession,
                         [
                         'Coordinat' => [
                             ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
+                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']-5
                             ],
                         'Objects' =>
                             [
