@@ -2,6 +2,13 @@
 
 All notable changes of the PHPUnit 9.5 release series are documented in this file using the [Keep a CHANGELOG](https://keepachangelog.com/) principles.
 
+## [9.5.7] - 2021-07-19
+
+### Fixed
+
+* [#4720](https://github.com/sebastianbergmann/phpunit/issues/4720): PHPUnit does not verify its own PHP extension requirements
+* [#4735](https://github.com/sebastianbergmann/phpunit/issues/4735): Automated return value generation does not work for stubbed methods that return `*|false`
+
 ## [9.5.6] - 2021-06-23
 
 ### Changed
@@ -60,6 +67,7 @@ All notable changes of the PHPUnit 9.5 release series are documented in this fil
 
 * [#4535](https://github.com/sebastianbergmann/phpunit/issues/4535): `getMockFromWsdl()` does not handle methods that do not have parameters correctly
 
+[9.5.7]: https://github.com/sebastianbergmann/phpunit/compare/9.5.5...9.5.7
 [9.5.6]: https://github.com/sebastianbergmann/phpunit/compare/9.5.5...9.5.6
 [9.5.5]: https://github.com/sebastianbergmann/phpunit/compare/9.5.4...9.5.5
 [9.5.4]: https://github.com/sebastianbergmann/phpunit/compare/9.5.3...9.5.4

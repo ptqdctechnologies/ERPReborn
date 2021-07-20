@@ -23,15 +23,15 @@ varRoleName='SysEngine';
 varRolePassword='748159263';
 varCmdContainer='psql -U postgres -d postgres -c';
 echo "---> Initializing Role : "$varRoleName" With Password "$varRolePassword;
-$varCmd "$varCmdContainer \"REASSIGN OWNED BY \\\""$varRoleName"\\\" TO postgres; DROP OWNED BY \\\""$varRoleName"\\\";\"";
-$varCmd "$varCmdContainer \"DROP ROLE IF EXISTS \\\""$varRoleName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE ROLE \\\""$varRoleName"\\\" LOGIN SUPERUSER CREATEROLE CREATEDB PASSWORD '"$varRolePassword"';\"";
+#$varCmd "$varCmdContainer \"REASSIGN OWNED BY \\\""$varRoleName"\\\" TO postgres; DROP OWNED BY \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP ROLE IF EXISTS \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE ROLE \\\""$varRoleName"\\\" LOGIN SUPERUSER CREATEROLE CREATEDB PASSWORD '"$varRolePassword"';\"";
 varRoleName='SysAdmin';
 varRolePassword='748159263';
 echo "---> Initializing Role : "$varRoleName" With Password "$varRolePassword;
-$varCmd "$varCmdContainer \"REASSIGN OWNED BY \\\""$varRoleName"\\\" TO postgres; DROP OWNED BY \\\""$varRoleName"\\\";\"";
-$varCmd "$varCmdContainer \"DROP ROLE IF EXISTS \\\""$varRoleName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE ROLE \\\""$varRoleName"\\\" LOGIN SUPERUSER CREATEROLE CREATEDB PASSWORD '"$varRolePassword"';\"";
+#$varCmd "$varCmdContainer \"REASSIGN OWNED BY \\\""$varRoleName"\\\" TO postgres; DROP OWNED BY \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP ROLE IF EXISTS \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE ROLE \\\""$varRoleName"\\\" LOGIN SUPERUSER CREATEROLE CREATEDB PASSWORD '"$varRolePassword"';\"";
 echo "";
 
 varRoleName='SysEngine';
@@ -51,7 +51,7 @@ varCmdContainer='psql -U postgres -d postgres -c';
 #$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
 echo "   ---> Database Cloning : "$varDBName;
-$varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
+#$varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
 #$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
 #$varCmd "rm -rf "$varFileName;
 
@@ -158,4 +158,4 @@ varCmdContainer='psql -U postgres -d "'$varDBName'" -c';
 #$varCmd "$varCmdContainer \"DROP USER MAPPING FOR \\\"SysEngine\\\" SERVER \\\"dbExtern-MySQL-ERP-QDC\\\";\"";
 #$varCmd "$varCmdContainer \"CREATE USER MAPPING FOR \\\"SysEngine\\\" SERVER \\\"dbExtern-MySQL-ERP-QDC\\\" OPTIONS (password '748159263', username 'SysEngine');\"";
 varCmdContainer='psql -U "'$varRoleName'" -d "'$varDBName'" -c';
-#$varCmd "$varCmdContainer \"SELECT * FROM \\\"SchSysConfig\\\".\\\"FuncSys_KickStart1_ForeignSchema1\\\"('172.28.0.2', '5432');\"";
+$varCmd "$varCmdContainer \"SELECT * FROM \\\"SchSysConfig\\\".\\\"FuncSys_KickStart1_ForeignSchema1\\\"('172.28.0.2', '5432');\"";
