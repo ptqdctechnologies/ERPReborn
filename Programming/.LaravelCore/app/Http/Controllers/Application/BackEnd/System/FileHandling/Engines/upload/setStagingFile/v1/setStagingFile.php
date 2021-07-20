@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFiles\v1                   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFile\v1                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFiles\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFile\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setStagingFiles                                                                                              |
-    | ▪ Description : Menangani API fileHandling.upload.setStagingFiles Version 1                                                  |
+    | ▪ Description : Menangani API fileHandling.upload.setStagingFile Version 1                                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setStagingFiles extends \App\Http\Controllers\Controller
+    class setStagingFile extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

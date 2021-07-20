@@ -173,6 +173,77 @@ namespace App\Helpers\ZhtHelper\General
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-20                                                                                           |
+        | ▪ Description     : Mengambil Fungsi DOM Input File Content                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        |      ▪ (int)    varOffsetSeconds                                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varDOMReturnID)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
+                try {
+                    $varReturn = 
+                        '(function(varObj) {'.
+                            'var varReturn = \'\'; '.
+                            'var varObjFileList = varObj.files; '.                        
+                            'var varAccumulatedFiles = 0; '.
+                            'var varJSONDataBuilder = \'\'; '.
+                            'for(var i = 0; i < varObjFileList.length; i++)'.
+                                '{'.
+                                '(function(varObjCurrentFile, i) {'.
+                                    'var varObjFileReader = new FileReader(); '.
+                                    'varObjFileReader.onloadend = function(event) {'.
+                                        'varAccumulatedFiles++; '.
+                                        'if(varAccumulatedFiles != 1) {'.
+                                            'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                            '}'.
+                                        'var varJSONDataBuilderNew = \'{\' + '.
+                                            'String.fromCharCode(34) + \'index\' + String.fromCharCode(34) + \' : \' + (i) + \', \' + '.
+                                            'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                            'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                            '\'}\'; '.
+                                        'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
+                                        'var xmlhttp = new XMLHttpRequest(); '.
+                                        'if(varAccumulatedFiles == varObjFileList.length) '.
+                                            '{'.
+//                                            'alert(\' xxx \'); '.
+                                            'varReturn = varJSONDataBuilder;'.
+                                            '}'.
+                                        '}; '.
+                                    'varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                                    '}) (varObjFileList[i], i);'.
+                                '}'.
+                            'setTimeout((function() {if(varReturn!=\'\') {document.getElementById(\''.$varDOMReturnID.'\').value = varReturn; return varReturn;}  }), 1000);'.
+                            '})(this)';
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_MD5                                                                                    |
