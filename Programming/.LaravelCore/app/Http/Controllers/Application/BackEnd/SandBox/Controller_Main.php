@@ -11,6 +11,71 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+            
+        public function testUpload()
+            {
+            echo '<script language="javascript">'.
+                    'function xxx(varObj)'.
+                        '{'.
+                        'var varObjFileList = varObj.files; '.                        
+                        'var varAccumulatedFiles = 0; '.
+                        'var varJSONDataBuilder = ""; '.
+
+                        'for(var i = 0; i < varObjFileList.length; i++)'.
+                            '{'.
+                            '(function(varObjCurrentFile, i) {'.
+                                'var varObjFileReader = new FileReader(); '.
+                                'varObjFileReader.onloadend = function(event) {'.
+                                    'varAccumulatedFiles++; '.
+                                    'if(varAccumulatedFiles != 1) {'.
+                                        'varJSONDataBuilder = varJSONDataBuilder + ", "; '.
+                                        '}'.
+                                    //'var varFileName = varObjCurrentFile.name; '.
+                                    //'alert(varFileName.replace(/\'/g, "\\\\\'")); '.
+                                    'varJSONDataBuilder = varJSONDataBuilder + "{\"index\" : " + (i) +", \"name\" : \"" + (varObjCurrentFile.name   ) + "\", \"size\" : \"" + (varObjCurrentFile.size) + "\", \"MIME\" : \"" + ((event.target.result.split(",")[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + "\", \"extension\" : \"" + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + "\", \"contentBase64\" : \"" + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + "\"}"; '. 
+                                    'if(varAccumulatedFiles == varObjFileList.length) '.
+                                        '{'.
+                                        'varJSONDataBuilder = "{\"fileCount\" : " + varObjFileList.length + ", \"dataFiles\" : [ " + varJSONDataBuilder + " ] }";'.
+                                        'document.getElementById("MyDiv").innerHTML = varJSONDataBuilder; '.
+                                        'alert("done");'.
+                                        '}'.
+                                    '}; '.
+                                'varObjFileReader.readAsDataURL(varObjCurrentFile);'.
+                                '})(varObjFileList[i], i);'.
+                            '}'.
+                        '}'.
+                    '</script>';
+
+            echo '<form id="upload-form" action="handler.php" method="POST">';
+            echo    '<input id="file-select-input" multiple="multiple" type="file" onChange="javascript:xxx(this);" />';
+            echo    '<div id="MyDiv" />';
+            echo    '<button id="upload-button">Upload</button>';
+            echo '</form>';
+            }
+
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+
 
         public function testPDF()
             {

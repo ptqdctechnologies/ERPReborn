@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testPDF', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testPDF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testUpload', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testUpload');
 
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testModelDatabase', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testModelDatabase');

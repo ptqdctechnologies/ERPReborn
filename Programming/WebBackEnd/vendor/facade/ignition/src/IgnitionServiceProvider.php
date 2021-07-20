@@ -490,9 +490,18 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function setupQueue(QueueManager $queue)
     {
-        $queue->looping(function () {
+        // Reset before executing a queue job to make sure the job's log/query/dump recorders are empty.
+        // When using a sync queue this also reports the queued reports from previous exceptions.
+        $queue->before(function () {
             $this->resetFlare();
         });
+
+        // Send queued reports (and reset) after executing a queue job.
+        $queue->after(function () {
+            $this->resetFlare();
+        });
+
+        // Note: the $queue->looping() event can't be used because it's not triggered on Vapor
     }
 
     protected function setupOctane()
