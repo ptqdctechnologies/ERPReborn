@@ -380,6 +380,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         {
                         $varData = '{}';
                         }
+                    $varData = htmlspecialchars_decode($varData);
                     $varReturn = 
                         'function() '.
                             '{ '.
