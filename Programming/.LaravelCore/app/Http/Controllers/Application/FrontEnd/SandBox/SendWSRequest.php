@@ -266,7 +266,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_setStagingFile()
+/*        public function APIGateway_setStagingFile()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjY4MzIzNzl9.8ywzJJdAcbbVBQcuQ8v-cmAcv8T67bamusxRkvEDe84';
@@ -277,17 +277,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'fileHandling.upload.setStagingFile', 
                 'latest', 
                 [
-/*                'entities' => [
+                'entities' => [
                     'IPAddress' => '192.168.1.204',
                     'port' => 4370, 
                     'serialNumber' => '2065682450035',
                     'timeZoneOffset' => '+07',
                     'startDateTime' => '2021-01-01'
-                    ]*/
+                    ]
                 ]
                 );
             var_dump($varData);
-            }
+            }*/
         public function APIGatewayJQuery_setStagingFile()
             {
             //---Parameter Set---
@@ -297,14 +297,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input id="file-select-input" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_FileAttachmentContent').';" />';
             //echo '<input type="text" id="dataInput_FileAttachmentContent" value="">';
             echo '<textarea cols = 80 rows = 20 id="dataInput_FileAttachmentContent" value=""></textarea>';
-
-
-
-            //echo '<input type="text" id="dataInput_IPAddress" value="192.168.1.204">';
-            //echo '<input type="text" id="dataInput_Port" value=4370>';
-            //echo '<input type="text" id="dataInput_SerialNumber" value="2065682450035">';
-            //echo '<input type="text" id="dataInput_TimeZoneOffset" value="+07">';
-            //echo '<input type="text" id="dataInput_StartDateTime" value="2021-01-01">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 

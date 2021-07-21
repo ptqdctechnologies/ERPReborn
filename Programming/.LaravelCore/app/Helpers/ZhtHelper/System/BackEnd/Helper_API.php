@@ -380,6 +380,45 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_FileUpload                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk File Upload                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_FileUpload($varUserSession, array $varDataSend)
+            {
+            if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordID', $varDataSend) == TRUE)
+                {
+                if($varDataSend['SignRecordID'])
+                    {
+                    $varReturn = [
+                        'message' => 'Upload File to Staging Area Was Successful (Rotate Record RPK : '.$varDataSend['SignRecordID'].')',
+                        'recordRPK' => $varDataSend['SignRecordID']
+                        ];
+                    return $varReturn;
+                    }
+                else
+                    {
+                    throw new \Exception('File Upload Failed');
+                    }
+                }
+            else
+                {
+                throw new \Exception('Data Insertion Failed');
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIEngine                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000001                                                                                       |
