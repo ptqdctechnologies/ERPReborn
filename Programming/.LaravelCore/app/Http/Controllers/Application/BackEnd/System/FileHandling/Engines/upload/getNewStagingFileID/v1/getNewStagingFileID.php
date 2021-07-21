@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\getStagingFileID\v1                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\getNewStagingFileID\v1               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\getStagingFileID\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\getNewStagingFileID\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getStagingFileID                                                                                             |
-    | ▪ Description : Menangani API fileHandling.upload.getStagingFileID Version 1                                                 |
+    | ▪ Class Name  : getNewStagingFileID                                                                                          |
+    | ▪ Description : Menangani API fileHandling.upload.getNewStagingFileID Version 1                                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getStagingFileID extends \App\Http\Controllers\Controller
+    class getNewStagingFileID extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
