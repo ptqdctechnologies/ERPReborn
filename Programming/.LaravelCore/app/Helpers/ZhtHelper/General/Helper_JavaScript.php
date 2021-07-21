@@ -184,12 +184,13 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession                                                                                           |
-        |      ▪ (int)    varOffsetSeconds                                                                                         |
+        |      ▪ (string) varAPIWebToken                                                                                           |
+        |      ▪ (string) varDOMReturnID                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varDOMReturnID)
+        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -201,6 +202,16 @@ namespace App\Helpers\ZhtHelper\General
                             'var varObjFileList = varObj.files; '.                        
                             'var varAccumulatedFiles = 0; '.
                             'var varJSONDataBuilder = \'\'; '.
+                            'var varRotateLog_FileUploadStagingArea_RefRPK = JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                $varUserSession, 
+                                $varAPIWebToken, 
+                                'fileHandling.upload.getNewStagingFileID', 
+                                'latest', 
+                                '{'.
+                                    '"applicationKey" : "'.$varAPIWebToken.'"'.
+                                '}'
+                                )).').data.recordRPK;'.
+                            //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
                             'for(var i = 0; i < varObjFileList.length; i++)'.
                                 '{'.
                                 '(function(varObjCurrentFile, i) {'.
@@ -211,15 +222,30 @@ namespace App\Helpers\ZhtHelper\General
                                             'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
                                             '}'.
                                         'var varJSONDataBuilderNew = \'{\' + '.
-                                            'String.fromCharCode(34) + \'index\' + String.fromCharCode(34) + \' : \' + (i) + \', \' + '.
+                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varRotateLog_FileUploadStagingArea_RefRPK) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'index\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
                                             'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
                                             'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
                                             'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
                                             'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
+                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \'\' + '.
                                             '\'}\'; '.
+                                        'var varObjDOMInputTemp = document.createElement(\'INPUT\'); '.
+                                        'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
+                                        'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-                                        'var xmlhttp = new XMLHttpRequest(); '.
+                                        'var varData = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.upload.setStagingFileDetail', 
+                                            'latest', 
+                                            '{'.
+                                                '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
+                                            '}'
+                                            )).';'.
+                                        //'alert(varData); '.
                                         'if(varAccumulatedFiles == varObjFileList.length) '.
                                             '{'.
 //                                            'alert(\' xxx \'); '.

@@ -14,6 +14,26 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testUpload()
             {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            
+            $x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getBucketName($varUserSession);
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, '', 'erp-reborn');
+            dd($x);
+            
+//            $x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'xxx', 'erp-reborn');
+  
+            var_dump($x);
+            
+            //(new \App\Models\CloudStorage\DefaultClassPrototype())->createFile($varUserSession, '', 'xxx', 'erp-reborn');
+            
+            
+            $PathFile = getcwd().'/../../Project/ERPReborn-PermanentStorage/MinIO/StagingFiles/ContohTextFile.txt';
+            echo $PathFile;
+            echo "<br>";
+            echo is_file($PathFile);
+            
+            
+            /*
             echo '<script language="javascript">'.
                     'function xxx(varObj)'.
                         '{'.
@@ -51,6 +71,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             echo    '<div id="MyDiv" />';
             echo    '<button id="upload-button">Upload</button>';
             echo '</form>';
+            
+             */
             }
 
 

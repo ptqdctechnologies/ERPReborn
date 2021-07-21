@@ -39,6 +39,31 @@ namespace App\Models\CloudStorage
 
        /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : createFile                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varContentBase64 ► Content Base64                                                                       |
+        |      ▪ (string)  varRemoteFilePath ► Destination File Path                                                               |
+        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function createFile($varUserSession, string $varContentBase64, string $varRemoteFilePath, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varContentBase64, $varRemoteFilePath, $varBucketName);
+            return $varReturn;            
+            }
+
+
+       /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : deleteFile                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
