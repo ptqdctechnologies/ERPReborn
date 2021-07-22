@@ -25,6 +25,54 @@
         "required": [ "API" ]
         },
     "data": {
+        "type": "object",
+        "properties": {
+            "rotateLog_FileUploadStagingArea_RefRPK": {
+                "type": [ "integer", "null" ],
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "index": {
+                "type": [ "integer", "null" ],
+                "minimum": 1,
+                "maximum": 32767
+                },
+            "name": {
+                "type": [ "string", "null" ],
+                "minLength": 1,
+                "maxLength": 256
+                },
+            "size": {
+                "type": [ "integer", "null" ],
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "MIME": {
+                "type": [ "string", "null" ],
+                "minLength": 1,
+                "maxLength": 64
+                },
+            "extension": {
+                "type": [ "string", "null" ],
+                "minLength": 1,
+                "maxLength": 32
+                },
+            "contentBase64": {
+                "type": [ "string", "null" ],
+                "minLength": 1
+                },
+            "lastModifiedDateTimeTZ": {
+                "type": [ "string", "null" ],
+                "minLength": 1,
+                "maxLength": 128
+                },
+            "lastModifiedUnixTimestamp": {
+                "type": [ "integer", "null" ],
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                }
+            },
+        "required": [ "rotateLog_FileUploadStagingArea_RefRPK", "index", "name", "size", "MIME", "extension", "contentBase64", "lastModifiedDateTimeTZ", "lastModifiedUnixTimestamp" ]
         }
     },
 "required": [ "metadata", "data" ]
