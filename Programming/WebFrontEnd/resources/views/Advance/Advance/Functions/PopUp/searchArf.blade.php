@@ -55,8 +55,7 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 5; $i++)
-                                        <tr>
+                                        @for($i = 1; $i < 5; $i++) <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
@@ -176,7 +175,7 @@
             $("#hideProjectName").val($this.data("id3"));
             $("#hideSiteCode").val($this.data("id4"));
             $("#hideSiteName").val($this.data("id5"));
-            
+
 
             //Batas
 
@@ -192,7 +191,7 @@
             $("#totalDetail").val("IDR");
 
             //End batas
-            
+
             var datas = [];
 
             for (var i = 1; i <= x; i++) {
@@ -240,18 +239,18 @@
                     $.each(data, function(key, val) {
 
                         var t = $('#tableArfDetail').DataTable();
-                            t.row.add( [
-                                '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
-                                '<span id="lastProductId">' + val.putProductId + '</span>',
-                                '<span id="lastProductName">' + val.putProductName + '</span>',
-                                '<span id="lastUom">' + val.putUom + '</span>',
-                                '<span id="lastPrice">' + val.putPrice + '</span>',
-                                '<span id="lastQty">' + val.putQtys + '</span>',
-                                '<span id="totalArfDetails">' + val.totalArfDetails + '</span>',
-                                '<span id="lastCurrency">' + val.putCurrency + '</span>',
-                                '<span id="lastRemark">' + val.putRemark + '</span>',
-                                '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-blue" style="width: 90%;"></div></div><small><center>90 %</center></small>'
-                            ] ).draw();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                            '<span id="lastProductId">' + val.putProductId + '</span>',
+                            '<span id="lastProductName">' + val.putProductName + '</span>',
+                            '<span id="lastUom">' + val.putUom + '</span>',
+                            '<span id="lastPrice">' + val.putPrice + '</span>',
+                            '<span id="lastQty">' + val.putQtys + '</span>',
+                            '<span id="totalArfDetails">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark">' + val.putRemark + '</span>',
+                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-blue" style="width: 90%;"></div></div><small><center>90 %</center></small>'
+                        ]).draw();
                     });
                 },
                 error: function(data) {
@@ -266,8 +265,8 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("body").on("click", ".addAsf", function() {
-            
+        $("body").on("click", ".addToDetailSettlement", function() {
+
             $("#addAsfListCart").prop("disabled", false);
             $(".detailASF").show();
             $("#arf_number").val($('#arfNumberAsf').val());
@@ -281,23 +280,44 @@
             $("#total_arf2").val("IDR");
             $("#total_asf").val($('#totalArfDetails').html());
             $("#total_asf2").val("IDR");
-
+            
             var balance = $('#total').val() - $('#totalArfDetails').html();
+            // var balance = totalBalance.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            
             $("#balance").val(balance);
             $("#balance2").val("IDR");
-            $("#qty_expense").val("2");
             $("#qty_expense2").val("Ls");
-            $("#price_expense").val("20,000,000");
             $("#price_expense2").val("IDR");
-            $("#total_expense").val("40.000.000");
             $("#total_expense2").val("IDR");
-            $("#qty_amount").val("2");
             $("#qty_amount2").val("Ls");
-            $("#price_amount").val("20,000,000");
             $("#price_amount2").val("IDR");
-            $("#total_amount").val("20.000.000");
             $("#total_amount2").val("IDR");
 
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_expense').keyup(function() {
+            var price_expense = $(this).val();
+            var qty_expense = $('#qty_expense').val();
+            var total_expense = price_expense * qty_expense;
+            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_expense").val(total_expense);
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_amount').keyup(function() {
+            var price_amount = $(this).val();
+            var qty_amount = $('#qty_amount').val();
+
+            var total_amount = price_amount * qty_amount;
+            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_amount").val(total_amount);
         });
     });
 </script>

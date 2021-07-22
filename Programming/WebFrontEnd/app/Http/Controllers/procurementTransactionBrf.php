@@ -52,16 +52,14 @@ class procurementTransactionBrf extends Controller
                 'origin_budget' => $v['origin_budget'],
                 'projectcode' => $v['projectcode'],
                 'projectname' => $v['projectname'],
-                'subprojectc' => $v['subprojectc'],
-                'subprojectn' => $v['subprojectn'],
+                'sitecode' => $v['sitecode'],
+                'sitecode2' => $v['sitecode2'],
                 'beneficiary' => $v['beneficiary'],
                 'bank_name' => $v['bank_name'],
                 'account_name' => $v['account_name'],
                 'account_number' => $v['account_number'],
                 'internal_notes' => $v['internal_notes'],
-                'requestNameArf' => $v['requestNameArf'],
-                'putWorkId' => $v['putWorkId'],
-                'putWorkName' => $v['putWorkName'],
+                'request_name' => $v['request_name'],
                 'putProductId' => $v['putProductId'],
                 'putProductName' => $v['putProductName'],
                 'putQty' => $v['putQty'],
@@ -71,6 +69,7 @@ class procurementTransactionBrf extends Controller
                 'putCurrency' => $v['putCurrency'],
                 'totalArfDetails' => $v['totalArfDetails'],
                 'putRemark' => $v['putRemark'],
+                'trano' => $v['trano'],
 
             ));
         }
