@@ -2,64 +2,51 @@
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
-| ▪ Category   : Laravel Helpers                                                                                                   |
-| ▪ Name Space : \App\Helpers\ZhtHelper\LocalStorage                                                                               |
+| ▪ Category   : Laravel Models                                                                                                    |
+| ▪ Name Space : \App\Models\LocalStorage                                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Helpers\ZhtHelper\LocalStorage
+namespace App\Models\LocalStorage
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : Helper_LocalStorage                                                                                          |
-    | ▪ Description : Menangani LocalStorage                                                                                       |
+    | ▪ Class Name  : DefaultClassPrototype                                                                                        |
+    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models CloudStorage                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_LocalStorage
+    class DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | Class Properties                                                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private static $ObjLocalStorage = null;
-        //private static $varDiskID = null;
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : init                                                                                                 |
+        | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
-        | ▪ Description     : Init                                                                                                 |
+        | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
-        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
+        |      ▪ (void)                                                                                                            |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (voide)   varReturn                                                                                               | 
+        |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private static function init($varUserSession, string $varDiskID = null)
+        public function __construct()
             {
-            self::$ObjLocalStorage = \Illuminate\Support\Facades\Storage::disk(($varDiskID ? $varDiskID : 'local'));
             }
 
 
-        /*
+       /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : createDirectory                                                                                      |
+        | ▪ Method Name     : createDirectory                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
-        | ▪ Description     : Membuat objek file baru                                                                              |
+        | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
-        |      ▪ (string)  varContent ► Content (Mandatory)                                                                        |
         |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
         |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -69,35 +56,18 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         */
         public static function createDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create directory');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    self::$ObjLocalStorage->makeDirectory($varFilePath);
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createDirectory($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
             }
 
 
-        /*
+       /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : createFile                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
-        | ▪ Description     : Membuat objek file baru                                                                              |
+        | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
@@ -111,25 +81,8 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         */
         public static function createFile($varUserSession, string $varContent, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create file object');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    self::$ObjLocalStorage->put($varFilePath, $varContent);
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, $varContent, $varFilePath, $varDiskID);
+            return $varReturn;
             }
 
 
@@ -139,7 +92,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
-        | ▪ Description     : Menghapus objek direktori                                                                            |
+        | ▪ Description     : Menghapus objek directory                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)   varUserSession ► User Session                                                                           |
@@ -152,29 +105,8 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         */
         public static function deleteDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Remove directory object from Server');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    if($varReturn = self::isFileExist($varUserSession, $varFilePath) == false)
-                        {
-                        throw new \Exception('File is not exist');
-                        }
-                    self::$ObjLocalStorage->deleteDirectory($varFilePath);
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::deleteDirectory($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
             }
 
 
@@ -197,29 +129,8 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         */
         public static function deleteFile($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Remove file object from Server');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    if($varReturn = self::isFileExist($varUserSession, $varFilePath) == false)
-                        {
-                        throw new \Exception('File is not exist');
-                        }
-                    self::$ObjLocalStorage->delete($varFilePath);
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::deleteFile($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
             }
 
 
@@ -241,24 +152,8 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         */
         public static function getBasePath($varUserSession, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get local storage base path');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    $varReturn = self::$ObjLocalStorage->getAdapter()->getPathPrefix();
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession, $varDiskID);
+            return $varReturn;
             }
 
 
@@ -279,26 +174,10 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isFileExist($varUserSession, string $varFilePath, string $varDiskID = null)
+        public function isFileExist($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
-            try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check if the file object exists');
-                try {
-                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    $varReturn = self::$ObjLocalStorage->exists($varFilePath);
-                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }            
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
         }
     }

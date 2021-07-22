@@ -205,7 +205,7 @@ namespace App\Models\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : putFile                                                                                              |
+        | ▪ Method Name     : copyFile                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-09-07                                                                                           |
@@ -221,7 +221,7 @@ namespace App\Models\CloudStorage
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function putFile($varUserSession, string $varLocalFilePath, string $varRemoteFilePath, string $varBucketName = null)
+        public static function copyFileToCloud($varUserSession, string $varLocalFilePath, string $varRemoteFilePath, string $varBucketName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, $varLocalFilePath, $varRemoteFilePath, $varBucketName);
             return $varReturn;            

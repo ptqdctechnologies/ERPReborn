@@ -236,7 +236,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
                                         'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-                                        'var varData = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                        'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                             $varUserSession, 
                                             $varAPIWebToken, 
                                             'fileHandling.upload.setStagingFileDetail', 
@@ -245,17 +245,34 @@ namespace App\Helpers\ZhtHelper\General
                                                 '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
                                             '}'
                                             )).';'.
-                                        //'alert(varData); '.
+                                        //'alert(varNothing); '.
                                         'if(varAccumulatedFiles == varObjFileList.length) '.
                                             '{'.
-//                                            'alert(\' xxx \'); '.
-                                            'varReturn = varJSONDataBuilder;'.
+                                            'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                $varUserSession, 
+                                                $varAPIWebToken, 
+                                                'fileHandling.upload.setStagingFileDestroyOnLocalStorage', 
+                                                'latest', 
+                                                '{'.
+                                                    '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                '}'
+                                                )).';'.
+                                            //'alert(varNothing); '.
+                                            //'varReturn = varJSONDataBuilder; '.
+                                            'varReturn = varRotateLog_FileUploadStagingArea_RefRPK; '.
                                             '}'.
                                         '}; '.
-                                    'varObjFileReader.readAsDataURL(varObjCurrentFile);'.
-                                    '}) (varObjFileList[i], i);'.
-                                '}'.
-                            'setTimeout((function() {if(varReturn!=\'\') {document.getElementById(\''.$varDOMReturnID.'\').value = varReturn; return varReturn;}  }), 1000);'.
+                                    'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                    '}) (varObjFileList[i], i); '.
+                                '} '.
+                            'setTimeout('.
+                                '(function() {'.
+                                    'if(varReturn!=\'\') {'.
+                                        'document.getElementById(\''.$varDOMReturnID.'\').value = varReturn; '.
+                                        'return varReturn;'.
+                                        '}'.
+                                    '}'.
+                                '), 1000);'.
                             '})(this)';
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
