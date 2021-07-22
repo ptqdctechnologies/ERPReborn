@@ -266,12 +266,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function APIGateway_setStagingFile()
+        public function APIGateway_setStagingFile()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MjY5MTM3NzN9.pQaKwKz3lFSCcLWpcsiqwHtgo7ODieyBS2I1ujteEHc';
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'fileHandling.upload.setStagingFileDestroyOnLocalStorage', 
+                'latest', 
+                [
+                'rotateLog_FileUploadStagingArea_RefRPK' => 93
+                ]
+                );
+/*            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'fileHandling.upload.setStagingFile', 
@@ -285,9 +294,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     'startDateTime' => '2021-01-01'
                     ]
                 ]
-                );
+                );*/
             var_dump($varData);
-            }*/
+            }
         public function APIGatewayJQuery_setStagingFile()
             {
             //---Parameter Set---

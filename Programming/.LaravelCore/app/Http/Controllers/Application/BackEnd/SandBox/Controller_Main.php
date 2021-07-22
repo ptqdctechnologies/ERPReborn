@@ -18,9 +18,23 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
             
+//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32', 'Application/');
+            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Application/Upload/StagingFiles/32');
+
+            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
+                       
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/999.txt', 'StagingFiles/999.txt');
+
+//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32');
+
+            
+            //$x = \Illuminate\Support\Facades\Storage::disk('local')->exists('Application/Upload/StagingFiles/32');
+            
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, , 'StagingFiles')
+            
             //\Illuminate\Support\Facades\Storage::disk('local')->put('Upload\StagingFiles\file.txt', 'Contents');
             
-            \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, 'xxx', 'Upload/StagingFiles/999.txt');
+            //\App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, 'xxx', 'Upload/StagingFiles/999.txt');
             
             //$x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'StagingFiles');
             dd($x);
