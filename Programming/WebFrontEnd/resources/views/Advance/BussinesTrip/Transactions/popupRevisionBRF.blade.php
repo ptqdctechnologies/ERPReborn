@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 180px;">
+                        <button type="submit" class="btn btn-outline btn-success btn-sm">
                             <i class="fa fa-pencil" aria-hidden="true">Edit</i>
                         </button>
                         <button type="reset" class="btn btn-outline btn-danger btn-sm">

@@ -9,40 +9,37 @@
 
     $("#projectcode2").prop("disabled", true);
     $("#sitecode2").prop("disabled", true);
-    $("#requester_name2").prop("disabled", true);
+    $("#request_name2").prop("disabled", true);
     $("#saveBrfList").prop("disabled", true);
   });
 </script>
 
 <script>
-  $(function() {
-    $("#origin_budget").on('click', function(e) {
-      e.preventDefault();
-
-      var val = $("#origin_budget").val();
-      if (val == "") {
-        $("#projectcode2").prop("disabled", true);
-      } else {
-        $("#projectcode2").prop("disabled", false);
-      }
-
-      $(".budgetDetail").show();
-      $("#sequenceRequest").val('1');
-      $("#sequence").val('1');
-      $("#sequenceRequest").prop("disabled", true);
-
+    $(function() {
+        $("#origin_budget").on('click', function(e) {
+            e.preventDefault();
+            var val = $("#origin_budget").val();
+            if (val == "") {
+                $("#projectcode2").prop("disabled", true);
+            } else {
+                $("#projectcode2").prop("disabled", false);
+            }
+        });
     });
+</script>
 
-    $("#projectcode2").on('click', function(e) {
-      e.preventDefault();
-      $("#sitecode2").prop("disabled", false);
+<script>
+    $(function() {
+        $("#sitecode2").on('click', function(e) {
+            e.preventDefault();
+            var val = $("#sitecode2").val();
+            if (val == "") {
+                $("#request_name2").prop("disabled", true);
+            } else {
+                $("#request_name2").prop("disabled", false);
+            }
+        });
     });
-
-    $("#sitecode2").on('click', function(e) {
-      e.preventDefault();
-      $("#requester_name2").prop("disabled", false);
-    });
-  });
 </script>
 
 <script>

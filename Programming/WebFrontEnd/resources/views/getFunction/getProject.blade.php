@@ -122,7 +122,6 @@
             $("#projectcode2").val(name);
             $("#projectname").val(name);
             $("#headerProjectCode").val(code);
-
             $("#sitecode2").prop("disabled", false);
         });
     });

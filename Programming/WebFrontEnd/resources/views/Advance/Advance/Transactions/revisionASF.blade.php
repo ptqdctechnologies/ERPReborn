@@ -313,9 +313,9 @@
                     <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
                   </button>
 
-                  <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
+                  <a class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
-                  </button>
+                  </a>
                 </div>
               </div>
             </div>
