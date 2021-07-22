@@ -16,13 +16,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
-            $x = (new \App\Models\CloudStorage\DefaultClassPrototype())->getBucketName($varUserSession);
-            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, '', 'erp-reborn');
-            dd($x);
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
             
-//            $x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'xxx', 'erp-reborn');
+            //\Illuminate\Support\Facades\Storage::disk('local')->put('Upload\StagingFiles\file.txt', 'Contents');
+            
+            \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, 'xxx', 'Upload/StagingFiles/999.txt');
+            
+            //$x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'StagingFiles');
+            dd($x);
   
-            var_dump($x);
             
             //(new \App\Models\CloudStorage\DefaultClassPrototype())->createFile($varUserSession, '', 'xxx', 'erp-reborn');
             

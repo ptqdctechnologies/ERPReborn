@@ -202,15 +202,15 @@ namespace App\Helpers\ZhtHelper\General
                             'var varObjFileList = varObj.files; '.                        
                             'var varAccumulatedFiles = 0; '.
                             'var varJSONDataBuilder = \'\'; '.
-                            'var varRotateLog_FileUploadStagingArea_RefRPK = JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                            'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                 $varUserSession, 
                                 $varAPIWebToken, 
-                                'fileHandling.upload.getNewStagingFileID', 
+                                'fileHandling.upload.getStagingFileNewID', 
                                 'latest', 
                                 '{'.
                                     '"applicationKey" : "'.$varAPIWebToken.'"'.
                                 '}'
-                                )).').data.recordRPK;'.
+                                )).').data.recordRPK);'.
                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
                             'for(var i = 0; i < varObjFileList.length; i++)'.
                                 '{'.
@@ -222,7 +222,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
                                             '}'.
                                         'var varJSONDataBuilderNew = \'{\' + '.
-                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varRotateLog_FileUploadStagingArea_RefRPK) + String.fromCharCode(34) + \', \' + '.
+                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
                                             'String.fromCharCode(34) + \'index\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
                                             'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
                                             'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.

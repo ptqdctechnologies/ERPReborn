@@ -22,6 +22,7 @@ services:
     volumes:
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
+      - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
 
 
   #---> Services : PHP Apache BackEnd
@@ -47,6 +48,7 @@ services:
       #- './:/var/www/html'
       - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
       - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
+      - './.ProjectCore/PermanentStorage/LocalStorage/WebBackEnd:/var/www/html/WebBackEnd/storage/app/Application'
         #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
       - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/cron.d:/zhtConf/log/lastSession/cron.d'
       - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'

@@ -27,6 +27,24 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         private static $varBucketName = 'erp-reborn';
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : createFile                                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Description     : Membuat objek file baru                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varContentBase64 ► Content Base64                                                                       |
+        |      ▪ (string)  varRemoteFilePath ► Destination File Path                                                               |
+        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function createFile($varUserSession, string $varContentBase64, string $varRemoteFilePath, string $varBucketName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
@@ -34,12 +52,20 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Remove file object from Server');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
-                    self::$ObjMinIO->putObject([
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
+                    echo "xxx";
+/*                    self::$ObjMinIO->putObject([
                         'Bucket' => $varBucketName,
                         'Key' => 'hello.txt',
                         'Body' => "Hello World!"
+                        ]);*/
+                    $insert = self::$ObjMinIO->putObject([
+                        'Bucket' => ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)),
+                        'Key'    => 'testkey',
+                        'Body'   => 'Hello from MinIO!!'
                         ]);
+                    echo "xxx";
+                    dd($insert);
 //                    if(self::isFileExist($varUserSession, $varRemoteFilePath) == false)
 //                        {
 //                        throw new \Exception('File is not exist');
@@ -64,8 +90,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : deleteFile                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Menghapus objek file                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -84,7 +110,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Remove file object from Server');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     if(self::isFileExist($varUserSession, $varRemoteFilePath) == false)
                         {
                         throw new \Exception('File is not exist');
@@ -107,10 +133,10 @@ namespace App\Helpers\ZhtHelper\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getAllDataRecord                                                                                         |
+        | ▪ Method Name     : getAllDataRecord                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan seluruh data record                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -128,7 +154,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get all record');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varArrayTemp = self::getFileListRecursive($varUserSession, '');
                     for($i=0; $i!=count($varArrayTemp); $i++)
                         {
@@ -202,8 +228,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileInfo                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Informasi File                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -222,11 +248,11 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get file information');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
                     if(self::isFileExist($varUserSession, $varRemoteFilePath) == false)
                         {
                         throw new \Exception('File is not exist');
                         }
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varFilePathPart = explode('/', $varRemoteFilePath);
                     $varFileExtension = explode('.', $varFilePathPart[count($varFilePathPart)-1]);
                     $varFileName = array_pop($varFilePathPart);
@@ -256,8 +282,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFolderList                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Seluruh Folder dan Sub Folder                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -276,7 +302,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get folder and subfolder list');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varReturn = self::$ObjMinIO->allDirectories($varBaseFolder);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -296,8 +322,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileList                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar File                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -316,7 +342,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set file list');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varTemp = self::$ObjMinIO->files($varBaseFolder);
                     for($i=0; $i!=count($varTemp); $i++)
                         {
@@ -341,8 +367,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileListRecursive                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar File Rekursif (Termasuk file dalam subfolder)                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -361,7 +387,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set file list');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varReturn = self::$ObjMinIO->allfiles($varBaseFolder);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -381,8 +407,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileURL                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan URL dari objek file                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -401,7 +427,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get file object URL');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     if(self::isFileExist($varUserSession, $varRemoteFilePath) == false)
                         {
                         throw new \Exception('File is not exist');
@@ -425,8 +451,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isFileExist                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Mengecek eksistensi objek file                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -445,7 +471,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check if the file object exists');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     $varReturn = self::$ObjMinIO->exists($varRemoteFilePath);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -465,8 +491,8 @@ namespace App\Helpers\ZhtHelper\CloudStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : putFile                                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-21                                                                                           |
         | ▪ Description     : Menyimpan objek file                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -490,7 +516,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                         {
                         throw new \Exception('Source file is not exist');
                         }
-                    self::setBucketName($varUserSession, $varBucketName);
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     self::$ObjMinIO->put($varRemoteFilePath, file_get_contents($varLocalFilePath));
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     $varReturn = true;

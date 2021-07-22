@@ -134,11 +134,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varFileExtension, 
                 $varFileLastModifiedDateTimeTZ, 
                 $varFileLastModifiedUnixTimestamp
-                );
-            
-//            (new \App\Models\CloudStorage\DefaultClassPrototype())->
-            
-            
+                )['SignRecordID'];
+            //---> Simpan ke Local Storage
+            \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, base64_decode($varFileContentBase64), 'Upload/StagingFiles/'.$varSignRecordID);
+
             
             $varReturn = [
                 'SignRecordID' => $varSignRecordID,

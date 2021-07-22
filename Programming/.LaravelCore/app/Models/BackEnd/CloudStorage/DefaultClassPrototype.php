@@ -55,11 +55,11 @@ namespace App\Models\CloudStorage
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function createFile($varUserSession, string $varContentBase64, string $varRemoteFilePath, string $varBucketName = null)
+/*        public static function createFile($varUserSession, string $varContentBase64, string $varRemoteFilePath, string $varBucketName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varContentBase64, $varRemoteFilePath, $varBucketName);
             return $varReturn;            
-            }
+            }*/
 
 
        /*
