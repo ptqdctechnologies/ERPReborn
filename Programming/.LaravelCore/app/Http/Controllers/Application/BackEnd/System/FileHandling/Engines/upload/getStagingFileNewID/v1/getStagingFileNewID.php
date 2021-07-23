@@ -62,6 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload($varUserSession, (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingArea())->setDataInsert(
                             $varUserSession, 
+                            null,
                             $varData['applicationKey']
                             ))))
                             {

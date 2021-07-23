@@ -42,27 +42,31 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2020-08-31                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-23                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varHostIPAddress ► Host IP Address                                                                       |
-        |      ▪ (string) varURL ► Destination URL                                                                                 |
-        |      ▪ (string) varNavigatorUserAgent ► Navigator User Agent                                                             |
-        |      ▪ (string) varRequestDateTimeTZ ► Request DateTimeTZ                                                                |
-        |      ▪ (string) varRequestHTTPHeader ► Request HTTP Header                                                               |
-        |      ▪ (string) varRequestHTTPBody ► Request HTTP Body                                                                   |
-        |      ▪ (string) varResponseDateTimeTZ ► Response DateTimeTZ                                                              |
-        |      ▪ (int)    varResponseHTTPStatus ► Response HTTP Status                                                             |
-        |      ▪ (string) varResponseHTTPHeader ► Response HTTP Header                                                             |
-        |      ▪ (string) varResponseHTTPBody ► Response HTTP Body                                                                 |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
+        |      ▪ (string) varHostIPAddress ► Host IP Address (Mandatory)                                                           |
+        |      ▪ (string) varURL ► Destination URL (Mandatory)                                                                     |
+        |      ▪ (string) varNavigatorUserAgent ► Navigator User Agent (Mandatory)                                                 |
+        |      ▪ (string) varRequestDateTimeTZ ► Request DateTimeTZ (Mandatory)                                                    |
+        |      ▪ (string) varRequestHTTPHeader ► Request HTTP Header (Mandatory)                                                   |
+        |      ▪ (string) varRequestHTTPBody ► Request HTTP Body (Mandatory)                                                       |
+        |      ▪ (string) varResponseDateTimeTZ ► Response DateTimeTZ (Mandatory)                                                  |
+        |      ▪ (int)    varResponseHTTPStatus ► Response HTTP Status (Mandatory)                                                 |
+        |      ▪ (string) varResponseHTTPHeader ► Response HTTP Header (Mandatory)                                                 |
+        |      ▪ (string) varResponseHTTPBody ► Response HTTP Body (Mandatory)                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataInsert($varUserSession, string $varHostIPAddress, string $varURL, string $varNavigatorUserAgent, string $varRequestDateTimeTZ, string $varRequestHTTPHeader, string $varRequestHTTPBody, string $varResponseDateTimeTZ, int $varResponseHTTPStatus = null, string $varResponseHTTPHeader = null, string $varResponseHTTPBody = null)
+        public function setDataInsert(
+            $varUserSession, 
+            string $varSysDataAnnotation = null, 
+            string $varHostIPAddress, string $varURL, string $varNavigatorUserAgent, string $varRequestDateTimeTZ, string $varRequestHTTPHeader, string $varRequestHTTPBody, string $varResponseDateTimeTZ, int $varResponseHTTPStatus = null, string $varResponseHTTPHeader = null, string $varResponseHTTPBody = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -70,6 +74,9 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SchSysConfig.Func_TblRotateLog_API_SET',
                     [
+                        [$varUserSession, 'bigint'],
+                        [null, 'bigint'],
+                        [$varSysDataAnnotation, 'varchar'],
                         [$varHostIPAddress, 'cidr'],
                         [$varURL, 'character varying'],
                         [$varNavigatorUserAgent, 'character varying'],

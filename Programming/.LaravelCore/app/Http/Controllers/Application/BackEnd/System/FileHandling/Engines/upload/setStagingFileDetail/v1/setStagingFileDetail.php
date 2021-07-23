@@ -126,6 +126,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
                 $varUserSession, 
+                null, 
                 $varRotateLog_FileUploadStagingArea_RefRPK,
                 $varFileIndex,
                 $varFileName, 

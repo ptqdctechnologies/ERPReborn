@@ -15,6 +15,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
             //---> Store API Access Request to Database
             (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->setDataInsert(
                 $varUserSession, 
+                null,
                 \App\Helpers\ZhtHelper\General\Helper_Network::getClientIPAddress($varUserSession), 
                 url()->current(), 
                 $_SERVER['HTTP_USER_AGENT'], 

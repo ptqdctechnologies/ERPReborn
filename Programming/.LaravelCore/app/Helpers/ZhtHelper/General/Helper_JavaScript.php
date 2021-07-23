@@ -270,12 +270,17 @@ namespace App\Helpers\ZhtHelper\General
                                     '} '.
                                 'setTimeout('.
                                     '(function() {'.
-                                        'if(varReturn!=\'\') {'.
-                                            'document.getElementById(\''.$varDOMReturnID.'\').value = varReturn; '.
-                                            'return varReturn;'.
+                                        'try {'.
+                                            'if(varReturn!=\'\') {'.
+                                                'document.getElementById(\''.$varDOMReturnID.'\').value = varReturn; '.
+                                                'return varReturn;'.
+                                                '}'.
+                                            'else {'.
+                                                'document.getElementById(\''.$varDOMReturnID.'\').value = \'\'; '.
+                                                '}'.
                                             '}'.
-                                        'else {'.
-                                            'document.getElementById(\''.$varDOMReturnID.'\').value = \'\'; '.
+                                        'catch(varError) {'.
+                                            'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
                                             '}'.
                                         '}'.
                                     '), 500);'.
