@@ -3,28 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFileDestroyOnLocalStorage  |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getNewID\v1              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFileDestroyOnLocalStorage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getNewID\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setStagingFileDestroyOnLocalStorage                                                                          |
-    | ▪ Description : Menangani API fileHandling.upload.setStagingFileDestroyOnLocalStorage Version 1                              |
+    | ▪ Class Name  : getNewID                                                                                                     |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.getNewID Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setStagingFileDestroyOnLocalStorage extends \App\Http\Controllers\Controller
+    class getNewID extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2021-07-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,20 +56,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create RotateLog File Upload Staging Area Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
-                            $varUserSession,
-                            'Application/Upload/StagingFiles/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
-                            ) == FALSE)
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload($varUserSession, (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingArea())->setDataInsert(
+                            $varUserSession, 
+                            null,
+                            $varData['applicationKey']
+                            ))))
                             {
                             throw new \Exception();
                             }
-                        $varDataSend = [
-                            'message' => 'Folder Application/Upload/StagingFiles/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' has been successfully deleted',
-                            ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

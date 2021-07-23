@@ -207,13 +207,13 @@ namespace App\Helpers\ZhtHelper\General
                                 'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                     $varUserSession, 
                                     $varAPIWebToken, 
-                                    'fileHandling.upload.getStagingFileNewID', 
+                                    'fileHandling.upload.stagingArea.getNewID', 
                                     'latest', 
                                     '{'.
                                         '"applicationKey" : "'.$varAPIWebToken.'"'.
                                     '}'
                                     )).').data.recordRPK);'.
-                                //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
+                                'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
                                 'for(var i = 0; i < varObjFileList.length; i++)'.
                                     '{'.
                                     '(function(varObjCurrentFile, i) {'.
@@ -241,7 +241,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                 $varUserSession, 
                                                 $varAPIWebToken, 
-                                                'fileHandling.upload.setStagingFileDetail', 
+                                                'fileHandling.upload.stagingArea.setFilesToLocalStorage', 
                                                 'latest', 
                                                 '{'.
                                                     '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
@@ -253,7 +253,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                     $varUserSession, 
                                                     $varAPIWebToken, 
-                                                    'fileHandling.upload.setStagingFileDestroyOnLocalStorage', 
+                                                    'fileHandling.upload.stagingArea.setFilesToCloudStorage', 
                                                     'latest', 
                                                     '{'.
                                                         '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
