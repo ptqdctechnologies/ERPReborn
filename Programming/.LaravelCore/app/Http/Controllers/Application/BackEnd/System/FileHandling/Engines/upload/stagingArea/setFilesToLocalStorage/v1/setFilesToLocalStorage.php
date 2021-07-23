@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFileDetail\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToLocalStorage   |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\setStagingFileDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToLocalStorage\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setStagingFileDetail                                                                                         |
-    | ▪ Description : Menangani API fileHandling.upload.setStagingFileDetail Version 1                                             |
+    | ▪ Class Name  : setFilesToLocalStorage                                                                                       |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.setFilesToLocalStorage Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setStagingFileDetail extends \App\Http\Controllers\Controller
+    class setFilesToLocalStorage extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -126,6 +127,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
                 $varUserSession, 
+                null, 
                 $varRotateLog_FileUploadStagingArea_RefRPK,
                 $varFileIndex,
                 $varFileName, 
@@ -139,12 +141,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             (new \App\Models\LocalStorage\DefaultClassPrototype())->createFile(
                 $varUserSession, 
                 base64_decode($varFileContentBase64), 
-                'Application/Upload/StagingFiles/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
+                'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
             //---> Pemindahan File dari Local Storage Server ke Cloud
             (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
                 $varUserSession, 
-                \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
-                'StagingFiles/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
+                \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
+                'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
                 );
             $varReturn = [
                 'SignRecordID' => $varSignRecordID,

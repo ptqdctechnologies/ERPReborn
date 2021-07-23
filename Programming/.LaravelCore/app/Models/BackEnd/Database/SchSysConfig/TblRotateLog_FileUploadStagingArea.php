@@ -42,12 +42,13 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
         |      ▪ (string) varApplicationKey ► Application Key (Optional)                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -55,6 +56,7 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInsert(
             $varUserSession, 
+            string $varSysDataAnnotation = null, 
             string $varApplicationKey)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -63,6 +65,9 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SchSysConfig.Func_TblRotateLog_FileUploadStagingArea_SET',
                     [
+                        [$varUserSession, 'bigint'],
+                        [null, 'bigint'],
+                        [$varSysDataAnnotation, 'varchar'],
                         [$varApplicationKey, 'character varying']
                     ],
                     )

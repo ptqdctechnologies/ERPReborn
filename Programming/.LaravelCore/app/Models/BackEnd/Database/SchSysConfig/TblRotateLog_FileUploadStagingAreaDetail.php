@@ -42,12 +42,13 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-22                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefID ► RotateLog_FileUploadStagingArea Reference ID (Mandatory)      |
         |      ▪ (int)    varFileIndex ► File Index (Mandatory)                                                                    |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
@@ -62,6 +63,7 @@ namespace App\Models\Database\SchSysConfig
         */
         public function setDataInsert(
             $varUserSession, 
+            string $varSysDataAnnotation = null, 
             int $varRotateLog_FileUploadStagingArea_RefID, int $varFileIndex, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -70,6 +72,9 @@ namespace App\Models\Database\SchSysConfig
                     $varUserSession,
                     'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_SET',
                     [
+                        [$varUserSession, 'bigint'],
+                        [null, 'bigint'],
+                        [$varSysDataAnnotation, 'varchar'],
                         [$varRotateLog_FileUploadStagingArea_RefID, 'bigint'],
                         [$varFileIndex, 'smallint'],
                         [$varFileName, 'character varying'],

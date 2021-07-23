@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of fileHandling.upload.getStagingFileNewID (version 1)",
+"description": "JSON Request Schema of fileHandling.upload.stagingArea.getFilesList (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "fileHandling.upload.getStagingFileNewID" ]
+                        "enum": [ "fileHandling.upload.stagingArea.getFilesList" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,12 +27,13 @@
     "data": {
         "type": "object",
         "properties": {
-            "applicationKey": {
-                "type": [ "integer", "string", "null" ],
-                "minLength": 1
+            "rotateLog_FileUploadStagingArea_RefRPK": {
+                "type": [ "integer", "null" ],
+                "minimum": 1,
+                "maximum": 9223372036854775807
                 }
             },
-        "required": [ "applicationKey" ]
+        "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
         }
     },
 "required": [ "metadata", "data" ]
