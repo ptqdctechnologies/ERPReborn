@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '2006179a663eddfc5f25c34e32e068502120b490',
+    'reference' => 'bb11174dd83664ce1b8f1a7f9682625cf3a66958',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.185.19',
-      'version' => '3.185.19.0',
+      'pretty_version' => '3.185.20',
+      'version' => '3.185.20.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7db5021b3c823235ee7f2ceb3f75ceb0811d74ac',
+      'reference' => '41aae0221d449b29e400cfead948a6b0343756db',
     ),
     'brick/math' => 
     array (
@@ -476,7 +476,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '2006179a663eddfc5f25c34e32e068502120b490',
+      'reference' => 'bb11174dd83664ce1b8f1a7f9682625cf3a66958',
     ),
     'laravel/tinker' => 
     array (
@@ -543,12 +543,12 @@ private static $installed = array (
     ),
     'monolog/monolog' => 
     array (
-      'pretty_version' => '2.3.1',
-      'version' => '2.3.1.0',
+      'pretty_version' => '2.3.2',
+      'version' => '2.3.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '9738e495f288eec0b187e310b7cdbbb285777dbe',
+      'reference' => '71312564759a7db5b789296369c1a264efc43aad',
     ),
     'mtdowling/cron-expression' => 
     array (
@@ -827,8 +827,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0.0',
-        1 => '1.0',
+        0 => '1.0',
+        1 => '1.0.0',
       ),
     ),
     'psr/simple-cache' => 
