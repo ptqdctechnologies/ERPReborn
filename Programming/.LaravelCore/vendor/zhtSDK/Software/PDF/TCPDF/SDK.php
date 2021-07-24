@@ -46,12 +46,31 @@ namespace zhtSDK\Software\PDF\TCPDF
 
             $this->setAdditionalFonts();
             }
-            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setAdditionalFonts                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-24                                                                                           |
+        | ▪ Description     : Set Additional Fonts                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */            
         private function setAdditionalFonts()
             {
-            $this->varAdditionalFonts = null;
-            $this->setFontSubsetting(true);
-            $this->varAdditionalFonts[] = \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32); 
+            try {
+                $this->varAdditionalFonts = null;
+                $this->setFontSubsetting(true);
+                $this->varAdditionalFonts[] = \TCPDF_FONTS::addTTFfont(getcwd().'/fonts/ARIALUNI.TTF', 'TrueTypeUnicode', '', 32);                 
+                } 
+            catch (\Exception $ex) {
+                }
             }
 
 
@@ -61,7 +80,7 @@ namespace zhtSDK\Software\PDF\TCPDF
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-12                                                                                           |
-        | ▪ Description     : AddPage                                                                                              |
+        | ▪ Description     : Add Page                                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
