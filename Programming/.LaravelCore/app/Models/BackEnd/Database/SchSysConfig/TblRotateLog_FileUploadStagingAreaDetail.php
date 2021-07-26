@@ -50,7 +50,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefID ► RotateLog_FileUploadStagingArea Reference ID (Mandatory)      |
-        |      ▪ (int)    varFileIndex ► File Index (Mandatory)                                                                    |
+        |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
         |      ▪ (string) varFileMIME ► File MIME (Mandatory)                                                                      |
@@ -64,7 +64,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, 
-            int $varRotateLog_FileUploadStagingArea_RefID, int $varFileIndex, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
+            int $varRotateLog_FileUploadStagingArea_RefID, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,7 +76,7 @@ namespace App\Models\Database\SchSysConfig
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varRotateLog_FileUploadStagingArea_RefID, 'bigint'],
-                        [$varFileIndex, 'smallint'],
+                        [$varFileSequence, 'smallint'],
                         [$varFileName, 'character varying'],
                         [$varFileSize, 'bigint'],
                         [$varFileMIME, 'character varying'],

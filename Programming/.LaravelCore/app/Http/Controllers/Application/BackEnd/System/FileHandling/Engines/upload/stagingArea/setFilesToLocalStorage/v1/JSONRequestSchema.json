@@ -35,7 +35,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "index": {
+                    "sequence": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 32767
@@ -75,7 +75,7 @@
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "rotateLog_FileUploadStagingArea_RefRPK", "index", "name", "size", "MIME", "extension", "contentBase64", "lastModifiedDateTimeTZ", "lastModifiedUnixTimestamp" ]
+                "required": [ "rotateLog_FileUploadStagingArea_RefRPK", "sequence", "name", "size", "MIME", "extension", "contentBase64", "lastModifiedDateTimeTZ", "lastModifiedUnixTimestamp" ]
                 }
             },
         "required": [ "entities" ]

@@ -60,47 +60,46 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataBuffer = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                            $varUserSession,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                            'transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail', 
-                            'latest', 
-                            [
-                            'rotateLog_FileUploadStagingArea_RefRPK' => $varData['rotateLog_FileUploadStagingArea_RefRPK'],
-                            'SQLStatement' => [
-                                'pick' => null,
-                                'sort' => null,
-                                'filter' => null,
-                                'paging' => null
-                                ]
-                            ]
-                            )['data'];
+                        $varDataBuffer =  \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
+                                'transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail', 
+                                'latest', 
+                                [
+                                'rotateLog_FileUploadStagingArea_RefRPK' => $varData['rotateLog_FileUploadStagingArea_RefRPK'],
+                                'SQLStatement' => [
+                                    'pick' => null,
+                                    'sort' => null,
+                                    'filter' => null,
+                                    'paging' => null
+                                    ]
+                                ],
+                                FALSE
+                                );
+
+                        if($varDataBuffer['metadata']['HTTPStatusCode'] != 200)
+                            {
+                            throw new \Exception('Data Not Found');
+                            }
                         
-                        for($i=0; $i!=count($varDataBuffer); $i++)
+                        for($i=0; $i!=count($varDataBuffer['data']); $i++)
                             {
                             $varDataSend[$i] = [
-                                'name' => $varDataBuffer[$i]['name'],
-                                'size' => $varDataBuffer[$i]['size']                                
+                                'name' => $varDataBuffer['data'][$i]['name'],
+                                'size' => $varDataBuffer['data'][$i]['size']                                
                                 ];                            
                             }
-                        
-                        
-                        /*
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload($varUserSession, (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingArea())->setDataInsert(
-                            $varUserSession, 
-                            null,
-                            $varData['applicationKey']
-                            ))))
-                            {
-                            throw new \Exception();
-                            }
-                        
-                         */
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        
+                        //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession, 
+                            500, 
+                            $varErrorMessage
+                            );
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -114,6 +113,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function dataProcessing($varUserSession, array $varDataList = null)
+            {
+            $varReturn = ['c' => 'x'];
+            //dd($varDataList); die();
             }
         }
     }

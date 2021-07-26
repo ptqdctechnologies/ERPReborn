@@ -22,8 +22,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-26                                                                                           |
         | ▪ Description     : Memanggil API Gateway                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -32,11 +32,12 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (string) varAPIKey ► API Key                                                                                      |
         |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
         |      ▪ (array)  varData ► Data                                                                                           |
+        |      ▪ (bool)   varSignDisplayErrorPage ► Sign Display Error Page (Optional)                                             |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null)
+        public static function setCallAPIGateway($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null, bool $varSignDisplayErrorPage = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -44,7 +45,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
-
+                    
                     if(!$varAPIVersion)
                         {
                         $varAPIVersion = 'latest';
@@ -52,6 +53,11 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     else
                         {
                         $varAPIVersion = strtolower($varAPIVersion);
+                        }
+
+                    if($varSignDisplayErrorPage === NULL)
+                        {
+                        $varSignDisplayErrorPage = TRUE;
                         }
         
                     if(!$varData)
@@ -83,8 +89,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     else
                         {
                             {
-                            echo $varResponseData['data']['message'];
-                            $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
+                                {
+                                if($varSignDisplayErrorPage === TRUE)
+                                    {
+                                    echo $varResponseData['data']['message'];
+                                    }
+                                $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
+                                }
                             $varReturn = $varResponseData;
                             //die();
                             }                        
