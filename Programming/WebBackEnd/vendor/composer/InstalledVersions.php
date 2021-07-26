@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'bb11174dd83664ce1b8f1a7f9682625cf3a66958',
+    'reference' => 'a35be8c450e7a2f2ea486c2cc20468ccebc2a0bc',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -64,6 +64,15 @@ private static $installed = array (
       array (
         0 => '*',
       ),
+    ),
+    'dflydev/dot-access-data' => 
+    array (
+      'pretty_version' => 'v3.0.0',
+      'version' => '3.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e04ff030d24a33edc2421bef305e32919dd78fc3',
     ),
     'doctrine/inflector' => 
     array (
@@ -476,7 +485,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'bb11174dd83664ce1b8f1a7f9682625cf3a66958',
+      'reference' => 'a35be8c450e7a2f2ea486c2cc20468ccebc2a0bc',
     ),
     'laravel/tinker' => 
     array (
@@ -498,12 +507,21 @@ private static $installed = array (
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '1.6.6',
-      'version' => '1.6.6.0',
+      'pretty_version' => '2.0.0',
+      'version' => '2.0.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c4228d11e30d7493c6836d20872f9582d8ba6dcf',
+      'reference' => '167142baf9a6b946f99ad9325b06028606f8238e',
+    ),
+    'league/config' => 
+    array (
+      'pretty_version' => 'v1.1.0',
+      'version' => '1.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '20d42d88f12a76ff862e17af4f14a5a4bbfd0925',
     ),
     'league/flysystem' => 
     array (
@@ -587,6 +605,24 @@ private static $installed = array (
       array (
       ),
       'reference' => 'f47f17d17602b2243414a44ad53d9f8b9ada5fdb',
+    ),
+    'nette/schema' => 
+    array (
+      'pretty_version' => 'v1.2.1',
+      'version' => '1.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
+    ),
+    'nette/utils' => 
+    array (
+      'pretty_version' => 'v3.2.2',
+      'version' => '3.2.2.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '967cfc4f9a1acd5f1058d76715a424c53343c20c',
     ),
     'nikic/php-parser' => 
     array (
@@ -827,8 +863,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 
