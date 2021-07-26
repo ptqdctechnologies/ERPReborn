@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             $this->dataProcessing(
                                 $varUserSession, 
                                 $varData['entities']['rotateLog_FileUploadStagingArea_RefRPK'],
-                                $varData['entities']['index'],
+                                $varData['entities']['sequence'],
                                 $varData['entities']['name'],
                                 $varData['entities']['size'],
                                 $varData['entities']['MIME'],
@@ -111,7 +111,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► RotateLog FileUploadStagingArea Reference RPK (Mandatory)    |
-        |      ▪ (int)    varFileIndex ► File Index (Mandatory)                                                                    |
+        |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
         |      ▪ (string) varFileMIME ► File MIME (Mandatory)                                                                      |
@@ -123,13 +123,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileIndex, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileContentBase64, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
+        private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileContentBase64, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
             {
             $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
                 $varUserSession, 
                 null, 
                 $varRotateLog_FileUploadStagingArea_RefRPK,
-                $varFileIndex,
+                $varFileSequence,
                 $varFileName, 
                 $varFileSize, 
                 $varFileMIME, 
