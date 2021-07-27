@@ -46,16 +46,19 @@
   $(document).ready(function() {
     $('#longTerm').click(function() {
       $("#sequenceRequest").val('0');
+      $(".budgetDetail").show();
       $("#sequenceRequest").prop("disabled", false);
     });
 
     $('#shortTerm').click(function() {
       $("#sequenceRequest").val('1');
+      $(".budgetDetail").show();
       $("#sequenceRequest").prop("disabled", true);
     });
 
     $('#dayTripTravel').click(function() {
       $("#sequenceRequest").val('1');
+      $(".budgetDetail").show();
       $("#sequenceRequest").prop("disabled", true);
     });
   });

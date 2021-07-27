@@ -5,6 +5,9 @@
         $("#buttonDetailBsf").prop("disabled", true);
         $("#amountCompanyCart").hide();
         $("#saveBsf").prop("disabled", true);
+        $("#ManagerNameId").prop("disabled", true);
+        $("#CurrencyId").prop("disabled", true);
+        $("#FinanceId").prop("disabled", true);
     });
 </script>
 
