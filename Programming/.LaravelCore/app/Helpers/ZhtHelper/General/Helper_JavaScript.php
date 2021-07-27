@@ -178,8 +178,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-20                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
         | ▪ Description     : Mengambil Fungsi DOM Input File Content                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -199,98 +199,104 @@ namespace App\Helpers\ZhtHelper\General
                     $varReturn = 
                         '(function(varObj, varReturnDOMObject) {'.
                             'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
-                                'try {'.
-                                    'varObj.disabled = true; '.
-                                    'var varReturn = \'\'; '.
-                                    'var varStagingTag = \'::StgFlsRPK::\'; '.
-                                    'var varObjFileList = varObj.files; '.                        
-                                    'var varAccumulatedFiles = 0; '.
-                                    'var varJSONDataBuilder = \'\'; '.
-                                    'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                        $varUserSession, 
-                                        $varAPIWebToken, 
-                                        'fileHandling.upload.stagingArea.getNewID', 
-                                        'latest', 
-                                        '{'.
-                                            '"applicationKey" : "'.$varAPIWebToken.'"'.
-                                        '}'
-                                        )).').data.recordRPK);'.
-                                    //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
-                                    'for(var i = 0; i < varObjFileList.length; i++)'.
-                                        '{'.
-                                        '(function(varObjCurrentFile, i) {'.
-                                            'var varObjFileReader = new FileReader(); '.
-                                            'varObjFileReader.onloadend = function(event) {'.
-                                                'varAccumulatedFiles++; '.
-                                                'if(varAccumulatedFiles != 1) {'.
-                                                    'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
-                                                    '}'.
-                                                'var varJSONDataBuilderNew = \'{\' + '.
-                                                    'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \'\' + '.
-                                                    '\'}\'; '.
-                                                'var varObjDOMInputTemp = document.createElement(\'INPUT\'); '.
-                                                'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
-                                                'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
-                                                'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-                                                'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                    $varUserSession, 
-                                                    $varAPIWebToken, 
-                                                    'fileHandling.upload.stagingArea.setFilesToLocalStorage', 
-                                                    'latest', 
-                                                    '{'.
-                                                        '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
-                                                    '}'
-                                                    )).';'.
-                                                //'alert(varNothing); '.
-                                                'if(varAccumulatedFiles == varObjFileList.length) '.
-                                                    '{'.
+                                'var varObjFileList = varObj.files; '.
+                                'if(varObjFileList.length > 0)'.
+                                    '{'.
+                                    'try {'.
+                                        'varObj.disabled = true; '.
+                                        'varReturnDOMObject.disabled = true; '.
+                                        'var varReturn = \'\'; '.
+                                        'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').'\'; '.
+
+                                        'var varAccumulatedFiles = 0; '.
+                                        'var varJSONDataBuilder = \'\'; '.
+                                        'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.upload.stagingArea.getNewID', 
+                                            'latest', 
+                                            '{'.
+                                                '"applicationKey" : "'.$varAPIWebToken.'"'.
+                                            '}'
+                                            )).').data.recordRPK);'.
+                                        //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
+                                        'for(var i = 0; i < varObjFileList.length; i++)'.
+                                            '{'.
+                                            '(function(varObjCurrentFile, i) {'.
+                                                'var varObjFileReader = new FileReader(); '.
+                                                'varObjFileReader.onloadend = function(event) {'.
+                                                    'varAccumulatedFiles++; '.
+                                                    'if(varAccumulatedFiles != 1) {'.
+                                                        'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
+                                                        '}'.
+                                                    'var varJSONDataBuilderNew = \'{\' + '.
+                                                        'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \'\' + '.
+                                                        '\'}\'; '.
+                                                    'var varObjDOMInputTemp = document.createElement(\'INPUT\'); '.
+                                                    'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
+                                                    'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
+                                                    'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
                                                     'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                         $varUserSession, 
                                                         $varAPIWebToken, 
-                                                        'fileHandling.upload.stagingArea.setFilesToCloudStorage', 
+                                                        'fileHandling.upload.stagingArea.setFilesToLocalStorage', 
                                                         'latest', 
                                                         '{'.
-                                                            '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                            '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
                                                         '}'
                                                         )).';'.
                                                     //'alert(varNothing); '.
-                                                    //'varReturn = varJSONDataBuilder; '.
-                                                    'varReturn = varRotateLog_FileUploadStagingArea_RefRPK; '.
-                                                    'varObj.disabled = false; '.
-                                                    //'alert(varObj.value); '.
+                                                    'if(varAccumulatedFiles == varObjFileList.length) '.
+                                                        '{'.
+                                                        'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                            $varUserSession, 
+                                                            $varAPIWebToken, 
+                                                            'fileHandling.upload.stagingArea.setFilesToCloudStorage', 
+                                                            'latest', 
+                                                            '{'.
+                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                            '}'
+                                                            )).';'.
+                                                        //'alert(varNothing); '.
+                                                        //'varReturn = varJSONDataBuilder; '.
+                                                        'varReturn = varRotateLog_FileUploadStagingArea_RefRPK; '.
+                                                        'varObj.disabled = false; '.
+                                                        'varReturnDOMObject.disabled = false; '.
+                                                        //'alert(varObj.value); '.
+                                                        '}'.
+                                                    '}; '.
+                                                'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
+                                                '}) (varObjFileList[i], i); '.
+                                            '} '.
+                                        'setTimeout('.
+                                            '(function() {'.
+                                                'try {'.
+                                                    'if(varReturn!=\'\') {'.
+                                                        'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                        //'varReturnDOMObject.value = varReturn; '.
+                                                        'return varReturn;'.
+                                                        '}'.
+                                                    'else {'.
+                                                        //'varReturnDOMObject.value = \'\'; '.
+                                                        '}'.
                                                     '}'.
-                                                '}; '.
-                                            'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
-                                            '}) (varObjFileList[i], i); '.
-                                        '} '.
-                                    'setTimeout('.
-                                        '(function() {'.
-                                            'try {'.
-                                                'if(varReturn!=\'\') {'.
-                                                    'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
-                                                    //'varReturnDOMObject.value = varReturn; '.
-                                                    'return varReturn;'.
-                                                    '}'.
-                                                'else {'.
-                                                    //'varReturnDOMObject.value = \'\'; '.
+                                                'catch(varError) {'.
+                                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
                                                     '}'.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}'.
-                                        '), 500);'.
-                                    '}'.
-                                'catch(varError) {'.
-                                    'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            '), 500);'.
+                                        '}'.
+                                    'catch(varError) {'.
+                                        'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                        '}'.
                                     '}'.
                                 '}'.
                             'else {'.

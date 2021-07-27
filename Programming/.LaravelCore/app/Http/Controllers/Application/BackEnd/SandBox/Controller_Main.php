@@ -16,14 +16,57 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
-            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
+            $varBufferData = (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
+                    $varUserSession, 
+                    203
+                    );
+            /*
+                for($i=0; $i!=count($varBufferData); $i++)
+                    {
+                    $x = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataInsert(
+                        $varUserSession, 
+                        null, 
+                        '2021', 
+                        11, 
+                        22, 
+                        $varBufferData[$i]['Sequence'], 
+                        $varBufferData[$i]['Name'], 
+                        $varBufferData[$i]['Size'], 
+                        $varBufferData[$i]['MIME'], 
+                        $varBufferData[$i]['Extension'], 
+                        $varBufferData[$i]['LastModifiedDateTimeTZ'], 
+                        $varBufferData[$i]['LastModifiedUnixTimestamp']
+                        );
+                    var_dump($x);
+                    }
+            */
+            dd($x);
+            
+            
+            //echo (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, '2021-01-01');
+            echo "<br><br>";
+            
+            /*
+            $varPointer_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Object)->setDataInsert(
+                    $varUserSession, 
+                    null, 
+                    '2020',
+                    1,
+                    111
+                    )['SignRecordID'];
+            dd($varPointer_RefID);*/
+  
+//            echo (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession);
+            
+            
+//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileList($varUserSession, 'StagingFiles');
             
 //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32', 'Application/');
-            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Application/Upload/StagingFiles/32');
+//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Application/Upload/StagingFiles/32');
 
-            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
+//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
                        
-            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/999.txt', 'StagingFiles/999.txt');
+//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingFiles/999.txt', 'StagingFiles/999.txt');
 
 //            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist($varUserSession, 'Upload/StagingFiles/32');
 
@@ -37,7 +80,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //\App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::createFile($varUserSession, 'xxx', 'Upload/StagingFiles/999.txt');
             
             //$x = \App\Models\CloudStorage\DefaultClassPrototype::createFile($varUserSession, '', 'StagingFiles');
-            dd($x);
+            //dd($x);
   
             
             //(new \App\Models\CloudStorage\DefaultClassPrototype())->createFile($varUserSession, '', 'xxx', 'erp-reborn');

@@ -158,6 +158,32 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getYearByDate                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Description     : Get Year By Date                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varDate ► Date (Optional)                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getYearByDate($varUserSession, string $varDate = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT DATE_PART(\'YEAR\', \''.($varDate ? $varDate : $this->getCurrentDateTimeTZ($varUserSession)).'\'::timestamptz);'
+                );
+            return (int) $varReturn['Data'][0]['date_part'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isExist_APIWebToken                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

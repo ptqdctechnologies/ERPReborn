@@ -69,7 +69,6 @@ final class Style
         }
 
         $state->eachTestCaseTests(function (TestResult $testResult) {
-            usleep(20000);
             $this->output->writeln($this->testLineFrom(
                 $testResult->color,
                 $testResult->icon,
@@ -180,14 +179,19 @@ final class Style
 
         $writer->ignoreFilesIn([
             '/vendor\/pestphp\/pest/',
+            '/vendor\/phpspec\/prophecy-phpunit/',
             '/vendor\/phpunit\/phpunit\/src/',
             '/vendor\/mockery\/mockery/',
             '/vendor\/laravel\/dusk/',
             '/vendor\/laravel\/framework\/src\/Illuminate\/Testing/',
             '/vendor\/laravel\/framework\/src\/Illuminate\/Foundation\/Testing/',
+            '/vendor\/symfony\/framework-bundle\/Test/',
             '/vendor\/symfony\/phpunit-bridge/',
             '/vendor\/bin\/.phpunit/',
             '/bin\/.phpunit/',
+            '/vendor\/bin\/simple-phpunit/',
+            '/bin\/phpunit/',
+            '/vendor\/coduo\/php-matcher\/src\/PHPUnit/',
             '/vendor\/sulu\/sulu\/src\/Sulu\/Bundle\/TestBundle\/Testing/',
         ]);
 

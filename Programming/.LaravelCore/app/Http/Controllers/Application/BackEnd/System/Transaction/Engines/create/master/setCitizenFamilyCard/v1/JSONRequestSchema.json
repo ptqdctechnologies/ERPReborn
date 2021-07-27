@@ -1,0 +1,61 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.master.setCitizenFamilyCard (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.master.setCitizenFamilyCard" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "log_FileUpload_Pointer_RefID": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1
+                        },
+                    "cardNumber": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 64
+                        },
+                    "issuedDate": {
+                        "type": [ "string", "null" ],
+                        "format": "date",
+                        "minLength": 10,
+                        "maxLength": 10
+                        },
+                    "cardSerialNumber": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 64
+                        }
+                    },
+                "required": [ "log_FileUpload_Pointer_RefID", "cardNumber", "issuedDate", "cardSerialNumber" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
