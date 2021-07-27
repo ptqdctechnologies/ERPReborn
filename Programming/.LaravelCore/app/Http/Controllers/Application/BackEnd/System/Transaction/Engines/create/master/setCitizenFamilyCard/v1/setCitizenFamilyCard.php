@@ -60,14 +60,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-//                        $varDataSend = ['xxx' => $varData];
-                        
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenFamilyCard())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_FileUpload::setUploadData(
+                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_FileUpload::setUploadPointer(
                                 $varUserSession,
                                 $varData['entities']['log_FileUpload_Pointer_RefID'],
                                 (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, $varData['entities']['issuedDate'])

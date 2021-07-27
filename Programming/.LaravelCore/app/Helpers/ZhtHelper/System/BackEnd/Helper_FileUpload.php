@@ -18,7 +18,23 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
     */
     class Helper_FileUpload
         {
-        public static function setUploadData($varUserSession, string $varID, string $varSysPartitionRemovableRecordKeyRefType = null)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setUploadPointer                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Description     : Mengeset Upload Pointer                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varID ► Data ID                                                                                          |
+        |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setUploadPointer($varUserSession, string $varID, string $varSysPartitionRemovableRecordKeyRefType = null)
             {
             $varData= explode(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA'), $varID);
             $varPointer_RefID = $varData[0];
@@ -79,7 +95,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     );
                 }
            
-            return $varPointer_RefID;
+            $varReturn = $varPointer_RefID;
+            return $varReturn;
             }
         }
     }
