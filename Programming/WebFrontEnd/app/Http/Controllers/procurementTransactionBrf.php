@@ -69,8 +69,6 @@ class procurementTransactionBrf extends Controller
                 'putCurrency' => $v['putCurrency'],
                 'totalArfDetails' => $v['totalArfDetails'],
                 'putRemark' => $v['putRemark'],
-                'trano' => $v['trano'],
-
             ));
         }
         return response()->json($dataAll2);

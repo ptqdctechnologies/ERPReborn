@@ -12,6 +12,51 @@ class LoginController extends Controller
         return view('Authentication.login');
     }
 
+    public function loginStore(Request $request)
+    {
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $username,
+            $password
+        );
+
+        dd($varData);
+        if ($varData['metadata']['HTTPStatusCode'] == '401') {
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        } else {
+            return response()->json($varData['data']['optionList']);
+        }
+    }
+
+
+    public function loginStores(Request $request)
+    {
+
+        $username = $request->input('username');
+        $password = $request->input('password');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $username,
+            $password
+        );
+
+        if ($varData['metadata']['HTTPStatusCode'] == '401') {
+            return response()->json($varData['metadata']['HTTPStatusCode']);
+        } else {
+            return response()->json($varData['data']['optionList']['0']['userRole']);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/')->with(['success' => 'Thank you for your visit']);
+    }
+
     public function login(Request $request)
     {
 
@@ -45,49 +90,5 @@ class LoginController extends Controller
             return redirect('/projectDashboard');
         }
         return redirect('/')->with('message', 'Login Failed');
-    }
-
-    public function loginStore(Request $request)
-    {
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $username,
-            $password
-        );
-
-        if ($varData['metadata']['HTTPStatusCode'] == '401') {
-            return response()->json($varData['metadata']['HTTPStatusCode']);
-        } else {
-            return response()->json($varData['data']['optionList']);
-        }
-    }
-
-
-    public function loginStores(Request $request)
-    {
-
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $username,
-            $password
-        );
-
-        if ($varData['metadata']['HTTPStatusCode'] == '401') {
-            return response()->json($varData['metadata']['HTTPStatusCode']);
-        } else {
-            return response()->json($varData['data']['optionList']['0']['userRole']);
-        }
-    }
-
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-        return redirect('/')->with(['success' => 'Thank you for your visit']);
     }
 }
