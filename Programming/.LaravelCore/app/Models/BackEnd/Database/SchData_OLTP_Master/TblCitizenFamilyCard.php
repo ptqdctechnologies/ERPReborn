@@ -42,8 +42,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,14 +51,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
+        |      ▪ (string) varCardNumber ► Card Number                                                                              |
+        |      ▪ (string) varIssuedDate ► Issued Date                                                                              |
+        |      ▪ (string) varCardSerialNumber ► Card Serial Number                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function setDataInsert(
+        public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varType = null)
+            int $varLog_FileUpload_Pointer_RefID = null, string $varCardNumber = null, string $varIssuedDate = null, string $varCardSerialNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -70,20 +74,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint']
+                        [$varSysBranchRefID, 'bigint'], 
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        [$varCardNumber, 'varchar'],
+                        [$varIssuedDate, 'date'],
+                        [$varCardSerialNumber, 'varchar']                        
                     ]
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-09                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -92,14 +100,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
+        |      ▪ (string) varCardNumber ► Card Number                                                                              |
+        |      ▪ (string) varIssuedDate ► Issued Date                                                                              |
+        |      ▪ (string) varCardSerialNumber ► Card Serial Number                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*        public function setDataUpdate(
+        public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varType = null)
+            int $varLog_FileUpload_Pointer_RefID = null, string $varCardNumber = null, string $varIssuedDate = null, string $varCardSerialNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -111,11 +123,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint']
+                        [$varSysBranchRefID, 'bigint'],
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        [$varCardNumber, 'varchar'],
+                        [$varIssuedDate, 'date'],
+                        [$varCardSerialNumber, 'varchar']                        
                     ],
                     )
                 );
             return $varReturn['Data'][0];
-            }*/
+            }
         }
     }
