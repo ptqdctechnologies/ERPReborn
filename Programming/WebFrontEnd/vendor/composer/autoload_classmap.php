@@ -1194,6 +1194,7 @@ return array(
     'Illuminate\\Broadcasting\\Broadcasters\\UsePusherChannelConventions' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/Broadcasters/UsePusherChannelConventions.php',
     'Illuminate\\Broadcasting\\Channel' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/Channel.php',
     'Illuminate\\Broadcasting\\EncryptedPrivateChannel' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/EncryptedPrivateChannel.php',
+    'Illuminate\\Broadcasting\\InteractsWithBroadcasting' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/InteractsWithBroadcasting.php',
     'Illuminate\\Broadcasting\\InteractsWithSockets' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/InteractsWithSockets.php',
     'Illuminate\\Broadcasting\\PendingBroadcast' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php',
     'Illuminate\\Broadcasting\\PresenceChannel' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/PresenceChannel.php',

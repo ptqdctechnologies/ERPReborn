@@ -489,6 +489,53 @@ namespace App\Helpers\ZhtHelper\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : moveFile                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Description     : Memindahkan objek file                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varSourceFilePath ► Source File Path                                                                    |
+        |      ▪ (string)  varDestinationFilePath ► Destination File Path                                                          |
+        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function moveFile($varUserSession, string $varSourceFilePath, string $varDestinationFilePath, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Move file on Server');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
+                    if(self::isFileExist($varUserSession, $varSourceFilePath) == false)
+                        {
+                        throw new \Exception('File is not exist');
+                        }
+//                 \Illuminate\Support\Facades\Storage::disk('local')->move($varSourceFilePath, $varDestinationFilePath);
+                    $varReturn = self::$ObjMinIO->move($varSourceFilePath, $varDestinationFilePath);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    //$varReturn = true;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : putFile                                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |

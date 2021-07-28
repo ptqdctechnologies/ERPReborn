@@ -16,10 +16,24 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
+            /*$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
+                $varUserSession, 
+                'StagingArea/'.'1'.'/'.'1', 
+                'Archive/'.'1'.'/'.'1'
+                );*/
+            $x = (new \App\Models\Database\SchSysConfig\General)->getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 6);
+            dd($x);
+            
+            
+            
+            
+            /*
             $varBufferData = (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
                     $varUserSession, 
                     203
                     );
+             
+             */
             /*
                 for($i=0; $i!=count($varBufferData); $i++)
                     {
@@ -40,7 +54,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     var_dump($x);
                     }
             */
-            dd($x);
+            //dd($x);
             
             
             //echo (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, '2021-01-01');
