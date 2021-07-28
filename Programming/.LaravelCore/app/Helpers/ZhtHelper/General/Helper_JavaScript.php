@@ -178,24 +178,30 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : Mengambil Fungsi DOM Input File Content                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession                                                                                           |
         |      ▪ (string) varAPIWebToken                                                                                           |
         |      ▪ (string) varDOMReturnID                                                                                           |
+        |      ▪ (string) varAction (Optional)                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID)
+        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID, string $varAction = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get DOM Input Files Content');
                 try {
+                    if(!$varAction)
+                        {
+                        $varAction = 'OverWrite';
+                        }
+                    
                     $varReturn = 
                         '(function(varObj, varReturnDOMObject) {'.
                             'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
@@ -206,7 +212,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'varObj.disabled = true; '.
                                         'varReturnDOMObject.disabled = true; '.
                                         'var varReturn = \'\'; '.
-                                        'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').'\'; '.
+                                        'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').$varAction.'::\'; '.
 
                                         'var varAccumulatedFiles = 0; '.
                                         'var varJSONDataBuilder = \'\'; '.
@@ -219,7 +225,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 '"applicationKey" : "'.$varAPIWebToken.'"'.
                                             '}'
                                             )).').data.recordRPK);'.
-                                        //'alert(varRotateLog_FileUploadStagingArea_RefRPK);'.
+                                        //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
                                         'for(var i = 0; i < varObjFileList.length; i++)'.
                                             '{'.
                                             '(function(varObjCurrentFile, i) {'.

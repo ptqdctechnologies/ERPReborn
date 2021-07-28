@@ -518,9 +518,9 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                         throw new \Exception('File is not exist');
                         }
 //                 \Illuminate\Support\Facades\Storage::disk('local')->move($varSourceFilePath, $varDestinationFilePath);
-                    self::$ObjMinIO->move($varSourceFilePath, $varDestinationFilePath);
+                    $varReturn = self::$ObjMinIO->move($varSourceFilePath, $varDestinationFilePath);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
+                    //$varReturn = true;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
