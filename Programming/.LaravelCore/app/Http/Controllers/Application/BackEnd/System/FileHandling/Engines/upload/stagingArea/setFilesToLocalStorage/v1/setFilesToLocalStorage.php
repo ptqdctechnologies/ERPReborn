@@ -148,9 +148,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
                 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
                 );
+
             $varReturn = [
                 'SignRecordID' => $varSignRecordID,
                 ];
+            
             return $varReturn;
             }
         }

@@ -87,6 +87,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (string) varFileExtension ► FileExtension (Mandatory)                                                             |
         |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
         |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
+        |      ▪ (int)    varDataCompression_RefID ► Data Compression Reference ID (Optional)                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -94,7 +95,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null)
+            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varDataCompression_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -114,7 +115,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varFileMIME, 'character varying'],
                         [$varFileExtension, 'character varying'],
                         [$varFileLastModifiedDateTimeTZ, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint']
+                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
+                        [$varDataCompression_RefID, 'bigint']
                     ]
                     )
                 );
@@ -144,6 +146,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (string) varFileExtension ► FileExtension (Mandatory)                                                             |
         |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
         |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
+        |      ▪ (int)    varDataCompression_RefID ► Data Compression Reference ID (Optional)                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -151,7 +154,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null)
+            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varDataCompression_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -171,7 +174,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varFileMIME, 'character varying'],
                         [$varFileExtension, 'character varying'],
                         [$varFileLastModifiedDateTimeTZ, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint']
+                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
+                        [$varDataCompression_RefID, 'bigint']
                     ],
                     )
                 );

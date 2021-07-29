@@ -73,7 +73,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['MIME'],
                             $varData['entities']['extension'],
                             $varData['entities']['lastModifiedDateTimeTZ'],
-                            $varData['entities']['lastModifiedUnixTimestamp']
+                            $varData['entities']['lastModifiedUnixTimestamp'],
+                            $varData['entities']['dataCompression_RefID']
                             ))))
                             {
                             throw new \Exception();
