@@ -121,6 +121,17 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                 $varObject_RefID
                                 );
                             }
+                            
+                        //---> Penambahan Data pada TblLog_FileUpload_PointerHistory
+                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_PointerHistory())->setDataInsert(
+                            $varUserSession, 
+                            null, 
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getCurrentYear($varUserSession), 
+                            $varBranch_RefID, 
+                            $varPointer_RefID, 
+                            $varObject_RefID
+                            );
+
                         $varReturn = $varPointer_RefID;
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
