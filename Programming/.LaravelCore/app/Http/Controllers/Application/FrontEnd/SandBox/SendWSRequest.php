@@ -17136,6 +17136,71 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.master.setCitizenFamilyCard                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateCitizenFamilyCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.master.setCitizenFamilyCard', 
+                'latest', 
+                [
+                'recordID' => 30000000000017,
+                'entities' => [
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'cardNumber' => 'CN',
+                    'issuedDate' => '2009-04-18',
+                    'cardSerialNumber' => 'CSN'    
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateCitizenFamilyCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<br>Record ID : '.
+                '<input type="text" id="dataInput_RecordID" value=30000000000018>';
+            echo '<br>Log FileUpload Pointer RefID : '.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value=91000000000004 readOnly="true">';
+            echo '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_Log_FileUpload_Pointer_RefID').';" />';
+            echo '<br>Card Number : '.
+                '<input type="text" id="dataInput_CardNumber" value="CardNumber">';
+            echo '<br>IssuedDate : '.
+                '<input type="text" id="dataInput_IssuedDate" value="2021-01-01">';
+            echo '<br>Card Serial Number : '.
+                '<input type="text" id="dataInput_CardSerialNumber" value="CardSN">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.master.setCitizenFamilyCard', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"log_FileUpload_Pointer_RefID" : document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value, '.
+                        '"cardNumber" : document.getElementById("dataInput_CardNumber").value, '.
+                        '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
+                        '"cardSerialNumber" : document.getElementById("dataInput_CardSerialNumber").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<br><button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.update.master.setCountry                                                                     |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
