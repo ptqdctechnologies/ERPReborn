@@ -21,7 +21,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 'StagingArea/'.'1'.'/'.'1', 
                 'Archive/'.'1'.'/'.'1'
                 );*/
-            $x = (new \App\Models\Database\SchSysConfig\General)->getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 6);
+            //$x = (new \App\Models\Database\SchSysConfig\General)->getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 6);
+            
+            $x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenFamilyCard())->setDataInsert(
+                $varUserSession, 
+                null, 
+                null, 
+                12300001, 
+                null, 
+                'CardNumber', 
+                '2021-01-01', 
+                'CardSerialNumber'
+                );
+            
+            
             dd($x);
             
             

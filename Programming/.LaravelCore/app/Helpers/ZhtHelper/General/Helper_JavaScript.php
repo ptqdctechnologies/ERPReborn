@@ -250,6 +250,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
                                                     'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                                     'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
+                                                    //'alert((varObjDOMInputTemp.getAttribute(\'value\'))); '.
                                                     'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                         $varUserSession, 
                                                         $varAPIWebToken, 

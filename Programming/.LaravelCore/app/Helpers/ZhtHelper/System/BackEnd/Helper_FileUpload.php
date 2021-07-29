@@ -36,92 +36,96 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         */
         public static function setUploadPointer($varUserSession, string $varID, string $varSysPartitionRemovableRecordKeyRefType = null)
             {
-            $varData= explode(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA'), $varID);
-            $varPointer_RefID = $varData[0];
-            $varStagingArea_Action = explode('::', $varData[1])[0];
-            $varStagingArea_RefRPK = explode('::', $varData[1])[1];
-            $varBranch_RefID = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'];
-            
-            switch($varStagingArea_Action)
-                {
-                case 'OverWrite':
-                    {
-                    //---> Penambahan Data pada TblLog_FileUpload_Object
-                    $varObject_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Object)->setDataInsert(
-                        $varUserSession, 
-                        null, 
-                        $varSysPartitionRemovableRecordKeyRefType,
-                        $varBranch_RefID, 
-                        $varStagingArea_RefRPK
-                        )['SignRecordID'];
+            $varReturn = null;                
 
-                    //---> Penambahan Data pada TblLog_FileUpload_ObjectDetail
-                    $varBufferData = (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
-                        $varUserSession, 
-                        $varStagingArea_RefRPK
-                        );
-                    for($i=0; $i!=count($varBufferData); $i++)
+            if(!$varID)
+                {
+                $varReturn = null;                
+                }
+            else
+                {
+                $varData= explode(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA'), $varID);
+                $varPointer_RefID = $varData[0];
+                $varStagingArea_Action = explode('::', $varData[1])[0];
+                $varStagingArea_RefRPK = explode('::', $varData[1])[1];
+                $varBranch_RefID = (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'];
+
+                switch($varStagingArea_Action)
+                    {
+                    case 'OverWrite':
                         {
-                        $varObjectDetail_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataInsert(
+                        //---> Penambahan Data pada TblLog_FileUpload_Object
+                        $varObject_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Object)->setDataInsert(
                             $varUserSession, 
                             null, 
-                            $varSysPartitionRemovableRecordKeyRefType, 
+                            $varSysPartitionRemovableRecordKeyRefType,
                             $varBranch_RefID, 
-                            $varObject_RefID, 
-                            $varBufferData[$i]['Sequence'], 
-                            $varBufferData[$i]['Name'], 
-                            $varBufferData[$i]['Size'], 
-                            $varBufferData[$i]['MIME'], 
-                            $varBufferData[$i]['Extension'], 
-                            $varBufferData[$i]['LastModifiedDateTimeTZ'], 
-                            $varBufferData[$i]['LastModifiedUnixTimestamp']
+                            $varStagingArea_RefRPK
                             )['SignRecordID'];
 
-                        //---> Pemindahan File dari Staging Area ke Archive
-                        \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
+                        //---> Penambahan Data pada TblLog_FileUpload_ObjectDetail
+                        $varBufferData = (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
                             $varUserSession, 
-                            'StagingArea/'.$varStagingArea_RefRPK.'/'.$varBufferData[$i]['Sys_RPK'], 
-                            'Archive/'.$varObject_RefID.'/'.$varObjectDetail_RefID
+                            $varStagingArea_RefRPK
                             );
+                        for($i=0; $i!=count($varBufferData); $i++)
+                            {
+                            $varObjectDetail_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataInsert(
+                                $varUserSession, 
+                                null, 
+                                $varSysPartitionRemovableRecordKeyRefType, 
+                                $varBranch_RefID, 
+                                $varObject_RefID, 
+                                $varBufferData[$i]['Sequence'], 
+                                $varBufferData[$i]['Name'], 
+                                $varBufferData[$i]['Size'], 
+                                $varBufferData[$i]['MIME'], 
+                                $varBufferData[$i]['Extension'], 
+                                $varBufferData[$i]['LastModifiedDateTimeTZ'], 
+                                $varBufferData[$i]['LastModifiedUnixTimestamp'],
+                                null
+                                )['SignRecordID'];
+
+                            //---> Pemindahan File dari Staging Area ke Archive
+                            \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
+                                $varUserSession, 
+                                'StagingArea/'.$varStagingArea_RefRPK.'/'.$varBufferData[$i]['Sys_RPK'], 
+                                'Archive/'.$varObject_RefID.'/'.$varObjectDetail_RefID
+                                );
+                            }
+                        break;
                         }
-                        
-                                    /*$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
-                $varUserSession, 
-                'StagingArea/'.'1'.'/'.'1', 
-                'Archive/'.'1'.'/'.'1'
-                );*/
-                        
-                    break;
+                    default:
+                        {
+                        break;
+                        }
                     }
-                default:
+
+                //---> Penambahan atau Update Data pada TblLog_FileUpload_Pointer
+                if(!$varPointer_RefID)
                     {
-                    break;
+                    $varPointer_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataInsert(
+                        $varUserSession, 
+                        null, 
+                        $varSysPartitionRemovableRecordKeyRefType, 
+                        $varBranch_RefID, 
+                        $varObject_RefID
+                        )['SignRecordID'];
                     }
+                else {
+                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataUpdate(
+                        $varUserSession, 
+                        $varPointer_RefID, 
+                        null, 
+                        $varSysPartitionRemovableRecordKeyRefType, 
+                        $varBranch_RefID, 
+                        $varObject_RefID
+                        );
+                    }
+
+                $varReturn = $varPointer_RefID;                
                 }
 
-            //---> Penambahan atau Update Data pada TblLog_FileUpload_Pointer
-            if(!$varPointer_RefID)
-                {
-                $varPointer_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataInsert(
-                    $varUserSession, 
-                    null, 
-                    $varSysPartitionRemovableRecordKeyRefType, 
-                    $varBranch_RefID, 
-                    $varObject_RefID
-                    )['SignRecordID'];
-                }
-            else {
-                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataUpdate(
-                    $varUserSession, 
-                    $varPointer_RefID, 
-                    null, 
-                    $varSysPartitionRemovableRecordKeyRefType, 
-                    $varBranch_RefID, 
-                    $varObject_RefID
-                    );
-                }
-           
-            $varReturn = $varPointer_RefID;
             return $varReturn;
             }
         }

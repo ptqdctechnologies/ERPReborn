@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : Laravel Models                                                                                                    |
-| ▪ Name Space : \App\Models\Database\SchData_OLTP_DataAcquisition                                                                 |
+| ▪ Name Space : \App\Models\Database\SchData_OLTP_Master                                                                          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_DataAcquisition
+namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblLog_FileUpload_ObjectDetail                                                                               |
-    | ▪ Description : Menangani Models Database ► SchData_OLTP_DataAcquisition ► TblLog_FileUpload_ObjectDetailDetail              |
+    | ▪ Class Name  : TblDataCompression                                                                                           |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblDataCompression                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblLog_FileUpload_ObjectDetail  extends \App\Models\Database\DefaultClassPrototype
+    class TblDataCompression extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -79,23 +79,15 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Rotate Log File Upload Staging Area Reference RPK                       |
-        |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
-        |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
-        |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
-        |      ▪ (string) varFileMIME ► File MIME (Mandatory)                                                                      |
-        |      ▪ (string) varFileExtension ► FileExtension (Mandatory)                                                             |
-        |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
-        |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
-        |      ▪ (int)    varDataCompression_RefID ► Data Compression Reference ID (Optional)                                      |
+        |      ▪ (string) varName ► Name of Compression Method                                                                     |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
+        |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varDataCompression_RefID = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -108,15 +100,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varLog_FileUpload_Object_RefID, 'bigint'],
-                        [$varFileSequence, 'smallint'],
-                        [$varFileName, 'character varying'],
-                        [$varFileSize, 'bigint'],
-                        [$varFileMIME, 'character varying'],
-                        [$varFileExtension, 'character varying'],
-                        [$varFileLastModifiedDateTimeTZ, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
-                        [$varDataCompression_RefID, 'bigint']
+                        [$varName, 'varchar']
                     ]
                     )
                 );
@@ -129,7 +113,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -138,15 +122,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Reference ID                                     |
-        |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
-        |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
-        |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
-        |      ▪ (string) varFileMIME ► File MIME (Mandatory)                                                                      |
-        |      ▪ (string) varFileExtension ► FileExtension (Mandatory)                                                             |
-        |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
-        |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
-        |      ▪ (int)    varDataCompression_RefID ► Data Compression Reference ID (Optional)                                      |
+        |      ▪ (string) varName ► Name of Compression Method                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -154,7 +130,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varDataCompression_RefID = null)
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -167,15 +143,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varLog_FileUpload_Object_RefID, 'bigint'],
-                        [$varFileSequence, 'smallint'],
-                        [$varFileName, 'character varying'],
-                        [$varFileSize, 'bigint'],
-                        [$varFileMIME, 'character varying'],
-                        [$varFileExtension, 'character varying'],
-                        [$varFileLastModifiedDateTimeTZ, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
-                        [$varDataCompression_RefID, 'bigint']
+                        [$varName, 'varchar']
                     ],
                     )
                 );

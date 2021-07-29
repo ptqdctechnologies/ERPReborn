@@ -3,28 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataAcquisition                       |
-|                \setLog_FileUpload_ObjectDetail\v1                                                                                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setDataCompression\v1          |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\dataAcquisition\setLog_FileUpload_ObjectDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setDataCompression\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setLog_FileUpload_ObjectDetail                                                                               |
-    | ▪ Description : Menangani API transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail Version 1                    |
+    | ▪ Class Name  : setDataCompression                                                                                           |
+    | ▪ Description : Menangani API transaction.create.master.setDataCompression Version 1                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setLog_FileUpload_ObjectDetail extends \App\Http\Controllers\Controller
+    class setDataCompression extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-27                                                                                           |
+        | ▪ Last Update     : 2021-07-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,24 +56,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create File Upload Object Detail Data Log (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Data Compression Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_ObjectDetail())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblDataCompression())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['log_FileUpload_Object_RefID'],
-                            $varData['entities']['sequence'],
-                            $varData['entities']['name'],
-                            $varData['entities']['size'],
-                            $varData['entities']['MIME'],
-                            $varData['entities']['extension'],
-                            $varData['entities']['lastModifiedDateTimeTZ'],
-                            $varData['entities']['lastModifiedUnixTimestamp'],
-                            $varData['entities']['dataCompression_RefID']
+                            $varData['entities']['name']
                             ))))
                             {
                             throw new \Exception();
