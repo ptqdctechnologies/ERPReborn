@@ -2240,6 +2240,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        public function APIGateway_setDataCreateCitizenFamilyCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setCitizenFamilyCard', 
+                'latest', 
+                [
+                'entities' => [
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'cardNumber' => 'CN',
+                    'issuedDate' => '2009-04-17',
+                    'cardSerialNumber' => 'CSN'    
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
         public function APIGatewayJQuery_setDataCreateCitizenFamilyCard()
             {
             //---Parameter Set---

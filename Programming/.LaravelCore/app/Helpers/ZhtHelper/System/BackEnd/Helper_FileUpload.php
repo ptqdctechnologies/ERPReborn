@@ -34,15 +34,11 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         |      ▪ (int)    varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setUploadPointer($varUserSession, string $varID, string $varSysPartitionRemovableRecordKeyRefType = null)
+        public static function setUploadPointer($varUserSession, string $varID = null, string $varSysPartitionRemovableRecordKeyRefType = null)
             {
-            $varReturn = null;                
+            $varReturn = null;
 
-            if(!$varID)
-                {
-                $varReturn = null;                
-                }
-            else
+            if($varID)
                 {
                 $varData= explode(\App\Helpers\ZhtHelper\System\Helper_Environment::getBackEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA'), $varID);
                 $varPointer_RefID = $varData[0];
