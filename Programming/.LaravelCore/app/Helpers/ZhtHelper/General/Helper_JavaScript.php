@@ -287,7 +287,14 @@ namespace App\Helpers\ZhtHelper\General
                                             '(function() {'.
                                                 'try {'.
                                                     'if(varReturn!=\'\') {'.
-                                                        'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                        'if(varReturn == \'[object Object]\') {'.
+                                                            'varObj.value=null; '.
+                                                            'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0]; '.
+                                                            'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
+                                                            '}'.
+                                                        'else {'.
+                                                            'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                            '}'.
                                                         //'varReturnDOMObject.value = varReturn; '.
                                                         'return varReturn;'.
                                                         '}'.

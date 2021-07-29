@@ -262,11 +262,25 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : fileHandling.upload.archive.setFilesFromStagingArea                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setUploadArchiveFilesListFilesFromStagingArea()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : fileHandling.upload.stagingArea.getFilesList                                                             |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_getStagingFilesDetailList()
+        public function APIGateway_getUploadStagingAreaFilesList()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
@@ -277,18 +291,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'fileHandling.upload.stagingArea.getFilesList', 
                 'latest', 
                 [
-                'rotateLog_FileUploadStagingArea_RefRPK' => 170
+                'rotateLog_FileUploadStagingArea_RefRPK' => 1
                 ]
                 );
             var_dump($varData);
             }
-        public function APIGatewayJQuery_getStagingFilesDetailList()
+        public function APIGatewayJQuery_getUploadStagingAreaFilesList()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=139>';
+            echo '<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=1>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -305,94 +319,61 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : fileHandling.upload.stagingArea.setStagingFile                                                           |
+        | ▪ API Key     : fileHandling.upload.stagingArea.getNewID                                                                 |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_setStagingFile()
+        public function APIGateway_getUploadStagingAreaNewID()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.setFilesToLocalStorage', 
-                'latest', 
-                [
-                'entities' => [
-                    'rotateLog_FileUploadStagingArea_RefRPK' => 12, 
-                    'sequence' => 1, 
-                    'name' => 'ContohTextFile.txt', 
-                    'size' => 9, 
-                    'MIME' =>'text/plain', 
-                    'extension' => 'txt', 
-                    'contentBase64' => 'dGVzdCBhamEK', 
-                    'lastModifiedDateTimeTZ' => 'Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)', 
-                    'lastModifiedUnixTimestamp' => 1626667110901
-                    ]
-                ]
-                );
-
-            
-            
-            
-            
-            /*            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.getNewID', 
-//                'fileHandling.upload.getStagingFileNewID', 
-//                'fileHandling.upload.setStagingFileDestroyOnLocalStorage', 
-                'latest', 
-                [
-                'applicationKey' => 'xxx'
-//                'rotateLog_FileUploadStagingArea_RefRPK' => 93
-                ]
-                );*/
-/*            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.upload.setStagingFile', 
-                'latest', 
-                [
-                'entities' => [
-                    'IPAddress' => '192.168.1.204',
-                    'port' => 4370, 
-                    'serialNumber' => '2065682450035',
-                    'timeZoneOffset' => '+07',
-                    'startDateTime' => '2021-01-01'
-                    ]
-                ]
-                );*/
-            var_dump($varData);
             }
-        public function APIGatewayJQuery_setStagingFile()
+        public function APIGatewayJQuery_getUploadStagingAreaNewID()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
             //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input id="file-select-input" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_FileAttachmentContent').';" />';
-            //echo '<input type="text" id="dataInput_FileAttachmentContent" value="">';
-            echo '<textarea cols = 80 rows = 20 id="dataInput_FileAttachmentContent" value=""></textarea>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'fileHandling.upload.setStagingFile', 
-                'latest', 
-                '{'.
-                    '"entities" : {'.
-//                        '"IPAddress" : document.getElementById("dataInput_IPAddress").value, '.
-//                        '"port" : parseInt(document.getElementById("dataInput_Port").value), '.
-//                        '"serialNumber" : document.getElementById("dataInput_SerialNumber").value, '.
-//                        '"timeZoneOffset" : document.getElementById("dataInput_TimeZoneOffset").value, '.
-//                        '"startDateTime" : document.getElementById("dataInput_StartDateTime").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : fileHandling.upload.stagingArea.setFilesToCloudStorage                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setUploadStagingAreaFilesToCloudStorage()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setUploadStagingAreaFilesToCloudStorage()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : fileHandling.upload.stagingArea.setFilesToLocalStorage                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setUploadStagingAreaFilesToLocalStorage()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setUploadStagingAreaFilesToLocalStorage()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
             }
 
 
@@ -2028,6 +2009,86 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.dataAcquisition.setLog_FileUpload_Object                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setLog_FileUpload_Object()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setLog_FileUpload_Object()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail                                        |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setLog_FileUpload_ObjectDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setLog_FileUpload_ObjectDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.dataAcquisition.setLog_FileUpload_Pointer                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setLog_FileUpload_Pointer()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setLog_FileUpload_Pointer()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.dataAcquisition.setLog_FileUpload_PointerHistory                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setLog_FileUpload_PointerHistory()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
+            }
+        public function APIGatewayJQuery_setLog_FileUpload_PointerHistory()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc1MjIwMjR9.HhItGVsM29ngR2brCSPIX4GgfFETO6i-pDXgHqbkPNo';
+            //---Core---
             }
 
 
