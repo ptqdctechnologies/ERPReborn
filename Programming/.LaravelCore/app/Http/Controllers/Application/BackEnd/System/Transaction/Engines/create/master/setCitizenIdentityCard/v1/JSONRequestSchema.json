@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setCitizenFamilyCard (version 1)",
+"description": "JSON Request Schema of transaction.create.master.setCitizenIdentityCard (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setCitizenFamilyCard" ]
+                        "enum": [ "transaction.create.master.setCitizenIdentityCard" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -34,16 +34,21 @@
                         "type": [ "string", "null" ],
                         "minLength": 1
                         },
-                    "cardNumber": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 64
-                        },
                     "issuedDate": {
                         "type": [ "string", "null" ],
                         "format": "date",
                         "minLength": 10,
                         "maxLength": 10
+                        },
+                    "citizenIdentity_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "bloodAglutinogenType_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "addressCountryAdministrativeAreaLevel1_RefID": {
                         "type": [ "integer", "null" ],
@@ -69,29 +74,9 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 128
-                        },
-                    "addressNeighbourhoodNumber": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 32767
-                        },
-                    "addressHamletNumber": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 32767
-                        },
-                    "postalCode": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 5
-                        },
-                    "cardSerialNumber": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 64
                         }
                     },
-                "required": [ "log_FileUpload_Pointer_RefID", "cardNumber", "issuedDate", "addressCountryAdministrativeAreaLevel1_RefID", "addressCountryAdministrativeAreaLevel2_RefID","addressCountryAdministrativeAreaLevel3_RefID", "addressCountryAdministrativeAreaLevel4_RefID", "address", "addressNeighbourhoodNumber", "addressHamletNumber", "postalCode", "cardSerialNumber" ]
+                "required": [ "log_FileUpload_Pointer_RefID", "issuedDate", "citizenIdentity_RefID", "bloodAglutinogenType_RefID", "addressCountryAdministrativeAreaLevel1_RefID", "addressCountryAdministrativeAreaLevel2_RefID","addressCountryAdministrativeAreaLevel3_RefID", "addressCountryAdministrativeAreaLevel4_RefID", "address" ]
                 }
             },
         "required": [ "entities" ]
