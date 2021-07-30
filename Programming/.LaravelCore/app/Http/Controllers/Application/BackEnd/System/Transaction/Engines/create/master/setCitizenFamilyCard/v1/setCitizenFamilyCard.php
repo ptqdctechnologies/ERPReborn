@@ -72,6 +72,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                 ),
                             $varData['entities']['cardNumber'],
                             $varData['entities']['issuedDate'],
+                            $varData['entities']['addressCountryAdministrativeAreaLevel1_RefID'],
+                            $varData['entities']['addressCountryAdministrativeAreaLevel2_RefID'],
+                            $varData['entities']['addressCountryAdministrativeAreaLevel3_RefID'],
+                            $varData['entities']['addressCountryAdministrativeAreaLevel4_RefID'],
+                            $varData['entities']['address'],
+                            $varData['entities']['addressNeighbourhoodNumber'],
+                            $varData['entities']['addressHamletNumber'],
+                            $varData['entities']['postalCode'],
                             $varData['entities']['cardSerialNumber']
                             ))))
                             {
