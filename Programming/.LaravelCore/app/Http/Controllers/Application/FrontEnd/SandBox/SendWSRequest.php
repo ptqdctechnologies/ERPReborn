@@ -2411,11 +2411,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     'issuedDate' => '2018-11-14',
                     'citizenIdentity_RefID' => 28000000000001,
                     'bloodAglutinogenType_RefID' => 27000000000003,
+                    'personProfession_RefID' => 27000000000003,
+                    'personMaritalStatus_RefID' => 27000000000003,
                     'addressCountryAdministrativeAreaLevel1_RefID' => 21000000000013,
                     'addressCountryAdministrativeAreaLevel2_RefID' => 22000000000192,
                     'addressCountryAdministrativeAreaLevel3_RefID' => 23000000002670,
                     'addressCountryAdministrativeAreaLevel4_RefID' => 27000000000003,
-                    'address' => 'Jl. Rancho Indah No. 26F'
+                    'address' => 'Jl. Rancho Indah No. 26F',
+                    'addressNeighbourhoodNumber' => 002,
+                    'addressHamletNumber' => 002
                     ]
                 ]
                 );
@@ -2434,8 +2438,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '<input type="text" id="dataInput_IssuedDate" value="2018-11-14">';
             echo '<br>Citizen Identity RefID ► '.
                 '<input type="text" id="dataInput_CitizenIdentity_RefID" value=28000000000001>';
-            echo '<br>Blood Aglutinogen Type RefID (Propinsi) ► '.
+            echo '<br>Blood Aglutinogen Type RefID ► '.
                 '<input type="text" id="dataInput_BloodAglutinogenType_RefID" value=27000000000003>';
+            echo '<br>Person Profession RefID ► '.
+                '<input type="text" id="dataInput_PersonProfession_RefID" value=27000000000003>';
+            echo '<br>Person Marital Status RefID ► '.
+                '<input type="text" id="dataInput_PersonMaritalStatus_RefID" value=27000000000003>';
             echo '<br>Address Country Administrative Area Level 1 RefID (Propinsi) ► '.
                 '<input type="text" id="dataInput_AddressCountryAdministrativeAreaLevel1_RefID" value=21000000000013>';
             echo '<br>Address Country Administrative Area Level 2 RefID (Kota/Kabupaten) ► '.
@@ -2445,7 +2453,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<br>Address Country Administrative Area Level 4 RefID (Kelurahan/Desa) ► '.
                 '<input type="text" id="dataInput_AddressCountryAdministrativeAreaLevel4_RefID" value=24000000055092>';
             echo '<br>Address ► '.
-                '<input type="text" id="dataInput_Address" value="Jl. Rancho Indah No. 26R RT 002 RW 002">';
+                '<input type="text" id="dataInput_Address" value="Jl. Rancho Indah No. 26F">';
+            echo '<br>Address Neighbourhood Number (RT) ► '.
+                '<input type="text" id="dataInput_AddressNeighbourhoodNumber" value=002>';
+            echo '<br>Address Address Hamlet Number (RW) ► '.
+                '<input type="text" id="dataInput_AddressHamletNumber" value=002>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -2457,11 +2469,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
                         '"citizenIdentity_RefID" : parseInt(document.getElementById("dataInput_CitizenIdentity_RefID").value), '.
                         '"bloodAglutinogenType_RefID" : parseInt(document.getElementById("dataInput_BloodAglutinogenType_RefID").value), '.
+                        '"personProfession_RefID" : parseInt(document.getElementById("dataInput_PersonProfession_RefID").value), '.
+                        '"personMaritalStatus_RefID" : parseInt(document.getElementById("dataInput_PersonMaritalStatus_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel1_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel2_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel3_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel4_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel4_RefID").value), '.
-                        '"address" : document.getElementById("dataInput_Address").value'.
+                        '"address" : document.getElementById("dataInput_Address").value, '.
+                        '"addressNeighbourhoodNumber" : parseInt(document.getElementById("dataInput_AddressNeighbourhoodNumber").value), '.
+                        '"addressHamletNumber" : parseInt(document.getElementById("dataInput_AddressHamletNumber").value)'.
                         '}'.
                 '}'
                 ); 

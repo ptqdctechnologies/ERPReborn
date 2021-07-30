@@ -3,20 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setCitizenIdentityCard\v1      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\master                       |
+|                \getPersonMaritalStatus\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setCitizenIdentityCard\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\master\getPersonMaritalStatus\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setCitizenIdentityCard                                                                                       |
-    | ▪ Description : Menangani API transaction.create.master.setCitizenIdentityCard Version 1                                     |
+    | ▪ Class Name  : getPersonMaritalStatus                                                                                       |
+    | ▪ Description : Menangani API transaction.read.dataRecord.master.getPersonMaritalStatus Version 1                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setCitizenIdentityCard extends \App\Http\Controllers\Controller
+    class getPersonMaritalStatus extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,32 +57,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Citizen Identity Card Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Person Marital Status Data Record (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentityCard())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblPersonMaritalStatus())->getDataRecord(
                             $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_FileUpload::setUploadPointer(
-                                $varUserSession,
-                                $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, $varData['entities']['issuedDate'])
-                                ),
-                            $varData['entities']['issuedDate'],
-                            $varData['entities']['citizenIdentity_RefID'],
-                            $varData['entities']['bloodAglutinogenType_RefID'],
-                            $varData['entities']['personProfession_RefID'],
-                            $varData['entities']['personMaritalStatus_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel1_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel2_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel3_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel4_RefID'],
-                            $varData['entities']['address'],
-                            $varData['entities']['addressNeighbourhoodNumber'],
-                            $varData['entities']['addressHamletNumber']
+                            $varData['recordID'],
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))
                             {
                             throw new \Exception();
@@ -90,7 +73,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data not found');
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -105,10 +88,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-        
-        function setLogFileUploadPointerRefIDProcessing($varUserSession, $varID)
-            {
-            
-            }
         }
     }
+
+?>
