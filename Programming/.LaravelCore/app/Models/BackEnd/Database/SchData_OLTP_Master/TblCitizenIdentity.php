@@ -70,8 +70,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-08-02                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -82,10 +82,24 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varPerson_RefID ► Reference ID                                                                           |
         |      ▪ (string) varName ► Person Name                                                                                    |
         |      ▪ (string) varIdentityNumber ► Identity Number                                                                      |
-        |      ▪ (int)    varPersonGender_RefID ► Person Gender Reference ID                                                       |
+        |      ▪ (int)    varCitizenGender_RefID ► Citizen Gender Reference ID                                                     |
         |      ▪ (int)    varBirthPlace_RefID ► Birth Place Reference ID                                                           |
         |      ▪ (string) varBirthDateTime ► Birth DateTime                                                                        |
+        |      ▪ (int)    varBloodAglutinogenType_RefID ► Blood Aglutinogen Type Reference ID                                      |
         |      ▪ (int)    varReligion_RefID ► Religion Reference ID                                                                |
+        |      ▪ (int)    varCitizenProfession_RefID ► Citizen Profession Reference ID                                             |
+        |      ▪ (int)    varCitizenMaritalStatus_RefID ► Citizen Marital Status Reference ID                                      |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel1_RefID ► Address Country Administrative Area Level 1 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel2_RefID ► Address Country Administrative Area Level 2 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel3_RefID ► Address Country Administrative Area Level 3 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel4_RefID ► Address Country Administrative Area Level 4 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+	|      ▪ (int)    varAddressNeighbourhoodNumber ► Address Neighbourhood Number                                             |
+	|      ▪ (int)    varAddressHamletNumber ► Address Hamlet Number                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varCitizenGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varBloodAglutinogenType_RefID = null, int $varReligion_RefID = null, int $varCitizenProfession_RefID = null, int $varCitizenMaritalStatus_RefID = null, int $varAddressCountryAdministrativeAreaLevel1_RefID = null, int $varAddressCountryAdministrativeAreaLevel2_RefID = null, int $varAddressCountryAdministrativeAreaLevel3_RefID = null, int $varAddressCountryAdministrativeAreaLevel4_RefID = null, string $varAddress = null, int $varAddressNeighbourhoodNumber = null, int $varAddressHamletNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -106,28 +120,37 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varPerson_RefID, 'bigint'],
                         [$varName, 'varchar'], 
                         [$varIdentityNumber, 'varchar'],
-                        [$varPersonGender_RefID, 'bigint'],
+                        [$varCitizenGender_RefID, 'bigint'],
                         [$varBirthPlace_RefID, 'bigint'],
                         [$varBirthDateTime, 'timestamp'],
-                        [$varReligion_RefID, 'bigint']
+                        [$varBloodAglutinogenType_RefID, 'bigint'],
+                        [$varReligion_RefID, 'bigint'],                       
+                        [$varCitizenProfession_RefID, 'bigint'],
+                        [$varCitizenMaritalStatus_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel1_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel2_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel3_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel4_RefID, 'bigint'],
+                        [$varAddress, 'varchar'],
+                        [$varAddressNeighbourhoodNumber, 'smallint'],
+                        [$varAddressHamletNumber, 'smallint']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
             }
-            /*
-        
-             * 
-             */
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-08-02                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -139,10 +162,24 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varPerson_RefID ► Reference ID                                                                           |
         |      ▪ (string) varName ► Person Name                                                                                    |
         |      ▪ (string) varIdentityNumber ► Identity Number                                                                      |
-        |      ▪ (int)    varPersonGender_RefID ► Person Gender Reference ID                                                       |
+        |      ▪ (int)    varCitizenGender_RefID ► Citizen Gender Reference ID                                                     |
         |      ▪ (int)    varBirthPlace_RefID ► Birth Place Reference ID                                                           |
         |      ▪ (string) varBirthDateTime ► Birth DateTime                                                                        |
+        |      ▪ (int)    varBloodAglutinogenType_RefID ► Blood Aglutinogen Type Reference ID                                      |
         |      ▪ (int)    varReligion_RefID ► Religion Reference ID                                                                |
+        |      ▪ (int)    varCitizenProfession_RefID ► Citizen Profession Reference ID                                             |
+        |      ▪ (int)    varCitizenMaritalStatus_RefID ► Citizen Marital Status Reference ID                                      |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel1_RefID ► Address Country Administrative Area Level 1 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel2_RefID ► Address Country Administrative Area Level 2 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel3_RefID ► Address Country Administrative Area Level 3 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (int)    varAddressCountryAdministrativeAreaLevel4_RefID ► Address Country Administrative Area Level 4 Reference  |
+        |                     ID                                                                                                   |
+        |      ▪ (string) varAddress ► Address                                                                                     |
+	|      ▪ (int)    varAddressNeighbourhoodNumber ► Address Neighbourhood Number                                             |
+	|      ▪ (int)    varAddressHamletNumber ► Address Hamlet Number                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -150,7 +187,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varPersonGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varReligion_RefID = null)
+            int $varPerson_RefID = null, string $varName = null, string $varIdentityNumber = null, int $varCitizenGender_RefID = null, int $varBirthPlace_RefID = null, string $varBirthDateTime = null, int $varBloodAglutinogenType_RefID = null, int $varReligion_RefID = null, int $varCitizenProfession_RefID = null, int $varCitizenMaritalStatus_RefID = null, int $varAddressCountryAdministrativeAreaLevel1_RefID = null, int $varAddressCountryAdministrativeAreaLevel2_RefID = null, int $varAddressCountryAdministrativeAreaLevel3_RefID = null, int $varAddressCountryAdministrativeAreaLevel4_RefID = null, string $varAddress = null, int $varAddressNeighbourhoodNumber = null, int $varAddressHamletNumber = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -163,13 +200,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varPerson_RefID, 'bigint'],
                         [$varName, 'varchar'], 
                         [$varIdentityNumber, 'varchar'],
-                        [$varPersonGender_RefID, 'bigint'],
+                        [$varCitizenGender_RefID, 'bigint'],
                         [$varBirthPlace_RefID, 'bigint'],
                         [$varBirthDateTime, 'timestamp'],
-                        [$varReligion_RefID, 'bigint']
+                        [$varBloodAglutinogenType_RefID, 'bigint'],
+                        [$varReligion_RefID, 'bigint'],                       
+                        [$varCitizenProfession_RefID, 'bigint'],
+                        [$varCitizenMaritalStatus_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel1_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel2_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel3_RefID, 'bigint'],
+                        [$varAddressCountryAdministrativeAreaLevel4_RefID, 'bigint'],
+                        [$varAddress, 'varchar'],
+                        [$varAddressNeighbourhoodNumber, 'smallint'],
+                        [$varAddressHamletNumber, 'smallint']
                     ],
                     )
                 );

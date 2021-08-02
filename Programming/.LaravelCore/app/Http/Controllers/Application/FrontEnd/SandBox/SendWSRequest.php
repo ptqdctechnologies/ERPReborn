@@ -2391,11 +2391,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.create.master.setCitizenIdentityCard                                                           |
+        | ▪ API Key     : transaction.create.master.setCitizenIdentity                                                             |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_setDataCreateCitizenIdentityCard()
+        public function APIGateway_setDataCreateCitizenIdentity()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc4NjYwMTN9._fnv3B2eYVFxBF_Rejr_nwQf4S2Usyk5UZvz7kqKu_o';
@@ -2403,16 +2403,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.create.master.setCitizenIdentityCard', 
+                'transaction.create.master.setCitizenIdentity', 
                 'latest', 
                 [
                 'entities' => [
-                    'log_FileUpload_Pointer_RefID' => null,
-                    'issuedDate' => '2018-11-14',
-                    'citizenIdentity_RefID' => 28000000000001,
+                    'person_RefID' => 25000000000241,
+                    'name' => 'Teguh Pratama Januzir S',
+                    'identityNumber' => '3174092710810006',
+                    'citizenGender_RefID' => 156000000000001,
+                    'birthPlace_RefID' => 22000000000191,
+                    'birthDateTime' => '1981-10-27',
                     'bloodAglutinogenType_RefID' => 27000000000003,
-                    'personProfession_RefID' => 27000000000003,
-                    'personMaritalStatus_RefID' => 27000000000003,
+                    'religion_RefID' => 26000000000001,
+                    'citizenProfession_RefID' => 155000000000016,
+                    'citizenMaritalStatus_RefID' => 154000000000002,
                     'addressCountryAdministrativeAreaLevel1_RefID' => 21000000000013,
                     'addressCountryAdministrativeAreaLevel2_RefID' => 22000000000192,
                     'addressCountryAdministrativeAreaLevel3_RefID' => 23000000002670,
@@ -2425,25 +2429,32 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        public function APIGatewayJQuery_setDataCreateCitizenIdentityCard()
+        public function APIGatewayJQuery_setDataCreateCitizenIdentity()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc4NjYwMTN9._fnv3B2eYVFxBF_Rejr_nwQf4S2Usyk5UZvz7kqKu_o';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Log FileUpload Pointer RefID ► '.
-                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
-                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_Log_FileUpload_Pointer_RefID').';" />';
-            echo '<br>Issued Date ► '.
-                '<input type="text" id="dataInput_IssuedDate" value="2018-11-14">';
-            echo '<br>Citizen Identity RefID ► '.
-                '<input type="text" id="dataInput_CitizenIdentity_RefID" value=28000000000001>';
+            echo '<br>Person RefID ► '.
+                '<input type="text" id="dataInput_Person_RefID" value=25000000000241>';
+            echo '<br>Name ► '.
+                '<input type="text" id="dataInput_Name" value="Teguh Pratama Januzir S">';
+            echo '<br>Identity Number ► '.
+                '<input type="text" id="dataInput_IdentityNumber" value="3174092710810006">';
+            echo '<br>Citizen Gender RefID ► '.
+                '<input type="text" id="dataInput_CitizenGender_RefID" value=156000000000001>';
+            echo '<br>Birth Place RefID ► '.
+                '<input type="text" id="dataInput_BirthPlace_RefID" value=22000000000191>';
+            echo '<br>Birth Date Time RefID ► '.
+                '<input type="text" id="dataInput_BirthDateTime" value="1981-10-27">';
             echo '<br>Blood Aglutinogen Type RefID ► '.
                 '<input type="text" id="dataInput_BloodAglutinogenType_RefID" value=27000000000003>';
-            echo '<br>Person Profession RefID ► '.
-                '<input type="text" id="dataInput_PersonProfession_RefID" value=27000000000003>';
-            echo '<br>Person Marital Status RefID ► '.
-                '<input type="text" id="dataInput_PersonMaritalStatus_RefID" value=27000000000003>';
+            echo '<br>Religion RefID (Propinsi) ► '.
+                '<input type="text" id="dataInput_Religion_RefID" value=26000000000001>';
+            echo '<br>Citizen Profession RefID ► '.
+                '<input type="text" id="dataInput_CitizenProfession_RefID" value=155000000000016>';
+            echo '<br>Citizen Marital Status RefID ► '.
+                '<input type="text" id="dataInput_CitizenMaritalStatus_RefID" value=154000000000002>';
             echo '<br>Address Country Administrative Area Level 1 RefID (Propinsi) ► '.
                 '<input type="text" id="dataInput_AddressCountryAdministrativeAreaLevel1_RefID" value=21000000000013>';
             echo '<br>Address Country Administrative Area Level 2 RefID (Kota/Kabupaten) ► '.
@@ -2461,23 +2472,88 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.create.master.setCitizenIdentityCard', 
+                'transaction.create.master.setCitizenIdentity', 
                 'latest', 
                 '{'.
                     '"entities" : {'.
-                        '"log_FileUpload_Pointer_RefID" : document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value, '.
-                        '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
-                        '"citizenIdentity_RefID" : parseInt(document.getElementById("dataInput_CitizenIdentity_RefID").value), '.
+                        '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"identityNumber" : document.getElementById("dataInput_IdentityNumber").value, '.
+                        '"citizenGender_RefID" : parseInt(document.getElementById("dataInput_CitizenGender_RefID").value), '.
+                        '"birthPlace_RefID" : parseInt(document.getElementById("dataInput_BirthPlace_RefID").value), '.
+                        '"birthDateTime" : document.getElementById("dataInput_BirthDateTime").value, '.
                         '"bloodAglutinogenType_RefID" : parseInt(document.getElementById("dataInput_BloodAglutinogenType_RefID").value), '.
-                        '"personProfession_RefID" : parseInt(document.getElementById("dataInput_PersonProfession_RefID").value), '.
-                        '"personMaritalStatus_RefID" : parseInt(document.getElementById("dataInput_PersonMaritalStatus_RefID").value), '.
+                        '"religion_RefID" : parseInt(document.getElementById("dataInput_Religion_RefID").value), '.
+                        '"citizenProfession_RefID" : parseInt(document.getElementById("dataInput_CitizenProfession_RefID").value), '.
+                        '"citizenMaritalStatus_RefID" : parseInt(document.getElementById("dataInput_CitizenMaritalStatus_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel1_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel2_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel3_RefID").value), '.
                         '"addressCountryAdministrativeAreaLevel4_RefID" : parseInt(document.getElementById("dataInput_AddressCountryAdministrativeAreaLevel4_RefID").value), '.
                         '"address" : document.getElementById("dataInput_Address").value, '.
                         '"addressNeighbourhoodNumber" : parseInt(document.getElementById("dataInput_AddressNeighbourhoodNumber").value), '.
-                        '"addressHamletNumber" : parseInt(document.getElementById("dataInput_AddressHamletNumber").value)'.
+                        '"addressHamletNumber" : parseInt(document.getElementById("dataInput_AddressHamletNumber").value) '.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.master.setCitizenIdentityCard                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateCitizenIdentityCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc4NjYwMTN9._fnv3B2eYVFxBF_Rejr_nwQf4S2Usyk5UZvz7kqKu_o';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.master.setCitizenIdentityCard', 
+                'latest', 
+                [
+                'entities' => [
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'citizenIdentity_RefID' => 28000000000001,
+                    'issuedDate' => '2018-11-14',
+                    'expirationDate' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateCitizenIdentityCard()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjc4NjYwMTN9._fnv3B2eYVFxBF_Rejr_nwQf4S2Usyk5UZvz7kqKu_o';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<br>Log FileUpload Pointer RefID ► '.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
+                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_Log_FileUpload_Pointer_RefID').';" />';
+            echo '<br>Citizen Identity RefID ► '.
+                '<input type="text" id="dataInput_CitizenIdentity_RefID" value=28000000000001>';
+            echo '<br>Issued Date ► '.
+                '<input type="text" id="dataInput_IssuedDate" value="2018-11-14">';
+            echo '<br>Expiration Date ► '.
+                '<input type="text" id="dataInput_ExpirationDate" value="">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.master.setCitizenIdentityCard', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"log_FileUpload_Pointer_RefID" : document.getElementById("dataInput_Log_FileUpload_Pointer_RefID").value, '.
+                        '"citizenIdentity_RefID" : parseInt(document.getElementById("dataInput_CitizenIdentity_RefID").value), '.
+                        '"issuedDate" : document.getElementById("dataInput_IssuedDate").value, '.
+                        '"expirationDate" : document.getElementById("dataInput_ExpirationDate").value '.
                         '}'.
                 '}'
                 ); 
