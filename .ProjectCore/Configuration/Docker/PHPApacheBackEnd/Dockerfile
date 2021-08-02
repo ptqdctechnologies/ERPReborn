@@ -64,7 +64,9 @@ RUN apt-get install -y \
       libpng-dev \
       zlib1g-dev \
       && docker-php-ext-install \ 
-         gd;
+         gd \
+   && apt-get install -y \
+      lz4;
 
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
