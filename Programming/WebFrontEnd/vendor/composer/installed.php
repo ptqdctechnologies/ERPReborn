@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a23078a4dd42e922f5bfa74ab5804ad479a7ae36',
+    'reference' => 'ee49658514ce8bc19d627bd423abeeefc81d3eca',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a23078a4dd42e922f5bfa74ab5804ad479a7ae36',
+      'reference' => 'ee49658514ce8bc19d627bd423abeeefc81d3eca',
     ),
     'laravel/tinker' => 
     array (
@@ -467,12 +467,12 @@
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '2.0.0',
-      'version' => '2.0.0.0',
+      'pretty_version' => '2.0.1',
+      'version' => '2.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '167142baf9a6b946f99ad9325b06028606f8238e',
+      'reference' => '0d57f20aa03129ee7ef5f690e634884315d4238c',
     ),
     'league/config' => 
     array (
@@ -703,12 +703,12 @@
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '8.5.18',
-      'version' => '8.5.18.0',
+      'pretty_version' => '8.5.19',
+      'version' => '8.5.19.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'bd5fc77c869e8dd65040dacbad170f074c13796c',
+      'reference' => '496281b64ec781856ed0a583483b5923b4033722',
     ),
     'predis/predis' => 
     array (
