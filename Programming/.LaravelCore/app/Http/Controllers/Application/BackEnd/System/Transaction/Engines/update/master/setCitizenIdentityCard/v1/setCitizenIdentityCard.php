@@ -71,18 +71,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                 $varData['entities']['log_FileUpload_Pointer_RefID'],
                                 (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, $varData['entities']['issuedDate'])
                                 ),
-                            $varData['entities']['issuedDate'],
                             $varData['entities']['citizenIdentity_RefID'],
-                            $varData['entities']['bloodAglutinogenType_RefID'],
-                            $varData['entities']['personProfession_RefID'],
-                            $varData['entities']['personMaritalStatus_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel1_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel2_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel3_RefID'],
-                            $varData['entities']['addressCountryAdministrativeAreaLevel4_RefID'],
-                            $varData['entities']['address'],
-                            $varData['entities']['addressNeighbourhoodNumber'],
-                            $varData['entities']['addressHamletNumber']
+                            $varData['entities']['issuedDate'],
+                            $varData['entities']['expirationDate']
                             ))))
                             {
                             throw new \Exception();

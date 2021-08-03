@@ -103,6 +103,9 @@
                         "maximum": 9223372036854775807
                         },
                     "address": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 128
                         },
                     "addressNeighbourhoodNumber": {
                         "type": [ "integer", "null" ],
