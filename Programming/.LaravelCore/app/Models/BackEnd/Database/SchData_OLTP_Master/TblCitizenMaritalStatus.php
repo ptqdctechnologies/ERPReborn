@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Master
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblPersonMaritalStatus                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblPersonMaritalStatus                                     |
+    | ▪ Class Name  : TblCitizenMaritalStatus                                                                                      |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCitizenMaritalStatus                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblPersonMaritalStatus extends \App\Models\Database\DefaultClassPrototype
+    class TblCitizenMaritalStatus extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

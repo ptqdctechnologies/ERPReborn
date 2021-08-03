@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setCitizenIdentity (version 1)",
+"description": "JSON Request Schema of transaction.update.master.setCitizenIdentity (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setCitizenIdentity" ]
+                        "enum": [ "transaction.update.master.setCitizenIdentity" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,6 +27,11 @@
     "data": {
         "type": "object",
         "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
             "entities" : {
                 "type": "object",
                 "properties": {
@@ -121,7 +126,7 @@
                 "required": [ "person_RefID", "name", "identityNumber", "citizenGender_RefID", "birthPlace_RefID", "birthDateTime", "bloodAglutinogenType_RefID", "religion_RefID", "citizenProfession_RefID", "citizenMaritalStatus_RefID", "addressCountryAdministrativeAreaLevel1_RefID", "addressCountryAdministrativeAreaLevel2_RefID", "addressCountryAdministrativeAreaLevel3_RefID", "addressCountryAdministrativeAreaLevel4_RefID", "address", "addressNeighbourhoodNumber", "addressHamletNumber" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]

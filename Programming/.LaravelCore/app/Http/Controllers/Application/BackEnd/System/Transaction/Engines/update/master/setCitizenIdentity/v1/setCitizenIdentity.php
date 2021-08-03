@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setCitizenFamilyCard\v1        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setCitizenIdentity\v1          |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setCitizenFamilyCard\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\master\setCitizenIdentity\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setCitizenFamilyCard                                                                                         |
-    | ▪ Description : Menangani API transaction.update.master.setCitizenFamilyCard Version 1                                       |
+    | ▪ Class Name  : setCitizenIdentity                                                                                           |
+    | ▪ Description : Menangani API transaction.update.master.setCitizenIdentity Version 1                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setCitizenFamilyCard extends \App\Http\Controllers\Controller
+    class setCitizenIdentity extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-29                                                                                           |
+        | ▪ Last Update     : 2021-08-03                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-29                                                                                           |
+        | ▪ Last Update     : 2021-08-03                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,32 +56,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Citizen Family Card Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Citizen Identity Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenFamilyCard())->setDataUpdate(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCitizenIdentity())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_FileUpload::setUploadPointer(
-                                $varUserSession,
-                                $varData['entities']['log_FileUpload_Pointer_RefID'],
-                                (new \App\Models\Database\SchSysConfig\General())->getYearByDate($varUserSession, $varData['entities']['issuedDate'])
-                                ),
-                            $varData['entities']['cardNumber'],
-                            $varData['entities']['issuedDate'],
+                            $varData['entities']['person_RefID'],
+                            $varData['entities']['name'],
+                            $varData['entities']['identityNumber'],
+                            $varData['entities']['citizenGender_RefID'],
+                            $varData['entities']['birthPlace_RefID'],
+                            $varData['entities']['birthDateTime'],
+                            $varData['entities']['bloodAglutinogenType_RefID'],
+                            $varData['entities']['religion_RefID'],
+                            $varData['entities']['citizenProfession_RefID'],
+                            $varData['entities']['citizenMaritalStatus_RefID'],
                             $varData['entities']['addressCountryAdministrativeAreaLevel1_RefID'],
                             $varData['entities']['addressCountryAdministrativeAreaLevel2_RefID'],
                             $varData['entities']['addressCountryAdministrativeAreaLevel3_RefID'],
                             $varData['entities']['addressCountryAdministrativeAreaLevel4_RefID'],
                             $varData['entities']['address'],
                             $varData['entities']['addressNeighbourhoodNumber'],
-                            $varData['entities']['addressHamletNumber'],
-                            $varData['entities']['postalCode'],
-                            $varData['entities']['cardSerialNumber']
+                            $varData['entities']['addressHamletNumber']
                             ))))
                             {
                             throw new \Exception();

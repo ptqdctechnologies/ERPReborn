@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.master.setCitizenIdentityCard (version 1)",
+"description": "JSON Request Schema of transaction.update.master.setCitizenProfession (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.master.setCitizenIdentityCard" ]
+                        "enum": [ "transaction.update.master.setCitizenProfession" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -32,33 +32,16 @@
                 "minimum": 1,
                 "maximum": 9223372036854775807
                 },
-            "entities" :
-                {
+            "entities" : {
                 "type": "object",
                 "properties": {
-                    "log_FileUpload_Pointer_RefID": {
+                    "name": {
                         "type": [ "string", "null" ],
-                        "minLength": 1
-                        },
-                    "citizenIdentity_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "issuedDate": {
-                        "type": [ "string", "null" ],
-                        "format": "date",
-                        "minLength": 10,
-                        "maxLength": 10
-                        },
-                    "expirationDate": {
-                        "type": [ "string", "null" ],
-                        "format": "date",
-                        "minLength": 10,
-                        "maxLength": 10
+                        "minLength": 1,
+                        "maxLength": 256
                         }
                     },
-                "required": [ "log_FileUpload_Pointer_RefID", "citizenIdentity_RefID", "issuedDate", "expirationDate" ]
+                "required": [ "name" ]
                 }
             },
         "required": [ "recordID", "entities" ]
