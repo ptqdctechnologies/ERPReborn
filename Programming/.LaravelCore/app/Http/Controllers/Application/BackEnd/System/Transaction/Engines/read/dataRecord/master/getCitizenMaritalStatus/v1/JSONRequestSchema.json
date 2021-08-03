@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataRecord.master.getPersonProfession (version 1)",
+"description": "JSON Request Schema of transaction.read.dataRecord.master.getCitizenMaritalStatus (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataRecord.master.getPersonProfession" ]
+                        "enum": [ "transaction.read.dataRecord.master.getCitizenMaritalStatus" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
