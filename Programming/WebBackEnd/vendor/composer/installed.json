@@ -57,17 +57,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.186.4",
-            "version_normalized": "3.186.4.0",
+            "version": "3.187.0",
+            "version_normalized": "3.187.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "887b9c15b8e55e139b9c697b040277a709b89582"
+                "reference": "1c7f307e0987bd8eacd2d99d78818a96b42511d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/887b9c15b8e55e139b9c697b040277a709b89582",
-                "reference": "887b9c15b8e55e139b9c697b040277a709b89582",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1c7f307e0987bd8eacd2d99d78818a96b42511d1",
+                "reference": "1c7f307e0987bd8eacd2d99d78818a96b42511d1",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-08-02T18:18:03+00:00",
+            "time": "2021-08-03T18:18:03+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.186.4"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.187.0"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1608,17 +1608,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.52.0",
-            "version_normalized": "8.52.0.0",
+            "version": "v8.53.0",
+            "version_normalized": "8.53.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "8fe9877d52e25f8aed36c51734e5a8510be967e6"
+                "reference": "4b2e3e7317da82dd9f5b88d477abd93444748b43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/8fe9877d52e25f8aed36c51734e5a8510be967e6",
-                "reference": "8fe9877d52e25f8aed36c51734e5a8510be967e6",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4b2e3e7317da82dd9f5b88d477abd93444748b43",
+                "reference": "4b2e3e7317da82dd9f5b88d477abd93444748b43",
                 "shasum": ""
             },
             "require": {
@@ -1691,7 +1691,7 @@
                 "illuminate/view": "self.version"
             },
             "require-dev": {
-                "aws/aws-sdk-php": "^3.155",
+                "aws/aws-sdk-php": "^3.186.4",
                 "doctrine/dbal": "^2.6|^3.0",
                 "filp/whoops": "^2.8",
                 "guzzlehttp/guzzle": "^6.5.5|^7.0.1",
@@ -1704,7 +1704,7 @@
                 "symfony/cache": "^5.1.4"
             },
             "suggest": {
-                "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.155).",
+                "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.186.4).",
                 "brianium/paratest": "Required to run tests in parallel (^6.0).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.6|^3.0).",
                 "ext-ftp": "Required to use the Flysystem FTP driver.",
@@ -1732,7 +1732,7 @@
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
             },
-            "time": "2021-07-27T13:03:29+00:00",
+            "time": "2021-08-03T14:36:33+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
