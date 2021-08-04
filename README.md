@@ -25,17 +25,18 @@
       4. **volume-pgadmin4**
    3. Pull Images Docker yang terdiri atas :
       1. **postgres:latest**
-      2. **php:7.3-apache**
+      2. **php:8.0-apache**
       3. **redis:latest**
       4. **dpage/pgadmin4:latest**
-      5. **minio/minio:latest**
-      6. **nowsci/samba-domain:latest**
-      7. **grafana/grafana:latest**
+      5. **nowsci/samba-domain:latest**
+      6. **grafana/grafana:latest**
+      7. **minio/minio:latest**
    4. Rebuild Images Docker yang terdiri atas :
       1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
-      2. **erp-reborn-phpapache-backend** (turunan dari Image php:7.3-apache)
-      3. **erp-reborn-phpapache-frontend** (turunan dari Image php:7.3-apache)
+      2. **erp-reborn-phpapache-backend** (turunan dari Image php:8.0-apache)
+      3. **erp-reborn-phpapache-frontend** (turunan dari Image php:8.0-apache)
       4. **erp-reborn-samba** (turunan dari Image nowsci/samba-domain:latest)
+      4. **erp-reborn-minio** (turunan dari Image minio/minio:latest)
    5. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
    6. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
       1. **erp-reborn-postgresql** &rarr; membentuk container bernama **postgresql** (Docker IP : 172.28.0.2)
@@ -43,9 +44,9 @@
       3. **erp-reborn-phpapache-backend** &rarr; membentuk container bernama **php-apache-frontend** (Docker IP : 172.28.0.4)
       4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
       5. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.6)
-      6. **minio/minio** &rarr; membentuk container bernama **minio** (Docker IP : 172.28.0.7)
-      7. **erp-reborn-samba** &rarr; membentuk container bernama **samba** (Docker IP : 172.28.0.8)
-      8. **grafana/grafana** &rarr; membentuk container bernama **grafana** (Docker IP : 172.28.0.9)
+      7. **erp-reborn-samba** &rarr; membentuk container bernama **samba** (Docker IP : 172.28.0.7)
+      8. **grafana/grafana** &rarr; membentuk container bernama **grafana** (Docker IP : 172.28.0.8)
+      6. **erp-reborn-minio** &rarr; membentuk container bernama **minio-node1** (Docker IP : 172.28.0.9), **minio-node2** (Docker IP : 172.28.0.7.10), **minio-node3** (Docker IP : 172.28.0.11), **minio-node4** (Docker IP : 172.28.0.12)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
    1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
@@ -54,9 +55,9 @@
    4. **apache WebFrontEnd** &rarr; **http://localhost:20080** (NAT dari 172.28.0.4:80)
    5. **redis** &rarr; **http://localhost:16379** (NAT dari 172.28.0.5:6379)
    6. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.6:5050)
-   7. **minio** &rarr; **http://localhost:19000** (NAT dari 172.28.0.7:9000)
-   8. **samba** &rarr; **http://localhost:10137** (NAT dari 172.28.0.8:137), **http://localhost:10138** (NAT dari 172.28.0.8:138), **http://localhost:10139** (NAT dari 172.28.0.8:139), **http://localhost:10445** (NAT dari 172.28.0.8:445)
-   9. **grafana** &rarr; **http://localhost:13000** (NAT dari http://172.28.0.9:3000)
+   7. **samba** &rarr; **http://localhost:10137** (NAT dari 172.28.0.7:137), **http://localhost:10138** (NAT dari 172.28.0.7:138), **http://localhost:10139** (NAT dari 172.28.0.7:139), **http://localhost:10445** (NAT dari 172.28.0.7:445)
+   8. **grafana** &rarr; **http://localhost:13000** (NAT dari http://172.28.0.8:3000)
+   9. **minio** &rarr; **http://localhost:19000** (NAT dari 172.28.0.9:9000), **http://localhost:29000** (NAT dari 172.28.0.10:9000), **http://localhost:39000** (NAT dari 172.28.0.11:9000), **http://localhost:49000** (NAT dari 172.28.0.12:9000)
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
