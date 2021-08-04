@@ -119,10 +119,10 @@
         $(".klikSiteArf").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             $("#brfhide3").show();
-
             $(".pageArfBoq").show();
             $(".pageDetailTransaction").show();
-
+            $("#showContentBOQ").show();
+            $("#arfTableDisableEnable").show();
             var $this = $(this);
             var code = $this.data("id");
             var name = $this.data("name");
@@ -132,19 +132,20 @@
 
             $("#request_name2").prop("disabled", false);
 
-            //Batas
+            //DATA MIX
 
             $("#arfNumberAsf").prop("disabled", true);
-
             $("#requester").val("requester 1");
             $("#managerAsfUid").val("Manager 1");
             $("#managerAsfName").val("Manager Detail 1");
             $("#currency").val("IDR");
-            $("#financeArfUid").val("finance 1");
+            $("#currencyCode").val("IDR");
+            $("#financeArfUtableBudgetBrfid").val("finance 1");
             $("#financeArfName").val("Finance Detail 1");
             $("#remark").val("Remark 1");
             $("#total").val("100000");
             $("#totalDetail").val("Rp");
+
 
             //End batas
 
@@ -208,6 +209,22 @@
                             '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
                             '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
                         ]).draw();
+
+                        var t = $('#tableArfDetail').DataTable();
+                        t.row.add([
+                            '<a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;" href="javascript:addToDetailSettlement()"><i class="fa fa-plus" aria-hidden="true"></i></a>',
+                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-blue" style="width: 90%;"></div></div><small><center>90 %</center></small>',
+                            '<span id="lastProductId">' + val.putProductId + '</span>',
+                            '<span id="lastProductName">' + val.putProductName + '</span>',
+                            '<span id="lastUom">' + val.putUom + '</span>',
+                            '<span id="lastPrice">' + val.putPrice + '</span>',
+                            '<span id="lastQty">' + val.putQtys + '</span>',
+                            '<span id="totalArfDetails">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark">' + val.putRemark + '</span>',
+                            '<span id="lastRemark">' + val.putRemark + '</span>',
+                        ]).draw();
+
                     });
                 },
                 error: function(data) {
@@ -226,4 +243,58 @@
         $("#brfhide5").show();
         $("#budgetNameArf").val("ARF-0001");
     }
+</script>
+
+<script type="text/javascript">
+    function addToDetailSettlement() {
+
+        $("#addAsfListCart").prop("disabled", false);
+        $(".detailASF").show();
+        $("#arf_number").val($('#arfNumberAsf').val());
+        $("#arf_date").val("23-02-2021");
+        $("#cfs_code").val("x");
+        
+
+        // var balance = $('#total').val() - $('#totalArfDetails').html();
+        // var balance = totalBalance.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        $("#total_arf").val("2000000");
+        $("#total_arf2").val("IDR");
+        $("#total_asf").val("1000000");
+        $("#total_asf2").val("IDR");
+
+        $("#balance").val("1000000");
+        $("#balance2").val("IDR");
+        $("#qty_expense2").val("Ls");
+        $("#price_expense2").val("IDR");
+        $("#total_expense2").val("IDR");
+        $("#qty_amount2").val("Ls");
+        $("#price_amount2").val("IDR");
+        $("#total_amount2").val("IDR");
+
+    };
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_expense').keyup(function() {
+            var price_expense = $(this).val();
+            var qty_expense = $('#qty_expense').val();
+            var total_expense = price_expense * qty_expense;
+            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_expense").val(total_expense);
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_amount').keyup(function() {
+            var price_amount = $(this).val();
+            var qty_amount = $('#qty_amount').val();
+
+            var total_amount = price_amount * qty_amount;
+            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_amount").val(total_amount);
+        });
+    });
 </script>

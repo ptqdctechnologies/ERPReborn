@@ -214,11 +214,11 @@ class procurementTransactionArf extends Controller
             $qtyDetail = "IDR";
             $unitPrice = "500";
             $unitPriceDetail = "Rp";
-            $total = "1000";
+            $total = "0";
             $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
+            $totalBoq = "0";
+            $requestTotal = "0";
+            $balance = "0";
         }
         else if ($request->searchArfNumberRevision == 'Q000182') {
             $origin_budget = "Origini Budget 2";
@@ -240,11 +240,11 @@ class procurementTransactionArf extends Controller
             $qtyDetail = "IDR";
             $unitPrice = "500";
             $unitPriceDetail = "Rp";
-            $total = "1000";
+            $total = "0";
             $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
+            $totalBoq = "0";
+            $requestTotal = "0";
+            $balance = "0";
         }
         else if ($request->searchArfNumberRevision == 'Q000183') {
             $origin_budget = "Origini Budget 3";
@@ -266,11 +266,11 @@ class procurementTransactionArf extends Controller
             $qtyDetail = "IDR";
             $unitPrice = "500";
             $unitPriceDetail = "Rp";
-            $total = "1000";
+            $total = "0";
             $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
+            $totalBoq = "0";
+            $requestTotal = "0";
+            $balance = "0";
         }
 
 

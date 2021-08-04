@@ -5,20 +5,6 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <td><label>ARF Number</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input required="" id="arfNumberAsf" style="border-radius:0;" name="arfNumberAsf" type="text" class="form-control" readonly>
-                                    <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i data-toggle="modal" data-target="#mySearchArf" class="fas fa-gift" style="color:grey;"></i></a>
-                                        </span>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-
-                        <tr>
                             <td><label>Requester</label></td>
                             <td>
                                 <div class="input-group">
@@ -66,7 +52,7 @@
                             <td><label>Finance Receiving Name</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="financeUid" style="border-radius:0;" name="financeUid" type="text" class="form-control" readonly>
+                                    <input required="" id="financeArfUtableBudgetBrfid" style="border-radius:0;" name="financeUid" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="FinanceId" data-toggle="modal" data-target="#myfinance" class="fas fa-gift" style="color:grey;"></i></a>
@@ -75,7 +61,7 @@
                                 </div>
                             </td>
                             <td>
-                                <input required="" id="financeName" style="border-radius:0;" readonly="" class="form-control">
+                                <input required="" id="financeArfName" style="border-radius:0;" readonly="" class="form-control">
                             </td>
                         </tr>
                         <tr>
@@ -86,7 +72,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                             <td><label>Total</label></td>
                             <td>
                                 <div class="input-group">
@@ -102,7 +88,7 @@
                                 <input id="hideSiteName" type="hidden">
                                 
                             </td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
             </div>

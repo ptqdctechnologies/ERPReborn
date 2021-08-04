@@ -2,19 +2,48 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".detailASF").hide();
-        $("#amountCompanyCart").hide();
         $("#addAsfListCart").prop("disabled", true);
         $("#saveAsfList").prop("disabled", true);
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
+        $("#projectcode2").prop("disabled", true);
+        $("#sitecode2").prop("disabled", true);
+
+
+        $("#amountCompanyCart").hide();
+        $("#expenseCompanyCart").hide();
     });
 </script>
 
 <script>
     $(function() {
-        $("#product-desc-tab").on('click', function(e) {
+        $("#origin_budget").on('click', function(e) {
+            e.preventDefault();
+            var val = $("#origin_budget").val();
+            if (val == "") {
+                $("#projectcode2").prop("disabled", true);
+            } else {
+                $("#projectcode2").prop("disabled", false);
+            }
+        });
+    });
+</script>
+
+<script>
+    $(function() {
+        $(".idExpense").on('click', function(e) {
+            $("#amountdueto").hide();
+            $("#expense").show();
+            $("#expenseCompanyCart").show();
+        });
+    });
+
+    $(function() {
+        $(".idAmount").on('click', function(e) {
+            $("#expense").hide();
             $("#amountCompanyCart").show();
+            $("#amountdueto").show();
         });
     });
 </script>
@@ -97,81 +126,82 @@
 
             // } else {
 
-                var datas = [];
+            var datas = [];
 
-                for (var i = 1; i <= x; i++) {
-                    var data = {
+            for (var i = 1; i <= x; i++) {
+                var data = {
 
+                    trano: "ARF-0001",
+                    productId: $('#lastProductId').html(),
+                    nameMaterial: $('#lastProductName').html(),
+                    uom: $('#lastUom').html(),
+                    unitPriceExpense: $('#price_expense').val(),
+                    qtyExpense: $('#qty_expense').val(),
+                    totalExpense: $('#total_expense').val(),
+                    unitPriceAmount: $('#price_amount').val(),
+                    qtyAmount: $('#qty_amount').val(),
+                    totalAmount: $('#total_amount').val(),
+                    description: $('#lastRemark').html(),
 
-                        trano: $('#arfNumberAsf').val(),
-                        productId: $('#lastProductId').html(),
-                        nameMaterial: $('#lastProductName').html(),
-                        uom: $('#lastUom').html(),
-                        unitPriceExpense: $('#price_expense').val(),
-                        qtyExpense: $('#qty_expense').val(),
-                        totalExpense: $('#total_expense').val(),
-                        unitPriceAmount: $('#price_amount').val(),
-                        qtyAmount: $('#qty_amount').val(),
-                        totalAmount: $('#total_amount').val(),
-                        description: $('#lastRemark').html(),
-
-                    }
-                    datas.push(data);
                 }
+                datas.push(data);
+            }
 
-                var json_object = JSON.stringify(datas);
-                // console.log(json_object);
+            var json_object = JSON.stringify(datas);
+            // console.log(json_object);
 
-                $.ajax({
-                    type: "POST",
-                    url: '{{route("ASF.addListCartAsf")}}',
-                    data: json_object,
-                    contentType: "application/json",
-                    processData: true,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
+            $.ajax({
+                type: "POST",
+                url: '{{route("ASF.addListCartAsf")}}',
+                data: json_object,
+                contentType: "application/json",
+                processData: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
 
-                        Swal.fire("Success !", "Data add to cart", "success");
+                    Swal.fire("Success !", "Data add to cart", "success");
 
-                        y++;
-                        $.each(data, function(key, val) {
+                    y++;
+                    $.each(data, function(key, val) {
 
-                            var t = $('#tableAmountDueto').DataTable();
-                            t.row.add([
-                                '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                                '<span id="Trano_' + y + '">' + val.trano + '</span>',
-                                '<span id="productId' + y + '">' + val.productId + '</span>',
-                                '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
-                                '<span id="Uom_' + y + '">' + val.uom + '</span>',
-                                '<span id="UnitPriceExpense_' + y + '">' + val.unitPriceExpense + '</span>',
-                                '<span id="QtyExpense_' + y + '">' + val.qtyExpense + '</span>',
-                                '<span id="TotalExpense_' + y + '">' + val.totalExpense + '</span>',
-                                '<span id="Description' + y + '">' + val.description + '</span>'
-                            ]).draw();
+                        var t = $('#tableAmountDueto').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
+                            '<span id="productId' + y + '">' + val.productId + '</span>',
+                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
+                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
+                            '<span id="UnitPriceAmount_' + y + '">' + val.unitPriceAmount + '</span>',
+                            '<span id="QtyAmount' + y + '">' + val.qtyAmount + '</span>',
+                            '<span id="TotalAmount_' + y + '">' + val.totalAmount + '</span>',
+                            '<span id="Description' + y + '">' + val.description + '</span>'
+                        ]).draw();
 
-                            var t = $('#tableExpenseClaim').DataTable();
-                            t.row.add([
-                                '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                                '<span id="Trano_' + y + '">' + val.trano + '</span>',
-                                '<span id="productId' + y + '">' + val.productId + '</span>',
-                                '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
-                                '<span id="Uom_' + y + '">' + val.uom + '</span>',
-                                '<span id="UnitPriceAmount_' + y + '">' + val.unitPriceAmount + '</span>',
-                                '<span id="QtyAmount' + y + '">' + val.qtyAmount + '</span>',
-                                '<span id="TotalAmount_' + y + '">' + val.totalAmount + '</span>',
-                                '<span id="Description' + y + '">' + val.description + '</span>'
-                            ]).draw();
-                        });
-                    },
-                    error: function(data) {
-                        Swal.fire("Error !", "Data Canceled Added", "error");
-                    }
-                });
+                        var t = $('#tableExpenseClaim').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
+                            '<span id="productId' + y + '">' + val.productId + '</span>',
+                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
+                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
+                            '<span id="UnitPriceExpense_' + y + '">' + val.unitPriceExpense + '</span>',
+                            '<span id="QtyExpense_' + y + '">' + val.qtyExpense + '</span>',
+                            '<span id="TotalExpense_' + y + '">' + val.totalExpense + '</span>',
+                            '<span id="Description' + y + '">' + val.description + '</span>'
+                        ]).draw();
 
-                $("#amountCompanyCart").show();
-                $("#saveAsfList").prop("disabled", false);
+
+                    });
+                },
+                error: function(data) {
+                    Swal.fire("Error !", "Data Canceled Added", "error");
+                }
+            });
+
+            $("#amountCompanyCart").show();
+            $("#saveAsfList").prop("disabled", false);
             // }
         } else {
             Swal.fire("Error !", "Total expense claim + amount do to company <= balance", "error");
@@ -261,4 +291,42 @@
             }
         })
     });
+</script>
+
+<script>
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    $('.add_field_button').click(function() {
+        cek = 0;
+        addColomn();
+    });
+
+    function addColomn() { //on add input button click
+        if (cek == 0) {
+            cek++;
+            x++; //text box increment
+            for ($x = 1; $x < 5; $x++) {
+
+            }
+            $(wrapper).append(
+
+                '<div class="col-md-12">' +
+                '<div class="form-group">' +
+                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
+                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
+                '<div class="input-group-btn">' +
+                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</div>'
+
+            ); //add input box                
+        }
+    }
+
+    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
+        e.preventDefault();
+        $(this).parent().parent().parent('div').remove();
+        x--;
+    })
 </script>

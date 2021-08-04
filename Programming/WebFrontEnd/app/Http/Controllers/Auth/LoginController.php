@@ -22,8 +22,7 @@ class LoginController extends Controller
             $username,
             $password
         );
-
-        dd($varData);
+        
         if ($varData['metadata']['HTTPStatusCode'] == '401') {
             return response()->json($varData['metadata']['HTTPStatusCode']);
         } else {

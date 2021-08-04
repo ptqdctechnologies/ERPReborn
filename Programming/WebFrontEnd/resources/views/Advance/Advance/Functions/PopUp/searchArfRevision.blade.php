@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <table>
                             <tr>
-                                <td><label>No Trans</label></td>
+                                <td><label>Trano</label></td>
                                 <td>
                                     <div class="input-group">
                                         <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="no_trans" onkeyup="searchNoTrans()">
@@ -47,7 +47,7 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Project ID</th>
+                                            <th>Project Code</th>
                                             <th>Project Name</th>
                                             <th>Site Code</th>
                                             <th>Site Name</th>

@@ -54,7 +54,7 @@
                                             <th>No</th>
                                             <th>Trano</th>
                                             <th>ARF Number</th>
-                                            <th>Project ID</th>
+                                            <th>Project Code</th>
                                             <th>Project Name</th>
                                             <th>Site Code</th>
                                             <th>Site Name</th>

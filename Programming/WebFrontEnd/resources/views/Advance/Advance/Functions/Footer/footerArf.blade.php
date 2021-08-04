@@ -7,7 +7,8 @@
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#buttonArfList").prop("disabled", true);
-        $("#buttonBudget").prop("disabled", true);
+        $("#showContentBOQ").hide();
+        $("#arfTableDisableEnable").hide();
     });
 </script>
 
@@ -217,7 +218,8 @@
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
             var get31 = $("#getProductId1").html();
-            var get41 = $("#getQty1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get4 = $("#getQty1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get41 = $("#getQty11").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get51 = $("#getPrice1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get61 = $("#getRemark1").html();
             var get71 = $("#getProductName1").html();
@@ -225,12 +227,15 @@
             var get91 = $("#getCurrency1").html();
             var get101 = $("#getRequester1").html();
 
-            var totalBudget = get41 * get51;
-            $("#totalBudget").val(totalBudget);
+            var totalRequested = (get4 * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = ((get4 - get41) * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get11);
             $("#putWorkName").val(get21);
             $("#putProductId").val(get31);
+            $("#totalRequester").val(totalRequested);
+            $("#totalQtyRequest").val(get4 - get41);
+            $("#totalBalance").val(totalBalance);
             $("#putQty").val(get41);
             $("#putPrice").val(get51);
             $("#putRemark").val(get61);
@@ -250,7 +255,8 @@
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
             var get32 = $("#getProductId2").html();
-            var get42 = $("#getQty2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get4 = $("#getQty2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get42 = $("#getQty22").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get52 = $("#getPrice2").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get62 = $("#getRemark2").html();
             var get72 = $("#getProductName2").html();
@@ -259,13 +265,15 @@
             var get102 = $("#getRequester2").html();
 
 
-            var totalBudget = get42 * get52;
-            $("#totalBudget").val(totalBudget);
-
+            var totalRequested = (get4 * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = ((get4 - get42) * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get12);
             $("#putWorkName").val(get22);
             $("#putProductId").val(get32);
+            $("#totalRequester").val(totalRequested);
+            $("#totalQtyRequest").val(get4 - get42);
+            $("#totalBalance").val(totalBalance);
             $("#putQty").val(get42);
             $("#putPrice").val(get52);
             $("#putRemark").val(get62);
@@ -284,7 +292,8 @@
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
             var get33 = $("#getProductId3").html();
-            var get43 = $("#getQty3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get4 = $("#getQty3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get43 = $("#getQty33").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get53 = $("#getPrice3").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get63 = $("#getRemark3").html();
             var get73 = $("#getProductName3").html();
@@ -293,13 +302,15 @@
             var get103 = $("#getRequester3").html();
 
 
-            var totalBudget = get43 * get53;
-            $("#totalBudget").val(totalBudget);
-
+            var totalRequested = (get4 * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = ((get4 - get43) * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get13);
             $("#putWorkName").val(get23);
             $("#putProductId").val(get33);
+            $("#totalRequester").val(totalRequested);
+            $("#totalQtyRequest").val(get4 - get43);
+            $("#totalBalance").val(totalBalance);
             $("#putQty").val(get43);
             $("#putPrice").val(get53);
             $("#putRemark").val(get63);
@@ -318,7 +329,8 @@
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
             var get34 = $("#getProductId4").html();
-            var get44 = $("#getQty4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get4 = $("#getQty4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var get44 = $("#getQty44").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get54 = $("#getPrice4").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get64 = $("#getRemark4").html();
             var get74 = $("#getProductName4").html();
@@ -327,13 +339,15 @@
             var get104 = $("#getRequester4").html();
 
 
-            var totalBudget = get44 * get54;
-            $("#totalBudget").val(totalBudget);
-
+            var totalRequested = (get4 * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = ((get4 - get44) * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get14);
             $("#putWorkName").val(get24);
             $("#putProductId").val(get34);
+            $("#totalRequester").val(totalRequested);
+            $("#totalQtyRequest").val(get4 - get44);
+            $("#totalBalance").val(totalBalance);
             $("#putQty").val(get44);
             $("#putPrice").val(get54);
             $("#putRemark").val(get64);
@@ -530,7 +544,6 @@
 <script>
     // var y = 1; //initlal text box count
     $('#saveArfList').click(function() {
-
         var original_budget = document.forms["formArf1"]["origin_budget"].value;
         var request_name = document.forms["formArf1"]["request_name"].value;
         var projectcode = document.forms["formArf1"]["projectcode"].value;
@@ -655,8 +668,6 @@
                 $("#saveArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
 
-                $("#totalQtyRequest").val(qtyReq);
-
             } else if (qtyReq > putQty) {
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
@@ -671,8 +682,6 @@
                 var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
                 $("#buttonArfList").prop("disabled", false);
-
-                $("#totalQtyRequest").val(qtyReq);
             }
 
         });
@@ -695,7 +704,7 @@
                 $("#buttonArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
 
-                $("#totalRequester").val(total);
+                // $("#totalRequester").val(total);
 
             } else if (total > total2) {
                 Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
@@ -707,11 +716,11 @@
                 $('#totalArfDetails').val(totalReq);
                 $("#buttonArfList").prop("disabled", false);
 
-                var totalBudget = $("#totalBudget").val();
-                var totalBalance = (totalBudget - total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                // var totalBudget = $("#totalBudget").val();
+                // var totalBalance = (totalBudget - total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
-                $("#totalRequester").val(totalReq);
-                $("#totalBalance").val(totalBalance);
+                // $("#totalRequester").val(totalReq);
+                // $("#totalBalance").val(totalBalance);
             }
 
         });
