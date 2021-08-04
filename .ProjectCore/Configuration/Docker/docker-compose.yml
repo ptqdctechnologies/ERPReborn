@@ -36,7 +36,7 @@ services:
       - 'db-postgresql'
       - 'redis'
       - 'pgadmin4'
-      - 'minio'
+      - 'minio-node01'
     restart: 'unless-stopped'
     tty: 'true'
     ports:
@@ -147,25 +147,6 @@ services:
       PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
 
 
-  #---> Services : Minio
-  minio:
-    container_name: 'minio'
-    image: 'minio/minio:latest'
-    restart: 'unless-stopped'
-    ports:
-      - '19000:9000'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.7'
-    volumes:
-      - './.ProjectCore/PermanentStorage/MinIO/:/data'
-    environment:
-      MINIO_ACCESS_KEY: 'AKIAIOSFODNN7EXAMPLE'
-      MINIO_SECRET_KEY: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY'
-    command: server /data
-    restart: always
-
-
   #---> Services : Samba
   samba:
     container_name: 'samba'
@@ -211,7 +192,7 @@ services:
       - '13269:3269'
     networks:
       app-network:
-        ipv4_address: '172.28.0.8'
+        ipv4_address: '172.28.0.7'
     volumes:
       - './.ProjectCore/PermanentStorage/Samba/etc/localtime:/etc/localtime:ro'
       - './.ProjectCore/PermanentStorage/Samba/data:/var/lib/samba'
@@ -225,7 +206,7 @@ services:
         #- MULTISITE=true
       - NOCOMPLEXITY=true
       - INSECURELDAP=false
-      - HOSTIP=172.28.0.8
+      - HOSTIP=172.28.0.7
     dns_search:
       - qdc.co.id
     hostname: localdc
@@ -241,7 +222,7 @@ services:
     image: 'grafana/grafana:latest'
     depends_on:
       - 'db-postgresql'
-      - 'minio'
+      - 'minio-node01'
       - 'pgadmin4'
       - 'php-apache-backend'
       - 'php-apache-frontend'
@@ -251,11 +232,32 @@ services:
       - '13000:3000'
     networks:
       app-network:
-        ipv4_address: '172.28.0.9'
+        ipv4_address: '172.28.0.8'
     volumes:
       #- './.ProjectCore/PermanentStorage/Grafana/etc/grafana/provisioning:/etc/grafana/provisioning'
       - './.ProjectCore/PermanentStorage/Grafana/var/lib/grafana/:/var/lib/grafana'
       - './.ProjectCore/PermanentStorage/Grafana/var/log/grafana/:/var/log/grafana'
+
+
+  #---> Services : Minio
+  minio-node01:
+    container_name: 'minio-node01'
+    image: 'erp-reborn-minio'
+    restart: 'unless-stopped'
+    ports:
+      - '19000:9000'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.9'
+    volumes:
+      - './.ProjectCore/PermanentStorage/MinIO/Node-01/:/data'
+    environment:
+      MINIO_ACCESS_KEY: 'pt.qdc.technologies@gmail.com'
+      MINIO_SECRET_KEY: 'qu1d151t3chn0'
+      MINIO_ROOT_USER: 'pt.qdc.technologies@gmail.com'
+      MINIO_ROOT_PASSWORD: 'qu1d151t3chn0'
+    command: server /data --console-address ":9001"
+    restart: always
 
 
 #---> Docker Volumes
