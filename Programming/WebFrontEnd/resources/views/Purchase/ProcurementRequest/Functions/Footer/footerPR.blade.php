@@ -8,6 +8,9 @@
         $("#requester_name2").prop("disabled", true);
         $("#buttonArfList").prop("disabled", true);
         $("#product-comments-tab").prop("disabled", true);
+
+
+        $("#showContentBOQ").hide();
     });
 </script>
 
@@ -628,7 +631,7 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '{{route('ARF.tests')}}',
+                    url: '{{route("ARF.tests")}}',
                     data: json_object,
                     contentType: "application/json",
                     processData: true,

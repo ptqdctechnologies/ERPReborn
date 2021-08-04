@@ -16,7 +16,7 @@
                 <th>Currency</th>
             </tr>
         </thead>
-        <tbody id="showContentBOQ">
+        <tbody>
             
             @php $totalApplied1 = round((((2-1) * 1000000) / 2000000 * 100),2); @endphp
             <td>

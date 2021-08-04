@@ -11,6 +11,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
+
         <form method="post" enctype="multipart/form-data" action="#" name="formArf1">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -31,135 +32,10 @@
                 </div>
               </div>
             </div>
-            <nav class="w-100 pageArfBoq">
-              <div class="nav nav-tabs" id="product-tab" role="tablist">
-                <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true"><span style="font-weight:bold;padding:40px;color:black;">Advance</span></a>&nbsp&nbsp&nbsp
-                <a class="nav-item nav-link" id="buttonBudget" data-toggle="tab" href="#product-comments" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Budget</span></a>
-              </div><br>
-            </nav>
-
-            <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
-              <div class="row pageDetailTransaction">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-header">
-                      <label class="card-title">
-                        Detail Transaction & Attachment
-                      </label>
-                      <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                          <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                        </button>
-                      </div>
-                    </div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              <tr>
-                                <td><label>Requester Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
-                                    <div class="input-group-append">
-                                      <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
-                                      </span>
-                                    </div>
-                                  </div>
-                                </td>
-                                <td>
-                                  <div id="iconRequester" style="color: red;margin-left:5px;" title="Please input requester name"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Name Of Beneficiary</label></td>
-                                <td>
-                                  <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
-                                </td>
-                                <td>
-                                  <div id="iconBeneficiary" style="color: red;margin-left:5px;" title="Please input beneficiary"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><Label>Internal Notes</Label></td>
-                                <td>
-                                  <textarea name="internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                                </td>
-                                <td>
-                                  <div id="iconInternal" style="color: red;margin-left:5px;" title="Please input internal notes"></div>
-                                </td>
-
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              <tr>
-                                <td><label>Bank Name</label></td>
-                                <td>
-                                  <input name="bank_name" id="bank_name" style="border-radius:0;" type="text" class="form-control">
-                                </td>
-                                <td>
-                                  <div id="iconBankName" style="color: red;margin-left:5px;" title="Please input bank name"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Name</label></td>
-                                <td>
-                                  <input name="account_name" id="account_name" style="border-radius:0;" type="text" class="form-control">
-                                </td>
-                                <td>
-                                  <div id="iconAccountName" style="color: red;margin-left:5px;" title="Please input account name"></div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Number</label></td>
-                                <td>
-                                  <input name="account_number" id="account_number" style="border-radius:0;" type="number" class="form-control">
-                                </td>
-                                <td>
-                                  <div id="iconAccountNumber" style="color: red;margin-left:5px;" title="Please input account name"></div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="card-body table-responsive p-0" style="height: 110px;width:100%;">
-                            <table class="table table-head-fixed text-nowrap">
-                              <div class="form-group input_fields_wrap">
-                                <div class="input-group control-group" style="width:100%;">
-                                  <input type="file" class="form-control filenames_1" id="filenames_1" style="height:26px;" name="filenames">
-                                  <div class="input-group-btn">
-                                    <a class="btn btn-outline btn-success btn-sm add_field_button">
-                                      <i class="fas fa-plus" aria-hidden="true" title="Add File" style="color:white;">Add</i>
-                                    </a>
-                                  </div>
-                                </div>
-                              </div>
-                            </table>
-                          </div>
-                          <button type="reset" class="btn btn-outline btn-danger btn-sm float-right" title="Cancel">
-                            <i class="fa fa-times" aria-hidden="true" title="Cancel Add Detail Transaction">Cancel</i>
-                          </button>
-                          <a class="btn btn-outline btn-success btn-sm float-right" href="javascript:formDetailTransAttch()" style="margin-right:5px;">
-                            <i class="fas fa-plus" aria-hidden="true" title="Add to Detail Transaction">Add</i>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
         </form>
 
-        <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="buttonBudget">
+
+        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
           <div class="row">
             <div class="col-12">
               <div class="card">
@@ -174,6 +50,121 @@
                   </div>
                 </div>
                 @include('getFunction.BOQ3')
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <label class="card-title">
+                    Advance
+                  </label>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <table>
+                          <tr>
+                            <td><label>Requester Name</label></td>
+                            <td>
+                              <div class="input-group">
+                                <input name="request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
+                                <div class="input-group-append">
+                                  <span style="border-radius:0;" class="input-group-text form-control">
+                                    <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div id="iconRequester" style="color: red;margin-left:5px;" title="Please input requester name"></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><label>Name Of Beneficiary</label></td>
+                            <td>
+                              <input name="beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
+                            </td>
+                            <td>
+                              <div id="iconBeneficiary" style="color: red;margin-left:5px;" title="Please input beneficiary"></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><Label>Internal Notes</Label></td>
+                            <td>
+                              <textarea name="internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                            </td>
+                            <td>
+                              <div id="iconInternal" style="color: red;margin-left:5px;" title="Please input internal notes"></div>
+                            </td>
+
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <table>
+                          <tr>
+                            <td><label>Bank Name</label></td>
+                            <td>
+                              <input name="bank_name" id="bank_name" style="border-radius:0;" type="text" class="form-control">
+                            </td>
+                            <td>
+                              <div id="iconBankName" style="color: red;margin-left:5px;" title="Please input bank name"></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><label>Account Name</label></td>
+                            <td>
+                              <input name="account_name" id="account_name" style="border-radius:0;" type="text" class="form-control">
+                            </td>
+                            <td>
+                              <div id="iconAccountName" style="color: red;margin-left:5px;" title="Please input account name"></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td><label>Account Number</label></td>
+                            <td>
+                              <input name="account_number" id="account_number" style="border-radius:0;" type="number" class="form-control">
+                            </td>
+                            <td>
+                              <div id="iconAccountNumber" style="color: red;margin-left:5px;" title="Please input account name"></div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card-body table-responsive p-0" style="height: 110px;width:100%;">
+                        <table class="table table-head-fixed text-nowrap">
+                          <div class="form-group input_fields_wrap">
+                            <div class="input-group control-group" style="width:100%;">
+                              <input type="file" class="form-control filenames_1" id="filenames_1" style="height:26px;" name="filenames">
+                              <div class="input-group-btn">
+                                <a class="btn btn-outline btn-success btn-sm add_field_button">
+                                  <i class="fas fa-plus" aria-hidden="true" title="Add File" style="color:white;">Add</i>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -282,7 +273,7 @@
                               <table>
                                 <tbody>
                                   <tr>
-                                  <input name="price" id="totalBudget" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="" hidden>
+                                    <input name="price" id="totalBudget" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="" hidden>
                                     <td><label>Total Requested </label></td>
                                     <td>:</td>
                                     <td style="font-weight:bold;">
@@ -361,9 +352,9 @@
             <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
               <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
             </a>
-            <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveArfList" style="margin-right: 5px;">
+            <a class="btn btn-outline btn-success btn-sm float-right" id="saveArfList" style="margin-right: 5px;color:white;">
               <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
-            </button>
+            </a>
           </div>
         </div>
       </div>
