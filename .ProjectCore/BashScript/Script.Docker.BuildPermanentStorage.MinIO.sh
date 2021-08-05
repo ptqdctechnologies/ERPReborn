@@ -20,7 +20,12 @@ clear;
 #   sudo mkdir -p $varDirectory;
 #fi
 
-varDirectory="./../ERPReborn-PermanentStorage/MinIO/Node-01/erp-reborn";
+varDirectory="./../ERPReborn-PermanentStorage/MinIO/Node-01";
 if [ ! -d $varDirectory ]; then
-   sudo mkdir -p $varDirectory;
+   sudo mkdir -p $varDirectory"/Disk-01/erp-reborn/lost+found";
+   sudo mkdir -p $varDirectory"/Disk-02/erp-reborn/lost+found";
+   sudo mkdir -p $varDirectory"/Disk-03/erp-reborn/lost+found";
+   sudo mkdir -p $varDirectory"/Disk-04/erp-reborn/lost+found";
 fi
+
+

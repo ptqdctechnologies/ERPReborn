@@ -610,7 +610,9 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                     self::$varBucketName = $varBucketName;
                     self::$ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
                         'driver' => 's3',
-                        'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
+                        'endpoint' => 'http://172.28.0.9:9000',
+                        //'endpoint' => 'http://172.28.0.9:9000 http://172.28.0.10:9000',
+                        //'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
                         'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
                         'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),
                         'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
