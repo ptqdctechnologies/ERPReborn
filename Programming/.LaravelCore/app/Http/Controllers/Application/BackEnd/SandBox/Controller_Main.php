@@ -15,7 +15,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testUpload()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-/*
+
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isBucketExist($varUserSession, 'erp-reborn');
+            
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createBucket($varUserSession, 'xxx');
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteBucket($varUserSession, 'xxx');
+            dd($x);
+            
+            
+            /*
             $ObjMinIO = new \Aws\S3\S3Client([
                 'version' => 'latest',
                 'region'  => 'us-east-1',
@@ -27,7 +35,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     ],
                 'bucket' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_BUCKET')
                 ]);*/
-            $varRemoteFilePath = '/StagingArea';
+/*            $varRemoteFilePath = '/StagingArea';
             
             $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
                 'driver' => 's3',
@@ -40,7 +48,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 ]);
             
             $varRotateLog_FileUploadStagingArea_RefRPK = 8;
-            $varSignRecordID = 8;
+            $varSignRecordID = 8;*/
 /*            (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
