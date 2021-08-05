@@ -612,7 +612,7 @@ namespace App\Helpers\ZhtHelper\CloudStorage
                         'driver' => 's3',
                         'endpoint' => 'http://172.28.0.9:9000',
                         //'endpoint' => 'http://172.28.0.9:9000 http://172.28.0.10:9000',
-                        //'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
+                        'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
                         'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
                         'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),
                         'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
