@@ -85,11 +85,11 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                                         null
                                         )['SignRecordID'];
 
-                                    //---> Pemindahan File dari Staging Area ke Archive
+                                    //---> Pemindahan File dari Staging Area ke Archives
                                     \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
                                         $varUserSession, 
                                         'StagingArea/'.$varStagingArea_RefRPK.'/'.$varBufferData[$i]['Sys_RPK'], 
-                                        'Archive/'.$varObject_RefID.'/'.$varObjectDetail_RefID
+                                        'Archives/'.$varObject_RefID.'/'.$varObjectDetail_RefID
                                         );
                                     }
                                 break;

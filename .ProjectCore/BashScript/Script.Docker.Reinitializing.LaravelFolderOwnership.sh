@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#sudo mkdir -p ./Programming/WebBackEnd/storage/app/Application/Upload/StagingArea/;
+#sudo chmod 777 ./Programming/WebBackEnd/storage/app/Application/Upload/StagingArea/;
+
 sudo chown -R 33:33 ./Programming/WebBackEnd/storage/;
 sudo chown -R 33:33 ./Programming/WebFrontEnd/storage/;
 

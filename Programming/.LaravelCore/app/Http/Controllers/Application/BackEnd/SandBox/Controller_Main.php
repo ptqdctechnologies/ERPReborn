@@ -15,6 +15,80 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testUpload()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isBucketExist($varUserSession, 'erp-reborn');
+            
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createBucket($varUserSession, 'xxx');
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteBucket($varUserSession, 'xxx');
+            dd($x);
+            
+            
+            /*
+            $ObjMinIO = new \Aws\S3\S3Client([
+                'version' => 'latest',
+                'region'  => 'us-east-1',
+                'endpoint' => 'http://172.28.0.7:9000',
+                'use_path_style_endpoint' => true,
+                'credentials' => [
+                    'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
+                    'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),
+                    ],
+                'bucket' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_BUCKET')
+                ]);*/
+/*            $varRemoteFilePath = '/StagingArea';
+            
+            $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
+                'driver' => 's3',
+//                'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
+                'endpoint' => 'http://172.28.0.9:9000',
+                'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
+                'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),
+                'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
+                'bucket' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_BUCKET')
+                ]);
+            
+            $varRotateLog_FileUploadStagingArea_RefRPK = 8;
+            $varSignRecordID = 8;*/
+/*            (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
+                'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
+                );
+*/
+            
+            $varLocalFilePath = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID;
+            $varRemoteFilePath = 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID;
+
+            //dd(file_get_contents($varLocalFilePath));
+
+            $x = $ObjMinIO->put($varRemoteFilePath, file_get_contents($varLocalFilePath));
+            dd($x);
+            
+            
+            //\Illuminate\Support\Facades\Storage::directories()
+            //dd($ObjMinIO->);            
+            dd($ObjMinIO->exists($varRemoteFilePath));
+            
+            
+            
+   //         dd($ObjMinIO->ex  ($varRemoteFilePath));
+            //dd($ObjMinIO->getConfig());
+            
+            
+/*            $ObjMinIO = \Illuminate\Support\Facades\Storage::createS3Driver([
+                'driver' => 's3',
+                'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
+                'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
+                'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),
+                'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
+                'bucket' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_BUCKET')
+                ]);
+
+            \Symfony\Component\HttpFoundation\Session\Storage::disk('s3')->
+            
+            dd($ObjMinIO);
+*/
+
             
             /*$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile(
                 $varUserSession, 
@@ -22,7 +96,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 'Archive/'.'1'.'/'.'1'
                 );*/
             //$x = (new \App\Models\Database\SchSysConfig\General)->getDataList_RotateLog_FileUploadStagingAreaDetail($varUserSession, 6);
-            
+/*            
             $x = (new \App\Models\Database\SchData_OLTP_Master\TblCitizenFamilyCard())->setDataInsert(
                 $varUserSession, 
                 null, 
@@ -37,7 +111,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             dd($x);
             
-            
+*/            
             
             
             /*
