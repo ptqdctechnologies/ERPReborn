@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh
-# ▪ Versi              : 1.00.0002
-# ▪ Tanggal            : 2021-05-07
+# ▪ Versi              : 1.00.0003
+# ▪ Tanggal            : 2021-08-09
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage PHPApacheBackEnd 
@@ -15,7 +15,7 @@
 
 clear;
 
-varDirectory="./../ERPReborn-PermanentStorage/PHPApacheBackEnd";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/PHPApacheBackEnd";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/cron.d;

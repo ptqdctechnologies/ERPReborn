@@ -1,20 +1,20 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.Grafana.sh
-# ▪ Versi              : 1.00.0001
-# ▪ Tanggal            : 2020-11-12
+# ▪ Versi              : 1.00.0002
+# ▪ Tanggal            : 2021-08-09
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage Grafana didalam Docker
 # ▪ Execution Syntax   : ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh
 #                        <FullPathFromRoot>/BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh
-# ▪ Copyright          : Zheta © 2020
+# ▪ Copyright          : Zheta © 2020, 2021
 #----------------------------------------------------------------------------------------------------
 
 #!/bin/bash
 
 clear;
 
-varDirectory="./../ERPReborn-PermanentStorage/Grafana";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/Grafana";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;

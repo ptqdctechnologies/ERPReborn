@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.Samba.sh
-# ▪ Versi              : 1.00.0002
-# ▪ Tanggal            : 2021-05-24
+# ▪ Versi              : 1.00.0003
+# ▪ Tanggal            : 2021-08-09
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent storage Samba didalam Docker
@@ -14,7 +14,7 @@
 
 clear;
 
-varDirectory="./../ERPReborn-PermanentStorage/Samba";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/Samba";
 
 if [ ! -d $varDirectory ]; then
 #   sudo mkdir -p $varDirectory;
@@ -24,8 +24,8 @@ if [ ! -d $varDirectory ]; then
 #   sudo mkdir -p $varDirectory/config/samba;
 #   sudo mkdir -p $varDirectory/config/openvpn;
 
-   sudo cp ./.ProjectCore/Configuration/Docker/Samba/ERPReborn-PermanentStorage_Samba.tgz ./../ERPReborn-PermanentStorage/ERPReborn-PermanentStorage_Samba.tgz;
-   cd ./../ERPReborn-PermanentStorage/;
+   sudo cp ./.ProjectCore/Configuration/Docker/Samba/ERPReborn-PermanentStorage_Samba.tgz ./../ERPReborn-PermanentStorage/BindMount/ERPReborn-PermanentStorage_Samba.tgz;
+   cd ./../ERPReborn-PermanentStorage/BindMount/;
    sudo tar xzvf ERPReborn-PermanentStorage_Samba.tgz;
    sudo rm -rf ./ERPReborn-PermanentStorage_Samba.tgz;
    cd -;
