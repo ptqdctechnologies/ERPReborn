@@ -1,2 +1,9 @@
 {
+    "require": {
+        "laravel/framework": "^8.53",
+        "laravel/ui": "^3.3",
+        "illuminate/http": "^8.53",
+        "dragonmantank/cron-expression": "^3.1",
+        "vlucas/phpdotenv": "^5.3"
+    }
 }
