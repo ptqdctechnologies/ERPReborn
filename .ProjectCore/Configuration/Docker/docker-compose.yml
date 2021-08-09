@@ -134,7 +134,8 @@ services:
   pgadmin4:
     container_name: 'pgadmin4'
       #image: 'dpage/pgadmin4:latest'
-    image: 'dpage/pgadmin4:5.2'
+      #image: 'dpage/pgadmin4:5.2'
+    image: 'erp-reborn-pgadmin4'
     depends_on:
       - 'db-postgresql'
     restart: 'unless-stopped'
