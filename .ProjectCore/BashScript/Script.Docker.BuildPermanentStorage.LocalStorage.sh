@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildPermanentStorage.LocalStorage.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2021-07-22
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2021-08-09
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan permanent Local Storage didalam Docker
@@ -14,14 +14,14 @@
 
 clear;
 
-varDirectory="./../ERPReborn-PermanentStorage/LocalStorage/WebBackEnd";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/LocalStorage/WebBackEnd";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;
 fi
 sudo chown -R 33:33 $varDirectory;
 
-varDirectory="./../ERPReborn-PermanentStorage/LocalStorage/WebFrontEnd";
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/LocalStorage/WebFrontEnd";
 
 if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory;

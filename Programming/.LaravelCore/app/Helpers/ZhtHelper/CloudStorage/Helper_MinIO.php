@@ -200,7 +200,7 @@ $s3Client = new \Aws\S3\S3Client([
                         "Bucket" => $varBucketName,
                         ])))
                         {
-                        throw new \Exception('Bucket can\'t delete');
+                        throw new \Exception('Bucket can\'t be removed or accessed');
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     $varReturn = true;

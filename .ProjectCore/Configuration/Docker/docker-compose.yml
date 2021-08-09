@@ -3,75 +3,6 @@ version: '3.8'
 
 #---> Docker Services
 services:
-  #---> Services : PHP Apache FrontEnd
-  php-apache-frontend:
-    container_name: 'php-apache-frontend'
-    build:
-      context: '.'
-      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile'
-    image: 'erp-reborn-phpapache-frontend'
-    depends_on:
-      - 'php-apache-backend'
-    restart: 'unless-stopped'
-    tty: 'true'
-    ports:
-      - '20080:80'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.4'
-    volumes:
-      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
-      - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
-      - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
-
-
-  #---> Services : PHP Apache BackEnd
-  php-apache-backend:
-    container_name: 'php-apache-backend'
-    build:
-      context: '.'
-      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile'
-    image: 'erp-reborn-phpapache-backend'
-    depends_on:
-      - 'db-postgresql'
-      - 'redis'
-      - 'pgadmin4'
-      - 'minio-node01'
-    restart: 'unless-stopped'
-    tty: 'true'
-    ports:
-      - '10080:80'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.3'
-    volumes:
-      #- './:/var/www/html'
-      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
-      - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
-      - './.ProjectCore/PermanentStorage/LocalStorage/WebBackEnd:/var/www/html/WebBackEnd/storage/app/Application'
-        #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/cron.d:/zhtConf/log/lastSession/cron.d'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/tmp/download:/zhtConf/tmp/download'
-      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/Script:/zhtConf/Script'
-      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/odbc.ini:/etc/odbc.ini'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d:/etc/cron.d'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh:/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh:/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh'
-        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh:/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh'
-      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
-#    links:
-#      - 'db-postgresql'
-    environment:
-      - COMPOSER_MEMORY_LIMIT=-1
-#      DB_CONNECTION: 'pgsql'
-#      DB_HOST: 'db-postgresql'
-#      DB_PORT: 5432
-#      DB_DATABASE: 'dbERPReborn'
-#      DB_USERNAME: 'SysEngine'
-#      DB_PASSWORD: '748159263'
-
-
   #---> Services : PostgreSQL Database
   db-postgresql:
     container_name: 'postgresql'
@@ -112,6 +43,76 @@ services:
       #PG_PASSWORD=yoursecurepassword
       #PG_ROOT_PASSWORD=yoursecurepassword
       #PG_PRIMARY_PORT=5432
+  
+  
+  #---> Services : PHP Apache BackEnd
+  php-apache-backend:
+    container_name: 'php-apache-backend'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile'
+    image: 'erp-reborn-phpapache-backend'
+    depends_on:
+      - 'db-postgresql'
+      - 'redis'
+      - 'minio-node01'
+      - 'minio-node02'
+      - 'minio-node03'
+      - 'minio-node04'
+    restart: 'unless-stopped'
+    tty: 'true'
+    ports:
+      - '10080:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.3'
+    volumes:
+      #- './:/var/www/html'
+      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
+      - './Programming/WebBackEnd:/var/www/html/WebBackEnd'
+      - './.ProjectCore/PermanentStorage/LocalStorage/WebBackEnd:/var/www/html/WebBackEnd/storage/app/Application'
+        #- './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/scheduledTask:/zhtConf/log/scheduledTask'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/cron.d:/zhtConf/log/lastSession/cron.d'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/log/lastSession/scheduledTask:/zhtConf/log/lastSession/scheduledTask'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/tmp/download:/zhtConf/tmp/download'
+      - './.ProjectCore/PermanentStorage/PHPApacheBackEnd/zhtConf/Script:/zhtConf/Script'
+      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/odbc.ini:/etc/odbc.ini'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d:/etc/cron.d'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh:/etc/cron.d/cron_Script_ImportFile_SCP_SwingBarrierGate_sh'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh:/etc/cron.d/cron_Script_Laravel_ArtisanScheduleRun_sh'
+        #- './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh:/etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh'
+      - './.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+#    links:
+#      - 'db-postgresql'
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+#      DB_CONNECTION: 'pgsql'
+#      DB_HOST: 'db-postgresql'
+#      DB_PORT: 5432
+#      DB_DATABASE: 'dbERPReborn'
+#      DB_USERNAME: 'SysEngine'
+#      DB_PASSWORD: '748159263'
+
+  #---> Services : PHP Apache FrontEnd
+  php-apache-frontend:
+    container_name: 'php-apache-frontend'
+    build:
+      context: '.'
+      dockerfile: './.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile'
+    image: 'erp-reborn-phpapache-frontend'
+    depends_on:
+      - 'php-apache-backend'
+    restart: 'unless-stopped'
+    tty: 'true'
+    ports:
+      - '20080:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.4'
+    volumes:
+      - './Programming/.LaravelCore:/var/www/html/.LaravelCore'
+      - './Programming/WebFrontEnd:/var/www/html/WebFrontEnd'
+      - './.ProjectCore/PermanentStorage/LocalStorage/WebFrontEnd:/var/www/html/WebFrontEnd/storage/app/Application'
 
 
   #---> Services : Redis
@@ -133,7 +134,10 @@ services:
   pgadmin4:
     container_name: 'pgadmin4'
       #image: 'dpage/pgadmin4:latest'
-    image: 'dpage/pgadmin4:5.2'
+      #image: 'dpage/pgadmin4:5.2'
+    image: 'erp-reborn-pgadmin4'
+    depends_on:
+      - 'db-postgresql'
     restart: 'unless-stopped'
     ports:
       - '15050:80'
@@ -251,11 +255,8 @@ services:
       app-network:
         ipv4_address: '172.28.0.9'
     volumes:
-      - 'volume-minio-node01-disk01:/data01'
-      #- './.ProjectCore/PermanentStorage/MinIO/Node-01/Disk-01/:/data01'
-      #- 'volume-minio-node01-disk02:/data02'
-      #- 'volume-minio-node01-disk03:/data03'
-      #- 'volume-minio-node01-disk04:/data04'
+      - './.ProjectCore/PermanentStorage/MinIO/Node-01/Disk-01/:/data01'
+      #- 'volume-minio-node01-disk01:/data01'
     environment:
       TZ: 'Asia/Jakarta'
       MINIO_HOST: '172.28.0.9'
@@ -289,11 +290,8 @@ services:
       app-network:
         ipv4_address: '172.28.0.10'
     volumes:
-      - 'volume-minio-node02-disk01:/data01'
-      #- './.ProjectCore/PermanentStorage/MinIO/Node-02/Disk-01/:/data01'
-      #- 'volume-minio-node02-disk02:/data02'
-      #- 'volume-minio-node02-disk03:/data03'
-      #- 'volume-minio-node02-disk04:/data04'
+      - './.ProjectCore/PermanentStorage/MinIO/Node-02/Disk-01/:/data01'
+      #- 'volume-minio-node02-disk01:/data01'
     environment:
       TZ: 'Asia/Jakarta'
       MINIO_HOST: '172.28.0.10'
@@ -328,11 +326,8 @@ services:
       app-network:
         ipv4_address: '172.28.0.11'
     volumes:
-      - 'volume-minio-node03-disk01:/data01'
-      #- './.ProjectCore/PermanentStorage/MinIO/Node-03/Disk-01/:/data01'
-      #- 'volume-minio-node03-disk02:/data02'
-      #- 'volume-minio-node03-disk03:/data03'
-      #- 'volume-minio-node03-disk04:/data04'
+      - './.ProjectCore/PermanentStorage/MinIO/Node-03/Disk-01/:/data01'
+      #- 'volume-minio-node03-disk01:/data01'
     environment:
       TZ: 'Asia/Jakarta'
       MINIO_HOST: '172.28.0.11'
@@ -368,11 +363,8 @@ services:
       app-network:
         ipv4_address: '172.28.0.12'
     volumes:
-      - 'volume-minio-node04-disk01:/data01'
-      #- './.ProjectCore/PermanentStorage/MinIO/Node-04/Disk-01/:/data01'
-      #- 'volume-minio-node04-disk02:/data02'
-      #- 'volume-minio-node04-disk03:/data03'
-      #- 'volume-minio-node04-disk04:/data04'
+      - './.ProjectCore/PermanentStorage/MinIO/Node-04/Disk-01/:/data01'
+      #- 'volume-minio-node04-disk01:/data01'
     environment:
       TZ: 'Asia/Jakarta'
       MINIO_HOST: '172.28.0.12'
@@ -404,32 +396,32 @@ volumes:
     external: true
   volume-redis:
     external: true
-  volume-minio-node01-disk01:
-    external: true
+#  volume-minio-node01-disk01:
+#    external: true
 #  volume-minio-node01-disk02:
 #    external: true
 #  volume-minio-node01-disk03:
 #    external: true
 #  volume-minio-node01-disk04:
 #    external: true
-  volume-minio-node02-disk01:
-    external: true
+#  volume-minio-node02-disk01:
+#    external: true
 #  volume-minio-node02-disk02:
 #    external: true
 #  volume-minio-node02-disk03:
 #   external: true
 #  volume-minio-node02-disk04:
 #    external: true
-  volume-minio-node03-disk01:
-    external: true
+#  volume-minio-node03-disk01:
+#    external: true
 #  volume-minio-node03-disk02:
 #    external: true
 #  volume-minio-node03-disk03:
 #    external: true
 #  volume-minio-node03-disk04:
 #    external: true
-  volume-minio-node04-disk01:
-    external: true
+#  volume-minio-node04-disk01:
+#    external: true
 #  volume-minio-node04-disk02:
 #    external: true
 #  volume-minio-node04-disk03:
