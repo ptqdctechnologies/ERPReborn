@@ -7,9 +7,10 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        $("#projectcode2").prop("disabled", true);
-        $("#sitecode2").prop("disabled", true);
-
+        // $("#projectcode2").prop("disabled", true);
+        // $("#sitecode2").prop("disabled", true);
+        $("#showContentBOQ2").hide();
+        $("#tableShowHideBOQ2").hide();
 
         $("#amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
@@ -131,17 +132,17 @@
             for (var i = 1; i <= x; i++) {
                 var data = {
 
-                    trano: "ARF-0001",
-                    productId: $('#lastProductId').html(),
-                    nameMaterial: $('#lastProductName').html(),
-                    uom: $('#lastUom').html(),
+                    trano: $("#getTrano1").html(),
+                    productId: $("#getTrano1").html(),
+                    nameMaterial: $("#getTrano1").html(),
+                    uom: $("#getTrano1").html(),
                     unitPriceExpense: $('#price_expense').val(),
                     qtyExpense: $('#qty_expense').val(),
                     totalExpense: $('#total_expense').val(),
                     unitPriceAmount: $('#price_amount').val(),
                     qtyAmount: $('#qty_amount').val(),
                     totalAmount: $('#total_amount').val(),
-                    description: $('#lastRemark').html(),
+                    description: "cek",
 
                 }
                 datas.push(data);
@@ -329,4 +330,160 @@
         $(this).parent().parent().parent('div').remove();
         x--;
     })
+</script>
+
+<script>
+    $(document).ready(function() {
+
+        $('.klikArfDetail1').click(function() {
+
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
+            $("#addAsfListCart").prop("disabled", false);
+            $(".detailASF").show();
+            $("#arf_number").val($("#getTrano1").html());
+            $("#arf_date").val("23-02-2021");
+
+            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+
+            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4);
+            var getBalance = (getTotalArf - getTotalArfDetail1);
+
+            $("#total_arf").val(getTotalArf);
+            $("#total_arf2").val("IDR");
+            $("#total_asf").val($("#getTotalArfDetail1").html());
+            $("#total_asf2").val("IDR");
+            $("#balance").val(getBalance);
+            $("#balance2").val("IDR");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense2").val("IDR");
+            $("#total_expense2").val("IDR");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount2").val("IDR");
+            $("#total_amount2").val("IDR");
+
+        });
+        $('.klikArfDetail2').click(function() {
+
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
+            $("#addAsfListCart").prop("disabled", false);
+            $(".detailASF").show();
+            $("#arf_number").val($("#getTrano2").html());
+            $("#arf_date").val("23-02-2021");
+
+            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+
+            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+            $("#total_arf").val(getTotalArf);
+            $("#total_arf2").val("IDR");
+            $("#total_asf").val($("#getTotalArfDetail2").html());
+            $("#total_asf2").val("IDR");
+            $("#balance").val(getBalance);
+            $("#balance2").val("IDR");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense2").val("IDR");
+            $("#total_expense2").val("IDR");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount2").val("IDR");
+            $("#total_amount2").val("IDR");
+        });
+        $('.klikArfDetail3').click(function() {
+
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
+            $("#addAsfListCart").prop("disabled", false);
+            $(".detailASF").show();
+            $("#arf_number").val($("#getTrano3").html());
+            $("#arf_date").val("23-02-2021");
+
+            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+
+            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail3).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+            $("#total_arf").val(getTotalArf);
+            $("#total_arf2").val("IDR");
+            $("#total_asf").val($("#getTotalArfDetail3").html());
+            $("#total_asf2").val("IDR");
+            $("#balance").val(getBalance);
+            $("#balance2").val("IDR");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense2").val("IDR");
+            $("#total_expense2").val("IDR");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount2").val("IDR");
+            $("#total_amount2").val("IDR");
+        });
+        $('.klikArfDetail4').click(function() {
+
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
+            $("#addAsfListCart").prop("disabled", false);
+            $(".detailASF").show();
+            $("#arf_number").val($("#getTrano4").html());
+            $("#arf_date").val("23-02-2021");
+
+            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+
+            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+            $("#total_arf").val(getTotalArf);
+            $("#total_arf2").val("IDR");
+            $("#total_asf").val($("#getTotalArfDetail4").html());
+            $("#total_asf2").val("IDR");
+            $("#balance").val(getBalance);
+            $("#balance2").val("IDR");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense2").val("IDR");
+            $("#total_expense2").val("IDR");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount2").val("IDR");
+            $("#total_amount2").val("IDR");
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".detailSettlement").click(function() {
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", false);
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_expense').keyup(function() {
+            var price_expense = $(this).val();
+            var qty_expense = $('#qty_expense').val();
+            var total_expense = price_expense * qty_expense;
+            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_expense").val(total_expense);
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_amount').keyup(function() {
+            var price_amount = $(this).val();
+            var qty_amount = $('#qty_amount').val();
+
+            var total_amount = price_amount * qty_amount;
+            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_amount").val(total_amount);
+        });
+    });
 </script>

@@ -64,7 +64,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Table.tableArfDetail')
+                  @include('getFunction.BOQ2')
                 </div>
               </div>
             </div>
@@ -287,8 +287,8 @@
                           </table>
                         </div>
                         <br>
-                        <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
-                          <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
+                        <button type="reset" class="btn btn-outline btn-danger btn-sm float-right detailSettlement">
+                          <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart">Cancel</i>
                         </button>
 
                         <a class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
