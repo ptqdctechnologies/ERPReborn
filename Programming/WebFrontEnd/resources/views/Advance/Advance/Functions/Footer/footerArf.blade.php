@@ -7,8 +7,8 @@
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#buttonArfList").prop("disabled", true);
-        $("#showContentBOQ").hide();
-        $("#arfTableDisableEnable").hide();
+        $("#showContentBOQ3").hide();
+        $("#tableShowHideBOQ3").hide();
     });
 </script>
 
@@ -199,6 +199,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".detailTransaction").click(function() {
+            alert('f');
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
         });
     });
