@@ -104,6 +104,49 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.master.getBudgetOrigin                                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListBudgetOrigin()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjg3MzQ3MjN9.i_3CeOv76Kb7SeLGn4PJM3LBWeFDMrRglHMMYwLM_TU';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getBudgetOrigin', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListBudgetOrigin()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjg3MzQ3MjN9.i_3CeOv76Kb7SeLGn4PJM3LBWeFDMrRglHMMYwLM_TU';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.master.getBudgetOrigin', 
+                'latest', 
+                '{'.
+                    '"parameter" : null'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : dataPickList.project.getProject                                                                          |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+

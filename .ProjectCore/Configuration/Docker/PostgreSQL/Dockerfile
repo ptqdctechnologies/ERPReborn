@@ -10,8 +10,6 @@ ENV MYSQL_PASSWORD 748159263
 ENV MYSQL_ROOT_PASSWORD 748159263
 ENV MYSQL_DATABASE db
 
-COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/.my.cnf /root/
-
 RUN apt-get update \
     && apt-get install -y \
        libpq-dev \
@@ -57,6 +55,8 @@ RUN git clone https://github.com/tds-fdw/tds_fdw.git \
           && make USE_PGXS=1 install \
           && cd / \
           && rm -rf /tds_fdw
+
+COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/.my.cnf /root/
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306

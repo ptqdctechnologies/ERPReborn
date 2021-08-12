@@ -257,6 +257,15 @@ Route::get('showLogError', function () {
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
+| Route for API : dataPickList.master....                                                                                          |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataPickListBudgetOrigin', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataPickListBudgetOrigin', 'webWithoutCSRF');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataPickListBudgetOrigin', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataPickListBudgetOrigin', 'webWithoutCSRF');
+
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : dataPickList.project....                                                                                         |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */

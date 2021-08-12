@@ -16,7 +16,8 @@ services:
       app-network:
         ipv4_address: '172.28.0.2'
     volumes:
-      - 'volume-mysql:/var/lib/mysql'
+      #- 'volume-mysql:/var/lib/mysql'
+      - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/mysql/:/var/lib/mysql'
       - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
       #- 'volume-postgresql:/var/lib/postgresql/data'
       - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/data/:/var/lib/postgresql/data'

@@ -23,3 +23,9 @@ fi
 
 sudo chmod 700 $varDirectory;
 sudo chown 999 $varDirectory;
+
+varDirectory="./../ERPReborn-PermanentStorage/BindMount/PostgreSQL/var/lib/mysql";
+
+if [ ! -d $varDirectory ]; then
+   sudo mkdir -p $varDirectory;
+fi
