@@ -169,10 +169,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-            
-            
-            
-                    //'countryAdministrativeAreaLevel1_RefID' => 21000000000001
+        public function APIGatewayJQuery_getDataPickListProjectSectionItem()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjg3MzQ3MjN9.i_3CeOv76Kb7SeLGn4PJM3LBWeFDMrRglHMMYwLM_TU';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<br>Project RefID ► '.
+                '<input type="text" id="dataInput_Project_RefID" value=46000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.project.getProjectSectionItem', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"project_RefID" : parseInt(document.getElementById("dataInput_Project_RefID").value) '.
+                        '}'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
 
 
         /*
