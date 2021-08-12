@@ -494,6 +494,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSms(array $args = [])
  * @method \Aws\SnowBall\SnowBallClient createSnowBall(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSnowBall(array $args = [])
+ * @method \Aws\SnowDeviceManagement\SnowDeviceManagementClient createSnowDeviceManagement(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSnowDeviceManagement(array $args = [])
  * @method \Aws\Sns\SnsClient createSns(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSns(array $args = [])
  * @method \Aws\Sqs\SqsClient createSqs(array $args = [])
@@ -555,7 +557,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.188.1';
+    const VERSION = '3.190.0';
 
     /** @var array Arguments for creating clients */
     private $args;

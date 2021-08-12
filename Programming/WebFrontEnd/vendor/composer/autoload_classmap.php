@@ -1756,6 +1756,7 @@ return array(
     'Illuminate\\Http\\Middleware\\FrameGuard' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Middleware/FrameGuard.php',
     'Illuminate\\Http\\Middleware\\SetCacheHeaders' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Middleware/SetCacheHeaders.php',
     'Illuminate\\Http\\Middleware\\TrustHosts' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Middleware/TrustHosts.php',
+    'Illuminate\\Http\\Middleware\\TrustProxies' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php',
     'Illuminate\\Http\\RedirectResponse' => $vendorDir . '/laravel/framework/src/Illuminate/Http/RedirectResponse.php',
     'Illuminate\\Http\\Request' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Request.php',
     'Illuminate\\Http\\Resources\\CollectsResources' => $vendorDir . '/laravel/framework/src/Illuminate/Http/Resources/CollectsResources.php',
