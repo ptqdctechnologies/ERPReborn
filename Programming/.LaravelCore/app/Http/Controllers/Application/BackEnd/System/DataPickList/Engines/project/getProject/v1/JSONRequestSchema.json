@@ -25,7 +25,13 @@
         "required": [ "API" ]
         },
     "data": {
-        "additionalProperties": false
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "additionalProperties": false
+                }    
+            },
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]
