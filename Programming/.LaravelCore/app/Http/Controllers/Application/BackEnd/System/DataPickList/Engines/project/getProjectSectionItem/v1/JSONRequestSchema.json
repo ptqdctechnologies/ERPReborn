@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataPickList.project.getProjectSection (version 1)",
+"description": "JSON Request Schema of dataPickList.project.getProjectSectionItem (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataPickList.project.getProjectSection" ]
+                        "enum": [ "dataPickList.project.getProjectSectionItem" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -25,7 +25,21 @@
         "required": [ "API" ]
         },
     "data": {
-        "additionalProperties": false
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "project_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }                    
+                    },
+                "required": [ "project_RefID" ]
+                }    
+            },
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

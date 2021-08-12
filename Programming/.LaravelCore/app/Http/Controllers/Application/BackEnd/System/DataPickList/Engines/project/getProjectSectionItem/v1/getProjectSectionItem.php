@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\project\getProject\v1                       |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\project\getProjectSectionItem\v1            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\project\getProject\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\project\getProjectSectionItem\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getProject                                                                                                   |
-    | ▪ Description : Menangani API dataPickList.project.getProject Version 1                                                      |
+    | ▪ Class Name  : getProjectSectionItem                                                                                        |
+    | ▪ Description : Menangani API dataPickList.project.getProjectSectionItem Version 1                                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getProject extends \App\Http\Controllers\Controller
+    class getProjectSectionItem extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +60,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = $this->dataProcessing($varUserSession);
+                        $varDataSend = $this->dataProcessing(
+                            $varUserSession,
+                            $varData['parameter']['project_RefID']
+                            );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -96,16 +99,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-         private function dataProcessing($varUserSession)
+         private function dataProcessing($varUserSession, $varProjectRefID)
             {
             $varReturn = [];
             try {
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     $varUserSession,
                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                    'transaction.read.dataList.project.getProject', 
+                    'transaction.read.dataList.project.getProjectSectionItem', 
                     'latest', 
                     [
+                    'project_RefID' => $varProjectRefID,
                     'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
@@ -113,11 +117,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\p
                         'paging' => null
                         ]
                     ]
-                    )['data'];      
+                    )['data'];
                 for($i=0; $i!=count($varData); $i++)
                     {
                     $varReturn[$i]['sys_ID'] = $varData[$i]['sys_ID'];
-                    $varReturn[$i]['sys_Text'] = '('.$varData[$i]['code'].') '.$varData[$i]['name'];
+                    $varReturn[$i]['sys_Text'] = $varData[$i]['name'];
                     }
                 } 
             catch (\Exception $ex) {
