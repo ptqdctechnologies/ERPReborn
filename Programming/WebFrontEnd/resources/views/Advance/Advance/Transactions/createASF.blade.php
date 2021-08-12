@@ -105,6 +105,16 @@
                                 </div>
                               </td>
                             </tr>
+
+                            <tr>
+                              <td>
+                                <div class="input-group">
+                                  <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
+                                </div>
+                              </td>
+                            </tr>
                           </table>
                         </div>
                       </div>

@@ -133,9 +133,9 @@
                 var data = {
 
                     trano: $("#getTrano1").html(),
-                    productId: $("#getTrano1").html(),
-                    nameMaterial: $("#getTrano1").html(),
-                    uom: $("#getTrano1").html(),
+                    productId: $("#productIdHide").val(),
+                    nameMaterial: $("#nameMaterialHide").val(),
+                    uom: $("#uomHide").val(),
                     unitPriceExpense: $('#price_expense').val(),
                     qtyExpense: $('#qty_expense').val(),
                     totalExpense: $('#total_expense').val(),
@@ -170,27 +170,27 @@
                         var t = $('#tableAmountDueto').DataTable();
                         t.row.add([
                             '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
-                            '<span id="productId' + y + '">' + val.productId + '</span>',
-                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
-                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
-                            '<span id="UnitPriceAmount_' + y + '">' + val.unitPriceAmount + '</span>',
-                            '<span id="QtyAmount' + y + '">' + val.qtyAmount + '</span>',
-                            '<span id="TotalAmount_' + y + '">' + val.totalAmount + '</span>',
-                            '<span id="Description' + y + '">' + val.description + '</span>'
+                            '<span id="Trano">' + val.trano + '</span>',
+                            '<span id="bbbbbbb">' + val.productId + '</span>',
+                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
+                            '<span id="Uom">' + val.uom + '</span>',
+                            '<span id="UnitPriceAmount">' + val.unitPriceAmount + '</span>',
+                            '<span id="QtyAmount">' + val.qtyAmount + '</span>',
+                            '<span id="TotalAmount">' + val.totalAmount + '</span>',
+                            '<span id="Description">' + val.description + '</span>'
                         ]).draw();
 
                         var t = $('#tableExpenseClaim').DataTable();
                         t.row.add([
                             '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                            '<span id="Trano_' + y + '">' + val.trano + '</span>',
-                            '<span id="productId' + y + '">' + val.productId + '</span>',
-                            '<span id="NameMaterial_' + y + '">' + val.nameMaterial + '</span>',
-                            '<span id="Uom_' + y + '">' + val.uom + '</span>',
-                            '<span id="UnitPriceExpense_' + y + '">' + val.unitPriceExpense + '</span>',
-                            '<span id="QtyExpense_' + y + '">' + val.qtyExpense + '</span>',
-                            '<span id="TotalExpense_' + y + '">' + val.totalExpense + '</span>',
-                            '<span id="Description' + y + '">' + val.description + '</span>'
+                            '<span id="Trano">' + val.trano + '</span>',
+                            '<span id="productId">' + val.productId + '</span>',
+                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
+                            '<span id="Uom">' + val.uom + '</span>',
+                            '<span id="UnitPriceExpense">' + val.unitPriceExpense + '</span>',
+                            '<span id="QtyExpense">' + val.qtyExpense + '</span>',
+                            '<span id="TotalExpense">' + val.totalExpense + '</span>',
+                            '<span id="Description">' + val.description + '</span>'
                         ]).draw();
 
 
@@ -343,6 +343,10 @@
             $("#arf_number").val($("#getTrano1").html());
             $("#arf_date").val("23-02-2021");
 
+            $("#productIdHide").val($("#getProductId1").html());
+            $("#nameMaterialHide").val($("#getProductName1").html());
+            $("#uomHide").val($("#getUom1").html());
+
             var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -373,6 +377,10 @@
             $("#arf_number").val($("#getTrano2").html());
             $("#arf_date").val("23-02-2021");
 
+            $("#productIdHide").val($("#getProductId2").html());
+            $("#nameMaterialHide").val($("#getProductName2").html());
+            $("#uomHide").val($("#getUom2").html());
+
             var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -402,6 +410,10 @@
             $("#arf_number").val($("#getTrano3").html());
             $("#arf_date").val("23-02-2021");
 
+            $("#productIdHide").val($("#getProductId3").html());
+            $("#nameMaterialHide").val($("#getProductName3").html());
+            $("#uomHide").val($("#getUom3").html());
+
             var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -430,6 +442,10 @@
             $(".detailASF").show();
             $("#arf_number").val($("#getTrano4").html());
             $("#arf_date").val("23-02-2021");
+
+            $("#productIdHide").val($("#getProductId4").html());
+            $("#nameMaterialHide").val($("#getProductName4").html());
+            $("#uomHide").val($("#getUom4").html());
 
             var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
