@@ -10,7 +10,8 @@ ENV MYSQL_PASSWORD 748159263
 ENV MYSQL_ROOT_PASSWORD 748159263
 ENV MYSQL_DATABASE db
 
-COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/.my.cnf /root/
+RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
+    && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 
 RUN apt-get update \
     && apt-get install -y \
@@ -36,7 +37,6 @@ RUN apt-get install -y lsb-release \
           && cd / \
           && rm -rf /mysql_fdw
 
-#wget https://github.com/CartoDB/odbc_fdw/archive/master.zip \
 RUN git clone https://github.com/CartoDB/odbc_fdw.git \
        && apt-get install -y \
           unixodbc-dev \
@@ -46,7 +46,6 @@ RUN git clone https://github.com/CartoDB/odbc_fdw.git \
           && cd / \
           && rm -rf /odbc_fdw
 
-#RUN wget https://github.com/tds-fdw/tds_fdw/archive/master.zip \
 RUN git clone https://github.com/tds-fdw/tds_fdw.git \
        && apt-get install -y \
           libsybdb5 \
@@ -57,6 +56,10 @@ RUN git clone https://github.com/tds-fdw/tds_fdw.git \
           && make USE_PGXS=1 install \
           && cd / \
           && rm -rf /tds_fdw
+
+COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/root/.my.cnf /root/.my.cnf
+
+COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/etc/mysql/mariadb.cnf /etc/mysql/mariadb.cnf
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306

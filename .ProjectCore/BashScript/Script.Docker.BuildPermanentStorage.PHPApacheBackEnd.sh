@@ -27,6 +27,7 @@ if [ ! -d $varDirectory ]; then
    sudo mkdir -p $varDirectory/zhtConf/log/lastSession/scheduledTask/everyYear/jobs;
 
    cd $varDirectory/zhtConf/;
-   sudo ln -s ./../../../ERPReborn/.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/zhtConf/Script Script;
+   sudo ln -s ./../../../../ERPReborn/.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/zhtConf/Script Script;
+   #sudo ln -s ./../../../ERPReborn/.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/zhtConf/Script Script;
    cd -;
 fi

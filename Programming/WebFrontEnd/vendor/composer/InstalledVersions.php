@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1016c49249371235b76359b2a2cc70f8788e7e79',
+    'reference' => '9005784a0637a5be4adf3894fc89565cf5a62414',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1016c49249371235b76359b2a2cc70f8788e7e79',
+      'reference' => '9005784a0637a5be4adf3894fc89565cf5a62414',
     ),
     'laravel/tinker' => 
     array (
@@ -590,12 +590,12 @@ private static $installed = array (
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v5.6.0',
-      'version' => '5.6.0.0',
+      'pretty_version' => 'v5.7.0',
+      'version' => '5.7.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0122ac6b03c75279ef78d1c0ad49725dfc52a8d2',
+      'reference' => '0f0f46b6345ee788325b5ce9d53c4e851b2293a0',
     ),
     'opis/closure' => 
     array (
