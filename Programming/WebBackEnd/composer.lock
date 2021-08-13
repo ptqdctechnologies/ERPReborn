@@ -64,16 +64,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.190.0",
+            "version": "3.190.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "4700c27227649ed7e2ea09028cca1c884ab2c41b"
+                "reference": "5f6149b626e916dbfcd1b1b8e90c726060d5beba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4700c27227649ed7e2ea09028cca1c884ab2c41b",
-                "reference": "4700c27227649ed7e2ea09028cca1c884ab2c41b",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/5f6149b626e916dbfcd1b1b8e90c726060d5beba",
+                "reference": "5f6149b626e916dbfcd1b1b8e90c726060d5beba",
                 "shasum": ""
             },
             "require": {
@@ -148,9 +148,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.190.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.190.1"
             },
-            "time": "2021-08-11T18:16:23+00:00"
+            "time": "2021-08-12T18:14:37+00:00"
         },
         {
             "name": "brick/math",
@@ -6461,16 +6461,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v5.6.0",
+            "version": "v5.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "0122ac6b03c75279ef78d1c0ad49725dfc52a8d2"
+                "reference": "0f0f46b6345ee788325b5ce9d53c4e851b2293a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0122ac6b03c75279ef78d1c0ad49725dfc52a8d2",
-                "reference": "0122ac6b03c75279ef78d1c0ad49725dfc52a8d2",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0f0f46b6345ee788325b5ce9d53c4e851b2293a0",
+                "reference": "0f0f46b6345ee788325b5ce9d53c4e851b2293a0",
                 "shasum": ""
             },
             "require": {
@@ -6482,7 +6482,7 @@
             "require-dev": {
                 "brianium/paratest": "^6.1",
                 "fideloper/proxy": "^4.4.1",
-                "friendsofphp/php-cs-fixer": "^2.17.3",
+                "friendsofphp/php-cs-fixer": "^3.0",
                 "fruitcake/laravel-cors": "^2.0.3",
                 "laravel/framework": "^8.0 || ^9.0",
                 "nunomaduro/larastan": "^0.6.2",
@@ -6545,7 +6545,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-07-26T20:39:06+00:00"
+            "time": "2021-08-12T13:56:54+00:00"
         },
         {
             "name": "phar-io/manifest",
