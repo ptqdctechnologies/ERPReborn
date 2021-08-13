@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.master.setBudgetOrigin (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.master.getBudgetOrigin (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.master.setBudgetOrigin" ]
+                        "enum": [ "transaction.read.dataList.master.getBudgetOrigin" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,24 +27,26 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                },
-            "entities" : {
+            "SQLStatement": {
                 "type": "object",
                 "properties": {
-                    "name": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                    "pick": {
+                        "type": [ "string", "null" ]
+                        },
+                    "sort": {
+                        "type": [ "string", "null" ]
+                        },
+                    "filter": {
+                        "type": [ "string", "null" ]
+                        },
+                    "paging": {
+                        "type": [ "string", "null" ]
                         }
                     },
-                "required": [ "name" ]
+                "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "recordID", "entities" ]
+        "required": [ "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]
