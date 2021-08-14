@@ -2402,6 +2402,7 @@ return array(
     'League\\CommonMark\\Parser\\Block\\BlockStartParserInterface' => $vendorDir . '/league/commonmark/src/Parser/Block/BlockStartParserInterface.php',
     'League\\CommonMark\\Parser\\Block\\DocumentBlockParser' => $vendorDir . '/league/commonmark/src/Parser/Block/DocumentBlockParser.php',
     'League\\CommonMark\\Parser\\Block\\ParagraphParser' => $vendorDir . '/league/commonmark/src/Parser/Block/ParagraphParser.php',
+    'League\\CommonMark\\Parser\\Block\\SkipLinesStartingWithLettersParser' => $vendorDir . '/league/commonmark/src/Parser/Block/SkipLinesStartingWithLettersParser.php',
     'League\\CommonMark\\Parser\\Cursor' => $vendorDir . '/league/commonmark/src/Parser/Cursor.php',
     'League\\CommonMark\\Parser\\CursorState' => $vendorDir . '/league/commonmark/src/Parser/CursorState.php',
     'League\\CommonMark\\Parser\\InlineParserContext' => $vendorDir . '/league/commonmark/src/Parser/InlineParserContext.php',
