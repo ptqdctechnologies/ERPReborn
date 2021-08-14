@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '9005784a0637a5be4adf3894fc89565cf5a62414',
+    'reference' => '90b0a417f85dea792fda6eaceec4c3617804a824',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.190.1',
-      'version' => '3.190.1.0',
+      'pretty_version' => '3.190.2',
+      'version' => '3.190.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5f6149b626e916dbfcd1b1b8e90c726060d5beba',
+      'reference' => '8ca6a5f9834de3eb3fb84b28fc12c9088bc01293',
     ),
     'brick/math' => 
     array (
@@ -67,12 +67,12 @@ private static $installed = array (
     ),
     'dflydev/dot-access-data' => 
     array (
-      'pretty_version' => 'v3.0.0',
-      'version' => '3.0.0.0',
+      'pretty_version' => 'v3.0.1',
+      'version' => '3.0.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e04ff030d24a33edc2421bef305e32919dd78fc3',
+      'reference' => '0992cc19268b259a39e86f296da5f0677841f42c',
     ),
     'doctrine/inflector' => 
     array (
@@ -485,7 +485,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '9005784a0637a5be4adf3894fc89565cf5a62414',
+      'reference' => '90b0a417f85dea792fda6eaceec4c3617804a824',
     ),
     'laravel/tinker' => 
     array (
@@ -507,21 +507,21 @@ private static $installed = array (
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '2.0.1',
-      'version' => '2.0.1.0',
+      'pretty_version' => '2.0.2',
+      'version' => '2.0.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0d57f20aa03129ee7ef5f690e634884315d4238c',
+      'reference' => '2df87709f44b0dd733df86aef0830dce9b1f0f13',
     ),
     'league/config' => 
     array (
-      'pretty_version' => 'v1.1.0',
-      'version' => '1.1.0.0',
+      'pretty_version' => 'v1.1.1',
+      'version' => '1.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '20d42d88f12a76ff862e17af4f14a5a4bbfd0925',
+      'reference' => 'a9d39eeeb6cc49d10a6e6c36f22c4c1f4a767f3e',
     ),
     'league/flysystem' => 
     array (
@@ -635,12 +635,12 @@ private static $installed = array (
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v5.7.0',
-      'version' => '5.7.0.0',
+      'pretty_version' => 'v5.8.0',
+      'version' => '5.8.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0f0f46b6345ee788325b5ce9d53c4e851b2293a0',
+      'reference' => '0c3c393462eada1233513664e2d22bb9f69ca393',
     ),
     'opis/closure' => 
     array (
