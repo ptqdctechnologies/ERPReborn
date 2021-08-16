@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '90b0a417f85dea792fda6eaceec4c3617804a824',
+    'reference' => '6ba87d08ec6f7db724780f2f251fc4266b318892',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'brick/math' => 
     array (
-      'pretty_version' => '0.9.2',
-      'version' => '0.9.2.0',
+      'pretty_version' => '0.9.3',
+      'version' => '0.9.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'dff976c2f3487d42c1db75a3b180e2b9f0e72ce0',
+      'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
     ),
     'cordoval/hamcrest-php' => 
     array (
@@ -472,7 +472,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '90b0a417f85dea792fda6eaceec4c3617804a824',
+      'reference' => '6ba87d08ec6f7db724780f2f251fc4266b318892',
     ),
     'laravel/tinker' => 
     array (
