@@ -13,4 +13,5 @@
 #!/bin/bash
 
 clear;
-git push -f origin master;
+#git push -f origin master;
+git push origin master;

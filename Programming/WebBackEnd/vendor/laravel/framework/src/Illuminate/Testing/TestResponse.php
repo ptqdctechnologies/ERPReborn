@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Cookie\CookieValuePrefix;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
@@ -261,6 +262,43 @@ EOF;
 
         if (! is_null($uri)) {
             $this->assertLocation($uri);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Assert whether the response is redirecting to a given signed route.
+     *
+     * @param  string|null  $name
+     * @param  mixed  $parameters
+     * @return $this
+     */
+    public function assertRedirectToSignedRoute($name = null, $parameters = [])
+    {
+        if (! is_null($name)) {
+            $uri = route($name, $parameters);
+        }
+
+        PHPUnit::assertTrue(
+            $this->isRedirect(), 'Response status code ['.$this->getStatusCode().'] is not a redirect status code.'
+        );
+
+        $request = Request::create($this->headers->get('Location'));
+
+        PHPUnit::assertTrue(
+            $request->hasValidSignature(), 'The response is not a redirect to a signed route.'
+        );
+
+        if (! is_null($name)) {
+            $expectedUri = rtrim($request->fullUrlWithQuery([
+                'signature' => null,
+                'expires' => null,
+            ]), '?');
+
+            PHPUnit::assertEquals(
+                app('url')->to($uri), $expectedUri
+            );
         }
 
         return $this;
@@ -982,6 +1020,105 @@ EOF;
     protected function responseHasView()
     {
         return isset($this->original) && $this->original instanceof View;
+    }
+
+    /**
+     * Assert that the given keys do not have validation errors.
+     *
+     * @param  array|null  $keys
+     * @param  string  $errorBag
+     * @param  string  $responseKey
+     * @return $this
+     */
+    public function assertValid($keys = null, $errorBag = 'default', $responseKey = 'errors')
+    {
+        if ($this->baseResponse->headers->get('Content-Type') === 'application/json') {
+            return $this->assertJsonMissingValidationErrors($keys, $responseKey);
+        }
+
+        if ($this->session()->get('errors')) {
+            $errors = $this->session()->get('errors')->getBag($errorBag)->getMessages();
+        } else {
+            $errors = [];
+        }
+
+        if (empty($errors)) {
+            PHPUnit::assertTrue(true);
+
+            return $this;
+        }
+
+        if (is_null($keys) && count($errors) > 0) {
+            PHPUnit::fail(
+                'Response has unexpected validation errors: '.PHP_EOL.PHP_EOL.
+                json_encode($errors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+            );
+        }
+
+        foreach (Arr::wrap($keys) as $key) {
+            PHPUnit::assertFalse(
+                isset($errors[$key]),
+                "Found unexpected validation error for key: '{$key}'"
+            );
+        }
+
+        return $this;
+    }
+
+    /**
+     * Assert that the response has the given validation errors.
+     *
+     * @param  array  $errors
+     * @param  string  $errorBag
+     * @param  string  $responseKey
+     * @return $this
+     */
+    public function assertInvalid($errors,
+                                  $errorBag = 'default',
+                                  $responseKey = 'errors')
+    {
+        if ($this->baseResponse->headers->get('Content-Type') === 'application/json') {
+            return $this->assertJsonValidationErrors($errors, $responseKey);
+        }
+
+        $this->assertSessionHas('errors');
+
+        $keys = (array) $errors;
+
+        $sessionErrors = $this->session()->get('errors')->getBag($errorBag)->getMessages();
+
+        $errorMessage = $sessionErrors
+                ? 'Response has the following validation errors in the session:'.
+                        PHP_EOL.PHP_EOL.json_encode($sessionErrors, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE).PHP_EOL
+                : 'Response does not have validation errors in the session.';
+
+        foreach ($errors as $key => $value) {
+            PHPUnit::assertArrayHasKey(
+                (is_int($key)) ? $value : $key,
+                $sessionErrors,
+                "Failed to find a validation error in session for key: '{$value}'".PHP_EOL.PHP_EOL.$errorMessage
+            );
+
+            if (! is_int($key)) {
+                $hasError = false;
+
+                foreach (Arr::wrap($sessionErrors[$key]) as $sessionErrorMessage) {
+                    if (Str::contains($sessionErrorMessage, $value)) {
+                        $hasError = true;
+
+                        break;
+                    }
+                }
+
+                if (! $hasError) {
+                    PHPUnit::fail(
+                        "Failed to find a validation error for key and message: '$key' => '$value'".PHP_EOL.PHP_EOL.$errorMessage
+                    );
+                }
+            }
+        }
+
+        return $this;
     }
 
     /**

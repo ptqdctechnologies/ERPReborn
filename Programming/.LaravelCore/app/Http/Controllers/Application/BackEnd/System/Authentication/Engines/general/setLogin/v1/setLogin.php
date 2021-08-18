@@ -138,7 +138,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'NOW()', 
                             '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
-                        $varSysID = $varBufferDB['SignRecordID'];
+                        $varSysID = $varBufferDB['SignRecordID'];                        
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                             $varUserSession, 
                             $varSysID
@@ -168,7 +168,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'redisID' => $varRedisID,
                             'optionList' => $varOptionList
                             ];
-
 //$varDataSend = ['xxx' => $varBufferDB];
 //$varDataSend = ['xxx' => $varData];
 //$varDataSend = ['xxx' => $varSysID];

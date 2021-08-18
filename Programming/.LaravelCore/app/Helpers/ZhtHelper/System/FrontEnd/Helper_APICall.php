@@ -53,19 +53,20 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIAuthentication                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-10-05                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-08-16                                                                                           |
         | ▪ Description     : Memanggil API Authentication                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varUserName ► User Name                                                                                  |
         |      ▪ (string) varUserPassword ► User Password                                                                          |
+        |      ▪ (bool)   varSignDisplayErrorPage ► Sign Display Error Page (Optional)                                             |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (int)    varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIAuthentication($varUserSession, string $varUserName, string $varUserPassword)
+        public static function setCallAPIAuthentication($varUserSession, string $varUserName, string $varUserPassword, bool $varSignDisplayErrorPage = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
@@ -97,7 +98,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         }
                     else
                         {
-                        echo $varResponseData['data']['message'];
+                        if($varSignDisplayErrorPage === TRUE)
+                            {
+                            echo $varResponseData['data']['message'];
+                            }
                         $varResponseData['data']['message'] = explode('</i></b></font></td></tr></table></div></body></html>', (explode('►<b><i> ', $varResponseData['data']['message']))[1])[0];
                         $varReturn = $varResponseData;
                         //die();
