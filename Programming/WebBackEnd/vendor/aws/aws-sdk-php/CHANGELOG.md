@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.190.4 - 2021-08-17
+
+* `Aws\Cloud9` - Added DryRun parameter to CreateEnvironmentEC2 API. Added ManagedCredentialsActions parameter to UpdateEnvironment API
+* `Aws\CloudDirectory` - Documentation updates for clouddirectory
+* `Aws\CloudWatchLogs` - Documentation-only update for CloudWatch Logs
+* `Aws\CostExplorer` - This release is a new feature for Cost Categories: Split charge rules. Split charge rules enable you to allocate shared costs between your cost category values.
+* `Aws\EC2` - This release adds support for EC2 ED25519 key pairs for authentication
+
+## 3.190.3 - 2021-08-16
+
+* `Aws\CodeBuild` - CodeBuild now allows you to select how batch build statuses are sent to the source provider for a project.
+* `Aws\ConfigService` - Update ResourceType enum with values for Backup Plan, Selection, Vault, RecoveryPoint; ECS Cluster, Service, TaskDefinition; EFS AccessPoint, FileSystem; EKS Cluster; ECR Repository resources
+* `Aws\DirectoryService` - This release adds support for describing client authentication settings.
+* `Aws\IoTSiteWise` - AWS IoT SiteWise added query window for the interpolation interval. AWS IoT SiteWise computes each interpolated value by using data points from the timestamp of each interval minus the window to the timestamp of each interval plus the window.
+* `Aws\LicenseManager` - AWS License Manager now allows end users to call CheckoutLicense API using new CheckoutType PERPETUAL. Perpetual checkouts allow sellers to check out a quantity of entitlements to be drawn down for consumption.
+* `Aws\S3` - Documentation updates for Amazon S3
+
 ## 3.190.2 - 2021-08-13
 
 * `Aws\CustomerProfiles` - This release introduces Standard Profile Objects, namely Asset and Case which contain values populated by data from third party systems and belong to a specific profile. This release adds an optional parameter, ObjectFilter to the ListProfileObjects API in order to search for these Standard Objects.
