@@ -105,7 +105,82 @@ namespace App\Models\Database\SchData_OLTP_Project
                 return [];
                 }
             }
-            
-            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_Project                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-08-19                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Proyek                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_Project(
+            $varUserSession, int $varBranchID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Project.Func_GetDataPickList_Project',
+                        [
+                            [$varBranchID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_ProjectSectionItem                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-08-19                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Proyek                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_ProjectSectionItem(
+            $varUserSession, int $varBranchID,
+            int $varProject_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Project.Func_GetDataPickList_ProjectSectionItem',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varProject_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
