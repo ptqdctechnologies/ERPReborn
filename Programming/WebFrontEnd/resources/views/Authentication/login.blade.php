@@ -281,7 +281,7 @@
                     success: function(data) {
                         console.log(data);
                         var len = 0;
-                        if (data == '401') {
+                        if (data == 'undefined') {
                             Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                         } else {
                             var delay = 500;

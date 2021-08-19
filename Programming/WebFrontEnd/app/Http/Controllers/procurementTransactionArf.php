@@ -16,16 +16,45 @@ class procurementTransactionArf extends Controller
         
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Advance.Advance.Transactions.createARF');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']]);
+
     }
+
+    public function index2(Request $request)
+    {
+        $projectcode = $request->input('projectcode');
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.project.getProjectSectionItem', 
+            'latest',
+            [
+            'parameter' => [
+                'project_RefID' => (int)$projectcode
+                ]
+            ]
+        );
+        
+        return response()->json($varData['data']);
+    }
+
     public function arflistcancel()
     {
         return redirect()->back();
@@ -38,7 +67,7 @@ class procurementTransactionArf extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

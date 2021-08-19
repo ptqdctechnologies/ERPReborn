@@ -26,180 +26,9 @@
     });
 </script>
 
-<script>
-    function formDetailTransAttch() {
-        var original_budget = document.forms["formArf1"]["origin_budget"].value;
-        var projectcode = document.forms["formArf1"]["projectcode"].value;
-        var sitecode = document.forms["formArf1"]["sitecode"].value;
-        var request_name = document.forms["formArf1"]["request_name"].value;
-        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
-        var bank_name = document.forms["formArf1"]["bank_name"].value;
-        var account_name = document.forms["formArf1"]["account_name"].value;
-        var account_number = document.forms["formArf1"]["account_number"].value;
-        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
-        var filenames = document.forms["formArf1"]["filenames"].value;
-
-        if (original_budget == "") {
-            document.formArf1.origin_budget.focus();
-            document.formArf1.origin_budget.style.border = "1px solid red";
-            document.getElementById("iconBudget").style.border = "1px solid red";
-            document.getElementById("iconBudget").style.borderRadius = "100pt";
-            document.getElementById("iconBudget").style.paddingRight = "7px";
-            document.getElementById("iconBudget").style.paddingLeft = "8px";
-            document.getElementById("iconBudget").style.paddingTop = "3px";
-            document.getElementById("iconBudget").style.paddingBottom = "3px";
-            document.getElementById("iconBudget").innerHTML = "&#33";
-            return false;
-        } else if (projectcode == "") {
-            document.formArf1.projectcode.focus();
-            document.formArf1.projectname.focus();
-            document.formArf1.projectcode.style.border = "1px solid red";
-            document.formArf1.projectname.style.border = "1px solid red";
-            document.getElementById("iconProject").style.border = "1px solid red";
-            document.getElementById("iconProject").style.borderRadius = "100pt";
-            document.getElementById("iconProject").style.paddingRight = "7px";
-            document.getElementById("iconProject").style.paddingLeft = "8px";
-            document.getElementById("iconProject").style.paddingTop = "3px";
-            document.getElementById("iconProject").style.paddingBottom = "3px";
-            document.getElementById("iconProject").innerHTML = "&#33";
-
-            $("#iconBudget").hide();
-            document.formArf1.origin_budget.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (sitecode == "") {
-            document.formArf1.sitecode.focus();
-            document.formArf1.sitecode2.focus();
-            document.formArf1.sitecode.style.border = "1px solid red";
-            document.formArf1.sitecode2.style.border = "1px solid red";
-            document.getElementById("iconSite").style.border = "1px solid red";
-            document.getElementById("iconSite").style.borderRadius = "100pt";
-            document.getElementById("iconSite").style.paddingRight = "7px";
-            document.getElementById("iconSite").style.paddingLeft = "8px";
-            document.getElementById("iconSite").style.paddingTop = "3px";
-            document.getElementById("iconSite").style.paddingBottom = "3px";
-            document.getElementById("iconSite").innerHTML = "&#33";
-
-            $("#iconProject").hide();
-            document.formArf1.projectcode.style.border = "1px solid #ced4da";
-            document.formArf1.projectname.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (request_name == "") {
-            document.formArf1.request_name.focus();
-            document.formArf1.request_name.style.border = "1px solid red";
-            document.getElementById("iconRequester").style.border = "1px solid red";
-            document.getElementById("iconRequester").style.borderRadius = "100pt";
-            document.getElementById("iconRequester").style.paddingRight = "7px";
-            document.getElementById("iconRequester").style.paddingLeft = "8px";
-            document.getElementById("iconRequester").style.paddingTop = "3px";
-            document.getElementById("iconRequester").style.paddingBottom = "3px";
-            document.getElementById("iconRequester").innerHTML = "&#33";
-
-            $("#iconSite").hide();
-            document.formArf1.sitecode.style.border = "1px solid #ced4da";
-            document.formArf1.sitecode2.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (beneficiary == "") {
-            $("#iconBeneficiary").show();
-            document.formArf1.beneficiary.focus();
-            document.formArf1.beneficiary.style.border = "1px solid red";
-            document.getElementById("iconBeneficiary").style.border = "1px solid red";
-            document.getElementById("iconBeneficiary").style.borderRadius = "100pt";
-            document.getElementById("iconBeneficiary").style.paddingRight = "7px";
-            document.getElementById("iconBeneficiary").style.paddingLeft = "8px";
-            document.getElementById("iconBeneficiary").style.paddingTop = "3px";
-            document.getElementById("iconBeneficiary").style.paddingBottom = "3px";
-            document.getElementById("iconBeneficiary").innerHTML = "&#33";
-
-            $("#iconRequester").hide();
-            document.formArf1.request_name.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (internal_notes == "") {
-            $("#iconInternal").show();
-            document.formArf1.internal_notes.focus();
-            document.formArf1.internal_notes.style.border = "1px solid red";
-            document.getElementById("iconInternal").style.border = "1px solid red";
-            document.getElementById("iconInternal").style.borderRadius = "100pt";
-            document.getElementById("iconInternal").style.paddingRight = "7px";
-            document.getElementById("iconInternal").style.paddingLeft = "8px";
-            document.getElementById("iconInternal").style.paddingTop = "3px";
-            document.getElementById("iconInternal").style.paddingBottom = "3px";
-            document.getElementById("iconInternal").innerHTML = "&#33";
-
-            $("#iconBeneficiary").hide();
-            document.formArf1.beneficiary.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (bank_name == "") {
-            $("#iconBankName").show();
-            document.formArf1.bank_name.focus();
-            document.formArf1.bank_name.style.border = "1px solid red";
-            document.getElementById("iconBankName").style.border = "1px solid red";
-            document.getElementById("iconBankName").style.borderRadius = "100pt";
-            document.getElementById("iconBankName").style.paddingRight = "7px";
-            document.getElementById("iconBankName").style.paddingLeft = "8px";
-            document.getElementById("iconBankName").style.paddingTop = "3px";
-            document.getElementById("iconBankName").style.paddingBottom = "3px";
-            document.getElementById("iconBankName").innerHTML = "&#33";
-
-            $("#iconInternal").hide();
-            document.formArf1.internal_notes.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (account_name == "") {
-            // $("#iconBudget").show();
-            document.formArf1.account_name.focus();
-            document.formArf1.account_name.style.border = "1px solid red";
-            document.getElementById("iconAccountName").style.border = "1px solid red";
-            document.getElementById("iconAccountName").style.borderRadius = "100pt";
-            document.getElementById("iconAccountName").style.paddingRight = "7px";
-            document.getElementById("iconAccountName").style.paddingLeft = "8px";
-            document.getElementById("iconAccountName").style.paddingTop = "3px";
-            document.getElementById("iconAccountName").style.paddingBottom = "3px";
-            document.getElementById("iconAccountName").innerHTML = "&#33";
-
-            $("#iconBankName").hide();
-            document.formArf1.bank_name.style.border = "1px solid #ced4da";
-
-            return false;
-        } else if (account_number == "") {
-            $("#iconAccountNumber").show();
-            document.formArf1.account_number.focus();
-            document.formArf1.account_number.style.border = "1px solid red";
-            document.getElementById("iconAccountNumber").style.border = "1px solid red";
-            document.getElementById("iconAccountNumber").style.borderRadius = "100pt";
-            document.getElementById("iconAccountNumber").style.paddingRight = "7px";
-            document.getElementById("iconAccountNumber").style.paddingLeft = "8px";
-            document.getElementById("iconAccountNumber").style.paddingTop = "3px";
-            document.getElementById("iconAccountNumber").style.paddingBottom = "3px";
-            document.getElementById("iconAccountNumber").innerHTML = "&#33";
-
-            $("#iconAccountName").hide();
-            document.formArf1.account_name.style.border = "1px solid #ced4da";
-
-            return false;
-        } else {
-            Swal.fire("Success !", "Please select yout budget !", "success");
-
-            $("#projectcode").prop("disabled", true);
-            $("#sitecode").prop("disabled", true);
-            $("#projectcode2").prop("disabled", true);
-            $("#sitecode2").prop("disabled", true);
-            $("#buttonBudget").prop("disabled", false);
-
-            $("#iconAccountNumber").hide();
-            document.formArf1.account_number.style.border = "1px solid #ced4da";
-        }
-    }
-</script>
-
 <script type="text/javascript">
     $(document).ready(function() {
         $(".detailTransaction").click(function() {
-            alert('f');
             $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
         });
     });
@@ -543,116 +372,6 @@
 </script>
 
 <script>
-    // var y = 1; //initlal text box count
-    $('#saveArfList').click(function() {
-        var original_budget = document.forms["formArf1"]["origin_budget"].value;
-        var request_name = document.forms["formArf1"]["request_name"].value;
-        var projectcode = document.forms["formArf1"]["projectcode"].value;
-        var sitecode = document.forms["formArf1"]["sitecode"].value;
-        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
-        var bank_name = document.forms["formArf1"]["bank_name"].value;
-        var account_name = document.forms["formArf1"]["account_name"].value;
-        var account_number = document.forms["formArf1"]["account_number"].value;
-        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
-        var filenames = document.forms["formArf1"]["filenames"].value;
-
-        if (original_budget == "") {
-            Swal.fire("Error !", "Please Input Original Budget !", "error");
-        } else if (projectcode == "") {
-            Swal.fire("Error !", "Please Input Project code !", "error");
-        } else if (sitecode == "") {
-            Swal.fire("Error !", "Please Input Site code !", "error");
-        } else if (request_name == "") {
-            Swal.fire("Error !", "Please Input Requester Name !", "error");
-        } else if (beneficiary == "") {
-            Swal.fire("Error !", "Please Input Beneficiary !", "error");
-        } else if (bank_name == "") {
-            Swal.fire("Error !", "Please Input Bank name code !", "error");
-        } else if (account_name == "") {
-            Swal.fire("Error !", "Please Input Account name code !", "error");
-        } else if (account_number == "") {
-            Swal.fire("Error !", "Please Input Account number code !", "error");
-        } else if (internal_notes == "") {
-            Swal.fire("Error !", "Please Input Internal notes code !", "error");
-        } else {
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: true,
-            })
-
-            swalWithBootstrapButtons.fire({
-
-                title: 'Are you sure?',
-                text: "Save this data?",
-                type: 'question',
-
-                showCancelButton: true,
-                confirmButtonText: 'Yes, save it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    swalWithBootstrapButtons.fire(
-                        'Succesful!',
-                        'Data has been updated !',
-                        'success'
-                    )
-                    //Batas
-                    var datax = [];
-                    for (var i = 1; i <= y; i++) {
-                        var data = {
-                            lastProductId: $('#lastProductId_' + i).html(),
-                            lastProductName: $('#lastProductName_' + i).html(),
-                            lastQty: $('#lastQty_' + i).val(),
-                            lastUom: $('#lastUom_' + i).html(),
-                            lastPrice: $('#lastPrice_' + i).html(),
-                            totalArfDetails: $('#totalArfDetails_' + i).html(),
-                            lastCurrency: $('#lastCurrency_' + i).html(),
-                            lastRemark: $('#lastRemark_' + i).html(),
-
-                        }
-                        datax.push(data);
-                    }
-
-                    var json_object = JSON.stringify(datax);
-                    console.log(json_object);
-
-                    $.ajax({
-                        type: "POST",
-                        url: '{{route("ARF.tests")}}',
-                        data: json_object,
-                        contentType: "application/json",
-                        processData: true,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        success: function(data) {
-                            console.log(data);
-                        },
-                        error: function(data) {
-                            Swal.fire("Error !", "Data Canceled Added", "error");
-                        }
-                    });
-
-                    //EndBatas
-
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Process Canceled !',
-                        'error'
-                    )
-                }
-            })
-        }
-    });
-</script>
- 
-<script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
             var qtyReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
@@ -782,4 +501,240 @@
         });
         // $( '.quantity' ).mask('000.000.000', {reverse: true});
     })
+</script>
+
+<!-- <script>
+    // var y = 1; //initlal text box count
+    $('#saveArfList').click(function() {
+        var original_budget = document.forms["formArf1"]["origin_budget"].value;
+        var request_name = document.forms["formArf1"]["request_name"].value;
+        var projectcode = document.forms["formArf1"]["projectcode"].value;
+        var sitecode = document.forms["formArf1"]["sitecode"].value;
+        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
+        var bank_name = document.forms["formArf1"]["bank_name"].value;
+        var account_name = document.forms["formArf1"]["account_name"].value;
+        var account_number = document.forms["formArf1"]["account_number"].value;
+        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
+        var filenames = document.forms["formArf1"]["filenames"].value;
+
+        if (original_budget == "") {
+            Swal.fire("Error !", "Please Input Original Budget !", "error");
+        } else if (projectcode == "") {
+            Swal.fire("Error !", "Please Input Project code !", "error");
+        } else if (sitecode == "") {
+            Swal.fire("Error !", "Please Input Site code !", "error");
+        } else if (request_name == "") {
+            Swal.fire("Error !", "Please Input Requester Name !", "error");
+        } else if (beneficiary == "") {
+            Swal.fire("Error !", "Please Input Beneficiary !", "error");
+        } else if (bank_name == "") {
+            Swal.fire("Error !", "Please Input Bank name code !", "error");
+        } else if (account_name == "") {
+            Swal.fire("Error !", "Please Input Account name code !", "error");
+        } else if (account_number == "") {
+            Swal.fire("Error !", "Please Input Account number code !", "error");
+        } else if (internal_notes == "") {
+            Swal.fire("Error !", "Please Input Internal notes code !", "error");
+        } else {
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: true,
+            })
+
+            swalWithBootstrapButtons.fire({
+
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    swalWithBootstrapButtons.fire(
+                        'Succesful!',
+                        'Data has been updated !',
+                        'success'
+                    )
+                    //Batas
+                    var datax = [];
+                    for (var i = 1; i <= y; i++) {
+                        var data = {
+                            lastProductId: $('#lastProductId_' + i).html(),
+                            lastProductName: $('#lastProductName_' + i).html(),
+                            lastQty: $('#lastQty_' + i).val(),
+                            lastUom: $('#lastUom_' + i).html(),
+                            lastPrice: $('#lastPrice_' + i).html(),
+                            totalArfDetails: $('#totalArfDetails_' + i).html(),
+                            lastCurrency: $('#lastCurrency_' + i).html(),
+                            lastRemark: $('#lastRemark_' + i).html(),
+
+                        }
+                        datax.push(data);
+                    }
+
+                    var json_object = JSON.stringify(datax);
+                    console.log(json_object);
+
+                    $.ajax({
+                        type: "POST",
+                        url: '{{route("ARF.tests")}}',
+                        data: json_object,
+                        contentType: "application/json",
+                        processData: true,
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        success: function(data) {
+                            console.log(data);
+                        },
+                        error: function(data) {
+                            Swal.fire("Error !", "Data Canceled Added", "error");
+                        }
+                    });
+
+                    //EndBatas
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Process Canceled !',
+                        'error'
+                    )
+                }
+            })
+        }
+    });
+</script> -->
+
+
+
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#formCreateArf").validate({
+            rules: {
+                origin_budget: "required",
+                projectcode: "required",
+                projectname: "required",
+                sitecode: "required",
+                sitename: "required",
+                request_name: "required",
+                beneficiary: "required",
+                internal_notes: "required",
+                bank_name: "required",
+                account_name: "required",
+                account_number: {
+                    required: true,
+                    number: true,
+                    min: 0,
+                    selectRoleCheck: true
+                }
+            },
+            messages: {
+                origin_budget: "<span title='Please Enter Origin Budget ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                projectcode: "<span title='Please Enter Projec Code ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                projectname: "<span title='Please Enter Projec Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                sitecode: "<span title='Please Enter Site Code ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                sitename: "<span title='Please Enter Site Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                request_name: "<span title='Please Enter Request Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                beneficiary: "<span title='Please Enter Beneficiary ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                internal_notes: "<span title='Please Enter Internal Notes' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                bank_name: "<span title='Please Enter Bank Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                account_name: "<span title='Please Enter Account Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                account_number: "<span title='Please Enter Account Number ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+            },
+            unhighlight: function(element) {
+            $(element).removeClass('error');
+            },
+            submitHandler: function(form) {
+                
+                form.submit();
+
+                const swalWithBootstrapButtons = Swal.mixin({
+                    confirmButtonClass: 'btn btn-success',
+                    cancelButtonClass: 'btn btn-danger',
+                    buttonsStyling: true,
+                })
+
+                swalWithBootstrapButtons.fire({
+
+                    title: 'Are you sure?',
+                    text: "Save this data?",
+                    type: 'question',
+
+                    showCancelButton: true,
+                    confirmButtonText: 'Yes, save it!',
+                    cancelButtonText: 'No, cancel!',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.value) {
+                        swalWithBootstrapButtons.fire(
+                            'Succesful!',
+                            'Data has been updated !',
+                            'success'
+                        )
+                        //Batas
+                        var datax = [];
+                        for (var i = 1; i <= y; i++) {
+                            var data = {
+                                lastProductId: $('#lastProductId_' + i).html(),
+                                lastProductName: $('#lastProductName_' + i).html(),
+                                lastQty: $('#lastQty_' + i).val(),
+                                lastUom: $('#lastUom_' + i).html(),
+                                lastPrice: $('#lastPrice_' + i).html(),
+                                totalArfDetails: $('#totalArfDetails_' + i).html(),
+                                lastCurrency: $('#lastCurrency_' + i).html(),
+                                lastRemark: $('#lastRemark_' + i).html(),
+
+                            }
+                            datax.push(data);
+                        }
+
+                        var json_object = JSON.stringify(datax);
+                        console.log(json_object);
+
+                        $.ajax({
+                            type: "POST",
+                            url: '{{route("ARF.tests")}}',
+                            data: json_object,
+                            contentType: "application/json",
+                            processData: true,
+                            headers: {
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                            },
+                            success: function(data) {
+                                console.log(data);
+                            },
+                            error: function(data) {
+                                Swal.fire("Error !", "Data Canceled Added", "error");
+                            }
+                        });
+
+                        //EndBatas
+
+                    } else if (
+                        result.dismiss === Swal.DismissReason.cancel
+                    ) {
+                        swalWithBootstrapButtons.fire(
+                            'Cancelled',
+                            'Process Canceled !',
+                            'error'
+                        )
+                    }
+                })
+                
+                
+            }
+
+        });
+    });
 </script>

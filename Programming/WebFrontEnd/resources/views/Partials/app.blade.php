@@ -28,6 +28,15 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
 
+  <style type="text/css">
+     .error{
+       border: 1px solid red;
+       display: block;
+       border-radius: 10px;
+
+     }
+    </style>
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -80,6 +89,9 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js" integrity="sha512-pHVGpX7F/27yZ0ISY+VVjyULApbDlD0/X0rgGbTqCE7WFW5MezNTWG/dnhtbBuICzsd0WQPgpE4REBLv+UqChw==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.js" integrity="sha512-0XDfGxFliYJPFrideYOoxdgNIvrwGTLnmK20xZbCAvPfLGQMzHUsaqZK8ZoH+luXGRxTrS46+Aq400nCnAT0/w==" crossorigin="anonymous"></script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+
   <script>
     $(function() {
       $("#table1").DataTable({
@@ -97,6 +109,16 @@
       $("#example1").DataTable({
         "responsive": true,
         "autoWidth": false,
+      });
+      $("#tableGetProject").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetSite").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
       });
       $('#example2').DataTable({
         "paging": true,
