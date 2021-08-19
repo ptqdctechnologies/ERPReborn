@@ -56,11 +56,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\m
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Budget Origin (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataSend = $this->dataProcessing($varUserSession);
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataPickList_BudgetOrigin(
+                            $varUserSession, 
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                            ))))
+                            {
+                            throw new \Exception();
+                            }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -79,55 +85,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\m
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : dataProcessing                                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-08-12                                                                                           |
-        | ▪ Description     : Fungsi Utama Engine                                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-         private function dataProcessing($varUserSession)
-            {
-            $varReturn = [];
-            try {
-                $varReturn = [
-                    0 => [
-                        'sys_ID'
-                        ],
-                    ];
-                $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                    $varUserSession,
-                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                    'transaction.read.dataList.project.getProject', 
-                    'latest', 
-                    [
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                        ]
-                    ]
-                    )['data'];      
-                for($i=0; $i!=count($varData); $i++)
-                    {
-                    $varReturn[$i]['sys_ID'] = $varData[$i]['sys_ID'];
-                    $varReturn[$i]['sys_Text'] = '('.$varData[$i]['code'].') '.$varData[$i]['name'];
-                    }
-                } 
-            catch (\Exception $ex) {
-                }
-            return $varReturn;
             }
         }
     }

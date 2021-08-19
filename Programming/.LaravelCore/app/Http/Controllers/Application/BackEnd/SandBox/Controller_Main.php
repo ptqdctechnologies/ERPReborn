@@ -11,8 +11,20 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
-            
+
         public function testUpload()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varBranchID = 11000000000004;
+
+            $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataPickList_BudgetOrigin(
+                $varUserSession, 
+                $varBranchID
+                );
+            dd($x);
+            }
+            
+        public function testUploadx()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
