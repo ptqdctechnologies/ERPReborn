@@ -1219,6 +1219,8 @@ return array(
     'Aws\\MediaStore\\MediaStoreClient' => $vendorDir . '/aws/aws-sdk-php/src/MediaStore/MediaStoreClient.php',
     'Aws\\MediaTailor\\Exception\\MediaTailorException' => $vendorDir . '/aws/aws-sdk-php/src/MediaTailor/Exception/MediaTailorException.php',
     'Aws\\MediaTailor\\MediaTailorClient' => $vendorDir . '/aws/aws-sdk-php/src/MediaTailor/MediaTailorClient.php',
+    'Aws\\MemoryDB\\Exception\\MemoryDBException' => $vendorDir . '/aws/aws-sdk-php/src/MemoryDB/Exception/MemoryDBException.php',
+    'Aws\\MemoryDB\\MemoryDBClient' => $vendorDir . '/aws/aws-sdk-php/src/MemoryDB/MemoryDBClient.php',
     'Aws\\Middleware' => $vendorDir . '/aws/aws-sdk-php/src/Middleware.php',
     'Aws\\MigrationHubConfig\\Exception\\MigrationHubConfigException' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubConfig/Exception/MigrationHubConfigException.php',
     'Aws\\MigrationHubConfig\\MigrationHubConfigClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubConfig/MigrationHubConfigClient.php',

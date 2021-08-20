@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '54ad94830992769186217b5386849e2ca3c50c82',
+    'reference' => '8c70111b26a0098cfff400f807b785222536ba94',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.190.5',
-      'version' => '3.190.5.0',
+      'pretty_version' => '3.191.0',
+      'version' => '3.191.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c2063c78310b45e378f1bdad9fe6e9191f36439c',
+      'reference' => '15e97fe060decf30fa103be091b113adcc578c5d',
     ),
     'brick/math' => 
     array (
@@ -485,7 +485,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '54ad94830992769186217b5386849e2ca3c50c82',
+      'reference' => '8c70111b26a0098cfff400f807b785222536ba94',
     ),
     'laravel/tinker' => 
     array (
