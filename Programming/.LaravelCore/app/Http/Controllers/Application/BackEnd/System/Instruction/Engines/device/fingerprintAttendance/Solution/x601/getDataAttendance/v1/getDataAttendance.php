@@ -65,7 +65,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                             $varUserSession, 
                             $varData['entities']['IPAddress'],
                             $varData['entities']['port'],
-                            $varData['entities']['serialNumber']
+                            $varData['entities']['serialNumber'],
+                            30
                             ))->getDataAttendance(
                                 $varData['entities']['timeZoneOffset'], 
                                 $varData['entities']['startDateTime']

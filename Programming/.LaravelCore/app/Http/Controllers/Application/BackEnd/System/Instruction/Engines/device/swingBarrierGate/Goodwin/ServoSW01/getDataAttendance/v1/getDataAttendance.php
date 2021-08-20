@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\swingBarrierGate\ServoSW01            |  
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\device\swingBarrierGate\Goodwin\ServoSW01    |  
 |                \getDataAttendance\v1                                                                                             | 
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |

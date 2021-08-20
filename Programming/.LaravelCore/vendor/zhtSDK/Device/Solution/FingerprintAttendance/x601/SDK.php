@@ -21,8 +21,8 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2021-08-20                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -30,13 +30,14 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
         |      ▪ (string) varHostIP ► Host IP                                                                                      |
         |      ▪ (int)    varHostPort ► Host Port                                                                                  |
         |      ▪ (string) varDeviceSerialNumber ► Device Serial Number                                                             |
+        |      ▪ (int)    varTimeOutInSeconds ► TimeOut In Seconds                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
+        public function __construct($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber, int $varTimeOutInSeconds = null)
             {
-            $this->init($varUserSession, $varHostIP, $varHostPort, $varDeviceSerialNumber);
+            $this->init($varUserSession, $varHostIP, $varHostPort, $varDeviceSerialNumber, $varTimeOutInSeconds);
             }
 
 
@@ -44,32 +45,40 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : init                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-15                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-08-20                                                                                           |
         | ▪ Description     : System's Init                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (void)                                                                                                            |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varHostIP ► Host IP                                                                                      |
+        |      ▪ (int)    varHostPort ► Host Port                                                                                  |
+        |      ▪ (string) varDeviceSerialNumber ► Device Serial Number                                                             |
+        |      ▪ (int)    varTimeOutInSeconds ► TimeOut In Seconds                                                                 |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber)
+        private function init($varUserSession, string $varHostIP, int $varHostPort, string $varDeviceSerialNumber, int $varTimeOutInSeconds)
             {
+            if(!$varTimeOutInSeconds) {
+                $varTimeOutInSeconds=3;
+                }
             $this->varUserSession = $varUserSession;
-            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Solution/FingerprintAttendance/x601';
+            $this->varSDKPath = getcwd().'/../vendor/zhtSDK/Device/Solution/FingerprintAttendance/x601';
             $this->varHostIP = $varHostIP;
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
+            $this->varTimeOutInSeconds = $varTimeOutInSeconds;
             }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataAttendance                                                                                           |
+        | ▪ Method Name     : getDataAttendance                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2021-08-20                                                                                           |
         | ▪ Description     : Mendapatkan Seluruh Data                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -81,7 +90,6 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
         */
         public function getDataAttendance(string $varTimeZoneOffset = null, $varCutOffStartDateTime = null)
             {
-            $varTimeOutInSeconds=3;
             $varReturn = null;
             try {
                 if(!$varTimeZoneOffset) {
@@ -91,7 +99,7 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
                     $varCutOffStartDateTime = '1970-01-01 00:00:00';
                     }
 
-                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $varTimeOutInSeconds);
+                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $this->varTimeOutInSeconds);
                 $Key="0";
                 if($Connect) {
                     $varSOAPRequest=
@@ -150,7 +158,7 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
                     }
                 } 
             catch (\Exception $ex) {
-                throw new \Exception("Connection Timeout");
+                throw new \Exception("Connection Timeout in ".$varTimeOutInSeconds." seconds");
                 }
             return $varReturn;
             }

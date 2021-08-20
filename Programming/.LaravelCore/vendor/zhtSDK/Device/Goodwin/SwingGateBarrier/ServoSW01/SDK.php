@@ -56,6 +56,7 @@ namespace zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01
 
         public function getDataAttendanceFromLocalDatabase(string $varDatabaseFilePath, string $varTemporaryDatabase, string $varTimeZoneOffset = null, $varCutOffStartDateTime = null)
             {
+$varReturn = null;
             try {
                //---> Sync
                 \App\Helpers\ZhtHelper\Database\Helper_ODBC::init_MicrosoftAccess($this->varUserSession, $varDatabaseFilePath);
@@ -86,9 +87,10 @@ namespace zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01
                     }
                 
                 //---> Delete Temporary Table If Exist
-                $varSQLBuilder = '
+/*                $varSQLBuilder = '
                     DROP TABLE IF EXISTS '.$varTemporaryDatabase.';
                     ';
+                //dd($varSQLBuilder);
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);
 
                 //---> Create Temporary Table
@@ -166,7 +168,7 @@ namespace zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01
                     ORDER BY
                         "SubSQL"."OrderSequence" ASC
                     ';
-                
+/*                
                 $varDataBuffer = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution($this->varUserSession, $varSQL);
                 for($i=0; $i!=$varDataBuffer['RowCount']; $i++)
                     {
@@ -180,10 +182,12 @@ namespace zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01
                 $varSQLBuilder = '
                     DROP TABLE IF EXISTS '.$varTemporaryDatabase.';
                     ';
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);                
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::setStatementExecution($this->varUserSession, $varSQLBuilder);
+                */
                 } 
             catch (\Exception $ex) {
-                throw new \Exception("Error");
+                echo "Error";
+//                throw new \Exception("Error");
                 }
             return $varReturn;
             }
