@@ -68,7 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_CountryAdministrativeAreaLevel4(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['countryAdministrativeAreaLevel3_RefID'], 
+                            $varData['parameter']['countryAdministrativeAreaLevel3_RefID'], 
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

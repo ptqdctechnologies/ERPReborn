@@ -27,10 +27,16 @@
     "data": {
         "type": "object",
         "properties": {
-            "businessDocument_RefID": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "businessDocument_RefID": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "businessDocument_RefID" ]
                 },
             "SQLStatement": {
                 "type": "object",
@@ -51,7 +57,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "businessDocument_RefID", "SQLStatement" ]
+        "required": [ "parameter", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

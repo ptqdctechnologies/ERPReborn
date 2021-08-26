@@ -67,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataList_BudgetExpense(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['budget_RefID'], 
+                            $varData['parameter']['budget_RefID'], 
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

@@ -16,12 +16,63 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varBranchID = 11000000000004;
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjk0MjM5NzF9.J1D3Jwk-50BXUEHg6nmxLcgHqZnntx6ENMOcaXnzsOY';
+            $varTimeZoneOffset = '+07';
+        
 
+            $x = (new \zhtSDK\Device\Goodwin\SwingGateBarrier\ServoSW01\zhtSDK(
+                    $varUserSession,
+                    ))->getDataAttendanceFromLocalDatabase(
+                        '/zhtConf/tmp/download/SwingBarrierGate.mdb',
+                        '"SchData-OLTP-DataAcquisition"."TblTemp_Device_SwingGateBarrier_CheckInOut"',
+                        '+07',
+                        '2021-01-01 00:00:00'
+                        );
+/*
+            $x = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'instruction.device.swingBarrierGate.Goodwin.ServoSW01.getDataAttendance', 
+                'latest', 
+                [
+                'entities' => [
+                    'timeZoneOffset' => $varTimeZoneOffset,
+                    'startDateTime' => '2000-01-01'
+                    ]
+                ]
+                )['data'];*/
+            var_dump($x);
+            
+            /*
+            $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                //'instruction.device.fingerprintAttendance.ALBox.FP800.getDataAttendance', 
+                'instruction.device.fingerprintAttendance.Solution.x601.getDataAttendance', 
+                'latest', 
+                [
+                'entities' => [
+                    //'IPAddress' => '192.168.1.204',
+                    'IPAddress' => '192.168.1.203',
+                    //'IPAddress' => '192.168.1.201',
+                    'port' => 4370, 
+                    //'serialNumber' => '2065682450035',
+                    'serialNumber' => 'AEYU202860040',
+                    //'serialNumber' => 'AEYU202860056',
+                    'timeZoneOffset' => '+07',
+                    'startDateTime' => '2021-01-01'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+*/
+            /*
             $x = (new \App\Models\Database\SchData_OLTP_Master\General())->getDataPickList_BudgetOrigin(
                 $varUserSession, 
                 $varBranchID
                 );
             dd($x);
+            */
             }
             
         public function testUploadx()
