@@ -41,6 +41,9 @@
     |                            End Function My Project Code                          |
     |----------------------------------------------------------------------------------|-->
 <script>
+
+    // $('#tableGetSite').empty();
+
     $(function() {
         $('.klikProject').on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
@@ -52,10 +55,13 @@
             $("#projectname").val(name);
             $("#headerProjectCode").val(code);
             $("#sitecode2").prop("disabled", false);
-            $("#projectcode2").prop("disabled", true);
+            
+            
+            // // $("#tableGetSite").dataTable().fnReloadAjax();
+            // $('#tableGetSite').empty()
+            // $('#tableGetSite').DataTable().ajax.reload(null, false).draw();
 
-        
-
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -69,7 +75,7 @@
                     console.log(data);
                     var no = 1;
                     $.each(data, function(key, val) {
-                        
+
                         var t = $('#tableGetSite').DataTable();
                         t.row.add([
                                 '<td>' + no++ + '</td>',
@@ -82,6 +88,8 @@
                     $('.klikSite').on('click', function(e) {
                         
                         e.preventDefault(); // in chase you change to a link or button
+                        $("#projectcode2").prop("disabled", true);
+
                         $("#brfhide3").show();
                         $(".pageArfBoq").show();
                         $(".pageDetailTransaction").show();

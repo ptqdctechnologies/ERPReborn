@@ -1,6 +1,6 @@
 <div class="card-body">
   <div class="row">
-    <div class="col-md-4">
+    <!-- <div class="col-md-4">
       <div class="form-group">
         <table>
           <tr>
@@ -20,8 +20,8 @@
           </tr>
         </table>
       </div>
-    </div>
-    <div class="col-md-4">
+    </div> -->
+    <div class="col-md-6">
       <div class="form-group">
         <table>
           <tr>
@@ -45,11 +45,11 @@
         </table>
       </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
       <div class="form-group">
         <table>
           <tr>
-            <td><label>Site Code</label></td>
+            <td><label>Sub Project Code</label></td>
             <td>
               <div class="input-group">
                 <input id="sitecode" style="border-radius:0;" name="sitecode" class="form-control" readonly>

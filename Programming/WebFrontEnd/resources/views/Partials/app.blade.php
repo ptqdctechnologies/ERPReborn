@@ -28,6 +28,9 @@
   <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
 
+  <script src = "js/zht-js/core.js" type="text/javascript"></script>
+  <script>new zht_JSCore();</script>
+
   <style type="text/css">
      .error{
        border: 1px solid red;
@@ -113,14 +116,14 @@
       $("#tableGetProject").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": false,
+        "paginate": true,
       });
       $("#tableGetSite").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": false,
+        "paginate": true,
       });
-      $('#example2').DataTable({
+      $('#example2').DataTable({  
         "paging": true,
         "lengthChange": false,
         "searching": false,

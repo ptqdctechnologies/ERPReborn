@@ -3,34 +3,19 @@
     $(document).ready(function() {
         $("#detailArfList").hide();
         $("#detailTransAvail").hide();
-        $("#projectcode2").prop("disabled", true);
+        // $("#projectcode2").prop("disabled", true);
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
-        $("#buttonArfList").prop("disabled", true);
+        $("#addFromDetailtoCart").prop("disabled", true);
         $("#showContentBOQ3").hide();
         $("#tableShowHideBOQ3").hide();
-    });
-</script>
 
-<script>
-    $(function() {
-        $("#origin_budget").on('click', function(e) {
-            e.preventDefault();
-            var val = $("#origin_budget").val();
-            if (val == "") {
-                $("#projectcode2").prop("disabled", true);
-            } else {
-                $("#projectcode2").prop("disabled", false);
-            }
-        });
-    });
-</script>
+        $("#iconProductId2").hide();
+        $("#iconQty2").hide();
+        $("#iconUnitPrice2").hide();
+        $("#iconRemark2").hide();
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".detailTransaction").click(function() {
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
-        });
+        $("#submitArf").prop("disabled", true);
     });
 </script>
 
@@ -39,8 +24,9 @@
 
         $('.klikDetail1').click(function() {
 
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+            $("#addFromDetailtoCart").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
@@ -57,8 +43,8 @@
             var get91 = $("#getCurrency1").html();
             var get101 = $("#getRequester1").html();
 
-            var totalRequested = (get4 * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalBalance = ((get4 - get41) * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get41 * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalRequested = ((get4 - get41) * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get11);
             $("#putWorkName").val(get21);
@@ -76,8 +62,9 @@
         });
         $('.klikDetail2').click(function() {
 
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+            $("#addFromDetailtoCart").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
@@ -95,8 +82,8 @@
             var get102 = $("#getRequester2").html();
 
 
-            var totalRequested = (get4 * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalBalance = ((get4 - get42) * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get42 * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalRequested = ((get4 - get42) * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get12);
             $("#putWorkName").val(get22);
@@ -113,8 +100,9 @@
         });
         $('.klikDetail3').click(function() {
 
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+            $("#addFromDetailtoCart").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
@@ -132,8 +120,8 @@
             var get103 = $("#getRequester3").html();
 
 
-            var totalRequested = (get4 * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalBalance = ((get4 - get43) * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get43 * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalRequested = ((get4 - get43) * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get13);
             $("#putWorkName").val(get23);
@@ -150,8 +138,9 @@
         });
         $('.klikDetail4').click(function() {
 
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", true);
-            $("#buttonArfList").prop("disabled", true);
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
+            $("#addFromDetailtoCart").prop("disabled", true);
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
@@ -169,8 +158,8 @@
             var get104 = $("#getRequester4").html();
 
 
-            var totalRequested = (get4 * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalBalance = ((get4 - get44) * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get44 * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalRequested = ((get4 - get44) * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
             $("#putWorkId").val(get14);
             $("#putWorkName").val(get24);
@@ -188,79 +177,80 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".detailTransaction").click(function() {
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+        });
+    });
+</script>
+
 <script>
     var x = 1,
         y = 0;
 
-    $('#buttonArfList').click(function() {
+    $('#addFromDetailtoCart').click(function() {
 
-        var product_id = document.forms["formArf2"]["putProductId"].value;
-        var qtyx = document.forms["formArf2"]["qtyCek"].value;
-        var priceCek = document.forms["formArf2"]["priceCek"].value;
-        var putRemark = document.forms["formArf2"]["putRemark"].value;
+        var product_id = $("#putProductId").val();
+        var qtyx = $("#qtyCek").val();
+        var priceCek = $("#priceCek").val();
+        var putRemark = $("#putRemark").val();
 
         if (product_id == "") {
-            document.formArf2.putProductId.focus();
-            document.formArf2.putProductName.focus();
-            document.formArf2.putProductId.style.border = "1px solid red";
-            document.formArf2.putProductName.style.border = "1px solid red";
-            document.getElementById("iconProductId").style.border = "1px solid red";
-            document.getElementById("iconProductId").style.borderRadius = "100pt";
-            document.getElementById("iconProductId").style.paddingRight = "7px";
-            document.getElementById("iconProductId").style.paddingLeft = "8px";
-            document.getElementById("iconProductId").style.paddingTop = "3px";
-            document.getElementById("iconProductId").style.paddingBottom = "3px";
-            document.getElementById("iconProductId").innerHTML = "&#33";
+            $("#putProductId").css("border", "1px solid red");
+            $("#putProductName").css("border", "1px solid red");
+            $("#iconProductId").css("border", "1px solid red");
+            $("#iconProductId").css("borderRadius", "100pt");
+            $("#iconProductId").css("paddingRight", "3px");
+            $("#iconProductId").css("paddingLeft", "3px");
+            $("#iconProductId").css("paddingTop", "1px");
+            $("#iconProductId").css("paddingBottom", "1px");
+            $("#iconProductId2").show();
             return false;
+
         } else if (qtyx == 0) {
-            document.formArf2.qtyx.focus();
-            document.formArf2.putQty.focus();
-            document.formArf2.qtyx.style.border = "1px solid red";
-            document.formArf2.putQty.style.border = "1px solid red";
-            document.getElementById("iconQty").style.border = "1px solid red";
-            document.getElementById("iconQty").style.borderRadius = "100pt";
-            document.getElementById("iconQty").style.paddingRight = "7px";
-            document.getElementById("iconQty").style.paddingLeft = "8px";
-            document.getElementById("iconQty").style.paddingTop = "3px";
-            document.getElementById("iconQty").style.paddingBottom = "3px";
-            document.getElementById("iconQty").innerHTML = "&#33";
+            $("#qtyCek").css("border", "1px solid red");
+            $("#putUom").css("border", "1px solid red");
+            $("#iconQty").css("border", "1px solid red");
+            $("#iconQty").css("borderRadius", "100pt");
+            $("#iconQty").css("paddingRight", "3px");
+            $("#iconQty").css("paddingLeft", "3px");
+            $("#iconQty").css("paddingTop", "1px");
+            $("#iconQty").css("paddingBottom", "1px");
+            $("#iconQty2").show();
             return false;
+
         } else if (priceCek == "") {
-            document.formArf2.priceCek.focus();
-            document.formArf2.priceCek.style.border = "1px solid red";
-            document.getElementById("iconUnitPrice").style.border = "1px solid red";
-            document.getElementById("iconUnitPrice").style.borderRadius = "100pt";
-            document.getElementById("iconUnitPrice").style.paddingRight = "7px";
-            document.getElementById("iconUnitPrice").style.paddingLeft = "8px";
-            document.getElementById("iconUnitPrice").style.paddingTop = "3px";
-            document.getElementById("iconUnitPrice").style.paddingBottom = "3px";
-            document.getElementById("iconUnitPrice").innerHTML = "&#33";
+            $("#priceCek").css("border", "1px solid red");
+            $("#putCurrency").css("border", "1px solid red");
+            $("#iconUnitPrice").css("border", "1px solid red");
+            $("#iconUnitPrice").css("borderRadius", "100pt");
+            $("#iconUnitPrice").css("paddingRight", "3px");
+            $("#iconUnitPrice").css("paddingLeft", "3px");
+            $("#iconUnitPrice").css("paddingTop", "1px");
+            $("#iconUnitPrice").css("paddingBottom", "1px");
+            $("#iconUnitPrice2").show();
             return false;
+
         } else if (putRemark == "") {
-            document.formArf2.putRemark.focus();
-            document.formArf2.putRemark.style.border = "1px solid red";
-            document.getElementById("iconRemark").style.border = "1px solid red";
-            document.getElementById("iconRemark").style.borderRadius = "100pt";
-            document.getElementById("iconRemark").style.paddingRight = "7px";
-            document.getElementById("iconRemark").style.paddingLeft = "8px";
-            document.getElementById("iconRemark").style.paddingTop = "3px";
-            document.getElementById("iconRemark").style.paddingBottom = "3px";
-            document.getElementById("iconRemark").innerHTML = "&#33";
-
-            $("#iconUnitPrice").hide();
-            document.formArf2.priceCek.style.border = "1px solid #ced4da";
-            document.formArf2.putCurrency.style.border = "1px solid #ced4da";
-
+            $("#putRemark").css("border", "1px solid red");
+            $("#iconRemark").css("border", "1px solid red");
+            $("#iconRemark").css("borderRadius", "100pt");
+            $("#iconRemark").css("paddingRight", "3px");
+            $("#iconRemark").css("paddingLeft", "3px");
+            $("#iconRemark").css("paddingTop", "1px");
+            $("#iconRemark").css("paddingBottom", "1px");
+            $("#iconRemark2").show();
             return false;
+
         } else {
 
-            $("#arfTableDisableEnable").find("input,button,textarea,select").attr("disabled", false);
-            $("#detailArfList").show();
             var datas = [];
 
             for (var i = 1; i <= x; i++) {
                 var data = {
-                    origin_budget: $('#origin_budget').val(),
+                    // origin_budget: $('#origin_budget').val(),
                     projectcode: $('#projectcode').val(),
                     projectname: $('#projectname').val(),
                     sitecode: $('#sitecode').val(),
@@ -280,7 +270,7 @@
                     putCurrency: $('#putCurrency').val(),
                     totalArfDetails: $('#totalArfDetails').val(),
                     putRemark: $('#putRemark').val(),
-                    filenames: $('#filenames_' + i).val(),
+                    // filenames: $('#dataInput_Log_FileUpload_Pointer_RefID' + i).val(),
                     trano: '',
                 }
                 datas.push(data);
@@ -329,12 +319,12 @@
                             var akhir = qtyReq * putPrice;
 
                             if (qtyReq == '') {
-                                $("#buttonArfList").prop("disabled", true);
+                                $("#addFromDetailtoCart").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
                             } else if (qtyReq > putQty) {
                                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                                 $("#lastQty_' + y + '").val(0);
-                                $("#buttonArfList").prop("disabled", true);
+                                $("#addFromDetailtoCart").prop("disabled", true);
                                 $("#saveArfList").prop("disabled", true);
                             } else if (akhir > awal) {
                                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
@@ -356,15 +346,37 @@
                 }
             });
 
+
+            $("#putProductId").css("border", "1px solid #ced4da");
+            $("#putProductName").css("border", "1px solid #ced4da");
+            $("#putRemark").css("border", "1px solid #ced4da");
+
+            $("#putProductId").val("");
+            $("#putProductName").val("");
+            $("#qtyCek").val("0");
+            $("#putUom").val("");
+            $("#priceCek").val("0");
+            $("#putCurrency").val("");
+            $("#putRemark").val("");
+            $("#totalArfDetails").val("");
+            $("#totalRequester").val("0");
+            $("#totalQtyRequest").val("0");
+            $("#totalBalance").val("0");
+
+            $("#iconProductId2").hide();
+            $("#iconQty2").hide();
+            $("#iconRemark2").hide();
+
             $("#saveArfList").prop("disabled", false);
-            $("#iconProductId").hide();
-            $("#iconQty").hide();
-            $("#iconUnitPrice").hide();
-            $("#iconRemark").hide();
-            document.formArf2.putProductId.style.border = "1px solid #ced4da";
-            document.formArf2.qtyx.style.border = "1px solid #ced4da";
-            document.formArf2.putPrice.style.border = "1px solid #ced4da";
-            document.formArf2.putRemark.style.border = "1px solid #ced4da";
+
+
+
+
+            $("#submitArf").prop("disabled", false);
+
+            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
+            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            $("#detailArfList").show();
 
         }
 
@@ -384,7 +396,7 @@
             var total2 = qtyReq * priceCek;
 
             if (qtyReq == '') {
-                $("#buttonArfList").prop("disabled", true);
+                $("#addFromDetailtoCart").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
 
@@ -392,16 +404,16 @@
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
                 $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);
+                $("#addFromDetailtoCart").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
             } else if (total2 > total) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);
+                $("#addFromDetailtoCart").prop("disabled", true);
             } else {
                 var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
-                $("#buttonArfList").prop("disabled", false);
+                $("#addFromDetailtoCart").prop("disabled", false);
             }
 
         });
@@ -421,7 +433,7 @@
             var total2 = qtyCek * putPrice;
 
             if (priceReq == '') {
-                $("#buttonArfList").prop("disabled", true);
+                $("#addFromDetailtoCart").prop("disabled", true);
                 $('#totalArfDetails').val(0);
 
                 // $("#totalRequester").val(total);
@@ -430,11 +442,11 @@
                 Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
                 $("#priceCek").val(0);
                 $('#totalArfDetails').val(0);
-                $("#buttonArfList").prop("disabled", true);
+                $("#addFromDetailtoCart").prop("disabled", true);
             } else {
                 var totalReq = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
                 $('#totalArfDetails').val(totalReq);
-                $("#buttonArfList").prop("disabled", false);
+                $("#addFromDetailtoCart").prop("disabled", false);
 
                 // var totalBudget = $("#totalBudget").val();
                 // var totalBalance = (totalBudget - total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
@@ -443,52 +455,6 @@
                 // $("#totalBalance").val(totalBalance);
             }
 
-        });
-    });
-</script>
-
-<script>
-    var wrapper = $(".input_fields_wrap"); //Fields wrapper
-    $('.add_field_button').click(function() {
-        cek = 0;
-        addColomn();
-    });
-
-    function addColomn() { //on add input button click
-        if (cek == 0) {
-            cek++;
-            x++; //text box increment
-            for ($x = 1; $x < 5; $x++) {
-
-            }
-            $(wrapper).append(
-
-                '<div class="col-md-12">' +
-                '<div class="form-group">' +
-                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
-                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
-                '<div class="input-group-btn">' +
-                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '</div>'
-
-            ); //add input box                
-        }
-    }
-
-    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-        e.preventDefault();
-        $(this).parent().parent().parent('div').remove();
-        x--;
-    })
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("body").on("click", ".remove-attachment", function() {
-            $(this).parents("#control-group").remove();
         });
     });
 </script>
@@ -503,126 +469,11 @@
     })
 </script>
 
-<!-- <script>
-    // var y = 1; //initlal text box count
-    $('#saveArfList').click(function() {
-        var original_budget = document.forms["formArf1"]["origin_budget"].value;
-        var request_name = document.forms["formArf1"]["request_name"].value;
-        var projectcode = document.forms["formArf1"]["projectcode"].value;
-        var sitecode = document.forms["formArf1"]["sitecode"].value;
-        var beneficiary = document.forms["formArf1"]["beneficiary"].value;
-        var bank_name = document.forms["formArf1"]["bank_name"].value;
-        var account_name = document.forms["formArf1"]["account_name"].value;
-        var account_number = document.forms["formArf1"]["account_number"].value;
-        var internal_notes = document.forms["formArf1"]["internal_notes"].value;
-        var filenames = document.forms["formArf1"]["filenames"].value;
-
-        if (original_budget == "") {
-            Swal.fire("Error !", "Please Input Original Budget !", "error");
-        } else if (projectcode == "") {
-            Swal.fire("Error !", "Please Input Project code !", "error");
-        } else if (sitecode == "") {
-            Swal.fire("Error !", "Please Input Site code !", "error");
-        } else if (request_name == "") {
-            Swal.fire("Error !", "Please Input Requester Name !", "error");
-        } else if (beneficiary == "") {
-            Swal.fire("Error !", "Please Input Beneficiary !", "error");
-        } else if (bank_name == "") {
-            Swal.fire("Error !", "Please Input Bank name code !", "error");
-        } else if (account_name == "") {
-            Swal.fire("Error !", "Please Input Account name code !", "error");
-        } else if (account_number == "") {
-            Swal.fire("Error !", "Please Input Account number code !", "error");
-        } else if (internal_notes == "") {
-            Swal.fire("Error !", "Please Input Internal notes code !", "error");
-        } else {
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                confirmButtonClass: 'btn btn-success',
-                cancelButtonClass: 'btn btn-danger',
-                buttonsStyling: true,
-            })
-
-            swalWithBootstrapButtons.fire({
-
-                title: 'Are you sure?',
-                text: "Save this data?",
-                type: 'question',
-
-                showCancelButton: true,
-                confirmButtonText: 'Yes, save it!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    swalWithBootstrapButtons.fire(
-                        'Succesful!',
-                        'Data has been updated !',
-                        'success'
-                    )
-                    //Batas
-                    var datax = [];
-                    for (var i = 1; i <= y; i++) {
-                        var data = {
-                            lastProductId: $('#lastProductId_' + i).html(),
-                            lastProductName: $('#lastProductName_' + i).html(),
-                            lastQty: $('#lastQty_' + i).val(),
-                            lastUom: $('#lastUom_' + i).html(),
-                            lastPrice: $('#lastPrice_' + i).html(),
-                            totalArfDetails: $('#totalArfDetails_' + i).html(),
-                            lastCurrency: $('#lastCurrency_' + i).html(),
-                            lastRemark: $('#lastRemark_' + i).html(),
-
-                        }
-                        datax.push(data);
-                    }
-
-                    var json_object = JSON.stringify(datax);
-                    console.log(json_object);
-
-                    $.ajax({
-                        type: "POST",
-                        url: '{{route("ARF.tests")}}',
-                        data: json_object,
-                        contentType: "application/json",
-                        processData: true,
-                        headers: {
-                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                        },
-                        success: function(data) {
-                            console.log(data);
-                        },
-                        error: function(data) {
-                            Swal.fire("Error !", "Data Canceled Added", "error");
-                        }
-                    });
-
-                    //EndBatas
-
-                } else if (
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        'Process Canceled !',
-                        'error'
-                    )
-                }
-            })
-        }
-    });
-</script> -->
-
-
-
-
-
-
 <script>
     $(document).ready(function() {
         $("#formCreateArf").validate({
             rules: {
-                origin_budget: "required",
+                // origin_budget: "required",
                 projectcode: "required",
                 projectname: "required",
                 sitecode: "required",
@@ -636,16 +487,15 @@
                     required: true,
                     number: true,
                     min: 0,
-                    selectRoleCheck: true
                 }
             },
             messages: {
-                origin_budget: "<span title='Please Enter Origin Budget ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                projectcode: "<span title='Please Enter Projec Code ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                // origin_budget: "<span title='Please Enter Origin Budget ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                projectcode: "",
                 projectname: "<span title='Please Enter Projec Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                sitecode: "<span title='Please Enter Site Code ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                sitecode: "",
                 sitename: "<span title='Please Enter Site Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                request_name: "<span title='Please Enter Request Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
+                request_name: "",
                 beneficiary: "<span title='Please Enter Beneficiary ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
                 internal_notes: "<span title='Please Enter Internal Notes' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
                 bank_name: "<span title='Please Enter Bank Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
@@ -653,10 +503,10 @@
                 account_number: "<span title='Please Enter Account Number ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
             },
             unhighlight: function(element) {
-            $(element).removeClass('error');
+                $(element).removeClass('error');
             },
             submitHandler: function(form) {
-                
+
                 form.submit();
 
                 const swalWithBootstrapButtons = Swal.mixin({
@@ -704,7 +554,7 @@
 
                         $.ajax({
                             type: "POST",
-                            url: '{{route("ARF.tests")}}',
+                            url: '{{route("ARF.store2")}}',
                             data: json_object,
                             contentType: "application/json",
                             processData: true,
@@ -731,10 +581,7 @@
                         )
                     }
                 })
-                
-                
             }
-
         });
     });
 </script>

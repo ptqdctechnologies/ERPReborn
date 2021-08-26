@@ -144,7 +144,7 @@
     </style>
 </head>
 
-<body class="hold-transition login-page" onload="loader()">
+<body class="hold-transition login-page">
     <div id="loading">
         <span class="loader"></span>
         <div class="textLoader">
