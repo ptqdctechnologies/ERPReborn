@@ -144,7 +144,7 @@
     </style>
 </head>
 
-<body class="hold-transition login-page" onload="loader()">
+<body class="hold-transition login-page">
     <div id="loading">
         <span class="loader"></span>
         <div class="textLoader">
@@ -281,7 +281,7 @@
                     success: function(data) {
                         console.log(data);
                         var len = 0;
-                        if (data == '401') {
+                        if (data == 'undefined') {
                             Swal.fire("Cancelled", "Pastikan username dan password and benar", "error");
                         } else {
                             var delay = 500;

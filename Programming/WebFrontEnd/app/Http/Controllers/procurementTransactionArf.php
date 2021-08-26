@@ -16,16 +16,45 @@ class procurementTransactionArf extends Controller
         
     }
 
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Advance.Advance.Transactions.createARF');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']]);
+
     }
+
+    public function index2(Request $request)
+    {
+        $projectcode = $request->input('projectcode');
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.project.getProjectSectionItem', 
+            'latest',
+            [
+            'parameter' => [
+                'project_RefID' => (int)$projectcode
+                ]
+            ]
+        );
+        
+        return response()->json($varData['data']);
+    }
+
     public function arflistcancel()
     {
         return redirect()->back();
@@ -38,7 +67,7 @@ class procurementTransactionArf extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -49,23 +78,23 @@ class procurementTransactionArf extends Controller
      */
     public function store(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
+        // $data = json_decode($request->getContent(), true);
+        // $dataAll = array();
 
-        foreach ($data as $i => $v) {
+        // foreach ($data as $i => $v) {
 
-            array_push($dataAll, array(
-                'filenames' => $v['filenames']
+        //     array_push($dataAll, array(
+        //         'filenames' => $v['filenames']
 
-            ));
-        }
+        //     ));
+        // }
         $data2 = json_decode($request->getContent(), true);
         $dataAll2 = array();
 
         foreach ($data2 as $i => $v) {
 
             array_push($dataAll2, array(
-                'origin_budget' => $v['origin_budget'],
+                // 'origin_budget' => $v['origin_budget'],
                 'projectcode' => $v['projectcode'],
                 'projectname' => $v['projectname'],
                 'sitecode' => $v['sitecode'],
@@ -91,6 +120,11 @@ class procurementTransactionArf extends Controller
             break;
         }
         return response()->json($dataAll2);
+    }
+
+    public function store2(Request $request)
+    {
+        echo "DATA FAILED";die;
     }
 
     public function teststore(Request $request)
@@ -194,87 +228,18 @@ class procurementTransactionArf extends Controller
 
     public function revisionArfIndex(Request $request)
     {
-        if ($request->searchArfNumberRevision == 'Q000181') {
-            $origin_budget = "Origini Budget 1";
-            $project = "Project Code 1";
-            $projectDetail = "Project Detail 1";
-            $site = "Site Code 1";
-            $siteDetail = "Site Detail 1";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 1";
-            $accountName = "Account Name 1";
-            $accountNumber = "Account Number 1";
-            $internal = "Internal Notes 1";
-            $requester = "Requester 1";
-            $workId = "Work Id 1";
-            $workIdDetail = "Work Id Detail 1";
-            $productId = "Product Id 1";
-            $productIdDetail = "Product Detail 1";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "0";
-            $remark = "Remark";
-            $totalBoq = "0";
-            $requestTotal = "0";
-            $balance = "0";
-        }
-        else if ($request->searchArfNumberRevision == 'Q000182') {
-            $origin_budget = "Origini Budget 2";
-            $project = "Project Code 2";
-            $projectDetail = "Project Detail 2";
-            $site = "Site Code 2";
-            $siteDetail = "Site Detail 2";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 2";
-            $accountName = "Account Name 2";
-            $accountNumber = "Account Number 2";
-            $internal = "Internal Notes 2";
-            $requester = "Requester 2";
-            $workId = "Work Id 2";
-            $workIdDetail = "Work Id Detail 2";
-            $productId = "Product Id 2";
-            $productIdDetail = "Product Detail 2";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "0";
-            $remark = "Remark";
-            $totalBoq = "0";
-            $requestTotal = "0";
-            $balance = "0";
-        }
-        else if ($request->searchArfNumberRevision == 'Q000183') {
-            $origin_budget = "Origini Budget 3";
-            $project = "Project Code 3";
-            $projectDetail = "Project Detail 3";
-            $site = "Site Code 3";
-            $siteDetail = "Site Detail 3";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 3";
-            $accountName = "Account Name 3";
-            $accountNumber = "Account Number 3";
-            $internal = "Internal Notes 3";
-            $requester = "Requester 3";
-            $workId = "Work Id 3";
-            $workIdDetail = "Work Id Detail 3";
-            $productId = "Product Id 3";
-            $productIdDetail = "Product Detail 3";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "0";
-            $remark = "Remark";
-            $totalBoq = "0";
-            $requestTotal = "0";
-            $balance = "0";
-        }
+        $varAPIWebToken = $request->session()->get('SessionLogin');
 
-
-
-        return view('Advance.Advance.Transactions.revisionARF', compact('origin_budget','project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Advance.Advance.Transactions.revisionARF', ['data' => $varData['data']]);
     }
 }

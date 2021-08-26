@@ -22,6 +22,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
 
+
+    Route::get('getProject', 'FunctionController@getProject')->name('getProject');
+    Route::get('getSite', 'FunctionController@getSite')->name('getSite');
+
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     
     //Periode
@@ -52,8 +56,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
     
     // ARF
+    Route::post('store2', 'procurementTransactionArf@store2')->name('ARF.store2');
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
+    Route::get('ARF2', 'procurementTransactionArf@index2')->name('ARF.index2');
 
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');

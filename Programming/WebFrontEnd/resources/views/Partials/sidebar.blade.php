@@ -20,11 +20,7 @@
 @include('getFunction.getManager')
 @include('getFunction.getPoTrano')
 @include('getFunction.getPr')
-@include('getFunction.getProduk')
-@include('getFunction.getProject')
 @include('getFunction.getReceive')
-@include('getFunction.getRequester')
-@include('getFunction.getSite')
 @include('getFunction.getSupplier')
 @include('getFunction.getUom')
 
