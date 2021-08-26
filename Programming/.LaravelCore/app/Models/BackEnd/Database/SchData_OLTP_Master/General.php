@@ -194,8 +194,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varPagingStatement, 'varchar']
                         ]
                         )
-                    );                
-                return $varReturn['Data'];
+                    );
+                return $varReturn;
                 }
             catch (\Exception $ex) {
                 return [];
@@ -1104,7 +1104,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-08-19                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Jenis Aglutinogen Darah                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Asal Anggaran                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
