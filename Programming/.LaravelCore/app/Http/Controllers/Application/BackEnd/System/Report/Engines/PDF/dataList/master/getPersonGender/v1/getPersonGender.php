@@ -73,6 +73,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     'transaction.read.dataList.master.getPersonGender', 
                                     'latest', 
                                     [
+                                    'parameter' => null,
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,

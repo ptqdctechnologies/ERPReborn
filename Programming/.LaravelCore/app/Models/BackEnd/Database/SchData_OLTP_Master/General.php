@@ -195,7 +195,7 @@ namespace App\Models\Database\SchData_OLTP_Master
                         ]
                         )
                     );
-                return $varReturn;
+                return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];

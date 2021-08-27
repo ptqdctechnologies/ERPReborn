@@ -74,7 +74,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     'transaction.read.dataList.master.getGoodsModel', 
                                     'latest', 
                                     [
-                                    'tradeMark_RefID' => $varData['parameter']['tradeMark_RefID'],
+                                    'parameter' => [
+                                        'tradeMark_RefID' => $varData['parameter']['tradeMark_RefID']                                        
+                                        ],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
