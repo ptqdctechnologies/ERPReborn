@@ -75,7 +75,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
                                     'latest', 
                                     [
-                                    'country_RefID' => $varData['parameter']['country_RefID'],
+                                    'parameter' => [
+                                        'country_RefID' => $varData['parameter']['country_RefID']
+                                        ],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,

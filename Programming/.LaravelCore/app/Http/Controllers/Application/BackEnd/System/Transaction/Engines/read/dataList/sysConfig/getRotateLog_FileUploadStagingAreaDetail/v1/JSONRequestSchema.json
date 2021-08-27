@@ -27,10 +27,16 @@
     "data": {
         "type": "object",
         "properties": {
-            "rotateLog_FileUploadStagingArea_RefRPK": {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "rotateLog_FileUploadStagingArea_RefRPK": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
                 },
             "SQLStatement": {
                 "type": "object",
@@ -51,7 +57,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "rotateLog_FileUploadStagingArea_RefRPK", "SQLStatement" ]
+        "required": [ "parameter", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

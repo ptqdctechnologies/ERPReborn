@@ -379,7 +379,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         ]
                         )
                     );
-                return $varReturn;
+                return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
                 return [];

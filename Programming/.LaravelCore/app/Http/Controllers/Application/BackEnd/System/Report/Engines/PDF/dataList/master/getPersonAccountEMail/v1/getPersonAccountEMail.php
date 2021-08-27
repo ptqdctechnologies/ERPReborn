@@ -75,7 +75,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     'transaction.read.dataList.master.getPersonAccountEMail', 
                                     'latest', 
                                     [
-                                    'person_RefID' => $varData['parameter']['person_RefID'],
+                                    'parameter' => [
+                                        'person_RefID' => $varData['parameter']['person_RefID'],
+                                        ],
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,

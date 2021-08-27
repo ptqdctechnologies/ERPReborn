@@ -67,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                             }
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchSysConfig\General())->getDataList_RotateLog_FileUploadStagingAreaDetail(
                             $varUserSession, 
-                            $varData['rotateLog_FileUploadStagingArea_RefRPK'], 
+                            $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'], 
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

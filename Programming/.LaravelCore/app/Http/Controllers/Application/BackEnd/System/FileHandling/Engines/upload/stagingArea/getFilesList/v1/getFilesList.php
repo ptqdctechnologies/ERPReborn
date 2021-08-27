@@ -66,7 +66,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 'transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail', 
                                 'latest', 
                                 [
-                                'rotateLog_FileUploadStagingArea_RefRPK' => $varData['rotateLog_FileUploadStagingArea_RefRPK'],
+                                'parameter' => [
+                                    'rotateLog_FileUploadStagingArea_RefRPK' => $varData['rotateLog_FileUploadStagingArea_RefRPK']
+                                    ],
                                 'SQLStatement' => [
                                     'pick' => null,
                                     'sort' => null,
