@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'a9318ba1cf4bc33f7747124d2595ecf6f4973940',
+    'reference' => 'f441341ba25d8f97559bb701331614044b4e2a40',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'a9318ba1cf4bc33f7747124d2595ecf6f4973940',
+      'reference' => 'f441341ba25d8f97559bb701331614044b4e2a40',
     ),
     'laravel/tinker' => 
     array (
@@ -577,12 +577,12 @@
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v5.8.0',
-      'version' => '5.8.0.0',
+      'pretty_version' => 'v5.9.0',
+      'version' => '5.9.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '0c3c393462eada1233513664e2d22bb9f69ca393',
+      'reference' => '63456f5c3e8c4bc52bd573e5c85674d64d84fd43',
     ),
     'opis/closure' => 
     array (
