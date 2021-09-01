@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 3.191.8 - 2021-08-31
+
+* `Aws\ComputeOptimizer` - Documentation updates for Compute Optimizer
+* `Aws\IoT` - Added Create/Update/Delete/Describe/List APIs for a new IoT resource named FleetMetric. Added a new Fleet Indexing query API named GetBucketsAggregation. Added a new field named DisconnectedReason in Fleet Indexing query response. Updated their related documentations.
+* `Aws\MemoryDB` - Documentation updates for MemoryDB
+* `Aws\Polly` - Amazon Polly adds new South African English voice - Ayanda. Ayanda is available as Neural voice only.
+* `Aws\SQS` - Amazon SQS adds a new queue attribute, RedriveAllowPolicy, which includes the dead-letter queue redrive permission parameters. It defines which source queues can specify dead-letter queues as a JSON object.
+
+## 3.191.7 - 2021-08-30
+
+* `Aws\CloudFormation` - AWS CloudFormation allows you to iteratively develop your applications when failures are encountered without rolling back successfully provisioned resources. By specifying stack failure options, you can troubleshoot resources in a CREATE_FAILED or UPDATE_FAILED status.
+* `Aws\CodeBuild` - Documentation updates for CodeBuild
+* `Aws\Firehose` - This release adds the Dynamic Partitioning feature to Kinesis Data Firehose service for S3 destinations.
+* `Aws\KMS` - This release has changes to KMS nomenclature to remove the word master from both the "Customer master key" and "CMK" abbreviation and replace those naming conventions with "KMS key".
+
+## 3.191.6 - 2021-08-27
+
+* `Aws\EC2` - This release adds the BootMode flag to the ImportImage API and showing the detected BootMode of an ImportImage task.
+* `Aws\EMR` - Amazon EMR now supports auto-terminating idle EMR clusters. You can specify the idle timeout value when enabling auto-termination for both running and new clusters and Amazon EMR automatically terminates the cluster when idle timeout kicks in.
+* `Aws\S3` - Documentation updates for Amazon S3.
+
 ## 3.191.5 - 2021-08-26
 
 * `Aws\ComputeOptimizer` - Adds support for 1) the AWS Graviton (AWS_ARM64) recommendation preference for Amazon EC2 instance and Auto Scaling group recommendations, and 2) the ability to get the enrollment statuses for all member accounts of an organization.

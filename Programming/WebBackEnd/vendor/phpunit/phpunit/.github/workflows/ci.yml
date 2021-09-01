@@ -1,0 +1,274 @@
+# https://help.github.com/en/categories/automating-your-workflow-with-github-actions
+
+on:
+  - pull_request
+  - push
+
+name: CI
+
+env:
+  COMPOSER_ROOT_VERSION: "9.3-dev"
+
+jobs:
+  coding-guidelines:
+    name: Coding Guidelines
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: :apcu, :imagick
+          coverage: none
+          tools: none
+
+      - name: Run friendsofphp/php-cs-fixer
+        run: ./tools/php-cs-fixer fix --dry-run --show-progress=dots --using-cache=no --verbose
+
+  type-checker:
+    name: Type Checker
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.0
+          extensions: :apcu, :imagick
+          coverage: none
+          tools: none
+
+      - name: Update dependencies with composer
+        run: ./tools/composer update --no-interaction --no-ansi --no-progress
+
+      - name: Run vimeo/psalm on public API
+        run: ./tools/psalm --config=.psalm/static-analysis.xml --no-progress --show-info=false
+
+      - name: Run vimeo/psalm on internal code
+        run: ./tools/psalm --config=.psalm/config.xml --no-progress --shepherd --show-info=false --stats
+
+  tests:
+    name: Tests
+
+    runs-on: ${{ matrix.os }}
+
+    env:
+      PHP_EXTENSIONS: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter, :apcu, :imagick
+      PHP_INI_VALUES: assert.exception=1, zend.assertions=1, error_reporting=-1, log_errors_max_len=0, display_errors=On
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - windows-latest
+
+        php-version:
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+
+        compiler:
+          - default
+
+        dependencies:
+          - lowest
+          - highest
+
+        include:
+          - os: ubuntu-latest
+            php-version: "8.0"
+            compiler: jit
+            dependencies: highest
+
+          - os: ubuntu-latest
+            php-version: "8.1"
+            compiler: jit
+            dependencies: highest
+
+    steps:
+      - name: Configure git to avoid issues with line endings
+        if: matrix.os == 'windows-latest'
+        run: git config --global core.autocrlf false
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Override PHP ini values for JIT compiler
+        if: matrix.compiler == 'jit'
+        run: echo "PHP_INI_VALUES::assert.exception=1, zend.assertions=1, opcache.enable=1, opcache.enable_cli=1, opcache.optimization_level=-1, opcache.jit=1255, opcache.jit_buffer_size=32M" >> $GITHUB_ENV
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: ${{ env.PHP_INI_VALUES }}
+          tools: none
+
+      - name: Install lowest dependencies with composer
+        if: matrix.dependencies == 'lowest'
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+
+      - name: Install highest dependencies with composer
+        if: matrix.dependencies == 'highest'
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+
+      - name: Run sanity check
+        run: bash ./build/scripts/sanity-check
+
+      - name: Run tests with phpunit
+        run: php ./phpunit
+
+  code-coverage:
+    name: Code Coverage
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - 8.0
+
+        dependencies:
+          - highest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          extensions: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter, :apcu, :imagick
+          ini-values: assert.exception=1, zend.assertions=1, error_reporting=-1, log_errors_max_len=0, display_errors=On
+          tools: none
+
+      - name: Install lowest dependencies with composer
+        if: matrix.dependencies == 'lowest'
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+
+      - name: Install highest dependencies with composer
+        if: matrix.dependencies == 'highest'
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+
+      - name: Collect code coverage with phpunit
+        run: php ./phpunit --coverage-clover=coverage.xml
+
+      - name: Send code coverage report to Codecov.io
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  test-generated-code:
+    name: Test generated code
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-version:
+          - 7.3
+
+        dependencies:
+          - highest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: pcov
+          extensions: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter, :apcu, :imagick
+          ini-values: assert.exception=1, zend.assertions=1, error_reporting=-1, log_errors_max_len=0, display_errors=On
+          tools: none
+
+      - name: Install lowest dependencies with composer
+        if: matrix.dependencies == 'lowest'
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress --prefer-lowest
+
+      - name: Install highest dependencies with composer
+        run: php ./tools/composer update --no-ansi --no-interaction --no-progress
+
+      - name: Generate global assert wrappers
+        run: php build/scripts/generate-global-assert-wrappers.php
+
+      - name: Assert that git tree is clean
+        run: git diff || echo "Run 'php build/scripts/generate-global-assert-wrappers.php' to regenerate global assert wrappers!"
+
+  build-and-test-phar:
+    name: Build and test PHAR
+
+    runs-on: ubuntu-latest
+
+    env:
+      PHP_EXTENSIONS: dom, json, libxml, mbstring, pdo_sqlite, soap, xml, xmlwriter
+      PHP_INI_VALUES: assert.exception=1, phar.readonly=0, zend.assertions=1
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - "7.3"
+          - "7.4"
+          - "8.0"
+
+        coverage:
+          - pcov
+          - xdebug
+
+        experimental:
+          - false
+
+        include:
+          - php-version: "8.1"
+            experimental: true
+
+    continue-on-error: ${{ matrix.experimental }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Install PHP with extensions
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          coverage: ${{ matrix.coverage }}
+          extensions: ${{ env.PHP_EXTENSIONS }}
+          ini-values: ${{ env.PHP_INI_VALUES }}
+          tools: none
+
+      - name: Install java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Run regular test suite with unscoped PHAR
+        run: ant run-regular-tests-with-unscoped-phar
+
+      - name: Run PHAR-specific end-to-end tests with scoped PHAR
+        run: ant run-phar-specific-tests-with-scoped-phar
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ matrix.php-version == 8.0 }}
+        with:
+          name: phpunit-snapshot-phar
+          path: ./build/artifacts/phpunit-snapshot.phar
+          retention-days: 7

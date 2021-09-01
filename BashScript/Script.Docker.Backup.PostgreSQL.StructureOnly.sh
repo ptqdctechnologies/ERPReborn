@@ -1,0 +1,1 @@
+./../.ProjectCore/BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh
