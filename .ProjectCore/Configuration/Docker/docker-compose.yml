@@ -23,6 +23,7 @@ services:
       - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/data/:/var/lib/postgresql/data'
       - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
       - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
+      - './Database/Structure/PostgreSQL/:/zhtConf/databaseStructure'
         #command: bash -c "Script.ServiceRestart.sh && tail -f /dev/null"
         #    command: nohup Script.ServiceRestart.sh & && sleep infinity
     environment:
