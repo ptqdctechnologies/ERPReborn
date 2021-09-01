@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '89cf60284d19efc36e4af3bef27266ae268bea99',
+    'reference' => '112d91a538b015ecc1c6915fa1adad74d33133bc',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -35,12 +35,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.191.7',
-      'version' => '3.191.7.0',
+      'pretty_version' => '3.191.8',
+      'version' => '3.191.8.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c8f220112b64fbd089efead939d4fc70e794616c',
+      'reference' => '949feb83cc0db46f07b12aa3128d47be3b9cca63',
     ),
     'brick/math' => 
     array (
@@ -240,217 +240,217 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/broadcasting' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/bus' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/collections' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/container' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/contracts' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/cookie' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/database' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/encryption' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/events' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/hashing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/log' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/macroable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/mail' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/notifications' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/pagination' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/pipeline' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/queue' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/redis' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/session' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/support' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/testing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/validation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'illuminate/view' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.57.0',
+        0 => 'v8.58.0',
       ),
     ),
     'intervention/httpauth' => 
@@ -471,12 +471,12 @@ private static $installed = array (
     ),
     'laravel/framework' => 
     array (
-      'pretty_version' => 'v8.57.0',
-      'version' => '8.57.0.0',
+      'pretty_version' => 'v8.58.0',
+      'version' => '8.58.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6de01746680d7bc7e239b20ec5cdfe70ce586235',
+      'reference' => '1b819bf99d87bd543a4d4895e5b3350f61ea7a23',
     ),
     'laravel/laravel' => 
     array (
@@ -485,7 +485,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '89cf60284d19efc36e4af3bef27266ae268bea99',
+      'reference' => '112d91a538b015ecc1c6915fa1adad74d33133bc',
     ),
     'laravel/tinker' => 
     array (
@@ -770,12 +770,12 @@ private static $installed = array (
     ),
     'phpunit/phpunit' => 
     array (
-      'pretty_version' => '9.5.8',
-      'version' => '9.5.8.0',
+      'pretty_version' => '9.5.9',
+      'version' => '9.5.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => '191768ccd5c85513b4068bdbe99bb6390c7d54fb',
+      'reference' => 'ea8c2dfb1065eb35a79b3681eee6e6fb0a6f273b',
     ),
     'predis/predis' => 
     array (
