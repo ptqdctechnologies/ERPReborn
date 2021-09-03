@@ -14,8 +14,11 @@
 #!/bin/bash
 
 clear;
+
 ./BashScript/Script.Laravel.ComposerUpdate.sh; 
+
 git add -A; 
 git status; 
-git commit -m "Update Vendor Laravel"; 
+git commit -m "Update Vendor Laravel";
+
 ./BashScript/Script.Git.ForcePushLocalRepoToGitHUB.sh;

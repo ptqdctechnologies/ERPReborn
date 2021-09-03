@@ -159,3 +159,11 @@ $varCmd "$varCmdContainer \"DROP USER MAPPING FOR \\\"SysEngine\\\" SERVER \\\"d
 $varCmd "$varCmdContainer \"CREATE USER MAPPING FOR \\\"SysEngine\\\" SERVER \\\"dbExtern-MySQL-ERP-QDC\\\" OPTIONS (password '748159263', username 'SysEngine');\"";
 varCmdContainer='psql -U "'$varRoleName'" -d "'$varDBName'" -c';
 $varCmd "$varCmdContainer \"SELECT * FROM \\\"SchSysConfig\\\".\\\"FuncSys_KickStart1_ForeignSchema1\\\"('172.28.0.2', '5432');\"";
+
+
+#+-------------------------------------------------------------------------------------------------+
+#| Others Script                                                                                   |
+#+-------------------------------------------------------------------------------------------------+
+./BashScript/Script.Docker.Backup.PostgreSQL.StructureOnly.sh;
+
+
