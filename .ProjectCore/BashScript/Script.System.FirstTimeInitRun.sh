@@ -27,7 +27,7 @@ clear;
 
 ./BashScript/Script.Docker.BuildVolume.All.sh;
 
-./BashScript/Script.Docker.BuildImage.MinIO.sh;
+#./BashScript/Script.Docker.BuildImage.MinIO.sh;
 ./BashScript/Script.Docker.BuildImage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildImage.PGAdmin4.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;

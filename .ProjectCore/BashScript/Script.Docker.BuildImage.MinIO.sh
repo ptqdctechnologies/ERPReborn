@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildImage.MinIO.sh
-# ▪ Versi              : 1.00.0001
-# ▪ Tanggal            : 2021-08-04
+# ▪ Versi              : 1.00.0002
+# ▪ Tanggal            : 2021-09-06
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menarik Image MinIO didalam Docker
@@ -14,6 +14,10 @@
 
 clear;
 
+#sudo docker pull bitnami/minio:latest;
 sudo docker pull minio/minio;
+#sudo docker pull minio/minio:RELEASE.2021-08-31T05-46-54Z.fips;
+#sudo docker pull minio/minio:RELEASE.2021-08-25T00-41-18Z.fips;
+#sudo docker pull minio/minio:RELEASE.2021-08-05T22-01-19Z;
 sudo docker build --file ./.ProjectCore/Configuration/Docker/MinIO/Dockerfile -t erp-reborn-minio .;
 

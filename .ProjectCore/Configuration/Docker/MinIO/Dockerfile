@@ -1,7 +1,7 @@
 FROM minio/minio
 
 #---> Release Port
-#EXPOSE 389
-#EXPOSE 445
+EXPOSE 9000
+EXPOSE 9001
 
 #---> ZhtConf Folder
