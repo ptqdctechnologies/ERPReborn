@@ -21,4 +21,4 @@ git add -A;
 git status; 
 git commit -m "Update Vendor Laravel";
 
-./BashScript/Script.Git.ForcePushLocalRepoToGitHUB.sh;
+#./BashScript/Script.Git.ForcePushLocalRepoToGitHUB.sh;
