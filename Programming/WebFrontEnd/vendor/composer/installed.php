@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '73a0fbe1f4b29a64e98ff89b322693114873a1d3',
+    'reference' => '6fdf42c121b2883bdef67183430ce1fa6f2ef27d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '73a0fbe1f4b29a64e98ff89b322693114873a1d3',
+      'reference' => '6fdf42c121b2883bdef67183430ce1fa6f2ef27d',
     ),
     'laravel/tinker' => 
     array (
