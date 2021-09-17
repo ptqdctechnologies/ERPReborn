@@ -95,7 +95,7 @@ class LogManager implements LoggerInterface
      */
     public function driver($driver = null)
     {
-        return $this->get($driver ?? $this->getDefaultDriver());
+        return $this->get($this->parseDriver($driver));
     }
 
     /**
@@ -450,7 +450,7 @@ class LogManager implements LoggerInterface
     /**
      * Get the default log driver name.
      *
-     * @return string
+     * @return string|null
      */
     public function getDefaultDriver()
     {
@@ -490,7 +490,7 @@ class LogManager implements LoggerInterface
      */
     public function forgetChannel($driver = null)
     {
-        $driver = $driver ?? $this->getDefaultDriver();
+        $driver = $this->parseDriver($driver);
 
         if (isset($this->channels[$driver])) {
             unset($this->channels[$driver]);
@@ -498,11 +498,27 @@ class LogManager implements LoggerInterface
     }
 
     /**
+     * Parse the driver name.
+     *
+     * @param  string|null  $driver
+     * @return string|null
+     */
+    protected function parseDriver($driver)
+    {
+        $driver = $driver ?? $this->getDefaultDriver();
+
+        if ($this->app->runningUnitTests()) {
+            $driver = $driver ?? 'null';
+        }
+
+        return $driver;
+    }
+
+    /**
      * System is unusable.
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function emergency($message, array $context = [])
@@ -518,7 +534,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function alert($message, array $context = [])
@@ -533,7 +548,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function critical($message, array $context = [])
@@ -547,7 +561,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function error($message, array $context = [])
@@ -563,7 +576,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function warning($message, array $context = [])
@@ -576,7 +588,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function notice($message, array $context = [])
@@ -591,7 +602,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function info($message, array $context = [])
@@ -604,7 +614,6 @@ class LogManager implements LoggerInterface
      *
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function debug($message, array $context = [])
@@ -618,7 +627,6 @@ class LogManager implements LoggerInterface
      * @param  mixed  $level
      * @param  string  $message
      * @param  array  $context
-     *
      * @return void
      */
     public function log($level, $message, array $context = [])
