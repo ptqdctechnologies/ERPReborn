@@ -284,6 +284,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionIotDataPlane(array $args = [])
  * @method \Aws\Kafka\KafkaClient createKafka(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKafka(array $args = [])
+ * @method \Aws\KafkaConnect\KafkaConnectClient createKafkaConnect(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionKafkaConnect(array $args = [])
  * @method \Aws\Kinesis\KinesisClient createKinesis(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionKinesis(array $args = [])
  * @method \Aws\KinesisAnalytics\KinesisAnalyticsClient createKinesisAnalytics(array $args = [])
@@ -561,7 +563,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.193.4';
+    const VERSION = '3.194.1';
 
     /** @var array Arguments for creating clients */
     private $args;

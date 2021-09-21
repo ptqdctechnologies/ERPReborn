@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '4cf91cc424296dc4b3a612fd0f14efa95c4b2909',
+    'reference' => '8f187087dd3950353397380df58d2e92900d0baa',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.193.4',
-      'version' => '3.193.4.0',
+      'pretty_version' => '3.194.1',
+      'version' => '3.194.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '758c2225c484088b2118c4e3ff5b37ccfea3948f',
+      'reference' => '67bdee05acef9e8ad60098090996690b49babd09',
     ),
     'brick/math' => 
     array (
@@ -175,12 +175,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.14.1',
-      'version' => '2.14.1.0',
+      'pretty_version' => '2.14.3',
+      'version' => '2.14.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '15ead64e9828f0fc90932114429c4f7923570cb1',
+      'reference' => '89584ce67dd32307f1063cc43846674f4679feda',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '4cf91cc424296dc4b3a612fd0f14efa95c4b2909',
+      'reference' => '8f187087dd3950353397380df58d2e92900d0baa',
     ),
     'laravel/tinker' => 
     array (
@@ -626,30 +626,30 @@ private static $installed = array (
     ),
     'nette/utils' => 
     array (
-      'pretty_version' => 'v3.2.3',
-      'version' => '3.2.3.0',
+      'pretty_version' => 'v3.2.5',
+      'version' => '3.2.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5c36cc1ba9bb6abb8a9e425cf054e0c3fd5b9822',
+      'reference' => '9cd80396ca58d7969ab44fc7afcf03624dfa526e',
     ),
     'nikic/php-parser' => 
     array (
-      'pretty_version' => 'v4.12.0',
-      'version' => '4.12.0.0',
+      'pretty_version' => 'v4.13.0',
+      'version' => '4.13.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6608f01670c3cc5079e18c1dab1104e002579143',
+      'reference' => '50953a2691a922aa1769461637869a0a2faa3f53',
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v5.9.0',
-      'version' => '5.9.0.0',
+      'pretty_version' => 'v5.10.0',
+      'version' => '5.10.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '63456f5c3e8c4bc52bd573e5c85674d64d84fd43',
+      'reference' => '3004cfa49c022183395eabc6d0e5207dfe498d00',
     ),
     'opis/closure' => 
     array (
@@ -698,12 +698,12 @@ private static $installed = array (
     ),
     'phpdocumentor/type-resolver' => 
     array (
-      'pretty_version' => '1.4.0',
-      'version' => '1.4.0.0',
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
+      'reference' => '30f38bffc6f24293dadd1823936372dfa9e86e2f',
     ),
     'phplang/scope-exit' => 
     array (
@@ -734,12 +734,12 @@ private static $installed = array (
     ),
     'phpunit/php-code-coverage' => 
     array (
-      'pretty_version' => '9.2.6',
-      'version' => '9.2.6.0',
+      'pretty_version' => '9.2.7',
+      'version' => '9.2.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f6293e1b30a2354e8428e004689671b83871edde',
+      'reference' => 'd4c798ed8d51506800b441f7a13ecb0f76f12218',
     ),
     'phpunit/php-file-iterator' => 
     array (
@@ -872,8 +872,8 @@ private static $installed = array (
     array (
       'provided' => 
       array (
-        0 => '1.0|2.0',
-        1 => '1.0.0 || 2.0.0 || 3.0.0',
+        0 => '1.0.0 || 2.0.0 || 3.0.0',
+        1 => '1.0|2.0',
       ),
     ),
     'psr/simple-cache' => 
@@ -1081,21 +1081,21 @@ private static $installed = array (
     ),
     'swaggest/json-diff' => 
     array (
-      'pretty_version' => 'v3.8.1',
-      'version' => '3.8.1.0',
+      'pretty_version' => 'v3.8.2',
+      'version' => '3.8.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd2184358c5ef5ecaa1f6b4c2bce175fac2d25670',
+      'reference' => 'd223be0ee90cd6001c21af39573fbc2f600a0bbe',
     ),
     'swaggest/json-schema' => 
     array (
-      'pretty_version' => 'v0.12.37',
-      'version' => '0.12.37.0',
+      'pretty_version' => 'v0.12.38',
+      'version' => '0.12.38.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1d7cce2dac6844a8a612672ad5936e8c4145e96a',
+      'reference' => 'ab7cca149a5822acc5be538dd6c008a348f6cb89',
     ),
     'swiftmailer/swiftmailer' => 
     array (

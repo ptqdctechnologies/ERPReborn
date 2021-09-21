@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.194.1 - 2021-09-17
+
+* `Aws\DatabaseMigrationService` - Optional flag force-planned-failover added to reboot-replication-instance API call. This flag can be used to test a planned failover scenario used during some maintenance operations.
+* `Aws\ElasticsearchService` - This release adds an optional parameter in the ListDomainNames API to filter domains based on the engine type (OpenSearch/Elasticsearch).
+* `Aws\OpenSearchService` - This release adds an optional parameter in the ListDomainNames API to filter domains based on the engine type (OpenSearch/Elasticsearch).
+
+## 3.194.0 - 2021-09-16
+
+* `Aws\KafkaConnect` - This is the initial SDK release for Amazon Managed Streaming for Apache Kafka Connect (MSK Connect).
+* `Aws\Macie2` - This release adds support for specifying which managed data identifiers are used by a classification job, and retrieving a list of managed data identifiers that are available.
+* `Aws\Pinpoint` - This SDK release adds a new feature for Pinpoint campaigns, in-app messaging.
+* `Aws\RoboMaker` - Adding support to create container based Robot and Simulation applications by introducing an environment field
+* `Aws\S3` - Add support for access point arn filtering in S3 CW Request Metrics
+* `Aws\SageMaker` - Add API for users to retry a failed pipeline execution or resume a stopped one.
+* `Aws\TranscribeService` - This release adds support for subtitling with Amazon Transcribe batch jobs.
+
 ## 3.193.4 - 2021-09-14
 
 * `Aws\Chime` - Adds support for SipHeaders parameter for CreateSipMediaApplicationCall.
