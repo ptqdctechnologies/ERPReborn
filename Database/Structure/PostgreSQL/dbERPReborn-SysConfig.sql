@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.4 (Debian 13.4-1.pgdg100+1)
 
--- Started on 2021-09-23 01:40:24 WIB
+-- Started on 2021-09-23 06:39:45 WIB
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -15072,7 +15072,7 @@ CREATE INDEX "TblLog_UserLoginSession_RMV__Sys_Partition_RemovableRecor_idx29" O
 CREATE INDEX "TblLog_UserLoginSession_RMV__Sys_Partition_RemovableRecor_idx30" ON "SchSysConfig"."TblLog_UserLoginSession_RMV_8000000000031" USING btree ("Sys_Partition_RemovableRecord_Key_RefID");
 
 
--- Completed on 2021-09-23 01:40:25 WIB
+-- Completed on 2021-09-23 06:39:46 WIB
 
 --
 -- PostgreSQL database dump complete

@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.4 (Debian 13.4-1.pgdg100+1)
 
--- Started on 2021-09-23 01:40:36 WIB
+-- Started on 2021-09-23 06:39:55 WIB
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -191,7 +191,7 @@ $_$;
 
 ALTER FUNCTION "SchSystem"."FuncSys_General_SetSequence"(character varying, character varying, bigint) OWNER TO "SysEngine";
 
--- Completed on 2021-09-23 01:40:36 WIB
+-- Completed on 2021-09-23 06:39:55 WIB
 
 --
 -- PostgreSQL database dump complete

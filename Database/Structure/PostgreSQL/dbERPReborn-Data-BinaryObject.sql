@@ -5,7 +5,7 @@
 -- Dumped from database version 13.4 (Debian 13.4-1.pgdg100+1)
 -- Dumped by pg_dump version 13.4 (Debian 13.4-1.pgdg100+1)
 
--- Started on 2021-09-23 01:40:36 WIB
+-- Started on 2021-09-23 06:39:55 WIB
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -29162,7 +29162,7 @@ CREATE INDEX "TblBinaryObject_RMV_80000000_Sys_Partition_RemovableRecor_idx98" O
 CREATE INDEX "TblBinaryObject_RMV_80000000_Sys_Partition_RemovableRecor_idx99" ON "SchData-BinaryObject"."TblBinaryObject_RMV_8000000000100" USING btree ("Sys_Partition_RemovableRecord_Key_RefID");
 
 
--- Completed on 2021-09-23 01:40:37 WIB
+-- Completed on 2021-09-23 06:39:57 WIB
 
 --
 -- PostgreSQL database dump complete
