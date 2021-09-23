@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 3.194.3 - 2021-09-22
+
+* `Aws\IAM` - Added changes to OIDC API about not using port numbers in the URL.
+* `Aws\LexModelsV2` - This release adds support for utterances statistics for bots built using Lex V2 console and APIs. For details, see: https://docs.aws.amazon.com/lexv2/latest/dg/monitoring-utterances.html
+* `Aws\LicenseManager` - AWS License Manager now allows customers to change their Windows Server or SQL license types from Bring-Your-Own-License (BYOL) to License Included or vice-versa (using the customer's media).
+* `Aws\MediaPackageVod` - MediaPackage VOD will now return the current processing statuses of an asset's endpoints. The status can be QUEUED, PROCESSING, PLAYABLE, or FAILED.
+* `Aws\MediaTailor` - This release adds support to configure logs for playback configuration.
+* `Aws\WAFV2` - Added the regex match rule statement, for matching web requests against a single regular expression.
+* `Aws\imagebuilder` - This feature adds support for specifying GP3 volume throughput and configuring instance metadata options for instances launched by EC2 Image Builder.
+
+## 3.194.2 - 2021-09-21
+
+* `Aws\Comprehend` - Amazon Comprehend now supports versioning of custom models, improved training with ONE_DOC_PER_FILE text documents for custom entity recognition, ability to provide specific test sets during training, and live migration to new model endpoints.
+* `Aws\EC2` - This update adds support for downloading configuration templates using new APIs (GetVpnConnectionDeviceTypes and GetVpnConnectionDeviceSampleConfiguration) and Internet Key Exchange version 2 (IKEv2) parameters for many popular CGW devices.
+* `Aws\ECR` - This release adds additional support for repository replication
+* `Aws\IoT` - This release adds support for verifying, viewing and filtering AWS IoT Device Defender detect violations with four verification states.
+* `Aws\Kafka` - Added StateInfo to ClusterInfo
+
 ## 3.194.1 - 2021-09-17
 
 * `Aws\DatabaseMigrationService` - Optional flag force-planned-failover added to reboot-replication-instance API call. This flag can be used to test a planned failover scenario used during some maintenance operations.

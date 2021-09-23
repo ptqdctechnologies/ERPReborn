@@ -59,3 +59,11 @@ $varCmd "$varCmdContainer";
 varDBName='dbERPReborn';
 varCmdContainer='pg_dump --username "SysEngine" --schema-only --format plain --encoding UTF8 --verbose --file "/zhtConf/databaseStructure/'$varDBName'.sql" "'$varDBName'";';
 $varCmd "$varCmdContainer";
+
+
+#+-------------------------------------------------------------------------------------------------+
+#| GIT Update                                                                                      |
+#+-------------------------------------------------------------------------------------------------+
+git add ./Database/Structure/PostgreSQL/dbERPReborn-Data-BinaryObject.sql Database/Structure/PostgreSQL/dbERPReborn-Data-OLAP.sql Database/Structure/PostgreSQL/dbERPReborn-Data-OLTP.sql Database/Structure/PostgreSQL/dbERPReborn-SysConfig.sql Database/Structure/PostgreSQL/dbERPReborn.sql;
+git status; 
+git commit -m "Update Database";
