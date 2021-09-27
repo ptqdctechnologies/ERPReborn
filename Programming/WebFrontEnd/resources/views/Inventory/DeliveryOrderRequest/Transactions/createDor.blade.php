@@ -3,9 +3,6 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getRequester')
-@include('getFunction.getProduk')
 @include('getFunction.getPr')
 <div class="content-wrapper">
     <section class="content">

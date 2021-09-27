@@ -2,6 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getRequester')
 
 <div class="content-wrapper">
   <section class="content">
@@ -102,7 +105,7 @@
                                   <div class="input-group">
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                       <!-- <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
-                                      <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y h:i A') }}"/>
+                                      <input class="form-control datetimepicker-input" data-target="#reservationdate">
                                       <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
                                         <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
@@ -116,7 +119,7 @@
                                   <div class="input-group">
                                     <div class="input-group date" id="endate" data-target-input="nearest">
                                       <!-- <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
-                                      <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y h:i A') }}"/>
+                                      <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate"/>
                                       <div class="input-group-append" data-target="#endate" data-toggle="datetimepicker">
                                         <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
@@ -161,7 +164,7 @@
               </div>
             </div>
         </form>
-
+  
         <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
           <div class="row">
             <div class="col-12">
@@ -210,24 +213,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body table-responsive p-0" id="brfhide3">
-                <table id="tableBudgetBrf" class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
-                    <tr>
-                      <th>Add</th>
-                      <th>Work ID</th>
-                      <th>Work Name</th>
-                      <th>Product ID</th>
-                      <th>Name</th>
-                      <th>Value</th>
-                      <th>Total Budget</th>
-                      <th>Total Cost</th>
-                      <th>Available</th>
-                      <th>Applied</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
+              @include('getFunction.getBudgetArf')
             </div>
           </div>
         </div>
@@ -445,7 +431,7 @@
                             <td><label>Sequence</label></td>
                             <td>
                               <div class="input-group">
-                                <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="number" class="form-control" readonly>
+                                <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="number" class="form-control" readonly>
                               </div>
                             </td>
                           </tr>

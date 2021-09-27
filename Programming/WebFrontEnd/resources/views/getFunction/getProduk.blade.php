@@ -9,31 +9,11 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button> 
                 </div>
                 <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <table>
-                                <tr>
-                                <td><label>Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="code_produk" onkeyup="searchArfCodeProduk()">
-                                    </div>
-                                </td>
-                                <td><label>Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="name_produk" onkeyup="searchArfNameProduk()">
-                                    </div>
-                                </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </form>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body table-responsive p-0" style="height: 400px;">
-                                    <table class="table table-head-fixed text-nowrap" id="produkArf">
+                                    <table class="table table-head-fixed text-nowrap" id="tableGetProduct">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
@@ -75,7 +55,7 @@ function searchArfCodeProduk() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("code_produk");
   filter = input.value.toUpperCase();
-  table = document.getElementById("produkArf");
+  table = document.getElementById("tableGetProduct");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query
@@ -96,7 +76,7 @@ function searchArfNameProduk() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("name_produk");
   filter = input.value.toUpperCase();
-  table = document.getElementById("produkArf");
+  table = document.getElementById("tableGetProduct");
   tr = table.getElementsByTagName("tr");
 
   // Loop through all table rows, and hide those who don't match the search query

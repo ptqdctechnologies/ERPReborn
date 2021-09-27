@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td><label>Project Code</label></td>
+                                    <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
                                             <input id="projectcode" name="projectcode" class="form-control" readonly>
@@ -61,7 +61,7 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td><label>Site Code</label></td>
+                                    <td><label>Sub Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
                                             <input id="sitecode" name="sitecode" class="form-control" readonly>

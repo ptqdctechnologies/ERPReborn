@@ -6,54 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <td><label>No Trans</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="trano_no_po" onkeyup="searchTranoNoPo()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td><label>Project Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_po" onkeyup="searchProjectCodePo()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                                <td><label>Site Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_po" onkeyup="searchSiteCodePo()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><label>Origin of Budget</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <select class="form-control select2bs4" style="width: 100%; border-radius:0;">
-                                            <option selected="selected">OPEX</option>
-                                            <option>CAPEX</option>
-                                        </select>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
+                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="poTable">
+                                <table class="table table-head-fixed text-nowrap" id="tableGetPr">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -122,7 +80,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("trano_no_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("tableGetPr");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -144,7 +102,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("project_code_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("tableGetPr");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -166,7 +124,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("site_code_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("tableGetPr");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -241,6 +199,7 @@
                     totalArfDetails: "x",
                     putRemark: "x",
                     filenames: "x",
+                    trano: "x",
                 }
                 datas.push(data);
             }

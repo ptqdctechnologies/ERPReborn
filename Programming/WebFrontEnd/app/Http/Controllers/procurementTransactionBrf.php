@@ -9,9 +9,23 @@ class procurementTransactionBrf extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createBRF()
+    public function createBRF(Request $request)
     {
-        return view('Advance.BussinesTrip.Transactions.createBRF');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Advance.BussinesTrip.Transactions.createBRF', ['data' => $varData['data']]);
+
+        // return view('Advance.BussinesTrip.Transactions.createBRF');
     }
 
     public function BRFtoBRFP()
@@ -141,6 +155,19 @@ class procurementTransactionBrf extends Controller
     }
     public function revisionBrfIndex(Request $request)
     {
-        return view('Advance.BussinesTrip.Transactions.revisionBRF');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Advance.BussinesTrip.Transactions.revisionBRF', ['data' => $varData['data']]);
+        
     }
 }

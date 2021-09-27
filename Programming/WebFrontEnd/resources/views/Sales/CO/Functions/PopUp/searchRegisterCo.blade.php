@@ -10,7 +10,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="poTable">
+                                <table class="table table-head-fixed text-nowrap" id="TableRegisterCo">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -63,7 +63,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("trano_no_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("TableRegisterCo");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -85,7 +85,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("project_code_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("TableRegisterCo");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -107,7 +107,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("site_code_po");
         filter = input.value.toUpperCase();
-        table = document.getElementById("poTable");
+        table = document.getElementById("TableRegisterCo");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query

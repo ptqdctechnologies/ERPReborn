@@ -13,13 +13,9 @@
 @include('Master.supplier.Transactions.popupRevisionSupplier')
 @include('Master.UOM.Transactions.popupRevisionUom')
 
-@include('getFunction.getCurrency')
 @include('getFunction.getDeliverTo')
 @include('getFunction.getDelivery')
-@include('getFunction.getFinanceStaff')
-@include('getFunction.getManager')
 @include('getFunction.getPoTrano')
-@include('getFunction.getPr')
 @include('getFunction.getReceive')
 @include('getFunction.getSupplier')
 @include('getFunction.getUom')
