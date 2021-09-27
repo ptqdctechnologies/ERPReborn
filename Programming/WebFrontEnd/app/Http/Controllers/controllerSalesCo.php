@@ -14,14 +14,38 @@ class controllerSalesCo extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Sales.CO.Transactions.index');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Sales.CO.Transactions.index', ['data' => $varData['data']]);
     }
 
-    public function revisionCo()
+    public function revisionCo(Request $request)
     {
-        return view('Sales.CO.Transactions.revisionCo');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Sales.CO.Transactions.revisionCo', ['data' => $varData['data']]);
     }
     public function arflistcancel()
     {

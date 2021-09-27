@@ -16,7 +16,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Project Code</label></td>
+                        <td><label>Budget Code</label></td>
                         <td>
                             <div class="input-group">
                                 <input id="projectcode" style="border-radius:0;" name="projectcode" type="text" class="form-control" readonly>
@@ -32,7 +32,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Site Code</label></td>
+                        <td><label>Budget Code</label></td>
                         <td>
                             <div class="input-group">
                                 <input id="sitecode" style="border-radius:0;" name="sitecode" type="text" class="form-control" readonly>

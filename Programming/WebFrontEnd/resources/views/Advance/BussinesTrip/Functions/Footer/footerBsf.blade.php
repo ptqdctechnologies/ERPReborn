@@ -129,6 +129,7 @@
                     totalArfDetails: "x",
                     putRemark: "x",
                     filenames: "x",
+                    trano: '',
                 }
                 datas.push(data);
             }

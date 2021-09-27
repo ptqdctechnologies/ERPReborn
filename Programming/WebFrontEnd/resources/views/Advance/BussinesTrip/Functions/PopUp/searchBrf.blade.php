@@ -6,43 +6,11 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <td><label>BRF Number</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="brf_number" onkeyup="searchBrfNumber()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-
-                            </tr>
-                            <tr>
-                                <td><label>Project Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="project_code_brf" onkeyup="searchBrfProjectCode()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                                <td><label>Site Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="site_code_brf" onkeyup="searchBrfSiteCode()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="searchBrfTable">
+                                <table class="table table-head-fixed text-nowrap" id="tableSearchBrf">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -56,42 +24,17 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 20; $i++) <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">{{ $no++ }}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="brf_no {{ $i }}">BRF No {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchBrf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <p>Site Name {{$i}}</p>
-                                            </td>
-                                            </tr>
-                                            @endfor
+                                        @for($i = 1; $i < 20; $i++)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="brf_no {{ $i }}">BRF No {{$i}}</td>
+                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="brfp_no {{ $i }}">BRFP No {{$i}}</td>
+                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="project_id {{ $i }}">Project ID {{$i}}</td>
+                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="project_name {{ $i }}">Project Name {{$i}}</td>
+                                            <td data-dismiss="modal" class="klikSearchBrf" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</td>
+                                            <td >Site Name {{$i}}</td>
+                                        </tr>
+                                        @endfor
                                     </tbody>
                                 </table>
                             </div>
@@ -111,7 +54,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("brf_number");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("tableSearchBrf");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -133,7 +76,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("project_code_brf");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("tableSearchBrf");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -155,7 +98,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("site_code_brf");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchBrfTable");
+        table = document.getElementById("tableSearchBrf");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query

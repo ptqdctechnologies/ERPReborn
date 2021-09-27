@@ -46,9 +46,22 @@ class procurementTransactionMret extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Inventory.MaterialReturn.Transactions.createMret');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Inventory.MaterialReturn.Transactions.createMret', ['data' => $varData['data']]);
+
     }
     public function arflistcancel()
     {

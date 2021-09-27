@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td><label>Project Code</label></td>
+                                    <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
                                             <input id="headerProjectCode" style="border-radius:0;margin-left:25px;" name="headerProjectCode" class="form-control">

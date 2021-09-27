@@ -2,6 +2,11 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getManager')
+@include('getFunction.getFinanceStaff')
+@include('getFunction.getCurrency')
 
 <div class="content-wrapper">
   <section class="content">
@@ -107,12 +112,11 @@
                             </tr>
 
                             <tr>
-                              <td><label>Hide</label></td>
                               <td>
                                 <div class="input-group">
-                                  <input readonly name="" id="productIdHide" style="border-radius:0;" type="hide" class="form-control">
-                                  <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hide" class="form-control">
-                                  <input readonly name="" id="uomHide" style="border-radius:0;" type="hide" class="form-control">
+                                  <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
                                 </div>
                               </td>
                             </tr>

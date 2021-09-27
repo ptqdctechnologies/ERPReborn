@@ -14,7 +14,7 @@ class procurementTransactionDor extends Controller
     {
 
         $data = json_decode($request->getContent(), true);
-        $dataAll = array();
+        $dataAll = array(); 
         $files = [];
         foreach ($data as $i => $v) {
 
@@ -46,9 +46,22 @@ class procurementTransactionDor extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']]);
+
     }
     public function arflistcancel()
     {
@@ -318,6 +331,22 @@ class procurementTransactionDor extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        $data = $varData['data'];
+
+
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance','data'));
     }
 }

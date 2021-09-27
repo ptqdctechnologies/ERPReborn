@@ -7,27 +7,12 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        // $("#projectcode2").prop("disabled", true);
         // $("#sitecode2").prop("disabled", true);
         $("#showContentBOQ2").hide();
         $("#tableShowHideBOQ2").hide();
 
         $("#amountCompanyCart").hide();
         $("#expenseCompanyCart").hide();
-    });
-</script>
-
-<script>
-    $(function() {
-        $("#origin_budget").on('click', function(e) {
-            e.preventDefault();
-            var val = $("#origin_budget").val();
-            if (val == "") {
-                $("#projectcode2").prop("disabled", true);
-            } else {
-                $("#projectcode2").prop("disabled", false);
-            }
-        });
     });
 </script>
 

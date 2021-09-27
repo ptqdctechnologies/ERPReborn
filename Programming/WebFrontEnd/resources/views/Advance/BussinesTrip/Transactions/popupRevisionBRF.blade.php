@@ -13,7 +13,7 @@
                                             <td><label style="margin-left: 85px;">BRF Number</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input required="" id="brf_number" style="border-radius:0;" name="searchBrfNumberRevision" type="text" class="form-control">
+                                                    <input required="" id="brf_number" style="border-radius:0;" name="searchBsfNumberRevision" type="text" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a href="#"><i data-toggle="modal" data-target="#mySearchBrf" class="fas fa-gift" style="color:grey;"></i></a>
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline btn-success btn-sm">
+                        <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 180px;">
                             <i class="fa fa-pencil" aria-hidden="true">Edit</i>
                         </button>
                         <button type="reset" class="btn btn-outline btn-danger btn-sm">

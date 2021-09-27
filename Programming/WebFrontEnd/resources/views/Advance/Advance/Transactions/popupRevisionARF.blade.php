@@ -1,4 +1,4 @@
-<div id="arfNumberPopUp" class="modal fade" role="dialog" style="margin-top: 250px;margin-left:8px;">
+<div id="arfNumberPopUp" class="modal fade" role="dialog" style="margin-top: 250px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -21,6 +21,8 @@
                                                     </div>
                                                 </div>
                                             </td>
+
+                                            
                                         </tr>
                                     </table>
                                 </div>

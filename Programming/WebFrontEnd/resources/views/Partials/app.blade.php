@@ -100,6 +100,7 @@
       $("#table1").DataTable({
         "responsive": true,
         "autoWidth": false,
+        "paginate": true,
       });
       $("#table2").DataTable({
         "responsive": true,
@@ -121,8 +122,66 @@
       $("#tableGetSite").DataTable({
         "responsive": true,
         "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetPr").DataTable({
+        "responsive": true,
+        "autoWidth": false,
         "paginate": true,
       });
+      $("#tableGetRequester").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#tableSearchArf").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#tableSearchArfRevision").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#tableSearchAsfRevision").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#tableSearchBrf").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+
+      $("#tableGetProduct").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+
+      $("#tableSearchBsf").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#TableRegisterCo").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#TableSearchCo").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      $("#TableBOQCO").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": true,
+      });
+      
       $('#example2').DataTable({  
         "paging": true,
         "lengthChange": false,

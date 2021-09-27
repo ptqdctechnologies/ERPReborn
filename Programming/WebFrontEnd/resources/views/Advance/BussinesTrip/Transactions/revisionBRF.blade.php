@@ -2,6 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getRequester')
 
 <div class="content-wrapper">
   <section class="content">
@@ -161,7 +164,7 @@
               </div>
             </div>
         </form>
-
+  
         <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab">
           <div class="row">
             <div class="col-12">
@@ -210,23 +213,7 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body table-responsive p-0" id="brfhide3">
-                <table id="tableBudgetBrf" class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
-                    <tr>
-                      <th>Work ID</th>
-                      <th>Work Name</th>
-                      <th>Product ID</th>
-                      <th>Name</th>
-                      <th>Value</th>
-                      <th>Total Budget</th>
-                      <th>Total Cost</th>
-                      <th>Available</th>
-                      <th>Applied</th>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
+              @include('getFunction.getBudgetArf')
             </div>
           </div>
         </div>
@@ -444,7 +431,7 @@
                             <td><label>Sequence</label></td>
                             <td>
                               <div class="input-group">
-                                <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" type="number" class="form-control" readonly>
+                                <input id="sequence" style="border-radius:0;border:none;background-color:white;font-weight:bold;" value="1" type="number" class="form-control" readonly>
                               </div>
                             </td>
                           </tr>
@@ -555,7 +542,7 @@
                 <table id="tableBrf" class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
-                      <th></th>
+                      <th>Delete</th>
                       <th>Payment Sequence</th>
                       <th>Allowance</th>
                       <th>Transport</th>
@@ -582,7 +569,7 @@
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
-                <table id="table1" class="table table-head-fixed text-nowrap table-striped">
+                <table class="table table-head-fixed text-nowrap table-striped">
                   <thead>
                     <tr>
                       <th></th>
@@ -610,4 +597,4 @@
 
 @include('Partials.footer')
 @include('Advance.BussinesTrip.Functions.Footer.footerBrf')
-@endsection
+@endsection 

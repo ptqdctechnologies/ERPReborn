@@ -3,7 +3,6 @@
     $(document).ready(function() {
         $("#detailArfList").hide();
         $("#detailTransAvail").hide();
-        // $("#projectcode2").prop("disabled", true);
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#addFromDetailtoCart").prop("disabled", true);
@@ -14,6 +13,7 @@
         $("#iconQty2").hide();
         $("#iconUnitPrice2").hide();
         $("#iconRemark2").hide();
+        $("#product_id2").prop("disabled", true);
 
         $("#submitArf").prop("disabled", true);
     });
@@ -31,14 +31,25 @@
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
 
+            var getStatus1 = $("#getStatus1").html();
+            
+            if(getStatus1 == "Miscellaneous"){
+                $("#product_id2").prop("disabled", false);
+                var get31 = "";
+                var get71 = "";
+            }
+            else{
+                $("#product_id2").prop("disabled", true);
+                var get31 = $("#getProductId1").html();
+                var get71 = $("#getProductName1").html();
+            }
+
             var get11 = $("#getWorkId1").html();
             var get21 = $("#getWorkName1").html();
-            var get31 = $("#getProductId1").html();
             var get4 = $("#getQty1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get41 = $("#getQty11").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get51 = $("#getPrice1").html().replace(/[^a-zA-Z0-9 ]/g, "");
             var get61 = $("#getRemark1").html();
-            var get71 = $("#getProductName1").html();
             var get81 = $("#getUom1").html();
             var get91 = $("#getCurrency1").html();
             var get101 = $("#getRequester1").html();
@@ -68,6 +79,15 @@
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
+            
+            var getStatus2 = $("#getStatus2").html();
+            
+            if(getStatus2 == "Miscellaneous"){
+                $("#product_id2").prop("disabled", false);
+            }
+            else{
+                $("#product_id2").prop("disabled", true);
+            }
 
             var get12 = $("#getWorkId2").html();
             var get22 = $("#getWorkName2").html();
@@ -106,6 +126,15 @@
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
+            
+            var getStatus3 = $("#getStatus3").html();
+            
+            if(getStatus3 == "Miscellaneous"){
+                $("#product_id2").prop("disabled", false);
+            }
+            else{
+                $("#product_id2").prop("disabled", true);
+            }
 
             var get13 = $("#getWorkId3").html();
             var get23 = $("#getWorkName3").html();
@@ -144,6 +173,14 @@
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
+
+            var getStatus4 = $("#getStatus4").html();
+            if(getStatus4 == "Miscellaneous"){
+                $("#product_id2").prop("disabled", false);
+            }
+            else{
+                $("#product_id2").prop("disabled", true);
+            }
 
             var get14 = $("#getWorkId4").html();
             var get24 = $("#getWorkName4").html();
@@ -210,7 +247,7 @@
             return false;
 
         } else if (qtyx == 0) {
-            $("#qtyCek").css("border", "1px solid red");
+            $("#qtyCek").css    ("border", "1px solid red");
             $("#putUom").css("border", "1px solid red");
             $("#iconQty").css("border", "1px solid red");
             $("#iconQty").css("borderRadius", "100pt");
@@ -247,6 +284,7 @@
         } else {
 
             var datas = [];
+            var tamp = [];
 
             for (var i = 1; i <= x; i++) {
                 var data = {
@@ -276,8 +314,8 @@
                 datas.push(data);
             }
 
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
+            var json_object = JSON.stringify(datas);    
+            console.log(json_object);
 
             $.ajax({
                 type: "POST",
@@ -297,7 +335,7 @@
                         var t = $('#tableArf').DataTable();
                         t.row.add([
                             '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
-                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastProductId' + y + '">' + val.putProductId + '</span>',
                             '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
                             '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '>',
                             '<span id="lastUom_' + y + '">' + val.putUom + '</span>',

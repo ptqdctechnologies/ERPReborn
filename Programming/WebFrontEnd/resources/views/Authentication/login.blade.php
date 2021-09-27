@@ -27,6 +27,11 @@
             width: 10px;
         }
 
+        #login_password {
+            height: 30px;
+            width: 10px;
+        }
+
         #loading {
             position: fixed;
             left: 0px;
@@ -170,27 +175,6 @@
         </div>
         @endif
 
-        <!-- @if ($message = Session::get('warning'))
-        <div class="alert alert-warning alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-        @if ($message = Session::get('info'))
-        <div class="alert alert-info alert-block">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            <strong>{{ $message }}</strong>
-        </div>
-        @endif
-
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <button type="button" class="close" data-dismiss="alert">×</button>
-            Please check the form below for errors
-        </div>
-        @endif -->
-
         <div class="login-logo">
             <img src="/AdminLTE-master/dist/img/qdc.png" width="160" alt=""><br>
         </div>
@@ -210,10 +194,17 @@
                     </div>
 
                     <div class="input-group mb-4">
-                        <input type="password" class="form-control password" placeholder="Password" name="password" id="dis2" required="" autocomplete="off">
+                        <input type="password" class="form-control password" placeholder="Password" name="password" id="login_password" required="" autocomplete="off">
+
                         <div class="input-group-append">
                             <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                                <span class="input-group-btn" id="eyeSlash" onclick="ShowHidePass()">
+                                    <i class="fa fa-eye-slash" aria-hidden="true"></i>
+                                </span>
+                                <span class="input-group-btn" id="eyeShow" style="display: none;" onclick="ShowHidePass()">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </span>
+
                             </div>
                         </div>
                     </div>
@@ -254,6 +245,21 @@
     <script src="{{ asset('AdminLTE-master/dist/js/adminlte.min.js') }}"></script>
     <!-- sweetalert -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.min.js"></script>
+
+    <script>
+        function ShowHidePass() {
+            var x = document.getElementById('login_password');
+            if (x.type === 'password') {
+                x.type = "text";
+                $('#eyeShow').show();
+                $('#eyeSlash').hide();
+            } else {
+                x.type = "password";
+                $('#eyeShow').hide();
+                $('#eyeSlash').show();
+            }
+        }
+    </script>
 
     <script type="text/javascript">
         $(document).ready(function() {

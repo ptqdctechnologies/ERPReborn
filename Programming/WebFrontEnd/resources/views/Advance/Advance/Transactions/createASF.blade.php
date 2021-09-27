@@ -2,6 +2,11 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
+@include('getFunction.getProject')
+@include('getFunction.getSite')
+@include('getFunction.getManager')
+@include('getFunction.getFinanceStaff')
+@include('getFunction.getCurrency')
 
 <div class="content-wrapper">
   <section class="content">
@@ -394,11 +399,10 @@
           </div>
           <button type="reset" class="btn btn-danger btn-sm float-right">
             <i class="fa fa-times" aria-hidden="true"></i>
-            Cancel Settelement List (Cart)
+            Cancel
           </button>
-          <button type="reset" class="btn btn-success btn-sm float-right" id="saveAsfList">
-            <i class="fa fa-save" aria-hidden="true"></i>
-            Save Settelement List(Cart)
+          <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="saveAsfList">
+            <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
           </button>
         </div>
       </div>

@@ -6,26 +6,13 @@
     $("#brfhide5").hide();
     $(".brfhide6").hide();
     $(".budgetDetail").hide();
+    $("#tableShowHideGetBudgetArf").hide();
+    
 
-    $("#projectcode2").prop("disabled", true);
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     $("#saveBrfList").prop("disabled", true);
   });
-</script>
-
-<script>
-    $(function() {
-        $("#origin_budget").on('click', function(e) {
-            e.preventDefault();
-            var val = $("#origin_budget").val();
-            if (val == "") {
-                $("#projectcode2").prop("disabled", true);
-            } else {
-                $("#projectcode2").prop("disabled", false);
-            }
-        });
-    });
 </script>
 
 <script>
@@ -109,6 +96,7 @@
   var valAccomodation = 0;
   var valOthers = 0;
   var varTotalBrf = 0;
+  var y = 0;
 
   function validateFormAsfPaymentSequence() {
     var allowance = document.forms["formAsfPaymentSequence"]["allowance"].value;
@@ -184,7 +172,7 @@
       var varAccomodation = $('#accomodation').val();
       var varOther = $('#other').val();
       var varSum = +varAllowance + +varTransport + +varAirport_tax + +varAccomodation + +varOther;
-
+ 
       if (varSequence > varSequenceReq) {
         Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
       } else {
@@ -217,7 +205,6 @@
               'X-CSRF-TOKEN': '{{ csrf_token() }}'
             },
             success: function(data) {
-              Swal.fire("Success !", "Data Has Been Updated", "success");
               y++;
               $.each(data, function(key, val) {
 
@@ -226,6 +213,7 @@
                   Swal.fire("Error !", "Your request budget is not Sufficient", "error");
                 } else {
 
+                  Swal.fire("Success !", "Data Has Been Updated", "success");
                   var t = $('#tableBrf').DataTable();
                     t.row.add([
                         '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
@@ -271,9 +259,6 @@
     $("#saveBrfList").prop("disabled", false);
   }
 </script>
-
-
-
 
 <script>
   $('#saveBrfList').click(function() {
@@ -355,4 +340,29 @@
       }
     })
   });
+</script>
+
+<script>
+    $(document).ready(function() {
+        $('.klikBudgetArf1').click(function() {
+          $("#brfhide1").show();
+          $("#brfhide5").show();
+          $("#budgetNameArf").val("ARF-0001");
+        });
+        $('.klikBudgetArf2').click(function() {
+          $("#brfhide1").show();
+          $("#brfhide5").show();
+          $("#budgetNameArf").val("ARF-0001");
+        });
+        $('.klikBudgetArf3').click(function() {
+          $("#brfhide1").show();
+          $("#brfhide5").show();
+          $("#budgetNameArf").val("ARF-0001");
+        });
+        $('.klikBudgetArf4').click(function() {
+          $("#brfhide1").show();
+          $("#brfhide5").show();
+          $("#budgetNameArf").val("ARF-0001");
+        });
+    });
 </script>

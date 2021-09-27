@@ -6,33 +6,12 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <table>
-                            <tr>
-                                <td><label>Code</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="customer_code" onkeyup="searchCustomerCode()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                                <td><label>Name</label></td>
-                                <td>
-                                    <div class="input-group">
-                                        <input autocomplete="off" style="border-radius:0;" type="text" class="form-control" id="customer_name" onkeyup="searchCustomerName()">
-                                        <br><br><br>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </form>
+                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="searchCustomerTable">
+                                <table class="table table-head-fixed text-nowrap" id="TableSearchCo">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -76,7 +55,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("customer_code");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchCustomerTable");
+        table = document.getElementById("TableSearchCo");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -98,7 +77,7 @@
         var input, filter, table, tr, td, i, txtValue;
         input = document.getElementById("customer_name");
         filter = input.value.toUpperCase();
-        table = document.getElementById("searchCustomerTable");
+        table = document.getElementById("TableSearchCo");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
