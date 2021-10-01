@@ -27,7 +27,7 @@ class A
 		?B $nullable,
 		mixed $mixed,
 		array|self $union,
-		array|self|null $nullableUnion
+		array|self|null $nullableUnion,
 	) {
 	}
 }
@@ -57,11 +57,11 @@ Assert::same(['A', 'array', 'null'], Reflection::getParameterTypes($params[9]));
 
 Assert::exception(function () use ($params) {
 	Reflection::getParameterType($params[8]);
-}, Nette\InvalidStateException::class, 'The $union in A::method() is not expected to have a union type.');
+}, Nette\InvalidStateException::class, 'The $union in A::method() is not expected to have a union or intersection type.');
 
 Assert::exception(function () use ($params) {
 	Reflection::getParameterType($params[9]);
-}, Nette\InvalidStateException::class, 'The $nullableUnion in A::method() is not expected to have a union type.');
+}, Nette\InvalidStateException::class, 'The $nullableUnion in A::method() is not expected to have a union or intersection type.');
 
 
 $method = new ReflectionMethod('AExt', 'methodExt');

@@ -17,6 +17,10 @@ class MailSesTransportTest extends TestCase
     /** @group Foo */
     public function testGetTransport()
     {
+        if (\PHP_VERSION_ID >= 80100) {
+            $this->markTestSkipped('Test failing in PHP 8.1');
+        }
+
         $container = new Container;
 
         $container->singleton('config', function () {
@@ -55,7 +59,7 @@ class MailSesTransportTest extends TestCase
         // Generate a messageId for our mock to return to ensure that the post-sent message
         // has X-Message-ID in its headers
         $messageId = Str::random(32);
-        $sendRawEmailMock = new sendRawEmailMock($messageId);
+        $sendRawEmailMock = new SendRawEmailMock($messageId);
         $client->expects($this->once())
             ->method('sendRawEmail')
             ->with($this->equalTo([
@@ -123,7 +127,7 @@ class MailSesTransportTest extends TestCase
     }
 }
 
-class sendRawEmailMock
+class SendRawEmailMock
 {
     protected $getResponse;
 

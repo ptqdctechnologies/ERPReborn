@@ -19,7 +19,6 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
-          extensions: bcmath, ctype, gmp
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
@@ -42,7 +41,6 @@ jobs:
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
-          extensions: bcmath, ctype, gmp
           coverage: "none"
 
       - name: "Install dependencies (Composer)"
@@ -66,16 +64,24 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.0"
+        include:
+          - php-version: "8.1"
+            composer-options: "--ignore-platform-req=php"
 
     steps:
       - name: "Checkout repository"
         uses: "actions/checkout@v2"
 
+      - name: "Install dependencies (apt)"
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install libsodium-dev uuid-dev
+
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: bcmath, ctype, gmp
+          extensions: bcmath, ctype, gmp, sodium, uuid
           coverage: "none"
           ini-values: "memory_limit=-1"
 
@@ -92,11 +98,16 @@ jobs:
       - name: "Checkout repository"
         uses: "actions/checkout@v2"
 
+      - name: "Install dependencies (apt)"
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install libsodium-dev uuid-dev
+
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "latest"
-          extensions: bcmath, ctype, gmp
+          extensions: bcmath, ctype, gmp, sodium, uuid
           coverage: "pcov"
           ini-values: "memory_limit=-1"
 
@@ -113,8 +124,7 @@ jobs:
 
   unit-tests:
     name: "Unit Tests"
-    runs-on: "ubuntu-latest"
-    continue-on-error: ${{ matrix.experimental }}
+    runs-on: ${{ matrix.operating-system }}
 
     strategy:
       fail-fast: false
@@ -124,22 +134,35 @@ jobs:
           - "7.3"
           - "7.4"
           - "8.0"
-        experimental:
-          - false
+        operating-system:
+          - "ubuntu-latest"
+          - "windows-latest"
         include:
           - php-version: "8.1"
-            experimental: true
+            operating-system: "ubuntu-latest"
             composer-options: "--ignore-platform-req=php"
 
     steps:
+      - name: "Configure Git (for Windows)"
+        if: ${{ matrix.operating-system == 'windows-latest' }}
+        run: |
+          git config --system core.autocrlf false
+          git config --system core.eol lf
+
       - name: "Checkout repository"
         uses: "actions/checkout@v2"
+
+      - name: "Install dependencies (apt)"
+        if: ${{ matrix.operating-system == 'ubuntu-latest' }}
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install libsodium-dev uuid-dev
 
       - name: "Install PHP"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
-          extensions: bcmath, ctype, gmp
+          extensions: bcmath, ctype, gmp, sodium, uuid
           coverage: "none"
           ini-values: "memory_limit=-1"
 
