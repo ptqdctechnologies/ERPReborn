@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 3.196.1 - 2021-10-01
+
+* `Aws\AppRunner` - This release contains several minor bug fixes.
+* `Aws\SSM` - When "AutoApprovable" is true for a Change Template, then specifying --auto-approve (boolean) in Start-Change-Request-Execution will create a change request that bypasses approver review. (except for change calendar restrictions)
+* `Aws\Synthetics` - CloudWatch Synthetics now enables customers to choose a customer managed AWS KMS key or an Amazon S3-managed key instead of an AWS managed key (default) for the encryption of artifacts that the canary stores in Amazon S3. CloudWatch Synthetics also supports artifact S3 location updation now.
+
+## 3.196.0 - 2021-09-30
+
+* `Aws\Account` - This release of the Account Management API enables customers to manage the alternate contacts for their AWS accounts. For more information, see https://docs.aws.amazon.com/accounts/latest/reference/accounts-welcome.html
+* `Aws\CloudControlApi` - Initial release of the SDK for AWS Cloud Control API
+* `Aws\DataExchange` - This release enables subscribers to set up automatic exports of newly published revisions using the new EventAction API.
+* `Aws\Macie2` - Amazon S3 bucket metadata now indicates whether an error or a bucket's permissions settings prevented Amazon Macie from retrieving data about the bucket or the bucket's objects.
+* `Aws\NetworkFirewall` - This release adds support for strict ordering for stateful rule groups. Using strict ordering, stateful rules are evaluated in the exact order in which you provide them.
+* `Aws\WorkMail` - This release adds support for mobile device access overrides management in Amazon WorkMail.
+* `Aws\WorkSpaces` - Added CreateUpdatedWorkspaceImage API to update WorkSpace images with latest software and drivers. Updated DescribeWorkspaceImages API to display if there are updates available for WorkSpace images.
+
+## 3.195.2 - 2021-09-29
+
+* `Aws\Lambda` - Adds support for Lambda functions powered by AWS Graviton2 processors. Customers can now select the CPU architecture for their functions.
+* `Aws\PrometheusService` - This release adds alert manager and rule group namespace APIs
+* `Aws\SesV2` - This release includes the ability to use 2048 bits RSA key pairs for DKIM in SES, either with Easy DKIM or Bring Your Own DKIM.
+
 ## 3.195.1 - 2021-09-28
 
 * `Aws\Transfer` - Added changes for managed workflows feature APIs.

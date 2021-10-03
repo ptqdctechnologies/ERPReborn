@@ -5726,6 +5726,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'phpDocumentor\\Reflection\\PseudoTypes\\CallableString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/CallableString.php',
         'phpDocumentor\\Reflection\\PseudoTypes\\False_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/False_.php',
         'phpDocumentor\\Reflection\\PseudoTypes\\HtmlEscapedString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/HtmlEscapedString.php',
+        'phpDocumentor\\Reflection\\PseudoTypes\\LiteralString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/LiteralString.php',
         'phpDocumentor\\Reflection\\PseudoTypes\\LowercaseString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/LowercaseString.php',
         'phpDocumentor\\Reflection\\PseudoTypes\\NonEmptyLowercaseString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/NonEmptyLowercaseString.php',
         'phpDocumentor\\Reflection\\PseudoTypes\\NonEmptyString' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/PseudoTypes/NonEmptyString.php',
