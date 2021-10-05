@@ -110,17 +110,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.196.1",
-            "version_normalized": "3.196.1.0",
+            "version": "3.196.2",
+            "version_normalized": "3.196.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "2845899d05c66a00d88eabbf7cf5d3dbae2da58a"
+                "reference": "3bccf77507f23207c8adbb524cc6da333dc25e47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2845899d05c66a00d88eabbf7cf5d3dbae2da58a",
-                "reference": "2845899d05c66a00d88eabbf7cf5d3dbae2da58a",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3bccf77507f23207c8adbb524cc6da333dc25e47",
+                "reference": "3bccf77507f23207c8adbb524cc6da333dc25e47",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-10-01T18:23:06+00:00",
+            "time": "2021-10-04T18:14:13+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -198,7 +198,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.196.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.196.2"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1036,22 +1036,22 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.14.3",
-            "version_normalized": "2.14.3.0",
+            "version": "2.14.4",
+            "version_normalized": "2.14.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "89584ce67dd32307f1063cc43846674f4679feda"
+                "reference": "f056f1fe935d9ed86e698905a957334029899895"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/89584ce67dd32307f1063cc43846674f4679feda",
-                "reference": "89584ce67dd32307f1063cc43846674f4679feda",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/f056f1fe935d9ed86e698905a957334029899895",
+                "reference": "f056f1fe935d9ed86e698905a957334029899895",
                 "shasum": ""
             },
             "require": {
                 "php": "^5.5.9 || ^7.0 || ^8.0",
-                "psr/log": "^1.0.1"
+                "psr/log": "^1.0.1 || ^2.0 || ^3.0"
             },
             "require-dev": {
                 "mockery/mockery": "^0.9 || ^1.0",
@@ -1062,7 +1062,7 @@
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
                 "whoops/soap": "Formats errors as SOAP responses"
             },
-            "time": "2021-09-19T12:00:00+00:00",
+            "time": "2021-10-03T12:00:00+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1098,7 +1098,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.14.3"
+                "source": "https://github.com/filp/whoops/tree/2.14.4"
             },
             "funding": [
                 {

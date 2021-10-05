@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '77ec7fc0878944e3c8b86cc44f9fe373a582b38b',
+    'reference' => '063a5b6766949f2af9b1e9319e3dac47fd5e9375',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.196.1',
-      'version' => '3.196.1.0',
+      'pretty_version' => '3.196.2',
+      'version' => '3.196.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2845899d05c66a00d88eabbf7cf5d3dbae2da58a',
+      'reference' => '3bccf77507f23207c8adbb524cc6da333dc25e47',
     ),
     'brick/math' => 
     array (
@@ -162,12 +162,12 @@
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.14.3',
-      'version' => '2.14.3.0',
+      'pretty_version' => '2.14.4',
+      'version' => '2.14.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '89584ce67dd32307f1063cc43846674f4679feda',
+      'reference' => 'f056f1fe935d9ed86e698905a957334029899895',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -481,7 +481,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '77ec7fc0878944e3c8b86cc44f9fe373a582b38b',
+      'reference' => '063a5b6766949f2af9b1e9319e3dac47fd5e9375',
     ),
     'laravel/serializable-closure' => 
     array (
