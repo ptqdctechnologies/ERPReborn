@@ -1,0 +1,10 @@
+*.tgz
+*.phar
+.php-version
+.php_cs.cache
+.phpunit.result.cache
+phpunit.xml
+package.xml
+composer.lock
+experiments/
+vendor/
