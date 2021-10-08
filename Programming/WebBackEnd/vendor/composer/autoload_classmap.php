@@ -1229,6 +1229,8 @@ return array(
     'Aws\\Macie\\MacieClient' => $vendorDir . '/aws/aws-sdk-php/src/Macie/MacieClient.php',
     'Aws\\ManagedBlockchain\\Exception\\ManagedBlockchainException' => $vendorDir . '/aws/aws-sdk-php/src/ManagedBlockchain/Exception/ManagedBlockchainException.php',
     'Aws\\ManagedBlockchain\\ManagedBlockchainClient' => $vendorDir . '/aws/aws-sdk-php/src/ManagedBlockchain/ManagedBlockchainClient.php',
+    'Aws\\ManagedGrafana\\Exception\\ManagedGrafanaException' => $vendorDir . '/aws/aws-sdk-php/src/ManagedGrafana/Exception/ManagedGrafanaException.php',
+    'Aws\\ManagedGrafana\\ManagedGrafanaClient' => $vendorDir . '/aws/aws-sdk-php/src/ManagedGrafana/ManagedGrafanaClient.php',
     'Aws\\MarketplaceCatalog\\Exception\\MarketplaceCatalogException' => $vendorDir . '/aws/aws-sdk-php/src/MarketplaceCatalog/Exception/MarketplaceCatalogException.php',
     'Aws\\MarketplaceCatalog\\MarketplaceCatalogClient' => $vendorDir . '/aws/aws-sdk-php/src/MarketplaceCatalog/MarketplaceCatalogClient.php',
     'Aws\\MarketplaceCommerceAnalytics\\Exception\\MarketplaceCommerceAnalyticsException' => $vendorDir . '/aws/aws-sdk-php/src/MarketplaceCommerceAnalytics/Exception/MarketplaceCommerceAnalyticsException.php',

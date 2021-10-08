@@ -1,0 +1,42 @@
+name: Integration
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+
+  build:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 10
+      matrix:
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1']
+
+    steps:
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Mimic PHP 8.0
+        run: composer config platform.php 8.0.999
+        if: matrix.php > 8
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress
+
+      - name: Start server
+        run: php -S 127.0.0.1:10002 tests/Integration/server.php &
+
+      - name: Run tests
+        env:
+          TEST_SERVER: 127.0.0.1:10002
+        run: ./vendor/bin/phpunit --testsuite Integration
