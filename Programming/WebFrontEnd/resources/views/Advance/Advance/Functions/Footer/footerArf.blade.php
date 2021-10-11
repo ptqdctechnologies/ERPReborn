@@ -54,8 +54,8 @@
             var get91 = $("#getCurrency1").html();
             var get101 = $("#getRequester1").html();
 
-            var totalBalance = (get41 * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalRequested = ((get4 - get41) * get51).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get41 * get51);
+            var totalRequested = ((get4 - get41) * get51);
 
             $("#putWorkId").val(get11);
             $("#putWorkName").val(get21);
@@ -102,8 +102,8 @@
             var get102 = $("#getRequester2").html();
 
 
-            var totalBalance = (get42 * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalRequested = ((get4 - get42) * get52).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get42 * get52);
+            var totalRequested = ((get4 - get42) * get52);
 
             $("#putWorkId").val(get12);
             $("#putWorkName").val(get22);
@@ -149,8 +149,8 @@
             var get103 = $("#getRequester3").html();
 
 
-            var totalBalance = (get43 * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalRequested = ((get4 - get43) * get53).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get43 * get53);
+            var totalRequested = ((get4 - get43) * get53);
 
             $("#putWorkId").val(get13);
             $("#putWorkName").val(get23);
@@ -195,8 +195,8 @@
             var get104 = $("#getRequester4").html();
 
 
-            var totalBalance = (get44 * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var totalRequested = ((get4 - get44) * get54).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var totalBalance = (get44 * get54);
+            var totalRequested = ((get4 - get44) * get54);
 
             $("#putWorkId").val(get14);
             $("#putWorkName").val(get24);
@@ -370,7 +370,7 @@
                                 $('#totalAkhir').html(0);
                                 $("#saveArfList").prop("disabled", true);
                             } else {
-                                var totalReq = parseFloat(akhir).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                                var totalReq = parseFloat(akhir);
                                 $('#totalAkhir').html(totalReq);
                                 $("#saveArfList").prop("disabled", false);
                             }
@@ -449,7 +449,7 @@
                 $('#totalArfDetails').val(0);
                 $("#addFromDetailtoCart").prop("disabled", true);
             } else {
-                var totalReq = parseFloat(total2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+                var totalReq = parseFloat(total2);
                 $('#totalArfDetails').val(totalReq);
                 $("#addFromDetailtoCart").prop("disabled", false);
             }
@@ -461,6 +461,7 @@
 <script>
     $('document').ready(function() {
         $('.ChangePrice').keyup(function() {
+
             var priceReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
             if (priceReq == 0 || priceReq == '') {
                 priceReq = 0;
@@ -470,27 +471,46 @@
             var total = qtyCek * priceReq;
             var total2 = qtyCek * putPrice;
 
-            if (priceReq == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
-                $('#totalArfDetails').val(0);
 
-                // $("#totalRequester").val(total);
+            var getStatus1= $("#getStatus1").html();
+            var getStatus2= $("#getStatus2").html();
+            var getStatus3= $("#getStatus3").html();
+            var getStatus4= $("#getStatus4").html();
+            var totalBalance = $("#totalBalance").val();
+            
+            if(getStatus1 == "Miscellaneous" || getStatus2 == "Miscellaneous" || getStatus3 == "Miscellaneous" || getStatus4 == "Miscellaneous"){
+                
+                if (priceReq == '') {
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                    $('#totalArfDetails').val(0);
 
-            } else if (total > total2) {
-                Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
-                $("#priceCek").val(0);
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-            } else {
-                var totalReq = total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-                $('#totalArfDetails').val(totalReq);
-                $("#addFromDetailtoCart").prop("disabled", false);
+                } else if (total > totalBalance) {
+                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                    $("#priceCek").val(0);
+                    $('#totalArfDetails').val(0);
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                } else {
+                    var totalReq = total;
+                    $('#totalArfDetails').val(totalReq);
+                    $("#addFromDetailtoCart").prop("disabled", false);
+                }
+            }
+            else{
+                
+                if (priceReq == '') {
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                    $('#totalArfDetails').val(0);
 
-                // var totalBudget = $("#totalBudget").val();
-                // var totalBalance = (totalBudget - total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-                // $("#totalRequester").val(totalReq);
-                // $("#totalBalance").val(totalBalance);
+                } else if (total > total2) {
+                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                    $("#priceCek").val(0);
+                    $('#totalArfDetails').val(0);
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                } else {
+                    var totalReq = total;
+                    $('#totalArfDetails').val(totalReq);
+                    $("#addFromDetailtoCart").prop("disabled", false);
+                }
             }
 
         });
