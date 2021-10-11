@@ -1,0 +1,15 @@
+{
+    "stub": "stub",
+    "output": "psysh",
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\Php",
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ],
+    "blacklist": [
+        "grammar",
+        "test_old",
+        "Documentation",
+        "php-parse",
+        "var-dump-server"
+    ]
+}

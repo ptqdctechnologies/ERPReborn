@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ac73064fe78eae6a102f9c3e563083d1a2e01903',
+    'reference' => 'd0cc5c0b4f3b8b16ca9578e48240459cd4cde160',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -121,12 +121,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.14.0',
-      'version' => '2.14.0.0',
+      'pretty_version' => '2.14.1',
+      'version' => '2.14.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6126e291bd44ad3fe482537a145fc70e3320598',
+      'reference' => '6d89c4c99537f487ad29f646d57ebf107ef714ed',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ac73064fe78eae6a102f9c3e563083d1a2e01903',
+      'reference' => 'd0cc5c0b4f3b8b16ca9578e48240459cd4cde160',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -856,12 +856,12 @@ private static $installed = array (
     ),
     'psy/psysh' => 
     array (
-      'pretty_version' => 'v0.10.8',
-      'version' => '0.10.8.0',
+      'pretty_version' => 'v0.10.9',
+      'version' => '0.10.9.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e4573f47750dd6c92dca5aee543fa77513cbd8d3',
+      'reference' => '01281336c4ae557fe4a994544f30d3a1bc204375',
     ),
     'ralouphie/getallheaders' => 
     array (
@@ -874,12 +874,12 @@ private static $installed = array (
     ),
     'ramsey/collection' => 
     array (
-      'pretty_version' => '1.2.1',
-      'version' => '1.2.1.0',
+      'pretty_version' => '1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'eaca1dc1054ddd10cbd83c1461907bee6fb528fa',
+      'reference' => 'cccc74ee5e328031b15640b51056ee8d3bb66c0a',
     ),
     'ramsey/uuid' => 
     array (

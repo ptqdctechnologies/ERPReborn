@@ -1,0 +1,9 @@
+__pycache__
+*.pyc
+/.phpunit.result.cache
+/build/
+/composer.lock
+/dist/
+/vendor-bin/*/vendor/
+/vendor-bin/phpunit/composer.lock
+/vendor/
