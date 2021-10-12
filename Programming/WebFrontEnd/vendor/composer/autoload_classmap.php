@@ -49,6 +49,7 @@ return array(
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
+    'App\\Http\\Controllers\\FunctionController' => $baseDir . '/app/Http/Controllers/FunctionController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\controllerSalesCo' => $baseDir . '/app/Http/Controllers/controllerSalesCo.php',
     'App\\Http\\Controllers\\finance' => $baseDir . '/app/Http/Controllers/finance.php',

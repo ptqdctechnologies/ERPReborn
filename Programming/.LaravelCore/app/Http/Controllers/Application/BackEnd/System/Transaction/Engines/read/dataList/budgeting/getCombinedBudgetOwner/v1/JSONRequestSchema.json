@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.master.getBudgetOrigin (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.budgeting.getCombinedBudgetOwner (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.master.getBudgetOrigin" ]
+                        "enum": [ "transaction.read.dataList.budgeting.getCombinedBudgetOwner" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,6 +27,9 @@
     "data": {
         "type": "object",
         "properties": {
+            "parameter": {
+                "additionalProperties": false
+                },
             "SQLStatement": {
                 "type": "object",
                 "properties": {
@@ -46,7 +49,7 @@
                 "required": [ "pick", "sort", "filter", "paging" ]
                 }
             },
-        "required": [ "SQLStatement" ]
+        "required": [ "parameter", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]
