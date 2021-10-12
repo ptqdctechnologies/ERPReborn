@@ -37,7 +37,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_Project($varUserSession, int $varBranchID, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataList_Project($varUserSession, int $varBranchID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -66,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : getDataList_ProjectSectionItem                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-05-27                                                                                           |
+        | ▪ Last Update     : 2021-10-11                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Project Section Item                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -81,7 +82,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_ProjectSectionItem($varUserSession, int $varBranchID, int $varProject_RefID, string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+        public function getDataList_ProjectSectionItem($varUserSession, int $varBranchID, 
+            int $varProject_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -92,6 +95,54 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [
                             [$varBranchID, 'bigint' ],
                             [$varProject_RefID, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_ProjectSectionItemWork                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Project Section Item Work                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_ProjectSectionItemWork($varUserSession, int $varBranchID, 
+            int $varProjectSectionItem_RefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Project.Func_GetDataList_ProjectSectionItemWork',
+                        [
+                            [$varBranchID, 'bigint'],
+                            [$varProjectSectionItem_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -173,6 +224,46 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [
                             [$varBranchID, 'bigint' ],
                             [$varProject_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_ProjectSectionItemWork                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Proyek Section Item Work                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_ProjectSectionItemWork(
+            $varUserSession, int $varBranchID,
+            int $varProjectSectionItem_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Project.Func_GetDataPickList_ProjectSectionItemWork',
+                        [
+                            [$varBranchID, 'bigint'],
+                            [$varProjectSectionItem_RefID, 'bigint']
                         ]
                         )
                     );

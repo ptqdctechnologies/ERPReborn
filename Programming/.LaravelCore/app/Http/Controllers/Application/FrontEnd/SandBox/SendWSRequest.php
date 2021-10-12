@@ -383,7 +383,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest',
                 [
                 'parameter' => [
-                    'projectSectionItem_RefID' => 46000000000001
+                    'projectSectionItem_RefID' => 143000000000029
                     ]
                 ]
                 );
@@ -396,7 +396,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Project RefID ► '.
-                '<input type="text" id="dataInput_ProjectSectionItem_RefID" value=46000000000001>';
+                '<input type="text" id="dataInput_ProjectSectionItem_RefID" value=143000000000029>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -12067,6 +12067,74 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"parameter" : {'.
                         '"project_RefID" : parseInt(document.getElementById("dataInput_Project_RefID").value)'.
+                        '}, '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataList.project.getProjectSectionItemWork                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataListProjectSectionItemWork()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MzQwMDM3OTR9.HI5xiZw3l6H72idq4NU7da7nPtYPFbwgi4hIhoUAj-w';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.project.getProjectSectionItemWork', 
+                'latest', 
+                [
+                'parameter' => [
+                    'projectSectionItem_RefID' => 143000000000029
+                    ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListProjectSectionItemWork()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2MzQwMDM3OTR9.HI5xiZw3l6H72idq4NU7da7nPtYPFbwgi4hIhoUAj-w';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Project&nbsp;RefID</td><td><input type="text" id="dataInput_ProjectSectionItem_RefID" value=143000000000029></td></tr>';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataList.project.getProjectSectionItemWork', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"projectSectionItem_RefID" : parseInt(document.getElementById("dataInput_ProjectSectionItem_RefID").value)'.
                         '}, '.
                     '"SQLStatement" : {'.
                         '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
