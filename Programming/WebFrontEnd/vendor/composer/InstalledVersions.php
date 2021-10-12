@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd0cc5c0b4f3b8b16ca9578e48240459cd4cde160',
+    'reference' => '1198017ee232127d46ad7b2e8054669601cbd40a',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -121,12 +121,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.14.1',
-      'version' => '2.14.1.0',
+      'pretty_version' => '2.15.0',
+      'version' => '2.15.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6d89c4c99537f487ad29f646d57ebf107ef714ed',
+      'reference' => '3ee6e94815462bcf09bca0efc1c9069685df8da3',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd0cc5c0b4f3b8b16ca9578e48240459cd4cde160',
+      'reference' => '1198017ee232127d46ad7b2e8054669601cbd40a',
     ),
     'laravel/serializable-closure' => 
     array (
