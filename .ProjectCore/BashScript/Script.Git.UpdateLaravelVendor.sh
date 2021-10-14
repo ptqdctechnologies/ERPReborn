@@ -17,6 +17,8 @@ clear;
 
 ./BashScript/Script.Laravel.ComposerUpdate.sh; 
 
+sudo chown -R $(id -u):$(id -g) ./.git/objects/;
+
 git add -A; 
 git status; 
 git commit -m "Update Vendor Laravel";
