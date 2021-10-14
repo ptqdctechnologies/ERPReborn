@@ -23,7 +23,7 @@ class procurementTransactionBrf extends Controller
             ]
         );
         
-        return view('Advance.BussinesTrip.Transactions.createBRF', ['data' => $varData['data']]);
+        return view('Advance.BussinesTrip.Transactions.createBRF', ['data' => $varData['data']['data']]);
 
         // return view('Advance.BussinesTrip.Transactions.createBRF');
     }
@@ -167,7 +167,7 @@ class procurementTransactionBrf extends Controller
             ]
         );
         
-        return view('Advance.BussinesTrip.Transactions.revisionBRF', ['data' => $varData['data']]);
+        return view('Advance.BussinesTrip.Transactions.revisionBRF', ['data' => $varData['data']['data']]);
         
     }
 }

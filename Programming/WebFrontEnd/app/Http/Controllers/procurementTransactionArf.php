@@ -30,7 +30,7 @@ class procurementTransactionArf extends Controller
             ]
         );
         
-        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']]);
+        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']['data']]);
 
     }
 
@@ -52,7 +52,7 @@ class procurementTransactionArf extends Controller
             ]
         );
         
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
     }
 
     public function arflistcancel()
