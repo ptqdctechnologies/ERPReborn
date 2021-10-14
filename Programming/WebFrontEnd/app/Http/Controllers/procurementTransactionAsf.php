@@ -23,7 +23,7 @@ class procurementTransactionAsf extends Controller
             ]
         );
         
-        return view('Advance.Advance.Transactions.createASF', ['data' => $varData['data']]);
+        return view('Advance.Advance.Transactions.createASF', ['data' => $varData['data']['data']]);
     }
 
     public function indexOverhead()
@@ -119,7 +119,7 @@ class procurementTransactionAsf extends Controller
             ]
         );
         
-        return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']]);
+        return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']['data']]);
     }
 
 
