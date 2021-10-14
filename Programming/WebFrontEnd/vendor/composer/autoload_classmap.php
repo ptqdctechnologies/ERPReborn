@@ -1873,6 +1873,7 @@ return array(
     'Illuminate\\Queue\\Events\\JobProcessed' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessed.php',
     'Illuminate\\Queue\\Events\\JobProcessing' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobProcessing.php',
     'Illuminate\\Queue\\Events\\JobQueued' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobQueued.php',
+    'Illuminate\\Queue\\Events\\JobRetryRequested' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/JobRetryRequested.php',
     'Illuminate\\Queue\\Events\\Looping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/Looping.php',
     'Illuminate\\Queue\\Events\\QueueBusy' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/QueueBusy.php',
     'Illuminate\\Queue\\Events\\WorkerStopping' => $vendorDir . '/laravel/framework/src/Illuminate/Queue/Events/WorkerStopping.php',

@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1198017ee232127d46ad7b2e8054669601cbd40a',
+    'reference' => '12afc085b6a84cfc215f97916e2ec21ee3dd410c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.198.2',
-      'version' => '3.198.2.0',
+      'pretty_version' => '3.198.4',
+      'version' => '3.198.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '991117f98cedd7939e84d594577ac8aa85a4ebaf',
+      'reference' => 'b0b95cf0fa287e5b5db73ceafaf836950ede76ff',
     ),
     'brick/math' => 
     array (
@@ -249,217 +249,217 @@ private static $installed = array (
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/broadcasting' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/bus' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/collections' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/container' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/contracts' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/cookie' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/database' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/encryption' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/events' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/hashing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/log' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/macroable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/mail' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/notifications' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/pagination' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/pipeline' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/queue' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/redis' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/session' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/support' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/testing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/validation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'illuminate/view' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.63.0',
+        0 => 'v8.64.0',
       ),
     ),
     'intervention/httpauth' => 
@@ -480,12 +480,12 @@ private static $installed = array (
     ),
     'laravel/framework' => 
     array (
-      'pretty_version' => 'v8.63.0',
-      'version' => '8.63.0.0',
+      'pretty_version' => 'v8.64.0',
+      'version' => '8.64.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '8f3d280f36a427730c8c8fa34316c79eed38781e',
+      'reference' => '3337c029e1bb31d9712d27437cc27010ba302c9e',
     ),
     'laravel/laravel' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1198017ee232127d46ad7b2e8054669601cbd40a',
+      'reference' => '12afc085b6a84cfc215f97916e2ec21ee3dd410c',
     ),
     'laravel/serializable-closure' => 
     array (
