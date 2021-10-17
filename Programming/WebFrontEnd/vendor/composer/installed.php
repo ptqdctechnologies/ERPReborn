@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'cb9b85647f38f3d4fa6272ef62586d002280f83e',
+    'reference' => 'fe77402acf58aa62b8cba13c2228c47155956c0a',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'cb9b85647f38f3d4fa6272ef62586d002280f83e',
+      'reference' => 'fe77402acf58aa62b8cba13c2228c47155956c0a',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -559,12 +559,12 @@
     ),
     'nette/schema' => 
     array (
-      'pretty_version' => 'v1.2.1',
-      'version' => '1.2.1.0',
+      'pretty_version' => 'v1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
+      'reference' => '9a39cef03a5b34c7de64f551538cbba05c2be5df',
     ),
     'nette/utils' => 
     array (

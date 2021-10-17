@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'cb9b85647f38f3d4fa6272ef62586d002280f83e',
+    'reference' => 'fe77402acf58aa62b8cba13c2228c47155956c0a',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.198.5',
-      'version' => '3.198.5.0',
+      'pretty_version' => '3.198.6',
+      'version' => '3.198.6.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ec63e1ad1b30689e530089e4c9cb18f2ef5c290b',
+      'reference' => '821b8db50dd39be8ec94f286050a500b5f8a0142',
     ),
     'brick/math' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'cb9b85647f38f3d4fa6272ef62586d002280f83e',
+      'reference' => 'fe77402acf58aa62b8cba13c2228c47155956c0a',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -626,12 +626,12 @@ private static $installed = array (
     ),
     'nette/schema' => 
     array (
-      'pretty_version' => 'v1.2.1',
-      'version' => '1.2.1.0',
+      'pretty_version' => 'v1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
+      'reference' => '9a39cef03a5b34c7de64f551538cbba05c2be5df',
     ),
     'nette/utils' => 
     array (
@@ -1099,12 +1099,12 @@ private static $installed = array (
     ),
     'swaggest/json-schema' => 
     array (
-      'pretty_version' => 'v0.12.38',
-      'version' => '0.12.38.0',
+      'pretty_version' => 'v0.12.39',
+      'version' => '0.12.39.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ab7cca149a5822acc5be538dd6c008a348f6cb89',
+      'reference' => '193ba39cce1ffa2d55ddd5445315e945a63298a2',
     ),
     'swiftmailer/swiftmailer' => 
     array (
