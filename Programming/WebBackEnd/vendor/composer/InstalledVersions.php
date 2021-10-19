@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '12afc085b6a84cfc215f97916e2ec21ee3dd410c',
+    'reference' => '15dbd58b9d713ca101d6941d8fb822e293709184',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.198.4',
-      'version' => '3.198.4.0',
+      'pretty_version' => '3.198.7',
+      'version' => '3.198.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'b0b95cf0fa287e5b5db73ceafaf836950ede76ff',
+      'reference' => '40197a954c9f49557a1b0d49e2a9bd6f7bf6adfc',
     ),
     'brick/math' => 
     array (
@@ -202,21 +202,21 @@ private static $installed = array (
     ),
     'graham-campbell/result-type' => 
     array (
-      'pretty_version' => 'v1.0.2',
-      'version' => '1.0.2.0',
+      'pretty_version' => 'v1.0.3',
+      'version' => '1.0.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '84afea85c6841deeea872f36249a206e878a5de0',
+      'reference' => '296c015dc30ec4322168c5ad3ee5cc11dae827ac',
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.3.0',
-      'version' => '7.3.0.0',
+      'pretty_version' => '7.4.0',
+      'version' => '7.4.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '7008573787b430c1c1f650e3722d9bba59967628',
+      'reference' => '868b3571a039f0ebc11ac8f344f4080babe2cb94',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '12afc085b6a84cfc215f97916e2ec21ee3dd410c',
+      'reference' => '15dbd58b9d713ca101d6941d8fb822e293709184',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -626,12 +626,12 @@ private static $installed = array (
     ),
     'nette/schema' => 
     array (
-      'pretty_version' => 'v1.2.1',
-      'version' => '1.2.1.0',
+      'pretty_version' => 'v1.2.2',
+      'version' => '1.2.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f5ed39fc96358f922cedfd1e516f0dadf5d2be0d',
+      'reference' => '9a39cef03a5b34c7de64f551538cbba05c2be5df',
     ),
     'nette/utils' => 
     array (
@@ -1099,21 +1099,21 @@ private static $installed = array (
     ),
     'swaggest/json-schema' => 
     array (
-      'pretty_version' => 'v0.12.38',
-      'version' => '0.12.38.0',
+      'pretty_version' => 'v0.12.39',
+      'version' => '0.12.39.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'ab7cca149a5822acc5be538dd6c008a348f6cb89',
+      'reference' => '193ba39cce1ffa2d55ddd5445315e945a63298a2',
     ),
     'swiftmailer/swiftmailer' => 
     array (
-      'pretty_version' => 'v6.2.7',
-      'version' => '6.2.7.0',
+      'pretty_version' => 'v6.3.0',
+      'version' => '6.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '15f7faf8508e04471f666633addacf54c0ab5933',
+      'reference' => '8a5d5072dca8f48460fce2f4131fcc495eec654c',
     ),
     'symfony/console' => 
     array (

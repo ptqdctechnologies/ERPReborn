@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 3.198.7 - 2021-10-18
+
+* `Aws\IVS` - Bug fix: remove unsupported maxResults and nextToken pagination parameters from ListTagsForResource
+* `Aws\QuickSight` - AWS QuickSight Service Features - Add IP Restriction UI and public APIs support.
+
+## 3.198.6 - 2021-10-15
+
+* `Aws\EFS` - EFS adds documentation for a new exception for short identifiers to be thrown after its migration to long resource identifiers.
+* `Aws\Glue` - Enable S3 event base crawler API.
+
+## 3.198.5 - 2021-10-14
+
+* `Aws\AutoScaling` - Amazon EC2 Auto Scaling now supports filtering describe Auto Scaling groups API using tags
+* `Aws\ElasticLoadBalancingv2` - Adds new option to filter by availability on each type of load balancer when describing ssl policies.
+* `Aws\RoboMaker` - Adding support to GPU simulation jobs as well as non-ROS simulation jobs.
+* `Aws\SageMaker` - This release updates the provisioning artifact ID to an optional parameter in CreateProject API. The provisioning artifact ID defaults to the latest provisioning artifact ID of the product if you don't provide one.
+
 ## 3.198.4 - 2021-10-13
 
 * `Aws\ConfigService` - Adding Config support for AWS::OpenSearch::Domain
