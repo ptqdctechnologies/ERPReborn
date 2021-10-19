@@ -64,6 +64,7 @@ $varCmd "$varCmdContainer";
 #+-------------------------------------------------------------------------------------------------+
 #| GIT Update                                                                                      |
 #+-------------------------------------------------------------------------------------------------+
+sudo chown -R zheta:zheta .git/objects/ ;
 git add ./Database/Structure/PostgreSQL/dbERPReborn-Data-BinaryObject.sql Database/Structure/PostgreSQL/dbERPReborn-Data-OLAP.sql Database/Structure/PostgreSQL/dbERPReborn-Data-OLTP.sql Database/Structure/PostgreSQL/dbERPReborn-SysConfig.sql Database/Structure/PostgreSQL/dbERPReborn.sql;
 git status; 
 git commit -m "Update Database";
