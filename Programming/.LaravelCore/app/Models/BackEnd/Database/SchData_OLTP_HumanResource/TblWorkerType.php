@@ -5,25 +5,25 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblEmployee                                                                                                  |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblEmployee                                         |
+    | ▪ Class Name  : TblWorkerType                                                                                                |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-HumanResource ► TblWorkerType                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblEmployee extends \App\Models\Database\DefaultClassPrototype
+    class TblWorkerType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2021-10-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2021-10-21                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,8 +51,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
-        |      ▪ (string) varIdentityNumber ► Offcial Identity Number                                                              |
+        |      ▪ (string) varName ► Worker Type Name                                                                               |
+        |      ▪ (string) varEnglishName ► Worker Type Name (in English)                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +60,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPerson_RefID = null, string $varIdentityNumber = null)
+            string $varName = null, string $varEnglishName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -73,8 +73,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varPerson_RefID, 'bigint'],
-                        [$varIdentityNumber, 'varchar']
+                        [$varName, 'varchar'],
+                        [$varEnglishName, 'varchar']
                     ]
                     )
                 );
@@ -87,7 +87,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-14                                                                                           |
+        | ▪ Last Update     : 2021-10-19                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -96,8 +96,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
-        |      ▪ (string) varIdentityNumber ► Offcial Identity Number                                                              |
+        |      ▪ (string) varName ► Worker Type Name                                                                               |
+        |      ▪ (string) varEnglishName ► Worker Type Name (in English)                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -105,7 +105,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPerson_RefID = null, string $varIdentityNumber = null)
+            string $varName = null, string $varEnglishName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -118,8 +118,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varPerson_RefID, 'bigint'],
-                        [$varIdentityNumber, 'varchar']
+                        [$varName, 'varchar'],
+                        [$varEnglishName, 'varchar']
                     ],
                     )
                 );
