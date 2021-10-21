@@ -120,6 +120,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 if ($varDataList[$varIndexPosition]['Level'] == $varDataList[$i]['Level'])
                     {
                     $varReturn[$j] = [
+                        'Sys_ID' => $varDataList[$i]['Sys_ID'],
                         'Level' => $varDataList[$i]['Level'],
                         'Name' => $varDataList[$i]['Name'],
                         'Quantity' => $varDataList[$i]['Quantity'],

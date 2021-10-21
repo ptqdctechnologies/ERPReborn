@@ -1,13 +1,5 @@
-all: clean test
-
 test:
 	vendor/bin/phpunit $(TEST)
-
-coverage:
-	vendor/bin/phpunit --coverage-html=artifacts/coverage $(TEST)
-
-view-coverage:
-	open artifacts/coverage/index.html
 
 check-tag:
 	$(if $(TAG),,$(error TAG is not defined. Pass via "make tag TAG=4.2.1"))
@@ -24,6 +16,3 @@ tag: check-tag
 release: check-tag
 	git push origin master
 	git push origin $(TAG)
-
-clean:
-	rm -rf artifacts/*

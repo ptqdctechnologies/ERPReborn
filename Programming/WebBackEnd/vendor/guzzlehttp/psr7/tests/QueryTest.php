@@ -1,10 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
+use PHPUnit\Framework\TestCase;
 
-class QueryTest extends BaseTest
+class QueryTest extends TestCase
 {
     public function parseQueryProvider()
     {
@@ -48,13 +51,13 @@ class QueryTest extends BaseTest
     /**
      * @dataProvider parseQueryProvider
      */
-    public function testParsesQueries($input, $output)
+    public function testParsesQueries($input, $output): void
     {
         $result = Psr7\Query::parse($input);
         self::assertSame($output, $result);
     }
 
-    public function testDoesNotDecode()
+    public function testDoesNotDecode(): void
     {
         $str = 'foo%20=bar';
         $data = Psr7\Query::parse($str, false);
@@ -64,35 +67,50 @@ class QueryTest extends BaseTest
     /**
      * @dataProvider parseQueryProvider
      */
-    public function testParsesAndBuildsQueries($input)
+    public function testParsesAndBuildsQueries($input): void
     {
         $result = Psr7\Query::parse($input, false);
         self::assertSame($input, Psr7\Query::build($result, false));
     }
 
-    public function testEncodesWithRfc1738()
+    public function testEncodesWithRfc1738(): void
     {
         $str = Psr7\Query::build(['foo bar' => 'baz+'], PHP_QUERY_RFC1738);
         self::assertSame('foo+bar=baz%2B', $str);
     }
 
-    public function testEncodesWithRfc3986()
+    public function testEncodesWithRfc3986(): void
     {
         $str = Psr7\Query::build(['foo bar' => 'baz+'], PHP_QUERY_RFC3986);
         self::assertSame('foo%20bar=baz%2B', $str);
     }
 
-    public function testDoesNotEncode()
+    public function testDoesNotEncode(): void
     {
         $str = Psr7\Query::build(['foo bar' => 'baz+'], false);
         self::assertSame('foo bar=baz+', $str);
     }
 
-    public function testCanControlDecodingType()
+    public function testCanControlDecodingType(): void
     {
         $result = Psr7\Query::parse('var=foo+bar', PHP_QUERY_RFC3986);
         self::assertSame('foo+bar', $result['var']);
         $result = Psr7\Query::parse('var=foo+bar', PHP_QUERY_RFC1738);
         self::assertSame('foo bar', $result['var']);
+    }
+
+    public function testBuildBooleans(): void
+    {
+        $data = [
+            'true' => true,
+            'false' => false
+        ];
+        self::assertEquals(http_build_query($data), Psr7\Query::build($data));
+
+        $data = [
+            'foo' => [true, 'true'],
+            'bar' => [false, 'false']
+        ];
+        self::assertEquals('foo=1&foo=true&bar=0&bar=false', Psr7\Query::build($data, PHP_QUERY_RFC1738));
     }
 }

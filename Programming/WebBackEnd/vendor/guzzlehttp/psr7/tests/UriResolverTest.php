@@ -1,26 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7\Uri;
 use GuzzleHttp\Psr7\UriResolver;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\UriInterface;
 
 /**
  * @covers GuzzleHttp\Psr7\UriResolver
  */
-class UriResolverTest extends BaseTest
+class UriResolverTest extends TestCase
 {
-    const RFC3986_BASE = 'http://a/b/c/d;p?q';
+    private const RFC3986_BASE = 'http://a/b/c/d;p?q';
 
     /**
      * @dataProvider getResolveTestCases
      */
-    public function testResolveUri($base, $rel, $expectedTarget)
+    public function testResolveUri(string $base, string $rel, string $expectedTarget): void
     {
         $baseUri = new Uri($base);
         $targetUri = UriResolver::resolve($baseUri, new Uri($rel));
 
-        self::assertInstanceOf('Psr\Http\Message\UriInterface', $targetUri);
+        self::assertInstanceOf(UriInterface::class, $targetUri);
         self::assertSame($expectedTarget, (string) $targetUri);
         // This ensures there are no test cases that only work in the resolve() direction but not the
         // opposite via relativize(). This can happen when both base and rel URI are relative-path
@@ -31,12 +35,12 @@ class UriResolverTest extends BaseTest
     /**
      * @dataProvider getResolveTestCases
      */
-    public function testRelativizeUri($base, $expectedRelativeReference, $target)
+    public function testRelativizeUri(string $base, string $expectedRelativeReference, string $target): void
     {
         $baseUri = new Uri($base);
         $relativeUri = UriResolver::relativize($baseUri, new Uri($target));
 
-        self::assertInstanceOf('Psr\Http\Message\UriInterface', $relativeUri);
+        self::assertInstanceOf(UriInterface::class, $relativeUri);
         // There are test-cases with too many dot-segments and relative references that are equal like "." == "./".
         // So apart from the same-as condition, this alternative success condition is necessary.
         self::assertTrue(
@@ -52,19 +56,19 @@ class UriResolverTest extends BaseTest
     /**
      * @dataProvider getRelativizeTestCases
      */
-    public function testRelativizeUriWithUniqueTests($base, $target, $expectedRelativeReference)
+    public function testRelativizeUriWithUniqueTests(string $base, string $target, string $expectedRelativeReference): void
     {
         $baseUri = new Uri($base);
         $targetUri = new Uri($target);
         $relativeUri = UriResolver::relativize($baseUri, $targetUri);
 
-        self::assertInstanceOf('Psr\Http\Message\UriInterface', $relativeUri);
+        self::assertInstanceOf(UriInterface::class, $relativeUri);
         self::assertSame($expectedRelativeReference, (string) $relativeUri);
 
         self::assertSame((string) UriResolver::resolve($baseUri, $targetUri), (string) UriResolver::resolve($baseUri, $relativeUri));
     }
 
-    public function getResolveTestCases()
+    public function getResolveTestCases(): iterable
     {
         return [
             [self::RFC3986_BASE, 'g:h',           'g:h'],
@@ -120,6 +124,8 @@ class UriResolverTest extends BaseTest
             // path ending with slash or no slash at all
             ['http://a/b/c/d/',  'e',             'http://a/b/c/d/e'],
             ['urn:no-slash',     'e',             'urn:e'],
+            // path ending without slash and multi-segment relative part
+            ['http://a/b/c',     'd/e',           'http://a/b/d/e'],
             // falsey relative parts
             [self::RFC3986_BASE, '//0',           'http://0'],
             [self::RFC3986_BASE, '0',             'http://a/b/c/0'],
@@ -171,7 +177,7 @@ class UriResolverTest extends BaseTest
     /**
      * Some additional tests to getResolveTestCases() that only make sense for relativize.
      */
-    public function getRelativizeTestCases()
+    public function getRelativizeTestCases(): iterable
     {
         return [
             // targets that are relative-path references are returned as-is

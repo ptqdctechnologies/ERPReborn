@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\StreamWrapper;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @covers GuzzleHttp\Psr7\StreamWrapper
  */
-class StreamWrapperTest extends BaseTest
+class StreamWrapperTest extends TestCase
 {
-    public function testResource()
+    public function testResource(): void
     {
         $stream = Psr7\Utils::streamFor('foo');
         $handle = StreamWrapper::getResource($stream);
@@ -24,50 +28,47 @@ class StreamWrapperTest extends BaseTest
 
         $stBlksize  = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
 
-        // This fails on HHVM for some reason
-        if (!defined('HHVM_VERSION')) {
-            self::assertSame([
-                0         => 0,
-                1         => 0,
-                2         => 33206,
-                3         => 0,
-                4         => 0,
-                5         => 0,
-                6         => 0,
-                7         => 6,
-                8         => 0,
-                9         => 0,
-                10        => 0,
-                11        => $stBlksize,
-                12        => $stBlksize,
-                'dev'     => 0,
-                'ino'     => 0,
-                'mode'    => 33206,
-                'nlink'   => 0,
-                'uid'     => 0,
-                'gid'     => 0,
-                'rdev'    => 0,
-                'size'    => 6,
-                'atime'   => 0,
-                'mtime'   => 0,
-                'ctime'   => 0,
-                'blksize' => $stBlksize,
-                'blocks'  => $stBlksize,
-            ], fstat($handle));
-        }
+        self::assertEquals([
+            'dev'     => 0,
+            'ino'     => 0,
+            'mode'    => 33206,
+            'nlink'   => 0,
+            'uid'     => 0,
+            'gid'     => 0,
+            'rdev'    => 0,
+            'size'    => 6,
+            'atime'   => 0,
+            'mtime'   => 0,
+            'ctime'   => 0,
+            'blksize' => $stBlksize,
+            'blocks'  => $stBlksize,
+            0         => 0,
+            1         => 0,
+            2         => 33206,
+            3         => 0,
+            4         => 0,
+            5         => 0,
+            6         => 0,
+            7         => 6,
+            8         => 0,
+            9         => 0,
+            10        => 0,
+            11        => $stBlksize,
+            12        => $stBlksize,
+        ], fstat($handle));
 
         self::assertTrue(fclose($handle));
         self::assertSame('foobar', (string) $stream);
     }
 
-    public function testStreamContext()
+    public function testStreamContext(): void
     {
         $stream = Psr7\Utils::streamFor('foo');
 
         self::assertSame('foo', file_get_contents('guzzle://stream', false, StreamWrapper::createStreamContext($stream)));
     }
 
-    public function testStreamCast()
+    public function testStreamCast(): void
     {
         $streams = [
             StreamWrapper::getResource(Psr7\Utils::streamFor('foo')),
@@ -75,94 +76,87 @@ class StreamWrapperTest extends BaseTest
         ];
         $write = null;
         $except = null;
-        $this->assertInternalTypeGuzzle('integer', stream_select($streams, $write, $except, 0));
+        self::assertIsInt(stream_select($streams, $write, $except, 0));
     }
 
-    public function testValidatesStream()
+    public function testValidatesStream(): void
     {
-        $stream = $this->getMockBuilder('Psr\Http\Message\StreamInterface')
-            ->setMethods(['isReadable', 'isWritable'])
-            ->getMockForAbstractClass();
+        $stream = $this->createMock(StreamInterface::class);
         $stream->expects(self::once())
             ->method('isReadable')
-            ->will(self::returnValue(false));
+            ->willReturn(false);
         $stream->expects(self::once())
             ->method('isWritable')
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         StreamWrapper::getResource($stream);
     }
 
-    public function testReturnsFalseWhenStreamDoesNotExist()
+    public function testReturnsFalseWhenStreamDoesNotExist(): void
     {
-        $this->expectWarningGuzzle();
-
+        $this->expectWarning();
         fopen('guzzle://foo', 'r');
     }
 
-    public function testCanOpenReadonlyStream()
+    public function testCanOpenReadonlyStream(): void
     {
-        $stream = $this->getMockBuilder('Psr\Http\Message\StreamInterface')
-            ->setMethods(['isReadable', 'isWritable'])
-            ->getMockForAbstractClass();
+        $stream = $this->createMock(StreamInterface::class);
         $stream->expects(self::once())
             ->method('isReadable')
-            ->will(self::returnValue(false));
+            ->willReturn(false);
         $stream->expects(self::once())
             ->method('isWritable')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
         $r = StreamWrapper::getResource($stream);
-        $this->assertInternalTypeGuzzle('resource', $r);
+        self::assertIsResource($r);
         fclose($r);
     }
 
-    public function testUrlStat()
+    public function testUrlStat(): void
     {
         StreamWrapper::register();
 
-        $stBlksize = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
+        $stBlksize  = defined('PHP_WINDOWS_VERSION_BUILD') ? -1 : 0;
 
-        self::assertSame([
-            0         => 0,
-            1         => 0,
-            2         => 0,
-            3         => 0,
-            4         => 0,
-            5         => 0,
-            6         => 0,
-            7         => 0,
-            8         => 0,
-            9         => 0,
-            10        => 0,
-            11        => $stBlksize,
-            12        => $stBlksize,
-            'dev'     => 0,
-            'ino'     => 0,
-            'mode'    => 0,
-            'nlink'   => 0,
-            'uid'     => 0,
-            'gid'     => 0,
-            'rdev'    => 0,
-            'size'    => 0,
-            'atime'   => 0,
-            'mtime'   => 0,
-            'ctime'   => 0,
-            'blksize' => $stBlksize,
-            'blocks'  => $stBlksize,
-        ], stat('guzzle://stream'));
+        self::assertEquals(
+            [
+                'dev'     => 0,
+                'ino'     => 0,
+                'mode'    => 0,
+                'nlink'   => 0,
+                'uid'     => 0,
+                'gid'     => 0,
+                'rdev'    => 0,
+                'size'    => 0,
+                'atime'   => 0,
+                'mtime'   => 0,
+                'ctime'   => 0,
+                'blksize' => $stBlksize,
+                'blocks'  => $stBlksize,
+                0         => 0,
+                1         => 0,
+                2         => 0,
+                3         => 0,
+                4         => 0,
+                5         => 0,
+                6         => 0,
+                7         => 0,
+                8         => 0,
+                9         => 0,
+                10        => 0,
+                11        => $stBlksize,
+                12        => $stBlksize,
+            ],
+            stat('guzzle://stream')
+        );
     }
 
-    public function testXmlReaderWithStream()
+    /**
+     * @requires extension xmlreader
+     */
+    public function testXmlReaderWithStream(): void
     {
-        if (!class_exists('XMLReader')) {
-            self::markTestSkipped('XML Reader is not available.');
-        }
-        if (defined('HHVM_VERSION')) {
-            self::markTestSkipped('This does not work on HHVM.');
-        }
-
         $stream = Psr7\Utils::streamFor('<?xml version="1.0" encoding="utf-8"?><foo />');
 
         StreamWrapper::register();
@@ -174,15 +168,11 @@ class StreamWrapperTest extends BaseTest
         self::assertSame('foo', $reader->name);
     }
 
-    public function testXmlWriterWithStream()
+    /**
+     * @requires extension xmlreader
+     */
+    public function testXmlWriterWithStream(): void
     {
-        if (!class_exists('XMLWriter')) {
-            self::markTestSkipped('XML Writer is not available.');
-        }
-        if (defined('HHVM_VERSION')) {
-            self::markTestSkipped('This does not work on HHVM.');
-        }
-
         $stream = Psr7\Utils::streamFor(fopen('php://memory', 'wb'));
 
         StreamWrapper::register();

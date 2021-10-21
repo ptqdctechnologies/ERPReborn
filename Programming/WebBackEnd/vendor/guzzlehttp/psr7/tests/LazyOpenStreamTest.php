@@ -1,17 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7\LazyOpenStream;
+use PHPUnit\Framework\TestCase;
 
-class LazyOpenStreamTest extends BaseTest
+class LazyOpenStreamTest extends TestCase
 {
     private $fname;
 
-    /**
-     * @before
-     */
-    public function setUpTest()
+    protected function setUp(): void
     {
         $this->fname = tempnam(sys_get_temp_dir(), 'tfile');
 
@@ -20,27 +20,24 @@ class LazyOpenStreamTest extends BaseTest
         }
     }
 
-    /**
-     * @after
-     */
-    public function tearDownTest()
+    protected function tearDown(): void
     {
         if (file_exists($this->fname)) {
             unlink($this->fname);
         }
     }
 
-    public function testOpensLazily()
+    public function testOpensLazily(): void
     {
         $l = new LazyOpenStream($this->fname, 'w+');
         $l->write('foo');
-        $this->assertInternalTypeGuzzle('array', $l->getMetadata());
+        self::assertIsArray($l->getMetadata());
         self::assertFileExists($this->fname);
         self::assertSame('foo', file_get_contents($this->fname));
         self::assertSame('foo', (string) $l);
     }
 
-    public function testProxiesToFile()
+    public function testProxiesToFile(): void
     {
         file_put_contents($this->fname, 'foo');
         $l = new LazyOpenStream($this->fname, 'r');
@@ -54,16 +51,16 @@ class LazyOpenStreamTest extends BaseTest
         self::assertSame('oo', $l->getContents());
         self::assertSame('foo', (string) $l);
         self::assertSame(3, $l->getSize());
-        $this->assertInternalTypeGuzzle('array', $l->getMetadata());
+        self::assertIsArray($l->getMetadata());
         $l->close();
     }
 
-    public function testDetachesUnderlyingStream()
+    public function testDetachesUnderlyingStream(): void
     {
         file_put_contents($this->fname, 'foo');
         $l = new LazyOpenStream($this->fname, 'r');
         $r = $l->detach();
-        $this->assertInternalTypeGuzzle('resource', $r);
+        self::assertIsResource($r);
         fseek($r, 0);
         self::assertSame('foo', stream_get_contents($r));
         fclose($r);

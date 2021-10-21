@@ -1,16 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\LimitStream;
 use GuzzleHttp\Psr7\PumpStream;
+use PHPUnit\Framework\TestCase;
 
-class PumpStreamTest extends BaseTest
+class PumpStreamTest extends TestCase
 {
-    public function testHasMetadataAndSize()
+    public function testHasMetadataAndSize(): void
     {
-        $p = new PumpStream(function () {
+        $p = new PumpStream(function (): void {
         }, [
             'metadata' => ['foo' => 'bar'],
             'size'     => 100
@@ -21,7 +24,7 @@ class PumpStreamTest extends BaseTest
         self::assertSame(100, $p->getSize());
     }
 
-    public function testCanReadFromCallable()
+    public function testCanReadFromCallable(): void
     {
         $p = Psr7\Utils::streamFor(function ($size) {
             return 'a';
@@ -32,7 +35,7 @@ class PumpStreamTest extends BaseTest
         self::assertSame(6, $p->tell());
     }
 
-    public function testStoresExcessDataInBuffer()
+    public function testStoresExcessDataInBuffer(): void
     {
         $called = [];
         $p = Psr7\Utils::streamFor(function ($size) use (&$called) {
@@ -46,7 +49,7 @@ class PumpStreamTest extends BaseTest
         self::assertSame([1, 9, 3], $called);
     }
 
-    public function testInifiniteStreamWrappedInLimitStream()
+    public function testInifiniteStreamWrappedInLimitStream(): void
     {
         $p = Psr7\Utils::streamFor(function () {
             return 'a';
@@ -55,9 +58,9 @@ class PumpStreamTest extends BaseTest
         self::assertSame('aaaaa', (string) $s);
     }
 
-    public function testDescribesCapabilities()
+    public function testDescribesCapabilities(): void
     {
-        $p = Psr7\Utils::streamFor(function () {
+        $p = Psr7\Utils::streamFor(function (): void {
         });
         self::assertTrue($p->isReadable());
         self::assertFalse($p->isSeekable());
@@ -74,5 +77,28 @@ class PumpStreamTest extends BaseTest
             self::fail();
         } catch (\RuntimeException $e) {
         }
+    }
+
+    /**
+     * @requires PHP < 7.4
+     */
+    public function testThatConvertingStreamToStringWillTriggerErrorAndWillReturnEmptyString(): void
+    {
+        $p = Psr7\Utils::streamFor(function ($size): void {
+            throw new \Exception();
+        });
+        self::assertInstanceOf(PumpStream::class, $p);
+
+        $errors = [];
+        set_error_handler(function (int $errorNumber, string $errorMessage) use (&$errors): void {
+            $errors[] = ['number' => $errorNumber, 'message' => $errorMessage];
+        });
+        (string) $p;
+
+        restore_error_handler();
+
+        self::assertCount(1, $errors);
+        self::assertSame(E_USER_ERROR, $errors[0]['number']);
+        self::assertStringStartsWith('GuzzleHttp\Psr7\PumpStream::__toString exception:', $errors[0]['message']);
     }
 }

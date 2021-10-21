@@ -1,17 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7\ServerRequest;
 use GuzzleHttp\Psr7\UploadedFile;
 use GuzzleHttp\Psr7\Uri;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers GuzzleHttp\Psr7\ServerRequest
  */
-class ServerRequestTest extends BaseTest
+class ServerRequestTest extends TestCase
 {
-    public function dataNormalizeFiles()
+    public function dataNormalizeFiles(): iterable
     {
         return [
             'Single file' => [
@@ -258,20 +261,21 @@ class ServerRequestTest extends BaseTest
     /**
      * @dataProvider dataNormalizeFiles
      */
-    public function testNormalizeFiles($files, $expected)
+    public function testNormalizeFiles($files, $expected): void
     {
         $result = ServerRequest::normalizeFiles($files);
 
         self::assertEquals($expected, $result);
     }
 
-    public function testNormalizeFilesRaisesException()
+    public function testNormalizeFilesRaisesException(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException', 'Invalid value in files specification');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid value in files specification');
         ServerRequest::normalizeFiles(['test' => 'something']);
     }
 
-    public function dataGetUriFromGlobals()
+    public function dataGetUriFromGlobals(): iterable
     {
         $server = [
             'REQUEST_URI' => '/blog/article.php?id=10&user=foo',
@@ -350,14 +354,14 @@ class ServerRequestTest extends BaseTest
     /**
      * @dataProvider dataGetUriFromGlobals
      */
-    public function testGetUriFromGlobals($expected, $serverParams)
+    public function testGetUriFromGlobals($expected, $serverParams): void
     {
         $_SERVER = $serverParams;
 
         self::assertEquals(new Uri($expected), ServerRequest::getUriFromGlobals());
     }
 
-    public function testFromGlobals()
+    public function testFromGlobals(): void
     {
         $_SERVER = [
             'REQUEST_URI' => '/blog/article.php?id=10&user=foo',
@@ -439,7 +443,7 @@ class ServerRequestTest extends BaseTest
         self::assertEquals($expectedFiles, $server->getUploadedFiles());
     }
 
-    public function testUploadedFiles()
+    public function testUploadedFiles(): void
     {
         $request1 = new ServerRequest('GET', '/');
 
@@ -454,7 +458,7 @@ class ServerRequestTest extends BaseTest
         self::assertSame($files, $request2->getUploadedFiles());
     }
 
-    public function testServerParams()
+    public function testServerParams(): void
     {
         $params = ['name' => 'value'];
 
@@ -462,7 +466,7 @@ class ServerRequestTest extends BaseTest
         self::assertSame($params, $request->getServerParams());
     }
 
-    public function testCookieParams()
+    public function testCookieParams(): void
     {
         $request1 = new ServerRequest('GET', '/');
 
@@ -475,7 +479,7 @@ class ServerRequestTest extends BaseTest
         self::assertSame($params, $request2->getCookieParams());
     }
 
-    public function testQueryParams()
+    public function testQueryParams(): void
     {
         $request1 = new ServerRequest('GET', '/');
 
@@ -488,7 +492,7 @@ class ServerRequestTest extends BaseTest
         self::assertSame($params, $request2->getQueryParams());
     }
 
-    public function testParsedBody()
+    public function testParsedBody(): void
     {
         $request1 = new ServerRequest('GET', '/');
 
@@ -501,7 +505,7 @@ class ServerRequestTest extends BaseTest
         self::assertSame($params, $request2->getParsedBody());
     }
 
-    public function testAttributes()
+    public function testAttributes(): void
     {
         $request1 = new ServerRequest('GET', '/');
 
@@ -525,11 +529,11 @@ class ServerRequestTest extends BaseTest
 
         self::assertSame('value', $request2->getAttribute('name'));
         self::assertSame(['name' => 'value'], $request2->getAttributes());
-        self::assertEquals(['name' => 'value', 'other' => 'otherValue'], $request3->getAttributes());
+        self::assertSame(['name' => 'value', 'other' => 'otherValue'], $request3->getAttributes());
         self::assertSame(['name' => 'value'], $request4->getAttributes());
     }
 
-    public function testNullAttribute()
+    public function testNullAttribute(): void
     {
         $request = (new ServerRequest('GET', '/'))->withAttribute('name', null);
 

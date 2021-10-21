@@ -1,12 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
+use PHPUnit\Framework\TestCase;
 
-class HeaderTest extends BaseTest
+class HeaderTest extends TestCase
 {
-    public function parseParamsProvider()
+    public function parseParamsProvider(): array
     {
         $res1 = [
             [
@@ -55,12 +58,12 @@ class HeaderTest extends BaseTest
     /**
      * @dataProvider parseParamsProvider
      */
-    public function testParseParams($header, $result)
+    public function testParseParams($header, $result): void
     {
         self::assertSame($result, Psr7\Header::parse($header));
     }
 
-    public function testParsesArrayHeaders()
+    public function testParsesArrayHeaders(): void
     {
         $header = ['a, b', 'c', 'd, e'];
         self::assertSame(['a', 'b', 'c', 'd', 'e'], Psr7\Header::normalize($header));

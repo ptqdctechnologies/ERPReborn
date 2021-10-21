@@ -1262,6 +1262,7 @@ return array(
     'Illuminate\\Console\\BufferedConsoleOutput' => $vendorDir . '/laravel/framework/src/Illuminate/Console/BufferedConsoleOutput.php',
     'Illuminate\\Console\\Command' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Command.php',
     'Illuminate\\Console\\Concerns\\CallsCommands' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/CallsCommands.php',
+    'Illuminate\\Console\\Concerns\\CreatesMatchingTest' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/CreatesMatchingTest.php',
     'Illuminate\\Console\\Concerns\\HasParameters' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/HasParameters.php',
     'Illuminate\\Console\\Concerns\\InteractsWithIO' => $vendorDir . '/laravel/framework/src/Illuminate/Console/Concerns/InteractsWithIO.php',
     'Illuminate\\Console\\ConfirmableTrait' => $vendorDir . '/laravel/framework/src/Illuminate/Console/ConfirmableTrait.php',

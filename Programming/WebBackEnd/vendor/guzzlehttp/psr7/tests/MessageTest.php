@@ -1,13 +1,16 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\FnStream;
+use PHPUnit\Framework\TestCase;
 
-class MessageTest extends BaseTest
+class MessageTest extends TestCase
 {
-    public function testConvertsRequestsToStrings()
+    public function testConvertsRequestsToStrings(): void
     {
         $request = new Psr7\Request('PUT', 'http://foo.com/hi?123', [
             'Baz' => 'bar',
@@ -19,7 +22,7 @@ class MessageTest extends BaseTest
         );
     }
 
-    public function testConvertsResponsesToStrings()
+    public function testConvertsResponsesToStrings(): void
     {
         $response = new Psr7\Response(200, [
             'Baz' => 'bar',
@@ -31,7 +34,7 @@ class MessageTest extends BaseTest
         );
     }
 
-    public function testCorrectlyRendersSetCookieHeadersToString()
+    public function testCorrectlyRendersSetCookieHeadersToString(): void
     {
         $response = new Psr7\Response(200, [
             'Set-Cookie' => ['bar','baz','qux']
@@ -42,7 +45,7 @@ class MessageTest extends BaseTest
         );
     }
 
-    public function testRewindsBody()
+    public function testRewindsBody(): void
     {
         $body = Psr7\Utils::streamFor('abc');
         $res = new Psr7\Response(200, [], $body);
@@ -53,23 +56,23 @@ class MessageTest extends BaseTest
         self::assertSame(0, $body->tell());
     }
 
-    public function testThrowsWhenBodyCannotBeRewound()
+    public function testThrowsWhenBodyCannotBeRewound(): void
     {
         $body = Psr7\Utils::streamFor('abc');
         $body->read(1);
         $body = FnStream::decorate($body, [
-            'rewind' => function () {
+            'rewind' => function (): void {
                 throw new \RuntimeException('a');
             },
         ]);
         $res = new Psr7\Response(200, [], $body);
 
-        $this->expectExceptionGuzzle('RuntimeException');
+        $this->expectException(\RuntimeException::class);
 
         Psr7\Message::rewindBody($res);
     }
 
-    public function testParsesRequestMessages()
+    public function testParsesRequestMessages(): void
     {
         $req = "GET /abc HTTP/1.0\r\nHost: foo.com\r\nFoo: Bar\r\nBaz: Bam\r\nBaz: Qux\r\n\r\nTest";
         $request = Psr7\Message::parseRequest($req);
@@ -83,7 +86,7 @@ class MessageTest extends BaseTest
         self::assertSame('http://foo.com/abc', (string)$request->getUri());
     }
 
-    public function testParsesRequestMessagesWithHttpsScheme()
+    public function testParsesRequestMessagesWithHttpsScheme(): void
     {
         $req = "PUT /abc?baz=bar HTTP/1.1\r\nHost: foo.com:443\r\n\r\n";
         $request = Psr7\Message::parseRequest($req);
@@ -95,7 +98,7 @@ class MessageTest extends BaseTest
         self::assertSame('https://foo.com/abc?baz=bar', (string)$request->getUri());
     }
 
-    public function testParsesRequestMessagesWithUriWhenHostIsNotFirst()
+    public function testParsesRequestMessagesWithUriWhenHostIsNotFirst(): void
     {
         $req = "PUT / HTTP/1.1\r\nFoo: Bar\r\nHost: foo.com\r\n\r\n";
         $request = Psr7\Message::parseRequest($req);
@@ -104,7 +107,7 @@ class MessageTest extends BaseTest
         self::assertSame('http://foo.com/', (string)$request->getUri());
     }
 
-    public function testParsesRequestMessagesWithFullUri()
+    public function testParsesRequestMessagesWithFullUri(): void
     {
         $req = "GET https://www.google.com:443/search?q=foobar HTTP/1.1\r\nHost: www.google.com\r\n\r\n";
         $request = Psr7\Message::parseRequest($req);
@@ -116,14 +119,14 @@ class MessageTest extends BaseTest
         self::assertSame('https://www.google.com/search?q=foobar', (string)$request->getUri());
     }
 
-    public function testParsesRequestMessagesWithCustomMethod()
+    public function testParsesRequestMessagesWithCustomMethod(): void
     {
         $req = "GET_DATA / HTTP/1.1\r\nFoo: Bar\r\nHost: foo.com\r\n\r\n";
         $request = Psr7\Message::parseRequest($req);
         self::assertSame('GET_DATA', $request->getMethod());
     }
 
-    public function testParsesRequestMessagesWithFoldedHeadersOnHttp10()
+    public function testParsesRequestMessagesWithFoldedHeadersOnHttp10(): void
     {
         $req = "PUT / HTTP/1.0\r\nFoo: Bar\r\n Bam\r\n\r\n";
         $request = Psr7\Message::parseRequest($req);
@@ -132,14 +135,15 @@ class MessageTest extends BaseTest
         self::assertSame('Bar Bam', $request->getHeaderLine('Foo'));
     }
 
-    public function testRequestParsingFailsWithFoldedHeadersOnHttp11()
+    public function testRequestParsingFailsWithFoldedHeadersOnHttp11(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException', 'Invalid header syntax: Obsolete line folding');
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid header syntax: Obsolete line folding');
 
         Psr7\Message::parseResponse("GET_DATA / HTTP/1.1\r\nFoo: Bar\r\n Biz: Bam\r\n\r\n");
     }
 
-    public function testParsesRequestMessagesWhenHeaderDelimiterIsOnlyALineFeed()
+    public function testParsesRequestMessagesWhenHeaderDelimiterIsOnlyALineFeed(): void
     {
         $req = "PUT / HTTP/1.0\nFoo: Bar\nBaz: Bam\n\n";
         $request = Psr7\Message::parseRequest($req);
@@ -149,14 +153,14 @@ class MessageTest extends BaseTest
         self::assertSame('Bam', $request->getHeaderLine('Baz'));
     }
 
-    public function testValidatesRequestMessages()
+    public function testValidatesRequestMessages(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
 
         Psr7\Message::parseRequest("HTTP/1.1 200 OK\r\n\r\n");
     }
 
-    public function testParsesResponseMessages()
+    public function testParsesResponseMessages(): void
     {
         $res = "HTTP/1.0 200 OK\r\nFoo: Bar\r\nBaz: Bam\r\nBaz: Qux\r\n\r\nTest";
         $response = Psr7\Message::parseResponse($res);
@@ -168,7 +172,7 @@ class MessageTest extends BaseTest
         self::assertSame('Test', (string)$response->getBody());
     }
 
-    public function testParsesResponseWithoutReason()
+    public function testParsesResponseWithoutReason(): void
     {
         $res = "HTTP/1.0 200\r\nFoo: Bar\r\nBaz: Bam\r\nBaz: Qux\r\n\r\nTest";
         $response = Psr7\Message::parseResponse($res);
@@ -180,7 +184,7 @@ class MessageTest extends BaseTest
         self::assertSame('Test', (string)$response->getBody());
     }
 
-    public function testParsesResponseWithLeadingDelimiter()
+    public function testParsesResponseWithLeadingDelimiter(): void
     {
         $res = "\r\nHTTP/1.0 200\r\nFoo: Bar\r\n\r\nTest";
         $response = Psr7\Message::parseResponse($res);
@@ -191,7 +195,7 @@ class MessageTest extends BaseTest
         self::assertSame('Test', (string)$response->getBody());
     }
 
-    public function testParsesResponseWithFoldedHeadersOnHttp10()
+    public function testParsesResponseWithFoldedHeadersOnHttp10(): void
     {
         $res = "HTTP/1.0 200\r\nFoo: Bar\r\n Bam\r\n\r\nTest";
         $response = Psr7\Message::parseResponse($res);
@@ -202,14 +206,14 @@ class MessageTest extends BaseTest
         self::assertSame('Test', (string)$response->getBody());
     }
 
-    public function testResponseParsingFailsWithFoldedHeadersOnHttp11()
+    public function testResponseParsingFailsWithFoldedHeadersOnHttp11(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException', 'Invalid header syntax: Obsolete line folding');
-
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid header syntax: Obsolete line folding');
         Psr7\Message::parseResponse("HTTP/1.1 200\r\nFoo: Bar\r\n Biz: Bam\r\nBaz: Qux\r\n\r\nTest");
     }
 
-    public function testParsesResponseWhenHeaderDelimiterIsOnlyALineFeed()
+    public function testParsesResponseWhenHeaderDelimiterIsOnlyALineFeed(): void
     {
         $res = "HTTP/1.0 200\nFoo: Bar\nBaz: Bam\n\nTest\n\nOtherTest";
         $response = Psr7\Message::parseResponse($res);
@@ -221,45 +225,44 @@ class MessageTest extends BaseTest
         self::assertSame("Test\n\nOtherTest", (string)$response->getBody());
     }
 
-    public function testResponseParsingFailsWithoutHeaderDelimiter()
+    public function testResponseParsingFailsWithoutHeaderDelimiter(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException', 'Invalid message: Missing header delimiter');
-
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid message: Missing header delimiter');
         Psr7\Message::parseResponse("HTTP/1.0 200\r\nFoo: Bar\r\n Baz: Bam\r\nBaz: Qux\r\n");
     }
 
-    public function testValidatesResponseMessages()
+    public function testValidatesResponseMessages(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         Psr7\Message::parseResponse("GET / HTTP/1.1\r\n\r\n");
     }
 
-    public function testMessageBodySummaryWithSmallBody()
+    public function testMessageBodySummaryWithSmallBody(): void
     {
         $message = new Psr7\Response(200, [], 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
         self::assertSame('Lorem ipsum dolor sit amet, consectetur adipiscing elit.', Psr7\Message::bodySummary($message));
     }
 
-    public function testMessageBodySummaryWithLargeBody()
+    public function testMessageBodySummaryWithLargeBody(): void
     {
         $message = new Psr7\Response(200, [], 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
         self::assertSame('Lorem ipsu (truncated...)', Psr7\Message::bodySummary($message, 10));
     }
 
-    public function testMessageBodySummaryWithSpecialUTF8Characters()
+    public function testMessageBodySummaryWithSpecialUTF8Characters(): void
     {
         $message = new Psr7\Response(200, [], '’é€௵ဪ‱');
         self::assertSame('’é€௵ဪ‱', Psr7\Message::bodySummary($message));
     }
 
-    public function testMessageBodySummaryWithEmptyBody()
+    public function testMessageBodySummaryWithEmptyBody(): void
     {
         $message = new Psr7\Response(200, [], '');
         self::assertNull(Psr7\Message::bodySummary($message));
     }
 
-    public function testGetResponseBodySummaryOfNonReadableStream()
+    public function testGetResponseBodySummaryOfNonReadableStream(): void
     {
         self::assertNull(Psr7\Message::bodySummary(new Psr7\Response(500, [], new ReadSeekOnlyStream())));
     }

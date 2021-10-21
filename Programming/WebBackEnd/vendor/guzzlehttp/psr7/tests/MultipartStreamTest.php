@@ -1,31 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\MultipartStream;
+use PHPUnit\Framework\TestCase;
 
-class MultipartStreamTest extends BaseTest
+class MultipartStreamTest extends TestCase
 {
-    public function testCreatesDefaultBoundary()
+    public function testCreatesDefaultBoundary(): void
     {
         $b = new MultipartStream();
         self::assertNotEmpty($b->getBoundary());
     }
 
-    public function testCanProvideBoundary()
+    public function testCanProvideBoundary(): void
     {
         $b = new MultipartStream([], 'foo');
         self::assertSame('foo', $b->getBoundary());
     }
 
-    public function testIsNotWritable()
+    public function testIsNotWritable(): void
     {
         $b = new MultipartStream();
         self::assertFalse($b->isWritable());
     }
 
-    public function testCanCreateEmptyStream()
+    public function testCanCreateEmptyStream(): void
     {
         $b = new MultipartStream();
         $boundary = $b->getBoundary();
@@ -33,21 +36,19 @@ class MultipartStreamTest extends BaseTest
         self::assertSame(strlen($boundary) + 6, $b->getSize());
     }
 
-    public function testValidatesFilesArrayElement()
+    public function testValidatesFilesArrayElement(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new MultipartStream([['foo' => 'bar']]);
     }
 
-    public function testEnsuresFileHasName()
+    public function testEnsuresFileHasName(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new MultipartStream([['contents' => 'bar']]);
     }
 
-    public function testSerializesFields()
+    public function testSerializesFields(): void
     {
         $b = new MultipartStream([
             [
@@ -67,7 +68,7 @@ class MultipartStreamTest extends BaseTest
         );
     }
 
-    public function testSerializesNonStringFields()
+    public function testSerializesNonStringFields(): void
     {
         $b = new MultipartStream([
             [
@@ -97,7 +98,7 @@ class MultipartStreamTest extends BaseTest
         );
     }
 
-    public function testSerializesFiles()
+    public function testSerializesFiles(): void
     {
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => function () {
@@ -155,10 +156,10 @@ bar
 
 EOT;
 
-        self::assertSame($expected, str_replace("\r", '', $b));
+        self::assertSame($expected, str_replace("\r", '', (string) $b));
     }
 
-    public function testSerializesFilesWithCustomHeaders()
+    public function testSerializesFilesWithCustomHeaders(): void
     {
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => function () {
@@ -189,10 +190,10 @@ foo
 
 EOT;
 
-        self::assertSame($expected, str_replace("\r", '', $b));
+        self::assertSame($expected, str_replace("\r", '', (string) $b));
     }
 
-    public function testSerializesFilesWithCustomHeadersAndMultipleValues()
+    public function testSerializesFilesWithCustomHeadersAndMultipleValues(): void
     {
         $f1 = Psr7\FnStream::decorate(Psr7\Utils::streamFor('foo'), [
             'getMetadata' => function () {
@@ -240,6 +241,6 @@ baz
 
 EOT;
 
-        self::assertSame($expected, str_replace("\r", '', $b));
+        self::assertSame($expected, str_replace("\r", '', (string) $b));
     }
 }

@@ -1,59 +1,62 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Uri;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\StreamInterface;
 
 /**
  * @covers GuzzleHttp\Psr7\MessageTrait
  * @covers GuzzleHttp\Psr7\Request
  */
-class RequestTest extends BaseTest
+class RequestTest extends TestCase
 {
-    public function testRequestUriMayBeString()
+    public function testRequestUriMayBeString(): void
     {
         $r = new Request('GET', '/');
         self::assertSame('/', (string) $r->getUri());
     }
 
-    public function testRequestUriMayBeUri()
+    public function testRequestUriMayBeUri(): void
     {
         $uri = new Uri('/');
         $r = new Request('GET', $uri);
         self::assertSame($uri, $r->getUri());
     }
 
-    public function testValidateRequestUri()
+    public function testValidateRequestUri(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new Request('GET', '///');
     }
 
-    public function testCanConstructWithBody()
+    public function testCanConstructWithBody(): void
     {
         $r = new Request('GET', '/', [], 'baz');
-        self::assertInstanceOf('Psr\Http\Message\StreamInterface', $r->getBody());
+        self::assertInstanceOf(StreamInterface::class, $r->getBody());
         self::assertSame('baz', (string) $r->getBody());
     }
 
-    public function testNullBody()
+    public function testNullBody(): void
     {
         $r = new Request('GET', '/', [], null);
-        self::assertInstanceOf('Psr\Http\Message\StreamInterface', $r->getBody());
+        self::assertInstanceOf(StreamInterface::class, $r->getBody());
         self::assertSame('', (string) $r->getBody());
     }
 
-    public function testFalseyBody()
+    public function testFalseyBody(): void
     {
         $r = new Request('GET', '/', [], '0');
-        self::assertInstanceOf('Psr\Http\Message\StreamInterface', $r->getBody());
+        self::assertInstanceOf(StreamInterface::class, $r->getBody());
         self::assertSame('0', (string) $r->getBody());
     }
 
-    public function testConstructorDoesNotReadStreamBody()
+    public function testConstructorDoesNotReadStreamBody(): void
     {
         $streamIsRead = false;
         $body = Psr7\FnStream::decorate(Psr7\Utils::streamFor(''), [
@@ -68,19 +71,19 @@ class RequestTest extends BaseTest
         self::assertSame($body, $r->getBody());
     }
 
-    public function testCapitalizesMethod()
+    public function testCapitalizesMethod(): void
     {
         $r = new Request('get', '/');
         self::assertSame('GET', $r->getMethod());
     }
 
-    public function testCapitalizesWithMethod()
+    public function testCapitalizesWithMethod(): void
     {
         $r = new Request('GET', '/');
         self::assertSame('PUT', $r->withMethod('put')->getMethod());
     }
 
-    public function testWithUri()
+    public function testWithUri(): void
     {
         $r1 = new Request('GET', '/');
         $u1 = $r1->getUri();
@@ -94,23 +97,23 @@ class RequestTest extends BaseTest
     /**
      * @dataProvider invalidMethodsProvider
      */
-    public function testConstructWithInvalidMethods($method)
+    public function testConstructWithInvalidMethods($method): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
+        $this->expectException(\TypeError::class);
         new Request($method, '/');
     }
 
     /**
      * @dataProvider invalidMethodsProvider
      */
-    public function testWithInvalidMethods($method)
+    public function testWithInvalidMethods($method): void
     {
         $r = new Request('get', '/');
-        $this->expectExceptionGuzzle('InvalidArgumentException');
+        $this->expectException(\InvalidArgumentException::class);
         $r->withMethod($method);
     }
 
-    public function invalidMethodsProvider()
+    public function invalidMethodsProvider(): iterable
     {
         return [
             [null],
@@ -120,14 +123,14 @@ class RequestTest extends BaseTest
         ];
     }
 
-    public function testSameInstanceWhenSameUri()
+    public function testSameInstanceWhenSameUri(): void
     {
         $r1 = new Request('GET', 'http://foo.com');
         $r2 = $r1->withUri($r1->getUri());
         self::assertSame($r1, $r2);
     }
 
-    public function testWithRequestTarget()
+    public function testWithRequestTarget(): void
     {
         $r1 = new Request('GET', '/');
         $r2 = $r1->withRequestTarget('*');
@@ -135,15 +138,14 @@ class RequestTest extends BaseTest
         self::assertSame('/', $r1->getRequestTarget());
     }
 
-    public function testRequestTargetDoesNotAllowSpaces()
+    public function testRequestTargetDoesNotAllowSpaces(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
         $r1 = new Request('GET', '/');
+        $this->expectException(\InvalidArgumentException::class);
         $r1->withRequestTarget('/foo bar');
     }
 
-    public function testRequestTargetDefaultsToSlash()
+    public function testRequestTargetDefaultsToSlash(): void
     {
         $r1 = new Request('GET', '');
         self::assertSame('/', $r1->getRequestTarget());
@@ -153,19 +155,19 @@ class RequestTest extends BaseTest
         self::assertSame('/bar%20baz/', $r3->getRequestTarget());
     }
 
-    public function testBuildsRequestTarget()
+    public function testBuildsRequestTarget(): void
     {
         $r1 = new Request('GET', 'http://foo.com/baz?bar=bam');
         self::assertSame('/baz?bar=bam', $r1->getRequestTarget());
     }
 
-    public function testBuildsRequestTargetWithFalseyQuery()
+    public function testBuildsRequestTargetWithFalseyQuery(): void
     {
         $r1 = new Request('GET', 'http://foo.com/baz?0');
         self::assertSame('/baz?0', $r1->getRequestTarget());
     }
 
-    public function testHostIsAddedFirst()
+    public function testHostIsAddedFirst(): void
     {
         $r = new Request('GET', 'http://foo.com/baz?bar=bam', ['Foo' => 'Bar']);
         self::assertSame([
@@ -174,7 +176,7 @@ class RequestTest extends BaseTest
         ], $r->getHeaders());
     }
 
-    public function testCanGetHeaderAsCsv()
+    public function testCanGetHeaderAsCsv(): void
     {
         $r = new Request('GET', 'http://foo.com/baz?bar=bam', [
             'Foo' => ['a', 'b', 'c']
@@ -183,7 +185,69 @@ class RequestTest extends BaseTest
         self::assertSame('', $r->getHeaderLine('Bar'));
     }
 
-    public function testHostIsNotOverwrittenWhenPreservingHost()
+    /**
+     * @dataProvider provideHeadersContainingNotAllowedChars
+     */
+    public function testContainsNotAllowedCharsOnHeaderField($header): void
+    {
+        $this->expectExceptionMessage(
+            sprintf(
+                '"%s" is not valid header name',
+                $header
+            )
+        );
+        $r = new Request(
+            'GET',
+            'http://foo.com/baz?bar=bam',
+            [
+                $header => 'value'
+            ]
+        );
+    }
+
+    public function provideHeadersContainingNotAllowedChars(): iterable
+    {
+        return [[' key '], ['key '], [' key'], ['key/'], ['key('], ['key\\'], [' ']];
+    }
+
+    /**
+     * @dataProvider provideHeadersContainsAllowedChar
+     */
+    public function testContainsAllowedCharsOnHeaderField($header): void
+    {
+        $r = new Request(
+            'GET',
+            'http://foo.com/baz?bar=bam',
+            [
+                $header => 'value'
+            ]
+        );
+        self::assertArrayHasKey($header, $r->getHeaders());
+    }
+
+    public function provideHeadersContainsAllowedChar(): iterable
+    {
+        return [
+            ['key'],
+            ['key#'],
+            ['key$'],
+            ['key%'],
+            ['key&'],
+            ['key*'],
+            ['key+'],
+            ['key.'],
+            ['key^'],
+            ['key_'],
+            ['key|'],
+            ['key~'],
+            ['key!'],
+            ['key-'],
+            ["key'"],
+            ['key`']
+        ];
+    }
+
+    public function testHostIsNotOverwrittenWhenPreservingHost(): void
     {
         $r = new Request('GET', 'http://foo.com/baz?bar=bam', ['Host' => 'a.com']);
         self::assertSame(['Host' => ['a.com']], $r->getHeaders());
@@ -191,7 +255,7 @@ class RequestTest extends BaseTest
         self::assertSame('a.com', $r2->getHeaderLine('Host'));
     }
 
-    public function testWithUriSetsHostIfNotSet()
+    public function testWithUriSetsHostIfNotSet(): void
     {
         $r = (new Request('GET', 'http://foo.com/baz?bar=bam'))->withoutHeader('Host');
         self::assertSame([], $r->getHeaders());
@@ -199,7 +263,7 @@ class RequestTest extends BaseTest
         self::assertSame('www.baz.com', $r2->getHeaderLine('Host'));
     }
 
-    public function testOverridesHostWithUri()
+    public function testOverridesHostWithUri(): void
     {
         $r = new Request('GET', 'http://foo.com/baz?bar=bam');
         self::assertSame(['Host' => ['foo.com']], $r->getHeaders());
@@ -207,7 +271,7 @@ class RequestTest extends BaseTest
         self::assertSame('www.baz.com', $r2->getHeaderLine('Host'));
     }
 
-    public function testAggregatesHeaders()
+    public function testAggregatesHeaders(): void
     {
         $r = new Request('GET', '', [
             'ZOO' => 'zoobar',
@@ -217,13 +281,13 @@ class RequestTest extends BaseTest
         self::assertSame('zoobar, foobar, zoobar', $r->getHeaderLine('zoo'));
     }
 
-    public function testAddsPortToHeader()
+    public function testAddsPortToHeader(): void
     {
         $r = new Request('GET', 'http://foo.com:8124/bar');
         self::assertSame('foo.com:8124', $r->getHeaderLine('host'));
     }
 
-    public function testAddsPortToHeaderAndReplacePreviousPort()
+    public function testAddsPortToHeaderAndReplacePreviousPort(): void
     {
         $r = new Request('GET', 'http://foo.com:8124/bar');
         $r = $r->withUri(new Uri('http://foo.com:8125/bar'));

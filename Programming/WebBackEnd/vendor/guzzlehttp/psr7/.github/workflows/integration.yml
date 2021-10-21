@@ -1,6 +1,9 @@
 name: Integration
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
 
 jobs:
@@ -11,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 10
       matrix:
-        php: ['7.2', '7.3', '7.4', '8.0']
+        php: ['7.2', '7.3', '7.4', '8.0', '8.1']
 
     steps:
       - name: Set up PHP
@@ -23,10 +26,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Download dependencies
-        uses: ramsey/composer-install@v1
-        with:
-          composer-options: --no-interaction --optimize-autoloader
+      - name: Mimic PHP 8.0
+        run: composer config platform.php 8.0.999
+        if: matrix.php > 8
+
+      - name: Install dependencies
+        run: composer update --no-interaction --no-progress
 
       - name: Start server
         run: php -S 127.0.0.1:10002 tests/Integration/server.php &
