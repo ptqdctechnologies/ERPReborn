@@ -1,14 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7;
 use GuzzleHttp\Psr7\InflateStream;
 use GuzzleHttp\Psr7\NoSeekStream;
+use PHPUnit\Framework\TestCase;
 
-class InflateStreamTest extends BaseTest
+/**
+ * @requires extension zlib
+ */
+class InflateStreamTest extends TestCase
 {
-    public function testInflatesStreams()
+    public function testInflatesRfc1952Streams(): void
     {
         $content = gzencode('test');
         $a = Psr7\Utils::streamFor($content);
@@ -16,7 +22,7 @@ class InflateStreamTest extends BaseTest
         self::assertSame('test', (string) $b);
     }
 
-    public function testInflatesStreamsWithFilename()
+    public function testInflatesStreamsRfc1952WithFilename(): void
     {
         $content = $this->getGzipStringWithFilename('test');
         $a = Psr7\Utils::streamFor($content);
@@ -24,14 +30,54 @@ class InflateStreamTest extends BaseTest
         self::assertSame('test', (string) $b);
     }
 
-    public function testInflatesStreamsPreserveSeekable()
+    public function testInflatesRfc1950Streams(): void
     {
-        $content = $this->getGzipStringWithFilename('test');
-        $seekable = Psr7\Utils::streamFor($content);
-        $nonSeekable = new NoSeekStream(Psr7\Utils::streamFor($content));
+        $content = gzcompress('test');
+        $a = Psr7\Utils::streamFor($content);
+        $b = new InflateStream($a);
+        self::assertSame('test', (string) $b);
+    }
 
-        self::assertTrue((new InflateStream($seekable))->isSeekable());
-        self::assertFalse((new InflateStream($nonSeekable))->isSeekable());
+    public function testInflatesRfc1952StreamsWithExtraFlags(): void
+    {
+        $content = gzdeflate('test'); // RFC 1951. Raw deflate. No header.
+
+        //  +---+---+---+---+---+---+---+---+---+---+
+        //  |ID1|ID2|CM |FLG|     MTIME     |XFL|OS | (more-->)
+        //  +---+---+---+---+---+---+---+---+---+---+
+        $header = "\x1f\x8B\x08";
+        // set flags FHCRC, FEXTRA, FNAME and FCOMMENT
+        $header .= chr(0b00011110);
+        $header .= "\x00\x00\x00\x00"; // MTIME
+        $header .= "\x02\x03"; // XFL, OS
+        // 4 byte extra data
+        $header .= "\x04\x00" /* XLEN */ . "\x41\x70\x00\x00" /*EXTRA*/;
+        // file name (2 bytes + terminator)
+        $header .= "\x41\x70\x00";
+        // file comment (3 bytes + terminator)
+        $header .= "\x41\x42\x43\x00";
+
+        // crc16
+        $header .= pack('v', crc32($header));
+
+        $a = Psr7\Utils::streamFor($header . $content);
+        $b = new InflateStream($a);
+        self::assertSame('test', (string) $b);
+    }
+
+    public function testInflatesStreamsPreserveSeekable(): void
+    {
+        $content = gzencode('test');
+        $seekable = Psr7\Utils::streamFor($content);
+
+        $seekableInflate = new InflateStream($seekable);
+        self::assertTrue($seekableInflate->isSeekable());
+        self::assertSame('test', (string) $seekableInflate);
+
+        $nonSeekable = new NoSeekStream(Psr7\Utils::streamFor($content));
+        $nonSeekableInflate = new InflateStream($nonSeekable);
+        self::assertFalse($nonSeekableInflate->isSeekable());
+        self::assertSame('test', (string) $nonSeekableInflate);
     }
 
     private function getGzipStringWithFilename($original_string)

@@ -1,23 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7\BufferStream;
+use PHPUnit\Framework\TestCase;
 
-class BufferStreamTest extends BaseTest
+class BufferStreamTest extends TestCase
 {
-    public function testHasMetadata()
+    public function testHasMetadata(): void
     {
         $b = new BufferStream(10);
         self::assertTrue($b->isReadable());
         self::assertTrue($b->isWritable());
         self::assertFalse($b->isSeekable());
-        self::assertSame(null, $b->getMetadata('foo'));
+        self::assertNull($b->getMetadata('foo'));
         self::assertSame(10, $b->getMetadata('hwm'));
         self::assertSame([], $b->getMetadata());
     }
 
-    public function testRemovesReadDataFromBuffer()
+    public function testRemovesReadDataFromBuffer(): void
     {
         $b = new BufferStream();
         self::assertSame(3, $b->write('foo'));
@@ -28,7 +31,7 @@ class BufferStreamTest extends BaseTest
         self::assertSame('', $b->read(10));
     }
 
-    public function testCanCastToStringOrGetContents()
+    public function testCanCastToStringOrGetContents(): void
     {
         $b = new BufferStream();
         $b->write('foo');
@@ -36,13 +39,12 @@ class BufferStreamTest extends BaseTest
         self::assertSame('foo', $b->read(3));
         $b->write('bar');
         self::assertSame('bazbar', (string) $b);
-
-        $this->expectExceptionGuzzle('RuntimeException', 'Cannot determine the position of a BufferStream');
-
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Cannot determine the position of a BufferStream');
         $b->tell();
     }
 
-    public function testDetachClearsBuffer()
+    public function testDetachClearsBuffer(): void
     {
         $b = new BufferStream();
         $b->write('foo');
@@ -52,11 +54,11 @@ class BufferStreamTest extends BaseTest
         self::assertSame('abc', $b->read(10));
     }
 
-    public function testExceedingHighwaterMarkReturnsFalseButStillBuffers()
+    public function testExceedingHighwaterMarkReturnsFalseButStillBuffers(): void
     {
         $b = new BufferStream(5);
         self::assertSame(3, $b->write('hi '));
-        self::assertFalse($b->write('hello'));
+        self::assertSame(0, $b->write('hello'));
         self::assertSame('hi hello', (string) $b);
         self::assertSame(4, $b->write('test'));
     }

@@ -1,24 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GuzzleHttp\Tests\Psr7;
 
 use GuzzleHttp\Psr7\Stream;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers GuzzleHttp\Psr7\Stream
  */
-class StreamTest extends BaseTest
+class StreamTest extends TestCase
 {
     public static $isFReadError = false;
 
-    public function testConstructorThrowsExceptionOnInvalidArgument()
+    public function testConstructorThrowsExceptionOnInvalidArgument(): void
     {
-        $this->expectExceptionGuzzle('InvalidArgumentException');
-
+        $this->expectException(\InvalidArgumentException::class);
         new Stream(true);
     }
 
-    public function testConstructorInitializesProperties()
+    public function testConstructorInitializesProperties(): void
     {
         $handle = fopen('php://temp', 'r+');
         fwrite($handle, 'data');
@@ -27,13 +29,13 @@ class StreamTest extends BaseTest
         self::assertTrue($stream->isWritable());
         self::assertTrue($stream->isSeekable());
         self::assertSame('php://temp', $stream->getMetadata('uri'));
-        $this->assertInternalTypeGuzzle('array', $stream->getMetadata());
+        self::assertIsArray($stream->getMetadata());
         self::assertSame(4, $stream->getSize());
         self::assertFalse($stream->eof());
         $stream->close();
     }
 
-    public function testConstructorInitializesPropertiesWithRbPlus()
+    public function testConstructorInitializesPropertiesWithRbPlus(): void
     {
         $handle = fopen('php://temp', 'rb+');
         fwrite($handle, 'data');
@@ -42,13 +44,13 @@ class StreamTest extends BaseTest
         self::assertTrue($stream->isWritable());
         self::assertTrue($stream->isSeekable());
         self::assertSame('php://temp', $stream->getMetadata('uri'));
-        $this->assertInternalTypeGuzzle('array', $stream->getMetadata());
+        self::assertIsArray($stream->getMetadata());
         self::assertSame(4, $stream->getSize());
         self::assertFalse($stream->eof());
         $stream->close();
     }
 
-    public function testStreamClosesHandleOnDestruct()
+    public function testStreamClosesHandleOnDestruct(): void
     {
         $handle = fopen('php://temp', 'r');
         $stream = new Stream($handle);
@@ -56,7 +58,7 @@ class StreamTest extends BaseTest
         self::assertFalse(is_resource($handle));
     }
 
-    public function testConvertsToString()
+    public function testConvertsToString(): void
     {
         $handle = fopen('php://temp', 'w+');
         fwrite($handle, 'data');
@@ -66,24 +68,16 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testConvertsToStringNonSeekableStream()
+    public function testConvertsToStringNonSeekableStream(): void
     {
-        if (defined('HHVM_VERSION')) {
-            self::markTestSkipped('This does not work on HHVM.');
-        }
-
         $handle = popen('echo foo', 'r');
         $stream = new Stream($handle);
         self::assertFalse($stream->isSeekable());
         self::assertSame('foo', trim((string) $stream));
     }
 
-    public function testConvertsToStringNonSeekablePartiallyReadStream()
+    public function testConvertsToStringNonSeekablePartiallyReadStream(): void
     {
-        if (defined('HHVM_VERSION')) {
-            self::markTestSkipped('This does not work on HHVM.');
-        }
-
         $handle = popen('echo bar', 'r');
         $stream = new Stream($handle);
         $firstLetter = $stream->read(1);
@@ -92,7 +86,7 @@ class StreamTest extends BaseTest
         self::assertSame('ar', trim((string) $stream));
     }
 
-    public function testGetsContents()
+    public function testGetsContents(): void
     {
         $handle = fopen('php://temp', 'w+');
         fwrite($handle, 'data');
@@ -104,7 +98,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testChecksEof()
+    public function testChecksEof(): void
     {
         $handle = fopen('php://temp', 'w+');
         fwrite($handle, 'data');
@@ -116,7 +110,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testGetSize()
+    public function testGetSize(): void
     {
         $size = filesize(__FILE__);
         $handle = fopen(__FILE__, 'r');
@@ -127,7 +121,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testEnsuresSizeIsConsistent()
+    public function testEnsuresSizeIsConsistent(): void
     {
         $h = fopen('php://temp', 'w+');
         self::assertSame(3, fwrite($h, 'foo'));
@@ -139,7 +133,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testProvidesStreamPosition()
+    public function testProvidesStreamPosition(): void
     {
         $handle = fopen('php://temp', 'w+');
         $stream = new Stream($handle);
@@ -152,12 +146,12 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testDetachStreamAndClearProperties()
+    public function testDetachStreamAndClearProperties(): void
     {
         $handle = fopen('php://temp', 'r');
         $stream = new Stream($handle);
         self::assertSame($handle, $stream->detach());
-        $this->assertInternalTypeGuzzle('resource', $handle, 'Stream is not closed');
+        self::assertIsResource($handle, 'Stream is not closed');
         self::assertNull($stream->detach());
 
         $this->assertStreamStateAfterClosedOrDetached($stream);
@@ -165,7 +159,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testCloseResourceAndClearProperties()
+    public function testCloseResourceAndClearProperties(): void
     {
         $handle = fopen('php://temp', 'r');
         $stream = new Stream($handle);
@@ -176,7 +170,7 @@ class StreamTest extends BaseTest
         $this->assertStreamStateAfterClosedOrDetached($stream);
     }
 
-    private function assertStreamStateAfterClosedOrDetached(Stream $stream)
+    private function assertStreamStateAfterClosedOrDetached(Stream $stream): void
     {
         self::assertFalse($stream->isReadable());
         self::assertFalse($stream->isWritable());
@@ -185,11 +179,11 @@ class StreamTest extends BaseTest
         self::assertSame([], $stream->getMetadata());
         self::assertNull($stream->getMetadata('foo'));
 
-        $throws = function (callable $fn) {
+        $throws = function (callable $fn): void {
             try {
                 $fn();
             } catch (\Exception $e) {
-                $this->assertStringContainsStringGuzzle('Stream is detached', $e->getMessage());
+                $this->assertStringContainsString('Stream is detached', $e->getMessage());
 
                 return;
             }
@@ -197,28 +191,44 @@ class StreamTest extends BaseTest
             $this->fail('Exception should be thrown after the stream is detached.');
         };
 
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->read(10);
         });
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->write('bar');
         });
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->seek(10);
         });
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->tell();
         });
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->eof();
         });
-        $throws(function () use ($stream) {
+        $throws(function () use ($stream): void {
             $stream->getContents();
         });
-        self::assertSame('', (string) $stream);
+
+        if (\PHP_VERSION_ID >= 70400) {
+            $throws(function () use ($stream): void {
+                (string) $stream;
+            });
+        } else {
+            $errors = [];
+            set_error_handler(function (int $errorNumber, string $errorMessage) use (&$errors): void {
+                $errors[] = ['message' => $errorMessage, 'number' => $errorNumber];
+            });
+            self::assertSame('', (string) $stream);
+            restore_error_handler();
+
+            self::assertCount(1, $errors);
+            self::assertStringStartsWith('GuzzleHttp\Psr7\Stream::__toString exception', $errors[0]['message']);
+            self::assertSame(E_USER_ERROR, $errors[0]['number']);
+        }
     }
 
-    public function testStreamReadingWithZeroLength()
+    public function testStreamReadingWithZeroLength(): void
     {
         $r = fopen('php://temp', 'r');
         $stream = new Stream($r);
@@ -228,12 +238,12 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testStreamReadingWithNegativeLength()
+    public function testStreamReadingWithNegativeLength(): void
     {
         $r = fopen('php://temp', 'r');
         $stream = new Stream($r);
-
-        $this->expectExceptionGuzzle('RuntimeException', 'Length parameter cannot be negative');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Length parameter cannot be negative');
 
         try {
             $stream->read(-1);
@@ -245,13 +255,13 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function testStreamReadingFreadError()
+    public function testStreamReadingFreadError(): void
     {
         self::$isFReadError = true;
         $r = fopen('php://temp', 'r');
         $stream = new Stream($r);
-
-        $this->expectExceptionGuzzle('RuntimeException', 'Unable to read from stream');
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to read from stream');
 
         try {
             $stream->read(1);
@@ -266,18 +276,12 @@ class StreamTest extends BaseTest
     }
 
     /**
-     * @dataProvider gzipModeProvider
+     * @requires extension zlib
      *
-     * @param string $mode
-     * @param bool   $readable
-     * @param bool   $writable
+     * @dataProvider gzipModeProvider
      */
-    public function testGzipStreamModes($mode, $readable, $writable)
+    public function testGzipStreamModes(string $mode, bool $readable, bool $writable): void
     {
-        if (defined('HHVM_VERSION')) {
-            self::markTestSkipped('This does not work on HHVM.');
-        }
-
         $r = gzopen('php://temp', $mode);
         $stream = new Stream($r);
 
@@ -287,7 +291,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function gzipModeProvider()
+    public function gzipModeProvider(): iterable
     {
         return [
             ['mode' => 'rb9', 'readable' => true, 'writable' => false],
@@ -297,10 +301,8 @@ class StreamTest extends BaseTest
 
     /**
      * @dataProvider readableModeProvider
-     *
-     * @param string $mode
      */
-    public function testReadableStream($mode)
+    public function testReadableStream(string $mode): void
     {
         $r = fopen('php://temp', $mode);
         $stream = new Stream($r);
@@ -310,7 +312,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function readableModeProvider()
+    public function readableModeProvider(): iterable
     {
         return [
             ['r'],
@@ -333,7 +335,7 @@ class StreamTest extends BaseTest
         ];
     }
 
-    public function testWriteOnlyStreamIsNotReadable()
+    public function testWriteOnlyStreamIsNotReadable(): void
     {
         $r = fopen('php://output', 'w');
         $stream = new Stream($r);
@@ -345,10 +347,8 @@ class StreamTest extends BaseTest
 
     /**
      * @dataProvider writableModeProvider
-     *
-     * @param string $mode
      */
-    public function testWritableStream($mode)
+    public function testWritableStream(string $mode): void
     {
         $r = fopen('php://temp', $mode);
         $stream = new Stream($r);
@@ -358,7 +358,7 @@ class StreamTest extends BaseTest
         $stream->close();
     }
 
-    public function writableModeProvider()
+    public function writableModeProvider(): iterable
     {
         return [
             ['w'],
@@ -382,7 +382,7 @@ class StreamTest extends BaseTest
         ];
     }
 
-    public function testReadOnlyStreamIsNotWritable()
+    public function testReadOnlyStreamIsNotWritable(): void
     {
         $r = fopen('php://input', 'r');
         $stream = new Stream($r);
