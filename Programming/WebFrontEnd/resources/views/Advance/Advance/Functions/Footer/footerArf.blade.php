@@ -19,10 +19,44 @@
     });
 </script>
 
+
+<!-- <script>
+        $('.klikDetail1').on('click', function(e){
+             e.preventDefault();
+            var $this = $(this);
+            var code = $this.data("id");
+        alert(code);
+          var idx=0;
+            $.get('{{ url('') }}/packaging_receipt/view/add/ajax-state/' + po_packaging_id, function(data) {
+                $('#packaging_detail').empty();
+                $.each(data, function(index, subcatObj){
+                    var qty = parseInt(subcatObj.quantity);
+                    var acc = isNaN(parseInt(subcatObj.quantity))?0:parseInt(subcatObj.quantity);
+                    var avb = qty-acc;
+                    console.log(qty);
+                    console.log(acc);
+                    console.log(avb);
+                    console.log(subcatObj);
+                    $('#packaging_detail')
+                    .append('<tr><td><input value="'
+                    +subcatObj.packaging_code+'" class="form-control text-capitalize" type="text" readonly></td><td><input value="'
+                    +subcatObj.packaging_name+'" class="form-control  text-capitalize" type="text" readonly></td><td><input value="'
+                    +avb+'" min="0" max="'+avb+'" id="quantity'+idx+'" title="'+avb+' package that doesnt accepted yet" class="form-control text-capitalize" placeholder="Quantity" type="number" name="quantity[]"></td><td>'
+                    +'<input id="packaging_id'+idx+'" type="hidden" name="packaging_id[]" value="'+subcatObj.id+'"></td><td>');
+                    idx++;
+                }); 
+            });
+        });
+        
+    </script> -->
+
 <script>
     $(document).ready(function() {
 
-        $('.klikDetail1').click(function() {
+        $('.klikDetail1').on('click', function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var status = $this.data("name");
 
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
@@ -30,10 +64,8 @@
             $(".available").show();
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
-
-            var getStatus1 = $("#getStatus1").html();
             
-            if(getStatus1 == "Miscellaneous"){
+            if(status == "Miscellaneous"){
                 $("#product_id2").prop("disabled", false);
                 var get31 = "";
                 var get71 = "";
@@ -69,10 +101,13 @@
             $("#putProductName").val(get71);
             $("#putUom").val(get81);
             $("#putCurrency").val(get91);
-
+            $("#status").val(status);
         });
-        $('.klikDetail2').click(function() {
-
+        $('.klikDetail2').on('click', function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var status = $this.data("name");
+            
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
             $("#addFromDetailtoCart").prop("disabled", true);
@@ -80,9 +115,7 @@
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
             
-            var getStatus2 = $("#getStatus2").html();
-            
-            if(getStatus2 == "Miscellaneous"){
+            if(status == "Miscellaneous"){
                 $("#product_id2").prop("disabled", false);
             }
             else{
@@ -117,8 +150,12 @@
             $("#putProductName").val(get72);
             $("#putUom").val(get82);
             $("#putCurrency").val(get92);
+            $("#status").val(status);
         });
-        $('.klikDetail3').click(function() {
+        $('.klikDetail3').on('click', function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var status = $this.data("name");
 
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
@@ -127,9 +164,7 @@
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
             
-            var getStatus3 = $("#getStatus3").html();
-            
-            if(getStatus3 == "Miscellaneous"){
+            if(status == "Miscellaneous"){
                 $("#product_id2").prop("disabled", false);
             }
             else{
@@ -164,8 +199,12 @@
             $("#putProductName").val(get73);
             $("#putUom").val(get83);
             $("#putCurrency").val(get93);
+            $("#status").val(status);
         });
-        $('.klikDetail4').click(function() {
+        $('.klikDetail4').on('click', function(e){
+            e.preventDefault();
+            var $this = $(this);
+            var status = $this.data("name");
 
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
@@ -174,8 +213,7 @@
             $("#detailTransAvail").show();
             $("#putProductId2").prop("disabled", true);
 
-            var getStatus4 = $("#getStatus4").html();
-            if(getStatus4 == "Miscellaneous"){
+            if(status == "Miscellaneous"){
                 $("#product_id2").prop("disabled", false);
             }
             else{
@@ -210,6 +248,7 @@
             $("#putProductName").val(get74);
             $("#putUom").val(get84);
             $("#putCurrency").val(get94);
+            $("#status").val(status);
         });
     });
 </script>
@@ -233,14 +272,17 @@
         var qtyx = $("#qtyCek").val();
         var priceCek = $("#priceCek").val();
         var putRemark = $("#putRemark").val();
+        var totalBalance = $("#totalBalance").val();
+        var qtyCek = $('#qtyCek').val();
+        var putPrice = $('#putPrice').val();
 
         if (product_id == "") {
             $("#putProductId").css("border", "1px solid red");
             $("#putProductName").css("border", "1px solid red");
             $("#iconProductId").css("border", "1px solid red");
             $("#iconProductId").css("borderRadius", "100pt");
-            $("#iconProductId").css("paddingRight", "3px");
-            $("#iconProductId").css("paddingLeft", "3px");
+            $("#iconProductId").css("paddingRight", "5px");
+            $("#iconProductId").css("paddingLeft", "5px");
             $("#iconProductId").css("paddingTop", "1px");
             $("#iconProductId").css("paddingBottom", "1px");
             $("#iconProductId2").show();
@@ -251,8 +293,8 @@
             $("#putUom").css("border", "1px solid red");
             $("#iconQty").css("border", "1px solid red");
             $("#iconQty").css("borderRadius", "100pt");
-            $("#iconQty").css("paddingRight", "3px");
-            $("#iconQty").css("paddingLeft", "3px");
+            $("#iconQty").css("paddingRight", "5px");
+            $("#iconQty").css("paddingLeft", "5px");
             $("#iconQty").css("paddingTop", "1px");
             $("#iconQty").css("paddingBottom", "1px");
             $("#iconQty2").show();
@@ -263,8 +305,8 @@
             $("#putCurrency").css("border", "1px solid red");
             $("#iconUnitPrice").css("border", "1px solid red");
             $("#iconUnitPrice").css("borderRadius", "100pt");
-            $("#iconUnitPrice").css("paddingRight", "3px");
-            $("#iconUnitPrice").css("paddingLeft", "3px");
+            $("#iconUnitPrice").css("paddingRight", "5px");
+            $("#iconUnitPrice").css("paddingLeft", "5px");
             $("#iconUnitPrice").css("paddingTop", "1px");
             $("#iconUnitPrice").css("paddingBottom", "1px");
             $("#iconUnitPrice2").show();
@@ -274,8 +316,8 @@
             $("#putRemark").css("border", "1px solid red");
             $("#iconRemark").css("border", "1px solid red");
             $("#iconRemark").css("borderRadius", "100pt");
-            $("#iconRemark").css("paddingRight", "3px");
-            $("#iconRemark").css("paddingLeft", "3px");
+            $("#iconRemark").css("paddingRight", "5px");
+            $("#iconRemark").css("paddingLeft", "5px");
             $("#iconRemark").css("paddingTop", "1px");
             $("#iconRemark").css("paddingBottom", "1px");
             $("#iconRemark2").show();
@@ -304,7 +346,7 @@
                     putQty: $('#qtyCek').val(),
                     putQtys: $('#putQty').val(),
                     putUom: $('#putUom').val(),
-                    putPrice: $('#priceCek').val(),
+                    putPrice: $('#priceCek').val().replace(/[^a-zA-Z0-9 ]/g, ""),
                     putCurrency: $('#putCurrency').val(),
                     totalArfDetails: $('#totalArfDetails').val(),
                     putRemark: $('#putRemark').val(),
@@ -331,15 +373,14 @@
                     console.log(data);
                     y++;
                     $.each(data, function(key, val) {
-
                         var t = $('#tableArf').DataTable();
                         t.row.add([
                             '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
                             '<span id="lastProductId' + y + '">' + val.putProductId + '</span>',
                             '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                            '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty_' + y + '" value=' + val.putQty + '>',
+                            '<input name="qty" style="border-radius:0;width:50px;border:1px solid white;" type="text" class="form-control ChangeQtys" autocomplete="off" id="lastQty" value=' + val.putQty + '>',
                             '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<input name="qty" style="border-radius:0;width:70px;border:1px solid white;" type="text" class="form-control ChangePrices" autocomplete="off" id="ChangePrices" value=' + val.putPrice + '>',
                             '<span id="totalAkhir">' + val.totalArfDetails + '</span>',
                             '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
                             '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
@@ -352,27 +393,101 @@
                                 qtyReq = 0;
                             }
                             var putQty = val.putQtys;
-                            var putPrice = val.putPrice;
+                            var qty = val.putQty;
+                            var putPrice = val.putPrice.replace(/[^a-zA-Z0-9 ]/g, "");
                             var awal = putQty * putPrice;
                             var akhir = qtyReq * putPrice;
+                            var status = $('#status').val();
 
-                            if (qtyReq == '') {
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                            } else if (qtyReq > putQty) {
-                                Swal.fire("Error !", "Your Qty Request is Over", "error");
-                                $("#lastQty_' + y + '").val(0);
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                            } else if (akhir > awal) {
-                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                                $("#lastQty_' + y + '").val(0);
-                                $('#totalAkhir').html(0);
-                                $("#saveArfList").prop("disabled", true);
-                            } else {
-                                var totalReq = parseFloat(akhir);
-                                $('#totalAkhir').html(totalReq);
-                                $("#saveArfList").prop("disabled", false);
+                            qtyCek = qtyReq;
+
+                            if(status == "Miscellaneous"){
+                                if (qtyReq == '') {
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    $("#saveArfList").prop("disabled", true);
+                                } else if (akhir > totalBalance) {
+                                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                                    $("#lastQty").val(qty);
+                                    $('#totalAkhir').html(0);
+                                    $("#saveArfList").prop("disabled", true);
+                                } else {
+                                    var totalReq = parseFloat(akhir);
+                                    $('#totalAkhir').html(totalReq);
+                                    $("#saveArfList").prop("disabled", false);
+                                }
+                            }
+                            else{
+                                if (qtyReq == '') {
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    $("#saveArfList").prop("disabled", true);
+                                } else if (qtyReq > putQty) {
+                                    Swal.fire("Error !", "Your Qty Request is Over", "error");
+                                    $("#lastQty").val(qty);
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    $("#saveArfList").prop("disabled", true);
+                                } else if (akhir > awal) {
+                                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                                    $("#lastQty").val(qty);
+                                    $('#totalAkhir').html(0);
+                                    $("#saveArfList").prop("disabled", true);
+                                } else {
+                                    var totalReq = parseFloat(akhir);
+                                    $('#totalAkhir').html(totalReq);
+                                    $("#saveArfList").prop("disabled", false);
+                                }
+                            }
+
+                        });
+
+                        $('.ChangePrices').keyup(function() {
+                            var priceReq = $(this).val().replace(/[^a-zA-Z0-9 ]/g, "");
+                            if (priceReq == 0 || priceReq == '') {
+                                priceReq = 0;
+                            }
+                            
+                            var total = qtyCek * priceReq;
+                            var total2 = qtyCek * putPrice;
+                            var status = $('#status').val();
+
+                            if(status == "Miscellaneous"){    
+                                if (priceReq == '') {
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    $('#totalAkhir').html(0);
+
+                                } else if (total > totalBalance) {
+                                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                                    $("#priceCek").val(0);
+                                    $('#totalAkhir').html(0);
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                } else {
+                                    var totalReq = total;
+                                    $('#totalAkhir').html(totalReq);
+                                    $("#addFromDetailtoCart").prop("disabled", false);
+                                }
+                            }
+                            else{
+                                
+                                if (priceReq == '') {
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    $('#totalAkhir').html(0);
+
+                                }  
+                                else if (priceReq > putPrice) {
+                                    Swal.fire("Error !", "Your Price Is Over Budget", "error");
+                                    $("#priceCek").val(0);
+                                    $('#totalAkhir').html(0);
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                } 
+                                else if (total > total2) {
+                                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                                    $("#priceCek").val(0);
+                                    $('#totalAkhir').html(0);
+                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                }else {
+                                    var totalReq = total;
+                                    $('#totalAkhir').html(totalReq);
+                                    $("#addFromDetailtoCart").prop("disabled", false);
+                                }
                             }
 
                         });
@@ -388,6 +503,8 @@
             $("#putProductId").css("border", "1px solid #ced4da");
             $("#putProductName").css("border", "1px solid #ced4da");
             $("#putRemark").css("border", "1px solid #ced4da");
+            $("#qtyCek").css    ("border", "1px solid #ced4da");
+            $("#putUom").css    ("border", "1px solid #ced4da");
 
             $("#putProductId").val("");
             $("#putProductName").val("");
@@ -401,6 +518,9 @@
             $("#totalQtyRequest").val("0");
             $("#totalBalance").val("0");
 
+            $("#iconProductId").hide();
+            $("#iconQty").hide();
+            $("#iconRemark").hide();
             $("#iconProductId2").hide();
             $("#iconQty2").hide();
             $("#iconRemark2").hide();
@@ -433,26 +553,47 @@
             var total = putQty * priceCek;
             var total2 = qtyReq * priceCek;
 
-            if (qtyReq == '') {
+            var status = $('#status').val();
+
+            if(status == "Miscellaneous"){
+                if (qtyReq == '') {
                 $("#addFromDetailtoCart").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
 
-            } else if (qtyReq > putQty) {
-                Swal.fire("Error !", "Your Qty Request is Over", "error");
-                $("#qtyCek").val(0);
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-                $("#saveArfList").prop("disabled", true);
-            } else if (total2 > total) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-            } else {
-                var totalReq = parseFloat(total2);
-                $('#totalArfDetails').val(totalReq);
-                $("#addFromDetailtoCart").prop("disabled", false);
+                } else if (total2 > total) {
+                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                    $('#totalArfDetails').val(0);
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                } else {
+                    var totalReq = parseFloat(total2);
+                    $('#totalArfDetails').val(totalReq);
+                    $("#addFromDetailtoCart").prop("disabled", false);
+                }
             }
+            else{
+                if (qtyReq == '') {
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                    $("#saveArfList").prop("disabled", true);
+                    $('#totalArfDetails').val(0);
+
+                } else if (qtyReq > putQty) {
+                    Swal.fire("Error !", "Your Qty Request is Over", "error");
+                    $("#qtyCek").val(0);
+                    $('#totalArfDetails').val(0);
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                    $("#saveArfList").prop("disabled", true);
+                } else if (total2 > total) {
+                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                    $('#totalArfDetails').val(0);
+                    $("#addFromDetailtoCart").prop("disabled", true);
+                } else {
+                    var totalReq = parseFloat(total2);
+                    $('#totalArfDetails').val(totalReq);
+                    $("#addFromDetailtoCart").prop("disabled", false);
+                }
+            }
+            
 
         });
     });
@@ -470,16 +611,11 @@
             var putPrice = $('#putPrice').val();
             var total = qtyCek * priceReq;
             var total2 = qtyCek * putPrice;
-
-
-            var getStatus1= $("#getStatus1").html();
-            var getStatus2= $("#getStatus2").html();
-            var getStatus3= $("#getStatus3").html();
-            var getStatus4= $("#getStatus4").html();
             var totalBalance = $("#totalBalance").val();
             
-            if(getStatus1 == "Miscellaneous" || getStatus2 == "Miscellaneous" || getStatus3 == "Miscellaneous" || getStatus4 == "Miscellaneous"){
-                
+            var status = $('#status').val();
+
+            if(status == "Miscellaneous"){    
                 if (priceReq == '') {
                     $("#addFromDetailtoCart").prop("disabled", true);
                     $('#totalArfDetails').val(0);
