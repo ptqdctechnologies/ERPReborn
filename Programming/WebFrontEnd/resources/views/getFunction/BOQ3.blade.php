@@ -29,7 +29,7 @@
                     <i class="fas fa-file" aria-hidden="true"></i>
                 </button>
                 @else
-                <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail1" title="Submit" style="border-radius: 100px;">
+                <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail1" data-id="100" data-name="Miscellaneous" title="Submit" style="border-radius: 100px;">
                     <i class="fas fa-plus" aria-hidden="true"></i>
                 </button>
                 @endif
@@ -72,7 +72,7 @@
                         <i class="fas fa-file" aria-hidden="true"></i>
                     </button>
                     @else
-                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail2" title="Submit" style="border-radius: 100px;">
+                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail2" data-id="100" data-name="" title="Submit" style="border-radius: 100px;">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     @endif
@@ -115,7 +115,7 @@
                         <i class="fas fa-file" aria-hidden="true"></i>
                     </button>
                     @else
-                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail3" title="Submit" style="border-radius: 100px;">
+                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail3" data-id="100" data-name="" title="Submit" style="border-radius: 100px;">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     @endif
@@ -158,7 +158,7 @@
                         <i class="fas fa-file" aria-hidden="true"></i>
                     </button>
                     @else
-                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail4" title="Submit" style="border-radius: 100px;">
+                    <button type="reset" class="btn btn-outline-success btn-sm float-right klikDetail4" data-id="100" data-name="" title="Submit" style="border-radius: 100px;">
                         <i class="fas fa-plus" aria-hidden="true"></i>
                     </button>
                     @endif

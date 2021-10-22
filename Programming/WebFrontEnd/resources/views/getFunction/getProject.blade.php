@@ -77,12 +77,11 @@
                                 '<tbody><tr><td>' + no++ + '</td>',
                                 '<td><span data-dismiss="modal" class="klikSite" data-id="' + val.sys_ID + '" data-name="' + val.sys_Text + '">' + val.sys_ID + '</span></td>',
                                 '<td>' + val.sys_Text + '</td></tr></tbody>'
-                        ]).draw();
+                        ])  .draw();
                         
                     });
                     
                     $('.klikSite').on('click', function(e) {
-                        
                         e.preventDefault(); // in chase you change to a link or button
                         $("#projectcode2").prop("disabled", true);
 
@@ -120,6 +119,33 @@
                         $("#remark").val("Remark 1");
                         $("#total").val("100000");
                         $("#totalDetail").val("Rp");
+
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        
+                        $.ajax({
+                            type: 'GET',
+                            url: '{!! route("ARF.index3") !!}?sitecode=' + $('#sitecode').val()+ '&var=' + 1,
+                            success: function(data) {
+                                console.log(data);
+                                var no = 1;
+
+                                var t = $('#tableGetSite').DataTable();
+                                $.each(data, function(key, val) {
+
+                                    t.row.add([
+                                            '<tbody><tr><td>' + no++ + '</td>',
+                                            '<td><span data-dismiss="modal" class="klikSite" data-id="' + val.sys_ID + '" data-name="' + val.sys_Text + '">' + val.sys_ID + '</span></td>',
+                                            '<td>' + val.sys_Text + '</td></tr></tbody>'
+                                    ]).draw();
+                                    
+                                });
+                            }
+                        });
 
                         //End batas
 
