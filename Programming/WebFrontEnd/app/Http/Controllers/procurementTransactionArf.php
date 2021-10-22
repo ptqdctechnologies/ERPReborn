@@ -55,6 +55,34 @@ class procurementTransactionArf extends Controller
         return response()->json($varData['data']['data']);
     }
 
+    public function index3(Request $request)
+    {
+        $sitecode = $request->input('sitecode');
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
+            'latest', 
+            [
+            'parameter' => [
+                'combinedBudgetSection_RefID' => (int)$sitecode
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+        dd($varData['data']);
+        
+        return response()->json($varData['data']['data']);
+    }
+
     public function arflistcancel()
     {
         return redirect()->back();

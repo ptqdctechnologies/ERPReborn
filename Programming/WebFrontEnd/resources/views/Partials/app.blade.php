@@ -100,7 +100,7 @@
       $("#table1").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#table2").DataTable({
         "responsive": true,
@@ -117,7 +117,7 @@
       $("#tableGetProject").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableGetSite").DataTable({
         "responsive": true,
@@ -127,59 +127,59 @@
       $("#tableGetPr").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableGetRequester").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableSearchArf").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableSearchArfRevision").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableSearchAsfRevision").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#tableSearchBrf").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
 
       $("#tableGetProduct").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
 
       $("#tableSearchBsf").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#TableRegisterCo").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#TableSearchCo").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       $("#TableBOQCO").DataTable({
         "responsive": true,
         "autoWidth": false,
-        "paginate": true,
+        "paginate": false,
       });
       
       $('#example2').DataTable({  

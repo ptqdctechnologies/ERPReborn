@@ -60,6 +60,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
     Route::get('ARF2', 'procurementTransactionArf@index2')->name('ARF.index2');
+    Route::get('ARF3', 'procurementTransactionArf@index3')->name('ARF.index3');
 
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');

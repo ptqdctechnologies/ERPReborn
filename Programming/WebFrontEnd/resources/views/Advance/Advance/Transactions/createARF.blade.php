@@ -235,6 +235,11 @@
                                     <input name="price" id="totalArfDetails" style="border-radius:0;width:100px;" type="text" class="form-control" readonly="">
                                   </td>
                                 </tr>
+                                <tr>
+                                  <td>
+                                    <input name="status" id="status" style="border-radius:0;width:100px;" type="hidden" class="form-control" readonly="">
+                                  </td>
+                                </tr>
                               </table>
                             </div>
                           </div>
