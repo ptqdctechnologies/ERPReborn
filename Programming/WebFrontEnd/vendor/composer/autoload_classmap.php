@@ -1215,6 +1215,7 @@ return array(
     'Illuminate\\Bus\\PendingBatch' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/PendingBatch.php',
     'Illuminate\\Bus\\PrunableBatchRepository' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/PrunableBatchRepository.php',
     'Illuminate\\Bus\\Queueable' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/Queueable.php',
+    'Illuminate\\Bus\\UniqueLock' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/UniqueLock.php',
     'Illuminate\\Bus\\UpdatedBatchJobCounts' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/UpdatedBatchJobCounts.php',
     'Illuminate\\Cache\\ApcStore' => $vendorDir . '/laravel/framework/src/Illuminate/Cache/ApcStore.php',
     'Illuminate\\Cache\\ApcWrapper' => $vendorDir . '/laravel/framework/src/Illuminate/Cache/ApcWrapper.php',
