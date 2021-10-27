@@ -110,17 +110,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.199.3",
-            "version_normalized": "3.199.3.0",
+            "version": "3.199.4",
+            "version_normalized": "3.199.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "132a1148ebb63d04023837bcf9a36f49b308a0bd"
+                "reference": "047f6ce04b1de9320ca00bf393d6f03b9d036fa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/132a1148ebb63d04023837bcf9a36f49b308a0bd",
-                "reference": "132a1148ebb63d04023837bcf9a36f49b308a0bd",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/047f6ce04b1de9320ca00bf393d6f03b9d036fa5",
+                "reference": "047f6ce04b1de9320ca00bf393d6f03b9d036fa5",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-10-25T18:17:28+00:00",
+            "time": "2021-10-26T18:14:35+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -198,7 +198,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.199.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.199.4"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1756,17 +1756,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.67.0",
-            "version_normalized": "8.67.0.0",
+            "version": "v8.68.0",
+            "version_normalized": "8.68.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "fc52acafd069aedc079bf8f17d1a4af4ef489b1e"
+                "reference": "08781be9c1e3f83b0c38ce9539e1dc4664e33a14"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/fc52acafd069aedc079bf8f17d1a4af4ef489b1e",
-                "reference": "fc52acafd069aedc079bf8f17d1a4af4ef489b1e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/08781be9c1e3f83b0c38ce9539e1dc4664e33a14",
+                "reference": "08781be9c1e3f83b0c38ce9539e1dc4664e33a14",
                 "shasum": ""
             },
             "require": {
@@ -1858,6 +1858,7 @@
                 "aws/aws-sdk-php": "Required to use the SQS queue driver, DynamoDb failed job storage and SES mail driver (^3.198.1).",
                 "brianium/paratest": "Required to run tests in parallel (^6.0).",
                 "doctrine/dbal": "Required to rename columns and drop SQLite columns (^2.13.3|^3.1.2).",
+                "ext-bcmath": "Required to use the multiple_of validation rule.",
                 "ext-ftp": "Required to use the Flysystem FTP driver.",
                 "ext-gd": "Required to use Illuminate\\Http\\Testing\\FileFactory::image().",
                 "ext-memcached": "Required to use the memcache cache driver.",
@@ -1883,7 +1884,7 @@
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0).",
                 "wildbit/swiftmailer-postmark": "Required to use Postmark mail driver (^3.0)."
             },
-            "time": "2021-10-22T13:27:12+00:00",
+            "time": "2021-10-26T12:52:38+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {

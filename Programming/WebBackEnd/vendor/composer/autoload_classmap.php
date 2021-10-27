@@ -2849,6 +2849,7 @@ return array(
     'Illuminate\\Contracts\\Routing\\UrlRoutable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Routing/UrlRoutable.php',
     'Illuminate\\Contracts\\Session\\Session' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Session/Session.php',
     'Illuminate\\Contracts\\Support\\Arrayable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/Arrayable.php',
+    'Illuminate\\Contracts\\Support\\CanBeEscapedWhenCastToString' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/CanBeEscapedWhenCastToString.php',
     'Illuminate\\Contracts\\Support\\DeferrableProvider' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/DeferrableProvider.php',
     'Illuminate\\Contracts\\Support\\DeferringDisplayableValue' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/DeferringDisplayableValue.php',
     'Illuminate\\Contracts\\Support\\Htmlable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/Htmlable.php',

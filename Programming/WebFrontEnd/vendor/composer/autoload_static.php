@@ -1908,6 +1908,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Contracts\\Routing\\UrlRoutable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Routing/UrlRoutable.php',
         'Illuminate\\Contracts\\Session\\Session' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Session/Session.php',
         'Illuminate\\Contracts\\Support\\Arrayable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/Arrayable.php',
+        'Illuminate\\Contracts\\Support\\CanBeEscapedWhenCastToString' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/CanBeEscapedWhenCastToString.php',
         'Illuminate\\Contracts\\Support\\DeferrableProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/DeferrableProvider.php',
         'Illuminate\\Contracts\\Support\\DeferringDisplayableValue' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/DeferringDisplayableValue.php',
         'Illuminate\\Contracts\\Support\\Htmlable' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Contracts/Support/Htmlable.php',
