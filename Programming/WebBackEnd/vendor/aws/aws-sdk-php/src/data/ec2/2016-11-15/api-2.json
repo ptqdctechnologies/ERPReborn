@@ -22219,6 +22219,7 @@
         "d3en.6xlarge",
         "d3en.8xlarge",
         "d3en.12xlarge",
+        "dl1.24xlarge",
         "f1.2xlarge",
         "f1.4xlarge",
         "f1.16xlarge",
@@ -23036,6 +23037,14 @@
         "UserId":{
           "shape":"String",
           "locationName":"userId"
+        },
+        "OrganizationArn":{
+          "shape":"String",
+          "locationName":"organizationArn"
+        },
+        "OrganizationalUnitArn":{
+          "shape":"String",
+          "locationName":"organizationalUnitArn"
         }
       }
     },
@@ -24837,6 +24846,14 @@
         "DryRun":{
           "shape":"Boolean",
           "locationName":"dryRun"
+        },
+        "OrganizationArns":{
+          "shape":"OrganizationArnStringList",
+          "locationName":"OrganizationArn"
+        },
+        "OrganizationalUnitArns":{
+          "shape":"OrganizationalUnitArnStringList",
+          "locationName":"OrganizationalUnitArn"
         }
       }
     },
@@ -26398,6 +26415,10 @@
         "VpcId":{
           "shape":"String",
           "locationName":"vpcId"
+        },
+        "DenyAllIgwTraffic":{
+          "shape":"Boolean",
+          "locationName":"denyAllIgwTraffic"
         }
       }
     },
@@ -26771,6 +26792,20 @@
         "add",
         "remove"
       ]
+    },
+    "OrganizationArnStringList":{
+      "type":"list",
+      "member":{
+        "shape":"String",
+        "locationName":"OrganizationArn"
+      }
+    },
+    "OrganizationalUnitArnStringList":{
+      "type":"list",
+      "member":{
+        "shape":"String",
+        "locationName":"OrganizationalUnitArn"
+      }
     },
     "OutpostArn":{
       "type":"string",
