@@ -44,6 +44,8 @@ trait AuthenticatesUsers
         }
 
         if ($this->attemptLogin($request)) {
+            $request->session()->put('auth.password_confirmed_at', time());
+
             return $this->sendLoginResponse($request);
         }
 

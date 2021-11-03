@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 3.199.9 - 2021-11-02
+
+* `Aws\CloudFront` - CloudFront now supports response headers policies to add HTTP headers to the responses that CloudFront sends to viewers. You can use these policies to add CORS headers, control browser caching, and more, without modifying your origin or writing any code.
+* `Aws\Connect` - Amazon Connect Chat now supports real-time message streaming.
+* `Aws\NimbleStudio` - Amazon Nimble Studio adds support for users to stop and start streaming sessions.
+
+## 3.199.8 - 2021-11-01
+
+* `Aws\Lightsail` - This release adds support to enable access logging for buckets in the Lightsail object storage service.
+* `Aws\Neptune` - Adds support for major version upgrades to ModifyDbCluster API
+* `Aws\NetworkManager` - This release adds API support to aggregate resources, routes, and telemetry data across a Global Network.
+* `Aws\Rekognition` - This Amazon Rekognition Custom Labels release introduces the management of datasets with projects
+
 ## 3.199.7 - 2021-10-29
 
 * `Aws\ApplicationInsights` - Added Monitoring support for SQL Server Failover Cluster Instance. Additionally, added a new API to allow one-click monitoring of containers resources.
