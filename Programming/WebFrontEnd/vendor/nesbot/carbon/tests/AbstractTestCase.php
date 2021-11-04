@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests;
 
 use Carbon\Carbon;
@@ -71,8 +73,8 @@ abstract class AbstractTestCase extends TestCase
             ? CarbonImmutable::create(2017, 6, 27, 13, 14, 15, 'UTC')
             : CarbonImmutable::now();
 
-        Carbon::setTestNow($this->now = $now);
-        CarbonImmutable::setTestNow($this->immutableNow = $immutableNow);
+        Carbon::setTestNowAndTimezone($this->now = $now);
+        CarbonImmutable::setTestNowAndTimezone($this->immutableNow = $immutableNow);
 
         Carbon::useStrictMode(true);
         CarbonImmutable::useStrictMode(true);
@@ -225,11 +227,11 @@ abstract class AbstractTestCase extends TestCase
         $test = Carbon::getTestNow();
         $immutableTest = CarbonImmutable::getTestNow();
         $dt = $dt ?: Carbon::now();
-        Carbon::setTestNow($dt);
-        CarbonImmutable::setTestNow($dt);
+        Carbon::setTestNowAndTimezone($dt);
+        CarbonImmutable::setTestNowAndTimezone($dt);
         $func();
-        Carbon::setTestNow($test);
-        CarbonImmutable::setTestNow($immutableTest);
+        Carbon::setTestNowAndTimezone($test);
+        CarbonImmutable::setTestNowAndTimezone($immutableTest);
     }
 
     public function wrapWithNonDstDate(Closure $func)

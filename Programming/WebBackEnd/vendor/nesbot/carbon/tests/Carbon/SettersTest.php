@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,9 +10,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use Carbon\Exceptions\UnitException;
 use DateTimeZone;
 use Exception;
 use Generator;
@@ -296,7 +299,6 @@ class SettersTest extends AbstractTestCase
         /** @var mixed $date */
         $date = new Carbon('2020-01-01', 'America/Vancouver');
 
-        /** @var mixed $new */
         $new = clone $date;
 
         $this->assertSame('America/Vancouver', $date->getTimezone()->getName());
@@ -650,6 +652,19 @@ class SettersTest extends AbstractTestCase
         ));
 
         Carbon::now()->setUnitNoOverflow('minute', 1, 'anyUnit');
+    }
+
+    public function testAddUnitError()
+    {
+        $this->expectExceptionObject(new UnitException(implode("\n", [
+            'Unable to add unit array (',
+            "  0 => 'foobar',",
+            '  1 => 1,',
+            ')',
+        ])));
+
+        $date = Carbon::parse('2021-09-13');
+        @$date->addUnit('foobar', 1);
     }
 
     public function testAddUnitNoOverflow()

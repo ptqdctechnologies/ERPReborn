@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
@@ -31,11 +33,6 @@ class ExpressiveComparisonTest extends AbstractTestCase
         $this->assertTrue(Carbon::create(2000, 1, 1, 12, 0, 0, 'America/Toronto')->equalTo(Carbon::create(2000, 1, 1, 9, 0, 0, 'America/Vancouver')));
     }
 
-    public function testEqualWithTimezoneFalse()
-    {
-        $this->assertFalse(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->equalTo(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
-    }
-
     public function testNotEqualToTrue()
     {
         $this->assertTrue(Carbon::createFromDate(2000, 1, 1)->notEqualTo(Carbon::createFromDate(2000, 1, 2)));
@@ -44,11 +41,6 @@ class ExpressiveComparisonTest extends AbstractTestCase
     public function testNotEqualToFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->notEqualTo(Carbon::createFromDate(2000, 1, 1)));
-    }
-
-    public function testNotEqualWithTimezone()
-    {
-        $this->assertTrue(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->notEqualTo(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
     }
 
     public function testGreaterThanTrue()

@@ -8,6 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon\Exceptions;
 
 use Carbon\Exceptions\NotLocaleAwareException;
@@ -32,8 +33,8 @@ class NotLocaleAwareExceptionTest extends AbstractTestCase
     /**
      * @dataProvider dataProviderTestNotAPeriodException
      *
-     * @param  mixed  $object
-     * @param  string  $message
+     * @param mixed  $object
+     * @param string $message
      *
      * @return void
      */

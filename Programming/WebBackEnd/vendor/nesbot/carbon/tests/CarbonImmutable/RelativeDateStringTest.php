@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
@@ -48,7 +50,7 @@ class RelativeDateStringTest extends AbstractTestCase
         'april' => ['date' => '2017-04-01', 'is_relative' => true],
     ];
 
-    public function test_keyword_matching()
+    public function testKeywordMatching()
     {
         foreach ($this->scenarios as $string => $expected) {
             $actual = Carbon::hasRelativeKeywords($string);
@@ -61,7 +63,7 @@ class RelativeDateStringTest extends AbstractTestCase
         }
     }
 
-    public function test_relative_input_strings()
+    public function testRelativeInputStrings()
     {
         Carbon::setTestNow('2017-01-01 12:00:00');
 

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,9 +10,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use DateTime;
 use DateTimeZone;
 use InvalidArgumentException;
@@ -198,8 +201,8 @@ class CreateTest extends AbstractTestCase
 
     public function testCreateWithInvalidTimezoneOffset()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
-            'Unknown or bad timezone (-28236)'
+        $this->expectExceptionObject(new InvalidTimeZoneException(
+            'Absolute timezone offset cannot be greater than 100.'
         ));
 
         Carbon::createFromDate(2000, 1, 1, -28236);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
@@ -34,7 +36,30 @@ class ComparisonTest extends AbstractTestCase
 
     public function testEqualWithTimezoneFalse()
     {
-        $this->assertFalse(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->eq(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
+        $timezones = ['Europe/London', 'America/Toronto', 'America/Vancouver', 'Asia/Tokyo'];
+
+        foreach ($timezones as $a) {
+            foreach ($timezones as $b) {
+                $from = Carbon::createFromDate(2000, 1, 1, $a);
+                $to = Carbon::createFromDate(2000, 1, 1, $b);
+                $diff = (float) ($from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst);
+
+                $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));
+            }
+        }
+
+        Carbon::setTestNow();
+
+        foreach ($timezones as $a) {
+            foreach ($timezones as $b) {
+                $from = Carbon::createFromDate(2000, 1, 1, $a);
+                $to = Carbon::createFromDate(2000, 1, 1, $b);
+                $diff = (float) ($from->floatDiffInHours($to, false) + Carbon::now($a)->dst - Carbon::now($b)->dst);
+                $diff = round($diff * 1800) / 1800; // 2-seconds precision
+
+                $this->assertTrue(\in_array($diff, $a === $b ? [0.0] : [0.0, 24.0, -24.0], true));
+            }
+        }
     }
 
     public function testNotEqualToTrue()
@@ -45,11 +70,6 @@ class ComparisonTest extends AbstractTestCase
     public function testNotEqualToFalse()
     {
         $this->assertFalse(Carbon::createFromDate(2000, 1, 1)->ne(Carbon::createFromDate(2000, 1, 1)));
-    }
-
-    public function testNotEqualWithTimezone()
-    {
-        $this->assertTrue(Carbon::createFromDate(2000, 1, 1, 'America/Toronto')->ne(Carbon::createFromDate(2000, 1, 1, 'America/Vancouver')));
     }
 
     public function testGreaterThanTrue()
@@ -243,7 +263,7 @@ class ComparisonTest extends AbstractTestCase
 
         // Birthday test can't work on February 29th
         if ($dt->format('m-d') === '02-29') {
-            Carbon::setTestNow($dt->subDay());
+            Carbon::setTestNowAndTimezone($dt->subDay());
             $dt = Carbon::now();
         }
 

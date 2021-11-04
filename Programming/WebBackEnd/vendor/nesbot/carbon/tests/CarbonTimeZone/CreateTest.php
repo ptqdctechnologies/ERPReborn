@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,10 +10,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonTimeZone;
 
 use Carbon\CarbonTimeZone;
-use InvalidArgumentException;
+use Carbon\Exceptions\InvalidTimeZoneException;
 use Tests\AbstractTestCase;
 use Tests\CarbonTimeZone\Fixtures\UnknownZone;
 
@@ -45,7 +47,7 @@ class CreateTest extends AbstractTestCase
 
     public function testSafeCreateDateTimeZoneWithoutStrictMode()
     {
-        $this->expectExceptionObject(new InvalidArgumentException(
+        $this->expectExceptionObject(new InvalidTimeZoneException(
             'Absolute timezone offset cannot be greater than 100.'
         ));
 
