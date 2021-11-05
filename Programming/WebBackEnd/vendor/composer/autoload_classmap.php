@@ -866,6 +866,8 @@ return array(
     'Aws\\CacheInterface' => $vendorDir . '/aws/aws-sdk-php/src/CacheInterface.php',
     'Aws\\ChimeSDKIdentity\\ChimeSDKIdentityClient' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKIdentity/ChimeSDKIdentityClient.php',
     'Aws\\ChimeSDKIdentity\\Exception\\ChimeSDKIdentityException' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKIdentity/Exception/ChimeSDKIdentityException.php',
+    'Aws\\ChimeSDKMeetings\\ChimeSDKMeetingsClient' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKMeetings/ChimeSDKMeetingsClient.php',
+    'Aws\\ChimeSDKMeetings\\Exception\\ChimeSDKMeetingsException' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKMeetings/Exception/ChimeSDKMeetingsException.php',
     'Aws\\ChimeSDKMessaging\\ChimeSDKMessagingClient' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKMessaging/ChimeSDKMessagingClient.php',
     'Aws\\ChimeSDKMessaging\\Exception\\ChimeSDKMessagingException' => $vendorDir . '/aws/aws-sdk-php/src/ChimeSDKMessaging/Exception/ChimeSDKMessagingException.php',
     'Aws\\Chime\\ChimeClient' => $vendorDir . '/aws/aws-sdk-php/src/Chime/ChimeClient.php',
