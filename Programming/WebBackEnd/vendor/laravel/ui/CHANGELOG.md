@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.3.1...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.3.2...3.x)
+
+
+## [v3.3.2 (2021-11-05)](https://github.com/laravel/ui/compare/v3.3.1...v3.3.2)
+
+### Fixed
+- Fix session issue ([9fbdf77](https://github.com/laravel/ui/commit/9fbdf7751119aa6b5047607266a7c0f6e0e24905))
 
 
 ## [v3.3.1 (2021-11-02)](https://github.com/laravel/ui/compare/v3.3.0...v3.3.1)

@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## 3.200.2 - 2021-11-08
+
+* `Aws\ChimeSDKMeetings` - Updated format validation for ids and regions.
+* `Aws\EC2` - This release adds internal validation on the GatewayAssociationState field
+* `Aws\SageMaker` - SageMaker CreateEndpoint and UpdateEndpoint APIs now support additional deployment configuration to manage traffic shifting options and automatic rollback monitoring. DescribeEndpoint now shows new in-progress deployment details with stage status.
+* `Aws\WAFV2` - You can now configure rules to run a CAPTCHA check against web requests and, as needed, send a CAPTCHA challenge to the client.
+
+## 3.200.1 - 2021-11-05
+
+* `Aws\Api` - Fixed issue where comma delimited unix timestamps could not be parsed
+* `Aws\EC2` - DescribeInstances now returns customer-owned IP addresses for instances running on an AWS Outpost.
+* `Aws\ResourceGroupsTaggingAPI` - Documentation updates and improvements.
+* `Aws\Translate` - This release enable customers to use their own KMS keys to encrypt output files when they submit a batch transform job.
+
 ## 3.200.0 - 2021-11-04
 
 * `Aws\ChimeSDKMeetings` - The Amazon Chime SDK Meetings APIs allow software developers to create meetings and attendees for interactive audio, video, screen and content sharing in custom meeting applications which use the Amazon Chime SDK.
