@@ -2050,6 +2050,7 @@ return array(
     'Illuminate\\Support\\HtmlString' => $vendorDir . '/laravel/framework/src/Illuminate/Support/HtmlString.php',
     'Illuminate\\Support\\InteractsWithTime' => $vendorDir . '/laravel/framework/src/Illuminate/Support/InteractsWithTime.php',
     'Illuminate\\Support\\ItemNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/ItemNotFoundException.php',
+    'Illuminate\\Support\\Js' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Js.php',
     'Illuminate\\Support\\LazyCollection' => $vendorDir . '/laravel/framework/src/Illuminate/Collections/LazyCollection.php',
     'Illuminate\\Support\\Manager' => $vendorDir . '/laravel/framework/src/Illuminate/Support/Manager.php',
     'Illuminate\\Support\\MessageBag' => $vendorDir . '/laravel/framework/src/Illuminate/Support/MessageBag.php',

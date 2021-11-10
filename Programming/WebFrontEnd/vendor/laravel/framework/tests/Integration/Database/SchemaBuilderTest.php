@@ -40,6 +40,10 @@ class SchemaBuilderTest extends DatabaseTestCase
 
     public function testRegisterCustomDoctrineType()
     {
+        if ($this->driver !== 'sqlite') {
+            $this->markTestSkipped('Test requires a SQLite connection.');
+        }
+
         Schema::registerCustomDoctrineType(TinyInteger::class, TinyInteger::NAME, 'TINYINT');
 
         Schema::create('test', function (Blueprint $table) {

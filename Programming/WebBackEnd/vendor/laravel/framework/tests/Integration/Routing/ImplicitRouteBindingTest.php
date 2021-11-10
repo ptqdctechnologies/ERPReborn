@@ -18,9 +18,6 @@ class ImplicitRouteBindingTest extends TestCase
         'routes/testbench.php',
     ];
 
-    /**
-     * Teardown the test environment.
-     */
     protected function tearDown(): void
     {
         $this->tearDownInteractsWithPublishedFiles();
@@ -30,8 +27,6 @@ class ImplicitRouteBindingTest extends TestCase
 
     protected function defineEnvironment($app)
     {
-        $app['config']->set('app.debug', 'true');
-
         $app['config']->set('database.default', 'testbench');
 
         $app['config']->set('database.connections.testbench', [
@@ -50,8 +45,15 @@ class ImplicitRouteBindingTest extends TestCase
             $table->softDeletes();
         });
 
+        Schema::create('posts', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->timestamps();
+        });
+
         $this->beforeApplicationDestroyed(function () {
             Schema::dropIfExists('users');
+            Schema::dropIfExists('posts');
         });
     }
 
@@ -60,14 +62,14 @@ class ImplicitRouteBindingTest extends TestCase
         $this->defineCacheRoutes(<<<PHP
 <?php
 
-use Illuminate\Tests\Integration\Routing\ImplicitBindingModel;
+use Illuminate\Tests\Integration\Routing\ImplicitBindingUser;
 
-Route::post('/user/{user}', function (ImplicitBindingModel \$user) {
+Route::post('/user/{user}', function (ImplicitBindingUser \$user) {
     return \$user;
 })->middleware('web');
 PHP);
 
-        $user = ImplicitBindingModel::create(['name' => 'Dries']);
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
 
         $response = $this->postJson("/user/{$user->id}");
 
@@ -79,11 +81,11 @@ PHP);
 
     public function testWithoutRouteCachingEnabled()
     {
-        $user = ImplicitBindingModel::create(['name' => 'Dries']);
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingModel $user) {
+        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web']);
 
@@ -97,13 +99,13 @@ PHP);
 
     public function testSoftDeletedModelsAreNotRetrieved()
     {
-        $user = ImplicitBindingModel::create(['name' => 'Dries']);
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
 
         $user->delete();
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingModel $user) {
+        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web']);
 
@@ -114,13 +116,13 @@ PHP);
 
     public function testSoftDeletedModelsCanBeRetrievedUsingWithTrashedMethod()
     {
-        $user = ImplicitBindingModel::create(['name' => 'Dries']);
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
 
         $user->delete();
 
         config(['app.key' => str_repeat('a', 32)]);
 
-        Route::post('/user/{user}', function (ImplicitBindingModel $user) {
+        Route::post('/user/{user}', function (ImplicitBindingUser $user) {
             return $user;
         })->middleware(['web'])->withTrashed();
 
@@ -131,13 +133,96 @@ PHP);
             'name' => $user->name,
         ]);
     }
+
+    public function testEnforceScopingImplicitRouteBindings()
+    {
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
+        $post = ImplicitBindingPost::create(['user_id' => 2]);
+        $this->assertEmpty($user->posts);
+
+        config(['app.key' => str_repeat('a', 32)]);
+
+        Route::scopeBindings()->group(function () {
+            Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
+                return [$user, $post];
+            })->middleware(['web']);
+        });
+
+        $response = $this->getJson("/user/{$user->id}/post/{$post->id}");
+
+        $response->assertNotFound();
+    }
+
+    public function testEnforceScopingImplicitRouteBindingsWithRouteCachingEnabled()
+    {
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
+        $post = ImplicitBindingPost::create(['user_id' => 2]);
+        $this->assertEmpty($user->posts);
+
+        $this->defineCacheRoutes(<<<PHP
+<?php
+
+use Illuminate\Tests\Integration\Routing\ImplicitBindingUser;
+use Illuminate\Tests\Integration\Routing\ImplicitBindingPost;
+
+Route::group(['scoping' => true], function () {
+    Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser \$user, ImplicitBindingPost \$post) {
+        return [\$user, \$post];
+    })->middleware(['web']);
+});
+PHP);
+
+        $response = $this->getJson("/user/{$user->id}/post/{$post->id}");
+
+        $response->assertNotFound();
+    }
+
+    public function testWithoutEnforceScopingImplicitRouteBindings()
+    {
+        $user = ImplicitBindingUser::create(['name' => 'Dries']);
+        $post = ImplicitBindingPost::create(['user_id' => 2]);
+        $this->assertEmpty($user->posts);
+
+        config(['app.key' => str_repeat('a', 32)]);
+
+        Route::group(['scoping' => false], function () {
+            Route::get('/user/{user}/post/{post}', function (ImplicitBindingUser $user, ImplicitBindingPost $post) {
+                return [$user, $post];
+            })->middleware(['web']);
+        });
+
+        $response = $this->getJson("/user/{$user->id}/post/{$post->id}");
+        $response->assertOk();
+        $response->assertJson([
+            [
+                'id' => $user->id,
+                'name' => $user->name,
+            ],
+            [
+                'id' => 1,
+                'user_id' => 2,
+            ],
+        ]);
+    }
 }
 
-class ImplicitBindingModel extends Model
+class ImplicitBindingUser extends Model
 {
     use SoftDeletes;
 
     public $table = 'users';
 
     protected $fillable = ['name'];
+
+    public function posts()
+    {
+        return $this->hasMany(ImplicitBindingPost::class, 'user_id');
+    }
+}
+
+class ImplicitBindingPost extends Model
+{
+    public $table = 'posts';
+
+    protected $fillable = ['user_id'];
 }
