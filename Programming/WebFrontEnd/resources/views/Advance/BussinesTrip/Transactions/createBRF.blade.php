@@ -518,7 +518,10 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Reset
                       </button>
-                      <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a>
+                      <!-- <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a> -->
+                      <a class="btn btn-outline btn-success btn-sm float-right" id="AddToBrfListCart" style="margin-right: 5px;">
+                        <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -539,10 +542,10 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
-                <table id="tableBrf" class="table table-head-fixed text-nowrap table-striped">
+                <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                   <thead>
                     <tr>
-                      <th>Delete</th>
+                      <th>Action</th>
                       <th>Payment Sequence</th>
                       <th>Allowance</th>
                       <th>Transport</th>
@@ -551,11 +554,14 @@
                       <th>Others</th>
                     </tr>
                   </thead>
+                  <tbody>
+
+                  </tbody>
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
                 <table class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
+                  <tbody>
                     <tr>
                       <th></th>
                       <th></th>
@@ -565,7 +571,7 @@
                       <th style="text-align: right;" id="valAccomodation"></th>
                       <th style="text-align: right;" id="valOthers"></th>
                     </tr>
-                  </thead>
+                  </tbody>
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">

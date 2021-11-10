@@ -61,6 +61,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('ARF', 'procurementTransactionArf');
     Route::get('ARF2', 'procurementTransactionArf@index2')->name('ARF.index2');
     Route::get('ARF3', 'procurementTransactionArf@index3')->name('ARF.index3');
+    Route::post('submitDataArf', 'procurementTransactionArf@submitData')->name('ARF.submitData');
 
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
@@ -193,6 +194,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     Route::post('addListCartAsf', 'procurementTransactionAsf@addListCartAsf')->name('ASF.addListCartAsf');
     Route::resource('ASF', 'procurementTransactionAsf');
+    Route::post('submitDataAsf', 'procurementTransactionAsf@submitData')->name('ASF.submitData');
 
     //MASTER DATA
     Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');

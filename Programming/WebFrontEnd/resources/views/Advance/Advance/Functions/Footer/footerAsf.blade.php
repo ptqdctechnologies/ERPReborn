@@ -7,7 +7,7 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        // $("#sitecode2").prop("disabled", true);
+        $("#advance_number2").prop("disabled", true);
         $("#showContentBOQ2").hide();
         $("#tableShowHideBOQ2").hide();
 
@@ -47,155 +47,86 @@
         var totalExpenseAmount = +total_expense + +total_amount;
 
         if (totalExpenseAmount <= balance) {
-            // var qty_expense = document.forms["formAsf1"]["qty_expense"].value;
-            // var price_expense = document.forms["formAsf1"]["price_expense"].value;
-            // var qty_amount = document.forms["formAsf1"]["qty_amount"].value;
-            // var price_amount = document.forms["formAsf1"]["price_amount"].value;
 
-            // if (qty_expense == "") {
+            var product_id =  $("#productIdHide").val();
+            var product_name =  $("#nameMaterialHide").val();
+            var uom =  $("#uomHide").val();
+            var price_expense =  $('#price_expense').val();
+            var qty_expense =  $('#qty_expense').val();
+            var total_expense =  $('#total_expense').val();
+            var price_amount =  $('#price_amount').val();
+            var qty_amount =  $('#qty_amount').val(); 
+            var total_amount =  $('#total_amount').val();
+            var description =  "cek";
+            var trano = $('#arf_number').val();
 
-            //     document.formAsf1.qty_expense.focus();
-            //     document.formAsf1.qty_expense2.focus();
-            //     document.formAsf1.qty_expense.style.border = "1px solid red";
-            //     document.formAsf1.qty_expense2.style.border = "1px solid red";
-            //     document.getElementById("iconQtyExpense").style.border = "1px solid red";
-            //     document.getElementById("iconQtyExpense").style.borderRadius = "100pt";
-            //     document.getElementById("iconQtyExpense").style.paddingRight = "7px";
-            //     document.getElementById("iconQtyExpense").style.paddingLeft = "8px";
-            //     document.getElementById("iconQtyExpense").style.paddingTop = "3px";
-            //     document.getElementById("iconQtyExpense").style.paddingBottom = "3px";
-            //     document.getElementById("iconQtyExpense").innerHTML = "&#33";
-            //     return false;
+            var html = '<tr>'+
+                            '<td>'+
+                                '<button type="button" class="btn btn-danger btn-xs remove_amount" data-id="1"><i class="fa fa-trash"></i></button> '+
+                                '<button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                                '<input type="hidden" name="var_trano[]" value="'+trano+'">'+
+                                '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
+                                '<input type="hidden" name="var_product_name[]" value="'+product_name+'">'+
+                                '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
+                                '<input type="hidden" name="var_price_expense[]" value="'+price_expense+'">'+
+                                '<input type="hidden" name="var_qty_expense[]" value="'+qty_expense+'">'+
+                                '<input type="hidden" name="var_total_expense[]" value="'+total_expense+'">'+
+                                '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
+                            '</td>'+
+                            '<td>'+trano+'</td>'+
+                            '<td>'+product_id+'</td>'+
+                            '<td>'+product_name+'</td>'+
+                            '<td>'+uom+'</td>'+
+                            '<td>'+price_expense+'</td>'+
+                            '<td>'+qty_expense+'</td>'+
+                            '<td>'+total_expense+'</td>'+
+                            '<td>'+description+'</td>'+
+                        '</tr>';
+                
+            $('table.tableAmountDueto tbody').append(html);
 
-            // } else if (price_expense == "") {
-
-            //     document.formAsf1.price_expense.focus();
-            //     document.formAsf1.price_expense2.focus();
-            //     document.formAsf1.price_expense.style.border = "1px solid red";
-            //     document.formAsf1.price_expense2.style.border = "1px solid red";
-            //     document.getElementById("iconPriceExpense").style.border = "1px solid red";
-            //     document.getElementById("iconPriceExpense").style.borderRadius = "100pt";
-            //     document.getElementById("iconPriceExpense").style.paddingRight = "7px";
-            //     document.getElementById("iconPriceExpense").style.paddingLeft = "8px";
-            //     document.getElementById("iconPriceExpense").style.paddingTop = "3px";
-            //     document.getElementById("iconPriceExpense").style.paddingBottom = "3px";
-            //     document.getElementById("iconPriceExpense").innerHTML = "&#33";
-            //     return false;
-
-            // } else if (qty_amount == "") {
-
-            //     document.formAsf1.qty_amount.focus();
-            //     document.formAsf1.qty_amount2.focus();
-            //     document.formAsf1.qty_amount.style.border = "1px solid red";
-            //     document.formAsf1.qty_amount2.style.border = "1px solid red";
-            //     document.getElementById("iconQtyAmount").style.border = "1px solid red";
-            //     document.getElementById("iconQtyAmount").style.borderRadius = "100pt";
-            //     document.getElementById("iconQtyAmount").style.paddingRight = "7px";
-            //     document.getElementById("iconQtyAmount").style.paddingLeft = "8px";
-            //     document.getElementById("iconQtyAmount").style.paddingTop = "3px";
-            //     document.getElementById("iconQtyAmount").style.paddingBottom = "3px";
-            //     document.getElementById("iconQtyAmount").innerHTML = "&#33";
-            //     return false;
-            // } else if (price_amount == "") {
-            //     document.formAsf1.price_amount.focus();
-            //     document.formAsf1.price_amount2.focus();
-            //     document.formAsf1.price_amount.style.border = "1px solid red";
-            //     document.formAsf1.price_amount2.style.border = "1px solid red";
-            //     document.getElementById("iconPriceAmount").style.border = "1px solid red";
-            //     document.getElementById("iconPriceAmount").style.borderRadius = "100pt";
-            //     document.getElementById("iconPriceAmount").style.paddingRight = "7px";
-            //     document.getElementById("iconPriceAmount").style.paddingLeft = "8px";
-            //     document.getElementById("iconPriceAmount").style.paddingTop = "3px";
-            //     document.getElementById("iconPriceAmount").style.paddingBottom = "3px";
-            //     document.getElementById("iconPriceAmount").innerHTML = "&#33";
-            //     return false;
-
-            // } else {
-
-            var datas = [];
-
-            for (var i = 1; i <= x; i++) {
-                var data = {
-
-                    trano: $("#getTrano1").html(),
-                    productId: $("#productIdHide").val(),
-                    nameMaterial: $("#nameMaterialHide").val(),
-                    uom: $("#uomHide").val(),
-                    unitPriceExpense: $('#price_expense').val(),
-                    qtyExpense: $('#qty_expense').val(),
-                    totalExpense: $('#total_expense').val(),
-                    unitPriceAmount: $('#price_amount').val(),
-                    qtyAmount: $('#qty_amount').val(),
-                    totalAmount: $('#total_amount').val(),
-                    description: "cek",
-
-                }
-                datas.push(data);
-            }
-
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
-
-            $.ajax({
-                type: "POST",
-                url: '{{route("ASF.addListCartAsf")}}',
-                data: json_object,
-                contentType: "application/json",
-                processData: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-
-                    Swal.fire("Success !", "Data add to cart", "success");
-
-                    y++;
-                    $.each(data, function(key, val) {
-
-                        var t = $('#tableAmountDueto').DataTable();
-                        t.row.add([
-                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                            '<span id="Trano">' + val.trano + '</span>',
-                            '<span id="bbbbbbb">' + val.productId + '</span>',
-                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
-                            '<span id="Uom">' + val.uom + '</span>',
-                            '<span id="UnitPriceAmount">' + val.unitPriceAmount + '</span>',
-                            '<span id="QtyAmount">' + val.qtyAmount + '</span>',
-                            '<span id="TotalAmount">' + val.totalAmount + '</span>',
-                            '<span id="Description">' + val.description + '</span>'
-                        ]).draw();
-
-                        var t = $('#tableExpenseClaim').DataTable();
-                        t.row.add([
-                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
-                            '<span id="Trano">' + val.trano + '</span>',
-                            '<span id="productId">' + val.productId + '</span>',
-                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
-                            '<span id="Uom">' + val.uom + '</span>',
-                            '<span id="UnitPriceExpense">' + val.unitPriceExpense + '</span>',
-                            '<span id="QtyExpense">' + val.qtyExpense + '</span>',
-                            '<span id="TotalExpense">' + val.totalExpense + '</span>',
-                            '<span id="Description">' + val.description + '</span>'
-                        ]).draw();
-
-
-                    });
-                },
-                error: function(data) {
-                    Swal.fire("Error !", "Data Canceled Added", "error");
-                }
-            });
-
+            var html2 = '<tr>'+
+                            '<td>'+
+                                '<button type="button" class="btn btn-danger btn-xs remove_expense" data-id="1"><i class="fa fa-trash"></i></button> '+
+                                '<button type="button" class="btn btn-warning btn-xs"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                                '<input type="hidden" id="var_tranox" name="var_trano[]" value="'+trano+'">'+
+                                '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
+                                '<input type="hidden" name="var_product_name[]" value="'+product_name+'">'+
+                                '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
+                                '<input type="hidden" name="var_price_amount[]" value="'+price_amount+'">'+
+                                '<input type="hidden" name="var_qty_amount[]" value="'+qty_amount+'">'+
+                                '<input type="hidden" name="var_total_amount[]" value="'+total_amount+'">'+
+                                '<input type="hidden" name="var_description[]" value="'+description+'">'+
+                            '</td>'+
+                            '<td>'+trano+'</td>'+
+                            '<td>'+product_id+'</td>'+
+                            '<td>'+product_name+'</td>'+
+                            '<td>'+uom+'</td>'+
+                            '<td>'+price_amount+'</td>'+
+                            '<td>'+qty_amount+'</td>'+
+                            '<td>'+total_amount+'</td>'+
+                            '<td>'+description+'</td>'+
+                        '</tr>';
+                    
+            $('table.tableExpenseClaim tbody').append(html2);
             $("#amountCompanyCart").show();
             $("#saveAsfList").prop("disabled", false);
-            // }
+
+            $("body").on("click", ".remove_amount", function() {
+                console.log($("#var_description[0]").val());
+                // $(this).closest("tr").remove();
+            });
+            $("body").on("click", ".remove_expense", function () {
+                $(this).closest("tr").remove();
+            });
+
         } else {
             Swal.fire("Error !", "Total expense claim + amount do to company <= balance", "error");
         }
     });
 </script>
 
-<script>
+<!-- <script>
     // var y = 1; //initlal text box count
 
     $('#saveAsfList').click(function() {
@@ -277,7 +208,7 @@
             }
         })
     });
-</script>
+</script> -->
 
 <script>
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
@@ -321,7 +252,6 @@
     $(document).ready(function() {
 
         $('.klikArfDetail1').click(function() {
-
             $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
             $("#addAsfListCart").prop("disabled", false);
             $(".detailASF").show();
@@ -329,6 +259,7 @@
             $("#arf_date").val("23-02-2021");
 
             $("#productIdHide").val($("#getProductId1").html());
+            
             $("#nameMaterialHide").val($("#getProductName1").html());
             $("#uomHide").val($("#getUom1").html());
 

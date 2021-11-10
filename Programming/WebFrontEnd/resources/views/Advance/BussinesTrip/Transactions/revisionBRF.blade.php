@@ -105,7 +105,7 @@
                                   <div class="input-group">
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
                                       <!-- <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
-                                      <input class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ date('m/d/Y h:i A') }}"/>
+                                      <input class="form-control datetimepicker-input" data-target="#reservationdate">
                                       <div class="input-group-append" style="border-radius:0;" data-target="#reservationdate" data-toggle="datetimepicker">
                                         <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
@@ -119,7 +119,7 @@
                                   <div class="input-group">
                                     <div class="input-group date" id="endate" data-target-input="nearest">
                                       <!-- <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y H:i A', strtotime('3 month ago')) }}" /> -->
-                                      <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate" value="{{ date('m/d/Y h:i A') }}"/>
+                                      <input style="border-radius:0;" type="text" class="form-control datetimepicker-input" data-target="#endate"/>
                                       <div class="input-group-append" data-target="#endate" data-toggle="datetimepicker">
                                         <div class="input-group-text" style="height:17pt;"><i class="fa fa-calendar"></i></div>
                                       </div>
@@ -518,7 +518,10 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Reset
                       </button>
-                      <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a>
+                      <!-- <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a> -->
+                      <a class="btn btn-outline btn-success btn-sm float-right" id="AddToBrfListCart" style="margin-right: 5px;">
+                        <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -539,10 +542,10 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
-                <table id="tableBrf" class="table table-head-fixed text-nowrap table-striped">
+                <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                   <thead>
                     <tr>
-                      <th>Delete</th>
+                      <th>Action</th>
                       <th>Payment Sequence</th>
                       <th>Allowance</th>
                       <th>Transport</th>
@@ -551,11 +554,14 @@
                       <th>Others</th>
                     </tr>
                   </thead>
+                  <tbody>
+
+                  </tbody>
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
                 <table class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
+                  <tbody>
                     <tr>
                       <th></th>
                       <th></th>
@@ -565,7 +571,7 @@
                       <th style="text-align: right;" id="valAccomodation"></th>
                       <th style="text-align: right;" id="valOthers"></th>
                     </tr>
-                  </thead>
+                  </tbody>
                 </table>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
@@ -597,4 +603,4 @@
 
 @include('Partials.footer')
 @include('Advance.BussinesTrip.Functions.Footer.footerBrf')
-@endsection 
+@endsection

@@ -1,5 +1,5 @@
-<div class="card-body table-responsive p-0" style="height: 250px;" id="tableShowHideBOQ3">
-    <table class="table table-head-fixed text-nowrap table-striped">
+<div class="card-body table-responsive p-0" style="height: 300px;" id="tableShowHideBOQ3">
+    <table class="table table-head-fixed text-nowrap table-striped" id="tableBudgetDetail">
         <thead>
             <tr>
                 <th>Action</th>
@@ -10,14 +10,13 @@
                 <th>Product Name</th>
                 <th>Qty Available</th>
                 <th>Qty Budget</th>
-                <th>Uom</th>
                 <th>Price</th>
                 <th>Total</th>
+                <th>Uom</th>
                 <th>Currency</th>
-                <!-- <th>Status</th> -->
             </tr>
         </thead>
-        <tbody id="showContentBOQ">
+        <!-- <tbody id="showContentBOQ">
             
             @php 
                 $totalApplied1 = round((((2-1) * 1000000) / 2000000 * 100),2);
@@ -190,6 +189,6 @@
                 <td><span class="tag tag-success" id="getStatus4" style="display:none;">{{$status4}}</span></td>
                 <td><span class="tag tag-success" id="getRequester4" style="display:none;">50000000</span></td>
             </tr>
-        </tbody>
+        </tbody> -->
     </table>
 </div>
