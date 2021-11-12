@@ -113,11 +113,11 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_BudgetExpenseCeiling                                                                     |
+        | ▪ Method Name     : getDataList_BudgetExpenseLineCeiling                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-17                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Budget Expense Ceiling (Pagu Anggaran)                                            |
+        | ▪ Description     : Mendapatkan Daftar Budget Expense Line Ceiling (Pagu Anggaran Mata Anggaran Belanja)                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -131,7 +131,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_BudgetExpenseCeiling($varUserSession, int $varBranchID, 
+        public function getDataList_BudgetExpenseLineCeiling($varUserSession, int $varBranchID, 
             int $varBudgetExpenseLine_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -140,7 +140,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseCeiling',
+                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeiling',
                         [
                             [$varBranchID, 'bigint' ],
                             [$varBudgetExpenseLine_RefID, 'bigint' ],
@@ -161,16 +161,16 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_BudgetExpenseCeilingObjects                                                              |
+        | ▪ Method Name     : getDataList_BudgetExpenseLineCeilingObjects                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-17                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Budget Expense Ceiling Objects (Objek Pagu Anggaran)                              |
+        | ▪ Description     : Mendapatkan Daftar Budget Expense Line Ceiling Objects (Objek Pagu Mata Anggaran Belanja)            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
-        |      ▪ (int)    varBudgetExpenseCeiling_RefID ► Budget Expense Ceiling Reference ID                                      |
+        |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Line Ceiling Reference ID                             |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -180,7 +180,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetExpenseCeilingObjects($varUserSession, int $varBranchID, 
-            int $varBudgetExpenseCeiling_RefID, 
+            int $varBudgetExpenseLineCeiling_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -188,10 +188,10 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseCeilingObjects',
+                        'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeilingObjects',
                         [
                             [$varBranchID, 'bigint' ],
-                            [$varBudgetExpenseCeiling_RefID, 'bigint' ],
+                            [$varBudgetExpenseLineCeiling_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],

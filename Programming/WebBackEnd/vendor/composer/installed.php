@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ec0ff74fcad1b49d6fecfae7511379a7ff46bd9d',
+    'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -31,12 +31,12 @@
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.201.0',
-      'version' => '3.201.0.0',
+      'pretty_version' => '3.202.1',
+      'version' => '3.202.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd2bb0296a3fe62fbc975075d7b06c41002a6517d',
+      'reference' => '59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd',
     ),
     'brick/math' => 
     array (
@@ -481,7 +481,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ec0ff74fcad1b49d6fecfae7511379a7ff46bd9d',
+      'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -1012,12 +1012,12 @@
     ),
     'sebastian/exporter' => 
     array (
-      'pretty_version' => '4.0.3',
-      'version' => '4.0.3.0',
+      'pretty_version' => '4.0.4',
+      'version' => '4.0.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd89cc98761b8cb5a1a235a6b703ae50d34080e65',
+      'reference' => '65e8b7db476c5dd267e65eea9cab77584d3cfff9',
     ),
     'sebastian/global-state' => 
     array (

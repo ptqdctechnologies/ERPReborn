@@ -442,6 +442,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRedshiftDataAPIService(array $args = [])
  * @method \Aws\Rekognition\RekognitionClient createRekognition(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRekognition(array $args = [])
+ * @method \Aws\ResilienceHub\ResilienceHubClient createResilienceHub(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionResilienceHub(array $args = [])
  * @method \Aws\ResourceGroups\ResourceGroupsClient createResourceGroups(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionResourceGroups(array $args = [])
  * @method \Aws\ResourceGroupsTaggingAPI\ResourceGroupsTaggingAPIClient createResourceGroupsTaggingAPI(array $args = [])
@@ -577,7 +579,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.201.0';
+    const VERSION = '3.202.1';
 
     /** @var array Arguments for creating clients */
     private $args;

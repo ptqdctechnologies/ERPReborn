@@ -23,7 +23,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-02                                                                                           |
+        | ▪ Last Update     : 2021-06-25                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-02                                                                                           |
+        | ▪ Last Update     : 2021-06-25                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

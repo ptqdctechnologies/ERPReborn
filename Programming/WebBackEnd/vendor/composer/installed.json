@@ -110,17 +110,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.201.0",
-            "version_normalized": "3.201.0.0",
+            "version": "3.202.1",
+            "version_normalized": "3.202.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "d2bb0296a3fe62fbc975075d7b06c41002a6517d"
+                "reference": "59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/d2bb0296a3fe62fbc975075d7b06c41002a6517d",
-                "reference": "d2bb0296a3fe62fbc975075d7b06c41002a6517d",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd",
+                "reference": "59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2021-11-09T19:28:28+00:00",
+            "time": "2021-11-11T19:15:25+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -198,7 +198,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.201.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.202.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -5354,17 +5354,17 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "4.0.3",
-            "version_normalized": "4.0.3.0",
+            "version": "4.0.4",
+            "version_normalized": "4.0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "d89cc98761b8cb5a1a235a6b703ae50d34080e65"
+                "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/d89cc98761b8cb5a1a235a6b703ae50d34080e65",
-                "reference": "d89cc98761b8cb5a1a235a6b703ae50d34080e65",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/65e8b7db476c5dd267e65eea9cab77584d3cfff9",
+                "reference": "65e8b7db476c5dd267e65eea9cab77584d3cfff9",
                 "shasum": ""
             },
             "require": {
@@ -5375,14 +5375,14 @@
                 "ext-mbstring": "*",
                 "phpunit/phpunit": "^9.3"
             },
-            "time": "2020-09-28T05:24:23+00:00",
+            "time": "2021-11-11T14:18:36+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
                     "dev-master": "4.0-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "classmap": [
                     "src/"
@@ -5415,11 +5415,15 @@
                 }
             ],
             "description": "Provides the functionality to export PHP variables for visualization",
-            "homepage": "http://www.github.com/sebastianbergmann/exporter",
+            "homepage": "https://www.github.com/sebastianbergmann/exporter",
             "keywords": [
                 "export",
                 "exporter"
             ],
+            "support": {
+                "issues": "https://github.com/sebastianbergmann/exporter/issues",
+                "source": "https://github.com/sebastianbergmann/exporter/tree/4.0.4"
+            },
             "funding": [
                 {
                     "url": "https://github.com/sebastianbergmann",

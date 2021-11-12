@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'ec0ff74fcad1b49d6fecfae7511379a7ff46bd9d',
+    'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'ec0ff74fcad1b49d6fecfae7511379a7ff46bd9d',
+      'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -935,12 +935,12 @@ private static $installed = array (
     ),
     'sebastian/exporter' => 
     array (
-      'pretty_version' => '3.1.3',
-      'version' => '3.1.3.0',
+      'pretty_version' => '3.1.4',
+      'version' => '3.1.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '6b853149eab67d4da22291d36f5b0631c0fd856e',
+      'reference' => '0c32ea2e40dbf59de29f3b49bf375176ce7dd8db',
     ),
     'sebastian/global-state' => 
     array (

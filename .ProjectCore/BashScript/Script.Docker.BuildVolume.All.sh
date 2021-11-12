@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildVolume.All.sh
-# ▪ Versi              : 1.00.0002
-# ▪ Tanggal            : 2021-08-05
+# ▪ Versi              : 1.00.0003
+# ▪ Tanggal            : 2021-11-11
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk membuat semua volume Docker
@@ -36,3 +36,7 @@ sudo docker volume create --driver local --name=volume-minio-node04-disk01;
 #sudo docker volume create --driver local --name=volume-minio-node04-disk02;
 #sudo docker volume create --driver local --name=volume-minio-node04-disk03;
 #sudo docker volume create --driver local --name=volume-minio-node04-disk04;
+
+
+
+sudo docker volume create --driver local --name=volume-openproject;
