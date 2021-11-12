@@ -19,9 +19,6 @@ use Illuminate\Support\Str;
 use Mockery as m;
 use Orchestra\Testbench\TestCase;
 
-/**
- * @group integration
- */
 class SendingMailNotificationsTest extends TestCase
 {
     public $mailer;
@@ -36,8 +33,6 @@ class SendingMailNotificationsTest extends TestCase
 
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('app.debug', 'true');
-
         $app['config']->set('database.default', 'testbench');
 
         $app['config']->set('database.connections.testbench', [

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
@@ -67,14 +69,14 @@ class ConstructTest extends AbstractTestCase
 
     public function testWithFancyString()
     {
-        Carbon::setTestNow(Carbon::today());
+        Carbon::setTestNowAndTimezone(Carbon::today());
         $c = new Carbon('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }
 
     public function testParseWithFancyString()
     {
-        Carbon::setTestNow(Carbon::today());
+        Carbon::setTestNowAndTimezone(Carbon::today());
         $c = Carbon::parse('first day of January 2008');
         $this->assertCarbon($c, 2008, 1, 1, 0, 0, 0);
     }

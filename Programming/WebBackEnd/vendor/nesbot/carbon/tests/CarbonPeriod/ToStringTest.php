@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonPeriod;
 
 use Carbon\Carbon;
@@ -33,7 +35,7 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToString(): Generator
     {
-        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
                 CarbonPeriod::create('R4/2012-07-01T12:00:00/P7D'),
@@ -99,7 +101,7 @@ class ToStringTest extends AbstractTestCase
 
     public function provideToIso8601String(): Generator
     {
-        Carbon::setTestNow(new Carbon('2015-09-01', 'America/Toronto'));
+        Carbon::setTestNowAndTimezone(new Carbon('2015-09-01', 'America/Toronto'));
 
         yield [
                 CarbonPeriod::create('R4/2012-07-01T00:00:00-04:00/P7D'),

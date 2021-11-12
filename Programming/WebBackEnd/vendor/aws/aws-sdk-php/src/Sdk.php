@@ -70,6 +70,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionChime(array $args = [])
  * @method \Aws\ChimeSDKIdentity\ChimeSDKIdentityClient createChimeSDKIdentity(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionChimeSDKIdentity(array $args = [])
+ * @method \Aws\ChimeSDKMeetings\ChimeSDKMeetingsClient createChimeSDKMeetings(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionChimeSDKMeetings(array $args = [])
  * @method \Aws\ChimeSDKMessaging\ChimeSDKMessagingClient createChimeSDKMessaging(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionChimeSDKMessaging(array $args = [])
  * @method \Aws\Cloud9\Cloud9Client createCloud9(array $args = [])
@@ -440,6 +442,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRedshiftDataAPIService(array $args = [])
  * @method \Aws\Rekognition\RekognitionClient createRekognition(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRekognition(array $args = [])
+ * @method \Aws\ResilienceHub\ResilienceHubClient createResilienceHub(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionResilienceHub(array $args = [])
  * @method \Aws\ResourceGroups\ResourceGroupsClient createResourceGroups(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionResourceGroups(array $args = [])
  * @method \Aws\ResourceGroupsTaggingAPI\ResourceGroupsTaggingAPIClient createResourceGroupsTaggingAPI(array $args = [])
@@ -575,7 +579,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.199.7';
+    const VERSION = '3.202.1';
 
     /** @var array Arguments for creating clients */
     private $args;

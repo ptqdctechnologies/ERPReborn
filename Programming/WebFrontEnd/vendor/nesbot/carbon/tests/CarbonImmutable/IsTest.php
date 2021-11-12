@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,10 +10,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonImmutable;
 
-use \DateTime;
 use Carbon\CarbonImmutable as Carbon;
+use DateTime;
 use Generator;
 use InvalidArgumentException;
 use stdClass;
@@ -961,6 +963,11 @@ class IsTest extends AbstractTestCase
     public function testHasFormatWithSingleLetter($letter)
     {
         $output = Carbon::now()->format($letter);
+
+        if ($output === '1000' && $letter === 'v' && version_compare(PHP_VERSION, '7.2.12', '<')) {
+            $output = '000';
+        }
+
         $this->assertTrue(Carbon::hasFormat($output, $letter), "'$letter' format should match '$output'");
     }
 

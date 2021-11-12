@@ -391,6 +391,25 @@ services:
     restart: always
 
 
+
+
+  #---> Services : OpenProject
+  openproject:
+    container_name: 'openproject'
+    image: 'openproject/community:11'
+    restart: 'unless-stopped'
+    ports:
+      - '30080:80'
+    environment:
+      SECRET_KEY_BASE: 'secret'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.13'
+    volumes:
+      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
+      - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
+
+
 #---> Docker Volumes
 volumes:
   volume-mysql:

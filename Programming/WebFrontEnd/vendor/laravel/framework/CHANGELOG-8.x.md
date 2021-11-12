@@ -1,6 +1,67 @@
 # Release Notes for 8.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v8.68.0...8.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v8.70.1...8.x)
+
+
+## [v8.70.1 (2021-11-09)](https://github.com/laravel/framework/compare/v8.70.0...v8.70.1)
+
+### Fixed
+- Fixed problem with fallback in Router ([5fda5a3](https://github.com/laravel/framework/commit/5fda5a335bce1527e6796a91bb36ccb48d6807a8))
+
+
+## [v8.70.0 (2021-11-09)](https://github.com/laravel/framework/compare/v8.69.0...v8.70.0)
+
+### Added
+- New flag `--requests` `-R` to `make:controller` and `make:model` Commands ([#39120](https://github.com/laravel/framework/pull/39120), [8fbfc9f](https://github.com/laravel/framework/commit/8fbfc9f16e48b202670e4b21588d8d752c3fbe90))
+- Allows Stringable objects as middleware. ([#39439](https://github.com/laravel/framework/pull/39439), [#39449](https://github.com/laravel/framework/pull/39449))
+- Introduce `Js` for encoding data to use in JavaScript ([#39389](https://github.com/laravel/framework/pull/39389), [#39460](https://github.com/laravel/framework/pull/39460), [bbf47d5](https://github.com/laravel/framework/commit/bbf47d5507c0ff018763170988284eeca6021fe8))
+- Added new lost connection error message for sqlsrv ([#39466](https://github.com/laravel/framework/pull/39466))
+- Allow can method to be chained onto route for quick authorization ([#39464](https://github.com/laravel/framework/pull/39464))
+- Publish `provider.stub` in stub:publish command ([#39491](https://github.com/laravel/framework/pull/39491))
+- Added `Illuminate/Support/NamespacedItemResolver::flushParsedKeys()` ([#39490](https://github.com/laravel/framework/pull/39490))
+- Accept enums for insert update and where ([#39492](https://github.com/laravel/framework/pull/39492))
+- Fifo support for queue name suffix ([#39497](https://github.com/laravel/framework/pull/39497), [12e47bb](https://github.com/laravel/framework/commit/12e47bb3dad10294268fa3167112b198fd0a2036))
+
+### Changed
+- Dont cache ondemand loggers ([5afa0f1](https://github.com/laravel/framework/commit/5afa0f1ee680e66360bc05f293eadca0d558f028), [bc50a9b](https://github.com/laravel/framework/commit/bc50a9b10097e66b59f0dfcabc6e100b8fedc760))
+- Enforce implicit Route Model scoping ([#39440](https://github.com/laravel/framework/pull/39440))
+- Ensure event mutex is always removed ([#39498](https://github.com/laravel/framework/pull/39498))
+- Added missing "flags" to redis zadd options list... ([#39538](https://github.com/laravel/framework/pull/39538))
+
+
+## [v8.69.0 (2021-11-02)](https://github.com/laravel/framework/compare/v8.68.1...v8.69.0)
+
+### Added
+- Improve content negotiation for exception handling ([#39385](https://github.com/laravel/framework/pull/39385))
+- Added support for SKIP LOCKED to MariaDB ([#39396](https://github.com/laravel/framework/pull/39396))
+- Custom cast string into Stringable ([#39410](https://github.com/laravel/framework/pull/39410))
+- Added `Illuminate/Support/Str::mask()` ([#39393](https://github.com/laravel/framework/pull/39393))
+- Allow model attributes to be casted to/from an Enum ([#39315](https://github.com/laravel/framework/pull/39315))
+- Added an Enum validation rule ([#39437](https://github.com/laravel/framework/pull/39437))
+- Auth: Allows to use a callback in credentials array ([#39420](https://github.com/laravel/framework/pull/39420))
+- Added success and failure command assertions ([#39435](https://github.com/laravel/framework/pull/39435))
+
+### Fixed
+- Fixed CURRENT_TIMESTAMP as default when changing column ([#39377](https://github.com/laravel/framework/pull/39377))
+- Make accept header comparison case-insensitive ([#39413](https://github.com/laravel/framework/pull/39413))
+- Fixed regression with capitalizing translation params ([#39424](https://github.com/laravel/framework/pull/39424))
+
+### Changed
+- Added bound check to env resolving in `Illuminate/Foundation/Application::runningUnitTests()` ([#39434](https://github.com/laravel/framework/pull/39434))
+
+
+## [v8.68.1 (2021-10-27)](https://github.com/laravel/framework/compare/v8.68.0...v8.68.1)
+
+### Reverted
+- Reverted ["Added support for MariaDB to skip locked rows with the database queue driver"](https://github.com/laravel/framework/pull/39311) ([#39386](https://github.com/laravel/framework/pull/39386))
+
+### Fixed
+- Fixed code to address different connection strings for MariaDB in the database queue driver ([#39374](https://github.com/laravel/framework/pull/39374))
+- Fixed rate limiting unicode issue ([#39375](https://github.com/laravel/framework/pull/39375))
+- Fixed bug with closure formatting in `Illuminate/Testing/Fluent/Concerns/Matching::whereContains()` ([37217d5](https://github.com/laravel/framework/commit/37217d56ca38c407395bb98ef2532cafd86efa30))
+
+### Refactoring
+- Change whereStartsWith, DocBlock to reflect that array is supported ([#39370](https://github.com/laravel/framework/pull/39370))
 
 
 ## [v8.68.0 (2021-10-26)](https://github.com/laravel/framework/compare/v8.67.0...v8.68.0)

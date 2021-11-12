@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,9 +10,11 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
+use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
@@ -43,6 +46,23 @@ class CreateFromTimeTest extends AbstractTestCase
     {
         $d = Carbon::createFromTime(23, 5, 21);
         $this->assertCarbon($d, Carbon::now()->year, Carbon::now()->month, Carbon::now()->day, 23, 5, 21);
+    }
+
+    public function testCreateFromTimeWithTestNow()
+    {
+        Carbon::setTestNow();
+        $testTime = Carbon::createFromTime(12, 0, 0, 'GMT-25');
+        $today = Carbon::today('GMT-25')->modify('12:00');
+        $this->assertSame('12:00 -25:00', $testTime->format('H:i e'));
+        $this->assertSame($testTime->toIso8601String(), $today->toIso8601String());
+
+        $knownDate = Carbon::instance(new DateTimeImmutable('now UTC'));
+        Carbon::setTestNow($knownDate);
+
+        $testTime = Carbon::createFromTime(12, 0, 0, 'GMT-25');
+        $today = Carbon::today('GMT-25')->modify('12:00');
+        $this->assertSame('12:00 -25:00', $testTime->format('H:i e'));
+        $this->assertSame($testTime->toIso8601String(), $today->toIso8601String());
     }
 
     public function testCreateFromTimeGreaterThan99()

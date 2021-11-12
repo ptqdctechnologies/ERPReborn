@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Carbon;
 
 use Carbon\Carbon;
@@ -72,7 +74,6 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceStateSetBySetStateMethod()
     {
-        /** @var Carbon $carbon */
         $carbon = Carbon::__set_state([
             'date' => '2017-05-18 13:02:15.273420',
             'timezone_type' => 3,
@@ -84,7 +85,6 @@ class InstanceTest extends AbstractTestCase
 
     public function testInstanceStateSetBySetStateString()
     {
-        /** @var Carbon $carbon */
         $carbon = Carbon::__set_state('2017-05-18 13:02:15.273420');
         $this->assertInstanceOf(Carbon::class, $carbon);
         $this->assertSame('2017-05-18 13:02:15.273420', $carbon->format('Y-m-d H:i:s.u'));
@@ -105,27 +105,27 @@ class InstanceTest extends AbstractTestCase
         $carbon = $carbon->locale('en_CA');
         $copy = $carbon->toImmutable();
 
-        self::assertEquals($copy, $carbon);
-        self::assertNotSame($copy, $carbon);
-        self::assertSame('en_CA', $copy->locale());
-        self::assertInstanceOf(CarbonImmutable::class, $copy);
-        self::assertTrue($copy->isImmutable());
-        self::assertFalse($copy->isMutable());
-        self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
-        self::assertSame('Europe/Paris', $copy->tzName);
-        self::assertNotSame($copy, $copy->modify('+1 day'));
+        $this->assertEquals($copy, $carbon);
+        $this->assertNotSame($copy, $carbon);
+        $this->assertSame('en_CA', $copy->locale());
+        $this->assertInstanceOf(CarbonImmutable::class, $copy);
+        $this->assertTrue($copy->isImmutable());
+        $this->assertFalse($copy->isMutable());
+        $this->assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
+        $this->assertSame('Europe/Paris', $copy->tzName);
+        $this->assertNotSame($copy, $copy->modify('+1 day'));
 
         $copy = $carbon->toMutable();
 
-        self::assertEquals($copy, $carbon);
-        self::assertNotSame($copy, $carbon);
-        self::assertSame('en_CA', $copy->locale());
-        self::assertInstanceOf(Carbon::class, $copy);
-        self::assertFalse($copy->isImmutable());
-        self::assertTrue($copy->isMutable());
-        self::assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
-        self::assertSame('Europe/Paris', $copy->tzName);
-        self::assertSame($copy, $copy->modify('+1 day'));
+        $this->assertEquals($copy, $carbon);
+        $this->assertNotSame($copy, $carbon);
+        $this->assertSame('en_CA', $copy->locale());
+        $this->assertInstanceOf(Carbon::class, $copy);
+        $this->assertFalse($copy->isImmutable());
+        $this->assertTrue($copy->isMutable());
+        $this->assertSame('2017-06-27 13:14:15.123456', $copy->format(CarbonInterface::MOCK_DATETIME_FORMAT));
+        $this->assertSame('Europe/Paris', $copy->tzName);
+        $this->assertSame($copy, $copy->modify('+1 day'));
     }
 
     public function testInvalidCast()
@@ -140,7 +140,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testChildCast()
     {
-        $class = \get_class(new class extends Carbon {
+        $class = \get_class(new class() extends Carbon {
             public function foo()
             {
                 return 42;
@@ -158,7 +158,7 @@ class InstanceTest extends AbstractTestCase
 
     public function testSiblingCast()
     {
-        $class = \get_class(new class extends DateTime {
+        $class = \get_class(new class() extends DateTime {
             public function foo()
             {
                 return 42;

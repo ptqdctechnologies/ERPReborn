@@ -3,8 +3,19 @@
 use PhpCsFixer\Config;
 use PhpCsFixer\Finder;
 
+$header = <<<'EOF'
+This file is part of the Carbon package.
+
+(c) Brian Nesbitt <brian@nesbot.com>
+
+For the full copyright and license information, please view the LICENSE
+file that was distributed with this source code.
+EOF;
+
 $rules = [
     '@PSR2' => true,
+    '@PSR12' => true,
+    '@PHP71Migration' => true,
     'array_syntax' => [
         'syntax' => 'short',
     ],
@@ -16,6 +27,12 @@ $rules = [
     ],
     'ereg_to_preg' => true,
     'general_phpdoc_tag_rename' => true,
+    'header_comment' => [
+        'comment_type' => 'PHPDoc',
+        'header' => $header,
+        'location' => 'after_declare_strict',
+        'separate' => 'both',
+    ],
     'is_null' => true,
     'line_ending' => true,
     'modernize_types_casting' => true,
@@ -23,13 +40,32 @@ $rules = [
         'include' => ['@compiler_optimized'],
     ],
     'no_blank_lines_after_phpdoc' => true,
+    'no_empty_phpdoc' => true,
     'no_extra_blank_lines' => true,
     'no_short_bool_cast' => true,
     'no_unneeded_control_parentheses' => true,
     'no_unused_imports' => true,
     'no_whitespace_in_blank_line' => true,
     'ordered_imports' => true,
-    'phpdoc_align' => false,
+    'php_unit_method_casing' => [
+        'case' => 'camel_case',
+    ],
+    'php_unit_test_annotation' => [
+        'style' => 'prefix',
+    ],
+    'php_unit_test_case_static_method_calls' => [
+        'call_type' => 'this',
+    ],
+    'phpdoc_align' => [
+        'align' => 'vertical',
+        'tags' => [
+            'param',
+            'return',
+            'throws',
+            'type',
+            'var',
+        ],
+    ],
     'phpdoc_indent' => true,
     'phpdoc_inline_tag_normalizer' => true,
     'phpdoc_no_access' => true,

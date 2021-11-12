@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Localization;
 
 use Carbon\Carbon;
@@ -231,6 +233,6 @@ class JaTest extends LocalizationTestCase
 
     public function testYearWithJapaneseNumbers()
     {
-        self::assertSame('二千十五', Carbon::parse('2015-12-23 00:00:00')->locale('ja')->getAltNumber('year'));
+        $this->assertSame('二千十五', Carbon::parse('2015-12-23 00:00:00')->locale('ja')->getAltNumber('year'));
     }
 }

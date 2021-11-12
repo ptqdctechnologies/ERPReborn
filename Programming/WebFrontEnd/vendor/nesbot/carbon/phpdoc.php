@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * This file is part of the Carbon package.
+ *
+ * (c) Brian Nesbitt <brian@nesbot.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Carbon\Carbon;
+use Carbon\CarbonImmutable;
+use Carbon\CarbonInterface;
+use Symfony\Component\Translation\TranslatorInterface;
+
 $tags = [
     'property',
     'property-read',
@@ -72,7 +86,7 @@ function dumpValue($value)
         return 'null';
     }
 
-    if ($value === \Carbon\CarbonInterface::TRANSLATE_ALL) {
+    if ($value === CarbonInterface::TRANSLATE_ALL) {
         return 'CarbonInterface::TRANSLATE_ALL';
     }
 
@@ -86,6 +100,10 @@ function cleanClassName($name)
 {
     if (preg_match('/^[A-Z]/', $name)) {
         $name = "\\$name";
+    }
+
+    if (ltrim($name, '\\') === TranslatorInterface::class) {
+        return 'TranslatorInterface';
     }
 
     return preg_replace('/^\\\\(Date(?:Time(?:Immutable|Interface|Zone)?|Interval)|[A-Za-z]*Exception|Closure)$/i', '$1', preg_replace('/^\\\\Carbon\\\\/', '', $name));
@@ -199,7 +217,7 @@ foreach ($tags as $tag) {
                     $unitName = unitName($unit);
                     $method = 'isSame'.ucFirst($unit);
 
-                    if (!method_exists(\Carbon\Carbon::class, $method)) {
+                    if (!method_exists(Carbon::class, $method)) {
                         $autoDocLines[] = [
                             '@method',
                             'bool',
@@ -524,24 +542,24 @@ foreach ([$trait, $carbon, $immutable, $interface] as $file) {
 $staticMethods = [];
 $staticImmutableMethods = [];
 $methods = '';
-$carbonMethods = get_class_methods(\Carbon\Carbon::class);
+$carbonMethods = get_class_methods(Carbon::class);
 sort($carbonMethods);
 foreach ($carbonMethods as $method) {
-    if (!method_exists(\Carbon\CarbonImmutable::class, $method) ||
+    if (!method_exists(CarbonImmutable::class, $method) ||
         method_exists(DateTimeInterface::class, $method) ||
         $method === 'createFromInterface'
     ) {
         continue;
     }
 
-    $function = new ReflectionMethod(\Carbon\Carbon::class, $method);
+    $function = new ReflectionMethod(Carbon::class, $method);
     $static = $function->isStatic() ? ' static' : '';
     $parameters = implode(', ', array_map(function (ReflectionParameter $parameter) use ($method) {
         return dumpParameter($method, $parameter);
     }, $function->getParameters()));
     $methodDocBlock = $function->getDocComment() ?: '';
 
-    if (str_starts_with($method, '__') && $function->isStatic()) {
+    if (!str_starts_with($method, '__') && $function->isStatic()) {
         $doc = preg_replace('/^\/\*+\n([\s\S]+)\s*\*\//', '$1', $methodDocBlock);
         $doc = preg_replace('/^\s*\*\s?/m', '', $doc);
         $doc = explode("\n@", $doc, 2);

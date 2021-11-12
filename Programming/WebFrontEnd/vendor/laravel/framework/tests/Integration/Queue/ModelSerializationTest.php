@@ -11,15 +11,10 @@ use LogicException;
 use Orchestra\Testbench\TestCase;
 use Schema;
 
-/**
- * @group integration
- */
 class ModelSerializationTest extends TestCase
 {
     protected function getEnvironmentSetUp($app)
     {
-        $app['config']->set('app.debug', 'true');
-
         $app['config']->set('database.default', 'testbench');
 
         $app['config']->set('database.connections.testbench', [
@@ -287,12 +282,11 @@ class ModelSerializationTest extends TestCase
         $this->assertInstanceOf(ModelSerializationTestCustomUserCollection::class, $unserialized->users);
     }
 
+    /**
+     * @requires PHP >= 7.4
+     */
     public function testItSerializesTypedProperties()
     {
-        if (version_compare(phpversion(), '7.4.0-dev', '<')) {
-            $this->markTestSkipped('Typed properties are only available from PHP 7.4 and up.');
-        }
-
         require_once __DIR__.'/typed-properties.php';
 
         $user = ModelSerializationTestUser::create([

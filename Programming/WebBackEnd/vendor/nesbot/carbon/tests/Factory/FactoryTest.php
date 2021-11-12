@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\Factory;
 
 use Carbon\Carbon;
@@ -82,7 +84,7 @@ class FactoryTest extends AbstractTestCase
 
     public function testFactoryTimezone()
     {
-        Carbon::setTestNow(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
+        Carbon::setTestNowAndTimezone(Carbon::parse('2020-09-04 03:39:04.123456', 'UTC'));
 
         $factory = new Factory();
 

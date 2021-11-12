@@ -7931,6 +7931,7 @@
         "locationName":"item"
       }
     },
+    "CoreNetworkArn":{"type":"string"},
     "CpuManufacturer":{
       "type":"string",
       "enum":[
@@ -9179,7 +9180,8 @@
         "VpcPeeringConnectionId":{
           "shape":"VpcPeeringConnectionId",
           "locationName":"vpcPeeringConnectionId"
-        }
+        },
+        "CoreNetworkArn":{"shape":"CoreNetworkArn"}
       }
     },
     "CreateRouteResult":{
@@ -17970,7 +17972,10 @@
     },
     "FleetReplacementStrategy":{
       "type":"string",
-      "enum":["launch"]
+      "enum":[
+        "launch",
+        "launch-before-terminate"
+      ]
     },
     "FleetSet":{
       "type":"list",
@@ -17985,13 +17990,18 @@
         "ReplacementStrategy":{
           "shape":"FleetReplacementStrategy",
           "locationName":"replacementStrategy"
+        },
+        "TerminationDelay":{
+          "shape":"Integer",
+          "locationName":"terminationDelay"
         }
       }
     },
     "FleetSpotCapacityRebalanceRequest":{
       "type":"structure",
       "members":{
-        "ReplacementStrategy":{"shape":"FleetReplacementStrategy"}
+        "ReplacementStrategy":{"shape":"FleetReplacementStrategy"},
+        "TerminationDelay":{"shape":"Integer"}
       }
     },
     "FleetSpotMaintenanceStrategies":{
@@ -18320,6 +18330,15 @@
       "type":"integer",
       "max":1000,
       "min":200
+    },
+    "GatewayAssociationState":{
+      "type":"string",
+      "enum":[
+        "associated",
+        "not-associated",
+        "associating",
+        "disassociating"
+      ]
     },
     "GatewayType":{
       "type":"string",
@@ -21421,6 +21440,10 @@
         "CarrierIp":{
           "shape":"String",
           "locationName":"carrierIp"
+        },
+        "CustomerOwnedIp":{
+          "shape":"String",
+          "locationName":"customerOwnedIp"
         },
         "IpOwnerId":{
           "shape":"String",
@@ -28606,7 +28629,8 @@
         "VpcPeeringConnectionId":{
           "shape":"VpcPeeringConnectionId",
           "locationName":"vpcPeeringConnectionId"
-        }
+        },
+        "CoreNetworkArn":{"shape":"CoreNetworkArn"}
       }
     },
     "ReplaceRouteTableAssociationRequest":{
@@ -28668,7 +28692,10 @@
     },
     "ReplacementStrategy":{
       "type":"string",
-      "enum":["launch"]
+      "enum":[
+        "launch",
+        "launch-before-terminate"
+      ]
     },
     "ReportInstanceReasonCodes":{
       "type":"string",
@@ -30054,6 +30081,10 @@
         "VpcPeeringConnectionId":{
           "shape":"String",
           "locationName":"vpcPeeringConnectionId"
+        },
+        "CoreNetworkArn":{
+          "shape":"CoreNetworkArn",
+          "locationName":"coreNetworkArn"
         }
       }
     },
@@ -31454,6 +31485,10 @@
         "ReplacementStrategy":{
           "shape":"ReplacementStrategy",
           "locationName":"replacementStrategy"
+        },
+        "TerminationDelay":{
+          "shape":"Integer",
+          "locationName":"terminationDelay"
         }
       }
     },
@@ -35949,7 +35984,7 @@
           "locationName":"coreNetworkAttachmentArn"
         },
         "GatewayAssociationState":{
-          "shape":"String",
+          "shape":"GatewayAssociationState",
           "locationName":"gatewayAssociationState"
         },
         "Options":{

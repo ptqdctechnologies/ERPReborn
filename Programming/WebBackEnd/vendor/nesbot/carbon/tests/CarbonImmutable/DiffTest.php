@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -9,6 +10,7 @@ declare(strict_types=1);
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace Tests\CarbonImmutable;
 
 use Carbon\CarbonImmutable as Carbon;
@@ -500,6 +502,10 @@ class DiffTest extends AbstractTestCase
     {
         $dtOttawa = Carbon::createFromDate(2000, 1, 1, 'America/Toronto');
         $dtVancouver = Carbon::createFromDate(2000, 1, 1, 'America/Vancouver');
+        $this->assertSame(0, $dtOttawa->diffInSeconds($dtVancouver) % (24 * 3600));
+
+        $dtOttawa = Carbon::createMidnightDate(2000, 1, 1, 'America/Toronto');
+        $dtVancouver = Carbon::createMidnightDate(2000, 1, 1, 'America/Vancouver');
         $this->assertSame(3 * 60 * 60, $dtOttawa->diffInSeconds($dtVancouver));
     }
 

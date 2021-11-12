@@ -6,10 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Tests\Integration\Database\DatabaseTestCase;
 
-/**
- * @group integration
- * @group one-of-many
- */
 class EloquentHasOneOfManyTest extends DatabaseTestCase
 {
     protected function setUp(): void
@@ -24,12 +20,6 @@ class EloquentHasOneOfManyTest extends DatabaseTestCase
             $table->id();
             $table->foreignId('user_id');
         });
-    }
-
-    protected function getEnvironmentSetUp($app)
-    {
-        parent::getEnvironmentSetUp($app);
-        $app['config']->set('app.debug', 'true');
     }
 
     public function testItOnlyEagerLoadsRequiredModels()

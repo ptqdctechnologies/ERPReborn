@@ -4635,6 +4635,7 @@
       "members":{
         "EndpointName":{"shape":"EndpointName"},
         "EndpointConfigName":{"shape":"EndpointConfigName"},
+        "DeploymentConfig":{"shape":"DeploymentConfig"},
         "Tags":{"shape":"TagList"}
       }
     },
@@ -6353,7 +6354,8 @@
         "LatestHeartbeat":{"shape":"Timestamp"},
         "Models":{"shape":"EdgeModels"},
         "MaxModels":{"shape":"Integer"},
-        "NextToken":{"shape":"NextToken"}
+        "NextToken":{"shape":"NextToken"},
+        "AgentVersion":{"shape":"EdgeVersion"}
       }
     },
     "DescribeDomainRequest":{
@@ -6477,7 +6479,8 @@
         "CreationTime":{"shape":"Timestamp"},
         "LastModifiedTime":{"shape":"Timestamp"},
         "LastDeploymentConfig":{"shape":"DeploymentConfig"},
-        "AsyncInferenceConfig":{"shape":"AsyncInferenceConfig"}
+        "AsyncInferenceConfig":{"shape":"AsyncInferenceConfig"},
+        "PendingDeploymentSummary":{"shape":"PendingDeploymentSummary"}
       }
     },
     "DescribeExperimentRequest":{
@@ -7486,7 +7489,8 @@
         "IotThingName":{"shape":"ThingName"},
         "RegistrationTime":{"shape":"Timestamp"},
         "LatestHeartbeat":{"shape":"Timestamp"},
-        "Models":{"shape":"EdgeModelSummaries"}
+        "Models":{"shape":"EdgeModelSummaries"},
+        "AgentVersion":{"shape":"EdgeVersion"}
       }
     },
     "Devices":{
@@ -12116,6 +12120,35 @@
       "type":"list",
       "member":{"shape":"Parent"}
     },
+    "PendingDeploymentSummary":{
+      "type":"structure",
+      "required":["EndpointConfigName"],
+      "members":{
+        "EndpointConfigName":{"shape":"EndpointConfigName"},
+        "ProductionVariants":{"shape":"PendingProductionVariantSummaryList"},
+        "StartTime":{"shape":"Timestamp"}
+      }
+    },
+    "PendingProductionVariantSummary":{
+      "type":"structure",
+      "required":["VariantName"],
+      "members":{
+        "VariantName":{"shape":"VariantName"},
+        "DeployedImages":{"shape":"DeployedImages"},
+        "CurrentWeight":{"shape":"VariantWeight"},
+        "DesiredWeight":{"shape":"VariantWeight"},
+        "CurrentInstanceCount":{"shape":"TaskCount"},
+        "DesiredInstanceCount":{"shape":"TaskCount"},
+        "InstanceType":{"shape":"ProductionVariantInstanceType"},
+        "AcceleratorType":{"shape":"ProductionVariantAcceleratorType"},
+        "VariantStatus":{"shape":"ProductionVariantStatusList"}
+      }
+    },
+    "PendingProductionVariantSummaryList":{
+      "type":"list",
+      "member":{"shape":"PendingProductionVariantSummary"},
+      "min":1
+    },
     "Pipeline":{
       "type":"structure",
       "members":{
@@ -12733,6 +12766,21 @@
       "max":10,
       "min":1
     },
+    "ProductionVariantStatus":{
+      "type":"structure",
+      "required":["Status"],
+      "members":{
+        "Status":{"shape":"VariantStatus"},
+        "StatusMessage":{"shape":"VariantStatusMessage"},
+        "StartTime":{"shape":"Timestamp"}
+      }
+    },
+    "ProductionVariantStatusList":{
+      "type":"list",
+      "member":{"shape":"ProductionVariantStatus"},
+      "max":5,
+      "min":0
+    },
     "ProductionVariantSummary":{
       "type":"structure",
       "required":["VariantName"],
@@ -12742,7 +12790,8 @@
         "CurrentWeight":{"shape":"VariantWeight"},
         "DesiredWeight":{"shape":"VariantWeight"},
         "CurrentInstanceCount":{"shape":"TaskCount"},
-        "DesiredInstanceCount":{"shape":"TaskCount"}
+        "DesiredInstanceCount":{"shape":"TaskCount"},
+        "VariantStatus":{"shape":"ProductionVariantStatusList"}
       }
     },
     "ProductionVariantSummaryList":{
@@ -14254,14 +14303,16 @@
       "members":{
         "Type":{"shape":"TrafficRoutingConfigType"},
         "WaitIntervalInSeconds":{"shape":"WaitIntervalInSeconds"},
-        "CanarySize":{"shape":"CapacitySize"}
+        "CanarySize":{"shape":"CapacitySize"},
+        "LinearStepSize":{"shape":"CapacitySize"}
       }
     },
     "TrafficRoutingConfigType":{
       "type":"string",
       "enum":[
         "ALL_AT_ONCE",
-        "CANARY"
+        "CANARY",
+        "LINEAR"
       ]
     },
     "TrainingEnvironmentKey":{
@@ -15092,7 +15143,8 @@
         "EndpointConfigName":{"shape":"EndpointConfigName"},
         "RetainAllVariantProperties":{"shape":"Boolean"},
         "ExcludeRetainedVariantProperties":{"shape":"VariantPropertyList"},
-        "DeploymentConfig":{"shape":"DeploymentConfig"}
+        "DeploymentConfig":{"shape":"DeploymentConfig"},
+        "RetainDeploymentConfig":{"shape":"Boolean"}
       }
     },
     "UpdateEndpointOutput":{
@@ -15473,6 +15525,20 @@
         "DesiredWeight",
         "DataCaptureConfig"
       ]
+    },
+    "VariantStatus":{
+      "type":"string",
+      "enum":[
+        "Creating",
+        "Updating",
+        "Deleting",
+        "ActivatingTraffic",
+        "Baking"
+      ]
+    },
+    "VariantStatusMessage":{
+      "type":"string",
+      "max":1024
     },
     "VariantWeight":{
       "type":"float",
