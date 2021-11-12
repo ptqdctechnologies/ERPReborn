@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.System.FirstTimeInitRun.sh
-# ▪ Versi              : 1.00.0006
-# ▪ Tanggal            : 2021-08-25
+# ▪ Versi              : 1.00.0007
+# ▪ Tanggal            : 2021-11-12
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menjalankan semua Script saat Inisialisasi Pertama 
@@ -24,6 +24,7 @@ clear;
 ./BashScript/Script.Docker.BuildPermanentStorage.PostgreSQL.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;
+./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
 
 ./BashScript/Script.Docker.BuildVolume.All.sh;
 
@@ -33,5 +34,6 @@ clear;
 ./BashScript/Script.Docker.BuildImage.PHPApacheBackEnd.sh;
 ./BashScript/Script.Docker.BuildImage.PHPApacheFrontEnd.sh;
 ./BashScript/Script.Docker.BuildImage.Samba.sh;
+./BashScript/Script.Docker.BuildImage.OpenProject.sh;
 
 ./BashScript/Script.Docker.Start.sh;
