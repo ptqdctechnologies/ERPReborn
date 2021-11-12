@@ -132,27 +132,6 @@ services:
       - 'volume-redis:/data'
 
 
-  #---> Services : PGAdmin4
-  pgadmin4:
-    container_name: 'pgadmin4'
-      #image: 'dpage/pgadmin4:latest'
-      #image: 'dpage/pgadmin4:5.2'
-    image: 'erp-reborn-pgadmin4'
-    depends_on:
-      - 'db-postgresql'
-    restart: 'unless-stopped'
-    ports:
-      - '15050:80'
-    networks:
-      app-network:
-        ipv4_address: '172.28.0.6'
-    volumes:
-      - 'volume-pgadmin4:/var/lib/pgadmin'
-    environment:
-      PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
-      PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
-
-
   #---> Services : Samba
   samba:
     container_name: 'samba'
@@ -391,6 +370,25 @@ services:
     restart: always
 
 
+  #---> Services : PGAdmin4
+  pgadmin4:
+    container_name: 'pgadmin4'
+      #image: 'dpage/pgadmin4:latest'
+      #image: 'dpage/pgadmin4:5.2'
+    image: 'erp-reborn-devtools-pgadmin4'
+    depends_on:
+      - 'db-postgresql'
+    restart: 'unless-stopped'
+    ports:
+      - '15050:80'
+    networks:
+      app-network:
+        ipv4_address: '172.28.0.100'
+    volumes:
+      - 'volume-pgadmin4:/var/lib/pgadmin'
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 'pt.qdc.technologies@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 'qu1d151t3chn0'
 
 
   #---> Services : OpenProject
