@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
+    'reference' => '80d129f976d023df9382aa3faeb51d8f3032b3f4',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
+      'reference' => '80d129f976d023df9382aa3faeb51d8f3032b3f4',
     ),
     'laravel/serializable-closure' => 
     array (

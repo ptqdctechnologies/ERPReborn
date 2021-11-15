@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
+    'reference' => '80d129f976d023df9382aa3faeb51d8f3032b3f4',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.202.1',
-      'version' => '3.202.1.0',
+      'pretty_version' => '3.202.2',
+      'version' => '3.202.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '59ee4506f7f2b2f0f1de4b60ab2c1b8294c7afcd',
+      'reference' => '4460481cd63446454869534c69ddaf00cffa45be',
     ),
     'brick/math' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b515f59439d51845ef6d89890256e3aaabdcdc8d',
+      'reference' => '80d129f976d023df9382aa3faeb51d8f3032b3f4',
     ),
     'laravel/serializable-closure' => 
     array (
