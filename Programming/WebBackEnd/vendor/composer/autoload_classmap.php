@@ -1296,6 +1296,8 @@ return array(
     'Aws\\Middleware' => $vendorDir . '/aws/aws-sdk-php/src/Middleware.php',
     'Aws\\MigrationHubConfig\\Exception\\MigrationHubConfigException' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubConfig/Exception/MigrationHubConfigException.php',
     'Aws\\MigrationHubConfig\\MigrationHubConfigClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubConfig/MigrationHubConfigClient.php',
+    'Aws\\MigrationHubStrategyRecommendations\\Exception\\MigrationHubStrategyRecommendationsException' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubStrategyRecommendations/Exception/MigrationHubStrategyRecommendationsException.php',
+    'Aws\\MigrationHubStrategyRecommendations\\MigrationHubStrategyRecommendationsClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHubStrategyRecommendations/MigrationHubStrategyRecommendationsClient.php',
     'Aws\\MigrationHub\\Exception\\MigrationHubException' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHub/Exception/MigrationHubException.php',
     'Aws\\MigrationHub\\MigrationHubClient' => $vendorDir . '/aws/aws-sdk-php/src/MigrationHub/MigrationHubClient.php',
     'Aws\\Mobile\\Exception\\MobileException' => $vendorDir . '/aws/aws-sdk-php/src/Mobile/Exception/MobileException.php',

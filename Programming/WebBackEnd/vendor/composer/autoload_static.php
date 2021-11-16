@@ -1856,6 +1856,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\Middleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Middleware.php',
         'Aws\\MigrationHubConfig\\Exception\\MigrationHubConfigException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHubConfig/Exception/MigrationHubConfigException.php',
         'Aws\\MigrationHubConfig\\MigrationHubConfigClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHubConfig/MigrationHubConfigClient.php',
+        'Aws\\MigrationHubStrategyRecommendations\\Exception\\MigrationHubStrategyRecommendationsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHubStrategyRecommendations/Exception/MigrationHubStrategyRecommendationsException.php',
+        'Aws\\MigrationHubStrategyRecommendations\\MigrationHubStrategyRecommendationsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHubStrategyRecommendations/MigrationHubStrategyRecommendationsClient.php',
         'Aws\\MigrationHub\\Exception\\MigrationHubException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHub/Exception/MigrationHubException.php',
         'Aws\\MigrationHub\\MigrationHubClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/MigrationHub/MigrationHubClient.php',
         'Aws\\Mobile\\Exception\\MobileException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Mobile/Exception/MobileException.php',
