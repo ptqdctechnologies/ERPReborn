@@ -22,10 +22,28 @@ class procurementTransactionBrf extends Controller
                 'parameter' => []
             ]
         );
-        
-        return view('Advance.BussinesTrip.Transactions.createBRF', ['data' => $varData['data']['data']]);
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
 
-        // return view('Advance.BussinesTrip.Transactions.createBRF');
+        $compact = [
+            'data' => $varData['data']['data'],
+            'data2' => $varData2['data'],
+        ];
+
+        return view('Advance.BussinesTrip.Transactions.createBRF', $compact);
     }
 
     public function BRFtoBRFP()
@@ -166,8 +184,27 @@ class procurementTransactionBrf extends Controller
                 'parameter' => []
             ]
         );
-        
-        return view('Advance.BussinesTrip.Transactions.revisionBRF', ['data' => $varData['data']['data']]);
-        
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data']['data'],
+            'data2' => $varData2['data'],
+        ];
+
+        return view('Advance.BussinesTrip.Transactions.revisionBRF', $compact);
     }
 }

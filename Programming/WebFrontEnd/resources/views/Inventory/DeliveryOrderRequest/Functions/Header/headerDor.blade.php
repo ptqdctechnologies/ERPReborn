@@ -24,7 +24,7 @@
                                             <input id="headerProjectCode" style="border-radius:0;margin-left:25px;" name="headerProjectCode" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerProjectCode" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerProjectCode" data-toggle="modal" data-target="#mySearchPr" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>

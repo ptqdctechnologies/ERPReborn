@@ -31,7 +31,28 @@ class procurementTransactionArf extends Controller
         );
         // dd($varData);
 
-        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']['data']]);
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data']['data'],
+            'data2' => $varData2['data'],
+        ];
+
+        return view('Advance.Advance.Transactions.createARF', $compact);
 
     }
 
@@ -52,6 +73,7 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
+    
         
         return response()->json($varData['data']['data']);
     }
@@ -80,30 +102,8 @@ class procurementTransactionArf extends Controller
             ]
         );
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-        
-        $compact = [
-            'data' => $varData['data'],
-            'data2' => $varData2['data'],
-        ];
-        
-        return response()->json($compact);
+        return response()->json($varData['data']);
     }
-
     public function arflistcancel()
     {
         return redirect()->back();
@@ -278,6 +278,7 @@ class procurementTransactionArf extends Controller
     public function revisionArfIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -287,8 +288,30 @@ class procurementTransactionArf extends Controller
                 'parameter' => []
             ]
         );
-        
-        return view('Advance.Advance.Transactions.revisionARF', ['data' => $varData['data']['data']]);
+        // dd($varData);
+
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data']['data'],
+            'data2' => $varData2['data'],
+        ];
+
+        return view('Advance.Advance.Transactions.revisionARF', $compact);
     }
 
     public function submitData(Request $request)
