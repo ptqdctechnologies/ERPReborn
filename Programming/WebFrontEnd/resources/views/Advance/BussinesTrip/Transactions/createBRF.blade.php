@@ -504,21 +504,17 @@
                               <div id="iconOther" style="color: red;margin-left:5px;"></div>
                             </td>
                           </tr>
-                          <tr style="display: none;">
-                            <td><label>Sum</label></td>
-                            <td>
-                              <div class="input-group">
-                                <input id="sum" style="border-radius:0;" type="number" class="form-control">
-                              </div>
-                            </td>
-                          </tr>
+                          
                         </table>
                       </div>
                       <button type="reset" class="btn btn-danger btn-sm float-right">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         Reset
                       </button>
-                      <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a>
+                      <!-- <a class="btn btn-success btn-sm float-right" href="javascript:validateFormAsfPaymentSequence()"><i class="fas fa-plus" aria-hidden="true">Add</i></a> -->
+                      <a class="btn btn-outline btn-success btn-sm float-right" id="AddToBrfListCart" style="margin-right: 5px;">
+                        <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -539,11 +535,11 @@
                 </div>
               </div>
               <div class="card-body table-responsive p-0 brfhide6">
-                <table id="tableBrf" class="table table-head-fixed text-nowrap table-striped">
+                <table class="table table-head-fixed text-nowrap table-striped tableBrf">
                   <thead>
                     <tr>
-                      <th>Delete</th>
-                      <th>Payment Sequence</th>
+                      <th>Action</th>
+                      <!-- <th>Payment Sequence</th> -->
                       <th>Allowance</th>
                       <th>Transport</th>
                       <th>Airport Tax</th>
@@ -551,38 +547,30 @@
                       <th>Others</th>
                     </tr>
                   </thead>
-                </table>
-              </div>
-              <div class="card-body table-responsive p-0 brfhide6">
-                <table class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
+                  <tbody>
+
+                  </tbody>
+                  <tfoot>
                     <tr>
                       <th></th>
-                      <th></th>
-                      <th style="text-align: right;" id="valAllowance"></th>
-                      <th style="text-align: right;" id="valTransport"></th>
-                      <th style="text-align: right;" id="valAirportTax"></th>
-                      <th style="text-align: right;" id="valAccomodation"></th>
-                      <th style="text-align: right;" id="valOthers"></th>
+                      <!-- <th id="sequence"></th> -->
+                      <th id="valAllowance"></th>
+                      <th id="valTransport"></th>
+                      <th id="valAirportTax"></th>
+                      <th id="valAccomodation"></th>
+                      <th id="valOthers"></th>
                     </tr>
-                  </thead>
+                  </tfoot>
                 </table>
-              </div>
-              <div class="card-body table-responsive p-0 brfhide6">
                 <table class="table table-head-fixed text-nowrap table-striped">
-                  <thead>
+                  <tfoot>
                     <tr>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th></th>
-                      <th style="text-align: right;color:brown">Total Business Trip : <span id="totalBrf"></span> || Total Sequence : <span id="totalSequence"></span></th>
+                      <th style="color:brown;float:right;">Total Business Trip : <span id="totalBrf"></span> || Total Sequence : <span id="totalSequence"></span></th>
                     </tr>
-                  </thead>
+                  </tfoot>
                 </table>
               </div>
+              
             </div>
             <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="saveBrfList" style="margin-right: 5px;">
               <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>

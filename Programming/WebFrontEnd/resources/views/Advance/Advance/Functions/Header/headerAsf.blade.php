@@ -8,7 +8,7 @@
                             <td><label>Requester</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="requester" style="border-radius:0;" name="requester" type="text" class="form-control">
+                                    <input id="requester" style="border-radius:0;" name="var_requester" type="text" class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -16,7 +16,7 @@
                             <td><label>Manager Name</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="managerAsfUid" style="border-radius:0;" name="managerAsfUid" type="text" class="form-control" readonly>
+                                    <input id="managerAsfUid" style="border-radius:0;" name="var_manager_name" type="text" class="form-control" readonly>
                                     <diRequesterv class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="ManagerNameId" data-toggle="modal" data-target="#myManager" class="fas fa-gift" style="color:grey;"></i></a>
@@ -24,14 +24,14 @@
                                 </div>
                             </td>
                             <td>
-                                <input required="" id="managerAsfName" style="border-radius:0;" readonly="" class="form-control">
+                                <input id="managerAsfName" name="var_manager_name2" style="border-radius:0;" readonly="" class="form-control">
                             </td>
                         </tr>
                         <tr>
                             <td><label>Currency</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="currencyCode" style="border-radius:0;" name="currencyCode" type="text" class="form-control" readonly>
+                                    <input id="currencyCode" style="border-radius:0;" name="var_currency" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="CurrencyId" data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
@@ -51,7 +51,7 @@
                             <td><label>Finance Receiving Name</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="financeArfUtableBudgetBrfid" style="border-radius:0;" name="financeUid" type="text" class="form-control" readonly>
+                                    <input id="financeArfUtableBudgetBrfid" style="border-radius:0;" name="var_finance_receiving" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i id="FinanceId" data-toggle="modal" data-target="#myfinance" class="fas fa-gift" style="color:grey;"></i></a>
@@ -60,14 +60,14 @@
                                 </div>
                             </td>
                             <td>
-                                <input required="" id="financeArfName" style="border-radius:0;" readonly="" class="form-control">
+                                <input id="financeArfName" name="var_finance_receiving2" style="border-radius:0;" readonly="" class="form-control">
                             </td>
                         </tr>
                         <tr>
                             <td><label>Remark</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input required="" id="remark" style="border-radius:0;" name="remark" type="text" class="form-control">
+                                    <input id="remark" style="border-radius:0;" name="var_remark" type="text" class="form-control">
                                 </div>
                             </td>
                         </tr>

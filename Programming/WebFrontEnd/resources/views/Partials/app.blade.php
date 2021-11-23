@@ -181,6 +181,12 @@
         "autoWidth": false,
         "paginate": false,
       });
+
+      $("#tableBudgetDetail").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
       
       $('#example2').DataTable({  
         "paging": true,
