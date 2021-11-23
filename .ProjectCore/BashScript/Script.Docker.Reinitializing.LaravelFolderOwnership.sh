@@ -19,3 +19,6 @@ sudo chmod 777 ./Programming/WebBackEnd/bootstrap/cache;
 sudo chmod 777 ./Programming/WebFrontEnd/bootstrap/cache;
 
 sudo chmod 777 ./Programming/WebBackEnd/vendor/tecnickcom/tcpdf/fonts;
+
+sudo chown -R $(id -u):$(id -g) ./Programming/WebBackEnd/vendor/composer;
+sudo chown -R $(id -u):$(id -g) ./Programming/WebFrontEnd/vendor/composer;

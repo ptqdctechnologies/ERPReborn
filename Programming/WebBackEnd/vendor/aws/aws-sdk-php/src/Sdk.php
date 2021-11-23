@@ -26,6 +26,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionApiGatewayV2(array $args = [])
  * @method \Aws\AppConfig\AppConfigClient createAppConfig(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAppConfig(array $args = [])
+ * @method \Aws\AppConfigData\AppConfigDataClient createAppConfigData(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAppConfigData(array $args = [])
  * @method \Aws\AppIntegrationsService\AppIntegrationsServiceClient createAppIntegrationsService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAppIntegrationsService(array $args = [])
  * @method \Aws\AppMesh\AppMeshClient createAppMesh(array $args = [])
@@ -380,6 +382,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionMigrationHub(array $args = [])
  * @method \Aws\MigrationHubConfig\MigrationHubConfigClient createMigrationHubConfig(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMigrationHubConfig(array $args = [])
+ * @method \Aws\MigrationHubStrategyRecommendations\MigrationHubStrategyRecommendationsClient createMigrationHubStrategyRecommendations(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionMigrationHubStrategyRecommendations(array $args = [])
  * @method \Aws\Mobile\MobileClient createMobile(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionMobile(array $args = [])
  * @method \Aws\Neptune\NeptuneClient createNeptune(array $args = [])
@@ -566,6 +570,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionWorkSpaces(array $args = [])
  * @method \Aws\XRay\XRayClient createXRay(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionXRay(array $args = [])
+ * @method \Aws\drs\drsClient createdrs(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegiondrs(array $args = [])
  * @method \Aws\finspace\finspaceClient createfinspace(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionfinspace(array $args = [])
  * @method \Aws\imagebuilder\imagebuilderClient createimagebuilder(array $args = [])
@@ -579,7 +585,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.202.1';
+    const VERSION = '3.204.3';
 
     /** @var array Arguments for creating clients */
     private $args;
