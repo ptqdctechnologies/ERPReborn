@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '79be6ff6001264490bb43ecae54fea053f52aee6',
+    'reference' => 'c755054afb3c7bed2782047b3f5cd1d40edfd8a2',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -148,12 +148,12 @@ private static $installed = array (
     ),
     'facade/ignition' => 
     array (
-      'pretty_version' => '2.17.0',
-      'version' => '2.17.0.0',
+      'pretty_version' => '2.17.1',
+      'version' => '2.17.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '28d12b473ffcbe326959385772fd5125c73bc974',
+      'reference' => '317f6110c1977b50e06365bbb155fbe5079035ec',
     ),
     'facade/ignition-contracts' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '79be6ff6001264490bb43ecae54fea053f52aee6',
+      'reference' => 'c755054afb3c7bed2782047b3f5cd1d40edfd8a2',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -543,12 +543,12 @@ private static $installed = array (
     ),
     'league/flysystem' => 
     array (
-      'pretty_version' => '1.1.6',
-      'version' => '1.1.6.0',
+      'pretty_version' => '1.1.7',
+      'version' => '1.1.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '627be7fcde84c71aa0f15097fcf48fd5f2be5287',
+      'reference' => '3ca8f158ee21efa4bbd4f74bea5730c9b9261e2d',
     ),
     'league/flysystem-aws-s3-v3' => 
     array (
