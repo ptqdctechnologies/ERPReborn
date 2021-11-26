@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.master.setBankAccount (version 1)",
+"description": "JSON Request Schema of transaction.update.master.setBankAccount (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.master.setBankAccount" ]
+                        "enum": [ "transaction.update.master.setBankAccount" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,7 +27,13 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities" : {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "entities" :
+                {
                 "type": "object",
                 "properties": {
                     "bank_RefID": {
@@ -54,7 +60,7 @@
                 "required": [ "bank_RefID", "accountNumber", "name", "person_RefID" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]
