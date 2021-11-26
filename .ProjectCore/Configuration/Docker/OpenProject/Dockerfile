@@ -1,4 +1,4 @@
-FROM openproject/community:11 
+FROM openproject/community:12 
 ENV DEBIAN_FRONTEND=noninteractive
 
 #---> Release Port

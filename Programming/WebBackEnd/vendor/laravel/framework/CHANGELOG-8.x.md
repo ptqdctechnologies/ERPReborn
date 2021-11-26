@@ -1,6 +1,39 @@
 # Release Notes for 8.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v8.71.0...8.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v8.73.1...8.x)
+
+
+## [v8.73.1 (2021-11-20)](https://github.com/laravel/framework/compare/v8.73.0...v8.73.1)
+
+### Revert
+- Revert of [Use parents to resolve middleware priority in `SortedMiddleware`](https://github.com/laravel/framework/pull/39647) ([#39706](https://github.com/laravel/framework/pull/39706))
+
+
+## [v8.73.0 (2021-11-19)](https://github.com/laravel/framework/compare/v8.72.0...v8.73.0)
+
+### Added
+- Added .phar to blocked PHP extensions in validator ([#39666](https://github.com/laravel/framework/pull/39666))
+- Allow a Closure to be passed as a ttl in Cache remember() method ([#39678](https://github.com/laravel/framework/pull/39678))
+- Added Prohibits validation rule to dependentRules property ([#39677](https://github.com/laravel/framework/pull/39677))
+- Implement lazyById in descending order ([#39646](https://github.com/laravel/framework/pull/39646))
+
+### Fixed
+- Fixed `Illuminate/Auth/Notifications/ResetPassword::toMail()` ([969f101](https://github.com/laravel/framework/commit/969f1014ec07efba803f887a33fde29e305c9cb1))
+- Fixed assertSoftDeleted & assertNotSoftDeleted ([#39673](https://github.com/laravel/framework/pull/39673))
+
+
+## [v8.72.0 (2021-11-17)](https://github.com/laravel/framework/compare/v8.71.0...v8.72.0)
+
+### Added
+- Added extra method in PasswortReset for reset URL to match the structure of VerifyEmail ([#39652](https://github.com/laravel/framework/pull/39652))
+- Added support for countables to the `Illuminate/Support/Pluralizer::plural()` ([#39641](https://github.com/laravel/framework/pull/39641))
+- Allow users to specify options for migrate:fresh for DatabaseMigration trait ([#39637](https://github.com/laravel/framework/pull/39637))
+
+### Fixed
+- Casts $value to the int only when not null in `Illuminate/Database/Query/Builder::limit()` ([#39644](https://github.com/laravel/framework/pull/39644))
+
+### Changed
+- Use parents to resolve middleware priority in `SortedMiddleware` ([#39647](https://github.com/laravel/framework/pull/39647))
 
 
 ## [v8.71.0 (2021-11-16)](https://github.com/laravel/framework/compare/v8.70.2...v8.71.0)
