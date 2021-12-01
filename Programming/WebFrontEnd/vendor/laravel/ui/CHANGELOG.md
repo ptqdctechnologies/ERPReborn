@@ -1,6 +1,18 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.3.2...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.4.0...3.x)
+
+
+## [v3.4.0 (2021-11-30)](https://github.com/laravel/ui/compare/v3.3.3...v3.4.0)
+
+### Changed
+- Update library to Boostrap 5 ([#212](https://github.com/laravel/ui/pull/212))
+
+
+## [v3.3.3 (2021-11-21)](https://github.com/laravel/ui/compare/v3.3.2...v3.3.3)
+
+### Added
+- Laravel 9 Support ([08ea313](https://github.com/laravel/ui/commit/08ea313a35dfc89ff0cd9916ca0bcef9715d0ed6))
 
 
 ## [v3.3.2 (2021-11-05)](https://github.com/laravel/ui/compare/v3.3.1...v3.3.2)
