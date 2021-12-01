@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.System.FirstTimeInitRun.sh
-# ▪ Versi              : 1.00.0007
-# ▪ Tanggal            : 2021-11-12
+# ▪ Versi              : 1.00.0008
+# ▪ Tanggal            : 2021-11-26
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk menjalankan semua Script saat Inisialisasi Pertama 
@@ -15,8 +15,8 @@
 
 clear;
 
-./BashScript/Script.Laravel.ComposerUpdate.sh;
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
+./BashScript/Script.Laravel.ComposerUpdate.sh;
 
 ./BashScript/Script.Docker.BuildPermanentStorage.Grafana.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.LocalStorage.sh;
