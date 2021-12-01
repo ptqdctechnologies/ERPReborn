@@ -352,7 +352,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_CombinedBudgetOwner                                                                      |
+        | ▪ Method Name     : getDataList_CombinedBudget                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-10-12                                                                                           |
@@ -369,7 +369,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_CombinedBudgetOwner($varUserSession, int $varBranchID, 
+        public function getDataList_CombinedBudget($varUserSession, int $varBranchID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -377,7 +377,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetOwner',
+                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudget',
                         [
                             [$varBranchID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
@@ -441,7 +441,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_CombinedBudgetOwner                                                                  |
+        | ▪ Method Name     : getDataPickList_CombinedBudget                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-08-26                                                                                           |
@@ -454,14 +454,14 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataPickList_CombinedBudgetOwner($varUserSession, int $varBranchID)
+        public function getDataPickList_CombinedBudget($varUserSession, int $varBranchID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetOwner',
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudget',
                         [
                             [$varBranchID, 'bigint' ]
                         ]
