@@ -168,12 +168,12 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocale
-     * @see \Tests\Carbon\LocalizationTest::testSetTranslator
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetTranslator
      *
      * @return array
      */
-    public function providerLocales()
+    public static function dataForLocales()
     {
         return [
             ['af'],
@@ -316,7 +316,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
      *
      * @param string $locale
      */
@@ -327,7 +327,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::providerLocales
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForLocales
      *
      * @param string $locale
      */
@@ -351,11 +351,11 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @see \Tests\Carbon\LocalizationTest::testSetLocaleWithMalformedLocale
+     * @see \Tests\CarbonImmutable\LocalizationTest::testSetLocaleWithMalformedLocale
      *
      * @return array
      */
-    public function dataProviderTestSetLocaleWithMalformedLocale()
+    public static function dataForTestSetLocaleWithMalformedLocale()
     {
         return [
             ['DE'],
@@ -370,7 +370,7 @@ class LocalizationTest extends AbstractTestCase
     }
 
     /**
-     * @dataProvider \Tests\Carbon\LocalizationTest::dataProviderTestSetLocaleWithMalformedLocale
+     * @dataProvider \Tests\CarbonImmutable\LocalizationTest::dataForTestSetLocaleWithMalformedLocale
      *
      * @param string $malformedLocale
      */
@@ -850,5 +850,18 @@ class LocalizationTest extends AbstractTestCase
             'годину тому',
             Carbon::now()->subHour()->locale('uk')->diffForHumans(['aUnit' => true])
         );
+    }
+
+    public function testPolishDeclensions()
+    {
+        $hour = Carbon::now()->addHour()->locale('pl');
+        $minute = Carbon::now()->addMinute()->locale('pl');
+        $second = Carbon::now()->addSecond()->locale('pl');
+        $this->assertSame('za 1 godzinę', $hour->diffForHumans());
+        $this->assertSame('za 1 minutę', $minute->diffForHumans());
+        $this->assertSame('za 1 sekundę', $second->diffForHumans());
+        $this->assertSame('za godzinę', $hour->diffForHumans(['aUnit' => true]));
+        $this->assertSame('za minutę', $minute->diffForHumans(['aUnit' => true]));
+        $this->assertSame('za sekundę', $second->translate('from_now', ['time' => 'sekunda']));
     }
 }
