@@ -16,9 +16,9 @@ namespace Tests\Carbon;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\CarbonInterval;
+use Carbon\Exceptions\InvalidFormatException;
 use Closure;
 use DateTime;
-use Exception;
 use InvalidArgumentException;
 use Tests\AbstractTestCase;
 
@@ -568,6 +568,37 @@ class DiffTest extends AbstractTestCase
             '1 week from now',
             Carbon::parse('2020-07-30 13:51:15')
                 ->diffForHumans(['options' => CarbonInterface::ROUND])
+        );
+    }
+
+    public function testDiffWithSkippedUnits()
+    {
+        Carbon::setTestNow('2021-11-04 15:42');
+
+        $this->assertSame(
+            '26 weeks from now',
+            Carbon::parse('2022-05-25')
+                ->diffForHumans(['skip' => ['y', 'm']])
+        );
+        $this->assertSame(
+            '188 days from now',
+            Carbon::parse('2022-05-25')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '4 hours from now',
+            Carbon::parse('2021-11-04 20:00')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '6 hours ago',
+            Carbon::parse('2021-11-04 09:00')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
+        );
+        $this->assertSame(
+            '486 days ago',
+            Carbon::parse('2020-05-25')
+                ->diffForHumans(['skip' => ['y', 'm', 'w']])
         );
     }
 
@@ -1546,7 +1577,7 @@ class DiffTest extends AbstractTestCase
 
     public function testDiffForHumansWithIncorrectDateTimeStringWhichIsNotACarbonInstance()
     {
-        $this->expectExceptionObject(new Exception(
+        $this->expectExceptionObject(new InvalidFormatException(
             'Failed to parse time string (2018-04-13-08:00:00) at position 16'
         ));
 

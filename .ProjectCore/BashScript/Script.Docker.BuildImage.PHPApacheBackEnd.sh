@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildImage.PHPApacheBackEnd.sh
-# ▪ Versi              : 1.00.0001
-# ▪ Tanggal            : 2021-03-05
+# ▪ Versi              : 1.00.0002
+# ▪ Tanggal            : 2021-12-01 From 2021-03-05
 # ▪ Input              : -
 # ▪ Output             : erp-reborn-phpapache-backend (Docker's Image Object)
 # ▪ Deskripsi          : Script ini digunakan untuk membangun ulang Image PHP Apache Back End didalam 
@@ -15,6 +15,6 @@
 
 clear;
 
-sudo docker pull php:8.0-apache;
+sudo docker pull php:8.1-apache;
 #vim ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile
 sudo docker build --file ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/Dockerfile -t erp-reborn-phpapache-backend .;
