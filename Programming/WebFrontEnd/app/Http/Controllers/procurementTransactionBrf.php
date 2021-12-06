@@ -207,4 +207,42 @@ class procurementTransactionBrf extends Controller
 
         return view('Advance.BussinesTrip.Transactions.revisionBRF', $compact);
     }
+
+    public function submitData(Request $request)
+    {
+        $input = $request->all();
+        dd($input);die;
+        $count_product = count($input['var_product_id']);
+
+        $input_header = array(
+            'var_budget_code'	=> $input['var_budget_code'],
+            'var_budget_code2'	=> $input['var_budget_code2'],
+            'var_sub_budget_code'	=> $input['var_sub_budget_code'],
+            'var_sub_budget_code2'	=> $input['var_sub_budget_code2'],
+            'var_request_name'	=> $input['var_request_name'],
+            'var_beneficiary'	=> $input['var_beneficiary'],
+            'var_internal_notes'	=> $input['var_internal_notes'],
+            'var_bank_name'	=> $input['var_bank_name'],
+            'var_account_name'	=> $input['var_account_name'],
+            'var_account_number'	=> $input['var_account_number']
+        );
+
+        print_r($input_header);
+
+        $input_product = array(); 
+        if ($count_product > 0 && isset($count_product)) {
+            for ($n = 0; $n < $count_product; $n++) {
+                $input_product['var_product_id'] = $input['var_product_id'][$n];
+                $input_product['var_product_name'] = $input['var_product_name'][$n];
+                $input_product['var_quantity'] = $input['var_quantity'][$n];
+                $input_product['var_uom'] = $input['var_uom'][$n];
+                $input_product['var_price'] = $input['var_price'][$n];
+                $input_product['var_totalPrice'] = $input['var_totalPrice'][$n];
+                $input_product['var_currency'] = $input['var_currency'][$n];
+                $input_product['var_remark'] = $input['var_remark'][$n];
+                
+                print_r($input_product);
+            }
+        }
+    }
 }

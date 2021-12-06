@@ -159,74 +159,49 @@
 
             //End batas
 
-            var datas = [];
+            var trano = $("#advance_number").val();
+            var product_id = "PRO-0001";
+            var product_name = "Besi";
+            var uom = "LS";
+            var price = "1,000,000";
+            var qty = "2";
+            var total = "2,000,000";
+            var currency = "Rp";
+            var description = "Test 1";
 
-            for (var i = 1; i <= x; i++) {
-                var data = {
-                    origin_budget: "x",
-                    projectcode: "x",
-                    projectname: "x",
-                    sitecode: "x",
-                    sitecode2: "x",
-                    beneficiary: "x",
-                    bank_name: "x",
-                    account_name: "x",
-                    account_number: "x",
-                    internal_notes: "x",
-                    request_name: "x",
-                    putProductId: "820001-0000",
-                    putProductName: "Salaries",
-                    putQty: "4",
-                    putQtys: "4",
-                    putUom: "Ls",
-                    putPrice: "20.000.000",
-                    putCurrency: "IDR",
-                    totalArfDetails: "80000000",
-                    putRemark: "Test",
-                    filenames: "x",
-                    trano: $('#advance_number').val(),
-                }
-                datas.push(data);
-            }
+            $("#productIdHide").val(product_id);
+            $("#nameMaterialHide").val(product_name);
+            $("#uomHide").val(uom);
+            $("#descriptionHide").val(description);
 
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
 
-            $.ajax({
-                type: "POST",
-                url: '{{route("ARF.store")}}',
-                data: json_object,
-                contentType: "application/json",
-                processData: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                success: function(data) {
-                    y++;
-                    $.each(data, function(key, val) {
-
-                        var t = $('#tableArfDetail').DataTable();
-                        t.row.add([
-                            '<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list remove-attachment addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>',
-                            '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-blue" style="width: 90%;"></div></div><small><center>90 %</center></small>',
-                            '<span id="lastTrano">' + val.trano + '</span>',
-                            '<span id="lastProductId">' + val.putProductId + '</span>',
-                            '<span id="lastProductName">' + val.putProductName + '</span>',
-                            '<span id="lastUom">' + val.putUom + '</span>',
-                            '<span id="lastPrice">' + val.putPrice + '</span>',
-                            '<span id="lastQty">' + val.putQtys + '</span>',
-                            '<span id="totalArfDetails">' + val.totalArfDetails + '</span>',
-                            '<span id="lastCurrency">' + val.putCurrency + '</span>',
-                            '<span id="lastRemark">' + val.putRemark + '</span>',
-                            '<span id="lastRemark">' + val.putRemark + '</span>',
-                        ]).draw();
-                    });
-                },
-                error: function(data) {
-                    Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
-                }
-            });
-
+            var html = '<tr>'+
+                            '<td>'+
+                            '<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>'+
+                                // '<input type="hidden" name="var_trano[]" value="'+trano+'">'+
+                                // '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
+                                // '<input type="hidden" name="var_product_name[]" value="'+putProductName+'">'+
+                                // '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
+                                // '<input type="hidden" name="var_product_name[]" value="'+putProductName+'">'+
+                                // '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
+                                // '<input type="hidden" name="var_price_amount[]" value="'+price_amount+'">'+
+                                // '<input type="hidden" name="var_qty_amount[]" value="'+qty_amount+'">'+
+                                // '<input type="hidden" name="var_total_amount[]" value="'+total_amount+'">'+
+                                // '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
+                                // '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
+                            '</td>'+
+                            '<td>'+'N/A'+'</td>'+
+                            '<td>'+trano+'</td>'+
+                            '<td>'+product_id+'</td>'+
+                            '<td>'+product_name+'</td>'+
+                            '<td>'+uom+'</td>'+
+                            '<td>'+price+'</td>'+
+                            '<td>'+qty+'</td>'+
+                            '<td>'+total+'</td>'+
+                            '<td>'+currency+'</td>'+
+                            '<td>'+description+'</td>'+
+                        '</tr>';
+            $('table.tableArfDetail tbody').append(html);
         });
     });
 </script>
@@ -235,23 +210,17 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("body").on("click", ".addToDetailSettlement", function() {
-
             $("#addAsfListCart").prop("disabled", false);
             $(".detailASF").show();
             $("#arf_number").val($('#advance_number').val());
             $("#arf_date").val("23-02-2021");
-            // $("#projectcode").val($('#hideProjectId').val());
-            // $("#projectcode2").val($('#hideProjectName').val());
             $("#cfs_code").val("x");
-            $("#total_arf").val("100000000");
+            $("#total_arf").val("1000000");
             $("#total_arf2").val("IDR");
-            $("#total_asf").val($('#totalArfDetails').html());
+            $("#total_asf").val("500000");
             $("#total_asf2").val("IDR");
             
-            var balance = 100000000 - $('#totalArfDetails').html();
-            // var balance = totalBalance.toFixed(0).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            
-            $("#balance").val(balance);
+            $("#balance").val("500000");
             $("#balance2").val("IDR");
             $("#qty_expense2").val("Ls");
             $("#price_expense2").val("IDR");
@@ -259,11 +228,6 @@
             $("#qty_amount2").val("Ls");
             $("#price_amount2").val("IDR");
             $("#total_amount2").val("IDR");
-
-
-            $("#productIdHide").val("820001-0000");
-            $("#nameMaterialHide").val("Salaries");
-            $("#uomHide").val("Ls");
 
         });
     });

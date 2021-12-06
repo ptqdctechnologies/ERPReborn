@@ -833,15 +833,55 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('Budget.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Budget</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="{{ route('BudgetExpense.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Budget Revision</label>
+                                                <label>Create Budget Expense</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseGroup.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget Expense Group</label>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseLine.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget Expense Line</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseLineCeiling.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget Expense Line Ceiling</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget Expense Ceiling Objects</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetType.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Budget Type</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('CodeOfBudgeting.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Code of Budgeting</label>
                                             </a>
                                         </li>
                                     </ul>

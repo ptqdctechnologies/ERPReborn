@@ -150,6 +150,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionBsf', 'procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
     Route::post('BSF/store', 'procurementTransactionBsf@store')->name('BSF.store');
     Route::get('BSF', 'procurementTransactionBsf@createBSF')->name('BSF.createBSF');
+    Route::post('submitDataBSF', 'procurementTransactionBsf@submitData')->name('BSF.submitData');
 
 
     // BRF
@@ -157,6 +158,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BRF', 'procurementTransactionBrf@createBRF')->name('BRF.createBRF');
     Route::post('BRF/store', 'procurementTransactionBrf@store')->name('BRF.store');
     Route::post('BRF/storePaymentSequence', 'procurementTransactionBrf@storePaymentSequenceBrf')->name('BRF.storePaymentSequenceBrf');
+    Route::post('submitDataBRF', 'procurementTransactionBrf@submitData')->name('BRF.submitData');
 
     // DOR
     Route::get('DOR', 'procurementTransactionDor@index')->name('DOR.index');
@@ -228,6 +230,22 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('bankChargers', 'finance@bankChargers')->name('bankChargers.index');
     Route::get('editBankChargers', 'finance@editBankChargers')->name('editBankChargers.index');
 
+    // Budget
+    Route::resource('Budget','BudgetController');
+    // Budget Expense
+    Route::resource('BudgetExpense','BudgetExpenseController');
+    // Budget ExpenseGroup
+    Route::resource('BudgetExpenseGroup','BudgetExpenseGroupController');
+    // Budget ExpenseLine
+    Route::resource('BudgetExpenseLine','BudgetExpenseLineController');
+    // Budget ExpenseLineCeiling
+    Route::resource('BudgetExpenseLineCeiling','BudgetExpenseLineCeilingController');
+    // Budget ExpenseLineCeilingObjects
+    Route::resource('BudgetExpenseLineCeilingObjects','BudgetExpenseLineCeilingObjectsController');
+    // Budget Type
+    Route::resource('BudgetType','BudgetTypeController');
+    // CodeOfBudgeting
+    Route::resource('CodeOfBudgeting','CodeOfBudgetingController');
 
     // Dashboard
     Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
