@@ -162,72 +162,80 @@
 
       if (varSequence > varSequenceReq) {
         Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
-      } else {
+      }
+      else {
+        
+        if(varSequence == varSequenceReq){
+          $("#saveBrfList").prop("disabled", false);
+        }
 
-          var sequence = $('#sequence').val();
-          var allowance = $('#allowance').val();
-          var transport = $('#transport').val();
-          var airport_tax = $('#airport_tax').val();
-          var accomodation = $('#accomodation').val();
-          var other = $('#other').val();
+        var sequence = $('#sequence').val();
+        var allowance = $('#allowance').val();
+        var transport = $('#transport').val();
+        var airport_tax = $('#airport_tax').val();
+        var accomodation = $('#accomodation').val();
+        var other = $('#other').val();
 
-          var varLoop = +varSequence + 1;
+        var varLoop = +varSequence + 1;
+        $("#sequence").val(varLoop);
+
+        var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
+
+        if(varTotal > varBudgetRequest){
+
+          Swal.fire("Error !", "Total Budget more than Budget Request", "error");
+          var varLoop = $("#sequence").val() - 1;
           $("#sequence").val(varLoop);
 
-          var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
+        }
+        else{
+          
+          valAllowance += +allowance;
+          valTransport += +transport;
+          valAirportTax += +airport_tax;
+          valAccomodation += +accomodation;
+          valOthers += +other;
 
-          if(varTotal > varBudgetRequest){
+          varTotalBrf = +valAllowance + +valTransport + +valAirportTax + +valAccomodation + +valOthers;
 
-            Swal.fire("Error !", "Total Budget more than Budget Request", "error");
-            var varLoop = $("#sequence").val() - 1;
-            $("#sequence").val(varLoop);
+          $("#valAllowance").html(valAllowance);
+          $("#valTransport").html(valTransport);
+          $("#valAirportTax").html(valAirportTax);
+          $("#valAccomodation").html(valAccomodation);
+          $("#valOthers").html(valOthers);
+          $("#totalBrf").html(varTotalBrf);
+          $("#totalSequence").html(varSequenceReq);
 
-          }
-          else{
-
-            valAllowance += +allowance;
-            valTransport += +transport;
-            valAirportTax += +airport_tax;
-            valAccomodation += +accomodation;
-            valOthers += +other;
-
-            varTotalBrf = +valAllowance + +valTransport + +valAirportTax + +valAccomodation + +valOthers;
-
-            $("#valAllowance").html(valAllowance);
-            $("#valTransport").html(valTransport);
-            $("#valAirportTax").html(valAirportTax);
-            $("#valAccomodation").html(valAccomodation);
-            $("#valOthers").html(valOthers);
-            $("#totalBrf").html(varTotalBrf);
-            $("#totalSequence").html(varSequenceReq);
-
-            var html = '<tr>'+
-                      '<td>'+
-                          '<button type="button" class="btn btn-danger btn-xs remove"><i class="fa fa-trash"></i></button> '+
-                          '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+allowance+'" data-id2="'+transport+'" data-id3="'+airport_tax+'" data-id4="'+accomodation+'" data-id5="'+other+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                          '<input type="hidden" name="var_product_id[]" value="'+sequence+'">'+
-                          '<input type="hidden" name="var_product_name[]" value="'+allowance+'">'+
-                          '<input type="hidden" name="var_quantity[]" value="'+transport+'">'+
-                          '<input type="hidden" name="var_uom[]" value="'+airport_tax+'">'+
-                          '<input type="hidden" name="var_uom[]" value="'+accomodation+'">'+
-                          '<input type="hidden" name="var_price[]" value="'+other+'">'+
-                      '</td>'+
-                      // '<td>'+sequence+'</td>'+
-                      '<td>'+allowance+'</td>'+
-                      '<td>'+transport+'</td>'+
-                      '<td>'+airport_tax+'</td>'+
-                      '<td>'+accomodation+'</td>'+
-                      '<td>'+other+'</td>'+
-                  '</tr>';
-                    
-            $('table.tableBrf tbody').append(html);
-            $(".brfhide6").show();
-          }
+          var html = '<tr>'+
+                    '<td>'+
+                        '<button type="button" class="btn btn-danger btn-xs remove"><i class="fa fa-trash"></i></button> '+
+                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+allowance+'" data-id2="'+transport+'" data-id3="'+airport_tax+'" data-id4="'+accomodation+'" data-id5="'+other+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                        '<input type="hidden" name="sequence[]" value="'+sequence+'">'+
+                        '<input type="hidden" name="allowance[]" value="'+allowance+'">'+
+                        '<input type="hidden" name="transport[]" value="'+transport+'">'+
+                        '<input type="hidden" name="airport_tax[]" value="'+airport_tax+'">'+
+                        '<input type="hidden" name="accomodation[]" value="'+accomodation+'">'+
+                        '<input type="hidden" name="other[]" value="'+other+'">'+
+                    '</td>'+
+                    '<td>'+allowance+'</td>'+
+                    '<td>'+transport+'</td>'+
+                    '<td>'+airport_tax+'</td>'+
+                    '<td>'+accomodation+'</td>'+
+                    '<td>'+other+'</td>'+
+                '</tr>';
+                  
+          $('table.tableBrf tbody').append(html);
+          $(".brfhide6").show();
+        }
       }
       $("body").on("click", ".remove", function () {
           var varLoop = varSequence - 1;
           $("#sequence").val(varLoop);
           $(this).closest("tr").remove();
+
+          if(varSequenceReq != varLoop){
+            $("#saveBrfList").prop("disabled", true);
+          }
       });
 
       $("body").on("click", ".edit", function () {
@@ -255,89 +263,6 @@
       $("#other ").val("");
       
     // }
-    $("#saveBrfList").prop("disabled", false);
-  });
-</script>
-
-<script>
-  $('#saveBrfList').click(function() {
-
-    const swalWithBootstrapButtons = Swal.mixin({
-      confirmButtonClass: 'btn btn-success btn-sm',
-      cancelButtonClass: 'btn btn-danger  btn-sm',
-      buttonsStyling: true,
-    })
-
-    swalWithBootstrapButtons.fire({
-
-      title: 'Are you sure?',
-      text: "Save this data?",
-      type: 'question',
-
-      showCancelButton: true,
-      confirmButtonText: 'Yes, save it!',
-      cancelButtonText: 'No, cancel!',
-      reverseButtons: true
-    }).then((result) => {
-      if (result.value) {
-        swalWithBootstrapButtons.fire(
-          'Succesful!',
-          'Data has been updated !',
-          'success'
-        )
-
-        //Batas
-
-        var datax = [];
-        for (var i = 1; i <= y; i++) {
-          var data = {
-            lastWorkId: $('#lastWorkId_' + i).html(),
-            lastWorkName: $('#lastWorkName_' + i).html(),
-            lastProductId: $('#lastProductId_' + i).html(),
-            lastProductName: $('#lastProductName_' + i).html(),
-            lastQty: $('#lastQty_' + i).val(),
-            lastUom: $('#lastUom_' + i).html(),
-            lastPrice: $('#lastPrice_' + i).html(),
-            totalArfDetails: $('#totalArfDetails_' + i).html(),
-            lastCurrency: $('#lastCurrency_' + i).html(),
-            lastRemark: $('#lastRemark_' + i).html(),
-
-          }
-          datax.push(data);
-        }
-
-        var json_object = JSON.stringify(datax);
-        console.log(json_object);
-
-        $.ajax({
-          type: "POST",
-          url: '{{route("ARF.tests")}}',
-          data: json_object,
-          contentType: "application/json",
-          processData: true,
-          headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-          },
-          success: function(data) {
-            console.log(data);
-          },
-          error: function(data) {
-            Swal.fire("Error !", "Data Canceled Added", "error");
-          }
-        });
-
-        //EndBatas
-
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        swalWithBootstrapButtons.fire(
-          'Cancelled',
-          'Process Canceled !',
-          'error'
-        )
-      }
-    })
   });
 </script>
 

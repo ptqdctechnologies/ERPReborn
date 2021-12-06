@@ -118,6 +118,7 @@
                                   <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
                                   <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
                                   <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
+                                  <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
                                 </div>
                               </td>
                             </tr>

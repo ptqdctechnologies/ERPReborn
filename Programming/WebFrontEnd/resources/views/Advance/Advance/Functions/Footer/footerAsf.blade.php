@@ -35,9 +35,6 @@
 </script>
 
 <script>
-    var x = 1,
-        y = 0;
-    xx = 0; //initlal text box count
 
     $('#addAsfListCart').click(function() {
 
@@ -71,7 +68,7 @@
             var price_amount2 =  $('#price_amount2').val();
             var total_amount =  $('#total_amount').val();
             var total_amount2 =  $('#total_amount2').val();
-            var description =  "cek";
+            var description =  $("#descriptionHide").val();
 
             var html = '<tr>'+
                             '<td>'+
@@ -266,90 +263,6 @@
     });
 </script>
 
-<!-- <script>
-    // var y = 1; //initlal text box count
-
-    $('#saveAsfList').click(function() {
-
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        })
-
-        swalWithBootstrapButtons.fire({
-
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
-
-            showCancelButton: true,
-            confirmButtonText: 'Yes, save it!',
-            cancelButtonText: 'No, cancel!',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                swalWithBootstrapButtons.fire(
-                    'Succesful!',
-                    'Data has been updated !',
-                    'success'
-                )
-
-                //Batas
-
-                var datax = [];
-                for (var i = 1; i <= y; i++) {
-                    var data = {
-                        lastWorkId: $('#lastWorkId_' + i).html(),
-                        lastWorkName: $('#lastWorkName_' + i).html(),
-                        lastProductId: $('#lastProductId_' + i).html(),
-                        lastProductName: $('#lastProductName_' + i).html(),
-                        lastQty: $('#lastQty_' + i).val(),
-                        lastUom: $('#lastUom_' + i).html(),
-                        lastPrice: $('#lastPrice_' + i).html(),
-                        totalArfDetails: $('#totalArfDetails_' + i).html(),
-                        lastCurrency: $('#lastCurrency_' + i).html(),
-                        lastRemark: $('#lastRemark_' + i).html(),
-
-                    }
-                    datax.push(data);
-                }
-
-                var json_object = JSON.stringify(datax);
-                console.log(json_object);
-
-                $.ajax({
-                    type: "POST",
-                    url: '{{route("ARF.tests")}}',
-                    data: json_object,
-                    contentType: "application/json",
-                    processData: true,
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    },
-                    success: function(data) {
-                        console.log(data);
-                    },
-                    error: function(data) {
-                        Swal.fire("Error !", "Data Canceled Added", "error");
-                    }
-                });
-
-                //EndBatas
-
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Process Canceled !',
-                    'error'
-                )
-            }
-        })
-    });
-</script> -->
-
 <script>
     var wrapper = $(".input_fields_wrap"); //Fields wrapper
     $('.add_field_button').click(function() {
@@ -540,9 +453,7 @@
         $('#price_expense').keyup(function() {
             var price_expense = $(this).val();
             var qty_expense = $('#qty_expense').val();
-            var total_expense = price_expense * qty_expense;
-            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            $("#total_expense").val(total_expense);
+            var total_expense = price_expense * qty_expense;$("#total_expense").val(total_expense);
         });
     });
 </script>
@@ -552,9 +463,7 @@
         $('#price_amount').keyup(function() {
             var price_amount = $(this).val();
             var qty_amount = $('#qty_amount').val();
-
-            var total_amount = price_amount * qty_amount;
-            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            var total_amount = price_amount * qty_amount;// var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             $("#total_amount").val(total_amount);
         });
     });
