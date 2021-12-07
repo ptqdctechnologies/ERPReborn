@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '2fa0a46c3b77d89427739783ccf32001f1fcd1bb',
+    'reference' => '9aa93373499755e2f3ab3c085bde9e86106eb34b',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.208.1',
-      'version' => '3.208.1.0',
+      'pretty_version' => '3.208.2',
+      'version' => '3.208.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd497414c1c4ae55145493f720f7b4d12afe92c02',
+      'reference' => 'ad35b407046b8eb3856b78795371f1fde46769f4',
     ),
     'brick/math' => 
     array (
@@ -211,12 +211,12 @@ private static $installed = array (
     ),
     'guzzlehttp/guzzle' => 
     array (
-      'pretty_version' => '7.4.0',
-      'version' => '7.4.0.0',
+      'pretty_version' => '7.4.1',
+      'version' => '7.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '868b3571a039f0ebc11ac8f344f4080babe2cb94',
+      'reference' => 'ee0a041b1760e6a53d2a39c8c34115adc2af2c79',
     ),
     'guzzlehttp/promises' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '2fa0a46c3b77d89427739783ccf32001f1fcd1bb',
+      'reference' => '9aa93373499755e2f3ab3c085bde9e86106eb34b',
     ),
     'laravel/serializable-closure' => 
     array (
