@@ -51,7 +51,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBudgetExpenseCeiling_RefID ► Budget Expense Ceiling Reference ID                                      |
+        |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Ceiling Reference ID                                  |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudgetExpenseCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
+            int $varBudgetExpenseLineCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -79,7 +79,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],                       
-                        [$varBudgetExpenseCeiling_RefID, 'bigint'],
+                        [$varBudgetExpenseLineCeiling_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
@@ -107,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBudgetExpenseCeiling_RefID ► Budget Expense Ceiling Reference ID                                      |
+        |      ▪ (int)    varBudgetExpenseLineCeiling_RefID ► Budget Expense Ceiling Reference ID                                  |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
@@ -121,7 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBudgetExpenseCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
+            int $varBudgetExpenseLineCeiling_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -134,7 +134,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBudgetExpenseCeiling_RefID, 'bigint'],
+                        [$varBudgetExpenseLineCeiling_RefID, 'bigint'],
                         [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],

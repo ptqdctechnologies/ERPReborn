@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting                             |
-|                \setBudgetExpenseCeilingObjects\v1                                                                                |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLineCeiling |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseCeilingObjects\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\budgeting\setBudgetExpenseLineCeiling\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBudgetExpenseCeilingObjects                                                                               |
-    | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseCeilingObjects Version 1                          |
+    | ▪ Class Name  : setBudgetExpenseLineCeiling                                                                                  |
+    | ▪ Description : Menangani API transaction.create.budgeting.setBudgetExpenseLineCeiling Version 1                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBudgetExpenseCeilingObjects extends \App\Http\Controllers\Controller
+    class setBudgetExpenseLineCeiling extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-18                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-06-18                                                                                           |
+        | ▪ Last Update     : 2021-06-15                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,22 +57,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Budget Expense Ceiling Objects Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Budget Expense Line Ceiling Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseCeilingObjects())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseLineCeiling())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['budgetExpenseCeiling_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
+                            $varData['entities']['budgetExpenseLine_RefID'],
+                            $varData['entities']['validStartDateTimeTZ'],
+                            $varData['entities']['validFinishDateTimeTZ'],
+                            $varData['entities']['currency_RefID'],
+                            $varData['entities']['currencyExchangeRate'],
+                            $varData['entities']['currencyValue']
                             ))))
                             {
                             throw new \Exception();
