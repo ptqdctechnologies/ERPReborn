@@ -17,7 +17,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Edit Blood Aglutinogen Type
+                                            Edit Budget Expense
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -38,21 +38,10 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-
-                                                        <tr>
-                                                            <td><label>Start Date</label></td>
+                                                        <td><label>Owner</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control" value="{{ $datax['validStartDateTimeTZ'] }}">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><label>End Date</label></td>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control" value="{{ $datax['validFinishDateTimeTZ'] }}">
+                                                                    <input autocomplete="off" id="owner" name="owner" class="form-control" value="{{ $datax['owner'] }}">
                                                                 </div>
                                                             </td>
                                                         </tr>

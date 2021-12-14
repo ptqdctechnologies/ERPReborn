@@ -53,10 +53,10 @@
                                                                 <center>
 
 
-                                                                    <form action="{{ route('BloodAglutinogenType.destroy', $datas['sys_ID']) }}" method="post">
+                                                                    <form action="{{ route('BudgetExpenseGroup.destroy', $datas['sys_ID']) }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
-                                                                        <a href="{{ route('Budget.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
+                                                                        <a href="{{ route('BudgetExpenseGroup.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
                                                                         <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
                                                                     </form>
                                                                 </center>

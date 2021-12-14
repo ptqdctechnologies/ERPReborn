@@ -43,7 +43,7 @@
                                                             <td><label>Start Date</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control" value="{{ $datax['validStartDateTimeTZ'] }}">
+                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control" value="{{ date('Y-m-d', strtotime($datax['validStartDateTimeTZ'])) }}">
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -52,7 +52,7 @@
                                                             <td><label>End Date</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control" value="{{ $datax['validFinishDateTimeTZ'] }}">
+                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control" value="{{ date('Y-m-d', strtotime($datax['validFinishDateTimeTZ'])) }}">
                                                                 </div>
                                                             </td>
                                                         </tr>

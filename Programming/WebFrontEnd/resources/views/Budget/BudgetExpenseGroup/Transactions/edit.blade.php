@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
                     @foreach($data as $datax)
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BloodAglutinogenType.update', $datax['sys_ID']) }}" name="formHeaderMret">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpenseGroup.update', $datax['sys_ID']) }}" name="formHeaderMret">
                         <div class="row">
                             @method('PUT')
                             @csrf
@@ -17,7 +17,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Edit Blood Aglutinogen Type
+                                            Edit Budget Expense Group
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -39,7 +39,7 @@
                                                             </td>
                                                         </tr>
 
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td><label>Start Date</label></td>
                                                             <td>
                                                                 <div class="input-group">
@@ -53,6 +53,17 @@
                                                             <td>
                                                                 <div class="input-group">
                                                                     <input autocomplete="off" type="date" id="end" name="end" class="form-control" value="{{ $datax['validFinishDateTimeTZ'] }}">
+                                                                </div>
+                                                            </td>
+                                                        </tr> -->
+                                                        <tr>
+                                                            <td><label>Code</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <select id="code" name="code" class="form-control">
+                                                                        <option value="OPEX">OPEX</option>
+                                                                        <option value="CAPEX">CAPEX</option>
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
