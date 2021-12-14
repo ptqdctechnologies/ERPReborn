@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\budgeting\setBudgetExpenseCeiling   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\budgeting                             |
+|                \setBudgetExpenseLineCeilingObjects\v1                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\budgeting\setBudgetExpenseCeiling\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\delete\budgeting\setBudgetExpenseLineCeilingObjects\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setBudgetExpenseCeiling                                                                                      |
-    | ▪ Description : Menangani API transaction.undelete.budgeting.setBudgetExpenseCeiling Version 1                               |
+    | ▪ Class Name  : setBudgetExpenseLineCeilingObjects                                                                           |
+    | ▪ Description : Menangani API transaction.delete.budgeting.setBudgetExpenseLineCeilingObjects Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setBudgetExpenseCeiling extends \App\Http\Controllers\Controller
+    class setBudgetExpenseLineCeilingObjects extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-02                                                                                           |
+        | ▪ Last Update     : 2021-07-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-02                                                                                           |
+        | ▪ Last Update     : 2021-07-01                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,11 +57,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\un
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Budget Expense Ceiling Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Delete Budget Expense Line Ceiling Objects Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseCeiling())->unsetDataDelete(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudgetExpenseLineCeilingObjects())->setDataDelete(
                             $varUserSession,
                             $varData['recordID']
                             ))))
