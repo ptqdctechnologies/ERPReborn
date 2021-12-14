@@ -13,7 +13,7 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <label class="card-title">Budget Expense Group</label>
+                                    <label class="card-title">Budget Expense Line Ceiling</label>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-angle-down btn-sm" style="color:black;"></i>

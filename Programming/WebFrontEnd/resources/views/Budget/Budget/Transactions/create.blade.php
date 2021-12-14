@@ -32,7 +32,7 @@
                                                             <td><label>Name</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="name" name="name" class="form-control">
+                                                                    <input autocomplete="off" id="name" name="name" class="form-control" required>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -41,7 +41,7 @@
                                                             <td><label>Start Date</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control">
+                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control" required>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -50,7 +50,7 @@
                                                             <td><label>End Date</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control">
+                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control" required>
                                                                 </div>
                                                             </td>
                                                         </tr>

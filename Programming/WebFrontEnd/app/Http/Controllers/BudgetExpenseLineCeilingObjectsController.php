@@ -35,7 +35,7 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
             ]
         ]
         );
-        // dd($varData);
+        var_dump($varData);die;
         
         return view('Budget.BudgetExpenseGroup.Transactions.index', ['data' => $varData['data']]);
     }

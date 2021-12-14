@@ -27,13 +27,15 @@
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('Budget.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('Budget.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
-                                                            <th>Sys ID</th>
-                                                            <th>Sys Branch Ref ID</th>
+                                                            <th>ID</th>
+                                                            <th>Branch Ref ID</th>
                                                             <th>Name</th>
+                                                            <th>Start Date</th>
+                                                            <th>End Date</th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -43,11 +45,11 @@
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
                                                             <td>{{$datas['name']}}</td>
+                                                            <td>{{ date('Y-m-d', strtotime($datas['validStartDateTimeTZ'])) }}</td>
+                                                            <td>{{ date('Y-m-d', strtotime($datas['validFinishDateTimeTZ'])) }}</td>
                                                             <td>
                                                                 <center>
-
-
-                                                                    <form action="{{ route('BloodAglutinogenType.destroy', $datas['sys_ID']) }}" method="post">
+                                                                    <form action="{{ route('Budget.destroy', $datas['sys_ID']) }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <a href="{{ route('Budget.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>

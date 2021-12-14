@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('BudgetExpenseGroup.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('BudgetExpenseLine.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
@@ -35,6 +35,7 @@
                                                             <th>Sys Branch Ref ID</th>
                                                             <th>Name</th>
                                                             <th>Code</th>
+                                                            <th>Action</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -43,6 +44,7 @@
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
                                                             <td>{{$datas['name']}}</td>
+                                                            <td>{{$datas['code']}}</td>
                                                             <td>
                                                                 <center>
 

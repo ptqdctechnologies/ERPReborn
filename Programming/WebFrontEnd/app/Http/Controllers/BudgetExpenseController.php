@@ -25,7 +25,8 @@ class BudgetExpenseController extends Controller
         'latest', 
         [
         'parameter' => [
-            'budget_RefID' => 103000000000002,
+            // 'budget_RefID' => $request->BudgetId,
+            'budget_RefID' => 103000000000001,
             ],
         'SQLStatement' => [
             'pick' => null,
@@ -87,21 +88,20 @@ class BudgetExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'transaction.read.dataRecord.budgeting.getBudget', 
+        'transaction.read.dataRecord.budgeting.getBudgetExpense', 
         'latest', 
         [
-        'recordID' => 103000000000001
+        'recordID' => (int)$id,
         ]
         );
-        // dd($varData);die;
-        return view('Budget.Budget.Transactions.edit')->with('data', $varData['data']);
+        return view('Budget.BudgetExpense.Transactions.edit')->with('data', $varData['data']);
     }
 
     /**
@@ -125,117 +125,5 @@ class BudgetExpenseController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-
-    public function tests(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $dataAll = array();
-
-        foreach ($data as $i => $v) {
-            if ($v['lastWorkId'] == "") {
-                continue;
-            }
-            array_push($dataAll, array(
-                'lastWorkId' => $v['lastWorkId'],
-                'lastWorkName' => $v['lastWorkName'],
-                'lastProductId' => $v['lastProductId'],
-                'lastProductName' => $v['lastProductName'],
-                'lastQty' => $v['lastQty'],
-                'lastUom' => $v['lastUom'],
-                'lastPrice' => $v['lastPrice'],
-                'lastCurrency' => $v['lastCurrency'],
-                'totalArfDetails' => $v['totalArfDetails'],
-                'lastRemark' => $v['lastRemark'],
-
-            ));
-        }
-        dd($dataAll);
-        // return view('ProcurementAndCommercial.Transactions.ARF.createARF');
-    }
-
-    public function revisionArfIndex(Request $request)
-    {
-        if ($request->searchArfNumberRevision == 'Q000181') {
-            $project = "Project Code 1";
-            $projectDetail = "Project Detail 1";
-            $site = "Site Code 1";
-            $siteDetail = "Site Detail 1";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 1";
-            $accountName = "Account Name 1";
-            $accountNumber = "Account Number 1";
-            $internal = "Internal Notes 1";
-            $requester = "Requester 1";
-            $workId = "Work Id 1";
-            $workIdDetail = "Work Id Detail 1";
-            $productId = "Product Id 1";
-            $productIdDetail = "Product Detail 1";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        }
-        else if ($request->searchArfNumberRevision == 'Q000182') {
-            $project = "Project Code 2";
-            $projectDetail = "Project Detail 2";
-            $site = "Site Code 2";
-            $siteDetail = "Site Detail 2";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 2";
-            $accountName = "Account Name 2";
-            $accountNumber = "Account Number 2";
-            $internal = "Internal Notes 2";
-            $requester = "Requester 2";
-            $workId = "Work Id 2";
-            $workIdDetail = "Work Id Detail 2";
-            $productId = "Product Id 2";
-            $productIdDetail = "Product Detail 2";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        }
-        else if ($request->searchArfNumberRevision == 'Q000183') {
-            $project = "Project Code 3";
-            $projectDetail = "Project Detail 3";
-            $site = "Site Code 3";
-            $siteDetail = "Site Detail 3";
-            $beneficary = "Beneficary ";
-            $bank = "Bank Name 3";
-            $accountName = "Account Name 3";
-            $accountNumber = "Account Number 3";
-            $internal = "Internal Notes 3";
-            $requester = "Requester 3";
-            $workId = "Work Id 3";
-            $workIdDetail = "Work Id Detail 3";
-            $productId = "Product Id 3";
-            $productIdDetail = "Product Detail 3";
-            $qty = "2";
-            $qtyDetail = "IDR";
-            $unitPrice = "500";
-            $unitPriceDetail = "Rp";
-            $total = "1000";
-            $remark = "Remark";
-            $totalBoq = "200000";
-            $requestTotal = "200000";
-            $balance = "200000";
-        }
-
-
-
-        return view('ProcurementAndCommercial.Transactions.ARF.revisionARF', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
     }
 }

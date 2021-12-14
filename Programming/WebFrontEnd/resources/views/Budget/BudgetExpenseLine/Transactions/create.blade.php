@@ -8,14 +8,14 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpense.store') }}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpenseLine.store') }}">
                         @csrf
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add Budget
+                                            Add Budget Line
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -36,21 +36,11 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
-
                                                         <tr>
-                                                            <td><label>Start Date</label></td>
+                                                            <td><label>Code</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td><label>End Date</label></td>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control">
+                                                                    <input autocomplete="off" id="code" name="code" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>

@@ -55,7 +55,7 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td><label>Name</label></td>
+                                                            <td><label>Code</label></td>
                                                             <td>
                                                                 <div class="input-group">
                                                                     <select id="code" name="code" class="form-control">
