@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd33ca5ed2fb5eda1798267cd58beb924890c2e2b',
+    'reference' => '481764d878229fe36bd5c4ce987b5468ad07748b',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd33ca5ed2fb5eda1798267cd58beb924890c2e2b',
+      'reference' => '481764d878229fe36bd5c4ce987b5468ad07748b',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -1278,12 +1278,12 @@
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v5.4.0',
-      'version' => '5.4.0.0',
+      'pretty_version' => 'v5.4.1',
+      'version' => '5.4.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'd4394d044ed69a8f244f3445bcedf8a0d7fe2403',
+      'reference' => '264dce589e7ce37a7ba99cb901eed8249fbec92f',
     ),
     'voku/portable-ascii' => 
     array (
