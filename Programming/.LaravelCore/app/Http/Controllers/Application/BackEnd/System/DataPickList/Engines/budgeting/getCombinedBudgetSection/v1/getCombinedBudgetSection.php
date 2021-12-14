@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_CombinedBudgetSection(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['parameter']['combinedBudgetOwner_RefID']
+                            $varData['parameter']['combinedBudget_RefID']
                             ))))
                             {
                             throw new \Exception();
