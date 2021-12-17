@@ -1,10 +1,8 @@
-@extends('Partials.app')
+  @extends('Partials.app')
   @section('main')
   @include('Partials.navbar')
   @include('Partials.sidebar')
   
-  <form method="post" enctype="multipart/form-data" action="{{ route('BSF.submitData') }}" name="formArf1">
-  @csrf
   <div class="content-wrapper">
     <section class="content">
       <div class="container-fluid">
@@ -31,6 +29,7 @@
                 </div>
               </div>
             </div>
+            </form>
           </div>
         </div>
       </div>
@@ -50,6 +49,7 @@
           @include('Advance.BussinesTrip.Functions.Table.tableBrfDetail')
         </div>
       </div>
+      <form action="" name="formValidationBsf">
         <div class="row">
           <div class="col-12">
             <div class="card">
@@ -72,7 +72,7 @@
                           <td><label>BRF Number</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="brf_number2" name="brf_number2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="brf_number2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -80,7 +80,7 @@
                           <td><label>BRF Date</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="brf_date" name="brf_date" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="brf_date" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -88,12 +88,12 @@
                           <td><label>Project Code</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="projectcode" name="projectcode" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="projectcode" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="projectcode2" name="projectcode2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="projectcode2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -108,12 +108,12 @@
                           <td><label>Site Code</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="sitecode" name="sitecode" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="sitecode" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="sitecode2" name="sitecode2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="sitecode2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -121,7 +121,7 @@
                           <td><label>CFS Code</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="cfs_code" name="cfs_code" style="border-radius:0;" type="text" class="form-control">
+                              <input id="cfs_code" style="border-radius:0;" type="text" class="form-control">
                             </div>
                           </td>
                         </tr>
@@ -143,12 +143,12 @@
                           <td><label>Total ARF</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="total_arf" name="total_arf" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="total_arf" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="total_arf2" name="total_arf2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="total_arf2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -156,12 +156,12 @@
                           <td><label>Total BSF</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="total_bsf" name="total_bsf" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="total_bsf" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="total_bsf2" name="total_bsf2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="total_bsf2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
@@ -169,25 +169,15 @@
                           <td><label>Balance</label></td>
                           <td>
                             <div class="input-group">
-                              <input id="balance" name="balance" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="balance" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                           <td>
                             <div class="input-group">
-                              <input id="balance2" name="balance2" style="border-radius:0;" type="text" class="form-control" readonly>
+                              <input id="balance2" style="border-radius:0;" type="text" class="form-control" readonly>
                             </div>
                           </td>
                         </tr>
-                        <tr>
-                              <td>
-                                <div class="input-group">
-                                  <input readonly name="" id="tranoHide" style="border-radius:0;" type="hidden" class="form-control">
-                                  <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
-                                  <input readonly name="" id="productNameHide" style="border-radius:0;" type="hidden" class="form-control">
-                                  <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
-                                </div>
-                              </td>
-                            </tr>
                       </table>
                     </div>
                   </div>
@@ -305,114 +295,109 @@
                     <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
                       <i class="fa fa-times" aria-hidden="true">Cancel Add</i>
                     </button>
-                    <a class="btn btn-outline btn-success btn-sm float-right" id="addBsfListCart" style="margin-right: 5px;">
-                        <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
-                      </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <nav class="w-100">
-          <div class="nav nav-tabs" id="product-tab" role="tablist">
-            <a class="nav-item nav-link active idExpense" id="product-comments-tab" data-toggle="tab" href="#expense" role="tab" aria-controls="product-comments" aria-selected="true"><span style="font-weight:bold;padding:40px;color:#212529;">Expense Claim Cart</span></a>&nbsp&nbsp&nbsp
-            <a class="nav-item nav-link idAmount" id="product-desc-tab" data-toggle="tab" href="#amountdueto" role="tab" aria-controls="product-desc" aria-selected="false"><span style="font-weight:bold;padding:40px;color:#212529;">Amount Due to Company Cart</span></a>
-          </div><br>
-        </nav>
-
-        <div class="tab-pane fade show active" id="expense" role="tabpanel" aria-labelledby="product-comments-tab">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <label class="card-title">
-                    Expense Claim Cart
-                  </label>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                    <button type="reset" class="btn btn-outline btn-success btn-sm float-right" id="buttonDetailBsf" style="margin-right: 5px;">
+                      <i class="fas fa-plus" aria-hidden="true" title="Submit to Advance">Add</i>
                     </button>
                   </div>
                 </div>
-
-                <div class="card-body table-responsive p-0" id="expenseCompanyCart">
-                  <table class="table table-head-fixed text-nowrap table-striped tableExpenseClaim">
-                    <thead>
-                      <tr>
-                        <th>Action</th>
-                        <th>Trano</th>
-                        <th>Product ID</th>
-                        <th>Name Material</th>
-                        <th>Unit</th>
-                        <th>QTY</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                  </table>
-                </div>
               </div>
             </div>
           </div>
         </div>
+      </form>
 
-        <div class="tab-pane fade" id="amountdueto" role="tabpanel" aria-labelledby="product-desc-tab">
-          <div class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-header">
-                  <label class="card-title">
-                    Amount Due to Company Cart
-                  </label>
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                    </button>
-                  </div>
+      <nav class="w-100">
+        <div class="nav nav-tabs" id="product-tab" role="tablist">
+          <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#amountdueto" role="tab" aria-controls="product-desc" aria-selected="true"><span style="font-weight:bold;padding:40px;color:black;">Amount Due to Company Cart</span></a>&nbsp&nbsp&nbsp
+          <a class="nav-item nav-link" id="product-comments-tab" data-toggle="tab" href="#expense" role="tab" aria-controls="product-comments" aria-selected="false"><span style="font-weight:bold;padding:40px;color:black;">Expense Claim Cart</span></a>
+        </div><br>
+      </nav>
+
+      <div class="tab-pane fade show active" id="amountdueto" role="tabpanel" aria-labelledby="product-desc-tab">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <label class="card-title">
+                  Amount Due to Company Cart
+                </label>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                  </button>
                 </div>
-
-                <div class="card-body table-responsive p-0" id="amountCompanyCart">
-                  <table class="table table-head-fixed text-nowrap table-striped tableAmountDueto">
-                    <thead>
-                      <tr>
-                        <th>Action</th>
-                        <th>Trano</th>
-                        <th>Product ID</th>
-                        <th>Name Material</th>
-                        <th>UOM</th>
-                        <th>QTY</th>
-                        <th>Unit Price</th>
-                        <th>Total</th>
-                        <th>Description</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                  </table>
-                </div>
+              </div>
+              <div class="card-body table-responsive p-0" id="amountCompanyCart">
+                <table id="tableAmountDuetoBsf" class="table table-head-fixed text-nowrap table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Action</th>
+                      <th>No Trans</th>
+                      <th>Product ID</th>
+                      <th>Name Material</th>
+                      <th>Unit</th>
+                      <th>Unit Price</th>
+                      <th>QTY</th>
+                      <th>Total Price</th>
+                      <th>Description</th>
+                      <th>CFS Code</th>
+                    </tr>
+                  </thead>
+                </table>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        
-        <button type="reset" class="btn btn-danger btn-sm float-right">
-          <i class="fa fa-times" aria-hidden="true"></i>
-          Cancel
-        </button>
-        <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="saveAsfList">
-          <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
-        </button>
+      <div class="tab-pane fade" id="expense" role="tabpanel" aria-labelledby="product-comments-tab">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <label class="card-title">
+                  Expense Claim Cart
+                </label>
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="card-body table-responsive p-0" id="expenseClaimCart">
+                <table id="tableExpenseClaimBsf" class="table table-head-fixed text-nowrap table-striped">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>Action</th>
+                      <th>No Trans</th>
+                      <th>Product ID</th>
+                      <th>Name Material</th>
+                      <th>Unit</th>
+                      <th>Unit Price</th>
+                      <th>QTY</th>
+                      <th>Total Price</th>
+                      <th>Description</th>
+                      <th>CSF Code</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button type="reset" class="btn btn-danger btn-sm float-right">
+        <i class="fa fa-times" aria-hidden="true"></i>
+        Cancel BSF List (Cart)
+      </button>
+      <button type="submit" class="btn btn-success btn-sm float-right" id="saveBsf">
+        <i class="fa fa-save" aria-hidden="true"></i>
+        Save BSF List(Cart)
+      </button>
     </section>
   </div>
-</form>
   @include('Partials.footer')
   @include('Advance.BussinesTrip.Functions.Footer.footerBsf')
   @endsection

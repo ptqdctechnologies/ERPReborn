@@ -60,7 +60,7 @@ class procurementTransactionDor extends Controller
             ]
         );
         
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']['data']]);
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']]);
 
     }
     public function arflistcancel()

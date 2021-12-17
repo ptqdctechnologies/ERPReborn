@@ -130,6 +130,7 @@
             //Batas
 
             $("#arfNumberAsf").prop("disabled", true);
+
             $("#requester").val("requester 1");
             $("#managerUid").val("Manager 1");
             $("#managerName").val("Manager Detail 1");
@@ -140,43 +141,75 @@
             $("#total").val("100000");
             $("#totalDetail").val("Rp");
 
-            $("#tranoHide").val("BRF-001");
-            $("#productIdHide").val("PRO-001");
-            $("#productNameHide").val("Besi");
-            $("#uomHide").val("LS");
+            var datas = [];
 
-            var trano = $("#tranoHide").val();
-            var work_id = "TRANO-001";
-            var work_name = "Trano Name 1";
-            var product_id = $("#productIdHide").val();
-            var productName = $("#productNameHide").val();
-            var uom = $("#uomHide").val();
-            var price = "1,000,000";
-            var qty = "2";
-            var total = "2,000,000";
-            var currency = "Rp";
-            var remark = "Test 1";
+            for (var i = 1; i <= x; i++) {
+                var data = {
+                    origin_budget: "x",
+                    projectcode: "x",
+                    projectname: "x",
+                    sitecode: "x",
+                    sitecode2: "x",
+                    beneficiary: "x",
+                    bank_name: "x",
+                    account_name: "x",
+                    account_number: "x",
+                    internal_notes: "x",
+                    request_name: "x",
+                    putProductId: "820001-0000",
+                    putProductName: "Salaries",
+                    putQty: "4",
+                    putQtys: "4",
+                    putUom: "Ls",
+                    putPrice: "20.000.000",
+                    putCurrency: "IDR",
+                    totalArfDetails: "80000000",
+                    putRemark: "Test",
+                    filenames: "x",
+                    trano: "",
+                }
+                datas.push(data);
+            }
 
+            var json_object = JSON.stringify(datas);
+            console.log(json_object);
 
-            var html = '<tr>'+
-                            '<td>'+
-                            '<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>'+
-                            '</td>'+
-                            '<td>'+trano+'</td>'+
-                            '<td>'+work_id+'</td>'+
-                            '<td>'+work_name+'</td>'+
-                            '<td>'+product_id+'</td>'+
-                            '<td>'+productName+'</td>'+
-                            '<td>'+uom+'</td>'+
-                            '<td>'+price+'</td>'+
-                            '<td>'+qty+'</td>'+
-                            '<td>'+total+'</td>'+
-                            '<td>'+currency+'</td>'+
-                            '<td>'+remark+'</td>'+
-                            '<td>'+product_id+'</td>'+
-                        '</tr>';
-                
-            $('table.tableBrfListCart tbody').append(html);
+            $.ajax({
+                type: "POST",
+                url: '{{route("BRF.store")}}',
+                data: json_object,
+                contentType: "application/json",
+                processData: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    // Swal.fire("Success !", "Data add to cart", "success");
+                    y++;
+                    $.each(data, function(key, val) {
+                        
+                        var t = $('#tableBrfListCart').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-success btn-rounded btn-sm my-0 remove-val-list addAsf" style="border-radius: 100px;"><i class="fa fa-plus"></i></button></center>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
+                            '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
+                            '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
+                            '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>',
+                            '<span id="lastCurrency_' + y + '">' + val.putCurrency + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>',
+                            '<span id="lastRemark_' + y + '">' + val.putRemark + '</span>'
+                        ]).draw();
+                    });
+                },
+                error: function(data) {
+                    Swal.fire("Error !", "Data Gagal Ditambahkan", "error");
+                }
+            });
 
         });
     });
@@ -189,30 +222,30 @@
 
             $(".detailASF").show();
 
-            $("#brf_number2").val($("#tranoHide").val());
+            $("#brf_number2").val("ARF-0001");
             $("#brf_date").val("23-02-2021");
             $("#projectcode").val("041111101");
             $("#projectcode2").val("PLN");
             $("#sitecode").val("001");
             $("#sitecode2").val("Bogor");
             $("#cfs_code").val("x");
-            $("#total_arf").val("11000000");
+            $("#total_arf").val("11,000,000");
             $("#total_arf2").val("IDR");
-            $("#total_bsf").val("12000000");
+            $("#total_bsf").val("12,000,000");
             $("#total_bsf2").val("IDR");
-            $("#balance").val("1000000");
+            $("#balance").val("1,000,000");
             $("#balance2").val("IDR");
-            $("#qty_expense").val("1");
+            $("#qty_expense").val("0,441");
             $("#qty_expense2").val("ls");
-            $("#price_expense").val("500000");
+            $("#price_expense").val("26,000,000");
             $("#price_expense2").val("IDR");
-            $("#total_expense").val("500000");
+            $("#total_expense").val("11,789,000");
             $("#total_expense2").val("IDR");
-            $("#qty_amount").val("1");
+            $("#qty_amount").val("1,441");
             $("#qty_amount2").val("ls");
-            $("#price_amount").val("500000");
+            $("#price_amount").val("22,000,000");
             $("#price_amount2").val("IDR");
-            $("#total_amount").val("500000");
+            $("#total_amount").val("18,789,000");
             $("#total_amount2").val("IDR");
 
         });

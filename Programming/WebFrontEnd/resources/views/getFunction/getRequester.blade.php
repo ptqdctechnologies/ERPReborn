@@ -14,21 +14,18 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID</th>
                                             <th>Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($data2 as $datas)
+                                        @php $no=1; @endphp
+                                        @for($i = 1; $i < 20; $i++)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikRequester" data-id="{{$datas['sys_ID']}}" data-name="{{$datas['name']}}">{{$datas['sys_ID']}}</td>
-                                            <td>{{$datas['name']}}</td>
+                                            <td data-dismiss="modal" class="klikRequester" data-id="name {{ $i }}">name {{$i}}</td>
                                         </tr>
-                                        @endforeach
+                                        @endfor
                                     </tbody>
-                                    
                                 </table>
                             </div>
                         </div>
@@ -71,8 +68,7 @@
         $(".klikRequester").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
-            var id = $this.data("id");
-            var name = $this.data("name");
+            var name = $this.data("id");
             $("#request_name").val(name);
             $("#budget_name").val(name);
             

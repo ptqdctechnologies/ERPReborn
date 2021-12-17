@@ -28,7 +28,7 @@ class controllerSalesCo extends Controller
             ]
         );
         
-        return view('Sales.CO.Transactions.index', ['data' => $varData['data']['data']]);
+        return view('Sales.CO.Transactions.index', ['data' => $varData['data']]);
     }
 
     public function revisionCo(Request $request)

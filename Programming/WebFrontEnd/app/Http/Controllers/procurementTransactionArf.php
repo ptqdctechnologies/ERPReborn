@@ -29,30 +29,8 @@ class procurementTransactionArf extends Controller
                 'parameter' => []
             ]
         );
-        // dd($varData);
-
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-
-        $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
-        ];
-
-        return view('Advance.Advance.Transactions.createARF', $compact);
+        
+        return view('Advance.Advance.Transactions.createARF', ['data' => $varData['data']['data']]);
 
     }
 
@@ -73,7 +51,6 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
-    
         
         return response()->json($varData['data']['data']);
     }
@@ -87,11 +64,11 @@ class procurementTransactionArf extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'report.form.resume.budgeting.getCombinedBudgetSectionUnsegmentedDetail', 
+            'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
             'latest', 
             [
             'parameter' => [
-                'combinedBudgetSection_RefID' => (int)$sitecode,
+                'combinedBudgetSection_RefID' => (int)$sitecode
                 ],
             'SQLStatement' => [
                 'pick' => null,
@@ -101,9 +78,11 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
-
-        return response()->json($varData['data']);
+        dd($varData['data']);
+        
+        return response()->json($varData['data']['data']);
     }
+
     public function arflistcancel()
     {
         return redirect()->back();
@@ -288,66 +267,7 @@ class procurementTransactionArf extends Controller
                 'parameter' => []
             ]
         );
-        // dd($varData);
-
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-
-        $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
-        ];
-
-        return view('Advance.Advance.Transactions.revisionARF', $compact);
-    }
-
-    public function submitData(Request $request)
-    {
-        $input = $request->all();
-        $count_product = count($input['var_product_id']);
-
-        $input_header = array(
-            'var_budget_code'	=> $input['var_budget_code'],
-            'var_budget_code2'	=> $input['var_budget_code2'],
-            'var_sub_budget_code'	=> $input['var_sub_budget_code'],
-            'var_sub_budget_code2'	=> $input['var_sub_budget_code2'],
-            'var_request_name'	=> $input['var_request_name'],
-            'var_beneficiary'	=> $input['var_beneficiary'],
-            'var_internal_notes'	=> $input['var_internal_notes'],
-            'var_bank_name'	=> $input['var_bank_name'],
-            'var_account_name'	=> $input['var_account_name'],
-            'var_account_number'	=> $input['var_account_number']
-        );
-
-        print_r($input_header);
-
-        $input_product = array(); 
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-                $input_product['var_product_id'] = $input['var_product_id'][$n];
-                $input_product['var_product_name'] = $input['var_product_name'][$n];
-                $input_product['var_quantity'] = $input['var_quantity'][$n];
-                $input_product['var_uom'] = $input['var_uom'][$n];
-                $input_product['var_price'] = $input['var_price'][$n];
-                $input_product['var_totalPrice'] = $input['var_totalPrice'][$n];
-                $input_product['var_currency'] = $input['var_currency'][$n];
-                $input_product['var_remark'] = $input['var_remark'][$n];
-                
-                print_r($input_product);
-            }
-        }
+        
+        return view('Advance.Advance.Transactions.revisionARF', ['data' => $varData['data']]);
     }
 }

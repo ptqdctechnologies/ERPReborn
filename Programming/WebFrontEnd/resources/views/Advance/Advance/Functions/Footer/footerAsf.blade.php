@@ -7,7 +7,7 @@
         $("#ManagerNameId").prop("disabled", true);
         $("#CurrencyId").prop("disabled", true);
         $("#FinanceId").prop("disabled", true);
-        $("#advance_number2").prop("disabled", true);
+        // $("#sitecode2").prop("disabled", true);
         $("#showContentBOQ2").hide();
         $("#tableShowHideBOQ2").hide();
 
@@ -35,6 +35,9 @@
 </script>
 
 <script>
+    var x = 1,
+        y = 0;
+    xx = 0; //initlal text box count
 
     $('#addAsfListCart').click(function() {
 
@@ -44,222 +47,235 @@
         var totalExpenseAmount = +total_expense + +total_amount;
 
         if (totalExpenseAmount <= balance) {
+            // var qty_expense = document.forms["formAsf1"]["qty_expense"].value;
+            // var price_expense = document.forms["formAsf1"]["price_expense"].value;
+            // var qty_amount = document.forms["formAsf1"]["qty_amount"].value;
+            // var price_amount = document.forms["formAsf1"]["price_amount"].value;
 
-            var product_id =  $("#productIdHide").val();
-            var product_name =  $("#nameMaterialHide").val();
-            var uom =  $("#uomHide").val();
-            var trano = $('#arf_number').val();
-            var arf_date = $('#arf_date').val();
-            var total_arf = $('#total_arf').val();
-            var total_arf2 = $('#total_arf2').val();
-            var total_asf = $('#total_asf').val();
-            var total_asf2 = $('#total_asf2').val();
-            var balance = $('#balance').val();
-            var balance2 = $('#balance2').val();
-            var qty_expense =  $('#qty_expense').val();
-            var qty_expense2 =  $('#qty_expense2').val();
-            var price_expense =  $('#price_expense').val();
-            var price_expense2 =  $('#price_expense2').val();
-            var total_expense =  $('#total_expense').val();
-            var total_expense2 =  $('#total_expense2').val();
-            var qty_amount =  $('#qty_amount').val();
-            var qty_amount2 =  $('#qty_amount2').val();
-            var price_amount =  $('#price_amount').val();
-            var price_amount2 =  $('#price_amount2').val();
-            var total_amount =  $('#total_amount').val();
-            var total_amount2 =  $('#total_amount2').val();
-            var description =  $("#descriptionHide").val();
+            // if (qty_expense == "") {
 
-            var html = '<tr>'+
-                            '<td>'+
-                                '<button type="button" class="btn btn-danger btn-xs remove_amount" data-id="1"><i class="fa fa-trash"></i></button> '+
-                                '<button type="button" class="btn btn-warning btn-xs edit_amount" data-dismiss="modal" data-id1="'+trano+'" data-id2="'+arf_date+'" data-id3="'+total_arf+'" data-id4="'+total_arf2+'" data-id5="'+total_asf+'" data-id6="'+total_asf2+'" data-id7="'+balance+'" data-id8="'+balance2+'" data-id9="'+qty_expense+'" data-id10="'+qty_expense2+'" data-id11="'+price_expense+'" data-id12="'+price_expense2+'" data-id13="'+total_expense+'" data-id14="'+total_expense2+'" data-id15="'+qty_amount+'" data-id16="'+qty_amount2+'" data-id17="'+price_amount+'" data-id18="'+price_amount2+'" data-id19="'+total_amount+'" data-id20="'+total_amount2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                '<input type="hidden" name="var_trano[]" value="'+trano+'">'+
-                                '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                                '<input type="hidden" name="var_product_name[]" value="'+product_name+'">'+
-                                '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
-                                '<input type="hidden" name="var_price_amount[]" value="'+price_amount+'">'+
-                                '<input type="hidden" name="var_qty_amount[]" value="'+qty_amount+'">'+
-                                '<input type="hidden" name="var_total_amount[]" value="'+total_amount+'">'+
-                                '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
-                            '</td>'+
-                            '<td>'+trano+'</td>'+
-                            '<td>'+product_id+'</td>'+
-                            '<td>'+product_name+'</td>'+
-                            '<td>'+uom+'</td>'+
-                            '<td>'+qty_amount+'</td>'+
-                            '<td>'+price_amount+'</td>'+
-                            '<td>'+total_amount+'</td>'+
-                            '<td>'+description+'</td>'+
-                        '</tr>';
-                
-            $('table.tableAmountDueto tbody').append(html);
+            //     document.formAsf1.qty_expense.focus();
+            //     document.formAsf1.qty_expense2.focus();
+            //     document.formAsf1.qty_expense.style.border = "1px solid red";
+            //     document.formAsf1.qty_expense2.style.border = "1px solid red";
+            //     document.getElementById("iconQtyExpense").style.border = "1px solid red";
+            //     document.getElementById("iconQtyExpense").style.borderRadius = "100pt";
+            //     document.getElementById("iconQtyExpense").style.paddingRight = "7px";
+            //     document.getElementById("iconQtyExpense").style.paddingLeft = "8px";
+            //     document.getElementById("iconQtyExpense").style.paddingTop = "3px";
+            //     document.getElementById("iconQtyExpense").style.paddingBottom = "3px";
+            //     document.getElementById("iconQtyExpense").innerHTML = "&#33";
+            //     return false;
 
-            var html2 = '<tr>'+
-                            '<td>'+
-                                '<button type="button" class="btn btn-danger btn-xs remove_expense" data-id="1"><i class="fa fa-trash"></i></button> '+
-                                '<button type="button" class="btn btn-warning btn-xs edit_expense" data-dismiss="modal" data-id1="'+trano+'" data-id2="'+arf_date+'" data-id3="'+total_arf+'" data-id4="'+total_arf2+'" data-id5="'+total_asf+'" data-id6="'+total_asf2+'" data-id7="'+balance+'" data-id8="'+balance2+'" data-id9="'+qty_expense+'" data-id10="'+qty_expense2+'" data-id11="'+price_expense+'" data-id12="'+price_expense2+'" data-id13="'+total_expense+'" data-id14="'+total_expense2+'" data-id15="'+qty_amount+'" data-id16="'+qty_amount2+'" data-id17="'+price_amount+'" data-id18="'+price_amount2+'" data-id19="'+total_amount+'" data-id20="'+total_amount2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                '<input type="hidden" id="var_tranox" name="var_trano[]" value="'+trano+'">'+
-                                '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                                '<input type="hidden" name="var_product_name[]" value="'+product_name+'">'+
-                                '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
-                                '<input type="hidden" name="var_price_expense[]" value="'+price_expense+'">'+
-                                '<input type="hidden" name="var_qty_expense[]" value="'+qty_expense+'">'+
-                                '<input type="hidden" name="var_total_expense[]" value="'+total_expense+'">'+
-                                '<input type="hidden" name="var_description[]" value="'+description+'">'+
-                            '</td>'+
-                            '<td>'+trano+'</td>'+
-                            '<td>'+product_id+'</td>'+
-                            '<td>'+product_name+'</td>'+
-                            '<td>'+uom+'</td>'+
-                            '<td>'+qty_expense+'</td>'+
-                            '<td>'+price_expense+'</td>'+
-                            '<td>'+total_expense+'</td>'+
-                            '<td>'+description+'</td>'+
-                        '</tr>';
-                    
-            $('table.tableExpenseClaim tbody').append(html2);
-            $("#expenseCompanyCart").show();
+            // } else if (price_expense == "") {
+
+            //     document.formAsf1.price_expense.focus();
+            //     document.formAsf1.price_expense2.focus();
+            //     document.formAsf1.price_expense.style.border = "1px solid red";
+            //     document.formAsf1.price_expense2.style.border = "1px solid red";
+            //     document.getElementById("iconPriceExpense").style.border = "1px solid red";
+            //     document.getElementById("iconPriceExpense").style.borderRadius = "100pt";
+            //     document.getElementById("iconPriceExpense").style.paddingRight = "7px";
+            //     document.getElementById("iconPriceExpense").style.paddingLeft = "8px";
+            //     document.getElementById("iconPriceExpense").style.paddingTop = "3px";
+            //     document.getElementById("iconPriceExpense").style.paddingBottom = "3px";
+            //     document.getElementById("iconPriceExpense").innerHTML = "&#33";
+            //     return false;
+
+            // } else if (qty_amount == "") {
+
+            //     document.formAsf1.qty_amount.focus();
+            //     document.formAsf1.qty_amount2.focus();
+            //     document.formAsf1.qty_amount.style.border = "1px solid red";
+            //     document.formAsf1.qty_amount2.style.border = "1px solid red";
+            //     document.getElementById("iconQtyAmount").style.border = "1px solid red";
+            //     document.getElementById("iconQtyAmount").style.borderRadius = "100pt";
+            //     document.getElementById("iconQtyAmount").style.paddingRight = "7px";
+            //     document.getElementById("iconQtyAmount").style.paddingLeft = "8px";
+            //     document.getElementById("iconQtyAmount").style.paddingTop = "3px";
+            //     document.getElementById("iconQtyAmount").style.paddingBottom = "3px";
+            //     document.getElementById("iconQtyAmount").innerHTML = "&#33";
+            //     return false;
+            // } else if (price_amount == "") {
+            //     document.formAsf1.price_amount.focus();
+            //     document.formAsf1.price_amount2.focus();
+            //     document.formAsf1.price_amount.style.border = "1px solid red";
+            //     document.formAsf1.price_amount2.style.border = "1px solid red";
+            //     document.getElementById("iconPriceAmount").style.border = "1px solid red";
+            //     document.getElementById("iconPriceAmount").style.borderRadius = "100pt";
+            //     document.getElementById("iconPriceAmount").style.paddingRight = "7px";
+            //     document.getElementById("iconPriceAmount").style.paddingLeft = "8px";
+            //     document.getElementById("iconPriceAmount").style.paddingTop = "3px";
+            //     document.getElementById("iconPriceAmount").style.paddingBottom = "3px";
+            //     document.getElementById("iconPriceAmount").innerHTML = "&#33";
+            //     return false;
+
+            // } else {
+
+            var datas = [];
+
+            for (var i = 1; i <= x; i++) {
+                var data = {
+
+                    trano: $("#getTrano1").html(),
+                    productId: $("#productIdHide").val(),
+                    nameMaterial: $("#nameMaterialHide").val(),
+                    uom: $("#uomHide").val(),
+                    unitPriceExpense: $('#price_expense').val(),
+                    qtyExpense: $('#qty_expense').val(),
+                    totalExpense: $('#total_expense').val(),
+                    unitPriceAmount: $('#price_amount').val(),
+                    qtyAmount: $('#qty_amount').val(),
+                    totalAmount: $('#total_amount').val(),
+                    description: "cek",
+
+                }
+                datas.push(data);
+            }
+
+            var json_object = JSON.stringify(datas);
+            // console.log(json_object);
+
+            $.ajax({
+                type: "POST",
+                url: '{{route("ASF.addListCartAsf")}}',
+                data: json_object,
+                contentType: "application/json",
+                processData: true,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+
+                    Swal.fire("Success !", "Data add to cart", "success");
+
+                    y++;
+                    $.each(data, function(key, val) {
+
+                        var t = $('#tableAmountDueto').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano">' + val.trano + '</span>',
+                            '<span id="bbbbbbb">' + val.productId + '</span>',
+                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
+                            '<span id="Uom">' + val.uom + '</span>',
+                            '<span id="UnitPriceAmount">' + val.unitPriceAmount + '</span>',
+                            '<span id="QtyAmount">' + val.qtyAmount + '</span>',
+                            '<span id="TotalAmount">' + val.totalAmount + '</span>',
+                            '<span id="Description">' + val.description + '</span>'
+                        ]).draw();
+
+                        var t = $('#tableExpenseClaim').DataTable();
+                        t.row.add([
+                            '<center><button class="btn btn-outline-primary btn-rounded btn-sm my-0 remove-val-list remove-attachment addAsf" style="border-radius: 100px;"><i class="fa fa-edit"></i></button></center>',
+                            '<span id="Trano">' + val.trano + '</span>',
+                            '<span id="productId">' + val.productId + '</span>',
+                            '<span id="NameMaterial">' + val.nameMaterial + '</span>',
+                            '<span id="Uom">' + val.uom + '</span>',
+                            '<span id="UnitPriceExpense">' + val.unitPriceExpense + '</span>',
+                            '<span id="QtyExpense">' + val.qtyExpense + '</span>',
+                            '<span id="TotalExpense">' + val.totalExpense + '</span>',
+                            '<span id="Description">' + val.description + '</span>'
+                        ]).draw();
+
+
+                    });
+                },
+                error: function(data) {
+                    Swal.fire("Error !", "Data Canceled Added", "error");
+                }
+            });
+
+            $("#amountCompanyCart").show();
             $("#saveAsfList").prop("disabled", false);
-
-            $("body").on("click", ".remove_amount", function() {
-                $(this).closest("tr").remove();
-            });
-
-            $("body").on("click", ".edit_amount", function () {
-                var $this = $(this);
-                var id1 = $this.data("id1");
-                var id2 = $this.data("id2");
-                var id3 = $this.data("id3");
-                var id4 = $this.data("id4");
-                var id5 = $this.data("id5");
-                var id6 = $this.data("id6");
-                var id7 = $this.data("id7");
-                var id8 = $this.data("id8");
-                var id9 = $this.data("id9");
-                var id10 = $this.data("id10");
-                var id11 = $this.data("id11");
-                var id12 = $this.data("id12");
-                var id13 = $this.data("id13");
-                var id14 = $this.data("id14");
-                var id15 = $this.data("id15");
-                var id16 = $this.data("id16");
-                var id17 = $this.data("id17");
-                var id18 = $this.data("id18");
-                var id19 = $this.data("id19");
-                var id20 = $this.data("id20");
-                
-
-                $("#arf_number").val(id1);
-                $("#arf_date").val(id2);
-                $('#total_arf').val(id3);
-                $("#total_arf2").val(id4);
-                $("#total_asf").val(id5);
-                $("#total_asf2").val(id6);
-                $("#balance").val(id7);
-                $("#balance2").val(id8);
-                $("#qty_expense").val(id9);
-                $("#qty_expense2").val(id10);
-                $("#price_expense").val(id11);
-                $("#price_expense2").val(id12);
-                $("#total_expense").val(id13);
-                $("#total_expense2").val(id14);
-                $("#qty_amount").val(id15);
-                $("#qty_amount2").val(id16);
-                $("#price_amount").val(id17);
-                $("#price_amount2").val(id18);
-                $("#total_amount").val(id19);
-                $("#total_amount2").val(id20);
-                
-                $(this).closest("tr").remove();
-
-                $("#qty_expense").prop("disabled", true);
-                $("#price_expense").prop("disabled", true);
-            });
-            $("body").on("click", ".remove_expense", function () {
-                $(this).closest("tr").remove();
-            });
-            $("body").on("click", ".edit_expense", function () {
-                var $this = $(this);
-                var id1 = $this.data("id1");
-                var id2 = $this.data("id2");
-                var id3 = $this.data("id3");
-                var id4 = $this.data("id4");
-                var id5 = $this.data("id5");
-                var id6 = $this.data("id6");
-                var id7 = $this.data("id7");
-                var id8 = $this.data("id8");
-                var id9 = $this.data("id9");
-                var id10 = $this.data("id10");
-                var id11 = $this.data("id11");
-                var id12 = $this.data("id12");
-                var id13 = $this.data("id13");
-                var id14 = $this.data("id14");
-                var id15 = $this.data("id15");
-                var id16 = $this.data("id16");
-                var id17 = $this.data("id17");
-                var id18 = $this.data("id18");
-                var id19 = $this.data("id19");
-                var id20 = $this.data("id20");
-                
-
-                $("#arf_number").val(id1);
-                $("#arf_date").val(id2);
-                $('#total_arf').val(id3);
-                $("#total_arf2").val(id4);
-                $("#total_asf").val(id5);
-                $("#total_asf2").val(id6);
-                $("#balance").val(id7);
-                $("#balance2").val(id8);
-                $("#qty_expense").val(id9);
-                $("#qty_expense2").val(id10);
-                $("#price_expense").val(id11);
-                $("#price_expense2").val(id12);
-                $("#total_expense").val(id13);
-                $("#total_expense2").val(id14);
-                $("#qty_amount").val(id15);
-                $("#qty_amount2").val(id16);
-                $("#price_amount").val(id17);
-                $("#price_amount2").val(id18);
-                $("#total_amount").val(id19);
-                $("#total_amount2").val(id20);
-                
-                $(this).closest("tr").remove();
-
-                $("#qty_amount").prop("disabled", true);
-                $("#price_amount").prop("disabled", true);
-            });
-
-            $("#arf_number").val("");
-            $("#arf_date").val("");
-            $("#total_arf").val("");
-            $("#total_arf2").val("");
-            $("#priceCek").val("");
-            $("#total_asf").val("");
-            $("#total_asf2").val("");
-            $("#balance").val("");
-            $("#balance2").val("");
-            $("#qty_expense").val("");
-            $("#qty_expense2").val("");
-            $("#price_expense").val("");
-            $("#price_expense2").val("");
-            $("#total_expense").val("");
-            $("#total_expense2").val("");
-            $("#qty_amount").val("");
-            $("#qty_amount2").val("");
-            $("#price_amount").val("");
-            $("#price_amount2").val("");
-            $("#total_amount").val("");
-            $("#total_amount2").val("");
-
-            $("#qty_expense").prop("disabled", false);
-            $("#price_expense").prop("disabled", false);
-            $("#qty_amount").prop("disabled", false);
-            $("#price_amount").prop("disabled", false);
-
+            // }
         } else {
-            Swal.fire("Error !", "Request over budget", "error");
+            Swal.fire("Error !", "Total expense claim + amount do to company <= balance", "error");
         }
+    });
+</script>
+
+<script>
+    // var y = 1; //initlal text box count
+
+    $('#saveAsfList').click(function() {
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        })
+
+        swalWithBootstrapButtons.fire({
+
+            title: 'Are you sure?',
+            text: "Save this data?",
+            type: 'question',
+
+            showCancelButton: true,
+            confirmButtonText: 'Yes, save it!',
+            cancelButtonText: 'No, cancel!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                swalWithBootstrapButtons.fire(
+                    'Succesful!',
+                    'Data has been updated !',
+                    'success'
+                )
+
+                //Batas
+
+                var datax = [];
+                for (var i = 1; i <= y; i++) {
+                    var data = {
+                        lastWorkId: $('#lastWorkId_' + i).html(),
+                        lastWorkName: $('#lastWorkName_' + i).html(),
+                        lastProductId: $('#lastProductId_' + i).html(),
+                        lastProductName: $('#lastProductName_' + i).html(),
+                        lastQty: $('#lastQty_' + i).val(),
+                        lastUom: $('#lastUom_' + i).html(),
+                        lastPrice: $('#lastPrice_' + i).html(),
+                        totalArfDetails: $('#totalArfDetails_' + i).html(),
+                        lastCurrency: $('#lastCurrency_' + i).html(),
+                        lastRemark: $('#lastRemark_' + i).html(),
+
+                    }
+                    datax.push(data);
+                }
+
+                var json_object = JSON.stringify(datax);
+                console.log(json_object);
+
+                $.ajax({
+                    type: "POST",
+                    url: '{{route("ARF.tests")}}',
+                    data: json_object,
+                    contentType: "application/json",
+                    processData: true,
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    success: function(data) {
+                        console.log(data);
+                    },
+                    error: function(data) {
+                        Swal.fire("Error !", "Data Canceled Added", "error");
+                    }
+                });
+
+                //EndBatas
+
+            } else if (
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire(
+                    'Cancelled',
+                    'Process Canceled !',
+                    'error'
+                )
+            }
+        })
     });
 </script>
 
@@ -305,6 +321,7 @@
     $(document).ready(function() {
 
         $('.klikArfDetail1').click(function() {
+
             $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
             $("#addAsfListCart").prop("disabled", false);
             $(".detailASF").show();
@@ -312,7 +329,6 @@
             $("#arf_date").val("23-02-2021");
 
             $("#productIdHide").val($("#getProductId1").html());
-            
             $("#nameMaterialHide").val($("#getProductName1").html());
             $("#uomHide").val($("#getUom1").html());
 
@@ -453,7 +469,9 @@
         $('#price_expense').keyup(function() {
             var price_expense = $(this).val();
             var qty_expense = $('#qty_expense').val();
-            var total_expense = price_expense * qty_expense;$("#total_expense").val(total_expense);
+            var total_expense = price_expense * qty_expense;
+            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_expense").val(total_expense);
         });
     });
 </script>
@@ -463,7 +481,9 @@
         $('#price_amount').keyup(function() {
             var price_amount = $(this).val();
             var qty_amount = $('#qty_amount').val();
-            var total_amount = price_amount * qty_amount;// var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+            var total_amount = price_amount * qty_amount;
+            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             $("#total_amount").val(total_amount);
         });
     });
