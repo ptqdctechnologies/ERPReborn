@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataPickList.budgeting.getCombinedBudget (version 1)",
+"description": "JSON Request Schema of dataPickList.budgeting.getBudget (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataPickList.budgeting.getCombinedBudget" ]
+                        "enum": [ "dataPickList.budgeting.getBudget" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'ed0dc38234d59a52eeed72dababc96be72b27555',
+    'reference' => 'a9bbb8abdc77e4199695ac7e78901017e29a3641',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -209,217 +209,217 @@
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/broadcasting' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/bus' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/cache' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/collections' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/config' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/console' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/container' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/contracts' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/cookie' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/database' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/encryption' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/events' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/filesystem' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/hashing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/http' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/log' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/macroable' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/mail' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/notifications' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/pagination' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/pipeline' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/queue' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/redis' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/routing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/session' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/support' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/testing' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/translation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/validation' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'illuminate/view' => 
     array (
       'replaced' => 
       array (
-        0 => 'v8.76.1',
+        0 => 'v8.76.2',
       ),
     ),
     'kodova/hamcrest-php' => 
@@ -431,12 +431,12 @@
     ),
     'laravel/framework' => 
     array (
-      'pretty_version' => 'v8.76.1',
-      'version' => '8.76.1.0',
+      'pretty_version' => 'v8.76.2',
+      'version' => '8.76.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '83fe447ae964dc5f1f829d25fa2f6042d9099834',
+      'reference' => 'c67acfdc968f487b6235435080eef62a7e2ed055',
     ),
     'laravel/laravel' => 
     array (
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'ed0dc38234d59a52eeed72dababc96be72b27555',
+      'reference' => 'a9bbb8abdc77e4199695ac7e78901017e29a3641',
     ),
     'laravel/serializable-closure' => 
     array (
