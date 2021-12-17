@@ -7,12 +7,27 @@
     $(".brfhide6").hide();
     $(".budgetDetail").hide();
     $("#tableShowHideGetBudgetArf").hide();
+    
+
     $("#sitecode2").prop("disabled", true);
     $("#request_name2").prop("disabled", true);
     $("#saveBrfList").prop("disabled", true);
   });
 </script>
 
+<script>
+    $(function() {
+        $("#sitecode2").on('click', function(e) {
+            e.preventDefault();
+            var val = $("#sitecode2").val();
+            if (val == "") {
+                $("#request_name2").prop("disabled", true);
+            } else {
+                $("#request_name2").prop("disabled", false);
+            }
+        });
+    });
+</script>
 
 <script>
   $(document).ready(function() {
@@ -83,72 +98,69 @@
   var varTotalBrf = 0;
   var y = 0;
 
-  $('#AddToBrfListCart').click(function(ev){
-    ev.preventDefault();
-    ev.stopPropagation();
-  // function validateFormAsfPaymentSequence() {
-    // var allowance = document.forms["formAsfPaymentSequence"]["allowance"].value;
-    // var transport = document.forms["formAsfPaymentSequence"]["transport"].value;
-    // var airport_tax = document.forms["formAsfPaymentSequence"]["airport_tax"].value;
-    // var accomodation = document.forms["formAsfPaymentSequence"]["accomodation"].value;
-    // var other = document.forms["formAsfPaymentSequence"]["other"].value;
+  function validateFormAsfPaymentSequence() {
+    var allowance = document.forms["formAsfPaymentSequence"]["allowance"].value;
+    var transport = document.forms["formAsfPaymentSequence"]["transport"].value;
+    var airport_tax = document.forms["formAsfPaymentSequence"]["airport_tax"].value;
+    var accomodation = document.forms["formAsfPaymentSequence"]["accomodation"].value;
+    var other = document.forms["formAsfPaymentSequence"]["other"].value;
 
-    // if (allowance == "") {
-    //   document.formAsfPaymentSequence.allowance.focus();
-    //   document.formAsfPaymentSequence.allowance.style.border = "1px solid red";
-    //   document.getElementById("iconAllowance").style.border = "1px solid red";
-    //   document.getElementById("iconAllowance").style.borderRadius = "100pt";
-    //   document.getElementById("iconAllowance").style.paddingRight = "7px";
-    //   document.getElementById("iconAllowance").style.paddingLeft = "8px";
-    //   document.getElementById("iconAllowance").style.paddingTop = "3px";
-    //   document.getElementById("iconAllowance").style.paddingBottom = "3px";
-    //   document.getElementById("iconAllowance").innerHTML = "&#33";
-    //   return false;
-    // } else if (transport == "") {
-    //   document.formAsfPaymentSequence.transport.focus();
-    //   document.formAsfPaymentSequence.transport.style.border = "1px solid red";
-    //   document.getElementById("iconTransport").style.border = "1px solid red";
-    //   document.getElementById("iconTransport").style.borderRadius = "100pt";
-    //   document.getElementById("iconTransport").style.paddingRight = "7px";
-    //   document.getElementById("iconTransport").style.paddingLeft = "8px";
-    //   document.getElementById("iconTransport").style.paddingTop = "3px";
-    //   document.getElementById("iconTransport").style.paddingBottom = "3px";
-    //   document.getElementById("iconTransport").innerHTML = "&#33";
-    //   return false;
-    // } else if (airport_tax == "") {
-    //   document.formAsfPaymentSequence.airport_tax.focus();
-    //   document.formAsfPaymentSequence.airport_tax.style.border = "1px solid red";
-    //   document.getElementById("iconAirportTax").style.border = "1px solid red";
-    //   document.getElementById("iconAirportTax").style.borderRadius = "100pt";
-    //   document.getElementById("iconAirportTax").style.paddingRight = "7px";
-    //   document.getElementById("iconAirportTax").style.paddingLeft = "8px";
-    //   document.getElementById("iconAirportTax").style.paddingTop = "3px";
-    //   document.getElementById("iconAirportTax").style.paddingBottom = "3px";
-    //   document.getElementById("iconAirportTax").innerHTML = "&#33";
-    //   return false;
-    // } else if (accomodation == "") {
-    //   document.formAsfPaymentSequence.accomodation.focus();
-    //   document.formAsfPaymentSequence.accomodation.style.border = "1px solid red";
-    //   document.getElementById("iconAccomodation").style.border = "1px solid red";
-    //   document.getElementById("iconAccomodation").style.borderRadius = "100pt";
-    //   document.getElementById("iconAccomodation").style.paddingRight = "7px";
-    //   document.getElementById("iconAccomodation").style.paddingLeft = "8px";
-    //   document.getElementById("iconAccomodation").style.paddingTop = "3px";
-    //   document.getElementById("iconAccomodation").style.paddingBottom = "3px";
-    //   document.getElementById("iconAccomodation").innerHTML = "&#33";
-    //   return false;
-    // } else if (other == "") {
-    //   document.formAsfPaymentSequence.other.focus();
-    //   document.formAsfPaymentSequence.other.style.border = "1px solid red";
-    //   document.getElementById("iconOther").style.border = "1px solid red";
-    //   document.getElementById("iconOther").style.borderRadius = "100pt";
-    //   document.getElementById("iconOther").style.paddingRight = "7px";
-    //   document.getElementById("iconOther").style.paddingLeft = "8px";
-    //   document.getElementById("iconOther").style.paddingTop = "3px";
-    //   document.getElementById("iconOther").style.paddingBottom = "3px";
-    //   document.getElementById("iconOther").innerHTML = "&#33";
-    //   return false;
-    // } else {
+    if (allowance == "") {
+      document.formAsfPaymentSequence.allowance.focus();
+      document.formAsfPaymentSequence.allowance.style.border = "1px solid red";
+      document.getElementById("iconAllowance").style.border = "1px solid red";
+      document.getElementById("iconAllowance").style.borderRadius = "100pt";
+      document.getElementById("iconAllowance").style.paddingRight = "7px";
+      document.getElementById("iconAllowance").style.paddingLeft = "8px";
+      document.getElementById("iconAllowance").style.paddingTop = "3px";
+      document.getElementById("iconAllowance").style.paddingBottom = "3px";
+      document.getElementById("iconAllowance").innerHTML = "&#33";
+      return false;
+    } else if (transport == "") {
+      document.formAsfPaymentSequence.transport.focus();
+      document.formAsfPaymentSequence.transport.style.border = "1px solid red";
+      document.getElementById("iconTransport").style.border = "1px solid red";
+      document.getElementById("iconTransport").style.borderRadius = "100pt";
+      document.getElementById("iconTransport").style.paddingRight = "7px";
+      document.getElementById("iconTransport").style.paddingLeft = "8px";
+      document.getElementById("iconTransport").style.paddingTop = "3px";
+      document.getElementById("iconTransport").style.paddingBottom = "3px";
+      document.getElementById("iconTransport").innerHTML = "&#33";
+      return false;
+    } else if (airport_tax == "") {
+      document.formAsfPaymentSequence.airport_tax.focus();
+      document.formAsfPaymentSequence.airport_tax.style.border = "1px solid red";
+      document.getElementById("iconAirportTax").style.border = "1px solid red";
+      document.getElementById("iconAirportTax").style.borderRadius = "100pt";
+      document.getElementById("iconAirportTax").style.paddingRight = "7px";
+      document.getElementById("iconAirportTax").style.paddingLeft = "8px";
+      document.getElementById("iconAirportTax").style.paddingTop = "3px";
+      document.getElementById("iconAirportTax").style.paddingBottom = "3px";
+      document.getElementById("iconAirportTax").innerHTML = "&#33";
+      return false;
+    } else if (accomodation == "") {
+      document.formAsfPaymentSequence.accomodation.focus();
+      document.formAsfPaymentSequence.accomodation.style.border = "1px solid red";
+      document.getElementById("iconAccomodation").style.border = "1px solid red";
+      document.getElementById("iconAccomodation").style.borderRadius = "100pt";
+      document.getElementById("iconAccomodation").style.paddingRight = "7px";
+      document.getElementById("iconAccomodation").style.paddingLeft = "8px";
+      document.getElementById("iconAccomodation").style.paddingTop = "3px";
+      document.getElementById("iconAccomodation").style.paddingBottom = "3px";
+      document.getElementById("iconAccomodation").innerHTML = "&#33";
+      return false;
+    } else if (other == "") {
+      document.formAsfPaymentSequence.other.focus();
+      document.formAsfPaymentSequence.other.style.border = "1px solid red";
+      document.getElementById("iconOther").style.border = "1px solid red";
+      document.getElementById("iconOther").style.borderRadius = "100pt";
+      document.getElementById("iconOther").style.paddingRight = "7px";
+      document.getElementById("iconOther").style.paddingLeft = "8px";
+      document.getElementById("iconOther").style.paddingTop = "3px";
+      document.getElementById("iconOther").style.paddingBottom = "3px";
+      document.getElementById("iconOther").innerHTML = "&#33";
+      return false;
+    } else {
 
 
       var varBudgetRequest = $('#budgetRequest').val();
@@ -159,110 +171,174 @@
       var varAirport_tax = $('#airport_tax').val();
       var varAccomodation = $('#accomodation').val();
       var varOther = $('#other').val();
-
+      var varSum = +varAllowance + +varTransport + +varAirport_tax + +varAccomodation + +varOther;
+ 
       if (varSequence > varSequenceReq) {
         Swal.fire("Error !", "Total Sequence more than Sequence Request", "error");
-      }
-      else {
-        
-        if(varSequence == varSequenceReq){
-          $("#saveBrfList").prop("disabled", false);
-        }
+      } else {
 
-        var sequence = $('#sequence').val();
-        var allowance = $('#allowance').val();
-        var transport = $('#transport').val();
-        var airport_tax = $('#airport_tax').val();
-        var accomodation = $('#accomodation').val();
-        var other = $('#other').val();
-
-        var varLoop = +varSequence + 1;
-        $("#sequence").val(varLoop);
-
-        var varTotal = +allowance + +transport + +airport_tax + +accomodation + +other;
-
-        if(varTotal > varBudgetRequest){
-
-          Swal.fire("Error !", "Total Budget more than Budget Request", "error");
-          var varLoop = $("#sequence").val() - 1;
-          $("#sequence").val(varLoop);
-
-        }
-        else{
-          
-          valAllowance += +allowance;
-          valTransport += +transport;
-          valAirportTax += +airport_tax;
-          valAccomodation += +accomodation;
-          valOthers += +other;
-
-          varTotalBrf = +valAllowance + +valTransport + +valAirportTax + +valAccomodation + +valOthers;
-
-          $("#valAllowance").html(valAllowance);
-          $("#valTransport").html(valTransport);
-          $("#valAirportTax").html(valAirportTax);
-          $("#valAccomodation").html(valAccomodation);
-          $("#valOthers").html(valOthers);
-          $("#totalBrf").html(varTotalBrf);
-          $("#totalSequence").html(varSequenceReq);
-
-          var html = '<tr>'+
-                    '<td>'+
-                        '<button type="button" class="btn btn-danger btn-xs remove"><i class="fa fa-trash"></i></button> '+
-                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+allowance+'" data-id2="'+transport+'" data-id3="'+airport_tax+'" data-id4="'+accomodation+'" data-id5="'+other+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                        '<input type="hidden" name="sequence[]" value="'+sequence+'">'+
-                        '<input type="hidden" name="allowance[]" value="'+allowance+'">'+
-                        '<input type="hidden" name="transport[]" value="'+transport+'">'+
-                        '<input type="hidden" name="airport_tax[]" value="'+airport_tax+'">'+
-                        '<input type="hidden" name="accomodation[]" value="'+accomodation+'">'+
-                        '<input type="hidden" name="other[]" value="'+other+'">'+
-                    '</td>'+
-                    '<td>'+allowance+'</td>'+
-                    '<td>'+transport+'</td>'+
-                    '<td>'+airport_tax+'</td>'+
-                    '<td>'+accomodation+'</td>'+
-                    '<td>'+other+'</td>'+
-                '</tr>';
-                  
-          $('table.tableBrf tbody').append(html);
-          $(".brfhide6").show();
-        }
-      }
-      $("body").on("click", ".remove", function () {
-          var varLoop = varSequence - 1;
-          $("#sequence").val(varLoop);
-          $(this).closest("tr").remove();
-
-          if(varSequenceReq != varLoop){
-            $("#saveBrfList").prop("disabled", true);
+        for (var varLoop = varSequence; varLoop <= varSequence; ++varLoop) {
+          $("#sum").val(varSum);
+          var datas = [];
+          for (var i = 1; i <= x; i++) {
+            var data = {
+              sequence: $('#sequence').val(),
+              allowance: $('#allowance').val(),
+              transport: $('#transport').val(),
+              airport_tax: $('#airport_tax').val(),
+              accomodation: $('#accomodation').val(),
+              other: $('#other').val(),
+              sum: $('#sum').val(),
+            }
+            datas.push(data);
           }
-      });
 
-      $("body").on("click", ".edit", function () {
-          var $this = $(this);
-          var id1 = $this.data("id1");
-          var id2 = $this.data("id2");
-          var id3 = $this.data("id3");
-          var id4 = $this.data("id4");
-          var id5 = $this.data("id5");
-          $("#allowance").val(id1);
-          $("#transport").val(id2);
-          $('#airport_tax').val(id3);
-          $("#accomodation").val(id4);
-          $("#other ").val(id5);
+          var json_object = JSON.stringify(datas);
 
-          var varLoop = varSequence - 1;
-          $("#sequence").val(varLoop);
-          $(this).closest("tr").remove();
-      });
+          $.ajax({
+            type: "POST",
+            url: '{{route("BRF.storePaymentSequenceBrf")}}',
+            data: json_object,
+            contentType: "application/json",
+            processData: true,
+            headers: {
+              'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(data) {
+              y++;
+              $.each(data, function(key, val) {
 
-      $("#allowance").val("");
-      $("#transport").val("");
-      $('#airport_tax').val("");
-      $("#accomodation").val("");
-      $("#other ").val("");
-      
-    // }
+                varTotal += +val.sum;
+                if (varBudgetRequest < varTotal) {
+                  Swal.fire("Error !", "Your request budget is not Sufficient", "error");
+                } else {
+
+                  Swal.fire("Success !", "Data Has Been Updated", "success");
+                  var t = $('#tableBrf').DataTable();
+                    t.row.add([
+                        '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
+                        '<span id="lastProductId_' + y + '">' + val.sequence + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.allowance + '</span>',
+                        '<span id="lastUom_' + y + '">' + val.transport + '</span>',
+                        '<span id="lastProductName_' + y + '">' + val.airport_tax + '</span>',
+                        '<span id="lastPrice_' + y + '">' + val.accomodation + '</span>',
+                        '<span id="totalArfDetails_' + y + '">' + val.other + '</span>'
+                    ]).draw();
+
+                  // $('#').append('<tr id="control-group"><td></td><td style="text-align:center;"><span id="lastWorkId_' + y + '">' + val.sequence + '</span></td><td style="text-align:center;"><span id="lastWorkName_' + y + '">' + val.allowance + '</span></td><td style="text-align:center;"><span id="lastProductId_' + y + '">' + val.transport + '</span></td><td style="text-align:center;"><span id="lastProductName_' + y + '">' + val.airport_tax + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.accomodation + '</span></td><td style="text-align:center;"><span id="lastUom_' + y + '">' + val.other + '</span></td></tr>');
+                  $("#sequence").val(varLoop);
+
+                  valAllowance += +val.allowance;
+                  valTransport += +val.transport;
+                  valAirportTax += +val.airport_tax;
+                  valAccomodation += +val.accomodation;
+                  valOthers += +val.other;
+
+                  varTotalBrf = +valAllowance + +valTransport + +valAirportTax + +valAccomodation + +valOthers;
+
+                  $("#valAllowance").html(valAllowance);
+                  $("#valTransport").html(valTransport);
+                  $("#valAirportTax").html(valAirportTax);
+                  $("#valAccomodation").html(valAccomodation);
+                  $("#valOthers").html(valOthers);
+
+                  $("#totalBrf").html(varTotalBrf);
+                  $("#totalSequence").html(varSequenceReq);
+
+                  $(".brfhide6").show();
+                }
+              });
+            },
+            error: function(data) {
+              Swal.fire("Error !", "Data Canceled Added", "error");
+            }
+          });
+        }
+      }
+    }
+    $("#saveBrfList").prop("disabled", false);
+  }
+</script>
+
+<script>
+  $('#saveBrfList').click(function() {
+
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-sm',
+      cancelButtonClass: 'btn btn-danger  btn-sm',
+      buttonsStyling: true,
+    })
+
+    swalWithBootstrapButtons.fire({
+
+      title: 'Are you sure?',
+      text: "Save this data?",
+      type: 'question',
+
+      showCancelButton: true,
+      confirmButtonText: 'Yes, save it!',
+      cancelButtonText: 'No, cancel!',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+        swalWithBootstrapButtons.fire(
+          'Succesful!',
+          'Data has been updated !',
+          'success'
+        )
+
+        //Batas
+
+        var datax = [];
+        for (var i = 1; i <= y; i++) {
+          var data = {
+            lastWorkId: $('#lastWorkId_' + i).html(),
+            lastWorkName: $('#lastWorkName_' + i).html(),
+            lastProductId: $('#lastProductId_' + i).html(),
+            lastProductName: $('#lastProductName_' + i).html(),
+            lastQty: $('#lastQty_' + i).val(),
+            lastUom: $('#lastUom_' + i).html(),
+            lastPrice: $('#lastPrice_' + i).html(),
+            totalArfDetails: $('#totalArfDetails_' + i).html(),
+            lastCurrency: $('#lastCurrency_' + i).html(),
+            lastRemark: $('#lastRemark_' + i).html(),
+
+          }
+          datax.push(data);
+        }
+
+        var json_object = JSON.stringify(datax);
+        console.log(json_object);
+
+        $.ajax({
+          type: "POST",
+          url: '{{route("ARF.tests")}}',
+          data: json_object,
+          contentType: "application/json",
+          processData: true,
+          headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+          },
+          success: function(data) {
+            console.log(data);
+          },
+          error: function(data) {
+            Swal.fire("Error !", "Data Canceled Added", "error");
+          }
+        });
+
+        //EndBatas
+
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        swalWithBootstrapButtons.fire(
+          'Cancelled',
+          'Process Canceled !',
+          'error'
+        )
+      }
+    })
   });
 </script>
 

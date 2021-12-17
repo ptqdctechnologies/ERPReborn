@@ -58,6 +58,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
+
         $username = $request->input('username');
         $password = $request->input('password');
         $varBranchID = (int)$request->input('branch_name');
@@ -72,12 +73,12 @@ class LoginController extends Controller
         //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'authentication.general.setLoginBranchAndUserRole', 
-            'latest', 
+            $varAPIWebToken,
+            'authentication.general.setLoginBranchAndUserRole',
+            'latest',
             [
-            'branchID' => $varBranchID,
-            'userRoleID' => $varUserRoleID
+                'branchID' => $varBranchID,
+                'userRoleID' => $varUserRoleID
             ]
         );
 

@@ -1,8 +1,8 @@
 <div class="card-body table-responsive p-0">
-    <table class="table table-head-fixed text-nowrap table-striped tableBrfListCart">
+    <table id="tableBrfListCart" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
         <thead>
             <tr>
-                <th>Action</th>
+                <th></th>
                 <th>No Trans</th>
                 <th>Work Id</th>
                 <th>Work Name</th>
@@ -17,8 +17,5 @@
                 <th>Available</th>
             </tr>
         </thead>
-        <tbody>
-            
-        </tbody>
     </table>
 </div>
