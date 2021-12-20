@@ -1,3 +1,12 @@
+<!-- FUNCTION -->
+@include('getFunction.getDeliverTo')
+@include('getFunction.getDelivery')
+@include('getFunction.getPoTrano')
+@include('getFunction.getReceive')
+@include('getFunction.getSupplier')
+@include('getFunction.getUom')
+
+<!-- ADVANCE -->
 @include('Advance.Advance.Transactions.popupRevisionARF')
 @include('Advance.Advance.Transactions.popupRevisionASF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBRF')
@@ -6,19 +15,32 @@
 @include('Advance.Advance.Functions.PopUp.searchAsf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
+
+<!-- INVENTORY -->
 @include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
 @include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
 @include('Inventory.MaterialReturn.Transactions.popupRevisionMret')
+
+<!-- LOGISTIC -->
 @include('Logistic.Functions.searchMaterialReceive')
+
+<!-- MASTER -->
 @include('Master.supplier.Transactions.popupRevisionSupplier')
 @include('Master.UOM.Transactions.popupRevisionUom')
 
-@include('getFunction.getDeliverTo')
-@include('getFunction.getDelivery')
-@include('getFunction.getPoTrano')
-@include('getFunction.getReceive')
-@include('getFunction.getSupplier')
-@include('getFunction.getUom')
+<!-- BUDGET -->
+@include('Budget.BudgetExpense.Transactions.popupBudget')
+@include('Budget.BudgetExpense.Functions.PopUp.searchBudget')
+
+@include('Budget.BudgetExpenseLine.Transactions.popupBudgetExpense')
+@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudget')
+@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudgetExpense')
+
+@include('Budget.BudgetExpenseLineCeiling.Transactions.popupBudgetExpenseLine')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudget')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpense')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpenseLine')
+
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
@@ -833,15 +855,60 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('Budget.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget</label>
+                                                <label>Budget</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudget">
+                                            <!-- <a href="{{ route('BudgetExpense.index') }}" class="nav-link"> -->
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Expense</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseGroup.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Expense Group</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLine">
+                                            <!-- <a href="{{ route('BudgetExpenseLine.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Budget Revision</label>
+                                                <label>Budget Expense Line</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLineCeiling">
+                                            <!-- <a href="{{ route('BudgetExpenseLineCeiling.index') }}" class="nav-link"> -->
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Expense Line Ceiling</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Expense Ceiling Objects</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('BudgetType.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Budget Type</label>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="{{ route('CodeOfBudgeting.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Code of Budgeting</label>
                                             </a>
                                         </li>
                                     </ul>
