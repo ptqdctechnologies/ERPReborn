@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpense.store') }}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpenseLineCeilingObjects.store') }}">
                         @csrf
                         <div class="row">
                             <div class="col-12">

@@ -30,6 +30,16 @@
 
 <!-- BUDGET -->
 @include('Budget.BudgetExpense.Transactions.popupBudget')
+@include('Budget.BudgetExpense.Functions.PopUp.searchBudget')
+
+@include('Budget.BudgetExpenseLine.Transactions.popupBudgetExpense')
+@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudget')
+@include('Budget.BudgetExpenseLine.Functions.PopUp.searchBudgetExpense')
+
+@include('Budget.BudgetExpenseLineCeiling.Transactions.popupBudgetExpenseLine')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudget')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpense')
+@include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpenseLine')
 
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -847,56 +857,58 @@
                                         <li class="nav-item">
                                             <a href="{{ route('Budget.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget</label>
+                                                <label>Budget</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <!-- <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudget"> -->
-                                            <a href="{{ route('BudgetExpense.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudget">
+                                            <!-- <a href="{{ route('BudgetExpense.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Expense</label>
+                                                <label>Budget Expense</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{ route('BudgetExpenseGroup.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Expense Group</label>
+                                                <label>Budget Expense Group</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('BudgetExpenseLine.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLine">
+                                            <!-- <a href="{{ route('BudgetExpenseLine.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Expense Line</label>
+                                                <label>Budget Expense Line</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="{{ route('BudgetExpenseLineCeiling.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLineCeiling">
+                                            <!-- <a href="{{ route('BudgetExpenseLineCeiling.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Expense Line Ceiling</label>
+                                                <label>Budget Expense Line Ceiling</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Expense Ceiling Objects</label>
+                                                <label>Budget Expense Ceiling Objects</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{ route('BudgetType.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Budget Type</label>
+                                                <label>Budget Type</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
                                             <a href="{{ route('CodeOfBudgeting.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Code of Budgeting</label>
+                                                <label>Code of Budgeting</label>
                                             </a>
                                         </li>
                                     </ul>

@@ -29,31 +29,28 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <td><label>Name</label></td>
+                                                            <td><label>Budget</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="name" name="name" class="form-control">
+                                                                    <input autocomplete="off" id="budget_RefID" name="budget_RefID" class="form-control" value="{{ $budget_RefID }}" readonly>
                                                                 </div>
                                                             </td>
                                                         </tr>
-
+                                                        
                                                         <tr>
-                                                            <td><label>Start Date</label></td>
+                                                            <td><label>Budget Expense Group</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control">
+                                                                    <select id="budgetExpenseGroup_RefID" name="budgetExpenseGroup_RefID" class="form-control">
+                                                                    <option selected="" disabled>-- Select Budget Group -- </option>
+                                                                    @foreach($data as $datas)
+                                                                        <option value="{{ $datas['sys_ID'] }}">{{ $datas['name'] }}</option>
+                                                                    @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
-
-                                                        <tr>
-                                                            <td><label>End Date</label></td>
-                                                            <td>
-                                                                <div class="input-group">
-                                                                    <input autocomplete="off" type="date" id="end" name="end" class="form-control">
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                        
                                                     </table>
                                                 </div>
                                                 <button type="reset" class="btn btn-outline btn-danger btn-sm float-right" id="addTranoType" style="margin-right: 5px;">

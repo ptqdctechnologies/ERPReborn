@@ -110,11 +110,38 @@
         "responsive": true,
         "autoWidth": false,
       });
-      $("#example1").DataTable({
+      $("#tableGetProject").DataTable({
         "responsive": true,
         "autoWidth": false,
+        "paginate": false,
       });
-      $("#tableGetProject").DataTable({
+      $("#tableBudgetExpense").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudgetExpenseLine").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudgetExpense2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudget").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      
+      $("#tableBudget2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudget3").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,

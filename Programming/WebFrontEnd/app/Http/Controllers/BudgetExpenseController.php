@@ -25,8 +25,7 @@ class BudgetExpenseController extends Controller
         'latest', 
         [
         'parameter' => [
-            // 'budget_RefID' => $request->BudgetId,
-            'budget_RefID' => 103000000000001,
+            'budget_RefID' => (int)$request->BudgetId,
             ],
         'SQLStatement' => [
             'pick' => null,
@@ -37,12 +36,66 @@ class BudgetExpenseController extends Controller
         ]
         );
         // dd($varData);
+        $num = 0;
+        if($varData['metadata']['HTTPStatusCode'] == '200'){
+            $num = 1;
+        }
+
+        $compact = [
+            'data' => $varData['data'],
+            'num' => $num,
+            'budget_RefID' => $request->BudgetId,
+        ];
         
-        return view('Budget.BudgetExpense.Transactions.index', ['data' => $varData['data']]);
+        return view('Budget.BudgetExpense.Transactions.index', $compact);
     }
-    public function create()
+    public function GetBudget(Request $request)
     {
-        return view('Budget.BudgetExpense.Transactions.create');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.budgeting.getBudget', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );
+        return response()->json($varData['data']);
+    }
+    public function create(Request $request)
+    {
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.budgeting.getBudgetExpenseGroup', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );
+        $compact = [
+            'budget_RefID' => $_GET['budget_RefID'],
+            'data' => $varData['data']
+        ];
+        // dd($varData);
+        return view('Budget.BudgetExpense.Transactions.create', $compact);
     }
 
     /**
@@ -62,13 +115,14 @@ class BudgetExpenseController extends Controller
         'latest', 
         [
         'entities' => [
-            'budget_RefID' => 103000000000001,
-            'budgetExpenseGroup_RefID' => 109000000000001,
+            'budget_RefID' => (int)$request->budget_RefID,
+            'budgetExpenseGroup_RefID' => (int)$request->budgetExpenseGroup_RefID,
             'budgetExpenseOwner_RefID' => 111000000000001
             ]
         ]
         );
-        return redirect()->route('BudgetExpense.index');
+        // dd($varData);
+        return redirect('BudgetExpense?BudgetId='.$request->budget_RefID);
     }
     
     /**
@@ -122,8 +176,19 @@ class BudgetExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.delete.budgeting.setBudgetExpense', 
+        'latest', 
+        [
+        'recordID' => (int)$id
+        ]
+        );
+        return redirect('BudgetExpense?BudgetId='.$_GET['budget_RefID']);
     }
 }

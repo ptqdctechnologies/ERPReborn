@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('BudgetExpenseLine.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('BudgetExpenseLine.create') }}?BudgetExpenseId={{ $BudgetExpenseId }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
@@ -38,6 +38,7 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
+                                                    @if($num == '1')
                                                     <tbody>
                                                         @foreach($data as $datas)
                                                         <tr>
@@ -47,19 +48,18 @@
                                                             <td>{{$datas['code']}}</td>
                                                             <td>
                                                                 <center>
-
-
-                                                                    <form action="{{ route('BloodAglutinogenType.destroy', $datas['sys_ID']) }}" method="post">
+                                                                    <form action="{{ route('BudgetExpenseLine.destroy', $datas['sys_ID']) }}?BudgetExpenseId={{ $BudgetExpenseId }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
-                                                                        <a href="{{ route('Budget.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
-                                                                        <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
+                                                                        <a href="{{ route('BudgetExpenseLine.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
+                                                                        <button class="btn btn-outline-danger btn-rounded btn-sm my-0" type="submit"><i class="fa fa-trash"></i></button>
                                                                     </form>
                                                                 </center>
                                                             </td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
+                                                    @endif
                                                 </table>
                                             </div>
                                             <!-- /.card-body -->

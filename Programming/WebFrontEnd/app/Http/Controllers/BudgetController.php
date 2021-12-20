@@ -122,20 +122,20 @@ class BudgetController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         //---Core---
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.delete.master.setBloodAglutinogenType',
-            'latest',
-            [
-                'recordID' => (int)$id
-            ]
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.delete.budgeting.setBudget', 
+        'latest', 
+        [
+        'recordID' => (int)$id
+        ]
         );
-        return redirect()->route('BloodAglutinogenType.index');
+        return redirect()->route('Budget.index');
     }
 
 }

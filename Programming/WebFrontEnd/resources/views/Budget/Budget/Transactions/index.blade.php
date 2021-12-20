@@ -33,6 +33,7 @@
                                                         <tr>
                                                             <th>ID</th>
                                                             <th>Branch Ref ID</th>
+                                                            <th>Document Number</th>
                                                             <th>Name</th>
                                                             <th>Start Date</th>
                                                             <th>End Date</th>
@@ -44,6 +45,7 @@
                                                         <tr>
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
+                                                            <td>{{$datas['documentNumber']}}</td>
                                                             <td>{{$datas['name']}}</td>
                                                             <td>{{ date('Y-m-d', strtotime($datas['validStartDateTimeTZ'])) }}</td>
                                                             <td>{{ date('Y-m-d', strtotime($datas['validFinishDateTimeTZ'])) }}</td>

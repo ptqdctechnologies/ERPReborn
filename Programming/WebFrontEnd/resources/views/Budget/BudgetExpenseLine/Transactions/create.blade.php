@@ -29,6 +29,14 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
+                                                            <td><label>Budget Expense ID</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" id="budgetExpense_RefID" name="budgetExpense_RefID" class="form-control" value="{{ $budgetExpense_RefID }}" readonly>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td><label>Name</label></td>
                                                             <td>
                                                                 <div class="input-group">

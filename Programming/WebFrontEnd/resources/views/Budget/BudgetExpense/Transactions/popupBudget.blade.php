@@ -9,14 +9,14 @@
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label style="margin-left: 85px;">Budget Ref ID</label></td>
+                                            <td><label style="margin-left: 85px;">Budget</label></td>
                                             <td>
                                                 <div class="input-group">
                                                     <input id="BudgetId" name="BudgetId" type="hidden" class="form-control">
                                                     <input required="" id="BudgetName" style="border-radius:0;" name="BudgetName" type="text" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="#"><i data-toggle="modal" data-target="#mySearchBudget" class="fas fa-gift" style="color:grey;"></i></a>
+                                                            <a href="#"><i data-toggle="modal" data-target="#mySearchBudget1" class="fas fa-gift Budget" style="color:grey;"></i></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -39,6 +39,44 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function Sub Project Code                         |
-    |----------------------------------------------------------------------------------|-->
+
+<script>
+    $(function() {
+        $('.Budget').on('click', function(e) {
+            e.preventDefault(); // in chase you change to a link or button
+            var $this = $(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("BudgetExpense.GetBudget") !!}',
+                success: function(data) {
+                    var no = 1;
+                    var t = $('#tableBudget').DataTable();
+                    $.each(data, function(key, val) {
+                        t.row.add([
+                                '<tbody><tr><td>' + no++ + '</td>',
+                                '<td><span data-dismiss="modal" class="klikBudget" data-id="' + val.sys_ID + '" data-name="' + val.documentNumber + '">' + val.sys_ID + '</span></td>',
+                                '<td>' + val.documentNumber + '</td></tr></tbody>'
+                        ])  .draw();
+                        
+                    });
+                    $('.klikBudget').on('click', function(e) {
+                        e.preventDefault();
+                        var $this = $(this);
+                        var id = $this.data("id");
+                        var name = $this.data("name");
+                        $("#BudgetId").val(id);
+                        $("#BudgetName").val(name);
+
+                    });
+                }
+            });
+        });
+
+    });
+</script>

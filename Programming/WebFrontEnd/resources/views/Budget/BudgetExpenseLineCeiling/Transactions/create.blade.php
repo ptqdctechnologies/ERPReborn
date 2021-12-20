@@ -8,7 +8,7 @@
         <div class="container-fluid">
             <div class="card">
                 <div class="tab-content p-3" id="nav-tabContent">
-                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpense.store') }}">
+                    <form method="post" enctype="multipart/form-data" action="{{ route('BudgetExpenseLineCeiling.store') }}">
                         @csrf
                         <div class="row">
                             <div class="col-12">
@@ -29,10 +29,27 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
-                                                            <td><label>Name</label></td>
+                                                            <td><label>Budget Expense Line ID</label></td>
                                                             <td>
                                                                 <div class="input-group">
-                                                                    <input autocomplete="off" id="name" name="name" class="form-control">
+                                                                    <input autocomplete="off" id="budgetExpenseLine_RefID" name="budgetExpenseLine_RefID" class="form-control" value="{{ $budgetExpenseLine_RefID }}" readonly>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><label>Rate</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" id="rate" name="rate" class="form-control">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label>Value</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" id="value" name="value" class="form-control">
                                                                 </div>
                                                             </td>
                                                         </tr>

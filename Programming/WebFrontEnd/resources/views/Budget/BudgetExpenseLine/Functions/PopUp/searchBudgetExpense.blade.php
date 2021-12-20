@@ -1,22 +1,22 @@
-<div id="mySearchBudget1" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchBudgetExpense" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose Budsget</label>
+                <label class="card-title">Choose Budget Expense</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableBudget">
+                                <table class="table table-head-fixed text-nowrap" id="tableBudgetExpense">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Sub Budget Code</th>
-                                            <th>Sub Budget Name</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
+                                            <th>Owner</th>
                                         </tr>
                                     </thead>
                                     <tbody>

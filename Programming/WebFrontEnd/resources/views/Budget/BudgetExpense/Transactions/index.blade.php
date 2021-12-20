@@ -30,7 +30,7 @@ include('Budget.BudgetExpense.Functions.PopUp.searchBudget') -->
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('BudgetExpense.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('BudgetExpense.create')}}?budget_RefID={{ $budget_RefID }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
@@ -41,6 +41,7 @@ include('Budget.BudgetExpense.Functions.PopUp.searchBudget') -->
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
+                                                    @if($num == '1')
                                                     <tbody>
                                                         @foreach($data as $datas)
                                                         <tr>
@@ -50,9 +51,7 @@ include('Budget.BudgetExpense.Functions.PopUp.searchBudget') -->
                                                             <td>{{$datas['owner']}}</td>
                                                             <td>
                                                                 <center>
-
-
-                                                                    <form action="{{ route('BloodAglutinogenType.destroy', $datas['sys_ID']) }}" method="post">
+                                                                    <form action="{{ route('BudgetExpense.destroy', $datas['sys_ID']) }}?budget_RefID={{ $budget_RefID }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
                                                                         <a href="{{ route('BudgetExpense.edit', $datas['sys_ID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
@@ -63,6 +62,7 @@ include('Budget.BudgetExpense.Functions.PopUp.searchBudget') -->
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
+                                                    @endif
                                                 </table>
                                             </div>
                                             <!-- /.card-body -->
