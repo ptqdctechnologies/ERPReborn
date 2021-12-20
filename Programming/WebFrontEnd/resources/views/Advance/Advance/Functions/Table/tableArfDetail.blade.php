@@ -1,5 +1,5 @@
 <div class="card-body table-responsive p-0">
-    <table id="tableArfDetail" class="table table-head-fixed text-nowrap table-striped">
+    <table class="table table-head-fixed text-nowrap table-striped tableArfDetail">
         <thead>
             <tr>
                 <th>Action</th>
@@ -15,5 +15,8 @@
                 <th>Descirption</th>
             </tr>
         </thead>
+        <tbody>
+            
+        </tbody>
     </table>
 </div>

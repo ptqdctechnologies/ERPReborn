@@ -59,9 +59,30 @@ class procurementTransactionMret extends Controller
                 'parameter' => []
             ]
         );
-        
-        return view('Inventory.MaterialReturn.Transactions.createMret', ['data' => $varData['data']]);
+        // dd($varData);
 
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        $compact = [
+            'data' => $varData['data']['data'],
+            'data2' => $varData2['data'],
+        ];
+
+        return view('Inventory.MaterialReturn.Transactions.createMret', $compact);
     }
     public function arflistcancel()
     {
