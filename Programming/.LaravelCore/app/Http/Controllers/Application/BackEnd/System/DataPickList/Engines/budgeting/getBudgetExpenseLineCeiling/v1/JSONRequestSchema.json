@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataPickList.budgeting.getBudgetExpense (version 1)",
+"description": "JSON Request Schema of dataPickList.budgeting.getBudgetExpenseLineCeiling (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataPickList.budgeting.getBudgetExpense" ]
+                        "enum": [ "dataPickList.budgeting.getBudgetExpenseLineCeiling" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,13 +30,13 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "budget_RefID": {
+                    "budgetExpenseLine_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "budget_RefID" ]
+                "required": [ "budgetExpenseLine_RefID" ]
                 }    
             },
         "required": [ "parameter" ]
