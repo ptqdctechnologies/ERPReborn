@@ -28,7 +28,15 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "additionalProperties": false
+                "type": "object",
+                "properties": {
+                    "budget_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "budget_RefID" ]
                 }    
             },
         "required": [ "parameter" ]

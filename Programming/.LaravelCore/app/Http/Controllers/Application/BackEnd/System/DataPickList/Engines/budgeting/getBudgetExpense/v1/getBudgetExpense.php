@@ -62,7 +62,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\b
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataPickList_BudgetExpense(
                             $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            $varData['parameter']['budget_RefID']
                             ))))
                             {
                             throw new \Exception();
