@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.4.0...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.4.1...3.x)
+
+
+## [v3.4.1 (2021-12-22)](https://github.com/laravel/ui/compare/v3.4.0...v3.4.1)
+
+### Fixed
+- Fix Bootstrap 5 text alignment ([#213](https://github.com/laravel/ui/pull/213))
 
 
 ## [v3.4.0 (2021-11-30)](https://github.com/laravel/ui/compare/v3.3.3...v3.4.0)
