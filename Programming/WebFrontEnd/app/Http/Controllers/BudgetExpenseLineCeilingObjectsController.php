@@ -25,7 +25,7 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
         'latest', 
         [
         'parameter' => [
-            'budgetExpenseLineCeiling_RefID' => 106000000000016
+            'budgetExpenseLineCeiling_RefID' => (int)$request->BudgetExpenseLineCeilingId,
             ],
         'SQLStatement' => [
             'pick' => null,
@@ -36,12 +36,49 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
         ]
         );
         // dd($varData);die;
+        $num = 0;
+        if ($varData['metadata']['HTTPStatusCode'] == '200') {
+            $num = 1;
+        }
+
+        $compact = [
+            'data' => $varData['data'],
+            'num' => $num,
+            'BudgetExpenseLineCeilingId' => $request->BudgetExpenseLineCeilingId,
+        ];
         
-        return view('Budget.BudgetExpenseLineCeilingObjects.Transactions.index', ['data' => $varData['data']]);
+        return view('Budget.BudgetExpenseLineCeilingObjects.Transactions.index', $compact);
+    }
+    public function GetBudgetExpenseLineCeiling(Request $request)
+    {
+        $BudgetExpenseLineId = $request->input('BudgetExpenseLineId2');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.budgeting.getBudgetExpenseLineCeiling',
+            'latest',
+            [
+                'parameter' => [
+                    'budgetExpenseLine_RefID' => (int)$BudgetExpenseLineId,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varData);
+        return response()->json($varData['data']);
     }
     public function create()
     {
-        return view('Budget.BudgetExpenseLineCeilingObjects.Transactions.create');
+        $compact = [
+            'BudgetExpenseLineCeilingId' => $_GET['BudgetExpenseLineCeilingId']
+        ];
+        return view('Budget.BudgetExpenseLineCeilingObjects.Transactions.create', $compact);
     }
 
     /**
@@ -57,11 +94,11 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'transaction.create.budgeting.setBudgetExpenseCeilingObjects', 
+        'transaction.create.budgeting.setBudgetExpenseLineCeilingObjects', 
         'latest', 
         [
         'entities' => [
-            'budgetExpenseCeiling_RefID' => 106000000000001,
+            'budgetExpenseLineCeiling_RefID' => 106000000000001,
             'product_RefID' => 88000000000001,
             'quantity' => 2,
             'quantityUnit_RefID' => 73000000000001,
@@ -71,7 +108,8 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
             ]
         ]
         );
-        return redirect()->route('BudgetExpenseLineCeilingObjects.index');
+        // dd($varData);
+        return redirect('BudgetExpenseLineCeilingObjects?BudgetExpenseLineCeilingId=' . $request->BudgetExpenseLineCeilingId);
     }
     
     /**
@@ -138,6 +176,6 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
         'recordID' => (int)$id
         ]
         );
-        return redirect()->route('BudgetExpenseLineCeilingObjects.index');
+        return redirect('BudgetExpenseLineCeilingObjects?BudgetExpenseLineCeilingId=' . $_GET['BudgetExpenseLineCeilingId']);
     }
 }

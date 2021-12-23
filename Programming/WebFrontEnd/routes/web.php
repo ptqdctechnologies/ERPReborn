@@ -244,6 +244,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('BudgetExpenseLineCeiling/GetBudgetExpenseLine','BudgetExpenseLineCeilingController@GetBudgetExpenseLine')->name('BudgetExpenseLineCeiling.GetBudgetExpenseLine');
     Route::resource('BudgetExpenseLineCeiling','BudgetExpenseLineCeilingController');
     // Budget ExpenseLineCeilingObjects
+    Route::get('BudgetExpenseLineCeilingObjects/GetBudgetExpenseLineCeiling','BudgetExpenseLineCeilingObjectsController@GetBudgetExpenseLineCeiling')->name('BudgetExpenseLineCeilingObjects.GetBudgetExpenseLineCeiling');
     Route::resource('BudgetExpenseLineCeilingObjects','BudgetExpenseLineCeilingObjectsController');
     // Budget Type
     Route::resource('BudgetType','BudgetTypeController');

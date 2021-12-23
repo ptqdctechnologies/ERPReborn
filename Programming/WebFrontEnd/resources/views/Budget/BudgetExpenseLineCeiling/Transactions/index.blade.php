@@ -33,7 +33,7 @@
                                                         <tr>
                                                             <th>Sys ID</th>
                                                             <th>Sys Branch Ref ID</th>
-                                                            <th>Budget Periode</th>
+                                                            <!-- <th>Budget Periode</th> -->
                                                             <th>Currency Value</th>
                                                             <th>Currency Code</th>
                                                             <th>Start Date</th>
@@ -47,7 +47,7 @@
                                                         <tr>
                                                             <td>{{$datas['sys_ID']}}</td>
                                                             <td>{{$datas['sys_Branch_RefID']}}</td>
-                                                            <td>{{$datas['budgetPeriod']}}</td>
+                                                            <!-- <td>{{$datas['budgetPeriod']}}</td> -->
                                                             <td>{{$datas['baseCurrencyValue']}}</td>
                                                             <td>{{$datas['baseCurrencyISOCode']}}</td>
                                                             <td>{{$datas['validStartDateTimeTZ']}}</td>

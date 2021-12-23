@@ -41,6 +41,12 @@
 @include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpense')
 @include('Budget.BudgetExpenseLineCeiling.Functions.PopUp.searchBudgetExpenseLine')
 
+@include('Budget.BudgetExpenseLineCeilingObjects.Transactions.popupBudgetExpenseLineCeiling')
+@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudget')
+@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpense')
+@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpenseLine')
+@include('Budget.BudgetExpenseLineCeilingObjects.Functions.PopUp.searchBudgetExpenseLineCeiling')
+
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <a href="{{ route('home.projectDashboard') }}" class="brand-link">
@@ -892,7 +898,8 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link">
+                                            <!-- <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link"> -->
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLineCeilingObjects">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Budget Expense Ceiling Objects</label>
                                             </a>

@@ -27,7 +27,7 @@
                                             <div class="form-group">
                                                 <table id="example1" class="table table-bordered table-striped">
 
-                                                    <a href="{{ route('BudgetExpenseLineCeilingObjects.create') }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
+                                                    <a href="{{ route('BudgetExpenseLineCeilingObjects.create') }}?BudgetExpenseLineCeilingId={{ $BudgetExpenseLineCeilingId }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-plus"></i></a>
 
                                                     <thead>
                                                         <tr>
@@ -40,8 +40,20 @@
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
+                                                    @if($num == '1')
                                                     <tbody>
                                                         @foreach($data as $datas)
+
+                                                        @php $sts = ""; $id = ""; @endphp
+                                                        @if($datas['productName'] == "Unspecified Product (Remaining Allocation)")
+                                                            @php 
+                                                                $sts = "disabled";
+                                                            @endphp 
+                                                        @else
+                                                            @php
+                                                                $id = $datas['sys_ID'];
+                                                            @endphp 
+                                                        @endif
                                                         <tr>
                                                             <td>{{$datas['productName']}}</td>
                                                             <td>{{$datas['quantity']}}</td>
@@ -51,17 +63,18 @@
                                                             <td>{{$datas['productUnitPriceCurrencyISOCode']}}</td>
                                                             <td>
                                                                 <center>
-                                                                    <form action="{{ route('BudgetExpenseLineCeilingObjects.destroy', $datas['sys_Branch_RefID']) }}" method="post">
+                                                                    <form action="{{ route('BudgetExpenseLineCeilingObjects.destroy', $id) }}?BudgetExpenseLineCeilingId={{ $BudgetExpenseLineCeilingId }}" method="post">
                                                                         @method('DELETE')
                                                                         @csrf
-                                                                        <a href="{{ route('BudgetExpenseLineCeilingObjects.edit', $datas['sys_Branch_RefID']) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 style=" border-radius: 100px;"><i class="fa fa-edit"></i></a>
-                                                                        <button class="btn btn-outline-danger btn-rounded btn-sm my-0 style=" border-radius: 100px;" type="submit"><i class="fa fa-trash"></i></button>
+                                                                        <a href="{{ route('BudgetExpenseLineCeilingObjects.edit', $id) }}" class="btn btn-outline-primary btn-rounded btn-sm my-0 {{ $sts }}"><i class="fa fa-edit"></i></a>
+                                                                        <button {{ $sts }} class="btn btn-outline-danger btn-rounded btn-sm my-0" type="submit"><i class="fa fa-trash"></i></button>
                                                                     </form>
                                                                 </center>
                                                             </td>
                                                         </tr>
                                                         @endforeach
                                                     </tbody>
+                                                    @endif
                                                 </table>
                                             </div>
                                             <!-- /.card-body -->

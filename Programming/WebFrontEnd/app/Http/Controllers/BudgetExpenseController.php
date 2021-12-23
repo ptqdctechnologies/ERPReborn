@@ -167,7 +167,23 @@ class BudgetExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.update.budgeting.setBudgetExpense', 
+        'latest', 
+        [
+        'recordID' => (int)$id,
+        'entities' => [
+            'budget_RefID' => $request->budget_RefID,
+            'budgetExpenseGroup_RefID' => 109000000000001,
+            'budgetExpenseOwner_RefID' => 111000000000001
+            ]
+        ]
+        );
+        // dd($varData);
+        return redirect('BudgetExpense?BudgetId='.$request->budget_RefID);
     }
 
     /**
