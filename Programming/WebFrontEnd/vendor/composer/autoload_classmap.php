@@ -1490,6 +1490,7 @@ return array(
     'Illuminate\\Database\\Eloquent\\Casts\\AsEncryptedArrayObject' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEncryptedArrayObject.php',
     'Illuminate\\Database\\Eloquent\\Casts\\AsEncryptedCollection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsEncryptedCollection.php',
     'Illuminate\\Database\\Eloquent\\Casts\\AsStringable' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/AsStringable.php',
+    'Illuminate\\Database\\Eloquent\\Casts\\Attribute' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Casts/Attribute.php',
     'Illuminate\\Database\\Eloquent\\Collection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Collection.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\GuardsAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/GuardsAttributes.php',
     'Illuminate\\Database\\Eloquent\\Concerns\\HasAttributes' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/HasAttributes.php',
