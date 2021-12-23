@@ -125,7 +125,22 @@
         "autoWidth": false,
         "paginate": false,
       });
+      $("#tableBudgetExpenseLine2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudgetExpenseLineCeiling").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
       $("#tableBudgetExpense2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudgetExpense3").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,
@@ -142,6 +157,11 @@
         "paginate": false,
       });
       $("#tableBudget3").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableBudget4").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,

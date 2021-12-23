@@ -15,7 +15,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add Budget
+                                        Add Budget Expense Line Ceiling
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">

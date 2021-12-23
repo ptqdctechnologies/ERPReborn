@@ -19,25 +19,25 @@ class BudgetExpenseLineCeilingController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.budgeting.getBudgetExpenseLineCeiling', 
-        'latest', 
-        [
-        'parameter' => [
-            'budgetExpenseLine_RefID' => (int)$request->BudgetExpenseLineId,
-            ],
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.budgeting.getBudgetExpenseLineCeiling',
+            'latest',
+            [
+                'parameter' => [
+                    'budgetExpenseLine_RefID' => (int)$request->BudgetExpenseLineId,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-        ]
         );
 
         $num = 0;
-        if($varData['metadata']['HTTPStatusCode'] == '200'){
+        if ($varData['metadata']['HTTPStatusCode'] == '200') {
             $num = 1;
         }
 
@@ -55,21 +55,21 @@ class BudgetExpenseLineCeilingController extends Controller
         $BudgetId = $request->input('BudgetExpenseId2');
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.budgeting.getBudgetExpenseLine', 
-        'latest', 
-        [
-        'parameter' => [
-            'budgetExpense_RefID' => (int)$BudgetId,
-            ],
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.budgeting.getBudgetExpenseLine',
+            'latest',
+            [
+                'parameter' => [
+                    'budgetExpense_RefID' => (int)$BudgetId,
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-        ]
         );
         // dd($varData);
         return response()->json($varData['data']);
@@ -93,29 +93,28 @@ class BudgetExpenseLineCeilingController extends Controller
     {
         $start = date('Y-m-d h:m:s+07', strtotime($request->start));
         $end = date('Y-m-d h:m:s+07', strtotime($request->end));
-        
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.create.budgeting.setBudgetExpenseCeiling', 
-        'latest', 
-        [
-        'entities' => [
-            'budgetExpenseLine_RefID' => (int)$request->budgetExpenseLine_RefID,
-            'validStartDateTimeTZ' => $start,
-            'validFinishDateTimeTZ' => $end,
-            'currency_RefID' => 62000000000001,
-            'currencyExchangeRate' => (int)$request->rate,
-            'currencyValue' => (int)$request->value,
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.create.budgeting.setBudgetExpenseLineCeiling',
+            'latest',
+            [
+                'entities' => [
+                    'budgetExpenseLine_RefID' => (int)$request->budgetExpenseLine_RefID,
+                    'validStartDateTimeTZ' => $start,
+                    'validFinishDateTimeTZ' => $end,
+                    'currency_RefID' => 62000000000001,
+                    'currencyExchangeRate' => (int)$request->rate,
+                    'currencyValue' => (int)$request->value,
+                ]
             ]
-        ]
         );
-        dd($varData);
-        return redirect('BudgetExpenseLineCeiling?BudgetExpenseLineId='.$request->budgetExpenseLine_RefID);
+        return redirect('BudgetExpenseLineCeiling?BudgetExpenseLineId=' . $request->budgetExpenseLine_RefID);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -136,15 +135,15 @@ class BudgetExpenseLineCeilingController extends Controller
     public function edit(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        
+
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataRecord.budgeting.getBudget', 
-        'latest', 
-        [
-        'recordID' => 103000000000001
-        ]
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataRecord.budgeting.getBudget',
+            'latest',
+            [
+                'recordID' => 103000000000001
+            ]
         );
         // dd($varData);die;
         return view('Budget.Budget.Transactions.edit')->with('data', $varData['data']);
@@ -159,7 +158,6 @@ class BudgetExpenseLineCeilingController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
     }
 
     /**
@@ -172,14 +170,14 @@ class BudgetExpenseLineCeilingController extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.delete.budgeting.setBudgetExpenseLineCeiling', 
-        'latest', 
-        [
-        'recordID' => (int)$id
-        ]
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.delete.budgeting.setBudgetExpenseLineCeiling',
+            'latest',
+            [
+                'recordID' => (int)$id
+            ]
         );
-        return redirect('BudgetExpenseLineCeiling?BudgetExpenseLineId='.$_GET['BudgetExpenseLineId']);
+        return redirect('BudgetExpenseLineCeiling?BudgetExpenseLineId=' . $_GET['BudgetExpenseLineId']);
     }
 }

@@ -15,7 +15,7 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add Budget
+                                            Add Budget Expense Line Ceiling Objects
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -29,6 +29,14 @@
                                                 <div class="form-group">
                                                     <table>
                                                         <tr>
+                                                            <td><label>Budget Expense Line Ceiling ID</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" id="budgetExpenseLine_RefID" name="BudgetExpenseLineCeilingId" class="form-control" value="{{ $BudgetExpenseLineCeilingId }}" readonly>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
                                                             <td><label>Name</label></td>
                                                             <td>
                                                                 <div class="input-group">
@@ -38,7 +46,16 @@
                                                         </tr>
 
                                                         <tr>
-                                                            <td><label>Start Date</label></td>
+                                                            <td><label>Quantity</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <input autocomplete="off" type="date" id="start" name="start" class="form-control">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label>Quantity</label></td>
                                                             <td>
                                                                 <div class="input-group">
                                                                     <input autocomplete="off" type="date" id="start" name="start" class="form-control">
