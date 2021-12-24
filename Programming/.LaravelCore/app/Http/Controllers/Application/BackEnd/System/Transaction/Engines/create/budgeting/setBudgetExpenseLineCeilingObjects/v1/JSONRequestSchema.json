@@ -30,7 +30,7 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "budgetExpenseCeiling_RefID": {
+                    "budgetExpenseLineCeiling_RefID": {
                         "type": "integer",
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -60,7 +60,7 @@
                         "type": "number"
                         }
                     },
-                "required": [ "budgetExpenseCeiling_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue" ]
+                "required": [ "budgetExpenseLineCeiling_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue" ]
                 }
             },
         "required": [ "entities" ]
