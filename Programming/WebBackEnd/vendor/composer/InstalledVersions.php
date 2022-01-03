@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '5452c86ec21ffd38ef5ff544e1d71e167ec3148a',
+    'reference' => 'ffa28445315bbc9be7bba56dd75314e8cc86ab64',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '5452c86ec21ffd38ef5ff544e1d71e167ec3148a',
+      'reference' => 'ffa28445315bbc9be7bba56dd75314e8cc86ab64',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -525,12 +525,12 @@ private static $installed = array (
     ),
     'league/commonmark' => 
     array (
-      'pretty_version' => '2.1.0',
-      'version' => '2.1.0.0',
+      'pretty_version' => '2.1.1',
+      'version' => '2.1.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '819276bc54e83c160617d3ac0a436c239e479928',
+      'reference' => '17d2b9cb5161a2ea1a8dd30e6991d668e503fb9d',
     ),
     'league/config' => 
     array (
@@ -1390,12 +1390,12 @@ private static $installed = array (
     ),
     'tecnickcom/tcpdf' => 
     array (
-      'pretty_version' => '6.4.3',
-      'version' => '6.4.3.0',
+      'pretty_version' => '6.4.4',
+      'version' => '6.4.4.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3cfc830d70b3783ecfc198fc28c183287bcb1dce',
+      'reference' => '42cd0f9786af7e5db4fcedaa66f717b0d0032320',
     ),
     'theseer/tokenizer' => 
     array (
