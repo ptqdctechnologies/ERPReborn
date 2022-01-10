@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '52314a9ce383ed14732abae92508b6d789e5461f',
+    'reference' => 'd769bc248b14540aa4e8f4461cbd358cd42ed81f',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.208.10',
-      'version' => '3.208.10.0',
+      'pretty_version' => '3.209.1',
+      'version' => '3.209.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'a7802ac9289e0c4de2c76cfe0ea0f11f72955754',
+      'reference' => '3a418a7a9beae4675685efe7bb426ee0ae338a40',
     ),
     'brick/math' => 
     array (
@@ -112,12 +112,12 @@ private static $installed = array (
     ),
     'dragonmantank/cron-expression' => 
     array (
-      'pretty_version' => 'v3.2.2',
-      'version' => '3.2.2.0',
+      'pretty_version' => 'v3.2.3',
+      'version' => '3.2.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c9e208317b0cf679097cf976ffbb0b0eec81d4df',
+      'reference' => '47c53bbb260d3c398fba9bfa9683dcf67add2579',
     ),
     'egulias/email-validator' => 
     array (
@@ -175,12 +175,12 @@ private static $installed = array (
     ),
     'filp/whoops' => 
     array (
-      'pretty_version' => '2.14.4',
-      'version' => '2.14.4.0',
+      'pretty_version' => '2.14.5',
+      'version' => '2.14.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'f056f1fe935d9ed86e698905a957334029899895',
+      'reference' => 'a63e5e8f26ebbebf8ed3c5c691637325512eb0dc',
     ),
     'fruitcake/laravel-cors' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '52314a9ce383ed14732abae92508b6d789e5461f',
+      'reference' => 'd769bc248b14540aa4e8f4461cbd358cd42ed81f',
     ),
     'laravel/serializable-closure' => 
     array (
