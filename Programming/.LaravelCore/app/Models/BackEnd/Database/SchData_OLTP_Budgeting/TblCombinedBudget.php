@@ -52,7 +52,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataSynchronize($varUserSession)
+        public function setDataSynchronize($varUserSession,
+            int $varCombinedBudgetSection_RefID = null
+            )
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -60,6 +62,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                     $varUserSession,
                     parent::getSchemaTableSynchronizeName($varUserSession), 
                     [
+                        [$varCombinedBudgetSection_RefID, 'bigint']
                     ]
                     )
                 );

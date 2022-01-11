@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.synchronize.budgeting.setCombinedBudget (version 1)",
+"description": "JSON Request Schema of transaction.undelete.humanResource.setPersonWorkTimeSheet (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.synchronize.budgeting.setCombinedBudget" ]
+                        "enum": [ "transaction.undelete.humanResource.setPersonWorkTimeSheet" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,13 +27,13 @@
     "data": {
         "type": "object",
         "properties": {
-            "combinedBudgetSection_RefID": {
-                "type": [ "integer", "null" ],
+            "recordID" : {
+                "type": "integer",
                 "minimum": 1,
                 "maximum": 9223372036854775807
                 }
             },
-        "required": [ "combinedBudgetSection_RefID" ]
+        "required": [ "recordID" ]
         }
     },
 "required": [ "metadata", "data" ]

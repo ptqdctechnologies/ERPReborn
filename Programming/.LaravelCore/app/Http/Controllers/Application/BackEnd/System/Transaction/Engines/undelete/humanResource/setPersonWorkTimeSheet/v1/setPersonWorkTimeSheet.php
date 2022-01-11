@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\budgeting\setCombinedBudget\v1   |
-|                                                                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource                       |
+|                \setPersonWorkTimeSheet\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\synchronize\budgeting\setCombinedBudget\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\humanResource\setPersonWorkTimeSheet\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setCombinedBudget                                                                                            |
-    | ▪ Description : Menangani API transaction.synchronize.budgeting.setCombinedBudget Version 1                                  |
+    | ▪ Class Name  : setPersonWorkTimeSheet                                                                                                    |
+    | ▪ Description : Menangani API transaction.undelete.humanResource.setPersonWorkTimeSheet Version 1                                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setCombinedBudget extends \App\Http\Controllers\Controller
+    class setPersonWorkTimeSheet extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-10                                                                                           |
+        | ▪ Last Update     : 2022-01-11                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-10                                                                                           |
+        | ▪ Last Update     : 2022-01-11                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,13 +57,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Synchronize Combined Budget Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Person Work Time Sheet Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataSynchronize($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblCombinedBudget())->setDataSynchronize(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndelete($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblPersonWorkTimeSheet())->unsetDataDelete(
                             $varUserSession,
-                            $varData['combinedBudgetSection_RefID']
+                            $varData['recordID']
                             ))))
                             {
                             throw new \Exception();
