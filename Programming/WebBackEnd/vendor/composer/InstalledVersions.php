@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'd769bc248b14540aa4e8f4461cbd358cd42ed81f',
+    'reference' => 'd1d9f42497ea52d31a935192028b3733d88ebaf7',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -44,12 +44,12 @@ private static $installed = array (
     ),
     'aws/aws-sdk-php' => 
     array (
-      'pretty_version' => '3.209.1',
-      'version' => '3.209.1.0',
+      'pretty_version' => '3.209.2',
+      'version' => '3.209.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3a418a7a9beae4675685efe7bb426ee0ae338a40',
+      'reference' => '77c14dd84704d2db6c5c4d6a8c1226337e4e6783',
     ),
     'brick/math' => 
     array (
@@ -494,7 +494,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'd769bc248b14540aa4e8f4461cbd358cd42ed81f',
+      'reference' => 'd1d9f42497ea52d31a935192028b3733d88ebaf7',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -653,12 +653,12 @@ private static $installed = array (
     ),
     'nunomaduro/collision' => 
     array (
-      'pretty_version' => 'v5.10.0',
-      'version' => '5.10.0.0',
+      'pretty_version' => 'v5.11.0',
+      'version' => '5.11.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3004cfa49c022183395eabc6d0e5207dfe498d00',
+      'reference' => '8b610eef8582ccdc05d8f2ab23305e2d37049461',
     ),
     'opis/closure' => 
     array (
