@@ -47,7 +47,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         $varUserSession,
                         'SchData-OLTP-Budgeting.Func_GetDataList_Budget',
                         [
-                            [$varBranchID, 'bigint' ],
+                            [$varBranchID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -94,8 +94,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         $varUserSession,
                         'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpense',
                         [
-                            [$varBranchID, 'bigint' ],
-                            [$varBudget_RefID, 'bigint' ],
+                            [$varBranchID, 'bigint'],
+                            [$varBudget_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -142,8 +142,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         $varUserSession,
                         'SchData-OLTP-Budgeting.Func_GetDataList_BudgetExpenseLineCeiling',
                         [
-                            [$varBranchID, 'bigint' ],
-                            [$varBudgetExpenseLine_RefID, 'bigint' ],
+                            [$varBranchID, 'bigint'],
+                            [$varBudgetExpenseLine_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],

@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['5.5', '5.6', '7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
+        php: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
 
     steps:
       - name: Check out code
@@ -48,36 +48,35 @@ jobs:
       - name: Upload coverage
         uses: codecov/codecov-action@v1
 
-  hhvm:
-    name: HHVM ${{ matrix.hhvm }}
-    runs-on: ubuntu-18.04
+  lowest:
+    name: PHP ${{ matrix.php }} (--prefer-lowest)
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
-        hhvm: ['3.24']
+        php: ['7.0', '7.1', '7.2', '7.3', '7.4', '8.0', '8.1']
 
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
-      - name: Install HHVM
-        shell: bash
-        run: sudo .github/bin/hhvm.sh ${{ matrix.hhvm }}
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer:v2
+          coverage: none
 
-      - name: Install Composer
-        shell: bash
-        run: sudo .github/bin/composer.sh
+      - name: Set up problem matchers
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
 
       - name: Install dependencies
         uses: nick-invision/retry@v1
         with:
           timeout_minutes: 5
           max_attempts: 5
-          command: composer update --no-interaction --no-progress
-
-      - name: Configure PHPUnit Composer
-        run: composer bin phpunit config platform.php 5.6.50
+          command: composer update --prefer-lowest --prefer-stable --no-interaction --no-progress
 
       - name: Install PHPUnit
         uses: nick-invision/retry@v1
@@ -87,7 +86,49 @@ jobs:
           command: composer bin phpunit update --no-interaction --no-progress
 
       - name: Run tests
-        run: hhvm vendor/bin/phpunit
+        run: make test
+        continue-on-error: true
+
+  dev:
+    name: 'Test @dev dependencies'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer:v2
+          coverage: none
+
+      - name: Set up problem matchers
+        run: echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+      - name: Update to dev stability
+        run: |
+          composer config minimum-stability dev
+          composer config prefer-stable false
+
+      - name: Install dependencies
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --no-interaction --no-progress
+
+      - name: Install PHPUnit
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer bin phpunit update --no-interaction --no-progress
+
+      - name: Run tests
+        run: make test
 
   build:
     name: Test Phar build
@@ -149,32 +190,4 @@ jobs:
         run: chmod +x build/*/psysh
 
       - name: Smoke test
-        run: .github/bin/smoketest.sh psysh-php56 psysh-php56-compat
-
-  php56-phar:
-    name: PHP 5.6 Phar smoke test
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out code
-        uses: actions/checkout@v2
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '5.6'
-          tools: composer:v2
-          coverage: none
-
-      - name: Download build artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: binaries
-          path: build
-
-      - name: Make binaries executable
-        run: chmod +x build/*/psysh
-
-      - name: Smoke test
-        run: .github/bin/smoketest.sh psysh-php56 psysh-php56-compat
+        run: .github/bin/smoketest.sh psysh-php70 psysh-php70-compat

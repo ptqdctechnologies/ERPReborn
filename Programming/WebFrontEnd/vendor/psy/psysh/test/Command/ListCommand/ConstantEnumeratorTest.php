@@ -22,7 +22,7 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
     {
         $enumerator = new ConstantEnumerator($this->getPresenter());
         $input = $this->getInput('');
-        $this->assertEquals([], $enumerator->enumerate($input, null, null));
+        $this->assertSame([], $enumerator->enumerate($input, null, null));
     }
 
     public function testEnumerateReturnsNothingForTarget()
@@ -31,10 +31,10 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
         $input = $this->getInput('--constants');
         $target = new Fixtures\ClassAlfa();
 
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass($target), null));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass($target), $target));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\InterfaceDelta::class), $target));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\TraitFoxtrot::class), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass($target), null));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass($target), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\InterfaceDelta::class), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\TraitFoxtrot::class), $target));
     }
 
     public function testEnumerateInternalConstants()
@@ -56,7 +56,7 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
 
         foreach ($expected as $name => $value) {
             $this->assertArrayHasKey($name, $constants);
-            $this->assertEquals(['name' => $name, 'style' => 'const', 'value' => $value], $constants[$name]);
+            $this->assertSame(['name' => $name, 'style' => 'const', 'value' => $value], $constants[$name]);
         }
     }
 
@@ -76,7 +76,7 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
 
         $name = 'Psy\\Test\\Command\\ListCommand\\SOME_CONSTANT';
         $this->assertArrayHasKey($name, $constants);
-        $this->assertEquals(['name' => $name, 'style' => 'const', 'value' => $this->presentNumber(42)], $constants[$name]);
+        $this->assertSame(['name' => $name, 'style' => 'const', 'value' => $this->presentNumber(42)], $constants[$name]);
     }
 
     /**
@@ -101,18 +101,13 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
 
     public function categoryConstants()
     {
-        $ret = [
+        return [
             ['core', 'Core Constants', ['E_USER_ERROR', 'PHP_VERSION', 'PHP_EOL', 'TRUE'], ['Psy\\Test\\Command\\ListCommand\\SOME_CONSTANT']],
             ['internal', 'Internal Constants', ['JSON_UNESCAPED_SLASHES', 'E_USER_ERROR', 'PHP_VERSION', 'PHP_EOL', 'TRUE'], ['Psy\\Test\\Command\\ListCommand\\SOME_CONSTANT']],
             ['user', 'User Constants', ['Psy\\Test\\Command\\ListCommand\\SOME_CONSTANT'], ['JSON_UNESCAPED_SLASHES', 'E_USER_ERROR', 'PHP_VERSION', 'PHP_EOL', 'TRUE']],
+            ['date', 'Date Constants', ['DATE_ISO8601', 'DATE_COOKIE'], ['E_USER_ERROR', 'JSON_UNESCAPED_SLASHES', 'FALSE']],
+            ['json', 'JSON Constants', ['JSON_UNESCAPED_SLASHES'], ['E_USER_ERROR', 'PHP_VERSION', 'PHP_EOL', 'TRUE']],
         ];
-
-        if (!\defined('HHVM_VERSION')) {
-            $ret[] = ['date', 'Date Constants', ['DATE_ISO8601', 'DATE_COOKIE'], ['E_USER_ERROR', 'JSON_UNESCAPED_SLASHES', 'FALSE']];
-            $ret[] = ['json', 'JSON Constants', ['JSON_UNESCAPED_SLASHES'], ['E_USER_ERROR', 'PHP_VERSION', 'PHP_EOL', 'TRUE']];
-        }
-
-        return $ret;
     }
 
     public function testEnumerateNamespaceConstants()
@@ -130,7 +125,7 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
             ],
         ];
 
-        $this->assertEquals($expected, $res['Constants']);
+        $this->assertSame($expected, $res['Constants']);
     }
 
     public function testEnumerateInternalAndUserNamespaceConstants()
@@ -149,6 +144,6 @@ class ConstantEnumeratorTest extends EnumeratorTestCase
             ],
         ];
 
-        $this->assertEquals($expected, $res['User Constants']);
+        $this->assertSame($expected, $res['User Constants']);
     }
 }

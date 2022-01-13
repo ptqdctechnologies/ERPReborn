@@ -115,7 +115,7 @@ class EditCommand extends Command implements ContextAware
      *
      * @return bool
      */
-    private function shouldExecuteFile($execOption, $noExecOption, $filePath)
+    private function shouldExecuteFile(bool $execOption, bool $noExecOption, string $filePath = null): bool
     {
         if ($execOption) {
             return true;
@@ -136,7 +136,7 @@ class EditCommand extends Command implements ContextAware
      *
      * @throws \InvalidArgumentException If the variable is not found in the current context
      */
-    private function extractFilePath($fileArgument)
+    private function extractFilePath(string $fileArgument = null)
     {
         // If the file argument was a variable, get it from the context
         if ($fileArgument !== null &&
@@ -156,7 +156,7 @@ class EditCommand extends Command implements ContextAware
      *
      * @throws \UnexpectedValueException if file_get_contents on $filePath returns false instead of a string
      */
-    private function editFile($filePath, $shouldRemoveFile)
+    private function editFile(string $filePath, bool $shouldRemoveFile): string
     {
         $escapedFilePath = \escapeshellarg($filePath);
         $editor = (isset($_SERVER['EDITOR']) && $_SERVER['EDITOR']) ? $_SERVER['EDITOR'] : 'nano';

@@ -27,7 +27,7 @@ class DocblockTest extends \Psy\Test\TestCase
 
         $reflector->expects($this->once())
             ->method('getDocComment')
-            ->will($this->returnValue($comment));
+            ->willReturn($comment);
 
         $docblock = new Docblock($reflector);
 
@@ -41,10 +41,6 @@ class DocblockTest extends \Psy\Test\TestCase
 
     public function comments()
     {
-        if (\defined('HHVM_VERSION')) {
-            $this->markTestSkipped('We have issues with PHPUnit mocks on HHVM.');
-        }
-
         return [
             ['', '', []],
             [

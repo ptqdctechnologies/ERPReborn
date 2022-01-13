@@ -111,16 +111,12 @@ class ErrorExceptionTest extends \Psy\Test\TestCase
 
     public function testFromError()
     {
-        if (\version_compare(\PHP_VERSION, '7.0.0', '<')) {
-            $this->markTestSkipped();
-        }
-
         $error = new \Error('{{message}}', 0);
         $exception = ErrorException::fromError($error);
 
         $this->assertStringContainsString('PHP Error:  {{message}}', $exception->getMessage());
-        $this->assertEquals(0, $exception->getCode());
-        $this->assertEquals($error->getFile(), $exception->getFile());
+        $this->assertSame(0, $exception->getCode());
+        $this->assertSame($error->getFile(), $exception->getFile());
         $this->assertSame($exception->getPrevious(), $error);
     }
 }

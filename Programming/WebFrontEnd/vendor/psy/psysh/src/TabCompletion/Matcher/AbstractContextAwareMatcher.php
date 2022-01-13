@@ -48,7 +48,7 @@ abstract class AbstractContextAwareMatcher extends AbstractMatcher implements Co
      *
      * @return mixed
      */
-    protected function getVariable($var)
+    protected function getVariable(string $var)
     {
         return $this->context->get($var);
     }
@@ -58,7 +58,7 @@ abstract class AbstractContextAwareMatcher extends AbstractMatcher implements Co
      *
      * @return array
      */
-    protected function getVariables()
+    protected function getVariables(): array
     {
         return $this->context->getAll();
     }

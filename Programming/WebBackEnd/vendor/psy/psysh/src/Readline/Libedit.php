@@ -32,7 +32,7 @@ class Libedit extends GNUReadline
      *
      * @return bool
      */
-    public static function isSupported()
+    public static function isSupported(): bool
     {
         return \function_exists('readline') && !\function_exists('readline_list_history');
     }
@@ -40,7 +40,15 @@ class Libedit extends GNUReadline
     /**
      * {@inheritdoc}
      */
-    public function listHistory()
+    public static function supportsBracketedPaste(): bool
+    {
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function listHistory(): array
     {
         $history = \file_get_contents($this->historyFile);
         if (!$history) {
@@ -64,7 +72,7 @@ class Libedit extends GNUReadline
     /**
      * {@inheritdoc}
      */
-    public function writeHistory()
+    public function writeHistory(): bool
     {
         $res = parent::writeHistory();
 
@@ -93,7 +101,7 @@ class Libedit extends GNUReadline
      *
      * @return string|null
      */
-    protected function parseHistoryLine($line)
+    protected function parseHistoryLine(string $line)
     {
         // empty line, comment or timestamp
         if (!$line || $line[0] === "\0") {
