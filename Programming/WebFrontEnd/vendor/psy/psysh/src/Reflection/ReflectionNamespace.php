@@ -23,7 +23,7 @@ class ReflectionNamespace implements \Reflector
      *
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
     }
@@ -33,7 +33,7 @@ class ReflectionNamespace implements \Reflector
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -53,7 +53,7 @@ class ReflectionNamespace implements \Reflector
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

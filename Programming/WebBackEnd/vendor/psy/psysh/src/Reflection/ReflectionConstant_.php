@@ -42,7 +42,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @param string $name
      */
-    public function __construct($name)
+    public function __construct(string $name)
     {
         $this->name = $name;
 
@@ -63,7 +63,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return string|null
      */
-    public static function export($name, $return = false)
+    public static function export(string $name, bool $return = false)
     {
         $refl = new self($name);
         $value = $refl->getValue();
@@ -87,7 +87,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return false
      */
-    public function getDocComment()
+    public function getDocComment(): bool
     {
         return false;
     }
@@ -97,7 +97,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -109,7 +109,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return string
      */
-    public function getNamespaceName()
+    public function getNamespaceName(): string
     {
         if (!$this->inNamespace()) {
             return '';
@@ -133,7 +133,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return bool
      */
-    public function inNamespace()
+    public function inNamespace(): bool
     {
         return \strpos($this->name, '\\') !== false;
     }
@@ -143,7 +143,7 @@ class ReflectionConstant_ implements \Reflector
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getName();
     }

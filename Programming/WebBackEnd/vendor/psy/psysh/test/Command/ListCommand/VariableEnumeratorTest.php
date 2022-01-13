@@ -27,7 +27,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
 
         $enumerator = new VariableEnumerator($this->getPresenter(), $context);
         $input = $this->getInput('');
-        $this->assertEquals([], $enumerator->enumerate($input));
+        $this->assertSame([], $enumerator->enumerate($input));
     }
 
     public function testEnumerateReturnsNothingForTarget()
@@ -43,10 +43,10 @@ class VariableEnumeratorTest extends EnumeratorTestCase
         $input = $this->getInput('--vars');
         $target = new Fixtures\ClassAlfa();
 
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass($target), null));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass($target), $target));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\InterfaceDelta::class), $target));
-        $this->assertEquals([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\TraitFoxtrot::class), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass($target), null));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass($target), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\InterfaceDelta::class), $target));
+        $this->assertSame([], $enumerator->enumerate($input, new \ReflectionClass(Fixtures\TraitFoxtrot::class), $target));
     }
 
     public function testEnumerateEnumerates()
@@ -55,8 +55,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
         $context->setAll([
             'one'   => 1,
             'two'   => 'two',
-            // @todo: uncomment when symfony/symfony#37674 fix lands
-            // 'three' => [true, false, null],
+            'three' => [true, false, null],
         ]);
 
         $enumerator = new VariableEnumerator($this->getPresenter(), $context);
@@ -77,12 +76,11 @@ class VariableEnumeratorTest extends EnumeratorTestCase
                 'style' => 'public',
                 'value' => '"\<string>two\</string>"',
             ],
-            // @todo: uncomment when symfony/symfony#37674 fix lands
-            // '$three' => [
-            //     'name'  => '$three',
-            //     'style' => 'public',
-            //     'value' => '[ …3]',
-            // ],
+            '$three' => [
+                'name'  => '$three',
+                'style' => 'public',
+                'value' => '[ …3]',
+            ],
         ], $vars);
     }
 
@@ -92,8 +90,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
         $context->setAll([
             'one'   => 1,
             'two'   => 'two',
-            // @todo: uncomment when symfony/symfony#37674 fix lands
-            // 'three' => [true, false, null],
+            'three' => [true, false, null],
         ]);
 
         $exception = new \Exception('Wheeeee');
@@ -119,12 +116,11 @@ class VariableEnumeratorTest extends EnumeratorTestCase
                 'style' => 'public',
                 'value' => '"\<string>two\</string>"',
             ],
-            // @todo: uncomment when symfony/symfony#37674 fix lands
-            // '$three' => [
-            //     'name'  => '$three',
-            //     'style' => 'public',
-            //     'value' => '[ …3]',
-            // ],
+            '$three' => [
+                'name'  => '$three',
+                'style' => 'public',
+                'value' => '[ …3]',
+            ],
             '$_' => [
                 'name'  => '$_',
                 'style' => 'private',

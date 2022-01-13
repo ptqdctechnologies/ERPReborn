@@ -43,7 +43,7 @@ class Mirror
      *
      * @return \Reflector
      */
-    public static function get($value, $member = null, $filter = 15)
+    public static function get($value, string $member = null, int $filter = 15): \Reflector
     {
         if ($member === null && \is_string($value)) {
             if (\function_exists($value)) {
@@ -104,7 +104,7 @@ class Mirror
     /**
      * Check declared namespaces for a given namespace.
      */
-    private static function namespaceExists($value)
+    private static function namespaceExists(string $value): bool
     {
         return \in_array(\strtolower($value), self::getDeclaredNamespaces());
     }
@@ -115,7 +115,7 @@ class Mirror
      * Note that this relies on at least one function, class, interface, trait
      * or constant to have been declared in that namespace.
      */
-    private static function getDeclaredNamespaces()
+    private static function getDeclaredNamespaces(): array
     {
         $functions = \get_defined_functions();
 

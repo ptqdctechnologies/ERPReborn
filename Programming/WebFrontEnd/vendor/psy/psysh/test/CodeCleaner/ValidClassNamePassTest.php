@@ -11,7 +11,6 @@
 
 namespace Psy\Test\CodeCleaner;
 
-use PhpParser\ParserFactory as OriginalParserFactory;
 use Psy\CodeCleaner\ValidClassNamePass;
 
 class ValidClassNamePassTest extends CodeCleanerTestCase
@@ -42,7 +41,7 @@ class ValidClassNamePassTest extends CodeCleanerTestCase
             // core class
             ['class stdClass {}'],
             // capitalization
-            ['class stdClass {}'],
+            ['class StdClass {}'],
 
             // collisions with interfaces and traits
             ['interface stdClass {}'],
@@ -104,43 +103,6 @@ class ValidClassNamePassTest extends CodeCleanerTestCase
     }
 
     /**
-     * @dataProvider getInvalidLegacy
-     */
-    public function testProcessInvalidLegacy($code)
-    {
-        if (\version_compare(\PHP_VERSION, '7.0', '>=')) {
-            $this->markTestSkipped();
-        }
-
-        $this->expectException(\Psy\Exception\FatalErrorException::class);
-
-        $this->parseAndTraverse($code);
-
-        $this->fail();
-    }
-
-    public function getInvalidLegacy()
-    {
-        return [
-            // class instantiations
-            ['new Psy_Test_CodeCleaner_ValidClassNamePass_Gamma();'],
-            ['
-                namespace Psy\\Test\\CodeCleaner\\ValidClassNamePass {
-                    new Psy_Test_CodeCleaner_ValidClassNamePass_Delta();
-                }
-            '],
-
-            // class constant fetch
-            ['Psy\\Test\\CodeCleaner\\ValidClassNamePass\\NotAClass::FOO'],
-
-            // static call
-            ['Psy\\Test\\CodeCleaner\\ValidClassNamePass\\NotAClass::foo()'],
-            ['Psy\\Test\\CodeCleaner\\ValidClassNamePass\\NotAClass::$foo()'],
-            ['Psy\\Test\\CodeCleaner\\ValidClassNamePassTest::notAMethod()'],
-        ];
-    }
-
-    /**
      * @dataProvider getValid
      */
     public function testProcessValid($code)
@@ -151,7 +113,7 @@ class ValidClassNamePassTest extends CodeCleanerTestCase
 
     public function getValid()
     {
-        $valid = [
+        return [
             // class declarations
             ['class Psy_Test_CodeCleaner_ValidClassNamePass_Epsilon {}'],
             ['namespace Psy\Test\CodeCleaner\ValidClassNamePass; class Zeta {}'],
@@ -189,7 +151,7 @@ class ValidClassNamePassTest extends CodeCleanerTestCase
                 }
             '],
 
-            // Class constant fetch (ValidConstantPassTest validates the actual constant)
+            // Class constant fetch
             ['class A {} A::FOO'],
             ['$a = new DateTime; $a::ATOM'],
             ['interface A { const B = 1; } A::B'],
@@ -346,15 +308,10 @@ class ValidClassNamePassTest extends CodeCleanerTestCase
             ['
                 A::CLASS
             '],
+
+            // PHP 7+ anonymous classes
+            ['$obj = new class() {}'],
+            ['new class() {}; new class() {}'],
         ];
-
-        // Ugh. There's gotta be a better way to test for this.
-        if (\class_exists(OriginalParserFactory::class)) {
-            // PHP 7.0 anonymous classes, only supported by PHP Parser v2.x
-            $valid[] = ['$obj = new class() {}'];
-            $valid[] = ['new class() {}; new class() {}'];
-        }
-
-        return $valid;
     }
 }

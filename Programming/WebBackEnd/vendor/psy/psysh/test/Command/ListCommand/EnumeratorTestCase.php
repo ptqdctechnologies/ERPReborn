@@ -39,7 +39,7 @@ abstract class EnumeratorTestCase extends \Psy\Test\TestCase
      * presented differently. Since most tests don't test *that* bit, we can use
      * a helper to abstract that away :)
      */
-    protected function presentNumber($number)
+    protected function presentNumber($number): string
     {
         return $this->getPresenter()->present($number);
     }

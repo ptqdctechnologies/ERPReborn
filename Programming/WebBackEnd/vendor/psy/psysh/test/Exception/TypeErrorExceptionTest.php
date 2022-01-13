@@ -23,31 +23,27 @@ class TypeErrorExceptionTest extends \Psy\Test\TestCase
         $this->assertInstanceOf(Exception::class, $e);
         $this->assertInstanceOf(TypeErrorException::class, $e);
 
-        $this->assertEquals('TypeError: {{message}}', $e->getMessage());
-        $this->assertEquals('{{message}}', $e->getRawMessage());
-        $this->assertEquals(13, $e->getCode());
+        $this->assertSame('TypeError: {{message}}', $e->getMessage());
+        $this->assertSame('{{message}}', $e->getRawMessage());
+        $this->assertSame(13, $e->getCode());
     }
 
     public function testStripsEvalFromMessage()
     {
         $message = 'Something or other, called in line 10: eval()\'d code';
         $e = new TypeErrorException($message);
-        $this->assertEquals($message, $e->getRawMessage());
-        $this->assertEquals('TypeError: Something or other', $e->getMessage());
+        $this->assertSame($message, $e->getRawMessage());
+        $this->assertSame('TypeError: Something or other', $e->getMessage());
     }
 
     public function testFromTypeError()
     {
-        if (\version_compare(\PHP_VERSION, '7.0.0', '<')) {
-            $this->markTestSkipped();
-        }
-
         $previous = new \TypeError('{{message}}', 13);
         $e = TypeErrorException::fromTypeError($previous);
 
         $this->assertInstanceOf(TypeErrorException::class, $e);
-        $this->assertEquals('TypeError: {{message}}', $e->getMessage());
-        $this->assertEquals('{{message}}', $e->getRawMessage());
-        $this->assertEquals(13, $e->getCode());
+        $this->assertSame('TypeError: {{message}}', $e->getMessage());
+        $this->assertSame('{{message}}', $e->getRawMessage());
+        $this->assertSame(13, $e->getCode());
     }
 }

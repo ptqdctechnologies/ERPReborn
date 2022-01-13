@@ -27,7 +27,7 @@ class SilentInput
      *
      * @param string $inputString
      */
-    public function __construct($inputString)
+    public function __construct(string $inputString)
     {
         $this->inputString = $inputString;
     }
@@ -37,7 +37,7 @@ class SilentInput
      *
      * @return string
      */
-    public function __toString()
+    public function __toString(): string
     {
         return $this->inputString;
     }
