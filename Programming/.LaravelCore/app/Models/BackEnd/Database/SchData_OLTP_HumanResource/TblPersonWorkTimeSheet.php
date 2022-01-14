@@ -43,7 +43,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-11-01                                                                                           |
+        | ▪ Create Date     : 2021-11-01                                                                                           |
+        | ▪ Last Update     : 2022-01-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,7 +52,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -61,7 +61,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -74,9 +74,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varPerson_RefID, 'bigint']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varColorText, 'varchar'],
+                        [$varColorBackground, 'varchar']
                     ]
                     )
                 );
@@ -88,8 +89,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-11-01                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Create Date     : 2021-11-01                                                                                           |
+        | ▪ Last Update     : 2022-01-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -98,9 +100,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (string) varColorText ► Color Text                                                                                |
+        |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -108,7 +111,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentNumber = null, string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -121,9 +124,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
-                        [$varPerson_RefID, 'bigint']
+                        [$varPerson_RefID, 'bigint'],
+                        [$varColorText, 'varchar'],
+                        [$varColorBackground, 'varchar']
                     ],
                     )
                 );
