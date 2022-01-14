@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.humanResource.setPersonWorkTimeSheet (version 1)",
+"description": "JSON Request Schema of transaction.update.humanResource.setPersonWorkTimeSheet (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.humanResource.setPersonWorkTimeSheet" ]
+                        "enum": [ "transaction.update.humanResource.setPersonWorkTimeSheet" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,7 +27,13 @@
     "data": {
         "type": "object",
         "properties": {
-            "entities" : {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "entities" :
+                {
                 "type": "object",
                 "properties": {
                     "documentDateTimeTZ": {
@@ -56,7 +62,7 @@
                 "required": [ "documentDateTimeTZ", "person_RefID", "colorText", "colorBackground" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]

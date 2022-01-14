@@ -42,8 +42,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-24                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Create Date     : 2020-11-24                                                                                           |
+        | ▪ Last Update     : 2022-01-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,10 +52,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Reference ID                                       |
-        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
-        |      ▪ (int)    varProjectSite_RefID ► Project Site Reference ID                                                         |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (string) varActivity ► Activity                                                                                   |
@@ -65,7 +64,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonWorkTimeSheet_RefID = null, int $varProject_RefID = null, int $varProjectSite_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
+            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -78,10 +77,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varSignDataAuthentication, 'boolean'],
                         [$varPersonWorkTimeSheet_RefID, 'bigint'],
-                        [$varProject_RefID, 'bigint'],
-                        [$varProjectSite_RefID, 'bigint'],
+                        [$varProjectSectionItem_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
                         [$varActivity, 'varchar']
@@ -96,8 +93,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-24                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Create Date     : 2020-11-24                                                                                           |
+        | ▪ Last Update     : 2022-01-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -106,10 +104,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (bool)   varSignDataAuthentication ► Sign Data Authentication                                                     |
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work Time Sheet Reference ID                                       |
-        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
-        |      ▪ (int)    varProjectSite_RefID ► Project Site Reference ID                                                         |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (string) varActivity ► Activity                                                                                   |
@@ -120,7 +116,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            bool $varSignDataAuthentication = null, int $varPersonWorkTimeSheet_RefID = null, int $varProject_RefID = null, int $varProjectSite_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
+            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -132,11 +128,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],                        
-                        [$varSignDataAuthentication, 'boolean'],
+                        [$varSysBranchRefID, 'bigint'],
                         [$varPersonWorkTimeSheet_RefID, 'bigint'],
-                        [$varProject_RefID, 'bigint'],
-                        [$varProjectSite_RefID, 'bigint'],
+                        [$varProjectSectionItem_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
                         [$varActivity, 'varchar']
