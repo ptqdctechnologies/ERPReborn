@@ -35,7 +35,6 @@ class BudgetExpenseLineCeilingObjectsController extends Controller
             ]
         ]
         );
-        // dd($varData);die;
         $num = 0;
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
             $num = 1;

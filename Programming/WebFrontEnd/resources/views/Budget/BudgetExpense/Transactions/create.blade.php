@@ -50,6 +50,20 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+
+                                                        <tr>
+                                                            <td><label>Budget Expense Owner</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <select id="budgetExpenseOwner_RefID" name="budgetExpenseOwner_RefID" class="form-control">
+                                                                    <option selected="" disabled>-- Select Budget Owner -- </option>
+                                                                    @foreach($data2 as $datas2)
+                                                                        <option value="{{ $datas2['sys_ID'] }}">{{ $datas2['sys_Text'] }}</option>
+                                                                    @endforeach
+                                                                    </select>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
                                                         
                                                     </table>
                                                 </div>

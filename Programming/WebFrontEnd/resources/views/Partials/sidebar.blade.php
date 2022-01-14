@@ -1091,6 +1091,41 @@
                             </ul>
                         </li>
                     </ul>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
+                                <label>Timesheet</label>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Report</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
+                                        <label>Transaction</label>
+                                        <i class="right fas fa-angle-left"></i>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('Timesheet.index') }}" class="nav-link">
+                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
+                                                <label>Create Timesheet</label>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">

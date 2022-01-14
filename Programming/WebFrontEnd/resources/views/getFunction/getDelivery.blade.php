@@ -39,7 +39,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikTableDelivery" data-name="Delivery Name {{ $i }}">Delivery Name {{$i}}</p>
+                                                    <p data-dismiss="modal" id="klikTableDelivery" data-name="Delivery Name {{ $i }}">Delivery Name {{$i}}</p>
                                                 </span>
                                             </td>
                                         </tr>
@@ -58,6 +58,13 @@
     |                            End Function My Project Code                          |
     |----------------------------------------------------------------------------------|-->
 <script>
+
+    // $("#klikTableDelivery").on('click', function(e) {
+    //     e.preventDefault(); // in chase you change to a link or button
+    //     var $this = $(this);
+    //     var nama = $this.data("name");
+    //     $("#delivery").val(nama);
+    // });
     function searchDeliveryName() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
@@ -79,15 +86,4 @@
             }
         }
     }
-</script>
-
-<script>
-    $(function() {
-        $(".klikTableDelivery").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var nama = $this.data("name");
-            $("#delivery").val(nama);
-        });
-    });
 </script>

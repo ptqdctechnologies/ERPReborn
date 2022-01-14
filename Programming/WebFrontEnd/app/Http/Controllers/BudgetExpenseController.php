@@ -90,9 +90,21 @@ class BudgetExpenseController extends Controller
             ]
         ]
         );
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'dataPickList.humanResource.getOrganizationalDepartment', 
+        'latest',
+        [
+        'parameter' => [
+            ]
+        ]
+        );
+        // dd($varData2['data']['data']);
         $compact = [
             'budget_RefID' => $_GET['budget_RefID'],
-            'data' => $varData['data']
+            'data' => $varData['data'],
+            'data2' => $varData2['data']['data']
         ];
         // dd($varData);
         return view('Budget.BudgetExpense.Transactions.create', $compact);
@@ -117,7 +129,7 @@ class BudgetExpenseController extends Controller
         'entities' => [
             'budget_RefID' => (int)$request->budget_RefID,
             'budgetExpenseGroup_RefID' => (int)$request->budgetExpenseGroup_RefID,
-            'budgetExpenseOwner_RefID' => 111000000000001
+            'budgetExpenseOwner_RefID' => (int)$request->budgetExpenseOwner_RefID
             ]
         ]
         );

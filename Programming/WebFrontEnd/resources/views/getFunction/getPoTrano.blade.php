@@ -173,14 +173,12 @@
 </script>
 
 <script>
-    $(function() {
-        $(".klikSearchTrano").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
-            $("#managerUid").val(code);
-            $("#managerName").val(name);
-        });
+    $('.klikSearchTrano').on('click', function(e) {
+        e.preventDefault(); // in chase you change to a link or button
+        var $this = $(this);
+        var code = $this.data("id");
+        var name = $this.data("name");
+        $("#managerUid").val(code);
+        $("#managerName").val(name);
     });
 </script>
