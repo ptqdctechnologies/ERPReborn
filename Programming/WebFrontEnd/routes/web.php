@@ -251,6 +251,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting','CodeOfBudgetingController');
 
+
+    // 
+    Route::get('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
+    Route::resource('Timesheet','TimesheetController');
+
     // Dashboard
     Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
     Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');

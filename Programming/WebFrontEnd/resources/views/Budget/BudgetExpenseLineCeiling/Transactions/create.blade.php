@@ -44,12 +44,27 @@
                                                                 </div>
                                                             </td>
                                                         </tr>
+                                                        
 
                                                         <tr>
                                                             <td><label>Value</label></td>
                                                             <td>
                                                                 <div class="input-group">
                                                                     <input autocomplete="off" id="value" name="value" class="form-control">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td><label>Currency</label></td>
+                                                            <td>
+                                                                <div class="input-group">
+                                                                    <select id="currency_RefID" name="currency_RefID" class="form-control">
+                                                                    <option selected="" disabled>-- Select Currency -- </option>
+                                                                    @foreach($data as $datas)
+                                                                        <option value="{{ $datas['sys_ID'] }}">{{ $datas['name'] }}</option>
+                                                                    @endforeach
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>

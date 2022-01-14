@@ -36,6 +36,7 @@ class BudgetExpenseLineCeilingController extends Controller
             ]
         );
 
+        // dd($varData);die;
         $num = 0;
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
             $num = 1;
@@ -75,9 +76,27 @@ class BudgetExpenseLineCeilingController extends Controller
         return response()->json($varData['data']);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.master.getCurrency', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );
         $compact = [
+            'data' => $varData['data'],
             'budgetExpenseLine_RefID' => $_GET['BudgetExpenseLineId']
         ];
         return view('Budget.BudgetExpenseLineCeiling.Transactions.create', $compact);
@@ -106,7 +125,7 @@ class BudgetExpenseLineCeilingController extends Controller
                     'budgetExpenseLine_RefID' => (int)$request->budgetExpenseLine_RefID,
                     'validStartDateTimeTZ' => $start,
                     'validFinishDateTimeTZ' => $end,
-                    'currency_RefID' => 62000000000001,
+                    'currency_RefID' => (int)$request->currency_RefID,
                     'currencyExchangeRate' => (int)$request->rate,
                     'currencyValue' => (int)$request->value,
                 ]
