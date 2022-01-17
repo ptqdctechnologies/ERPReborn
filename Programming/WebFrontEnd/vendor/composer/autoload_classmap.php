@@ -58,6 +58,7 @@ return array(
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\FunctionController' => $baseDir . '/app/Http/Controllers/FunctionController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
+    'App\\Http\\Controllers\\TimesheetController' => $baseDir . '/app/Http/Controllers/TimesheetController.php',
     'App\\Http\\Controllers\\controllerSalesCo' => $baseDir . '/app/Http/Controllers/controllerSalesCo.php',
     'App\\Http\\Controllers\\finance' => $baseDir . '/app/Http/Controllers/finance.php',
     'App\\Http\\Controllers\\homeController' => $baseDir . '/app/Http/Controllers/homeController.php',
