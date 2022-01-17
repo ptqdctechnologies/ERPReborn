@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'c6f3037b0e1a85f32d1928cd25ec1f24c62c8686',
+    'reference' => '4c0c07cc7c0b27edee62ffdb7b7370ab5541a73c',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -81,12 +81,12 @@
     ),
     'dragonmantank/cron-expression' => 
     array (
-      'pretty_version' => 'v3.2.3',
-      'version' => '3.2.3.0',
+      'pretty_version' => 'v3.3.0',
+      'version' => '3.3.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '47c53bbb260d3c398fba9bfa9683dcf67add2579',
+      'reference' => '63f2a76a045bac6ec93cc2daf2b534b412aa0313',
     ),
     'egulias/email-validator' => 
     array (
@@ -445,7 +445,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'c6f3037b0e1a85f32d1928cd25ec1f24c62c8686',
+      'reference' => '4c0c07cc7c0b27edee62ffdb7b7370ab5541a73c',
     ),
     'laravel/serializable-closure' => 
     array (

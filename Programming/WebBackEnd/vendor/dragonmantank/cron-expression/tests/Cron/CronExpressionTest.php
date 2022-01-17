@@ -10,6 +10,7 @@ use DateTime;
 use DateTimeImmutable;
 use DateTimeZone;
 use InvalidArgumentException;
+use LogicException;
 use PHPUnit\Framework\TestCase;
 use Webmozart\Assert\Assert;
 
@@ -669,5 +670,140 @@ class CronExpressionTest extends TestCase
         $this->assertSame('*', $parts[2]);
         $this->assertSame('*', $parts[3]);
         $this->assertSame('1-5', $parts[4]);
+    }
+
+    public function testBerlinShouldAdvanceProperlyOverDST()
+    {
+        $e = new CronExpression('0 0 1 * *');
+        $expected = new \DateTime('2022-11-01 00:00:00', new \DateTimeZone('Europe/Berlin'));
+        $next = $e->getNextRunDate(new \DateTime('2022-10-30', new \DateTimeZone('Europe/Berlin')));
+        $this->assertEquals($expected, $next);
+    }
+
+    /**
+     * Helps validate additional test cases that were failing as part of #131's fix
+     *
+     * @see https://github.com/dragonmantank/cron-expression/issues/131
+     */
+    public function testIssue131()
+    {
+        $e = new CronExpression('* * * * 2');
+        $expected = new \DateTime('2020-10-27 00:00:00', new \DateTimeZone('Europe/Berlin'));
+        $next = $e->getNextRunDate(new DateTime('2020-10-23 15:31:45', new \DateTimeZone('Europe/Berlin')));
+        $this->assertEquals($expected, $next);
+
+        $expected = new \DateTime('2020-10-20 23:59:00', new \DateTimeZone('Europe/Berlin'));
+        $prev = $e->getPreviousRunDate(new DateTime('2020-10-23 15:31:45', new \DateTimeZone('Europe/Berlin')));
+        $this->assertEquals($expected, $prev);
+
+        $e = new CronExpression('15 1 1 9,11 *');
+        $expected = new \DateTime('2022-09-01 01:15:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $next);
+
+        $expected = new \DateTime('2021-11-01 01:15:00');
+        $prev = $e->getPreviousRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $prev);
+    }
+
+    public function testIssue128()
+    {
+        $e = new CronExpression('0 20 L 6,12 ?');
+        $expected = new \DateTime('2022-12-31 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $next);
+
+        $expected = new \DateTime('2023-12-31 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'), 2);
+        $this->assertEquals($expected, $next);
+
+        $expected = new \DateTime('2022-06-30 20:00:00');
+        $prev = $e->getPreviousRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $prev);
+
+        $expected = new \DateTime('2021-12-31 20:00:00');
+        $prev = $e->getPreviousRunDate(new \DateTime('2022-08-20 03:44:02'), 1);
+        $this->assertEquals($expected, $prev);
+
+        $e = new CronExpression('0 20 L 6,12 0-6');
+        $expected = new \DateTime('2022-12-01 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $next);
+
+        $e = new CronExpression('0 20 L 6,12 0-6');
+        $expected = new \DateTime('2022-12-02 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'), 1);
+        $this->assertEquals($expected, $next);
+
+        $e = new CronExpression('0 20 L 6,12 0-6');
+        $expected = new \DateTime('2022-12-03 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'), 2);
+        $this->assertEquals($expected, $next);
+
+        $e = new CronExpression('0 20 * 6,12 *');
+        $expected = new \DateTime('2022-12-01 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'));
+        $this->assertEquals($expected, $next);
+
+        $e = new CronExpression('0 20 * 6,12 *');
+        $expected = new \DateTime('2022-12-06 20:00:00');
+        $next = $e->getNextRunDate(new \DateTime('2022-08-20 03:44:02'), 5);
+        $this->assertEquals($expected, $next);
+    }
+
+    public function testItCanRegisterAnValidExpression(): void
+    {
+        CronExpression::registerAlias('@every', '* * * * *');
+
+        self::assertCount(8, CronExpression::getAliases());
+        self::assertArrayHasKey('@every', CronExpression::getAliases());
+        self::assertTrue(CronExpression::supportsAlias('@every'));
+        self::assertEquals(new CronExpression('@every'), new CronExpression('* * * * *'));
+
+        self::assertTrue(CronExpression::unregisterAlias('@every'));
+        self::assertFalse(CronExpression::unregisterAlias('@every'));
+
+        self::assertCount(7, CronExpression::getAliases());
+        self::assertArrayNotHasKey('@every', CronExpression::getAliases());
+        self::assertFalse(CronExpression::supportsAlias('@every'));
+
+        $this->expectException(LogicException::class);
+        new CronExpression('@every');
+    }
+
+    public function testItWillFailToRegisterAnInvalidExpression(): void
+    {
+        $this->expectException(LogicException::class);
+
+        CronExpression::registerAlias('@every', 'foobar');
+    }
+
+    public function testItWillFailToRegisterAnInvalidName(): void
+    {
+        $this->expectException(LogicException::class);
+
+        CronExpression::registerAlias('every', '* * * * *');
+    }
+
+    public function testItWillFailToRegisterAnInvalidName2(): void
+    {
+        $this->expectException(LogicException::class);
+
+        CronExpression::registerAlias('@évery', '* * * * *');
+    }
+
+    public function testItWillFailToRegisterAValidNameTwice(): void
+    {
+        CronExpression::registerAlias('@Ev_eR_y', '* * * * *');
+
+        $this->expectException(LogicException::class);
+        CronExpression::registerAlias('@eV_Er_Y', '2 2 2 2 2');
+    }
+
+    public function testItWillFailToUnregisterADefaultExpression(): void
+    {
+        $this->expectException(LogicException::class);
+
+        CronExpression::unregisterAlias('@daily');
     }
 }

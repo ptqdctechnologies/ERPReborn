@@ -1,5 +1,27 @@
 # Change Log
 
+## [3.3.0] - 2022-01-13
+
+### Added
+- Added ability to register your own expression aliases (#132)
+
+### Changed
+- Changed how Day of Week and Day of Month resolve when one or the other is `*` or `?`
+
+### Fixed
+- PHPStan should no longer error out
+
+## [3.2.4] - 2022-01-12
+
+### Added
+- N/A
+
+### Changed
+- Changed how Day of Week increment/decrement to help with DST changes (#131)
+
+### Fixed
+- N/A
+
 ## [3.2.3] - 2022-01-05
 
 ### Added
