@@ -567,6 +567,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
         'App\\Http\\Controllers\\FunctionController' => __DIR__ . '/../..' . '/app/Http/Controllers/FunctionController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
+        'App\\Http\\Controllers\\TimesheetController' => __DIR__ . '/../..' . '/app/Http/Controllers/TimesheetController.php',
         'App\\Http\\Controllers\\controllerSalesCo' => __DIR__ . '/../..' . '/app/Http/Controllers/controllerSalesCo.php',
         'App\\Http\\Controllers\\finance' => __DIR__ . '/../..' . '/app/Http/Controllers/finance.php',
         'App\\Http\\Controllers\\homeController' => __DIR__ . '/../..' . '/app/Http/Controllers/homeController.php',
