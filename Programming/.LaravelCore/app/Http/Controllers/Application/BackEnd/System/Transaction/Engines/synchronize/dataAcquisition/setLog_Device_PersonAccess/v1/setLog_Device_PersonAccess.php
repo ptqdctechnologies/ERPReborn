@@ -216,6 +216,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
             return $varReturn;
             }
 
+
         private function getAttendanceDeviceLog_Goodwin_ServoSW01(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varTimeZoneOffset)
             {
             try {
@@ -273,16 +274,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 }
             }
 
+
         private function getAttendanceDeviceLog_Solution_x601(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)
             {
             try {
                 //--->
-                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
-                    {
-                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
-                    }
-                
-                //--->
+//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+//                    {
+//                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
+//                    }
+
+                //---> Get Device Data
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
@@ -298,49 +300,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         ]
                     ]
                     )['data'];
-
-                //--->
-                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccessFetch())->setDataInsert(
+                
+                //---> Get Data Synchronization
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
                     $varUserSession, 
-                    null, 
-                    (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
-                    11000000000003, 
                     $varGoodsIdentity_RefID, 
-                    (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
-                    )['SignRecordID'];
-
-                //--->
-                for($i=0; $i!=count($varData); $i++)
-                    {
-                    if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
-                        {
-                        //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
-                        //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
-                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            substr($varData[$i]['dateTimeTZ'], 0, 4), 
-                            11000000000003, 
-                            $varLog_Device_PersonAccessFetch_RefID, 
-                            $varData[$i]['dateTimeTZ'], 
-                            $varData[$i]['ID'], 
-                            null
-                            );
-                        }
-                    }
+                    json_encode($varData)
+                    );
                 } 
             catch (\Exception $ex) {
                 }
             }
 
+
         private function getAttendanceDeviceLog_ALBox_FP800(int $varUserSession, string $varAPIWebToken, int $varGoodsIdentity_RefID, string $varHostIP, int $varHostPort, string $varSerialNumber, string $varTimeZoneOffset)
             {
             try {
-                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
-                    {
-                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
-                    }
+//                if(!($varLastRecordDateTimeTZ = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, $varGoodsIdentity_RefID, '+07')))
+//                    {
+//                    $varLastRecordDateTimeTZ = '1970-01-01 00:00:00 +00';
+//                    }
 
+                //---> Get Device Data
                 $varData = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                     $varAPIWebToken, 
@@ -357,35 +338,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                     ]
                     )['data'];
 
-                //--->
-                $varLog_Device_PersonAccessFetch_RefID = (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccessFetch())->setDataInsert(
+                //---> Get Data Synchronization
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataSynchronize(
                     $varUserSession, 
-                    null, 
-                    (new \App\Models\Database\SchSysConfig\General())->getCurrentYear($varUserSession), 
-                    11000000000003, 
                     $varGoodsIdentity_RefID, 
-                    (new \App\Models\Database\SchSysConfig\General())->getCurrentDateTimeTZ ($varUserSession)
-                    )['SignRecordID'];
-
-                //--->
-                for($i=0; $i!=count($varData); $i++)
-                    {
-                    if((\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)) < (\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ'])))
-                        {
-                        //echo "\nxxx ".$varData[$i]['dateTimeTZ'];
-                        //echo "\n ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varLastRecordDateTimeTZ)." ---> ".\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession, $varData[$i]['dateTimeTZ']);
-                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_Device_PersonAccess())->setDataInsert(
-                            $varUserSession, 
-                            null, 
-                            substr($varData[$i]['dateTimeTZ'], 0, 4), 
-                            11000000000003, 
-                            $varLog_Device_PersonAccessFetch_RefID, 
-                            $varData[$i]['dateTimeTZ'], 
-                            $varData[$i]['ID'], 
-                            null
-                            );
-                        }
-                    }
+                    json_encode($varData)
+                    );
                 } 
             catch (\Exception $ex) {
                 }
