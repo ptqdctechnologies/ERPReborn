@@ -133,5 +133,41 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                 );
             return $varReturn['Data'][0];
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataSynchronize                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-01-18                                                                                           |
+        | ▪ Description     : Data Synchronize                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varGoodsIdentity_RefID ► Goods Identity Reference ID                                                     |
+        |      ▪ (string) varDeviceDataJSON ► Device Data JSON                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataSynchronize($varUserSession,
+            int $varGoodsIdentity_RefID = null, string $varDeviceDataJSON = null
+            )
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    parent::getSchemaTableSynchronizeName($varUserSession), 
+                    [
+                        [$varGoodsIdentity_RefID, 'bigint'],
+                        [$varDeviceDataJSON, 'json']
+                    ]
+                    )
+                );
+            $varReturn = [];
+            return $varReturn;
+            }
         }
     }
