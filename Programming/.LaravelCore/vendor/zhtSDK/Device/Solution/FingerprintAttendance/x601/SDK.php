@@ -70,6 +70,8 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
             $this->varTimeOutInSeconds = $varTimeOutInSeconds;
+
+            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::setTimeOut_ExecutionTime($varUserSession, 300);
             }
 
 
@@ -99,6 +101,8 @@ namespace zhtSDK\Device\Solution\FingerprintAttendance\x601
                     $varCutOffStartDateTime = '1970-01-01 00:00:00';
                     }
 
+
+//                $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, 10);
                 $Connect = fsockopen($this->varHostIP, "80", $errno, $errstr, $this->varTimeOutInSeconds);
                 $Key="0";
                 if($Connect) {

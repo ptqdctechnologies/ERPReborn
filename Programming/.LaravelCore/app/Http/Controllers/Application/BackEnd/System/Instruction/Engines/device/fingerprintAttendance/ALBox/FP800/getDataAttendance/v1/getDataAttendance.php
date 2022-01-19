@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                             $varData['entities']['IPAddress'],
                             $varData['entities']['port'],
                             $varData['entities']['serialNumber'],
-                            30
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'entities::connectionTimeout') ? $varData['entities']['connectionTimeout'] : 30)
                             ))->getDataAttendance(
                                 $varData['entities']['timeZoneOffset'], 
                                 $varData['entities']['startDateTime']

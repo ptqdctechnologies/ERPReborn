@@ -64,6 +64,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         {
                         $varData = [];
                         }
+                        
+                    if(
+                        strcmp($varAPIKey, 'transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess')==0
+                        )
+                        {
+                        set_time_limit(300);
+                        }
 
                     $varDataArray = [
                         'header' => [

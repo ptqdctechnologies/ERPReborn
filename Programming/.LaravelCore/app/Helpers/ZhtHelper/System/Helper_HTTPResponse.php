@@ -74,6 +74,17 @@ namespace App\Helpers\ZhtHelper\System
                         {
                         $varTTL = 300;
                         }
+                    //---> Overide TTL untuk API tertentu
+                    if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $varData, 'metadata::API::key')==true)
+                        {
+                        if(
+                            (strcmp($varData['metadata']['API']['key'], 'transaction.synchronize.dataAcquisition.setLog_Device_PersonAccess') == 0)
+                            )
+                            {
+                            $varTTL = 300;
+                            }
+                        }
+                    //---> Set TTL
                     ini_set('max_execution_time', $varTTL);
                     //---> Pengecekan Header
                     if(!$varHeaders)
