@@ -540,6 +540,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_String' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_String.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_SystemParameter' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_SystemParameter.php',
         'App\\Helpers\\ZhtHelper\\LocalStorage\\Helper_LocalStorage' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/LocalStorage/Helper_LocalStorage.php',
         'App\\Helpers\\ZhtHelper\\Logger\\Helper_SystemLog' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Logger/Helper_SystemLog.php',
         'App\\Helpers\\ZhtHelper\\Report\\Helper_PDF' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Report/Helper_PDF.php',
