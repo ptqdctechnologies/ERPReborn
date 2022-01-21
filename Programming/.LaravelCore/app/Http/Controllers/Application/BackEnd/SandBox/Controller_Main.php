@@ -21,6 +21,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 
            
             
+//            ob_start();
             $x = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
                 'DataTest.xlsx',
                 [
@@ -30,8 +31,25 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     [7, 8, 9]                    
                 ]
                 );
+//            ob_end_clean();
 //            echo "xxx";
-            return $x;
+//            if (ob_get_contents() || ob_get_length()) {
+//                ob_end_clean(); //or ob_end_flush();
+//                }
+            
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header('Cache-Control: must-revalidate');
+            header('Expires: 0');
+            header('Pragma: public');
+            header('Content-Disposition: attachment; filename="xxx.xlsx"');	
+            echo base64_decode(base64_encode($x), TRUE);
+/*            if (ob_get_contents() || ob_get_length()) {
+              ob_end_clean(); //or ob_end_flush();
+            }
+	exit();
+  */          
+            //return $x;
+            
             }
 
         public function testUpload()

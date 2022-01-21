@@ -1584,8 +1584,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDI3NTE1MjZ9.zkEeYATIdhyTMq67NLqiFPoGPsk7UrWPmpIDSDHxuJY';
             //---Core---
-//            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'report.excel.dataList.master.getCountry', 
@@ -1596,8 +1595,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump($varData);
-            //echo "done";
             }
 
 

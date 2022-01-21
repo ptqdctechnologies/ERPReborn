@@ -524,7 +524,24 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             }
 */
             
-            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setCallAPIGatewayDownloadExcel                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-01-21                                                                                           |
+        | ▪ Description     : Memanggil API Report Gateway untuk Download Excel                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varAPIWebToken ► API WebToken                                                                            |
+        |      ▪ (string) varAPIKey ► API Key                                                                                      |
+        |      ▪ (mixed)  varAPIVersion ► API Version                                                                              |
+        |      ▪ (array)  varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public static function setCallAPIGatewayDownloadExcel($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData = null)
             {
             $varExcelStreamPlain = null;
@@ -532,9 +549,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             $varUserSession = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getUserSessionByAPIWebToken(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken);
-            
-//            var_dump($varAPIKey);
-
 
             $varDataReturn = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 $varUserSession,
@@ -543,27 +557,35 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 $varAPIVersion,
                 $varData
                 );
-
-            /*    
-            switch($varDataReturn['data']['encodeMethod'])
-                {
-                case 'Base64':
-                    {
-                    $varExcelStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
-                        $varUserSession,
-                        $varDataReturn['data']['encodedStreamData']
-                        );
-                    break;
-                    }
-                default:
-                    {
-                    throw new \Exception('encoding method not recognized');
-                    break;
-                    }
-                }
-            var_dump($varExcelStreamPlain);
             
-             */
+            try {
+                switch($varDataReturn['data']['encodeMethod'])
+                    {
+                    case 'Base64':
+                        {
+                        $varExcelStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                            $varUserSession,
+                            $varDataReturn['data']['encodedStreamData']
+                            );
+                        break;
+                        }
+                    default:
+                        {
+                        throw new \Exception('encoding method not recognized');
+                        break;
+                        }
+                    }
+                header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+                header('Cache-Control: must-revalidate');
+                header('Expires: 0');
+                header('Pragma: public');
+                header('Content-Disposition: attachment; filename="'.$varData['outputFileName'].'"');
+                echo $varExcelStreamPlain;
+                die();
+                } 
+            catch (\Exception $ex) {
+                echo $varDataReturn['data']['Response'];
+                }
             }
 
 

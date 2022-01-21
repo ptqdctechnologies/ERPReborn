@@ -69,7 +69,8 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                         }
                     }
                 );
-            return \Maatwebsite\Excel\Facades\Excel::download($varDataOutput, $varFileName);
+            return \Maatwebsite\Excel\Facades\Excel::raw($varDataOutput, \Maatwebsite\Excel\Excel::XLSX);
+            //return \Maatwebsite\Excel\Facades\Excel::download($varDataOutput, $varFileName);
             }            
         }
     }

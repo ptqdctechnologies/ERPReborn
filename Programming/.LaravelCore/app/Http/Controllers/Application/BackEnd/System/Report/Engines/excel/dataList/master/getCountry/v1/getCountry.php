@@ -128,117 +128,49 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private function dataProcessing($varUserSession, $varFileName, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
-            {
-/*
-            $varRecordList_FirstPage = 43;
-            $varRecordList_OtherPages = 52;
-
-            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
-            $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
+            {           
+            $varArrayContent = [];
             for($i=0; $i!=count($varDataList); $i++)
-                {                
-                //---> First Page
-                if(($ObjPDF->PageNo()) == 0)
+                {
+                if($i==0)
                     {
-                    $j = ($i % $varRecordList_FirstPage); 
-                    if($j == 0)
-                        {
-                        $ObjPDF->AddPage();
-                        $ObjPDF->zhtSetContent_Title($varUserSession, strtoupper($varDataHeader['Title']));
-                        for($k=0; $k!=count($varDataHeader['SubTitle']); $k++)
-                            {
-                            $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
-                            }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
-                        }
-                    }
-                //---> Other Pages
-                else
-                    {
-                    $j = (($i-$varRecordList_FirstPage) % $varRecordList_OtherPages);
-                    if($j == 0)
-                        {
-                        $ObjPDF->AddPage();
-                        }
-                    }
-
-                //---> Every Pages
-                if($j == 0)
-                    {
-                    $ObjPDF->zhtSetContent_TableHead(
-                        $varUserSession,
+                    array_push(
+                        $varArrayContent, 
                         [
-                        'Coordinat' => [
-                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
-                            ],
-                        'Objects' =>
-                            [
-                                [
-                                'CoordinatOffset' => [0, 0],
-                                'Cells' => [
-                                    ['NO', 'C', 10],
-                                    ['ID', 'C', 30],
-                                    ['INDONESIAN NAME', 'C', 75],
-                                    ['INTERNATIONAL NAME', 'C', 75]
-                                    ]
-                                ],
-                            ]                    
+                            'Sys ID', 
+                            'Sys Branch RefID', 
+                            'International Name', 
+                            'Indonesian Name', 
+                            'ISOCode Alpha2', 
+                            'ISOCode Alpha3'
                         ]
                         );
                     }
-
-                $ObjPDF->zhtSetContent_TableContent(
-                    $varUserSession,
+                array_push(
+                    $varArrayContent, 
                     [
-                    'Coordinat' => [
-                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
-                        ],
-                    'Objects' =>
-                        [
-                            [
-                            'CoordinatOffset' => [0, 0],
-                            'Cells' => [
-                                [$i+1, 'C', 10],
-                                [$varDataList[$i]['sys_ID'], 'C', 30],
-                                [$varDataList[$i]['indonesianName'], 'L', 75],
-                                [$varDataList[$i]['internationalName'], 'L', 75]
-                                ]
-                            ],
-                        ]                    
+                        $varDataList[$i]['sys_ID'], 
+                        $varDataList[$i]['sys_Branch_RefID'], 
+                        $varDataList[$i]['internationalName'], 
+                        $varDataList[$i]['indonesianName'], 
+                        $varDataList[$i]['ISOCodeAlpha2'], 
+                        $varDataList[$i]['ISOCodeAlpha3']
                     ]
                     );
                 }
-
-            $ObjPDF->zhtSetContent_HorizontalLine($varUserSession);
-*/
-/*            //---> Return Value
-            $varReturn = [
-                'encodeMethod' => 'Base64',
-                'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_PDFData($varUserSession, $ObjPDF)
-                ];*/
-  
-
+            
             $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
                 $varFileName,
                 [
-                    ['Sys_ID', 'Sys_Branch_RefID', 'internationalName', 'indonesianName', 'ISOCodeAlpha2', 'ISOCodeAlpha3'],
+                    $varArrayContent
                 ]
                 );
 
+            //---> Return Value            
             $varReturn = [
                 'encodeMethod' => 'Base64',
-                'encodedStreamData' => base64_encode($ObjExcel)
-                ];
-            
-/*            
-            $varReturn = [
-                'encodeMethod' => 'Base64',
-                //'xxx' => $ObjExcel
                 'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_ExcelData($varUserSession, $ObjExcel)
                 ];
-*/            
             return $varReturn;
             }
         }

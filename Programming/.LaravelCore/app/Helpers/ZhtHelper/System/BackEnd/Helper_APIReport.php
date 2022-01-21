@@ -22,7 +22,7 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode(
                 $varUserSession, 
-                \App\Helpers\ZhtHelper\Report\Helper_PDF::getDataStream($varUserSession, $varDataStreamPlain)
+                $varDataStreamPlain
                 );
             return $varReturn;
             }
@@ -31,7 +31,8 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             {
             $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
                 $varUserSession, 
-                $varDataStreamEncoded);
+                $varDataStreamEncoded
+                );
             return $varReturn;            
             }
 
