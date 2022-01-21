@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## 3.209.9 - 2022-01-20
+
+* `Aws\` - Add missing PHPDoc annotations for ArrayAccess and Countable implementations.
+* `Aws\Connect` - This release adds tagging support for UserHierarchyGroups resource.
+* `Aws\EC2` - C6i, M6i and R6i instances are powered by a third-generation Intel Xeon Scalable processor (Ice Lake) delivering all-core turbo frequency of 3.5 GHz
+* `Aws\FIS` - Added action startTime and action endTime timestamp fields to the ExperimentAction object
+* `Aws\GuardDuty` - Amazon GuardDuty findings now include remoteAccountDetails under AwsApiCallAction section if instance credential is exfiltrated.
+* `Aws\MediaTailor` - This release adds support for multiple Segment Delivery Configurations. Users can provide a list of names and URLs when creating or editing a source location. When retrieving content, users can send a header to choose which URL should be used to serve content.
+
+## 3.209.8 - 2022-01-19
+
+* `Aws\EC2InstanceConnect` - Adds support for ED25519 keys. PushSSHPublicKey Availability Zone parameter is now optional. Adds EC2InstanceStateInvalidException for instances that are not running. This was previously a service exception, so this may require updating your code to handle this new exception.
+* `Aws\Macie2` - This release of the Amazon Macie API introduces stricter validation of requests to create custom data identifiers.
+
+## 3.209.7 - 2022-01-18
+
+* `Aws\CloudTrail` - This release fixes a documentation bug in the description for the readOnly field selector in advanced event selectors. The description now clarifies that users omit the readOnly field selector to select both Read and Write management events.
+* `Aws\EC2` - Add support for AWS Client VPN client login banner and session timeout.
+* `Aws\IVS` - This release adds support for the new Thumbnail Configuration property for Recording Configurations. For more information see https://docs.aws.amazon.com/ivs/latest/userguide/record-to-s3.html
+* `Aws\LocationService` - This release adds the CalculateRouteMatrix API which calculates routes for the provided departure and destination positions. The release also deprecates the use of pricing plan across all verticals.
+* `Aws\StorageGateway` - Documentation update for adding bandwidth throttling support for S3 File Gateways.
+
 ## 3.209.6 - 2022-01-14
 
 * `Aws\ApplicationInsights` - Application Insights support for Active Directory and SharePoint

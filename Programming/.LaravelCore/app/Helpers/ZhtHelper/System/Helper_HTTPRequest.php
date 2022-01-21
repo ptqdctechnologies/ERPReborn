@@ -166,6 +166,8 @@ namespace App\Helpers\ZhtHelper\System
                             'verify' => false,
                             'headers' => $varHeaders, 
                             'body' =>  json_encode($varData, true)
+                            //'timeout' => 5,
+                            //'connect_timeout' => 2
                             ]
                             );
 //echo  "@@@";

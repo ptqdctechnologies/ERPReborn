@@ -150,7 +150,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
-                        ],
+                        ]/*,
                         //---> Swing Barrier Gate Lantai 1
                         [
                         'GoodsIdentity_RefID' => 17000000000008,
@@ -159,7 +159,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => NULL,
                         'SerialNumber' => NULL,
                         'TimeZoneOffset' => '+07'
-                        ]
+                        ]*/
                     ];
 
                 for($i=0; $i!=count($varList); $i++)

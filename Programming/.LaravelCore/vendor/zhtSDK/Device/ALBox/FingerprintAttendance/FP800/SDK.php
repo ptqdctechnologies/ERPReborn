@@ -70,6 +70,8 @@ namespace zhtSDK\Device\ALBox\FingerprintAttendance\FP800
             $this->varHostPort = $varHostPort;
             $this->varDeviceSerialNumber = $varDeviceSerialNumber;
             $this->varTimeOutInSeconds = $varTimeOutInSeconds;
+            
+            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::setTimeOut_ExecutionTime($varUserSession, 300);
 
             require_once($this->varSDKPath.'/Compatible/GitHub_am05mhz_am05zk/am05zk.php');
             $this->ObjLib = new \am05zk($this->varHostIP, $this->varHostPort);
