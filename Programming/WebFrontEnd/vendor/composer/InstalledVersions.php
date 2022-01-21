@@ -19,7 +19,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '1bb1f40f82f1949432fe2c3ec80ef39d7192a8b6',
+    'reference' => 'e871794379a8c98c874846972bada12c28c91300',
     'name' => 'laravel/laravel',
   ),
   'versions' => 
@@ -458,7 +458,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '1bb1f40f82f1949432fe2c3ec80ef39d7192a8b6',
+      'reference' => 'e871794379a8c98c874846972bada12c28c91300',
     ),
     'laravel/serializable-closure' => 
     array (
@@ -525,12 +525,12 @@ private static $installed = array (
     ),
     'mockery/mockery' => 
     array (
-      'pretty_version' => '1.4.4',
-      'version' => '1.4.4.0',
+      'pretty_version' => '1.5.0',
+      'version' => '1.5.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'e01123a0e847d52d186c5eb4b9bf58b0c6d00346',
+      'reference' => 'c10a5f6e06fc2470ab1822fa13fa2a7380f8fbac',
     ),
     'monolog/monolog' => 
     array (

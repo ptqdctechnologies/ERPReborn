@@ -4212,7 +4212,6 @@ return array(
     'Mockery\\Matcher\\NoArgs' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/NoArgs.php',
     'Mockery\\Matcher\\Not' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/Not.php',
     'Mockery\\Matcher\\NotAnyOf' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/NotAnyOf.php',
-    'Mockery\\Matcher\\PHPUnitConstraint' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/PHPUnitConstraint.php',
     'Mockery\\Matcher\\Pattern' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/Pattern.php',
     'Mockery\\Matcher\\Subset' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/Subset.php',
     'Mockery\\Matcher\\Type' => $vendorDir . '/mockery/mockery/library/Mockery/Matcher/Type.php',
