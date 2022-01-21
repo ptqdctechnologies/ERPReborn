@@ -20,8 +20,7 @@ use Symfony\Component\VarExporter\VarExporter;
  */
 final class WcswidthDataGenerator
 {
-    private $outDir;
-
+    private string $outDir;
     private $client;
 
     public function __construct(string $outDir)

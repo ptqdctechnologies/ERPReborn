@@ -61,12 +61,27 @@ RUN apt-get install -y \
       sshfs \
    && apt-get install -y cron \
    && apt-get install -y \
-      libpng-dev \
-      zlib1g-dev \
-      && docker-php-ext-install \ 
-         gd \
-   && apt-get install -y \
       lz4;
+
+RUN apt-get install -y \
+   libfreetype6-dev \
+   libjpeg62-turbo-dev \ 
+   libpng-dev \ 
+   libxpm-dev \
+   libwebp-dev \
+   zlib1g-dev \
+   && docker-php-ext-configure \
+      gd --with-jpeg --with-freetype --with-webp \
+   && docker-php-ext-install -j$(nproc) \ 
+      gd
+#--with-gd --with-webp-dir --with-jpeg --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype --enable-gd-native-ttf \
+
+RUN apt-get install -y \
+   zlib1g-dev \
+   libzip-dev \
+   unzip \
+   && docker-php-ext-install \
+      zip
 
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
@@ -122,3 +137,6 @@ EXPOSE 80
 
 #---> ZhtConf Folder
 RUN mkdir -p /zhtConf/tmp/processSign
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+

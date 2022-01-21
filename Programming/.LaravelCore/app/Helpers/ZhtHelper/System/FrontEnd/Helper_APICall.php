@@ -567,30 +567,35 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     $varData
                     );
                 
-                $varPDFStreamPlain = null;
-                switch($varDataReturn['data']['encodeMethod'])
-                    {
-                    case 'Base64':
+                try {
+                    $varPDFStreamPlain = null;
+                    switch($varDataReturn['data']['encodeMethod'])
                         {
-                        $varPDFStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
-                            $varUserSession,
-                            $varDataReturn['data']['encodedStreamData']
-                            );
-                        break;
+                        case 'Base64':
+                            {
+                            $varPDFStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                                $varUserSession,
+                                $varDataReturn['data']['encodedStreamData']
+                                );
+                            break;
+                            }
+                        default:
+                            {
+                            throw new \Exception('encoding method not recognized');
+                            break;
+                            }
                         }
-                    default:
-                        {
-                        throw new \Exception('encoding method not recognized');
-                        break;
-                        }
+
+                    \App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay(
+                        $varUserSession, 
+                        $varPDFStreamPlain, 
+                        $varOutputFileName
+                        );
+                    die();                    
+                    } 
+                catch (\Exception $ex) {
+                    echo $varDataReturn['data']['Response'];
                     }
-                
-                \App\Helpers\ZhtHelper\Report\Helper_PDF::setDataStreamToDisplay(
-                    $varUserSession, 
-                    $varPDFStreamPlain, 
-                    $varOutputFileName
-                    );
-                die();
                 } 
             catch (\Exception $ex) {
                 $varErrorMessage = $ex->getMessage();

@@ -181,7 +181,8 @@ namespace zhtSDK\Software\PDF\TCPDF
                 $this->varContentMargins['top'] = (int) $this->getMargins()['top'];              
                 }
             //---> Background Image
-            $this->zhtSetBackgroundImage($this->varUserSession['UserSessionID'], 50, getcwd().'/images/Logo/AppObject_InstitutionBranch/Large/'.$this->varUserSession['InstitutionBranch']['ID'].'.png');
+            // Untuk sementara tanpa Background karena ada masalah dengan GD Library
+            //$this->zhtSetBackgroundImage($this->varUserSession['UserSessionID'], 50, getcwd().'/images/Logo/AppObject_InstitutionBranch/Large/'.$this->varUserSession['InstitutionBranch']['ID'].'.png');
             }
 
 
