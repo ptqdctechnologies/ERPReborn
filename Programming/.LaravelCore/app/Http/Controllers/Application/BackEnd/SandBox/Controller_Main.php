@@ -11,6 +11,28 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+            
+        public function testExcel()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varBranchID = 11000000000004;
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjk0MjM5NzF9.J1D3Jwk-50BXUEHg6nmxLcgHqZnntx6ENMOcaXnzsOY';
+            $varTimeZoneOffset = '+07';
+
+           
+            
+            $x = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
+                'DataTest.xlsx',
+                [
+                    ['a', 'b', 'c'],
+                    [1, 2, 3],
+                    [4, 5, 6],
+                    [7, 8, 9]                    
+                ]
+                );
+//            echo "xxx";
+            return $x;
+            }
 
         public function testUpload()
             {

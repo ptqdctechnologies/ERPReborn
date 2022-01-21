@@ -525,6 +525,48 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 */
             
             
+        public static function setCallAPIGatewayDownloadExcel($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, array $varData = null)
+            {
+            $varExcelStreamPlain = null;
+
+            $varUserSession = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getUserSessionByAPIWebToken(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken);
+            
+//            var_dump($varAPIKey);
+
+
+            $varDataReturn = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                $varUserSession,
+                $varAPIWebToken, 
+                $varAPIKey,
+                $varAPIVersion,
+                $varData
+                );
+
+            /*    
+            switch($varDataReturn['data']['encodeMethod'])
+                {
+                case 'Base64':
+                    {
+                    $varExcelStreamPlain = \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                        $varUserSession,
+                        $varDataReturn['data']['encodedStreamData']
+                        );
+                    break;
+                    }
+                default:
+                    {
+                    throw new \Exception('encoding method not recognized');
+                    break;
+                    }
+                }
+            var_dump($varExcelStreamPlain);
+            
+             */
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGatewayReport                                                                              |

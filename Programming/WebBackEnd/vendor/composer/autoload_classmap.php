@@ -7875,5 +7875,6 @@ return array(
     'zhtSDK\\Device\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => $vendorDir . '/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
     'zhtSDK\\Device\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => $vendorDir . '/zhtSDK/Device/Solution/FingerprintAttendance/x601/SDK.php',
     'zhtSDK\\Device\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => $vendorDir . '/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260/SDK.php',
+    'zhtSDK\\Software\\Excel\\Maatwebsite\\zhtSDK' => $vendorDir . '/zhtSDK/Software/Excel/Maatwebsite/SDK.php',
     'zhtSDK\\Software\\PDF\\TCPDF\\zhtSDK' => $vendorDir . '/zhtSDK/Software/PDF/TCPDF/SDK.php',
 );

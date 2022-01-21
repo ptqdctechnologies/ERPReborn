@@ -8471,6 +8471,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'zhtSDK\\Device\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
         'zhtSDK\\Device\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/Solution/FingerprintAttendance/x601/SDK.php',
         'zhtSDK\\Device\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260/SDK.php',
+        'zhtSDK\\Software\\Excel\\Maatwebsite\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Software/Excel/Maatwebsite/SDK.php',
         'zhtSDK\\Software\\PDF\\TCPDF\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Software/PDF/TCPDF/SDK.php',
     );
 

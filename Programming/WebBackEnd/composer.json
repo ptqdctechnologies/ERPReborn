@@ -53,7 +53,8 @@
             "vendor/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01",
             "vendor/zhtSDK/Device/Solution/FingerprintAttendance/x601",
             "vendor/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260",
-            "vendor/zhtSDK/Software/PDF/TCPDF"
+            "vendor/zhtSDK/Software/PDF/TCPDF",
+            "vendor/zhtSDK/Software/Excel/Maatwebsite"
         ]
     },
     "autoload-dev": {
