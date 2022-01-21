@@ -66,7 +66,7 @@
                         <td>Project</td>
                         <td>
                           <div class="input-group">
-                            <select class="form-control SelectProject" id="SelectProject" name="SelectProject" style="border-radius:0;">
+                            <select class="form-control SelectProject2" id="SelectProject2" name="SelectProject2" style="border-radius:0;">
                               @foreach($data as $datas1)
                               <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
                               @endforeach
@@ -76,7 +76,7 @@
                         <td>&nbsp;&nbsp;Site</td>
                         <td>
                           <div class="input-group">
-                            <select class="form-control SelectSite" id="SelectSite" name="SelectSite" style="border-radius:0;">
+                            <select class="form-control select2" id="SelectSite2" name="SelectSite2" style="border-radius:0;">
                               <option value=""> -- Select Site -- </option>
                             </select>
                           </div>
