@@ -52,9 +52,6 @@ class TimesheetController extends Controller
                 ]
             ]
             );
-            // if($varData3['metadata']['HTTPStatusCode'] == "200"){
-            //     $status = 1;
-            // }
             $val = 1 ;
         }
 
@@ -73,9 +70,7 @@ class TimesheetController extends Controller
             ]
         ]
         );
-        // dd($varData3['metadata']['HTTPStatusCode']);
         if($val == 1){
-            // echo "d";die;
             $compact = [
                 'data' => $varData['data']['data'],
                 'data2' => $varData2['data'],
@@ -85,7 +80,6 @@ class TimesheetController extends Controller
             ];
         }
         else{
-            // echo "x";die;
             $compact = [
                 'data' => $varData['data']['data'],
                 'data2' => $varData2['data'],

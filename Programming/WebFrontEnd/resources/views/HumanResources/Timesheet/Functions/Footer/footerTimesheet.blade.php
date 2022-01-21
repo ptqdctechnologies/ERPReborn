@@ -31,6 +31,38 @@
         });
 
     });
+    $(function() {
+        $(".SelectProject2").on('click', function(e) {
+            e.preventDefault();
+            var id = $(".SelectProject2").val();
+                
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("ARF.index2") !!}?projectcode=' + id,
+                success: function(data) {
+                    $("#SelectSite2").empty();
+                    var datas = data;
+                    var len = 0;
+                    // var option = "<option value='" + '' + "'>" + '- Select Site - ' + "</option>";
+                    // $("#SelectSite2").append(option);
+                    len = datas.length;
+                    for (var i = 0; i < len; i++) {
+                        var ids = datas[i].sys_ID;
+                        var names = datas[i].sys_Text;
+                        var option = "<option value='" + ids + "'>" + names + "</option>";
+                        $("#SelectSite2").append(option);
+                    }
+                }
+            });
+        });
+
+    });
     $(document).ready(function () {
 
         $.ajaxSetup({
@@ -66,7 +98,7 @@
                 var calendar = $('#calendar').fullCalendar({
                     selectable:true,
                     height:600,
-                    showNonCurrentDates:false,
+                    showNonCurrentDates:true,
                     editable:false,
                     defaultView:'month',
                     yearColumns:3,
@@ -78,7 +110,7 @@
                     events: [
                             @foreach($varData as $key => $rows)
                             {
-                                title: '{{$rows["activity"]}} Start Plan @ {{ $rows["activityStartDateTimeTZ"]}}  Finish Plan {{ $rows["activityFinishDateTimeTZ"]}}',
+                                title: '{{$rows["activity"]}}',
                                 start: '{{ $rows["activityStartDateTimeTZ"]}}',
                                 end: '{{ date("Y-m-d",strtotime($rows["activityFinishDateTimeTZ"] . "+1 days"))}}',
                                 color  : '{{ $rows["colorBackground"]}}',
@@ -94,7 +126,16 @@
                         $('#startDate').val(convertdate(start));
                         $('#finishDate').val(convertdate(end));
                         $('#popUpCalender').modal("show");
-                    }
+                    },
+                    eventClick:function(event){
+                        console.log(event);
+                        $('#startDate').val(convertdate(event.start));
+                        $('#finishDate').val(convertdate(event.end));
+                        $('#backgroundColor').val(event.color);
+                        $('#textColor').val(event.textColor);
+                        $('#activity').val(event.title)
+                        $('#popUpCalender').modal("show");
+                    },
                     
                 });
             @endif
