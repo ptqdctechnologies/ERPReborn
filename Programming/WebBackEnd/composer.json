@@ -21,6 +21,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "league/flysystem-aws-s3-v3": "^1.0",
+        "maatwebsite/excel": "^3.1",
         "predis/predis": "^1.1",
         "swaggest/json-schema": "^0.12.31",
         "vlucas/phpdotenv": "^5.2"

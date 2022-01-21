@@ -140,3 +140,4 @@ RUN mkdir -p /zhtConf/tmp/processSign
 
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+RUN apt-get install -y git
