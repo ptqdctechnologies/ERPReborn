@@ -6,9 +6,94 @@ use Illuminate\Http\Request;
 
 class TimesheetController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return view('HumanResources.Timesheet.Transactions.index');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+        $val = 0; $status = 0;
+        if($request->test == '1'){
+            $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity', 
+            'latest', 
+            [
+            'parameter' => [
+                'personWorkTimeSheet_RefID' => (int) $request->timesheet
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+            // if($varData3['metadata']['HTTPStatusCode'] == "200"){
+            //     $status = 1;
+            // }
+            $val = 1 ;
+        }
+
+        $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.humanResource.getPersonWorkTimeSheet', 
+        'latest', 
+        [
+        'parameter' => null,
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );
+        // dd($varData3['metadata']['HTTPStatusCode']);
+        if($val == 1){
+            // echo "d";die;
+            $compact = [
+                'data' => $varData['data']['data'],
+                'data2' => $varData2['data'],
+                'varData' => $varData3['data'],
+                'status' => $varData3['metadata']['HTTPStatusCode'],
+                'TimesheetData' => $varData4['data'],
+            ];
+        }
+        else{
+            // echo "x";die;
+            $compact = [
+                'data' => $varData['data']['data'],
+                'data2' => $varData2['data'],
+                'status' => "400",
+                'TimesheetData' => $varData4['data'],
+            ];
+        }
+        return view('HumanResources.Timesheet.Transactions.index', $compact);
     }
 
     /**
@@ -34,26 +119,38 @@ class TimesheetController extends Controller
      */
     public function store(Request $request)
     {
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'transaction.read.dataList.budgeting.getBudget', 
+        'transaction.create.humanResource.setPersonWorkTimeSheet', 
         'latest', 
         [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+        'entities' => [
+            'documentDateTimeTZ' => $request->startDate,
+            'person_RefID' => (int) $request->behalfOf,
+            'colorText' => $request->textColor,
+            'colorBackground' => $request->backgroundColor
             ]
         ]
         );
-        // dd($varData['data']);
-        // return response()->json($varData['data'], 200);
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
+        'latest', 
+        [
+        'entities' => [
+            'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
+            'projectSectionItem_RefID' => (int) $request->SelectSite,
+            'startDateTimeTZ' => $request->startDate,
+            'finishDateTimeTZ' => $request->finishDate,
+            'activity' => $request->activity
+            ]
+        ]
+        );
+        
         return redirect()->route('Timesheet.index')->with('message', 'Project successfully created ...');
         
     }
@@ -68,30 +165,7 @@ class TimesheetController extends Controller
     {
     
     }
-    public function event(Request $request)
-    {
-        // echo $request->start;die;
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.budgeting.getBudget', 
-        'latest', 
-        [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
-            ]
-        ]
-        );
-        // dd($varData['data']);
-        return response()->json($varData['data'], 200);
-        
-    }
+    
     /**
      * Show the form for editing the specified resource.
      *

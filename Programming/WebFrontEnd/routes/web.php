@@ -253,7 +253,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     // 
-    Route::get('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
+    Route::post('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
     Route::resource('Timesheet','TimesheetController');
 
     // Dashboard

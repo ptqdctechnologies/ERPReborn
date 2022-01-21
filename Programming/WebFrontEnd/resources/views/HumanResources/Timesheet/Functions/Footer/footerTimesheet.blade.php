@@ -1,5 +1,36 @@
 <script>
+    $(function() {
+        $(".SelectProject").on('click', function(e) {
+            e.preventDefault();
+            var id = $(".SelectProject").val();
+                
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("ARF.index2") !!}?projectcode=' + id,
+                success: function(data) {
+                    $("#SelectSite").empty();
+                    var datas = data;
+                    var len = 0;
+                    // var option = "<option value='" + '' + "'>" + '- Select Site - ' + "</option>";
+                    // $("#SelectSite").append(option);
+                    len = datas.length;
+                    for (var i = 0; i < len; i++) {
+                        var ids = datas[i].sys_ID;
+                        var names = datas[i].sys_Text;
+                        var option = "<option value='" + ids + "'>" + names + "</option>";
+                        $("#SelectSite").append(option);
+                    }
+                }
+            });
+        });
 
+    });
     $(document).ready(function () {
 
         $.ajaxSetup({
@@ -26,35 +57,76 @@
         $('#addEventButton').on('click', function(){
             $('#popUpCalender').modal("show");
         });
-        var calendar = $('#calendar').fullCalendar({
-            selectable:true,
-            height:600,
-            showNonCurrentDates:false,
-            editable:false,
-            defaultView:'month',
-            yearColumns:2,
-            header:{
-                left:'prev,next today',
-                center:'title',
-                right:'year,month,agendaWeek,agendaDay'
-            },
-            events : "{{ route('Timesheet.event') }}",
-            dayClick:function(date,event,view){
-                $('#start').val(convertdate(date));
-                $('#popUpCalender').modal("show");
-            },
-            select:function(start,end){
-                $('#start').val(convertdate(start));
-                $('#end').val(convertdate(end));
-                $('#popUpCalender').modal("show");
-            }
-            
+        $('#filterEventButton').on('click', function(){
+            $('#popUpFilter').modal("show");
         });
+
+        @if($status == '200')
+            @if(isset($varData))
+                var calendar = $('#calendar').fullCalendar({
+                    selectable:true,
+                    height:600,
+                    showNonCurrentDates:false,
+                    editable:false,
+                    defaultView:'month',
+                    yearColumns:3,
+                    header:{
+                        left:'prev,next today',
+                        center:'title',
+                        right:'year,month,agendaWeek,agendaDay'
+                    },
+                    events: [
+                            @foreach($varData as $key => $rows)
+                            {
+                                title: '{{$rows["activity"]}} Start Plan @ {{ $rows["activityStartDateTimeTZ"]}}  Finish Plan {{ $rows["activityFinishDateTimeTZ"]}}',
+                                start: '{{ $rows["activityStartDateTimeTZ"]}}',
+                                end: '{{ date("Y-m-d",strtotime($rows["activityFinishDateTimeTZ"] . "+1 days"))}}',
+                                color  : '{{ $rows["colorBackground"]}}',
+                                textColor: '{{ $rows["colorText"]}}'
+                            },
+                            @endforeach
+                    ],
+                    dayClick:function(date,event,view){
+                        $('#startDate').val(convertdate(date));
+                        $('#popUpCalender').modal("show");
+                    },
+                    select:function(start,end){
+                        $('#startDate').val(convertdate(start));
+                        $('#finishDate').val(convertdate(end));
+                        $('#popUpCalender').modal("show");
+                    }
+                    
+                });
+            @endif
+        @else
+        var calendar = $('#calendar').fullCalendar({
+                selectable:true,
+                height:600,
+                showNonCurrentDates:false,
+                editable:false,
+                defaultView:'month',
+                yearColumns:3,
+                header:{
+                    left:'prev,next today',
+                    center:'title',
+                    right:'year,month,agendaWeek,agendaDay'
+                },
+                dayClick:function(date,event,view){
+                    $('#startDate').val(convertdate(date));
+                    $('#popUpCalender').modal("show");
+                },
+                select:function(start,end){
+                    $('#startDate').val(convertdate(start));
+                    $('#finishDate').val(convertdate(end));
+                    $('#popUpCalender').modal("show");
+                }
+                
+            });
+        @endif
         // if ((Date.parse(startDate) <= Date.parse(endDate))) {
         //     alert("End date should be greater than Start date");
         //     document.getElementById("EndDate").value = "";
         // }
-
     });
   
 </script>
