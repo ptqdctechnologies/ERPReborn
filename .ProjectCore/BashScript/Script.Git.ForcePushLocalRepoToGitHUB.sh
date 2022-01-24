@@ -12,7 +12,7 @@
 
 #!/bin/bash
 
-clear;
+#clear;
 #git push -f origin master;
 git push origin master;
 #git push https://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@github.com/teguhpjs/ERPReborn.git;

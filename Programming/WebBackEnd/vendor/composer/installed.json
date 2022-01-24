@@ -798,7 +798,7 @@
             },
             "time": "2021-12-25T01:21:49+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-0": {
                     "HTMLPurifier": "library/"
@@ -2628,7 +2628,7 @@
                     }
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Maatwebsite\\Excel\\": "src/"
@@ -2701,7 +2701,7 @@
             },
             "time": "2020-05-30T13:11:16+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "ZipStream\\": "src/"
@@ -2772,7 +2772,7 @@
             },
             "time": "2021-06-29T15:32:53+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Complex\\": "classes/src/"
@@ -2830,7 +2830,7 @@
             },
             "time": "2021-07-01T19:01:15+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Matrix\\": "classes/src/"
@@ -3187,7 +3187,7 @@
             },
             "time": "2021-07-05T08:18:36+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "MyCLabs\\Enum\\": "src/"
@@ -4081,7 +4081,7 @@
             },
             "time": "2022-01-06T11:10:08+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "PhpOffice\\PhpSpreadsheet\\": "src/PhpSpreadsheet"
