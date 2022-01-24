@@ -512,12 +512,12 @@
             ),
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.55.2',
-            'version' => '2.55.2.0',
+            'pretty_version' => '2.56.0',
+            'version' => '2.56.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => '8c2a18ce3e67c34efc1b29f64fe61304368259a2',
+            'reference' => '626ec8cbb724cd3c3400c3ed8f730545b744e3f4',
             'dev_requirement' => false,
         ),
         'nette/schema' => array(
@@ -1239,12 +1239,12 @@
             'dev_requirement' => false,
         ),
         'voku/portable-ascii' => array(
-            'pretty_version' => '1.5.6',
-            'version' => '1.5.6.0',
+            'pretty_version' => '1.6.0',
+            'version' => '1.6.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../voku/portable-ascii',
             'aliases' => array(),
-            'reference' => '80953678b19901e5165c56752d087fc11526017c',
+            'reference' => '1f8b372a927ab2d17dbdab443aefbfe6a5354284',
             'dev_requirement' => false,
         ),
         'webmozart/assert' => array(

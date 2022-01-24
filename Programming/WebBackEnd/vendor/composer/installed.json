@@ -3226,17 +3226,17 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.55.2",
-            "version_normalized": "2.55.2.0",
+            "version": "2.56.0",
+            "version_normalized": "2.56.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "8c2a18ce3e67c34efc1b29f64fe61304368259a2"
+                "reference": "626ec8cbb724cd3c3400c3ed8f730545b744e3f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8c2a18ce3e67c34efc1b29f64fe61304368259a2",
-                "reference": "8c2a18ce3e67c34efc1b29f64fe61304368259a2",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/626ec8cbb724cd3c3400c3ed8f730545b744e3f4",
+                "reference": "626ec8cbb724cd3c3400c3ed8f730545b744e3f4",
                 "shasum": ""
             },
             "require": {
@@ -3253,11 +3253,11 @@
                 "kylekatarnls/multi-tester": "^2.0",
                 "phpmd/phpmd": "^2.9",
                 "phpstan/extension-installer": "^1.0",
-                "phpstan/phpstan": "^0.12.54",
+                "phpstan/phpstan": "^0.12.54 || ^1.0",
                 "phpunit/phpunit": "^7.5.20 || ^8.5.14",
                 "squizlabs/php_codesniffer": "^3.4"
             },
-            "time": "2021-12-03T14:59:52+00:00",
+            "time": "2022-01-21T17:08:38+00:00",
             "bin": [
                 "bin/carbon"
             ],
@@ -4596,17 +4596,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.12",
-            "version_normalized": "9.5.12.0",
+            "version": "9.5.13",
+            "version_normalized": "9.5.13.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256"
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/93d4bf4c37aec6384bb9e5d390d9049a463a7256",
-                "reference": "93d4bf4c37aec6384bb9e5d390d9049a463a7256",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/597cb647654ede35e43b137926dfdfef0fb11743",
+                "reference": "597cb647654ede35e43b137926dfdfef0fb11743",
                 "shasum": ""
             },
             "require": {
@@ -4647,7 +4647,7 @@
                 "ext-soap": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2022-01-21T05:54:47+00:00",
+            "time": "2022-01-24T07:33:35+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -4686,7 +4686,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.12"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.13"
             },
             "funding": [
                 {
@@ -9125,17 +9125,17 @@
         },
         {
             "name": "voku/portable-ascii",
-            "version": "1.5.6",
-            "version_normalized": "1.5.6.0",
+            "version": "1.6.0",
+            "version_normalized": "1.6.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/portable-ascii.git",
-                "reference": "80953678b19901e5165c56752d087fc11526017c"
+                "reference": "1f8b372a927ab2d17dbdab443aefbfe6a5354284"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/80953678b19901e5165c56752d087fc11526017c",
-                "reference": "80953678b19901e5165c56752d087fc11526017c",
+                "url": "https://api.github.com/repos/voku/portable-ascii/zipball/1f8b372a927ab2d17dbdab443aefbfe6a5354284",
+                "reference": "1f8b372a927ab2d17dbdab443aefbfe6a5354284",
                 "shasum": ""
             },
             "require": {
@@ -9147,9 +9147,9 @@
             "suggest": {
                 "ext-intl": "Use Intl for transliterator_transliterate() support"
             },
-            "time": "2020-11-12T00:07:28+00:00",
+            "time": "2022-01-24T09:37:53+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "voku\\": "src/voku/"
@@ -9174,7 +9174,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/portable-ascii/issues",
-                "source": "https://github.com/voku/portable-ascii/tree/1.5.6"
+                "source": "https://github.com/voku/portable-ascii/tree/1.6.0"
             },
             "funding": [
                 {
