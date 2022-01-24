@@ -1,4 +1,4 @@
-FROM php:8.1-apache
+FROM php:8.1.1-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 #    && add-apt-repository ppa:ondrej/php \
@@ -6,63 +6,117 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 #RUN printf "deb http://httpredir.debian.org/debian jessie-backports main non-free\ndeb-src http://httpredir.debian.org/debian jessie-backports main non-free" > /etc/apt/sources.list.d/backports.list
 
+
 RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \
     && printf "deb http://repo.ugm.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list
 
+
+#---> Main
 #RUN apt-get update --fix-missing \
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get autoremove -y
-
-RUN apt-get install -y \
+    && apt-get autoremove -y \
+    && apt-get install -y \
        apt-utils \
        libpq-dev \
        software-properties-common
 
-RUN apt-get install -y \
-   vim \ 
-   libbz2-dev \
-   && docker-php-ext-install \
-      pdo \
-      pdo_pgsql \
-      pgsql \
-   && pecl install redis \
-       && docker-php-ext-enable \
-          redis \
-   && docker-php-ext-install \
-      sockets \
-      bz2 \
-   && docker-php-ext-enable \ 
-      sockets \
-   && apt-get install -y \
-      libldap2-dev \
-      && docker-php-ext-configure \
-          ldap --with-libdir=lib/x86_64-linux-gnu/ \
-       && docker-php-ext-install \
-          ldap \
-       && docker-php-ext-enable \
-          ldap \
-    && apt-get install -y \ 
-       libcurl4-gnutls-dev \
-       && docker-php-ext-install \
-          curl \
-   && apt-get install -y \ 
-      arp-scan \
-   && apt-get install -y libxml2-dev \
-      && docker-php-ext-install \
-         soap \
-      && apt-get install -y unixodbc \
-         unixodbc-dev \
-      && docker-php-ext-configure pdo_odbc --with-pdo-odbc=unixODBC,/usr \
-      && docker-php-ext-install pdo_odbc \
-   && apt-get install -y mdbtools \
-      odbc-mdbtools \
-   && apt-get install -y sshpass \
-      sshfs \
-   && apt-get install -y cron \
-   && apt-get install -y \
-      lz4;
 
+#---> Basic Application
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+RUN apt-get install -y \
+   git \
+   vim 
+
+
+#---> Basic Application : Cron
+RUN apt-get install -y \
+   cron
+ADD ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_* /etc/cron.d/
+RUN chmod 0644 /etc/cron.d/cron_Script_* \
+    && touch /var/log/cron.log
+RUN touch /var/log/cron.log
+
+
+#---> Basic Application : Network Utility
+RUN apt-get install -y \ 
+   arp-scan
+
+
+#---> Basic Application : SSH
+RUN apt-get install -y sshpass \
+   sshfs
+
+
+#---> PHP Extension : Compression
+RUN apt-get install -y \
+   bzip2 \
+   libbz2-dev \
+   libzip-dev \
+   lz4 \
+   unzip \
+   zlib1g-dev \
+   && docker-php-ext-install -j$(nproc) \
+      zip
+
+
+#---> PHP Extension : Sockets
+RUN docker-php-ext-install \
+   sockets \
+   && docker-php-ext-enable \ 
+      sockets
+
+
+#---> PHP Extension : Database
+RUN docker-php-ext-install \
+   pdo \
+   pdo_pgsql \
+   pgsql
+
+
+#---> PHP Extension : Redis
+RUN pecl install redis \
+   && docker-php-ext-enable \
+      redis
+
+
+#---> PHP Extension : CURL
+RUN apt-get install -y \ 
+   libcurl4-gnutls-dev \
+   && docker-php-ext-install \
+      curl
+
+
+#---> PHP Extension : LDAP
+RUN apt-get install -y \
+   libldap2-dev \
+   && docker-php-ext-configure \
+      ldap --with-libdir=lib/x86_64-linux-gnu/ \
+   && docker-php-ext-install \
+      ldap \
+   && docker-php-ext-enable \
+      ldap
+
+
+#---> PHP Extension : UnixODBC
+RUN apt-get install -y \
+   unixodbc \
+   unixodbc-dev \
+   && docker-php-ext-configure \
+      pdo_odbc --with-pdo-odbc=unixODBC,/usr \
+   && docker-php-ext-install pdo_odbc \
+   && apt-get install -y \
+      mdbtools \
+      odbc-mdbtools
+
+
+#---> PHP Extension : XML & SOAP
+RUN apt-get install -y libxml2-dev \
+   && docker-php-ext-install \
+      soap
+
+
+#---> PHP Extension : GD
 RUN apt-get install -y \
    libfreetype6-dev \
    libjpeg62-turbo-dev \ 
@@ -74,14 +128,7 @@ RUN apt-get install -y \
       gd --with-jpeg --with-freetype --with-webp \
    && docker-php-ext-install -j$(nproc) \ 
       gd
-#--with-gd --with-webp-dir --with-jpeg --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype --enable-gd-native-ttf \
 
-RUN apt-get install -y \
-   zlib1g-dev \
-   libzip-dev \
-   unzip \
-   && docker-php-ext-install \
-      zip
 
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
@@ -96,23 +143,19 @@ RUN apt-get install -y \
 #RUN chmod 0644 /etc/cron.d/cron.Script.Laravel.ArtisanScheduleRun.sh \
 #    && touch /var/log/cron.log
 
-ADD ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/cron.d/cron_Script_* /etc/cron.d/
-RUN chmod 0644 /etc/cron.d/cron_Script_* \
-    && touch /var/log/cron.log
-
-
-RUN touch /var/log/cron.log
 
 #CMD printenv > /etc/environment && echo "cron starting..." && (cron) && : > /var/log/cron.log && tail -f /var/log/cron.log
 
-#--->CA Certificate
+
+#---> CA Certificate
 RUN cd /usr/local/share/ca-certificates/ \
     && ln -s /etc/ssl/certs/ca-certificates.crt ca-certificates.crt \
     && cd - \
     && update-ca-certificates \
     && export SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
 
-#--->Increase Memory
+
+#---> Increase Memory
 RUN cd /usr/local/etc/php/conf.d/ \
     && echo 'memory_limit = -1' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini
 
@@ -138,6 +181,3 @@ EXPOSE 80
 #---> ZhtConf Folder
 RUN mkdir -p /zhtConf/tmp/processSign
 
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
-
-RUN apt-get install -y git
