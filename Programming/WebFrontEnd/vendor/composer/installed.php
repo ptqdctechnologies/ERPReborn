@@ -122,12 +122,12 @@
             'dev_requirement' => false,
         ),
         'fakerphp/faker' => array(
-            'pretty_version' => 'v1.17.0',
-            'version' => '1.17.0.0',
+            'pretty_version' => 'v1.18.0',
+            'version' => '1.18.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
-            'reference' => 'b85e9d44eae8c52cca7aa0939483611f7232b669',
+            'reference' => '2e77a868f6540695cf5ebf21e5ab472c65f47567',
             'dev_requirement' => false,
         ),
         'fideloper/proxy' => array(
@@ -440,12 +440,12 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.1.1',
-            'version' => '2.1.1.0',
+            'pretty_version' => '2.2.0',
+            'version' => '2.2.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
-            'reference' => '17d2b9cb5161a2ea1a8dd30e6991d668e503fb9d',
+            'reference' => 'c5aadcc15548629787d02b86a7afef03b46271b5',
             'dev_requirement' => false,
         ),
         'league/config' => array(
