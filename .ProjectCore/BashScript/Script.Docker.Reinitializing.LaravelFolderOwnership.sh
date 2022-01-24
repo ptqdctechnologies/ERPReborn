@@ -22,3 +22,6 @@ sudo chmod 777 ./Programming/WebBackEnd/vendor/tecnickcom/tcpdf/fonts;
 
 sudo chown -R $(id -u):$(id -g) ./Programming/WebBackEnd/vendor/composer;
 sudo chown -R $(id -u):$(id -g) ./Programming/WebFrontEnd/vendor/composer;
+
+sudo chown -R $(id -u):$(id -g) ./Programming/WebBackEnd/vendor;
+sudo chown -R $(id -u):$(id -g) ./Programming/WebFrontEnd/vendor;
