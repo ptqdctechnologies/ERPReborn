@@ -28,10 +28,23 @@ test('', function () {
 	if (!function_exists('imagecreatefromwebp')) {
 		return;
 	}
+
 	$image = Image::fromFile(__DIR__ . '/fixtures.images/logo.webp', $format);
 	Assert::same(176, $image->getWidth());
 	Assert::same(104, $image->getHeight());
 	Assert::same(Image::WEBP, $format);
+});
+
+
+test('', function () {
+	if (!function_exists('imagecreatefromavif')) {
+		return;
+	}
+
+	$image = Image::fromFile(__DIR__ . '/fixtures.images/logo.avif', $format);
+	Assert::same(176, $image->getWidth());
+	Assert::same(104, $image->getHeight());
+	Assert::same(Image::AVIF, $format);
 });
 
 
