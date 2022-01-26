@@ -697,6 +697,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Carbon\\FactoryImmutable' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/FactoryImmutable.php',
         'Carbon\\Language' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Language.php',
         'Carbon\\Laravel\\ServiceProvider' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/Laravel/ServiceProvider.php',
+        'Carbon\\PHPStan\\AbstractMacro' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/AbstractMacro.php',
         'Carbon\\PHPStan\\Macro' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/Macro.php',
         'Carbon\\PHPStan\\MacroExtension' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/MacroExtension.php',
         'Carbon\\PHPStan\\MacroScanner' => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon/PHPStan/MacroScanner.php',

@@ -132,7 +132,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
             $varArrayContent = [];
             for($i=0; $i!=count($varDataList); $i++)
                 {
-                if($i==0)
+/*                if($i==0)
                     {
                     array_push(
                         $varArrayContent, 
@@ -145,7 +145,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                             'ISOCode Alpha3'
                         ]
                         );
-                    }
+                    }*/
                 array_push(
                     $varArrayContent, 
                     [
@@ -158,13 +158,46 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                     ]
                     );
                 }
+                
+            $varArrayStyle = [
+                'ColumnFormat' => [
+                    'A' => 'Number',
+                    'B' => 'Number',
+                    'C' => 'Text',
+                    ]
+                ];
+
+/*            
+            $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArrayOLD(
+                $varFileName,
+                [
+                    $varArrayContent,
+                    $varArrayStyle
+                ]
+                );
+*/            
+            
+            /////////////////////////////////////////////////////////////
+            
             
             $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
                 $varFileName,
                 [
-                    $varArrayContent
+                    'Content' => [
+                        'Title' => [
+                            ['A6', 'Sys ID', 1, 1], 
+                            ['B6', 'Sys Branch RefID', 1, 1], 
+                            ['C6', 'International Name', 1, 1], 
+                            ['D6', 'Indonesian Name', 1, 1], 
+                            ['E6', 'ISOCode Alpha2', 1, 1], 
+                            ['F6', 'ISOCode Alpha3', 1, 1]
+                            ],
+                        'Items' => $varArrayContent
+                        ],
                 ]
                 );
+            
+            
 
             //---> Return Value            
             $varReturn = [
