@@ -89,7 +89,7 @@ trait ThrottlesLogins
      */
     protected function throttleKey(Request $request)
     {
-        return Str::lower($request->input($this->username())).'|'.$request->ip();
+        return $this->removeSpecialCharacters(Str::lower($request->input($this->username())).'|'.$request->ip());
     }
 
     /**
@@ -120,5 +120,87 @@ trait ThrottlesLogins
     public function decayMinutes()
     {
         return property_exists($this, 'decayMinutes') ? $this->decayMinutes : 1;
+    }
+
+    /**
+     * Remove special characters that may allow users to bypass rate limiting.
+     *
+     * @param  string  $key
+     * @return string
+     */
+    protected function removeSpecialCharacters($key)
+    {
+        $values = [
+            'ⓐ' => 'a',
+            'ⓑ' => 'b',
+            'ⓒ' => 'c',
+            'ⓓ' => 'd',
+            'ⓔ' => 'e',
+            'ⓕ' => 'f',
+            'ⓖ' => 'g',
+            'ⓗ' => 'h',
+            'ⓘ' => 'i',
+            'ⓙ' => 'j',
+            'ⓚ' => 'k',
+            'ⓛ' => 'l',
+            'ⓜ' => 'm',
+            'ⓝ' => 'n',
+            'ⓞ' => 'o',
+            'ⓟ' => 'p',
+            'ⓠ' => 'q',
+            'ⓡ' => 'r',
+            'ⓢ' => 's',
+            'ⓣ' => 't',
+            'ⓤ' => 'u',
+            'ⓥ' => 'v',
+            'ⓦ' => 'w',
+            'ⓧ' => 'x',
+            'ⓨ' => 'y',
+            'ⓩ' => 'z',
+            '①' => '1',
+            '②' => '2',
+            '③' => '3',
+            '④' => '4',
+            '⑤' => '5',
+            '⑥' => '6',
+            '⑦' => '7',
+            '⑧' => '8',
+            '⑨' => '9',
+            '⑩' => '10',
+            '⑪' => '11',
+            '⑫' => '12',
+            '⑬' => '13',
+            '⑭' => '14',
+            '⑮' => '15',
+            '⑯' => '16',
+            '⑰' => '17',
+            '⑱' => '18',
+            '⑲' => '19',
+            '⑳' => '20',
+            '⓪' => '0',
+            '⓵' => '1',
+            '⓶' => '2',
+            '⓷' => '3',
+            '⓸' => '4',
+            '⓹' => '5',
+            '⓺' => '6',
+            '⓻' => '7',
+            '⓼' => '8',
+            '⓽' => '9',
+            '⓾' => '10',
+            '⓫' => '11',
+            '⓬' => '12',
+            '⓭' => '13',
+            '⓮' => '14',
+            '⓯' => '15',
+            '⓰' => '16',
+            '⓱' => '17',
+            '⓲' => '18',
+            '⓳' => '19',
+            '⓴' => '20',
+            '⓿' => '0',
+        ];
+
+        return strtr($key, $values);
     }
 }

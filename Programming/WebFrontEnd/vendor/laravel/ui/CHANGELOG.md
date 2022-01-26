@@ -1,6 +1,13 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.4.1...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.4.2...3.x)
+
+
+## [v3.4.2 (2021-12-25)](https://github.com/laravel/ui/compare/v3.4.1...v3.4.2)
+
+### Fixed
+- Update app.stub with correct Bootstrap 5 class ([#215](https://github.com/laravel/ui/pull/215))
+- Fix bug where special characters can be used when generating throttle key ([#216](https://github.com/laravel/ui/pull/216))
 
 
 ## [v3.4.1 (2021-12-22)](https://github.com/laravel/ui/compare/v3.4.0...v3.4.1)
