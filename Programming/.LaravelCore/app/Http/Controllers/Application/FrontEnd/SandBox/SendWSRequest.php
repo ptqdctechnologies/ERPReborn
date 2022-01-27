@@ -3210,6 +3210,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'entities' => [
                     'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
                     'person_RefID' => 25000000000439,
+                    'startDateTimeTZ' => '2026-01-01 00:00:00 +07',
+                    'finishDateTimeTZ' => '2026-01-14 00:00:00 +07',
                     'colorText' => '#000000',
                     'colorBackground' => '#ababab'
                     ]
@@ -3225,6 +3227,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2026-01-01 00:00:00 +07">';
             echo '<input type="text" id="dataInput_Person_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 00:00:00 +07">';
+            echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-14 00:00:00 +07">';
             echo '<input type="text" id="dataInput_ColorText" value="#000000">';
             echo '<input type="text" id="dataInput_ColorBackground" value="#ababab">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -3236,6 +3240,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                         '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                        '"startDateTimeTZ" : document.getElementById("dataInput_StartDateTimeTZ").value, '.
+                        '"finishDateTimeTZ" : document.getElementById("dataInput_FinishDateTimeTZ").value, '.
                         '"colorText" : document.getElementById("dataInput_ColorText").value, '.
                         '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
@@ -3264,10 +3270,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'entities' => [
-                    'personWorkTimeSheet_RefID' => 48000000040220,
+                    'personWorkTimeSheet_RefID' => 48000000000001,
                     'projectSectionItem_RefID' => null,
                     'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
-                    'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+                    'finishDateTimeTZ' => '2026-01-03 13:00:00 +07',
                     'activity' => 'Kegiatan ABCD dan EFGH'
                     ]
                 ]
@@ -3280,10 +3286,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDMyNDY0MzN9.3RGG7V5fU3DirtCQUmEEZamOt5bMjM-I568fcY-FVY4';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_PersonWorkTimeSheet_RefID" value=48000000040220>';
+            echo '<input type="text" id="dataInput_PersonWorkTimeSheet_RefID" value=48000000000001>';
             echo '<input type="text" id="dataInput_ProjectSectionItem_RefID" value="">';
             echo '<input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 07:00:00 +07">';
-            echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-01 13:00:00 +07">';
+            echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-03 13:00:00 +07">';
             echo '<input type="text" id="dataInput_Activity" value="Kegiatan ABCD dan EFGH">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -21007,10 +21013,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'transaction.update.humanResource.setPersonWorkTimeSheet', 
                 'latest', 
                 [
-                'recordID' => 48000000040220,
+                'recordID' => 48000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
                     'person_RefID' => 25000000000439,
+                    'startDateTimeTZ' => '2026-01-01 00:00:00 +07',
+                    'finishDateTimeTZ' => '2026-01-14 00:00:00 +07',
                     'colorText' => '#000000',
                     'colorBackground' => '#ababab'
                     ]
@@ -21024,9 +21032,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDMyNDY0MzN9.3RGG7V5fU3DirtCQUmEEZamOt5bMjM-I568fcY-FVY4';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=48000000040220>';
+            echo '<input type="text" id="dataInput_RecordID" value=48000000000001>';
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2026-01-01 00:00:00 +07">';
             echo '<input type="text" id="dataInput_Person_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 00:00:00 +07">';
+            echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-14 00:00:00 +07">';
             echo '<input type="text" id="dataInput_ColorText" value="#000000">';
             echo '<input type="text" id="dataInput_ColorBackground" value="#ababab">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -21039,6 +21049,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
                         '"person_RefID" : parseInt(document.getElementById("dataInput_Person_RefID").value), '.
+                        '"startDateTimeTZ" : document.getElementById("dataInput_StartDateTimeTZ").value, '.
+                        '"finishDateTimeTZ" : document.getElementById("dataInput_FinishDateTimeTZ").value, '.
                         '"colorText" : document.getElementById("dataInput_ColorText").value, '.
                         '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
@@ -21068,7 +21080,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'recordID' => 50000000085287,
                 'entities' => [
-                    'personWorkTimeSheet_RefID' => 48000000040220,
+                    'personWorkTimeSheet_RefID' => 48000000000001,
                     'projectSectionItem_RefID' => null,
                     'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
                     'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
@@ -21085,7 +21097,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=50000000085287>';
-            echo '<input type="text" id="dataInput_PersonWorkTimeSheet_RefID" value=48000000040220>';
+            echo '<input type="text" id="dataInput_PersonWorkTimeSheet_RefID" value=48000000000001>';
             echo '<input type="text" id="dataInput_ProjectSectionItem_RefID" value="">';
             echo '<input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 07:00:00 +07">';
             echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-01 13:00:00 +07">';
