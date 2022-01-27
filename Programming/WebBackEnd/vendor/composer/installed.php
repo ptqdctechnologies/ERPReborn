@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.12',
-            'version' => '3.209.12.0',
+            'pretty_version' => '3.209.13',
+            'version' => '3.209.13.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '02e488042410fac0af67fd37f222d5b3c0424b72',
+            'reference' => '4de9a457bd099872ec713cdde414e06003e6d1f3',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -665,12 +665,12 @@
             'dev_requirement' => true,
         ),
         'opis/closure' => array(
-            'pretty_version' => '3.6.2',
-            'version' => '3.6.2.0',
+            'pretty_version' => '3.6.3',
+            'version' => '3.6.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../opis/closure',
             'aliases' => array(),
-            'reference' => '06e2ebd25f2869e54a306dda991f7db58066f7f6',
+            'reference' => '3d81e4309d2a927abbe66df935f4bb60082805ad',
             'dev_requirement' => false,
         ),
         'phar-io/manifest' => array(

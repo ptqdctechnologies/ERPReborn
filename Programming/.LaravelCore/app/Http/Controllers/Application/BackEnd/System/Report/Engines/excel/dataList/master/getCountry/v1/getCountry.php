@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2022-01-21                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -120,6 +120,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (array)  varDataHeader ► Data Header (Optional)                                                                   |
         |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
         |      ▪ (string) varQRCode ► QR Code (Optional)                                                                           |
@@ -132,20 +133,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
             $varArrayContent = [];
             for($i=0; $i!=count($varDataList); $i++)
                 {
-/*                if($i==0)
-                    {
-                    array_push(
-                        $varArrayContent, 
-                        [
-                            'Sys ID', 
-                            'Sys Branch RefID', 
-                            'International Name', 
-                            'Indonesian Name', 
-                            'ISOCode Alpha2', 
-                            'ISOCode Alpha3'
-                        ]
-                        );
-                    }*/
                 array_push(
                     $varArrayContent, 
                     [
@@ -158,46 +145,36 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                     ]
                     );
                 }
-                
-            $varArrayStyle = [
-                'ColumnFormat' => [
-                    'A' => 'Number',
-                    'B' => 'Number',
-                    'C' => 'Text',
-                    ]
-                ];
-
-/*            
-            $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArrayOLD(
-                $varFileName,
-                [
-                    $varArrayContent,
-                    $varArrayStyle
-                ]
-                );
-*/            
-            
-            /////////////////////////////////////////////////////////////
-            
             
             $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
                 $varFileName,
                 [
+                    'Page' => [
+                        'Title' => strtoupper($varDataHeader['Title']),
+                        'SubTitle' => $varDataHeader['SubTitle']
+                        ],
                     'Content' => [
                         'Title' => [
-                            ['A6', 'Sys ID', 1, 1], 
-                            ['B6', 'Sys Branch RefID', 1, 1], 
-                            ['C6', 'International Name', 1, 1], 
-                            ['D6', 'Indonesian Name', 1, 1], 
-                            ['E6', 'ISOCode Alpha2', 1, 1], 
-                            ['F6', 'ISOCode Alpha3', 1, 1]
+                            ['A9', 'Sys ID', 1, 1], 
+                            ['B9', 'Sys Branch RefID', 1, 1], 
+                            ['C9', 'International Name', 1, 1], 
+                            ['D9', 'Indonesian Name', 1, 1], 
+                            ['E9', 'ISOCode Alpha2', 1, 1], 
+                            ['F9', 'ISOCode Alpha3', 1, 1]
                             ],
                         'Items' => $varArrayContent
                         ],
+                    'ColumnFormat' =>
+                        [
+                        'A' => 'Number',
+                        'B' => 'Number',
+                        'C' => 'Text',
+                        'D' => 'Text',
+                        'E' => 'Text',
+                        'F' => 'Text'
+                        ]
                 ]
                 );
-            
-            
 
             //---> Return Value            
             $varReturn = [

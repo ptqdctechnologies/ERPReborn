@@ -17,7 +17,8 @@ clear;
 
 ./BashScript/Script.Laravel.ComposerUpdate.sh; 
 
-sudo chown -R $(id -u):$(id -g) ./.git/objects/;
+#sudo chown -R $(id -u):$(id -g) ./.git/objects/;
+sudo chown -R $(id -u):$(id -g) ./.git/;
 
 git add -A; 
 git status; 

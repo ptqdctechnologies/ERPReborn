@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_HumanResource                                                                   |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_HumanResource
@@ -23,7 +23,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-11-24                                                                                           |
+        | ▪ Create Date     : 2021-11-01                                                                                           |
+        | ▪ Last Update     : 2021-11-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-13                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -54,6 +55,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
+        |      ▪ (string) varColorText ► Color Text                                                                                |
+        |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -61,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,6 +81,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBranchRefID, 'bigint'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varPerson_RefID, 'bigint'],
+                        [$varStartDateTimeTZ, 'timestamptz'],
+                        [$varFinishDateTimeTZ, 'timestamptz'],
                         [$varColorText, 'varchar'],
                         [$varColorBackground, 'varchar']
                     ]
@@ -89,9 +96,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-13                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -102,6 +109,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (string) varDocumentDateTimeTZ ► Document Date Time TZ                                                            |
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
+        |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
+        |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -111,7 +120,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varColorText = null, string $varColorBackground = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -126,6 +135,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varSysBranchRefID, 'bigint'],
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varPerson_RefID, 'bigint'],
+                        [$varStartDateTimeTZ, 'timestamptz'],
+                        [$varFinishDateTimeTZ, 'timestamptz'],
                         [$varColorText, 'varchar'],
                         [$varColorBackground, 'varchar']
                     ],

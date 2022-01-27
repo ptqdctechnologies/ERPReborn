@@ -68,6 +68,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['documentDateTimeTZ'],
                             $varData['entities']['person_RefID'],
+                            $varData['entities']['startDateTimeTZ'],
+                            $varData['entities']['finishDateTimeTZ'],
                             $varData['entities']['colorText'],
                             $varData['entities']['colorBackground']
                             ))))
