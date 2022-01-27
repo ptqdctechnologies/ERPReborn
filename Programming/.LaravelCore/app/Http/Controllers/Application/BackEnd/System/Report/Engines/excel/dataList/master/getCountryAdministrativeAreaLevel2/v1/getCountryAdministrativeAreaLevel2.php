@@ -4,27 +4,27 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master                             |
-|                \getCountryAdministrativeAreaLevel1\v1                                                                            |
+|                \getCountryAdministrativeAreaLevel2\v1                                                                            |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getCountryAdministrativeAreaLevel1\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getCountryAdministrativeAreaLevel2\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCountryAdministrativeAreaLevel1                                                                           |
-    | ▪ Description : Menangani API report.excel.dataList.master.getCountryAdministrativeAreaLevel1 Version 1                      |
+    | ▪ Class Name  : getCountryAdministrativeAreaLevel2                                                                           |
+    | ▪ Description : Menangani API report.excel.dataList.master.getCountryAdministrativeAreaLevel2 Version 1                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCountryAdministrativeAreaLevel1 extends \App\Http\Controllers\Controller
+    class getCountryAdministrativeAreaLevel2 extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +43,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -65,19 +65,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                             $varUserSession,
                             $varData['outputFileName'],
                             [
-                            'Title' => 'Country Administrative Area Level 1 List',
+                            'Title' => 'Country Administrative Area Level 2 List',
                             'SubTitle' => [
-                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['country_RefID'])
+                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['countryAdministrativeAreaLevel1_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
+                                    'transaction.read.dataList.master.getCountryAdministrativeAreaLevel2', 
                                     'latest', 
                                     [
                                     'parameter' => [
-                                        'country_RefID' => $varData['parameter']['country_RefID']
+                                        'countryAdministrativeAreaLevel1_RefID' => $varData['parameter']['countryAdministrativeAreaLevel1_RefID']
                                         ],
                                     'SQLStatement' => [
                                         'pick' => null,
@@ -118,7 +118,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

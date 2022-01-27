@@ -353,9 +353,8 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                                         $this->varLayoutParameter['Content']['Items']['LastColumn'].($i+1)
                                         );
                                     }
-                                    
-//                                if(($this->ObjData['Page']['SubTitle']) OR (strcmp($this->ObjData['Page']['SubTitle'], '') != 0))
-                                if((!$this->ObjData['Page']['SubTitle']) OR (strcmp($this->ObjData['Page']['SubTitle'], '') == 0))
+
+                                if(count($this->ObjData['Page']['SubTitle']) == 0)
                                     {
                                     $ObjDelegate->mergeCells('A6:'.$this->varLayoutParameter['Content']['Items']['LastColumn'].'7');
                                     }
@@ -363,9 +362,6 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                                 //$ObjDelegate->getStyle('A')->getFont()->setName('calibri');
                                 $ObjDelegate->getStyle($this->varLayoutParameter['Content']['Items']['Range'])->getFont()->setName('Calibri');
                                 $ObjDelegate->getStyle($this->varLayoutParameter['Content']['Items']['Range'])->getFont()->setSize(10);
-                                
-                                
-                                //$ObjDelegate->getStyle($this->varLayoutParameter['Content']['Items']['Range'])->
                                 
                                 //---> Set Cell Height
                                 $ObjDelegate->getRowDimension('1')->setRowHeight(30);
@@ -381,11 +377,7 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                                     {
                                     //$this->ObjSheet->
                                     $ObjDelegate->getColumnDimension($this->varLayoutParameter['Content']['Items']['ColumnArray'][$i])->setAutoSize(true);
-//                                    $ObjDelegate->getColumnDimension($this->varLayoutParameter['Content']['Items']['ColumnArray'][$i])->
                                     }
-
-
-                                    
                                     
                                 //---> Set Cell Width
                                 //$ObjDelegate->getColumnDimension('A')->setWidth(10);
@@ -693,17 +685,41 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                     */
                     private function zhtEngine_Page()
                         {
+                        //---> Page Sub Title
+                        if(count($this->ObjData['Page']['SubTitle']) > 0)
+                            {                            
+                            $this->ObjSheet->getStyle('A7')->getAlignment()->setWrapText(true);
+                            $varSubTitle = '';
+                            for($i=0; $i!=count($this->ObjData['Page']['SubTitle']); $i++)
+                                {
+                                if($i>0)
+                                    {
+                                    $varSubTitle .= "\r";
+                                    }
+                                $varSubTitle .= $this->ObjData['Page']['SubTitle'][$i];
+                                }
+                            $this->ObjSheet->setCellValue('A7', $varSubTitle);
+                            }
+
+                        //---> Page Title
                         $this->ObjSheet->setCellValue('A6', $this->ObjData['Page']['Title']);
+
 //                        if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExistOnSubArray($varUserSession, $this->ObjData, '::'))
                         
-                        if($this->ObjData['Page']['SubTitle'])
+/*
+//                        if($this->ObjData['Page']['SubTitle'])
                             {
-                            if(strcmp($this->ObjData['Page']['SubTitle'], '') != 0)
+                            //if(strcmp($this->ObjData['Page']['SubTitle'], '') != 0)
+                            if(count($this->ObjData['Page']['SubTitle']) != 0)
                                 {
-                                $this->ObjSheet->setCellValue('A7', $this->ObjData['Page']['SubTitle']);
+                                for($i=0; $i!=$this->ObjData['Page']['SubTitle']; $i++)
+                                    {
+                                    $this->ObjSheet->setCellValue('A7', $this->ObjData['Page']['SubTitle'][$i]);
+                                    }
                                 }
                             }
 //                        $this->ObjSheet->setCellValue('A6', $this->varLayoutParameter['Content']['Items']['ColumnArray']);
+ */
                         }
 
                         

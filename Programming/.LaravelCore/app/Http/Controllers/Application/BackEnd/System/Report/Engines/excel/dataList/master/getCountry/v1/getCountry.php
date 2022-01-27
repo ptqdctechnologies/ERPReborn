@@ -120,6 +120,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (array)  varDataHeader ► Data Header (Optional)                                                                   |
         |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
         |      ▪ (string) varQRCode ► QR Code (Optional)                                                                           |
@@ -150,7 +151,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                 [
                     'Page' => [
                         'Title' => strtoupper($varDataHeader['Title']),
-                        'SubTitle' => ''
+                        'SubTitle' => $varDataHeader['SubTitle']
                         ],
                     'Content' => [
                         'Title' => [

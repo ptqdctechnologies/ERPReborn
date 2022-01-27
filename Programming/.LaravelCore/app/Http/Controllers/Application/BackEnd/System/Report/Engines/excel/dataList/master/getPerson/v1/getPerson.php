@@ -3,28 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master                             |
-|                \getCountryAdministrativeAreaLevel1\v1                                                                            |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getPerson\v1                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getCountryAdministrativeAreaLevel1\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getPerson\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCountryAdministrativeAreaLevel1                                                                           |
-    | ▪ Description : Menangani API report.excel.dataList.master.getCountryAdministrativeAreaLevel1 Version 1                      |
+    | ▪ Class Name  : getPerson                                                                                                    |
+    | ▪ Description : Menangani API report.excel.dataList.master.getPerson Version 1                                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCountryAdministrativeAreaLevel1 extends \App\Http\Controllers\Controller
+    class getPerson extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,7 +56,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Administrative Area Level 1 Data List Excel Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Data List Excel Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
@@ -65,20 +64,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                             $varUserSession,
                             $varData['outputFileName'],
                             [
-                            'Title' => 'Country Administrative Area Level 1 List',
+                            'Title' => 'Person List',
                             'SubTitle' => [
-                                (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['country_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getCountryAdministrativeAreaLevel1', 
+                                    'transaction.read.dataList.master.getPerson', 
                                     'latest', 
                                     [
-                                    'parameter' => [
-                                        'country_RefID' => $varData['parameter']['country_RefID']
-                                        ],
+                                    'parameter' => null,
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -92,6 +88,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                             {
                             throw new \Exception();
                             }
+                            
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -118,7 +115,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-01-26                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -141,7 +138,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                     [
                         $varDataList[$i]['sys_ID'], 
                         $varDataList[$i]['sys_Branch_RefID'], 
-                        $varDataList[$i]['name']
+                        $varDataList[$i]['name'], 
+                        $varDataList[$i]['identityNumber']
                     ]
                     );
                 }
@@ -157,7 +155,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                         'Title' => [
                             ['A9', 'Sys ID', 1, 1], 
                             ['B9', 'Sys Branch RefID', 1, 1], 
-                            ['C9', 'Name', 1, 1]
+                            ['C9', 'Person Name', 1, 1], 
+                            ['D9', 'Identity Number', 1, 1]
                             ],
                         'Items' => $varArrayContent
                         ],
@@ -165,7 +164,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                         [
                         'A' => 'Number',
                         'B' => 'Number',
-                        'C' => 'Text'
+                        'C' => 'Text',
+                        'D' => 'Text'
                         ]
                 ]
                 );
