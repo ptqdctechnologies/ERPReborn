@@ -56,6 +56,11 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
+                    "project_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
                     "colorText": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -67,7 +72,7 @@
                         "maxLength": 7
                         }
                     },
-                "required": [ "documentDateTimeTZ", "person_RefID", "startDateTimeTZ", "finishDateTimeTZ", "colorText", "colorBackground" ]
+                "required": [ "documentDateTimeTZ", "person_RefID", "startDateTimeTZ", "finishDateTimeTZ", "project_RefID", "colorText", "colorBackground" ]
                 }
             },
         "required": [ "entities" ]

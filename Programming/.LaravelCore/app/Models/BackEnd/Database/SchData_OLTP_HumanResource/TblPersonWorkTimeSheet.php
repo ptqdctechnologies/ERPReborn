@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-27                                                                                           |
+        | ▪ Last Update     : 2022-01-28                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,6 +57,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
         |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
         |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
+        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -66,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varColorText = null, string $varColorBackground = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -83,6 +84,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varPerson_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varProject_RefID, 'bigint'],
                         [$varColorText, 'varchar'],
                         [$varColorBackground, 'varchar']
                     ]
@@ -96,9 +98,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
         | ▪ Create Date     : 2021-11-01                                                                                           |
-        | ▪ Last Update     : 2022-01-27                                                                                           |
+        | ▪ Last Update     : 2022-01-28                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -111,6 +113,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varPerson_RefID ► Person Reference ID                                                                    |
         |      ▪ (string) varStartDateTimeTZ ► Start Date Time TZ                                                                  |
         |      ▪ (string) varFinishDateTimeTZ ► Finish Date Time TZ                                                                |
+        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
         |      ▪ (string) varColorText ► Color Text                                                                                |
         |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
@@ -120,7 +123,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varColorText = null, string $varColorBackground = null)
+            string $varDocumentDateTimeTZ = null, int $varPerson_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, int $varProject_RefID = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -137,6 +140,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varPerson_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
+                        [$varProject_RefID, 'bigint'],
                         [$varColorText, 'varchar'],
                         [$varColorBackground, 'varchar']
                     ],
