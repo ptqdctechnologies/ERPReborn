@@ -1469,6 +1469,32 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : report.form.resume.budgeting.getCombinedBudgetSectionUnsegmentedDetail                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getReportFormResumePersonWorkTimeSheet()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDMzNDA5MTl9.FnqP23AGAv8PIbLO4ov4HYVj-fetNfwELpPNJW1_52s';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'report.form.resume.humanResource.getPersonWorkTimeSheet', 
+                'latest', 
+                [
+                'parameter' => [
+                    'personWorkTimeSheet_RefID' => 48000000000001,
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.form.resume.budgeting.getCombinedBudgetSectionSegmentedDetail                                     |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
