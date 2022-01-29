@@ -124,5 +124,26 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
+            
+        public static function setDateTimeTZNormalizationFromArray($varUserSession, array $varDataArray)
+            {
+            $varReturn = [];
+            foreach($varDataArray as $varKey => $varValue) {
+                if(is_array($varValue))
+                    {
+                    
+                    }
+                else {
+                    if (preg_match("^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$",$date))
+                        {
+                        echo "$varKey = $varValue<br>";                        
+                        }
+                    
+                    }
+                }
+            
+            echo "<br>FINSH<br>";
+            
+            }
         }
     }
