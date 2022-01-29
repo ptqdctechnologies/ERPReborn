@@ -35,7 +35,10 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         ]
                         )
                     );  
-                return json_decode((array_values($varReturn['Data'][0]))[0], true);
+                return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
+                    $varUserSession,
+                    json_decode((array_values($varReturn['Data'][0]))[0], true)
+                    );
                 }
             catch (\Exception $ex) {
                 return [];

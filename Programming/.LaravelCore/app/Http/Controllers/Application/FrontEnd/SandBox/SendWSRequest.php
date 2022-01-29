@@ -1489,12 +1489,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            
-            $x = '2026-01-14T00:00:00+07:00';
-            
-            echo preg_replace('/[0-9]{4}-[0-1][0-9]-[0-3][0-9]T[0-3][0-9]/', 'W3Schools', $x);
-            
-            //var_dump($varData);
+            var_dump($varData);
             }
 
 
