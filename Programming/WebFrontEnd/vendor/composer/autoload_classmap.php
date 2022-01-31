@@ -29,6 +29,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_RegularExpression' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RegularExpression.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_String' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_String.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_SystemParameter' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_SystemParameter.php',

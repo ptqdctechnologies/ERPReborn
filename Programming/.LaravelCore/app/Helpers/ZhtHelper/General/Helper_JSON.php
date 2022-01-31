@@ -156,23 +156,9 @@ namespace App\Helpers\ZhtHelper\General
                             $varReturn[$varKey]=self::setDateTimeTZNormalizationFromArray($varUserSession, $varValue);
                             }
                         else {
-                            if (preg_match("/^".
-                                "(([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]))".
-                                "T".
-                                "(".
-                                    "([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])".
-                                    "((.[0-9]{1,6}){0,1})".
-                                    "(".
-                                        "([+]|[-])".
-                                        "(([0-1][0-9]|2[0-3]):([0-5][0-9]))".
-                                    "){0,1}".
-                                ")".
-                                "$/", 
-                                $varValue))
+                            if (preg_match(\App\Helpers\ZhtHelper\General\Helper_RegularExpression::getRegEx_JSON_TimeStamp($varUserSession), $varValue))
                                 {
-                                //$varValuePart=explode('T', $varValue);
                                 $varValue = str_replace('T', ' ', $varValue);
-                                //$varValue = $varValuePart[0].' '.$varValuePart[1];
                                 }
                             $varReturn[$varKey]=$varValue;
                             }

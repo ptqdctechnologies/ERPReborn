@@ -655,6 +655,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_RegularExpression' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_RegularExpression.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_String' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_String.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_SystemParameter' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_SystemParameter.php',
@@ -8485,6 +8486,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'zhtSDK\\Device\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
         'zhtSDK\\Device\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/Solution/FingerprintAttendance/x601/SDK.php',
         'zhtSDK\\Device\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260/SDK.php',
+        'zhtSDK\\Library\\RegularExpression\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Library/RegularExpression/Library.php',
         'zhtSDK\\Software\\Excel\\Maatwebsite\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Software/Excel/Maatwebsite/SDK.php',
         'zhtSDK\\Software\\PDF\\TCPDF\\zhtSDK' => __DIR__ . '/..' . '/zhtSDK/Software/PDF/TCPDF/SDK.php',
     );

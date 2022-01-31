@@ -59,6 +59,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_RandomNumber' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RandomNumber.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_RegularExpression' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_RegularExpression.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Session' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Session.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_String' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_String.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_SystemParameter' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_SystemParameter.php',
@@ -7889,6 +7890,7 @@ return array(
     'zhtSDK\\Device\\Goodwin\\SwingGateBarrier\\ServoSW01\\zhtSDK' => $vendorDir . '/zhtSDK/Device/Goodwin/SwingGateBarrier/ServoSW01/SDK.php',
     'zhtSDK\\Device\\Solution\\FingerprintAttendance\\x601\\zhtSDK' => $vendorDir . '/zhtSDK/Device/Solution/FingerprintAttendance/x601/SDK.php',
     'zhtSDK\\Device\\ZKTeco\\PersonAttendance\\InBio260\\zhtSDK' => $vendorDir . '/zhtSDK/Device/ZKTeco/PersonAttendance/InBio260/SDK.php',
+    'zhtSDK\\Library\\RegularExpression\\zhtSDK' => $vendorDir . '/zhtSDK/Library/RegularExpression/Library.php',
     'zhtSDK\\Software\\Excel\\Maatwebsite\\zhtSDK' => $vendorDir . '/zhtSDK/Software/Excel/Maatwebsite/SDK.php',
     'zhtSDK\\Software\\PDF\\TCPDF\\zhtSDK' => $vendorDir . '/zhtSDK/Software/PDF/TCPDF/SDK.php',
 );
