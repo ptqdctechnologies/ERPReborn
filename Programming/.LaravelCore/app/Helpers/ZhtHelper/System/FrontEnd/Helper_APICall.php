@@ -584,7 +584,9 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 die();
                 } 
             catch (\Exception $ex) {
-                echo $varDataReturn['data']['Response'];
+//                echo $ex->getMessage();
+                var_dump($varDataReturn);
+//                echo $varDataReturn['data']['Response'];
                 }
             }
 

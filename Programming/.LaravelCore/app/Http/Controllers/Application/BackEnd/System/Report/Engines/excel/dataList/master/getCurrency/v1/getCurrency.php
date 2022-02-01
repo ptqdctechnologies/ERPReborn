@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getGoodsModel\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getCurrency\v1              |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataList\master\getGoodsModel\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\dataList\master\getCurrency\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getGoodsModel                                                                                                |
-    | ▪ Description : Menangani API report.PDF.dataList.master.getGoodsModel Version 1                                             |
+    | ▪ Class Name  : getCurrency                                                                                                  |
+    | ▪ Description : Menangani API report.excel.dataList.master.getCurrency Version 1                                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getGoodsModel extends \App\Http\Controllers\Controller
+    class getCurrency extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-08                                                                                           |
+        | ▪ Last Update     : 2022-01-31                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2022-01-31                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,27 +56,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Goods Model Data List PDF Report (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Currency Data List Excel Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = $this->dataProcessing(
                             $varUserSession,
+                            $varData['outputFileName'],
                             [
-                            'Title' => 'Goods Model List',
+                            'Title' => 'Currency List',
                             'SubTitle' => [
-                                'Trademark : '. (new \App\Models\Database\SchSysConfig\General())->getReferenceTextByReferenceID($varUserSession, $varData['parameter']['tradeMark_RefID'])
                                 ]
                             ],
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                                 $varUserSession,
                                 (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                    'transaction.read.dataList.master.getGoodsModel', 
+                                    'transaction.read.dataList.master.getCurrency', 
                                     'latest', 
                                     [
-                                    'parameter' => [
-                                        'tradeMark_RefID' => $varData['parameter']['tradeMark_RefID']
-                                        ],
+                                    'parameter' => null,
                                     'SQLStatement' => [
                                         'pick' => null,
                                         'sort' => null,
@@ -117,11 +115,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-14                                                                                           |
+        | ▪ Last Update     : 2022-01-27                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (array)  varDataHeader ► Data Header (Optional)                                                                   |
         |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
         |      ▪ (string) varQRCode ► QR Code (Optional)                                                                           |
@@ -129,93 +128,55 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
-            {
-            $varRecordList_FirstPage = 43;
-            $varRecordList_OtherPages = 52;
-
-            $ObjPDF = \App\Helpers\ZhtHelper\Report\Helper_PDF::init($varUserSession, $varQRCode);
-            $ObjPDF->SetTitle($varDataHeader['Title'].' Report');
+        private function dataProcessing($varUserSession, $varFileName, array $varDataHeader = null, array $varDataList = null, string $varQRCode = null)
+            {           
+            $varArrayContent = [];
             for($i=0; $i!=count($varDataList); $i++)
-                {                
-                //---> First Page
-                if(($ObjPDF->PageNo()) == 0)
-                    {
-                    $j = ($i % $varRecordList_FirstPage); 
-                    if($j == 0)
-                        {
-                        $ObjPDF->AddPage();
-                        $ObjPDF->zhtSetContent_Title($varUserSession, strtoupper($varDataHeader['Title']));
-                        for($k=0; $k!=count($varDataHeader['SubTitle']); $k++)
-                            {
-                            $ObjPDF->zhtSetContent_SubTitle($varUserSession, $varDataHeader['SubTitle'][$k]);                            
-                            }
-                        $ObjPDF->zhtSetContent_VerticalSpace($varUserSession, 2);                    
-                        }
-                    }
-                //---> Other Pages
-                else
-                    {
-                    $j = (($i-$varRecordList_FirstPage) % $varRecordList_OtherPages);
-                    if($j == 0)
-                        {
-                        $ObjPDF->AddPage();
-                        }
-                    }
-
-                //---> Every Pages
-                if($j == 0)
-                    {
-                    $ObjPDF->zhtSetContent_TableHead(
-                        $varUserSession,
-                        [
-                        'Coordinat' => [
-                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                            ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
-                            ],
-                        'Objects' =>
-                            [
-                                [
-                                'CoordinatOffset' => [0, 0],
-                                'Cells' => [
-                                    ['NO', 'C', 10],
-                                    ['ID', 'C', 30],
-                                    ['MODEL NAME', 'C', 150]
-                                    ]
-                                ],
-                            ]                    
-                        ]
-                        );
-                    }
-
-                $ObjPDF->zhtSetContent_TableContent(
-                    $varUserSession,
+                {
+                array_push(
+                    $varArrayContent, 
                     [
-                    'Coordinat' => [
-                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['X'], 
-                        ($ObjPDF->zhtGetContentCoordinate_CurrentPosition($varUserSession))['Y']
-                        ],
-                    'Objects' =>
-                        [
-                            [
-                            'CoordinatOffset' => [0, 0],
-                            'Cells' => [
-                                [$i+1, 'C', 10],
-                                [$varDataList[$i]['sys_ID'], 'C', 30],
-                                [$varDataList[$i]['modelName'], 'L', 150]
-                                ]
-                            ],
-                        ]                    
+                        $varDataList[$i]['sys_ID'], 
+                        $varDataList[$i]['sys_Branch_RefID'], 
+                        $varDataList[$i]['ISOCode'], 
+                        $varDataList[$i]['name'],
+                        $varDataList[$i]['symbol']
                     ]
                     );
                 }
+            
+            $ObjExcel = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
+                $varFileName,
+                [
+                    'Page' => [
+                        'Title' => strtoupper($varDataHeader['Title']),
+                        'SubTitle' => $varDataHeader['SubTitle']
+                        ],
+                    'Content' => [
+                        'Title' => [
+                            ['A9', 'Sys ID', 1, 1], 
+                            ['B9', 'Sys Branch RefID', 1, 1], 
+                            ['C9', 'ISO Code', 1, 1], 
+                            ['D9', 'Currency Name', 1, 1],
+                            ['E9', 'Symbol', 1, 1]
+                            ],
+                        'Items' => $varArrayContent
+                        ],
+                    'ColumnFormat' =>
+                        [
+                        'A' => 'Number',
+                        'B' => 'Number',
+                        'C' => 'Text',
+                        'D' => 'Text',
+                        'E' => 'Text'
+                        ]
+                ]
+                );
 
-            $ObjPDF->zhtSetContent_HorizontalLine($varUserSession);
-
-            //---> Return Value
+            //---> Return Value            
             $varReturn = [
                 'encodeMethod' => 'Base64',
-                'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_PDFData($varUserSession, $ObjPDF)
+                'encodedStreamData' => \App\Helpers\ZhtHelper\System\BackEnd\Helper_APIReport::getJSONEncodeBase64_ExcelData($varUserSession, $ObjExcel)
                 ];
             return $varReturn;
             }
