@@ -33,7 +33,7 @@ class TimesheetController extends Controller
                 ]
             ]
         );
-        $val = 0; $status = 0;
+        $val = 0;
         if($request->test == '1'){
             $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -52,6 +52,7 @@ class TimesheetController extends Controller
                 ]
             ]
             );
+            dd($varData3);
             $val = 1 ;
         }
 
@@ -148,6 +149,46 @@ class TimesheetController extends Controller
         return redirect()->route('Timesheet.index')->with('message', 'Project successfully created ...');
         
     }
+    public function updates(Request $request)
+    {
+        echo $request->timesheetId;
+        echo $request->timesheetActiviyId;die;
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.update.humanResource.setPersonWorkTimeSheet', 
+            'latest', 
+            [
+            'recordID' => 48000000040220,
+            'entities' => [
+                'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
+                'person_RefID' => 25000000000439,
+                'colorText' => '#000000',
+                'colorBackground' => '#ababab'
+                ]
+            ]
+            );
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.update.humanResource.setPersonWorkTimeSheetActivity', 
+        'latest', 
+        [
+        'recordID' => 50000000085287,
+        'entities' => [
+            'personWorkTimeSheet_RefID' => 48000000040220,
+            'projectSectionItem_RefID' => null,
+            'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
+            'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
+            'activity' => 'Kegiatan ABCD dan EFGH'
+            ]
+        ]
+        );
+    }
+
 
     /**
      * Display the specified resource.
