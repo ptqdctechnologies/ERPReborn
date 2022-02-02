@@ -1062,6 +1062,7 @@ return array(
     'Illuminate\\Database\\Eloquent\\Concerns\\QueriesRelationships' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Concerns/QueriesRelationships.php',
     'Illuminate\\Database\\Eloquent\\Factories\\BelongsToManyRelationship' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/BelongsToManyRelationship.php',
     'Illuminate\\Database\\Eloquent\\Factories\\BelongsToRelationship' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/BelongsToRelationship.php',
+    'Illuminate\\Database\\Eloquent\\Factories\\CrossJoinSequence' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/CrossJoinSequence.php',
     'Illuminate\\Database\\Eloquent\\Factories\\Factory' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Factory.php',
     'Illuminate\\Database\\Eloquent\\Factories\\HasFactory' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/HasFactory.php',
     'Illuminate\\Database\\Eloquent\\Factories\\Relationship' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Eloquent/Factories/Relationship.php',
