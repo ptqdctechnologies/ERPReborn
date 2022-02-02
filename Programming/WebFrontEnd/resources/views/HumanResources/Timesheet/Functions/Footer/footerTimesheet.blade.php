@@ -114,7 +114,9 @@
                                 start: '{{ $rows["activityStartDateTimeTZ"]}}',
                                 end: '{{ date("Y-m-d",strtotime($rows["activityFinishDateTimeTZ"] . "+1 days"))}}',
                                 color  : '{{ $rows["colorBackground"]}}',
-                                textColor: '{{ $rows["colorText"]}}'
+                                textColor: '{{ $rows["colorText"]}}',
+                                timesheetId: '{{ $rows["personWorkTimeSheet_RefID"]}}',
+                                timesheetActiviyId: '{{ $rows["sys_ID"]}}',
                             },
                             @endforeach
                     ],
@@ -129,12 +131,14 @@
                     },
                     eventClick:function(event){
                         console.log(event);
-                        $('#startDate').val(convertdate(event.start));
-                        $('#finishDate').val(convertdate(event.end));
-                        $('#backgroundColor').val(event.color);
-                        $('#textColor').val(event.textColor);
-                        $('#activity').val(event.title)
-                        $('#popUpCalender').modal("show");
+                        $('#startDate2').val(convertdate(event.start));
+                        $('#finishDate2').val(convertdate(event.end));
+                        $('#backgroundColor2').val(event.color);
+                        $('#textColor2').val(event.textColor);
+                        $('#activity2').val(event.title);
+                        $('#timesheetId').val(event.timesheetId);
+                        $('#timesheetActiviyId').val(event.timesheetActiviyId);
+                        $('#popUpCalenderEdit').modal("show");
                     },
                     
                 });
