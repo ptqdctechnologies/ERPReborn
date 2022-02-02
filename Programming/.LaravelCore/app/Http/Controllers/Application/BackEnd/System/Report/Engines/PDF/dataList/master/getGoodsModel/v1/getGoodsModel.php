@@ -75,7 +75,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dat
                                     'latest', 
                                     [
                                     'parameter' => [
-                                        'tradeMark_RefID' => $varData['parameter']['tradeMark_RefID']                                        
+                                        'tradeMark_RefID' => $varData['parameter']['tradeMark_RefID']
                                         ],
                                     'SQLStatement' => [
                                         'pick' => null,

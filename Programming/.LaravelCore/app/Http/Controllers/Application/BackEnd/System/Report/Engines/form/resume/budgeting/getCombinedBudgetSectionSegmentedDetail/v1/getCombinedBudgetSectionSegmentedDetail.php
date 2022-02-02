@@ -60,6 +60,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
+/*
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, 
+                            $this->dataProcessing(
+                                $varUserSession,
+                                (new \App\Models\Database\SchData_OLTP_Budgeting\General())->getDataReportFormResume_CombinedBudgetSectionSegmentedDetail(
+                                    $varUserSession, 
+                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                                    $varData['parameter']['combinedBudgetSection_RefID']
+                                    )
+                                )
+                            )))*/
+                            
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, 
                             $this->dataProcessing(
                                 $varUserSession,
@@ -97,6 +109,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         private function dataProcessing($varUserSession, array $varDataList = null)
             {           
             $varReturn = $this->getNestedData($varUserSession, 0, $varDataList);
+            //$varReturn = $varDataList;
             return $varReturn;
             }
 
@@ -108,14 +121,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             $j = 0;
             for ($i = $varIndexPosition; $i!=(count($varDataList)); $i++)
                 {
-                
                 //---> SameLevel
                 if ($varDataList[$varIndexPosition]['Level'] == $varDataList[$i]['Level'])
                     {
                     $varReturn[$j] = [
-                        'Sys_ID' => $varDataList[$i]['Sys_ID'],
+                        'CombinedBudgetSubSectionLevel1_RefID' => $varDataList[$i]['CombinedBudgetSubSectionLevel1_RefID'],
+                        'CombinedBudgetSubSectionLevel2_RefID' => $varDataList[$i]['CombinedBudgetSubSectionLevel2_RefID'],
                         'Level' => $varDataList[$i]['Level'],
-                        'Name' => $varDataList[$i]['Name'],
+                        'Description' => $varDataList[$i]['Description'],
                         'Quantity' => $varDataList[$i]['Quantity'],
                         'UnitPriceBaseCurrencyValue' => $varDataList[$i]['UnitPriceBaseCurrencyValue'],
                         'PriceBaseCurrencyValue' => $varDataList[$i]['PriceBaseCurrencyValue'],
@@ -132,6 +145,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                     {
                     break;
                     }
+
                 }
             return $varReturn;
             }

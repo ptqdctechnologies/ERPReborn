@@ -44,6 +44,8 @@ namespace zhtSDK\Software\Excel\Maatwebsite
         */
         public function exportFromArray($varFileName, array $varDataArray = [])
             {
+            //var_dump($varDataArray);
+
             $varDataOutput = (
                 new class($this->ObjDataUserSession, $varDataArray) implements 
                     \Maatwebsite\Excel\Concerns\FromArray, 
@@ -137,6 +139,7 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                                 $varDataArrayTemp2
                                 );
                             }
+
                         $this->ObjData['Content']['Items'] = $varDataArrayTemp;
                         }
 
@@ -219,6 +222,10 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                         $this->zhtEngine_UpdateLayoutParameter();
                         $this->zhtEngine_Page();
                         $this->zhtEngine_Content_Title();
+                        
+                        
+                        
+                        
 /*                        for($i=0; $i!=count($this->varLayoutParameter['Content']['Items']['ColumnArray']); $i++)
                             {
                             $this->ObjSheet->getColumnDimension($this->varLayoutParameter['Content']['Items']['ColumnArray'][$i])->setAutoSize(true);
@@ -516,6 +523,8 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                                         ->getFill()
                                             ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
                                                 ->getEndColor()->setARGB('ffffffff');
+
+ 
                                 },
                             ];                        
                         }
@@ -733,66 +742,61 @@ namespace zhtSDK\Software\Excel\Maatwebsite
                     +--------------------------------------------------------------------------------------------------------------+
                     */
                     private function zhtEngine_UpdateLayoutParameter()
-                        {
-                        //--->
-                        $this->varLayoutParameter['Content']['Items']['LastColumn'] = 
-                            $this->ObjSheet->getCellByColumnAndRow(
-                                count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]), 
-                                $this->varLayoutParameter['Content']['Items']['RowsOffset']
-                                )->getColumn();
-                        
-                        $this->varLayoutParameter['Content']['Items']['FirstRow'] = 
-                            $this->varLayoutParameter['Content']['Items']['RowsOffset']+1;
-                        
+                        {                        
+                        $this->varLayoutParameter['Content']['Items']['RowsOffset'] = 9;
+                        $this->varLayoutParameter['Content']['Items']['ColumnsOffset'] = 0;
+
+                        //---> Item : Top Left
                         $this->varLayoutParameter['Content']['Items']['FirstColumn'] = 
                             $this->ObjSheet->getCellByColumnAndRow(
                                 $this->varLayoutParameter['Content']['Items']['ColumnsOffset']+1, 
                                 $this->varLayoutParameter['Content']['Items']['RowsOffset']
                                 )->getColumn();
-                        
+                        $this->varLayoutParameter['Content']['Items']['FirstRow'] = 
+                            $this->varLayoutParameter['Content']['Items']['RowsOffset']+1;
                         $this->varLayoutParameter['Content']['Items']['FirstCell'] = 
                             $this->varLayoutParameter['Content']['Items']['FirstColumn'].
                             $this->varLayoutParameter['Content']['Items']['FirstRow'];
                         
+                        //---> Item : Bottom Right
                         $this->varLayoutParameter['Content']['Items']['LastColumn'] = 
                             $this->ObjSheet->getCellByColumnAndRow(
-                                $this->varLayoutParameter['Content']['Items']['ColumnsOffset'] + count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]), 
+                                $this->varLayoutParameter['Content']['Items']['ColumnsOffset']+count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']-1]),
                                 $this->varLayoutParameter['Content']['Items']['RowsOffset']
                                 )->getColumn();
-
-                        $this->varLayoutParameter['Content']['Items']['LastColumn'] = 
-                            $this->ObjSheet->getCellByColumnAndRow(
-                                count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]), 
-                                $this->varLayoutParameter['Content']['Items']['RowsOffset']
-                                )->getColumn();
-                        
                         $this->varLayoutParameter['Content']['Items']['LastRow'] = 
-                            $this->ObjSheet->getCellByColumnAndRow(
-                                count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]), 
-                                count($this->ObjData['Content']['Items']) + 1
-                                )->getRow();
-                        
+                            count($this->ObjData['Content']['Items'])+1;
                         $this->varLayoutParameter['Content']['Items']['LastCell'] = 
                             $this->varLayoutParameter['Content']['Items']['LastColumn'].
                             $this->varLayoutParameter['Content']['Items']['LastRow'];
-                        
+
+                        //---> Item : Range                        
                         $this->varLayoutParameter['Content']['Items']['Range'] = 
                             $this->varLayoutParameter['Content']['Items']['FirstCell'].
                             ':'.
                             $this->varLayoutParameter['Content']['Items']['LastCell'];
 
+                        //---> Item : Column Array
                         $varArrayDataTemp = [];
-                        for($i=$this->varLayoutParameter['Content']['Items']['ColumnsOffset']; $i!=count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]); $i++)
+//                        for($i=$this->varLayoutParameter['Content']['Items']['ColumnsOffset']; $i!=count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']]); $i++)
+                        for($i=($this->varLayoutParameter['Content']['Items']['ColumnsOffset']+1); $i!=($this->varLayoutParameter['Content']['Items']['ColumnsOffset']+count($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']-1]))+1; $i++)
                             {
                             array_push(
                                 $varArrayDataTemp,
                                 $this->ObjSheet->getCellByColumnAndRow(
-                                    ($i+1), 
+                                    $i, 
                                     $this->varLayoutParameter['Content']['Items']['RowsOffset']
                                     )->getColumn()
                                 );
                             }
                         $this->varLayoutParameter['Content']['Items']['ColumnArray'] = $varArrayDataTemp;
+                        
+/*                        $this->ObjSheet->setCellValue('A7',
+                            //($this->ObjData['Content']['Items'][$this->varLayoutParameter['Content']['Items']['RowsOffset']-1])
+                            //$this->varLayoutParameter['Content']['Items']['Range']
+                            $this->varLayoutParameter['Content']['Items']['ColumnArray']
+                            );
+*/                        
                         }
                     }
                 );

@@ -18,6 +18,34 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
     */
     class General
         {
+        public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
+            int $varPersonWorkTimeSheet_RefID
+            )
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetRptFormRsm_PersonWorkTimeSheet',
+                        [
+//                            [$varBranchID, 'bigint' ],
+//                            [NULL, 'timestamptz'],
+                            [$varPersonWorkTimeSheet_RefID, 'bigint']
+                        ]
+                        )
+                    );  
+                return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
+                    $varUserSession,
+                    json_decode((array_values($varReturn['Data'][0]))[0], true)
+                    );
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+        
+        
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_OrganizationalDepartment                                                                 |

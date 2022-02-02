@@ -18,8 +18,18 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varBranchID = 11000000000004;
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2Mjk0MjM5NzF9.J1D3Jwk-50BXUEHg6nmxLcgHqZnntx6ENMOcaXnzsOY';
             $varTimeZoneOffset = '+07';
+            
+            $varJSON = '{"sys_ID" : 48000000000001, "sys_Branch_RefID" : 11000000000004, "documentNumber" : "Timesheet/QDC/2026/000007", "documentDateTimeTZ" : "2026-01-01T00:00:00.012345", "startDateTimeTZ" : "2026-01-01T00:00:00+07:00", "finishDateTimeTZ" : "2026-01-14T00:00:00+07:00", "minActivitiesStartDateTimeTZ" : "2026-01-01T07:00:00+07:00", "maxActivitiesFinishateTimeTZ" : "2026-01-08T13:00:00+07:00", "person_RefID" : 25000000000439, "personName" : "Teguh Pratama Januzir Sukin", "details" : [{"sys_ID" : 50000000000002, "sys_Branch_RefID" : 11000000000004, "startDateTimeTZ" : "2026-01-01T07:00:00+07:00", "finishDateTimeTZ" : "2026-01-03T13:00:00+07:00", "activity" : "Kegiatan ABCD dan EFGH", "projectSectionItem_RefID" : null},{"sys_ID" : 50000000000003, "sys_Branch_RefID" : 11000000000004, "startDateTimeTZ" : "2026-01-04T07:00:00+07:00", "finishDateTimeTZ" : "2026-01-08T13:00:00+07:00", "activity" : "Kegiatan PQR dan XYZ", "projectSectionItem_RefID" : null}]}';
 
-           
+            var_dump(
+                    \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray($varUserSession, json_decode($varJSON, true))
+                );
+            
+            echo "OK";
+            
+            
+
+/*           
             
 //            ob_start();
             $x = (new \zhtSDK\Software\Excel\Maatwebsite\zhtSDK($varUserSession))->exportFromArray(
@@ -43,6 +53,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             header('Pragma: public');
             header('Content-Disposition: attachment; filename="xxx.xlsx"');	
             echo base64_decode(base64_encode($x), TRUE);
+
+ */
 /*            if (ob_get_contents() || ob_get_length()) {
               ob_end_clean(); //or ob_end_flush();
             }
