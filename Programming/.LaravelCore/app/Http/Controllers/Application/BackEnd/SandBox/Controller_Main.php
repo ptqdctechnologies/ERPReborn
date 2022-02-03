@@ -11,6 +11,16 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+
+        public function testEMail()
+            {
+            $varGoogleDSN = 'gmail+smtp://:PASSWORD@default';
+            
+            $template = file_get_contents('https://raw.githubusercontent.com/leemunroe/responsive-html-email-template/master/email.html');
+var_dump($template);
+            echo "OK";
+            }
+
             
         public function testExcel()
             {

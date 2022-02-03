@@ -71,7 +71,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['projectSectionItem_RefID'],
                             $varData['entities']['startDateTimeTZ'],
                             $varData['entities']['finishDateTimeTZ'],
-                            $varData['entities']['activity']
+                            $varData['entities']['activity'],
+                            $varData['entities']['colorText'],
+                            $varData['entities']['colorBackground']
                             ))))
                             {
                             throw new \Exception();

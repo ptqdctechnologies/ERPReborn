@@ -58,9 +58,19 @@
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 2048
+                        },
+                    "colorText": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 7
+                        },
+                    "colorBackground": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 7
                         }
                     },
-                "required": [ "personWorkTimeSheet_RefID", "projectSectionItem_RefID", "startDateTimeTZ", "finishDateTimeTZ", "activity" ]
+                "required": [ "personWorkTimeSheet_RefID", "projectSectionItem_RefID", "startDateTimeTZ", "finishDateTimeTZ", "activity", "colorText", "colorBackground" ]
                 }
             },
         "required": [ "entities" ]
