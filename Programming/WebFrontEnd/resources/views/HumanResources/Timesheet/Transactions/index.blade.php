@@ -229,7 +229,7 @@
                         <td>Project</td>
                         <td>
                           <div class="input-group">
-                            <select class="form-control SelectProject" style="border-radius:0;">
+                            <select class="form-control SelectProject" name="ProjectEvent" style="border-radius:0;">
                               @foreach($data as $datas1)
                               <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
                               @endforeach
@@ -312,7 +312,6 @@
       <div class="modal-body" id="popUpCalenderEdit">
         <form action="{{ route('Timesheet.updates') }}" method="post">
         <input type="hidden" name="timesheetId" id="timesheetId" style="border-radius:0;" class="form-control">
-        <input type="hidden" name="timesheetActiviyId" id="timesheetActiviyId" style="border-radius:0;" class="form-control">
           @csrf
           <div class="card">
             <div class="card-body">
@@ -411,7 +410,7 @@
                         <td>Project</td>
                         <td>
                           <div class="input-group">
-                            <select class="form-control SelectProject" style="border-radius:0;">
+                            <select class="form-control SelectProject" name="ProjectEvent2" style="border-radius:0;">
                               @foreach($data as $datas1)
                               <option value="{{ $datas1['sys_ID'] }}">{{$datas1['sys_Text']}}</option>
                               @endforeach

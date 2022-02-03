@@ -110,13 +110,12 @@
                     events: [
                             @foreach($varData as $key => $rows)
                             {
-                                title: '{{$rows["activity"]}}',
-                                start: '{{ $rows["activityStartDateTimeTZ"]}}',
-                                end: '{{ date("Y-m-d",strtotime($rows["activityFinishDateTimeTZ"] . "+1 days"))}}',
+                                title: '{{$rows["documentNumber"]}}',
+                                start: '{{ $rows["startDateTimeTZ"]}}',
+                                end: '{{ date("Y-m-d",strtotime($rows["finishDateTimeTZ"] . "+1 days"))}}',
                                 color  : '{{ $rows["colorBackground"]}}',
                                 textColor: '{{ $rows["colorText"]}}',
-                                timesheetId: '{{ $rows["personWorkTimeSheet_RefID"]}}',
-                                timesheetActiviyId: '{{ $rows["sys_ID"]}}',
+                                timesheetId: '{{ $rows["sys_ID"]}}',
                             },
                             @endforeach
                     ],
@@ -137,7 +136,6 @@
                         $('#textColor2').val(event.textColor);
                         $('#activity2').val(event.title);
                         $('#timesheetId').val(event.timesheetId);
-                        $('#timesheetActiviyId').val(event.timesheetActiviyId);
                         $('#popUpCalenderEdit').modal("show");
                     },
                     
