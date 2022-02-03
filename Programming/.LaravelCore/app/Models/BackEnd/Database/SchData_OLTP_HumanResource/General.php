@@ -18,34 +18,6 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
     */
     class General
         {
-        public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
-            int $varPersonWorkTimeSheet_RefID
-            )
-            {
-            try {
-                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                        $varUserSession,
-                        'SchData-OLTP-HumanResource.Func_GetRptFormRsm_PersonWorkTimeSheet',
-                        [
-//                            [$varBranchID, 'bigint' ],
-//                            [NULL, 'timestamptz'],
-                            [$varPersonWorkTimeSheet_RefID, 'bigint']
-                        ]
-                        )
-                    );  
-                return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
-                    $varUserSession,
-                    json_decode((array_values($varReturn['Data'][0]))[0], true)
-                    );
-                }
-            catch (\Exception $ex) {
-                return [];
-                }
-            }
-        
-        
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_OrganizationalDepartment                                                                 |
@@ -298,6 +270,58 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         )
                     );
                 return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataReportFormResume_PersonWorkTimeSheet                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create Date     : 2022-01-31                                                                                           |
+        | ▪ Last Update     : 2022-02-02                                                                                           |
+        | ▪ Description     : Mendapatkan Data Report Form Resume Person Work Time Sheet                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work TimeSheet ReferenceID                                         |
+        |      ▪ (string) varDataFilter_DocumentNumber ► Data Filter : DocumentNumber                                              |
+        |      ▪ (string) varDataFilter_EventDateTimeTZ ► Data Filter : Event DateTimeTZ                                           |
+        |      ▪ (string) varDataFilter_PersonName ► Data Filter : Person Name                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (json)   varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
+            int $varPersonWorkTimeSheet_RefID,
+            string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, string $varDataFilter_PersonName = null
+            )
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetRptFormRsm_PersonWorkTimeSheet',
+                        [
+//                          [$varBranchID, 'bigint' ],
+//                          [NULL, 'timestamptz'],
+                            [$varPersonWorkTimeSheet_RefID, 'bigint'],
+                            [$varDataFilter_DocumentNumber, 'varchar'],
+                            [$varDataFilter_EventDateTimeTZ, 'timestamptz'],
+                            [$varDataFilter_PersonName, 'varchar']
+                        ]
+                        )
+                    );  
+                return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
+                    $varUserSession,
+                    json_decode((array_values($varReturn['Data'][0]))[0], true)
+                    );
                 }
             catch (\Exception $ex) {
                 return [];

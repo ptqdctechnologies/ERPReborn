@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.15',
-            'version' => '3.209.15.0',
+            'pretty_version' => '3.209.16',
+            'version' => '3.209.16.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '8656babb2e58ea3e7c9a40724e8a545ce40bb622',
+            'reference' => '5c128ac9a1513bed9b8975fb66821724d0f80ebe',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -158,12 +158,12 @@
             'dev_requirement' => true,
         ),
         'fakerphp/faker' => array(
-            'pretty_version' => 'v1.18.0',
-            'version' => '1.18.0.0',
+            'pretty_version' => 'v1.19.0',
+            'version' => '1.19.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../fakerphp/faker',
             'aliases' => array(),
-            'reference' => '2e77a868f6540695cf5ebf21e5ab472c65f47567',
+            'reference' => 'd7f08a622b3346766325488aa32ddc93ccdecc75',
             'dev_requirement' => false,
         ),
         'fideloper/proxy' => array(

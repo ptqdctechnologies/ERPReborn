@@ -65,7 +65,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataReportFormResume_PersonWorkTimeSheet(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
-                            $varData['parameter']['personWorkTimeSheet_RefID']
+                            $varData['parameter']['personWorkTimeSheet_RefID'],
+                            $varData['dataFilter']['documentNumber'],
+                            $varData['dataFilter']['eventDateTimeTZ'],
+                            $varData['dataFilter']['personName']
                             ))))
                             {
                             throw new \Exception();
