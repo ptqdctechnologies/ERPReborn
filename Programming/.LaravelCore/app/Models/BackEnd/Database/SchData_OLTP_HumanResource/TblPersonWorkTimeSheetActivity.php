@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create Date     : 2020-11-24                                                                                           |
         | ▪ Last Update     : 2020-11-24                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2020-11-24                                                                                           |
-        | ▪ Last Update     : 2022-01-13                                                                                           |
+        | ▪ Last Update     : 2022-02-03                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,6 +58,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (string) varActivity ► Activity                                                                                   |
+        |      ▪ (string) varColorText ► Color Text                                                                                |
+        |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -64,7 +67,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
+            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -81,7 +84,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varProjectSectionItem_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varActivity, 'varchar']
+                        [$varActivity, 'varchar'],
+                        [$varColorText, 'varchar'],
+                        [$varColorBackground, 'varchar']
                     ]
                     )
                 );
@@ -93,9 +98,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2020-11-24                                                                                           |
-        | ▪ Last Update     : 2022-01-13                                                                                           |
+        | ▪ Last Update     : 2022-02-03                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -109,6 +114,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (string) varStartDateTimeTZ ► Start DateTimeTZ                                                                    |
         |      ▪ (string) varFinishDateTimeTZ ► Finish DateTimeTZ                                                                  |
         |      ▪ (string) varActivity ► Activity                                                                                   |
+        |      ▪ (string) varColorText ► Color Text                                                                                |
+        |      ▪ (string) varColorBackground ► Color Background                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -116,7 +123,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null)
+            int $varPersonWorkTimeSheet_RefID = null, int $varProjectSectionItem_RefID = null, string $varStartDateTimeTZ = null, string $varFinishDateTimeTZ = null, string $varActivity = null, string $varColorText = null, string $varColorBackground = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -133,7 +140,9 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [$varProjectSectionItem_RefID, 'bigint'],
                         [$varStartDateTimeTZ, 'timestamptz'],
                         [$varFinishDateTimeTZ, 'timestamptz'],
-                        [$varActivity, 'varchar']
+                        [$varActivity, 'varchar'],
+                        [$varColorText, 'varchar'],
+                        [$varColorBackground, 'varchar']
                     ]
                     )
                 );

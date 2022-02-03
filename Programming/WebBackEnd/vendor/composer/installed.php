@@ -1205,6 +1205,15 @@
             'reference' => '231313534dded84c7ecaa79d14bc5da4ccb69b7d',
             'dev_requirement' => false,
         ),
+        'symfony/google-mailer' => array(
+            'pretty_version' => 'v6.0.3',
+            'version' => '6.0.3.0',
+            'type' => 'symfony-mailer-bridge',
+            'install_path' => __DIR__ . '/../symfony/google-mailer',
+            'aliases' => array(),
+            'reference' => '0db950e96afbeaaf4e69b095018ef15e95831721',
+            'dev_requirement' => false,
+        ),
         'symfony/http-foundation' => array(
             'pretty_version' => 'v5.4.3',
             'version' => '5.4.3.0',
@@ -1221,6 +1230,15 @@
             'install_path' => __DIR__ . '/../symfony/http-kernel',
             'aliases' => array(),
             'reference' => '49f40347228c773688a0488feea0175aa7f4d268',
+            'dev_requirement' => false,
+        ),
+        'symfony/mailer' => array(
+            'pretty_version' => 'v6.0.3',
+            'version' => '6.0.3.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../symfony/mailer',
+            'aliases' => array(),
+            'reference' => 'd958befe7dbee9d2b2157ef6dfa9b103efa94f82',
             'dev_requirement' => false,
         ),
         'symfony/mime' => array(

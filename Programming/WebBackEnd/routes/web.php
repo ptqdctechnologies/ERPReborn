@@ -26,6 +26,7 @@ Route::get('/', function () {
 
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testExcel', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testExcel');
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testEMail', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testEMail');
 
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testModelDatabase', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testModelDatabase');
