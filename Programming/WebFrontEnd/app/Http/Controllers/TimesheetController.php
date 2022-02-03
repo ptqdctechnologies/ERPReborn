@@ -35,24 +35,26 @@ class TimesheetController extends Controller
         );
         $val = 0;
         if($request->test == '1'){
+            
             $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getPersonWorkTimeSheetActivity', 
+            'report.form.resume.humanResource.getPersonWorkTimeSheet', 
             'latest', 
             [
             'parameter' => [
                 'personWorkTimeSheet_RefID' => (int) $request->timesheet
                 ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+            "dataFilter" =>
+                [
+                'documentNumber' => null,
+                'eventDateTimeTZ' => null,
+                'personName' => null
                 ]
             ]
             );
-            dd($varData3);
+            
+            // dd($varData3);
             $val = 1 ;
         }
 
@@ -125,68 +127,58 @@ class TimesheetController extends Controller
         'entities' => [
             'documentDateTimeTZ' => $request->startDate,
             'person_RefID' => (int) $request->behalfOf,
-            'colorText' => $request->textColor,
-            'colorBackground' => $request->backgroundColor
-            ]
-        ]
-        );
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
-        'latest', 
-        [
-        'entities' => [
-            'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
-            'projectSectionItem_RefID' => (int) $request->SelectSite,
             'startDateTimeTZ' => $request->startDate,
             'finishDateTimeTZ' => $request->finishDate,
-            'activity' => $request->activity
+            'project_RefID' => (int) $request->ProjectEvent,
+            'colorText' => $request->textColor,
+            'colorBackground' => $request->backgroundColor
+            
             ]
         ]
         );
+        // $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        // \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varAPIWebToken, 
+        // 'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
+        // 'latest', 
+        // [
+        // 'entities' => [
+        //     'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
+        //     'projectSectionItem_RefID' => (int) $request->SelectSite,
+        //     'startDateTimeTZ' => $request->startDate,
+        //     'finishDateTimeTZ' => $request->finishDate,
+        //     'activity' => $request->activity
+        //     ]
+        // ]
+        // );
         
-        return redirect()->route('Timesheet.index')->with('message', 'Project successfully created ...');
+        return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
         
     }
     public function updates(Request $request)
     {
-        echo $request->timesheetId;
-        echo $request->timesheetActiviyId;die;
         $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.update.humanResource.setPersonWorkTimeSheet', 
-            'latest', 
-            [
-            'recordID' => 48000000040220,
-            'entities' => [
-                'documentDateTimeTZ' => '2026-01-01 00:00:00 +07',
-                'person_RefID' => 25000000000439,
-                'colorText' => '#000000',
-                'colorBackground' => '#ababab'
-                ]
-            ]
-            );
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken, 
-        'transaction.update.humanResource.setPersonWorkTimeSheetActivity', 
+        'transaction.update.humanResource.setPersonWorkTimeSheet', 
         'latest', 
         [
-        'recordID' => 50000000085287,
+        'recordID' => (int) $request->timesheetId,
         'entities' => [
-            'personWorkTimeSheet_RefID' => 48000000040220,
-            'projectSectionItem_RefID' => null,
-            'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
-            'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
-            'activity' => 'Kegiatan ABCD dan EFGH'
+            'documentDateTimeTZ' => $request->startDate2,
+            'person_RefID' => (int) $request->behalfOf2,
+            'startDateTimeTZ' => $request->startDate2,
+            'finishDateTimeTZ' => $request->finishDate2,
+            'project_RefID' => (int) $request->ProjectEvent2,
+            'colorText' => $request->textColor2,
+            'colorBackground' => $request->backgroundColor2
             ]
         ]
         );
+        
+        return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully updated ...');
     }
 
 
