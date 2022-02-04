@@ -12,13 +12,86 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testTelegramBot()
+            {
+            \BotMan\BotMan\Drivers\DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
+            
+            $config = [
+                // Your driver-specific configuration
+                "telegram" => [
+                    "token" => "TOKEN_TELEGRAM_KAMU"
+                    ]
+                ];
+            $botman = \BotMan\BotMan\BotManFactory::create($config, new \BotMan\BotMan\Cache\LaravelCache());
+            
+            $botman->hears(
+                '/start|start|mulai', 
+                function (\BotMan\BotMan\Messages\Conversations\Conve $bot) {
+                    $user = $bot->getUser();
+                    $bot->reply('Assalamualaikum , Selamat datang di Hadits Telegram Bot!. ');
+                    $bot->startConversation(new  ExampleConversation());
+                    }
+                )->stopsConversation();
+            
+//            $botman->listen();
+
+           
+            
+            echo "OK";
+            }
+
         public function testEMail()
             {
-            $varGoogleDSN = 'gmail+smtp://:PASSWORD@default';
-            
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            $varBranchID = 11000000000004;
+
             $template = file_get_contents('https://raw.githubusercontent.com/leemunroe/responsive-html-email-template/master/email.html');
-var_dump($template);
-            echo "OK";
+
+            $varData = [
+                'SystemParameter' => [
+                    'DSN' => 'gmail+smtp://zhtfw.mail.exchange:Pr4tr14n4@default',
+                    'HTMLContent' => true
+                    ],
+                'Header' => [
+                    'From' => [
+                        'zhtfw.mail.exchange@gmail.com'
+                        ],
+                    'To' => [
+                        'teguhpjs@gmail.com',
+                        'teguh.pratama@qdc.co.id'
+                        ],
+                    'CC' => [
+                        ],
+                    'BCC' => [
+                        ],
+                    'Subject' => 'Test aja ya'
+                    ],
+                'Body' => [
+                    'Content' => base64_encode($template)
+                    ]
+                ];
+
+
+            \App\Helpers\ZhtHelper\System\BackEnd\Helper_EMail::Send(
+                $varUserSession, 
+                $varData
+                );
+            
+/*
+            $varGoogleDSN = 'gmail+smtp://zhtfw.mail.exchange:Pr4tr14n4@default';
+            
+                      
+
+            
+            $ObjEMail = (new \Symfony\Component\Mime\Email())
+                ->from('zhtfw.mail.exchange@gmail.com')
+                ->to('teguhpjs@gmail.com')
+                ->subject('Time for Symfony Mailer!')
+                ->html($template)
+                ;
+            
+            //$ObjMailer->send($ObjEMail);
+*/
             }
 
             

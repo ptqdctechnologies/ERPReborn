@@ -43,6 +43,8 @@ sleep 1;
 printf "\n▪ ▪ ▪ Docker-Compose Up Start ▪ ▪ ▪\n";
 sudo docker-compose up --remove-orphans;
 
+./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
+
 printf "\n▪ ▪ ▪ System Watchdog Script Termination ▪ ▪ ▪\n";
 varCmdExec="sudo kill -s 9 "`ps aux | grep "Script.System.WatchDog.Docker.ContainerPostgreSQL.sh" | grep -v "\-\-color" | awk '{print $2}'`";";
 #varResult=$(eval $varCmdExec) 2>/dev/null

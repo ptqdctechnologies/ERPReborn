@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+- Fix return type of `FromQuery::query()`
+- Support Laravel 9
+- Added a config setting to specify DB connection
+- Added a config setting to specify CSV output encoding
+- Added an ability to specify CSV ouput encoding through csvSettings
+
 ## [3.1.35] - 2022-01-04
 
 ### Fixed

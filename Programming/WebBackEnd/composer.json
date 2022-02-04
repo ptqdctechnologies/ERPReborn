@@ -9,6 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5|^8.1",
+        "botman/botman": "^2.6",
+        "botman/driver-telegram": "^1.6",
+        "botman/driver-web": "^1.5",
         "dragonmantank/cron-expression": "^3.0",
         "elibyy/tcpdf-laravel": "^8.1",
         "fakerphp/faker": "^1.17",
@@ -27,6 +30,7 @@
         "swiftmailer/swiftmailer": "^6.3",
         "symfony/google-mailer": "^6.0",
         "symfony/mailer": "^6.0",
+        "tightenco/collect": "^8.81",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
