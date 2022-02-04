@@ -28,6 +28,8 @@
         "predis/predis": "^1.1",
         "swaggest/json-schema": "^0.12.31",
         "swiftmailer/swiftmailer": "^6.3",
+        "symfony/google-mailer": "^6.0",
+        "symfony/mailer": "^6.0",
         "tightenco/collect": "^8.81",
         "vlucas/phpdotenv": "^5.2"
     },
