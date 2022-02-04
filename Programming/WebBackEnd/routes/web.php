@@ -19,7 +19,14 @@ Route::get('/', function () {
 
 //---> Telegram Bot
 //Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
+
+Route::match(['get', 'post'], '/botman', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Botman@handle');
+
+
+
+
 //testTelegramBot
+
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testTelegramBot', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testTelegramBot');
 
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------

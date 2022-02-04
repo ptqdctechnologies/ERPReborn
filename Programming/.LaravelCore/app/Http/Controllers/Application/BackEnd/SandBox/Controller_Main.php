@@ -26,10 +26,10 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             $botman->hears(
                 '/start|start|mulai', 
-                function (\BotMan\BotMan\BotMan $bot) {
+                function (\BotMan\BotMan\Messages\Conversations\Conve $bot) {
                     $user = $bot->getUser();
                     $bot->reply('Assalamualaikum , Selamat datang di Hadits Telegram Bot!. ');
-                    $bot->startConversation(new ExampleConversation());
+                    $bot->startConversation(new  ExampleConversation());
                     }
                 )->stopsConversation();
             

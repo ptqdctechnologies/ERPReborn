@@ -103,11 +103,11 @@
     <script>
         var botmanWidget = {
             aboutText: 'Write Something',
-            introMessage: "✋ Hi! I'm Afrizal MY"
+            introMessage: "✋ Hi! I'm ERP Reborn Bot Service"
         };
     </script>
     <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-        
+
     
     
         
