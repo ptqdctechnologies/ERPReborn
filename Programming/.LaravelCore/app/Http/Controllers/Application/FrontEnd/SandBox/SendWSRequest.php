@@ -21205,7 +21205,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     'projectSectionItem_RefID' => null,
                     'startDateTimeTZ' => '2026-01-01 07:00:00 +07',
                     'finishDateTimeTZ' => '2026-01-01 13:00:00 +07',
-                    'activity' => 'Kegiatan ABCD dan EFGH'
+                    'activity' => 'Kegiatan ABCD dan EFGH',
+                    'colorText' => '#000000',
+                    'colorBackground' => '#ababab'
                     ]
                 ]
                 );
@@ -21223,6 +21225,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_StartDateTimeTZ" value="2026-01-01 07:00:00 +07">';
             echo '<input type="text" id="dataInput_FinishDateTimeTZ" value="2026-01-01 13:00:00 +07">';
             echo '<input type="text" id="dataInput_Activity" value="Kegiatan ABCD dan EFGH">';
+            echo '<input type="text" id="dataInput_ColorText" value="#000000">';
+            echo '<input type="text" id="dataInput_ColorBackground" value="#ababab">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -21235,7 +21239,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"projectSectionItem_RefID" : parseInt(document.getElementById("dataInput_ProjectSectionItem_RefID").value), '.
                         '"startDateTimeTZ" : document.getElementById("dataInput_StartDateTimeTZ").value, '.
                         '"finishDateTimeTZ" : document.getElementById("dataInput_FinishDateTimeTZ").value, '.
-                        '"activity" : document.getElementById("dataInput_Activity").value'.
+                        '"activity" : document.getElementById("dataInput_Activity").value, '.
+                        '"colorText" : document.getElementById("dataInput_ColorText").value, '.
+                        '"colorBackground" : document.getElementById("dataInput_ColorBackground").value'.
                         '}'.
                 '}'
                 ); 
