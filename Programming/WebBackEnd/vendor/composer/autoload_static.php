@@ -761,6 +761,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Botman' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Botman.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Main' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Main.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\Controller_Test' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/SandBox/Controller_Test.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/SandBox/SendWSRequest.php',
