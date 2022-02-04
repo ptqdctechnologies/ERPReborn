@@ -12,6 +12,34 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testTelegramBot()
+            {
+            \BotMan\BotMan\Drivers\DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
+            
+            $config = [
+                // Your driver-specific configuration
+                "telegram" => [
+                    "token" => "TOKEN_TELEGRAM_KAMU"
+                    ]
+                ];
+            $botman = \BotMan\BotMan\BotManFactory::create($config, new \BotMan\BotMan\Cache\LaravelCache());
+            
+            $botman->hears(
+                '/start|start|mulai', 
+                function (\BotMan\BotMan\BotMan $bot) {
+                    $user = $bot->getUser();
+                    $bot->reply('Assalamualaikum , Selamat datang di Hadits Telegram Bot!. ');
+                    $bot->startConversation(new ExampleConversation());
+                    }
+                )->stopsConversation();
+            
+//            $botman->listen();
+
+           
+            
+            echo "OK";
+            }
+
         public function testEMail()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
