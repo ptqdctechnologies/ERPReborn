@@ -92,7 +92,9 @@
         $('#filterEventButton').on('click', function(){
             $('#popUpFilter').modal("show");
         });
-
+        $('#addActivityButton').on('click', function(){
+            $('#popUpActivity').modal("show");
+        });
         @if($status == '200')
             @if(isset($varData))
                 var calendar = $('#calendar').fullCalendar({
@@ -116,6 +118,17 @@
                                 color  : '{{ $rows["colorBackground"]}}',
                                 textColor: '{{ $rows["colorText"]}}',
                                 timesheetId: '{{ $rows["sys_ID"]}}',
+                            },
+                            @endforeach
+
+                            @foreach($varData2 as $key2 => $rows2)
+                            {
+                                title: '{{$rows2["activity"]}}',
+                                start: '{{ $rows2["startDateTimeTZ"]}}',
+                                end: '{{ date("Y-m-d",strtotime($rows2["finishDateTimeTZ"] . "+1 days"))}}',
+                                color  : '{{ $rows2["colorBackground"]}}',
+                                textColor: '{{ $rows2["colorText"]}}',
+                                timesheetId: '{{ $rows2["sys_ID"]}}',
                             },
                             @endforeach
                     ],

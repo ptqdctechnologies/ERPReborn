@@ -255,6 +255,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // 
     Route::post('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
     Route::post('Timesheet/updates', 'TimesheetController@updates')->name('Timesheet.updates');
+    Route::post('Timesheet/storeActivity', 'TimesheetController@storeActivity')->name('Timesheet.storeActivity');
     Route::resource('Timesheet','TimesheetController');
 
     // Dashboard

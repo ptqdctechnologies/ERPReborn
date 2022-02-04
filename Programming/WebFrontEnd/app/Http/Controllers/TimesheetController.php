@@ -53,7 +53,7 @@ class TimesheetController extends Controller
                 ]
             ]
             );
-            
+            // dd($varData3['data']['0']['details']);
             // dd($varData3);
             $val = 1 ;
         }
@@ -78,6 +78,7 @@ class TimesheetController extends Controller
                 'data' => $varData['data']['data'],
                 'data2' => $varData2['data'],
                 'varData' => $varData3['data'],
+                'varData2' => $varData3['data']['0']['details'],
                 'status' => $varData3['metadata']['HTTPStatusCode'],
                 'TimesheetData' => $varData4['data'],
             ];
@@ -136,21 +137,52 @@ class TimesheetController extends Controller
             ]
         ]
         );
-        // $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        // \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        // $varAPIWebToken, 
-        // 'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
-        // 'latest', 
-        // [
-        // 'entities' => [
-        //     'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
-        //     'projectSectionItem_RefID' => (int) $request->SelectSite,
-        //     'startDateTimeTZ' => $request->startDate,
-        //     'finishDateTimeTZ' => $request->finishDate,
-        //     'activity' => $request->activity
-        //     ]
-        // ]
-        // );
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
+        'latest', 
+        [
+        'entities' => [
+            'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
+            'projectSectionItem_RefID' => (int) $request->SelectSite,
+            'startDateTimeTZ' => $request->startDate,
+            'finishDateTimeTZ' => $request->finishDate,
+            'activity' => $request->activity
+            ]
+        ]
+        );
+        
+        return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
+        
+    }
+    public function storeActivity(Request $request)
+    {
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
+        'latest', 
+        [
+        'entities' => [
+            'personWorkTimeSheet_RefID' => (int) $request->timesheet2,
+            'projectSectionItem_RefID' => (int) $request->timesheet2,
+            'startDateTimeTZ' => $request->startDate3,
+            'finishDateTimeTZ' => $request->finishDate3,
+            'activity' => $request->activity3,
+
+
+            // 'personWorkTimeSheet_RefID' => (int) $request->timesheet2,
+            // 'startDateTimeTZ' => $request->startDate3,
+            // 'finishDateTimeTZ' => $request->finishDate3,
+            // 'activity' => $request->activity3,
+            // 'colorText' => $request->textColor3,
+            // 'colorBackground' => $request->backgroundColor3
+
+            ]
+        ]
+        );
         
         return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
         
