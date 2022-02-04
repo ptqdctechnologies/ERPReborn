@@ -30,6 +30,7 @@
         "swiftmailer/swiftmailer": "^6.3",
         "symfony/google-mailer": "^6.0",
         "symfony/mailer": "^6.0",
+        "tightenco/collect": "^8.81",
         "vlucas/phpdotenv": "^5.2"
     },
     "require-dev": {
