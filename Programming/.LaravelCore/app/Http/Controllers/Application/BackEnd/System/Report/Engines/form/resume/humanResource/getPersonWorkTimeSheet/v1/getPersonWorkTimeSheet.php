@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataReportFormResume_PersonWorkTimeSheet(
-                            $varUserSession, 
+                            $varUserSession,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
                             $varData['parameter']['personWorkTimeSheet_RefID'],
                             $varData['dataFilter']['documentNumber'],
@@ -76,8 +76,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        if((is_array($varDataSend)) && (count($varDataSend)==0))
+                            {
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Data not found');
+                            }
+                        else
+                            {
+                            $varErrorMessage = $ex->getMessage();
+                            $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));                            
+                            }
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
