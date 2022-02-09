@@ -21,7 +21,8 @@ services:
       - './.ProjectCore/Temp/MySQL/:/var/lib/mysql/temp'
       #- 'volume-postgresql:/var/lib/postgresql/data'
       - './.ProjectCore/PermanentStorage/PostgreSQL/var/lib/postgresql/data/:/var/lib/postgresql/data'
-      - './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
+        #- './.ProjectCore/Temp/PostgreSQL/:/var/lib/postgresql/temp'
+      - './../ERPReborn-TemporaryStorage/BindMount/PostgreSQL/Temp/:/var/lib/postgresql/temp'
       - './.ProjectCore/Configuration/Docker/PostgreSQL/Script.ServiceRestart.sh:/usr/local/bin/Script.ServiceRestart.sh'
       - './Database/Structure/PostgreSQL/:/zhtConf/databaseStructure'
         #command: bash -c "Script.ServiceRestart.sh && tail -f /dev/null"

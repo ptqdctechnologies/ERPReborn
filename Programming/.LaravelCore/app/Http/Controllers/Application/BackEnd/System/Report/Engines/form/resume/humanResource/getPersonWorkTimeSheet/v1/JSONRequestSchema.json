@@ -53,13 +53,13 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
-                    "personName" : {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                    "person_RefID" : {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "documentNumber", "eventDateTimeTZ", "personName" ]
+                "required": [ "documentNumber", "eventDateTimeTZ", "person_RefID" ]
                 }
             },
         "required": [ "parameter", "dataFilter" ]

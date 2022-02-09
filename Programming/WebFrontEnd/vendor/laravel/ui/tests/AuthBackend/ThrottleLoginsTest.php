@@ -11,32 +11,6 @@ class ThrottleLoginsTest extends TestCase
 {
     /**
      * @test
-     * @dataProvider specialCharacterProvider
-     */
-    public function it_can_replace_special_characters(string $value, string $expected): void
-    {
-        $throttle = $this->getMockForTrait(ThrottlesLogins::class);
-        $reflection = new \ReflectionClass($throttle);
-        $method = $reflection->getMethod('removeSpecialCharacters');
-        $method->setAccessible(true);
-
-        $this->assertSame($expected, $method->invoke($throttle, $value));
-    }
-
-    public function specialCharacterProvider(): array
-    {
-        return [
-            ['ⓐⓑⓒⓓⓔⓕⓖⓗⓘⓙⓚⓛⓜⓝⓞⓟⓠⓡⓢⓣⓤⓥⓦⓧⓨⓩ', 'abcdefghijklmnopqrstuvwxyz'],
-            ['⓪①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳', '01234567891011121314151617181920'],
-            ['⓵⓶⓷⓸⓹⓺⓻⓼⓽⓾', '12345678910'],
-            ['⓿⓫⓬⓭⓮⓯⓰⓱⓲⓳⓴', '011121314151617181920'],
-            ['abcdefghijklmnopqrstuvwxyz', 'abcdefghijklmnopqrstuvwxyz'],
-            ['0123456789', '0123456789'],
-        ];
-    }
-
-    /**
-     * @test
      * @dataProvider emailProvider
      */
     public function it_can_generate_throttle_key(string $email, string $expectedEmail): void
