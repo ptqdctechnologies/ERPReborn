@@ -91,10 +91,28 @@
                         <td>Date</td>
                         <td>
                           <div class="input-group">
-                            <input type="date" name="date" id="date" style="border-radius:0;" class="form-control" value="{{ date('Y-m-d') }}">
+                            <input type="date" name="FilterDate" id="FilterDate" style="border-radius:0;" class="form-control" value="{{ date('Y-m-d') }}">
                           </div>
                         </td>
-                        <td>&nbsp;&nbsp;Timesheet</td>
+                        <td>&nbsp;&nbsp;On Behalf Of</td>
+                          <td>
+                            <div class="input-group">
+                              <select class="form-control select2" id="FilterBehalfOf" name="FilterBehalfOf" style="border-radius:0;">
+                              <option value=""> -- Select Person -- </option>
+                                @foreach($data2 as $datas2)
+                                <option value="{{ $datas2['sys_ID'] }}">{{$datas2['name']}}</option>
+                                @endforeach
+                              </select>
+                            </div>
+                          </td>
+                        </div>
+                      </div>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                      <td>Timesheet</td>
                         <td>
                           <div class="input-group" style="width: 150%;">
                             <select class="form-control select2" style="border-radius:0;" name="timesheet">
@@ -103,6 +121,12 @@
                               <option value="{{ $TimesheetDatas['sys_ID'] }}">{{$TimesheetDatas['documentNumber']}}</option>
                               @endforeach
                             </select>
+                          </div>
+                        </td>
+                        <td>&nbsp;&nbsp;Document Number</td>
+                        <td>
+                          <div class="input-group">
+                            <input type="text" name="FilterDocumentNumber" id="FilterDocumentNumber" style="border-radius:0;" class="form-control">
                           </div>
                         </td>
                       </div>

@@ -35,7 +35,7 @@ class TimesheetController extends Controller
         );
         $val = 0;
         if($request->test == '1'){
-            
+            // echo $request->timesheet;die;
             $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -47,14 +47,14 @@ class TimesheetController extends Controller
                 ],
             "dataFilter" =>
                 [
-                'documentNumber' => null,
-                'eventDateTimeTZ' => null,
-                'personName' => null
+                'documentNumber' => $request->FilterDocumentNumber,
+                'eventDateTimeTZ' => $request->FilterDate,
+                'person_RefID' => (int) $request->FilterBehalfOf
                 ]
             ]
             );
             // dd($varData3['data']['0']['details']);
-            // dd($varData3);
+            dd($varData3);
             $val = 1 ;
         }
 
@@ -137,22 +137,6 @@ class TimesheetController extends Controller
             ]
         ]
         );
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.create.humanResource.setPersonWorkTimeSheetActivity', 
-        'latest', 
-        [
-        'entities' => [
-            'personWorkTimeSheet_RefID' => (int) $varData['data']['recordID'],
-            'projectSectionItem_RefID' => (int) $request->SelectSite,
-            'startDateTimeTZ' => $request->startDate,
-            'finishDateTimeTZ' => $request->finishDate,
-            'activity' => $request->activity
-            ]
-        ]
-        );
-        
         return redirect()->route('Timesheet.index')->with('message', 'Timesheet successfully created ...');
         
     }
@@ -171,14 +155,8 @@ class TimesheetController extends Controller
             'startDateTimeTZ' => $request->startDate3,
             'finishDateTimeTZ' => $request->finishDate3,
             'activity' => $request->activity3,
-
-
-            // 'personWorkTimeSheet_RefID' => (int) $request->timesheet2,
-            // 'startDateTimeTZ' => $request->startDate3,
-            // 'finishDateTimeTZ' => $request->finishDate3,
-            // 'activity' => $request->activity3,
-            // 'colorText' => $request->textColor3,
-            // 'colorBackground' => $request->backgroundColor3
+            'colorText' => $request->textColor3,
+            'colorBackground' => $request->backgroundColor3
 
             ]
         ]
@@ -189,6 +167,7 @@ class TimesheetController extends Controller
     }
     public function updates(Request $request)
     {
+        // echo $request->backgroundColor2;die;
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
