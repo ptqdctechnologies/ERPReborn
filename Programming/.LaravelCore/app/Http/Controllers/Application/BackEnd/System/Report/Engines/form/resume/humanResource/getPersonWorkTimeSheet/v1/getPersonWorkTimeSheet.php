@@ -68,7 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                             $varData['parameter']['personWorkTimeSheet_RefID'],
                             $varData['dataFilter']['documentNumber'],
                             $varData['dataFilter']['eventDateTimeTZ'],
-                            $varData['dataFilter']['personName']
+                            $varData['dataFilter']['person_RefID']
                             ))))
                             {
                             throw new \Exception();

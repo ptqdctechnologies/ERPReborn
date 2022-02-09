@@ -26,6 +26,8 @@ clear;
 ./BashScript/Script.Docker.BuildPermanentStorage.Samba.sh;
 ./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
 
+./BashScript/Script.Docker.BuildTemporaryStorage.PostgreSQL.sh;
+
 ./BashScript/Script.Docker.BuildVolume.All.sh;
 
 #./BashScript/Script.Docker.BuildImage.MinIO.sh;

@@ -299,7 +299,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         */
         public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
             int $varPersonWorkTimeSheet_RefID,
-            string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, string $varDataFilter_PersonName = null
+            string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, string $varDataFilter_Person_RefID = null
             )
             {
             try {
@@ -314,7 +314,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varPersonWorkTimeSheet_RefID, 'bigint'],
                             [$varDataFilter_DocumentNumber, 'varchar'],
                             [$varDataFilter_EventDateTimeTZ, 'timestamptz'],
-                            [$varDataFilter_PersonName, 'varchar']
+                            [$varDataFilter_Person_RefID, 'bigint']
                         ]
                         )
                     );  
