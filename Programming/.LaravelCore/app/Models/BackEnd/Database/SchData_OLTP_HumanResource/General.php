@@ -292,14 +292,14 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (int)    varPersonWorkTimeSheet_RefID ► Person Work TimeSheet ReferenceID                                         |
         |      ▪ (string) varDataFilter_DocumentNumber ► Data Filter : DocumentNumber                                              |
         |      ▪ (string) varDataFilter_EventDateTimeTZ ► Data Filter : Event DateTimeTZ                                           |
-        |      ▪ (string) varDataFilter_PersonName ► Data Filter : Person Name                                                     |
+        |      ▪ (string) varDataFilter_Person_RefID ► Data Filter : Person Reference ID                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (json)   varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
             int $varPersonWorkTimeSheet_RefID,
-            string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, string $varDataFilter_Person_RefID = null
+            string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, int $varDataFilter_Person_RefID = null
             )
             {
             try {
@@ -317,11 +317,19 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varDataFilter_Person_RefID, 'bigint']
                         ]
                         )
-                    );  
-                return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
-                    $varUserSession,
-                    json_decode((array_values($varReturn['Data'][0]))[0], true)
                     );
+                
+                if(strcmp((array_values($varReturn['Data'][0]))[0], '[]') == 0)
+                    {
+                    throw new \Exception();
+                    }
+                else
+                    {
+                    return \App\Helpers\ZhtHelper\General\Helper_JSON::setDateTimeTZNormalizationFromArray(
+                        $varUserSession,
+                        json_decode((array_values($varReturn['Data'][0]))[0], true)
+                        );                    
+                    }
                 }
             catch (\Exception $ex) {
                 return [];
