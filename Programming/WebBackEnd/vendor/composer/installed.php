@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.20',
-            'version' => '3.209.20.0',
+            'pretty_version' => '3.209.21',
+            'version' => '3.209.21.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '77c9c3a6211cb7eae599d5ab8f96765c50c0fa72',
+            'reference' => '3f5b867920f422d605c38aad95f5c334183b39bb',
             'dev_requirement' => false,
         ),
         'botman/botman' => array(
