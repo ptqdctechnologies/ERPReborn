@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.21",
+            "version": "3.209.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3f5b867920f422d605c38aad95f5c334183b39bb"
+                "reference": "2f8a8c885daf45fe9f919312a66a68115d6733b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3f5b867920f422d605c38aad95f5c334183b39bb",
-                "reference": "3f5b867920f422d605c38aad95f5c334183b39bb",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2f8a8c885daf45fe9f919312a66a68115d6733b5",
+                "reference": "2f8a8c885daf45fe9f919312a66a68115d6733b5",
                 "shasum": ""
             },
             "require": {
@@ -199,9 +199,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.21"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.22"
             },
-            "time": "2022-02-09T19:17:07+00:00"
+            "time": "2022-02-10T19:14:07+00:00"
         },
         {
             "name": "botman/botman",
@@ -7375,16 +7375,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.81.0",
+            "version": "v8.83.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "2b629c5095c89f3e96488f4bde8ac11642465200"
+                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/2b629c5095c89f3e96488f4bde8ac11642465200",
-                "reference": "2b629c5095c89f3e96488f4bde8ac11642465200",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/f8053a9e26ffe0db24db02ef346c40bca920f8f8",
+                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8",
                 "shasum": ""
             },
             "require": {
@@ -7423,9 +7423,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/collect/issues",
-                "source": "https://github.com/tighten/collect/tree/v8.81.0"
+                "source": "https://github.com/tighten/collect/tree/v8.83.0"
             },
-            "time": "2022-01-25T22:55:34+00:00"
+            "time": "2022-02-10T23:00:41+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -9560,16 +9560,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.3",
+            "version": "5.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49"
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/23bd5951f7ff26f12d4e3242864df3e08dec4e49",
-                "reference": "23bd5951f7ff26f12d4e3242864df3e08dec4e49",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
                 "shasum": ""
             },
             "require": {
@@ -9612,7 +9612,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.3"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.4"
             },
             "funding": [
                 {
@@ -9620,7 +9620,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-06-11T13:31:12+00:00"
+            "time": "2022-02-10T07:01:19+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
