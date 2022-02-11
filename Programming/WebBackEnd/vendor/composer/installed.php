@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.21',
-            'version' => '3.209.21.0',
+            'pretty_version' => '3.209.22',
+            'version' => '3.209.22.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '3f5b867920f422d605c38aad95f5c334183b39bb',
+            'reference' => '2f8a8c885daf45fe9f919312a66a68115d6733b5',
             'dev_requirement' => false,
         ),
         'botman/botman' => array(
@@ -1146,12 +1146,12 @@
             'dev_requirement' => true,
         ),
         'sebastian/global-state' => array(
-            'pretty_version' => '5.0.3',
-            'version' => '5.0.3.0',
+            'pretty_version' => '5.0.4',
+            'version' => '5.0.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/global-state',
             'aliases' => array(),
-            'reference' => '23bd5951f7ff26f12d4e3242864df3e08dec4e49',
+            'reference' => '19c519631c5a511b7ed0ad64a6713fdb3fd25fe4',
             'dev_requirement' => true,
         ),
         'sebastian/lines-of-code' => array(
@@ -1545,12 +1545,12 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.81.0',
-            'version' => '8.81.0.0',
+            'pretty_version' => 'v8.83.0',
+            'version' => '8.83.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
             'aliases' => array(),
-            'reference' => '2b629c5095c89f3e96488f4bde8ac11642465200',
+            'reference' => 'f8053a9e26ffe0db24db02ef346c40bca920f8f8',
             'dev_requirement' => false,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
