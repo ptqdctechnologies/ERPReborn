@@ -440,12 +440,12 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.2.1',
-            'version' => '2.2.1.0',
+            'pretty_version' => '2.2.2',
+            'version' => '2.2.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
-            'reference' => 'f8afb78f087777b040e0ab8a6b6ca93f6fc3f18a',
+            'reference' => '13d7751377732637814f0cda0e3f6d3243f9f769',
             'dev_requirement' => false,
         ),
         'league/config' => array(

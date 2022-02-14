@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.22',
-            'version' => '3.209.22.0',
+            'pretty_version' => '3.209.23',
+            'version' => '3.209.23.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '2f8a8c885daf45fe9f919312a66a68115d6733b5',
+            'reference' => '6082f5df05e5c725a44a310649a922b32bbeec54',
             'dev_requirement' => false,
         ),
         'botman/botman' => array(
@@ -521,12 +521,12 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.2.1',
-            'version' => '2.2.1.0',
+            'pretty_version' => '2.2.2',
+            'version' => '2.2.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
-            'reference' => 'f8afb78f087777b040e0ab8a6b6ca93f6fc3f18a',
+            'reference' => '13d7751377732637814f0cda0e3f6d3243f9f769',
             'dev_requirement' => false,
         ),
         'league/config' => array(
@@ -1032,12 +1032,12 @@
             'dev_requirement' => false,
         ),
         'react/promise' => array(
-            'pretty_version' => 'v2.8.0',
-            'version' => '2.8.0.0',
+            'pretty_version' => 'v2.9.0',
+            'version' => '2.9.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../react/promise',
             'aliases' => array(),
-            'reference' => 'f3cff96a19736714524ca0dd1d4130de73dbbbc4',
+            'reference' => '234f8fd1023c9158e2314fa9d7d0e6a83db42910',
             'dev_requirement' => false,
         ),
         'react/promise-timer' => array(
