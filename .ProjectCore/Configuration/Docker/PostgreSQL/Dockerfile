@@ -25,17 +25,19 @@ RUN apt-get update \
        unzip \
        vim
 
+
 RUN apt-get install -y lsb-release \
-    && wget http://repo.mysql.com/mysql-apt-config_0.8.13-1_all.deb \
-       && dpkg -i mysql-apt-config_0.8.13-1_all.deb \
+    && wget http://repo.mysql.com/mysql-apt-config_0.8.22-1_all.deb \  
+       && dpkg -i mysql-apt-config_0.8.22-1_all.deb \
     && apt-get update \
     && git clone https://github.com/EnterpriseDB/mysql_fdw.git \
        && apt-get install -y mariadb-server \
        && cd /mysql_fdw \
-          && export PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
-          && PATH=/usr/lib/postgresql/13/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
+          && export PATH=/usr/lib/postgresql/14/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 \
+          && PATH=/usr/lib/postgresql/14/bin/:/usr/bin/mysql:$PATH make USE_PGXS=1 install \
           && cd / \
           && rm -rf /mysql_fdw
+
 
 RUN git clone https://github.com/CartoDB/odbc_fdw.git \
        && apt-get install -y \
@@ -45,6 +47,7 @@ RUN git clone https://github.com/CartoDB/odbc_fdw.git \
           && make install \
           && cd / \
           && rm -rf /odbc_fdw
+
 
 RUN git clone https://github.com/tds-fdw/tds_fdw.git \
        && apt-get install -y \
@@ -57,9 +60,12 @@ RUN git clone https://github.com/tds-fdw/tds_fdw.git \
           && cd / \
           && rm -rf /tds_fdw
 
+
 COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/root/.my.cnf /root/.my.cnf
 
+
 COPY ./.ProjectCore/Configuration/Docker/PostgreSQL/System/etc/mysql/mariadb.cnf /etc/mysql/mariadb.cnf
+
 
 #ENTRYPOINT ["Script.ServiceRestart.sh"]
 #EXPOSE 3306
