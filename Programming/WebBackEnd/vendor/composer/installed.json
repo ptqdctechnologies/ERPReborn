@@ -110,17 +110,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.23",
-            "version_normalized": "3.209.23.0",
+            "version": "3.209.24",
+            "version_normalized": "3.209.24.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "6082f5df05e5c725a44a310649a922b32bbeec54"
+                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/6082f5df05e5c725a44a310649a922b32bbeec54",
-                "reference": "6082f5df05e5c725a44a310649a922b32bbeec54",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce68bfc141863a25f4b870f10cfa996312fb1813",
+                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813",
                 "shasum": ""
             },
             "require": {
@@ -157,7 +157,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-02-11T19:13:32+00:00",
+            "time": "2022-02-14T19:15:07+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -198,7 +198,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.23"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.24"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -6836,17 +6836,17 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.4",
-            "version_normalized": "5.0.4.0",
+            "version": "5.0.5",
+            "version_normalized": "5.0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4"
+                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
-                "reference": "19c519631c5a511b7ed0ad64a6713fdb3fd25fe4",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/0ca8db5a5fc9c8646244e629625ac486fa286bf2",
+                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2",
                 "shasum": ""
             },
             "require": {
@@ -6861,7 +6861,7 @@
             "suggest": {
                 "ext-uopz": "*"
             },
-            "time": "2022-02-10T07:01:19+00:00",
+            "time": "2022-02-14T08:28:10+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -6891,7 +6891,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.4"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.5"
             },
             "funding": [
                 {

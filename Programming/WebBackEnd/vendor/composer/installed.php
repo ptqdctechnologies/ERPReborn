@@ -29,12 +29,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.209.23',
-            'version' => '3.209.23.0',
+            'pretty_version' => '3.209.24',
+            'version' => '3.209.24.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '6082f5df05e5c725a44a310649a922b32bbeec54',
+            'reference' => 'ce68bfc141863a25f4b870f10cfa996312fb1813',
             'dev_requirement' => false,
         ),
         'botman/botman' => array(
@@ -1146,12 +1146,12 @@
             'dev_requirement' => true,
         ),
         'sebastian/global-state' => array(
-            'pretty_version' => '5.0.4',
-            'version' => '5.0.4.0',
+            'pretty_version' => '5.0.5',
+            'version' => '5.0.5.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/global-state',
             'aliases' => array(),
-            'reference' => '19c519631c5a511b7ed0ad64a6713fdb3fd25fe4',
+            'reference' => '0ca8db5a5fc9c8646244e629625ac486fa286bf2',
             'dev_requirement' => true,
         ),
         'sebastian/lines-of-code' => array(
