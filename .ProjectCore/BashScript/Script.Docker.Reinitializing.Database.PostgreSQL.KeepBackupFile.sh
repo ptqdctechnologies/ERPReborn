@@ -72,14 +72,13 @@ varDBMasterHost='192.168.1.24';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
-varCmdContainer='psql -U postgres -d postgres -c';
-$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+#varCmdContainer='psql -U postgres -d postgres -c';
+#$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
 echo "   ---> Database Cloning : "$varDBName;
-$varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
-$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
-#$varCmd "rm -rf "$varFileName;
+#$varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
+#$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
 
 echo "";
 
@@ -99,7 +98,6 @@ $varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$var
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
 $varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
-#$varCmd "rm -rf "$varFileName;
 echo "";
 
 
@@ -120,7 +118,6 @@ $varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$var
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
 $varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
-#$varCmd "rm -rf "$varFileName;
 
 echo "";
 
