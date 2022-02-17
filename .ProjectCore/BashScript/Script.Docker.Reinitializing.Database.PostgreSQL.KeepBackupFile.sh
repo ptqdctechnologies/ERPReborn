@@ -47,13 +47,12 @@ varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
 varCmdContainer='psql -U postgres -d postgres -c';
-$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
-$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
-#$varCmd "rm -rf "$varFileName;
+#$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
 
 echo "---> Reinitializing Environment Parameter on Database";
 varCmdContainer='psql -U "SysEngine" -d "'$varDBName'" -c';
@@ -72,7 +71,7 @@ varDBMasterHost='192.168.1.24';
 varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
-#varCmdContainer='psql -U postgres -d postgres -c';
+varCmdContainer='psql -U postgres -d postgres -c';
 #$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
 #$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
@@ -91,13 +90,16 @@ varDBName='dbERPReborn-Data-OLAP';
 varFileName='/var/lib/postgresql/temp/dump-dbERPReborn-Data-OLAP.sql';
 varDBMasterHost='192.168.1.24';
 varDBMasterPort='5432';
+
 echo "---> Reinitializing Database : "$varDBName;
 varCmdContainer='psql -U postgres -d postgres -c';
-$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
-$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
+#$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
+
 echo "";
 
 
@@ -112,12 +114,12 @@ varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
 varCmdContainer='psql -U postgres -d postgres -c';
-$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
-$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
+#$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
 
 echo "";
 
@@ -136,16 +138,16 @@ varDBMasterPort='5432';
 
 echo "---> Reinitializing Database : "$varDBName;
 varCmdContainer='psql -U postgres -d postgres -c';
-$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
-$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
+#$varCmd "$varCmdContainer \"DROP DATABASE IF EXISTS \\\""$varDBName"\\\";\"";
+#$varCmd "$varCmdContainer \"CREATE DATABASE \\\""$varDBName"\\\" OWNER \\\""$varRoleName"\\\";\"";
 
 echo "   ---> Create Extension : MySQL_FDW";
 $varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" -c \"CREATE EXTENSION mysql_fdw;\"";
 
 echo "   ---> Database Cloning : "$varDBName;
 $varCmd "PGPASSWORD=\""$varRolePassword"\" pg_dump -h "$varDBMasterHost" -p "$varDBMasterPort" -U \""$varRoleName"\" --format plain --encoding UTF8 \""$varDBName"\" > "$varFileName;
-$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
-#$varCmd "rm -rf "$varFileName;
+#$varCmd "psql -U \""$varRoleName"\" -d \""$varDBName"\" < "$varFileName";";
+
 
 echo "---> Initializing Database Link";
 varCmdContainer='psql -U postgres -d "'$varDBName'" -c';

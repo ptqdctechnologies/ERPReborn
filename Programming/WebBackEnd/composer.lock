@@ -114,16 +114,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.209.24",
+            "version": "3.209.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813"
+                "reference": "9f1ae9b3efd1261b7205d79484fc3a3802328667"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/ce68bfc141863a25f4b870f10cfa996312fb1813",
-                "reference": "ce68bfc141863a25f4b870f10cfa996312fb1813",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/9f1ae9b3efd1261b7205d79484fc3a3802328667",
+                "reference": "9f1ae9b3efd1261b7205d79484fc3a3802328667",
                 "shasum": ""
             },
             "require": {
@@ -199,9 +199,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.24"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.209.25"
             },
-            "time": "2022-02-14T19:15:07+00:00"
+            "time": "2022-02-16T19:18:09+00:00"
         },
         {
             "name": "botman/botman",
@@ -7401,16 +7401,16 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.83.0",
+            "version": "v8.83.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8"
+                "reference": "d9c66d586ec2d216d8a31283d73f8df1400cc722"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/f8053a9e26ffe0db24db02ef346c40bca920f8f8",
-                "reference": "f8053a9e26ffe0db24db02ef346c40bca920f8f8",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/d9c66d586ec2d216d8a31283d73f8df1400cc722",
+                "reference": "d9c66d586ec2d216d8a31283d73f8df1400cc722",
                 "shasum": ""
             },
             "require": {
@@ -7449,9 +7449,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/collect/issues",
-                "source": "https://github.com/tighten/collect/tree/v8.83.0"
+                "source": "https://github.com/tighten/collect/tree/v8.83.1"
             },
-            "time": "2022-02-10T23:00:41+00:00"
+            "time": "2022-02-16T16:15:54+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
