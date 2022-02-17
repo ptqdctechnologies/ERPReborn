@@ -142,7 +142,6 @@
                         $('#popUpCalender').modal("show");
                     },
                     eventClick:function(event){
-                        console.log(event);
                         $('#startDate2').val(convertdate(event.start));
                         $('#finishDate2').val(convertdate(event.end));
                         $('#backgroundColor2').val(event.color);
@@ -150,6 +149,15 @@
                         $('#activity2').val(event.title);
                         $('#timesheetId').val(event.timesheetId);
                         $('#popUpCalenderEdit').modal("show");
+                    },
+                    eventClick:function(event){
+                        $('#startDate2').val(convertdate(event.start));
+                        $('#finishDate2').val(convertdate(event.end));
+                        $('#backgroundColor2').val(event.color);
+                        $('#textColor2').val(event.textColor);
+                        $('#activity2').val(event.title);
+                        $('#timesheetId').val(event.timesheetId);
+                        $('#popUpEditActivity').modal("show");
                     },
                     
                 });
