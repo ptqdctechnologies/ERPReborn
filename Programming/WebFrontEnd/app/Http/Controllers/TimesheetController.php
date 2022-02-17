@@ -21,21 +21,32 @@ class TimesheetController extends Controller
         $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
+            'dataPickList.master.getPerson', 
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+            'parameter' => [
                 ]
             ]
-        );
+            );
+        // dd($varData2);
         $val = 0;
         if($request->test == '1'){
-            // echo $request->timesheet;die;
+            $timesheet = $request->timesheet;
+            $FilterDocumentNumber = $request->FilterDocumentNumber;
+            $FilterDate = $request->FilterDate;
+            $FilterBehalfOf = $request->FilterBehalfOf;
+            if($request->timesheet == ""){
+                $timesheet = null;
+            }
+            if($request->FilterDocumentNumber == ""){
+                $FilterDocumentNumber = null;
+            }
+            if($request->FilterDate == ""){
+                $FilterDate = null;
+            }
+            if($request->FilterBehalfOf == ""){
+                $FilterBehalfOf = null;
+            }
             $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -43,13 +54,13 @@ class TimesheetController extends Controller
             'latest', 
             [
             'parameter' => [
-                'personWorkTimeSheet_RefID' => (int) $request->timesheet
+                'personWorkTimeSheet_RefID' => $timesheet
                 ],
             "dataFilter" =>
                 [
-                'documentNumber' => $request->FilterDocumentNumber,
-                'eventDateTimeTZ' => $request->FilterDate,
-                'person_RefID' => (int) $request->FilterBehalfOf
+                'documentNumber' => $FilterDocumentNumber,
+                'eventDateTimeTZ' => $FilterDate,
+                'person_RefID' => (int) $FilterBehalfOf
                 ]
             ]
             );
