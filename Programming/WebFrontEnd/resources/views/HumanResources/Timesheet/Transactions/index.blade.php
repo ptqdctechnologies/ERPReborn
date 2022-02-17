@@ -61,7 +61,7 @@
             <div class="card-body">
               <div class="row">
                 <table>
-                  <tr>
+                  <!-- <tr>
                     <div class="col-md-12">
                       <div class="form-group">
                         <td>Project</td>
@@ -84,14 +84,14 @@
                         </td>
                       </div>
                     </div>
-                  </tr>
+                  </tr> -->
                   <tr>
                     <div class="col-md-12">
                       <div class="form-group">
                         <td>Date</td>
                         <td>
                           <div class="input-group">
-                            <input type="date" name="FilterDate" id="FilterDate" style="border-radius:0;" class="form-control" value="{{ date('Y-m-d') }}">
+                            <input type="date" name="FilterDate" id="FilterDate" style="border-radius:0;" class="form-control">
                           </div>
                         </td>
                         <td>&nbsp;&nbsp;On Behalf Of</td>
@@ -100,7 +100,7 @@
                               <select class="form-control select2" id="FilterBehalfOf" name="FilterBehalfOf" style="border-radius:0;">
                               <option value=""> -- Select Person -- </option>
                                 @foreach($data2 as $datas2)
-                                <option value="{{ $datas2['sys_ID'] }}">{{$datas2['name']}}</option>
+                                <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
                                 @endforeach
                               </select>
                             </div>
@@ -286,7 +286,7 @@
                           <div class="input-group">
                             <select class="form-control select2" id="behalfOf" name="behalfOf" style="border-radius:0;">
                               @foreach($data2 as $datas2)
-                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['name']}}</option>
+                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
                               @endforeach
                             </select>
                           </div>
@@ -467,7 +467,7 @@
                           <div class="input-group">
                             <select class="form-control select2" id="behalfOf2" name="behalfOf2" style="border-radius:0;">
                               @foreach($data2 as $datas2)
-                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['name']}}</option>
+                              <option value="{{ $datas2['sys_ID'] }}">{{$datas2['sys_Text']}}</option>
                               @endforeach
                             </select>
                           </div>
@@ -516,6 +516,94 @@
           </button>
       </div>
       <div class="modal-body" id="popUpActivity">
+        <form action="{{ route('Timesheet.storeActivity') }}" method="post">
+          @csrf
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <table>
+                  <tr>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <td>Start Date</td>
+                        <td>
+                          <div class="input-group">
+                            <input type="date" name="startDate3" id="startDate3" style="border-radius:0;" class="form-control">
+                          </div>
+                        </td>
+                        <td>&nbsp;&nbsp;Finish Date</td>
+                        <td>
+                          <div class="input-group">
+                            <input type="date" name="finishDate3" id="finishDate3" style="border-radius:0;" class="form-control">
+                          </div>
+                        </td>
+                      </div>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <td>Daily Act</td>
+                        <td>
+                          <div class="input-group">
+                            <textarea name="activity3" id="activity3" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
+                          </div>
+                        </td>
+                        <td>&nbsp;&nbsp;Timesheet</td>
+                        <td>
+                          <div class="input-group" style="width: 150%;">
+                            <select class="form-control select2" style="border-radius:0;" name="timesheet2">
+                              <option value=""> -- Select Timesheet -- </option>
+                              @foreach($TimesheetData as $TimesheetDatas)
+                              <option value="{{ $TimesheetDatas['sys_ID'] }}">{{$TimesheetDatas['documentNumber']}}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </td>
+                      </div>
+                    </div>
+                  </tr>
+                  <tr>
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <td>Background</td>
+                        <td>
+                          <div class="input-group">
+                            <input type="color" id="backgroundColor3" style="border-radius:0;" name="backgroundColor3" class="form-control">
+                          </div>
+                        </td>
+                        <td>&nbsp;&nbsp;Text</td>
+                        <td>
+                          <div class="input-group">
+                            <input type="color" id="textColor3" style="border-radius:0;" name="textColor3" class="form-control">
+                          </div>
+                        </td>
+                      </div>
+                    </div>
+                  </tr>
+                </table>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 370px;">
+              <i class="fa fa-pencil" aria-hidden="true">Submit</i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="popUpEditActivity" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="position: relative;top:120px;right:155px;width:170%;">
+      <div class="modal-header">
+          <h3>Edit Activity</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+      </div>
+      <div class="modal-body" id="popUpEditActivity">
         <form action="{{ route('Timesheet.storeActivity') }}" method="post">
           @csrf
           <div class="card">
