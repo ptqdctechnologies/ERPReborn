@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.4.3...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.4.4...3.x)
+
+## [v3.4.4](https://github.com/laravel/ui/compare/v3.4.3...v3.4.4) - 2022-02-15
+
+### Fixed
+
+- Update ConfirmsPasswords.php by @hannah-massey in https://github.com/laravel/ui/pull/222
 
 ## [v3.4.3](https://github.com/laravel/ui/compare/v3.4.2...v3.4.3) - 2022-02-08
 
