@@ -9,14 +9,25 @@
  */
 namespace SebastianBergmann\CodeCoverage\StaticAnalysis;
 
-use SebastianBergmann\CodeCoverage\Directory;
+use function assert;
+use function crc32;
+use function file_get_contents;
+use function file_put_contents;
+use function is_file;
+use function serialize;
+use GlobIterator;
+use SebastianBergmann\CodeCoverage\Util\Filesystem;
+use SplFileInfo;
 
 /**
  * @internal This class is not covered by the backward compatibility promise for phpunit/php-code-coverage
  */
 final class CachingFileAnalyser implements FileAnalyser
 {
-    private const CACHE_FORMAT_VERSION = 2;
+    /**
+     * @var ?string
+     */
+    private static $cacheVersion;
 
     /**
      * @var FileAnalyser
@@ -35,10 +46,14 @@ final class CachingFileAnalyser implements FileAnalyser
 
     public function __construct(string $directory, FileAnalyser $analyser)
     {
-        Directory::create($directory);
+        Filesystem::createDirectory($directory);
 
         $this->analyser  = $analyser;
         $this->directory = $directory;
+
+        if (self::$cacheVersion === null) {
+            $this->calculateCacheVersion();
+        }
     }
 
     public function classesIn(string $filename): array
@@ -100,8 +115,10 @@ final class CachingFileAnalyser implements FileAnalyser
 
     public function process(string $filename): void
     {
-        if ($this->has($filename)) {
-            $this->cache[$filename] = $this->read($filename);
+        $cache = $this->read($filename);
+
+        if ($cache !== false) {
+            $this->cache[$filename] = $cache;
 
             return;
         }
@@ -118,7 +135,10 @@ final class CachingFileAnalyser implements FileAnalyser
         $this->write($filename, $this->cache[$filename]);
     }
 
-    private function has(string $filename): bool
+    /**
+     * @return mixed
+     */
+    private function read(string $filename)
     {
         $cacheFile = $this->cacheFile($filename);
 
@@ -126,22 +146,8 @@ final class CachingFileAnalyser implements FileAnalyser
             return false;
         }
 
-        if (filemtime($cacheFile) < filemtime($filename)) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * @return mixed
-     */
-    private function read(string $filename)
-    {
         return unserialize(
-            file_get_contents(
-                $this->cacheFile($filename)
-            ),
+            file_get_contents($cacheFile),
             ['allowed_classes' => false]
         );
     }
@@ -159,6 +165,19 @@ final class CachingFileAnalyser implements FileAnalyser
 
     private function cacheFile(string $filename): string
     {
-        return $this->directory . DIRECTORY_SEPARATOR . hash('sha256', $filename . self::CACHE_FORMAT_VERSION);
+        return $this->directory . DIRECTORY_SEPARATOR . hash('sha256', $filename . crc32(file_get_contents($filename)) . self::$cacheVersion);
+    }
+
+    private function calculateCacheVersion(): void
+    {
+        $buffer = '';
+
+        foreach (new GlobIterator(__DIR__ . '/*.php') as $file) {
+            assert($file instanceof SplFileInfo);
+
+            $buffer .= file_get_contents($file->getPathname());
+        }
+
+        self::$cacheVersion = (string) crc32($buffer);
     }
 }
