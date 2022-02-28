@@ -7746,6 +7746,7 @@ return array(
     'Symfony\\Component\\VarDumper\\Caster\\IntlCaster' => $vendorDir . '/symfony/var-dumper/Caster/IntlCaster.php',
     'Symfony\\Component\\VarDumper\\Caster\\LinkStub' => $vendorDir . '/symfony/var-dumper/Caster/LinkStub.php',
     'Symfony\\Component\\VarDumper\\Caster\\MemcachedCaster' => $vendorDir . '/symfony/var-dumper/Caster/MemcachedCaster.php',
+    'Symfony\\Component\\VarDumper\\Caster\\MysqliCaster' => $vendorDir . '/symfony/var-dumper/Caster/MysqliCaster.php',
     'Symfony\\Component\\VarDumper\\Caster\\PdoCaster' => $vendorDir . '/symfony/var-dumper/Caster/PdoCaster.php',
     'Symfony\\Component\\VarDumper\\Caster\\PgSqlCaster' => $vendorDir . '/symfony/var-dumper/Caster/PgSqlCaster.php',
     'Symfony\\Component\\VarDumper\\Caster\\ProxyManagerCaster' => $vendorDir . '/symfony/var-dumper/Caster/ProxyManagerCaster.php',

@@ -84,6 +84,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'userPassword' => $varUserPassword
                             ]
                         ];
+
                     $varResponseData = \App\Helpers\ZhtHelper\System\Helper_HTTPResponse::getResponse(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'URL_BACKEND_API_AUTH'),

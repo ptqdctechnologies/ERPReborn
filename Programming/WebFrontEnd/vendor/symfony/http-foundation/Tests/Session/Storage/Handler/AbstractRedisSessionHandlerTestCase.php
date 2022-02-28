@@ -32,10 +32,7 @@ abstract class AbstractRedisSessionHandlerTestCase extends TestCase
      */
     protected $redisClient;
 
-    /**
-     * @return \Redis|\RedisArray|\RedisCluster|\Predis\Client
-     */
-    abstract protected function createRedisClient(string $host): object;
+    abstract protected function createRedisClient(string $host): \Redis|\RedisArray|\RedisCluster|\Predis\Client;
 
     protected function setUp(): void
     {
@@ -45,7 +42,7 @@ abstract class AbstractRedisSessionHandlerTestCase extends TestCase
             self::markTestSkipped('Extension redis required.');
         }
         try {
-            (new \Redis())->connect(getenv('REDIS_HOST'));
+            (new \Redis())->connect(...explode(':', getenv('REDIS_HOST')));
         } catch (\Exception $e) {
             self::markTestSkipped($e->getMessage());
         }

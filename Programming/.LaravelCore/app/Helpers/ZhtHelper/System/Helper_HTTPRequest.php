@@ -159,6 +159,7 @@ namespace App\Helpers\ZhtHelper\System
                     $varResponseData = '';
                     $ObjClient = new \GuzzleHttp\Client();
                     try {
+//dd($varURL);
                         $varResponse = $ObjClient->request(
                             $varMethod,
                             $varURL,
@@ -171,7 +172,6 @@ namespace App\Helpers\ZhtHelper\System
                             ]
                             );
 //echo  "@@@";
-//dd($varURL);
 //dd($varData);
 
 //dd($varURL);
@@ -249,6 +249,7 @@ namespace App\Helpers\ZhtHelper\System
                     catch (\GuzzleHttp\Exception\BadResponseException $ex) {
                         $response = $ex->getResponse();
                         $responseBodyAsString = $response->getBody()->getContents();
+//echo "Error : ". $responseBodyAsString;
                         $varHTTPStatusCode = $response->getStatusCode();
                         //$varResponseContents = \App\Helpers\ZhtHelper\System\Helper_APIResponse::getNotification_FailureMessage_v1($varUserSession, $varHTTPStatusCode, $responseBodyAsString);
 

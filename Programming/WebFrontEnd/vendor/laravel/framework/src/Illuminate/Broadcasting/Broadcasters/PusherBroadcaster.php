@@ -4,7 +4,6 @@ namespace Illuminate\Broadcasting\Broadcasters;
 
 use Illuminate\Broadcasting\BroadcastException;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use Pusher\ApiErrorException;
 use Pusher\Pusher;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -63,7 +62,7 @@ class PusherBroadcaster extends Broadcaster
      */
     public function validAuthenticationResponse($request, $result)
     {
-        if (Str::startsWith($request->channel_name, 'private')) {
+        if (str_starts_with($request->channel_name, 'private')) {
             return $this->decodePusherResponse(
                 $request, $this->pusher->socket_auth($request->channel_name, $request->socket_id)
             );
@@ -117,44 +116,17 @@ class PusherBroadcaster extends Broadcaster
     {
         $socket = Arr::pull($payload, 'socket');
 
-        if ($this->pusherServerIsVersionFiveOrGreater()) {
-            $parameters = $socket !== null ? ['socket_id' => $socket] : [];
+        $parameters = $socket !== null ? ['socket_id' => $socket] : [];
 
-            try {
-                $this->pusher->trigger(
-                    $this->formatChannels($channels), $event, $payload, $parameters
-                );
-            } catch (ApiErrorException $e) {
-                throw new BroadcastException(
-                    sprintf('Pusher error: %s.', $e->getMessage())
-                );
-            }
-        } else {
-            $response = $this->pusher->trigger(
-                $this->formatChannels($channels), $event, $payload, $socket, true
+        try {
+            $this->pusher->trigger(
+                $this->formatChannels($channels), $event, $payload, $parameters
             );
-
-            if ((is_array($response) && $response['status'] >= 200 && $response['status'] <= 299)
-                || $response === true) {
-                return;
-            }
-
+        } catch (ApiErrorException $e) {
             throw new BroadcastException(
-                ! empty($response['body'])
-                    ? sprintf('Pusher error: %s.', $response['body'])
-                    : 'Failed to connect to Pusher.'
+                sprintf('Pusher error: %s.', $e->getMessage())
             );
         }
-    }
-
-    /**
-     * Determine if the Pusher PHP server is version 5.0 or greater.
-     *
-     * @return bool
-     */
-    protected function pusherServerIsVersionFiveOrGreater()
-    {
-        return class_exists(ApiErrorException::class);
     }
 
     /**

@@ -8,7 +8,6 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\ConnectionInterface;
-use Illuminate\Support\Str;
 
 class DatabaseUserProvider implements UserProvider
 {
@@ -17,7 +16,7 @@ class DatabaseUserProvider implements UserProvider
      *
      * @var \Illuminate\Database\ConnectionInterface
      */
-    protected $conn;
+    protected $connection;
 
     /**
      * The hasher implementation.
@@ -36,14 +35,14 @@ class DatabaseUserProvider implements UserProvider
     /**
      * Create a new database user provider.
      *
-     * @param  \Illuminate\Database\ConnectionInterface  $conn
+     * @param  \Illuminate\Database\ConnectionInterface  $connection
      * @param  \Illuminate\Contracts\Hashing\Hasher  $hasher
      * @param  string  $table
      * @return void
      */
-    public function __construct(ConnectionInterface $conn, HasherContract $hasher, $table)
+    public function __construct(ConnectionInterface $connection, HasherContract $hasher, $table)
     {
-        $this->conn = $conn;
+        $this->connection = $connection;
         $this->table = $table;
         $this->hasher = $hasher;
     }
@@ -56,7 +55,7 @@ class DatabaseUserProvider implements UserProvider
      */
     public function retrieveById($identifier)
     {
-        $user = $this->conn->table($this->table)->find($identifier);
+        $user = $this->connection->table($this->table)->find($identifier);
 
         return $this->getGenericUser($user);
     }
@@ -71,7 +70,7 @@ class DatabaseUserProvider implements UserProvider
     public function retrieveByToken($identifier, $token)
     {
         $user = $this->getGenericUser(
-            $this->conn->table($this->table)->find($identifier)
+            $this->connection->table($this->table)->find($identifier)
         );
 
         return $user && $user->getRememberToken() && hash_equals($user->getRememberToken(), $token)
@@ -87,7 +86,7 @@ class DatabaseUserProvider implements UserProvider
      */
     public function updateRememberToken(UserContract $user, $token)
     {
-        $this->conn->table($this->table)
+        $this->connection->table($this->table)
                 ->where($user->getAuthIdentifierName(), $user->getAuthIdentifier())
                 ->update([$user->getRememberTokenName() => $token]);
     }
@@ -109,10 +108,10 @@ class DatabaseUserProvider implements UserProvider
         // First we will add each credential element to the query as a where clause.
         // Then we can execute the query and, if we found a user, return it in a
         // generic "user" object that will be utilized by the Guard instances.
-        $query = $this->conn->table($this->table);
+        $query = $this->connection->table($this->table);
 
         foreach ($credentials as $key => $value) {
-            if (Str::contains($key, 'password')) {
+            if (str_contains($key, 'password')) {
                 continue;
             }
 

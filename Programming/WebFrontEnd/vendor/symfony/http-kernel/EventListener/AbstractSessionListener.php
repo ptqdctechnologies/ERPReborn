@@ -17,7 +17,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\SessionUtils;
-use Symfony\Component\HttpKernel\Event\FinishRequestEvent;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\Exception\UnexpectedSessionUsageException;
@@ -44,8 +43,7 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
     public const NO_AUTO_CACHE_CONTROL_HEADER = 'Symfony-Session-NoAutoCacheControl';
 
     protected $container;
-    private $sessionUsageStack = [];
-    private $debug;
+    private bool $debug;
 
     /**
      * @var array<string, mixed>
@@ -88,9 +86,6 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
                 return $sess;
             });
         }
-
-        $session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : null;
-        $this->sessionUsageStack[] = $session instanceof Session ? $session->getUsageIndex() : 0;
     }
 
     public function onKernelResponse(ResponseEvent $event)
@@ -103,10 +98,10 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
         $autoCacheControl = !$response->headers->has(self::NO_AUTO_CACHE_CONTROL_HEADER);
         // Always remove the internal header if present
         $response->headers->remove(self::NO_AUTO_CACHE_CONTROL_HEADER);
-
-        if (!$session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $event->getRequest()->getSession()) {
+        if (!$event->getRequest()->hasSession(true)) {
             return;
         }
+        $session = $event->getRequest()->getSession();
 
         if ($session->isStarted()) {
             /*
@@ -154,7 +149,7 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
             $request = $event->getRequest();
             $requestSessionCookieId = $request->cookies->get($sessionName);
 
-            $isSessionEmpty = $session->isEmpty() && empty($_SESSION); // checking $_SESSION to keep compatibility with native sessions
+            $isSessionEmpty = ($session instanceof Session ? $session->isEmpty() : empty($session->all())) && empty($_SESSION); // checking $_SESSION to keep compatibility with native sessions
             if ($requestSessionCookieId && $isSessionEmpty) {
                 $response->headers->clearCookie(
                     $sessionName,
@@ -187,7 +182,7 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
             }
         }
 
-        if ($session instanceof Session ? $session->getUsageIndex() === end($this->sessionUsageStack) : !$session->isStarted()) {
+        if ($session instanceof Session ? 0 === $session->getUsageIndex() : !$session->isStarted()) {
             return;
         }
 
@@ -209,13 +204,6 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
 
         if ($this->container->has('logger')) {
             $this->container->get('logger')->warning('Session was used while the request was declared stateless.');
-        }
-    }
-
-    public function onFinishRequest(FinishRequestEvent $event)
-    {
-        if ($event->isMainRequest()) {
-            array_pop($this->sessionUsageStack);
         }
     }
 
@@ -243,7 +231,7 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
             return;
         }
 
-        if (!$session = $this->container && $this->container->has('initialized_session') ? $this->container->get('initialized_session') : $requestStack->getCurrentRequest()->getSession()) {
+        if (!$session = $requestStack->getCurrentRequest()->getSession()) {
             return;
         }
 
@@ -260,7 +248,6 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
             KernelEvents::REQUEST => ['onKernelRequest', 128],
             // low priority to come after regular response listeners, but higher than StreamedResponseListener
             KernelEvents::RESPONSE => ['onKernelResponse', -1000],
-            KernelEvents::FINISH_REQUEST => ['onFinishRequest'],
         ];
     }
 
@@ -280,10 +267,8 @@ abstract class AbstractSessionListener implements EventSubscriberInterface, Rese
 
     /**
      * Gets the session object.
-     *
-     * @return SessionInterface|null
      */
-    abstract protected function getSession();
+    abstract protected function getSession(): ?SessionInterface;
 
     private function getSessionOptions(array $sessionOptions): array
     {
