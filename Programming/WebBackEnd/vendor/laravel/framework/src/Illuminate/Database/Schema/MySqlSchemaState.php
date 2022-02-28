@@ -118,7 +118,7 @@ class MySqlSchemaState extends SchemaState
      */
     protected function baseVariables(array $config)
     {
-        $config['host'] = $config['host'] ?? '';
+        $config['host'] ??= '';
 
         return [
             'LARAVEL_LOAD_SOCKET' => $config['unix_socket'] ?? '',
@@ -149,7 +149,7 @@ class MySqlSchemaState extends SchemaState
                 ), $output, $variables);
             }
 
-            if (Str::contains($e->getMessage(), ['set-gtid-purged'])) {
+            if (str_contains($e->getMessage(), 'set-gtid-purged')) {
                 return $this->executeDumpProcess(Process::fromShellCommandLine(
                     str_replace(' --set-gtid-purged=OFF', '', $process->getCommandLine())
                 ), $output, $variables);

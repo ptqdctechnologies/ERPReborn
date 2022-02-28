@@ -181,7 +181,7 @@ class SqlServerGrammar extends Grammar
     }
 
     /**
-     * {@inheritdoc}
+     * Compile a single having clause.
      *
      * @param  array  $having
      * @return string
@@ -207,7 +207,7 @@ class SqlServerGrammar extends Grammar
 
         $parameter = $this->parameter($having['value']);
 
-        return $having['boolean'].' ('.$column.' '.$having['operator'].' '.$parameter.') != 0';
+        return '('.$column.' '.$having['operator'].' '.$parameter.') != 0';
     }
 
     /**

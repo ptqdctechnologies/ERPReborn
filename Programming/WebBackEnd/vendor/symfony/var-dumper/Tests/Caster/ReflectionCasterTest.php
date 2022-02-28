@@ -168,9 +168,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionParameterMixed()
     {
         $f = eval('return function (mixed $a) {};');
@@ -189,9 +186,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionParameterUnion()
     {
         $f = eval('return function (int|float $a) {};');
@@ -209,9 +203,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionParameterNullableUnion()
     {
         $f = eval('return function (int|float|null $a) {};');
@@ -250,9 +241,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 7.4
-     */
     public function testReflectionPropertyScalar()
     {
         $var = new \ReflectionProperty(ReflectionNamedTypeFixture::class, 'a');
@@ -268,9 +256,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 7.4
-     */
     public function testReflectionNamedType()
     {
         $var = (new \ReflectionProperty(ReflectionNamedTypeFixture::class, 'a'))->getType();
@@ -286,9 +271,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionUnionType()
     {
         $var = (new \ReflectionProperty(ReflectionUnionTypeFixture::class, 'a'))->getType();
@@ -342,9 +324,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testExtendsReflectionType()
     {
         $var = new ExtendsReflectionTypeFixture();
@@ -352,24 +331,6 @@ EOTXT
             <<<'EOTXT'
 Symfony\Component\VarDumper\Tests\Fixtures\ExtendsReflectionTypeFixture {
   allowsNull: false
-}
-EOTXT
-            , $var
-        );
-    }
-
-    /**
-     * @requires PHP < 8
-     */
-    public function testLegacyExtendsReflectionType()
-    {
-        $var = new ExtendsReflectionTypeFixture();
-        $this->assertDumpMatchesFormat(
-            <<<'EOTXT'
-Symfony\Component\VarDumper\Tests\Fixtures\ExtendsReflectionTypeFixture {
-  name: "fake"
-  allowsNull: false
-  isBuiltin: false
 }
 EOTXT
             , $var
@@ -395,9 +356,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testMixedReturnType()
     {
         $f = eval('return function (): mixed {};');
@@ -417,9 +375,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testUnionReturnType()
     {
         $f = eval('return function (): int|float {};');
@@ -439,9 +394,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testNullableUnionReturnType()
     {
         $f = eval('return function (): int|float|null {};');
@@ -554,9 +506,6 @@ EOTXT
         );
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionClassWithAttribute()
     {
         $var = new \ReflectionClass(LotsOfAttributes::class);
@@ -576,9 +525,6 @@ EOTXT
             , $var);
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionMethodWithAttribute()
     {
         $var = new \ReflectionMethod(LotsOfAttributes::class, 'someMethod');
@@ -601,9 +547,6 @@ EOTXT
             , $var);
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionPropertyWithAttribute()
     {
         $var = new \ReflectionProperty(LotsOfAttributes::class, 'someProperty');
@@ -626,9 +569,6 @@ EOTXT
             , $var);
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionClassConstantWithAttribute()
     {
         $var = new \ReflectionClassConstant(LotsOfAttributes::class, 'SOME_CONSTANT');
@@ -658,9 +598,6 @@ EOTXT
             , $var);
     }
 
-    /**
-     * @requires PHP 8
-     */
     public function testReflectionParameterWithAttribute()
     {
         $var = new \ReflectionParameter([LotsOfAttributes::class, 'someMethod'], 'someParameter');

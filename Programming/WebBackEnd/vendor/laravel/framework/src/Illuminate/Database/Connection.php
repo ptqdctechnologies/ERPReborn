@@ -865,14 +865,12 @@ class Connection implements ConnectionInterface
             return;
         }
 
-        switch ($event) {
-            case 'beganTransaction':
-                return $this->events->dispatch(new TransactionBeginning($this));
-            case 'committed':
-                return $this->events->dispatch(new TransactionCommitted($this));
-            case 'rollingBack':
-                return $this->events->dispatch(new TransactionRolledBack($this));
-        }
+        return $this->events->dispatch(match ($event) {
+            'beganTransaction' => new TransactionBeginning($this),
+            'committed' => new TransactionCommitted($this),
+            'rollingBack' => new TransactionRolledBack($this),
+            default => null,
+        });
     }
 
     /**
@@ -1011,7 +1009,7 @@ class Connection implements ConnectionInterface
             $this->doctrineConnection = new DoctrineConnection(array_filter([
                 'pdo' => $this->getPdo(),
                 'dbname' => $this->getDatabaseName(),
-                'driver' => method_exists($driver, 'getName') ? $driver->getName() : null,
+                'driver' => $driver->getName(),
                 'serverVersion' => $this->getConfig('server_version'),
             ]), $driver);
 

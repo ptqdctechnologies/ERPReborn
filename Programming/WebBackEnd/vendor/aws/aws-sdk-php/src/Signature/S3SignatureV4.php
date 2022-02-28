@@ -8,7 +8,9 @@ use AWS\CRT\Auth\SigningAlgorithm;
 use AWS\CRT\Auth\SigningConfigAWS;
 use AWS\CRT\Auth\StaticCredentialsProvider;
 use AWS\CRT\HTTP\Request;
+use AWS\CRT\IO\InputStream;
 use AWS\CRT\Auth\Signable;
+use Aws\Exception\AwsException;
 use Aws\Exception\CommonRuntimeException;
 use Psr\Http\Message\RequestInterface;
 
