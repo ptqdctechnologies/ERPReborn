@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Date;
 use SplFileInfo;
 use stdClass;
+use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\VarDumper\VarDumper;
 
 trait InteractsWithInput
@@ -60,7 +61,7 @@ trait InteractsWithInput
         if ($position !== false) {
             $header = substr($header, $position + 7);
 
-            return strpos($header, ',') !== false ? strstr($header, ',', true) : $header;
+            return str_contains($header, ',') ? strstr($header, ',', true) : $header;
         }
     }
 
@@ -505,6 +506,10 @@ trait InteractsWithInput
     {
         if (is_null($key)) {
             return $this->$source->all();
+        }
+
+        if ($this->$source instanceof InputBag) {
+            return $this->$source->all()[$key] ?? $default;
         }
 
         return $this->$source->get($key, $default);

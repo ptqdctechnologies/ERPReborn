@@ -1,9 +1,0 @@
-parameters:
-    tmpDir: ./build/cache/phpstan
-    level: max
-    paths:
-        - ./src
-        - ./tests
-        - ./resources/console
-    bootstrapFiles:
-        - ./tests/bootstrap.php

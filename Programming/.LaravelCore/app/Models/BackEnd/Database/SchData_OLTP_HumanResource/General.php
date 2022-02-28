@@ -298,7 +298,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataReportFormResume_PersonWorkTimeSheet($varUserSession, int $varBranchID, 
-            int $varPersonWorkTimeSheet_RefID,
+            int $varPersonWorkTimeSheet_RefID = null,
             string $varDataFilter_DocumentNumber = null, string $varDataFilter_EventDateTimeTZ = null, int $varDataFilter_Person_RefID = null
             )
             {

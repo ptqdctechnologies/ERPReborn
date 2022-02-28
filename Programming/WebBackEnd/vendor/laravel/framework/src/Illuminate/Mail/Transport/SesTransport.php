@@ -4,10 +4,11 @@ namespace Illuminate\Mail\Transport;
 
 use Aws\Exception\AwsException;
 use Aws\Ses\SesClient;
-use Swift_Mime_SimpleMessage;
-use Swift_TransportException;
+use Exception;
+use Symfony\Component\Mailer\SentMessage;
+use Symfony\Component\Mailer\Transport\AbstractTransport;
 
-class SesTransport extends Transport
+class SesTransport extends AbstractTransport
 {
     /**
      * The Amazon SES instance.
@@ -34,22 +35,20 @@ class SesTransport extends Transport
     {
         $this->ses = $ses;
         $this->options = $options;
+
+        parent::__construct();
     }
 
     /**
-     * {@inheritdoc}
-     *
-     * @return int
+     * {@inheritDoc}
      */
-    public function send(Swift_Mime_SimpleMessage $message, &$failedRecipients = null)
+    protected function doSend(SentMessage $message): void
     {
-        $this->beforeSendPerformed($message);
-
         try {
-            $result = $this->ses->sendRawEmail(
+            $this->ses->sendRawEmail(
                 array_merge(
                     $this->options, [
-                        'Source' => key($message->getSender() ?: $message->getFrom()),
+                        'Source' => $message->getEnvelope()->getSender()->toString(),
                         'RawMessage' => [
                             'Data' => $message->toString(),
                         ],
@@ -57,17 +56,18 @@ class SesTransport extends Transport
                 )
             );
         } catch (AwsException $e) {
-            throw new Swift_TransportException('Request to AWS SES API failed.', $e->getCode(), $e);
+            throw new Exception('Request to AWS SES API failed.', $e->getCode(), $e);
         }
+    }
 
-        $messageId = $result->get('MessageId');
-
-        $message->getHeaders()->addTextHeader('X-Message-ID', $messageId);
-        $message->getHeaders()->addTextHeader('X-SES-Message-ID', $messageId);
-
-        $this->sendPerformed($message);
-
-        return $this->numberOfRecipients($message);
+    /**
+     * Get the string representation of the transport.
+     *
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return 'ses';
     }
 
     /**

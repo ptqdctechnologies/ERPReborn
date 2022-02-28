@@ -1,5 +1,0 @@
-.idea
-.phpdoc
-*.bak
-/vendor/
-/composer.lock

@@ -87,16 +87,14 @@
     </EmptyArrayAccess>
   </file>
   <file src="src/Node/Directory.php">
-    <DocblockTypeContradiction occurrences="4">
+    <DocblockTypeContradiction occurrences="3">
       <code>$this-&gt;classes === null</code>
       <code>$this-&gt;functions === null</code>
-      <code>$this-&gt;linesOfCode === null</code>
       <code>$this-&gt;traits === null</code>
     </DocblockTypeContradiction>
-    <PropertyNotSetInConstructor occurrences="4">
+    <PropertyNotSetInConstructor occurrences="3">
       <code>$classes</code>
       <code>$functions</code>
-      <code>$linesOfCode</code>
       <code>$traits</code>
     </PropertyNotSetInConstructor>
     <PropertyTypeCoercion occurrences="2">
@@ -228,22 +226,25 @@
       <code>createElementNS</code>
     </PossiblyNullReference>
   </file>
-  <file src="src/StaticAnalysis/CachingCoveredFileAnalyser.php">
-    <NullableReturnStatement occurrences="5">
+  <file src="src/StaticAnalysis/CachingFileAnalyser.php">
+    <NullableReturnStatement occurrences="6">
       <code>$this-&gt;cache[$filename]['classesIn']</code>
+      <code>$this-&gt;cache[$filename]['executableLinesIn']</code>
       <code>$this-&gt;cache[$filename]['functionsIn']</code>
       <code>$this-&gt;cache[$filename]['ignoredLinesFor']</code>
       <code>$this-&gt;cache[$filename]['linesOfCodeFor']</code>
       <code>$this-&gt;cache[$filename]['traitsIn']</code>
     </NullableReturnStatement>
-    <PossiblyNullArrayAccess occurrences="5">
+    <PossiblyNullArrayAccess occurrences="6">
       <code>$this-&gt;cache[$filename]['classesIn']</code>
+      <code>$this-&gt;cache[$filename]['executableLinesIn']</code>
       <code>$this-&gt;cache[$filename]['functionsIn']</code>
       <code>$this-&gt;cache[$filename]['ignoredLinesFor']</code>
       <code>$this-&gt;cache[$filename]['linesOfCodeFor']</code>
       <code>$this-&gt;cache[$filename]['traitsIn']</code>
     </PossiblyNullArrayAccess>
-    <PossiblyUndefinedArrayOffset occurrences="5">
+    <PossiblyUndefinedArrayOffset occurrences="6">
+      <code>$this-&gt;cache[$filename]</code>
       <code>$this-&gt;cache[$filename]</code>
       <code>$this-&gt;cache[$filename]</code>
       <code>$this-&gt;cache[$filename]</code>
@@ -262,19 +263,21 @@
     <PossiblyUndefinedMethod occurrences="1">
       <code>toString</code>
     </PossiblyUndefinedMethod>
-    <RedundantConditionGivenDocblockType occurrences="7">
+    <RedundantConditionGivenDocblockType occurrences="13">
       <code>$node instanceof Function_</code>
       <code>$node instanceof Function_</code>
       <code>$type instanceof ComplexType</code>
       <code>assert($node-&gt;namespacedName instanceof Name)</code>
+      <code>assert($node-&gt;namespacedName instanceof Name)</code>
+      <code>assert($node-&gt;namespacedName instanceof Name)</code>
+      <code>assert($parentNode-&gt;namespacedName instanceof Name)</code>
+      <code>assert($parentNode-&gt;namespacedName instanceof Name)</code>
       <code>assert(isset($node-&gt;name))</code>
       <code>assert(isset($node-&gt;namespacedName))</code>
+      <code>assert(isset($node-&gt;namespacedName))</code>
       <code>assert(isset($parameter-&gt;var-&gt;name))</code>
+      <code>assert(isset($parentNode-&gt;namespacedName))</code>
     </RedundantConditionGivenDocblockType>
-    <UndefinedPropertyFetch occurrences="2">
-      <code>$node-&gt;namespacedName</code>
-      <code>$node-&gt;namespacedName</code>
-    </UndefinedPropertyFetch>
   </file>
   <file src="src/Version.php">
     <DocblockTypeContradiction occurrences="1">

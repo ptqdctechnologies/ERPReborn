@@ -4,6 +4,7 @@ namespace Illuminate\Broadcasting;
 
 use Ably\AblyRest;
 use Closure;
+use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Broadcasting\Broadcasters\AblyBroadcaster;
 use Illuminate\Broadcasting\Broadcasters\LogBroadcaster;
 use Illuminate\Broadcasting\Broadcasters\NullBroadcaster;
@@ -213,16 +214,32 @@ class BroadcastManager implements FactoryContract
      */
     protected function createPusherDriver(array $config)
     {
+        return new PusherBroadcaster($this->pusher($config));
+    }
+
+    /**
+     * Get a Pusher instance for the given configuration.
+     *
+     * @param  array  $config
+     * @return \Pusher\Pusher
+     */
+    public function pusher(array $config)
+    {
         $pusher = new Pusher(
-            $config['key'], $config['secret'],
-            $config['app_id'], $config['options'] ?? []
+            $config['key'],
+            $config['secret'],
+            $config['app_id'],
+            $config['options'] ?? [],
+            isset($config['client_options']) && ! empty($config['client_options'])
+                    ? new GuzzleClient($config['client_options'])
+                    : null,
         );
 
         if ($config['log'] ?? false) {
             $pusher->setLogger($this->app->make(LoggerInterface::class));
         }
 
-        return new PusherBroadcaster($pusher);
+        return $pusher;
     }
 
     /**
@@ -233,7 +250,18 @@ class BroadcastManager implements FactoryContract
      */
     protected function createAblyDriver(array $config)
     {
-        return new AblyBroadcaster(new AblyRest($config));
+        return new AblyBroadcaster($this->ably($config));
+    }
+
+    /**
+     * Get an Ably instance for the given configuration.
+     *
+     * @param  array  $config
+     * @return \Ably\AblyRest
+     */
+    public function ably(array $config)
+    {
+        return new AblyRest($config);
     }
 
     /**
@@ -318,7 +346,7 @@ class BroadcastManager implements FactoryContract
      */
     public function purge($name = null)
     {
-        $name = $name ?? $this->getDefaultDriver();
+        $name ??= $this->getDefaultDriver();
 
         unset($this->drivers[$name]);
     }
