@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2020 Justin Hileman
+ * (c) 2012-2022 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -12,6 +12,7 @@
 namespace Psy\Test\Command\ListCommand;
 
 use Psy\Command\ListCommand\GlobalVariableEnumerator;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 
 class GlobalVariableEnumeratorTest extends EnumeratorTestCase
 {
@@ -66,7 +67,7 @@ class GlobalVariableEnumeratorTest extends EnumeratorTestCase
 
         $name = '$'.$two;
         $style = 'global';
-        $value = '"\<string>string\</string>"';
+        $value = OutputFormatter::escape('"<string>string</string>"');
         $this->assertArrayHasKey('$'.$two, $globals);
         $this->assertSame(\compact('name', 'style', 'value'), $globals[$name]);
 
