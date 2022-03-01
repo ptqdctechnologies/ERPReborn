@@ -47,7 +47,7 @@
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "name", "warehouseType_RefIDx" ]
+                "required": [ "name", "warehouseType_RefID" ]
                 }
             },
         "required": [ "recordID", "entities" ]
