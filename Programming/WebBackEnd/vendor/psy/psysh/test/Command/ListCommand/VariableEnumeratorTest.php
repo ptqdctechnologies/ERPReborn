@@ -3,7 +3,7 @@
 /*
  * This file is part of Psy Shell.
  *
- * (c) 2012-2020 Justin Hileman
+ * (c) 2012-2022 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,6 +13,7 @@ namespace Psy\Test\Command\ListCommand;
 
 use Psy\Command\ListCommand\VariableEnumerator;
 use Psy\Context;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 
 class VariableEnumeratorTest extends EnumeratorTestCase
 {
@@ -74,7 +75,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
             '$two' => [
                 'name'  => '$two',
                 'style' => 'public',
-                'value' => '"\<string>two\</string>"',
+                'value' => OutputFormatter::escape('"<string>two</string>"'),
             ],
             '$three' => [
                 'name'  => '$three',
@@ -114,7 +115,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
             '$two' => [
                 'name'  => '$two',
                 'style' => 'public',
-                'value' => '"\<string>two\</string>"',
+                'value' => OutputFormatter::escape('"<string>two</string>"'),
             ],
             '$three' => [
                 'name'  => '$three',
@@ -124,7 +125,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
             '$_' => [
                 'name'  => '$_',
                 'style' => 'private',
-                'value' => '\<const>null\</const>',
+                'value' => OutputFormatter::escape('<const>null</const>'),
             ],
             '$_e' => [
                 'name'  => '$_e',
@@ -134,7 +135,7 @@ class VariableEnumeratorTest extends EnumeratorTestCase
             '$__out' => [
                 'name'  => '$__out',
                 'style' => 'private',
-                'value' => '"\<string>last stdout\</string>"',
+                'value' => OutputFormatter::escape('"<string>last stdout</string>"'),
             ],
         ], $vars);
     }
