@@ -5831,7 +5831,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     'name' => 'My warehouse',
-                    'budgetExpenseGroup_RefID' => 172000000000001
+                    'warehouseType_RefID' => 172000000000001
                     ]
                 ]
                 );
@@ -5844,7 +5844,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_Name" value="My warehouse">';
-            echo '<input type="text" id="dataInput_BudgetExpenseGroup_RefID" value=172000000000001>';
+            echo '<input type="text" id="dataInput_WarehouseType_RefID" value=172000000000001>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -5853,7 +5853,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"budgetExpenseGroup_RefID" : parseInt(document.getElementById("dataInput_BudgetExpenseGroup_RefID").value) '.
+                        '"warehouseType_RefID" : parseInt(document.getElementById("dataInput_WarehouseType_RefID").value) '.
                         '}'.
                 '}'
                 ); 
@@ -5903,7 +5903,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"annotation" : parseInt(document.getElementById("dataInput_Annotation").value) '.
+                        '"annotation" : document.getElementById("dataInput_Annotation").value '.
                         '}'.
                 '}'
                 ); 
@@ -24247,6 +24247,112 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"projectSection_RefID" : parseInt(document.getElementById("dataInput_ProjectSection_RefID").value), '.
                         '"name" : document.getElementById("dataInput_Name").value, '.
                         '"code" : document.getElementById("dataInput_Code").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setWarehouse                                                              |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateWarehouse()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDYxMjE4MTR9.N2CG2qw56RGH9DAYLqem_-l3FhoT1KKFWXwnJ6rxADQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setWarehouse', 
+                'latest', 
+                [
+                'recordID' => 173000000000001,
+                'entities' => [
+                    'name' => 'Warehouse Name',
+                    'warehouseType_RefID' => 172000000000001
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateWarehouse()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDYxMjE4MTR9.N2CG2qw56RGH9DAYLqem_-l3FhoT1KKFWXwnJ6rxADQ';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=173000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Warehouse Name">';
+            echo '<input type="text" id="dataInput_WarehouseType_RefID" value=172000000000001>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setWarehouse', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"warehouseType_RefID" : parseInt(document.getElementById("dataInput_WarehouseType_RefID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setWarehouseType                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateWarehouseType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDYxMjE4MTR9.N2CG2qw56RGH9DAYLqem_-l3FhoT1KKFWXwnJ6rxADQ';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setWarehouseType', 
+                'latest', 
+                [
+                'recordID' => 172000000000001,
+                'entities' => [
+                    'name' => 'Warehouse Type',
+                    'annotation' => 'Warehouse For ...'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateWarehouseType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDYxMjE4MTR9.N2CG2qw56RGH9DAYLqem_-l3FhoT1KKFWXwnJ6rxADQ';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=172000000000001>';
+            echo '<input type="text" id="dataInput_Name" value="Warehouse Type">';
+            echo '<input type="text" id="dataInput_Annotation" value="Warehouse For ...">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setWarehouseType', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value, '.
+                        '"annotation" : document.getElementById("dataInput_Annotation").value'.
                         '}'.
                 '}'
                 ); 

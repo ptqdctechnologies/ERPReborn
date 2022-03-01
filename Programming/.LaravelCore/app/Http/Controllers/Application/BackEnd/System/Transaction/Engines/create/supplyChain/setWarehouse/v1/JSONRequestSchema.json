@@ -35,13 +35,13 @@
                         "minLength": 1,
                         "maxLength": 256
                         },
-                    "budgetExpenseGroup_RefID": {
+                    "warehouseType_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "name", "budgetExpenseGroup_RefID" ]
+                "required": [ "name", "warehouseType_RefID" ]
                 }
             },
         "required": [ "entities" ]

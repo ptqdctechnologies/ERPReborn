@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.supplyChain.setSupplier (version 1)",
+"description": "JSON Request Schema of transaction.update.supplyChain.setWarehouseType (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.update.supplyChain.setSupplier" ]
+                        "enum": [ "transaction.update.supplyChain.setWarehouseType" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -36,8 +36,18 @@
                 {
                 "type": "object",
                 "properties": {
+                    "name": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "annotation": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        }
                     },
-                "required": [ ]
+                "required": [ "name", "annotation" ]
                 }
             },
         "required": [ "recordID", "entities" ]

@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['name'],
-                            $varData['entities']['budgetExpenseGroup_RefID']
+                            $varData['entities']['warehouseType_RefID']
                             ))))
                             {
                             throw new \Exception();
