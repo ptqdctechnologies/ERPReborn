@@ -30,8 +30,83 @@
             "entities" : {
                 "type": "object",
                 "properties": {
+                    "purchaseOrder_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "purchaseRequisitionDetail": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "quantity": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "quantityUnit_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "productUnitPriceValue_Currency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "productUnitPriceValue_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValue_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValue_BaseCurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueDiscount_Currency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "productUnitPriceValueDiscount_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueDiscount_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueDiscount_BaseCurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueAddedTax_Currency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "productUnitPriceValueAddedTax_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueAddedTax_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "productUnitPriceValueAddedTax_BaseCurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 1
+                        },
+                    "remarks": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        }
                     },
-                "required": [ ]
+                "required": [ "purchaseOrder_RefID", "purchaseRequisitionDetail", "quantity", "quantityUnit_RefID", "productUnitPriceValue_Currency_RefID", "productUnitPriceValue_CurrencyExchangeRate", "productUnitPriceValue_CurrencyeValue", "productUnitPriceValue_BaseCurrencyeValue", "productUnitPriceValueDiscount_Currency_RefID", "productUnitPriceValueDiscount_CurrencyExchangeRate", "productUnitPriceValueDiscount_CurrencyeValue", "productUnitPriceValueDiscount_BaseCurrencyeValue", "productUnitPriceValueAddedTax_Currency_RefID", "productUnitPriceValueAddedTax_CurrencyExchangeRate", "productUnitPriceValueAddedTax_CurrencyeValue", "productUnitPriceValueAddedTax_BaseCurrencyeValue", "remarks" ]
                 }
             },
         "required": [ "entities" ]

@@ -5099,17 +5099,17 @@
         },
         {
             "name": "spatie/flare-client-php",
-            "version": "1.0.4",
-            "version_normalized": "1.0.4.0",
+            "version": "1.0.5",
+            "version_normalized": "1.0.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/flare-client-php.git",
-                "reference": "edf253c68fba62cdb29ad6b48e211e29691dcee8"
+                "reference": "8ada1e5f4d7a2869f491c5e75d1f689b69db423e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/edf253c68fba62cdb29ad6b48e211e29691dcee8",
-                "reference": "edf253c68fba62cdb29ad6b48e211e29691dcee8",
+                "url": "https://api.github.com/repos/spatie/flare-client-php/zipball/8ada1e5f4d7a2869f491c5e75d1f689b69db423e",
+                "reference": "8ada1e5f4d7a2869f491c5e75d1f689b69db423e",
                 "shasum": ""
             },
             "require": {
@@ -5129,7 +5129,7 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/phpunit-snapshot-assertions": "^4.0"
             },
-            "time": "2022-02-28T15:04:23+00:00",
+            "time": "2022-03-01T10:52:59+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -5154,7 +5154,7 @@
             ],
             "support": {
                 "issues": "https://github.com/spatie/flare-client-php/issues",
-                "source": "https://github.com/spatie/flare-client-php/tree/1.0.4"
+                "source": "https://github.com/spatie/flare-client-php/tree/1.0.5"
             },
             "funding": [
                 {
@@ -5166,17 +5166,17 @@
         },
         {
             "name": "spatie/ignition",
-            "version": "1.0.5",
-            "version_normalized": "1.0.5.0",
+            "version": "1.1.0",
+            "version_normalized": "1.1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/ignition.git",
-                "reference": "6b7bb804f4834b080f5ac941f6ac6800a485011e"
+                "reference": "8ecde033600064e3ffdbf804deec0dcb05004387"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/ignition/zipball/6b7bb804f4834b080f5ac941f6ac6800a485011e",
-                "reference": "6b7bb804f4834b080f5ac941f6ac6800a485011e",
+                "url": "https://api.github.com/repos/spatie/ignition/zipball/8ecde033600064e3ffdbf804deec0dcb05004387",
+                "reference": "8ecde033600064e3ffdbf804deec0dcb05004387",
                 "shasum": ""
             },
             "require": {
@@ -5197,9 +5197,9 @@
                 "spatie/ray": "^1.32",
                 "symfony/process": "^5.4|^6.0"
             },
-            "time": "2022-02-17T21:40:47+00:00",
+            "time": "2022-03-01T17:01:33+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "Spatie\\Ignition\\": "src"
