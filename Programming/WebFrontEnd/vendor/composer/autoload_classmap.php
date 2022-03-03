@@ -893,6 +893,7 @@ return array(
     'Illuminate\\Database\\Concerns\\BuildsQueries' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php',
     'Illuminate\\Database\\Concerns\\ExplainsQueries' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/ExplainsQueries.php',
     'Illuminate\\Database\\Concerns\\ManagesTransactions' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php',
+    'Illuminate\\Database\\Concerns\\ParsesSearchPath' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Concerns/ParsesSearchPath.php',
     'Illuminate\\Database\\ConfigurationUrlParser' => $vendorDir . '/laravel/framework/src/Illuminate/Database/ConfigurationUrlParser.php',
     'Illuminate\\Database\\Connection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Connection.php',
     'Illuminate\\Database\\ConnectionInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Database/ConnectionInterface.php',
