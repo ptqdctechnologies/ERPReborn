@@ -61,7 +61,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
-//                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
@@ -75,12 +74,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['paymentTerm'],
                             $varData['entities']['remarks']
                             ))))
-//                            )))
                             {
                             throw new \Exception();
                             }
-//$varDataSend = ['x' => $varDataSend];
-//$varDataSend = ['x' => $varData];                        
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
