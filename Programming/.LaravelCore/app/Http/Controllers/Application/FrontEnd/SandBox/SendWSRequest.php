@@ -5935,8 +5935,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDYzNjQ4MTV9.anoOB7mIoJeeQMFAqbczbtK1d3ly6HFoNeHl45MZHJ0';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_Name" value="My warehouse">';
-            echo '<input type="text" id="dataInput_WarehouseType_RefID" value=172000000000001>';
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
+            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
+            echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
+            echo '<input type="text" id="dataInput_ShippingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_BillingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
+            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -5944,8 +5950,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 '{'.
                     '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"warehouseType_RefID" : parseInt(document.getElementById("dataInput_WarehouseType_RefID").value) '.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
+                        '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
+                        '"shippingAddress" : document.getElementById("dataInput_ShippingAddress").value, '.
+                        '"billingAddress" : document.getElementById("dataInput_BillingAddress").value, '.
+                        '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '}'.
                 '}'
                 ); 
