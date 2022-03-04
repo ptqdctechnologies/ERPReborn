@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create Date     : 2020-09-14                                                                                           |
         | ▪ Last Update     : 2020-09-14                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-04                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -52,8 +53,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varSupplier_RefID ► Supplier Reference ID                                                                |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
+        |      ▪ (string) varShippingAddress ► Shipping Address                                                                    |
+        |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
+        |      ▪ (string) varPaymentTerm ► Payment Term                                                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -62,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -75,9 +81,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint'],
+
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
+                        [$varSupplier_RefID, 'bigint'],
+                        [$varDeliveryDateTimeTZ, 'timestamptz'],
+                        [$varShippingAddress, 'varchar'],
+                        [$varBillingAddress, 'varchar'],
+                        [$varPaymentTerm, 'varchar'],
                         [$varRemarks, 'varchar']
+
                     ]
                     )
                 );
@@ -89,9 +102,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Create Date     : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-04                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -100,8 +113,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varSupplier_RefID ► Supplier Reference ID                                                                |
+        |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
+        |      ▪ (string) varShippingAddress ► Shipping Address                                                                    |
+        |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
+        |      ▪ (string) varPaymentTerm ► Payment Term                                                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -110,7 +128,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -123,8 +141,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [$varBusinessDocumentVersion_RefID, 'bigint'],
+
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
+                        [$varSupplier_RefID, 'bigint'],
+                        [$varDeliveryDateTimeTZ, 'timestamptz'],
+                        [$varShippingAddress, 'varchar'],
+                        [$varBillingAddress, 'varchar'],
+                        [$varPaymentTerm, 'varchar'],
                         [$varRemarks, 'varchar']
                     ],
                     )
