@@ -66,21 +66,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['purchaseOrder_RefID'],
-                            $varData['entities']['purchaseRequisitionDetail'],
+                            $varData['entities']['purchaseRequisitionDetail_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
                             $varData['entities']['productUnitPriceValue_Currency_RefID'],
                             $varData['entities']['productUnitPriceValue_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValue_CurrencyeValue'],
-                            $varData['entities']['productUnitPriceValue_BaseCurrencyeValue'],
                             $varData['entities']['productUnitPriceValueDiscount_Currency_RefID'],
                             $varData['entities']['productUnitPriceValueDiscount_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValueDiscount_CurrencyeValue'],
-                            $varData['entities']['productUnitPriceValueDiscount_BaseCurrencyeValue'],
                             $varData['entities']['productUnitPriceValueAddedTax_Currency_RefID'],
                             $varData['entities']['productUnitPriceValueAddedTax_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValueAddedTax_CurrencyeValue'],
-                            $varData['entities']['productUnitPriceValueAddedTax_BaseCurrencyeValue'],
                             $varData['entities']['remarks']
                             ))))
                             {

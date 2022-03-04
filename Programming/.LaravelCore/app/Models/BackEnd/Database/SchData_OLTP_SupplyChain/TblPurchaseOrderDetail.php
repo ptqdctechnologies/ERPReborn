@@ -90,6 +90,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varPurchaseOrder_RefID, 'bigint'],
                         [$varPurchaseRequisitionDetail_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
@@ -164,6 +165,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varPurchaseOrder_RefID, 'bigint'],
                         [$varPurchaseRequisitionDetail_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],

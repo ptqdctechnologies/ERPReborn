@@ -35,7 +35,7 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "purchaseRequisitionDetail": {
+                    "purchaseRequisitionDetail_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -62,10 +62,6 @@
                         "type": [ "number", "null" ],
                         "minimum": 1
                         },
-                    "productUnitPriceValue_BaseCurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
-                        },
                     "productUnitPriceValueDiscount_Currency_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
@@ -76,10 +72,6 @@
                         "minimum": 1
                         },
                     "productUnitPriceValueDiscount_CurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
-                        },
-                    "productUnitPriceValueDiscount_BaseCurrencyeValue": {
                         "type": [ "number", "null" ],
                         "minimum": 1
                         },
@@ -96,17 +88,13 @@
                         "type": [ "number", "null" ],
                         "minimum": 1
                         },
-                    "productUnitPriceValueAddedTax_BaseCurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
-                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "purchaseRequisitionDetail", "quantity", "quantityUnit_RefID", "productUnitPriceValue_Currency_RefID", "productUnitPriceValue_CurrencyExchangeRate", "productUnitPriceValue_CurrencyeValue", "productUnitPriceValue_BaseCurrencyeValue", "productUnitPriceValueDiscount_Currency_RefID", "productUnitPriceValueDiscount_CurrencyExchangeRate", "productUnitPriceValueDiscount_CurrencyeValue", "productUnitPriceValueDiscount_BaseCurrencyeValue", "productUnitPriceValueAddedTax_Currency_RefID", "productUnitPriceValueAddedTax_CurrencyExchangeRate", "productUnitPriceValueAddedTax_CurrencyeValue", "productUnitPriceValueAddedTax_BaseCurrencyeValue", "remarks" ]
+                "required": [ "purchaseOrder_RefID", "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceValue_Currency_RefID", "productUnitPriceValue_CurrencyExchangeRate", "productUnitPriceValue_CurrencyeValue", "productUnitPriceValueDiscount_Currency_RefID", "productUnitPriceValueDiscount_CurrencyExchangeRate", "productUnitPriceValueDiscount_CurrencyeValue", "productUnitPriceValueAddedTax_Currency_RefID", "productUnitPriceValueAddedTax_CurrencyExchangeRate", "productUnitPriceValueAddedTax_CurrencyeValue", "remarks" ]
                 }
             },
         "required": [ "entities" ]
