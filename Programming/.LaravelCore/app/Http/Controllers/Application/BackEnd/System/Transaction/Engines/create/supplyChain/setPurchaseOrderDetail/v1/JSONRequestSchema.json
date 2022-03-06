@@ -42,7 +42,8 @@
                         },
                     "quantity": {
                         "type": [ "number", "null" ],
-                        "minimum": 1
+                        "pattern": "^(([a]{0,}))$",
+                        "minimum": 0
                         },
                     "quantityUnit_RefID": {
                         "type": [ "integer", "null" ],
@@ -55,12 +56,8 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValue_CurrencyExchangeRate": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "productUnitPriceValue_CurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "productUnitPriceValueDiscount_Currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -68,12 +65,8 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValueDiscount_CurrencyExchangeRate": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "productUnitPriceValueDiscount_CurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "productUnitPriceValueAddedTax_Currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -81,12 +74,8 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValueAddedTax_CurrencyExchangeRate": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "productUnitPriceValueAddedTax_CurrencyeValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 1
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
