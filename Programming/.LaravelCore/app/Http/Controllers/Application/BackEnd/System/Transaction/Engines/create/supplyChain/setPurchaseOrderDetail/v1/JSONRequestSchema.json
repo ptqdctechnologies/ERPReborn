@@ -42,7 +42,6 @@
                         },
                     "quantity": {
                         "type": [ "number", "null" ],
-                        "pattern": "^(([a]{0,}))$",
                         "minimum": 0
                         },
                     "quantityUnit_RefID": {
@@ -56,8 +55,12 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValue_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "productUnitPriceValue_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "productUnitPriceValueDiscount_Currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -65,8 +68,12 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValueDiscount_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "productUnitPriceValueDiscount_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "productUnitPriceValueAddedTax_Currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -74,8 +81,12 @@
                         "maximum": 9223372036854775807
                         },
                     "productUnitPriceValueAddedTax_CurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "productUnitPriceValueAddedTax_CurrencyeValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
