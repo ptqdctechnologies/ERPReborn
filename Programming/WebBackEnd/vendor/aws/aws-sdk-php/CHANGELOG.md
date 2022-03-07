@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## 3.212.2 - 2022-03-04
+
+* `Aws\Connect` - This release updates the *InstanceStorageConfig APIs so they support a new ResourceType: REAL_TIME_CONTACT_ANALYSIS_SEGMENTS. Use this resource type to enable streaming for real-time contact analysis and to associate the Kinesis stream where real-time contact analysis segments will be published.
+* `Aws\DevOpsGuru` - Amazon DevOps Guru now integrates with Amazon CodeGuru Profiler. You can view CodeGuru Profiler recommendations for your AWS Lambda function in DevOps Guru. This feature is enabled by default for new customers as of 3/4/2022. Existing customers can enable this feature with UpdateEventSourcesConfig.
+* `Aws\EC2` - Documentation updates for Amazon EC2.
+* `Aws\Macie` - Amazon Macie Classic (macie) has been discontinued and is no longer available. A new Amazon Macie (macie2) is now available with significant design improvements and additional features.
+* `Aws\STS` - Documentation updates for AWS Security Token Service.
+* `Aws\Synthetics` - Allow custom handler function.
+* `Aws\Transfer` - Add waiters for server online and offline.
+
+## 3.212.1 - 2022-03-03
+
+* `Aws\Appflow` - Launching Amazon AppFlow Marketo as a destination connector SDK.
+* `Aws\FSx` - This release adds support for data repository associations to use root ("/") as the file system path
+* `Aws\GreengrassV2` - Doc only update that clarifies Create Deployment section.
+* `Aws\TimestreamQuery` - Documentation only update for SDK and CLI
+* `Aws\kendra` - Amazon Kendra now suggests spell corrections for a query. For more information, see https://docs.aws.amazon.com/kendra/latest/dg/query-spell-check.html
+
+## 3.212.0 - 2022-03-02
+
+* `Aws\Athena` - This release adds support for S3 Object Ownership by allowing the S3 bucket owner full control canned ACL to be set when Athena writes query results to S3 buckets.
+* `Aws\CloudTrail` - Add bytesScanned field into responses of DescribeQuery and GetQueryResults.
+* `Aws\ECR` - This release adds support for tracking images lastRecordedPullTime.
+* `Aws\GameLift` - Minor updates to address errors.
+* `Aws\Keyspaces` - This release adds support for data definition language (DDL) operations
+
 ## 3.211.1 - 2022-03-01
 
 * `Aws\KafkaConnect` - Adds operation for custom plugin deletion (DeleteCustomPlugin) and adds new StateDescription field to DescribeCustomPlugin and DescribeConnector responses to return errors from asynchronous resource creation.
