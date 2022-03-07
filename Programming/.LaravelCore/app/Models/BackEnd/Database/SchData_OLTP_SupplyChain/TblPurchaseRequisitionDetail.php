@@ -81,6 +81,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varPurchaseRequisition_RefID, 'bigint'],
                         [$varCombinedBudgetDetail_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],

@@ -42,7 +42,7 @@
                         },
                     "quantity": {
                         "type": [ "number", "null" ],
-                        "minimum": 1
+                        "minimum": 0
                         },
                     "quantityUnit_RefID": {
                         "type": [ "integer", "null" ],
@@ -56,11 +56,11 @@
                         },
                     "productUnitPriceCurrencyExchangeRate": {
                         "type": [ "number", "null" ],
-                        "minimum": 1
+                        "minimum": 0
                         },
                     "productUnitPriceCurrencyValue": {
                         "type": [ "number", "null" ],
-                        "minimum": 1
+                        "minimum": 0
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
