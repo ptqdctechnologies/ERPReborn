@@ -149,6 +149,37 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 }
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataHide                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Hide                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataHide($varUserSession, array $varDataSend)
+            {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordHide']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Data Hiding Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Hiding Failed');
+                }
+            }
+
             
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -240,6 +271,37 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                 throw new \Exception('Data Read Failed');
                 }            
  */
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataShow                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Hide                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataShow($varUserSession, array $varDataSend)
+            {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordHide']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Data Showing Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Showing Failed');
+                }
             }
 
 
