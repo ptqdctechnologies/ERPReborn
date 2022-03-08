@@ -52,8 +52,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varWarehouseOutboundOrder_RefID ► Purchase Requisition Reference ID                                      |
-        |      ▪ (int)    varReferenceDocument_RefID ► Combined Budget Detail Reference ID                                         |
+        |      ▪ (int)    varWarehouseOutboundOrder_RefID ► Warehouse Outbound Order Reference ID                                  |
+        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
@@ -111,8 +111,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varWarehouseOutboundOrder_RefID ► Purchase Requisition Reference ID                                      |
-        |      ▪ (int)    varReferenceDocument_RefID ► Combined Budget Detail Reference ID                                         |
+        |      ▪ (int)    varWarehouseOutboundOrder_RefID ► Warehouse Outbound Order Reference ID                                  |
+        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |

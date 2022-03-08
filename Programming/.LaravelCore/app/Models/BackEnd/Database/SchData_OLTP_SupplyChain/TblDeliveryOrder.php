@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblWarehouseInboundOrderDetail                                                                               |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblWarehouseInboundOrderDetail                        |
+    | ▪ Class Name  : TblDeliveryOrder                                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblDeliveryOrder                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblWarehouseInboundOrderDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblDeliveryOrder extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -52,13 +52,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
-        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
-        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -67,7 +62,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -81,13 +76,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         
-                        [$varWarehouseInboundOrder_RefID, 'bigint'],
-                        [$varReferenceDocument_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -111,13 +101,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
-        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
-        |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -126,7 +111,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -139,14 +124,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        
-                        [$varWarehouseInboundOrder_RefID, 'bigint'],
-                        [$varReferenceDocument_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
-                        [$varProductUnitPriceCurrencyValue, 'numeric'],
+
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
                     ],
                     )
