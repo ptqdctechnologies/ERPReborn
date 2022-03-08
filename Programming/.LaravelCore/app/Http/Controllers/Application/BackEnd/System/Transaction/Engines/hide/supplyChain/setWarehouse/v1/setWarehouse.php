@@ -60,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\hi
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataDelete($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouse())->setDataHide(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataHide($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouse())->setDataHide(
                             $varUserSession,
                             $varData['recordID']
                             ))))
