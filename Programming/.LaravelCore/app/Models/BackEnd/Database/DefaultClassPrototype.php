@@ -276,6 +276,28 @@ namespace App\Models\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataHide                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Description     : Data Hide                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataHide($varUserSession, int $varRecordID)
+            {
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->setDataHide($varUserSession, $varRecordID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setEmptyTableAndResetSequence                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -351,6 +373,28 @@ namespace App\Models\Database
         public function unsetDataDelete($varUserSession, int $varRecordID)
             {
             $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataDelete($varUserSession, $varRecordID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : unsetDataHide                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Description     : Data Show                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordID ► Record ID                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function unsetDataHide($varUserSession, int $varRecordID)
+            {
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataHide($varUserSession, $varRecordID);
             return $varReturn;
             }
         }
