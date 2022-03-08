@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblWarehouseInboundOrderDetail                                                                               |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblWarehouseInboundOrderDetail                        |
+    | ▪ Class Name  : TblWarehouseInboundOrder                                                                                     |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblWarehouseInboundOrder                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblWarehouseInboundOrderDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblWarehouseInboundOrder extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -75,6 +75,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
@@ -122,6 +123,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']

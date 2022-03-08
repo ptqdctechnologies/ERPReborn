@@ -75,6 +75,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
@@ -122,6 +123,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
