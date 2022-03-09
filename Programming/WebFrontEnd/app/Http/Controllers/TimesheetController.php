@@ -28,13 +28,12 @@ class TimesheetController extends Controller
                 ]
             ]
             );
-        // dd($varData2);
         $val = 0;
         if($request->test == '1'){
-            $timesheet = $request->timesheet;
+            $timesheet = (int) $request->timesheet;
             $FilterDocumentNumber = $request->FilterDocumentNumber;
             $FilterDate = $request->FilterDate;
-            $FilterBehalfOf = $request->FilterBehalfOf;
+            $FilterBehalfOf = (int) $request->FilterBehalfOf;
             if($request->timesheet == ""){
                 $timesheet = null;
             }
@@ -60,12 +59,12 @@ class TimesheetController extends Controller
                 [
                 'documentNumber' => $FilterDocumentNumber,
                 'eventDateTimeTZ' => $FilterDate,
-                'person_RefID' => (int) $FilterBehalfOf
+                'person_RefID' => $FilterBehalfOf
                 ]
             ]
             );
             // dd($varData3['data']['0']['details']);
-            dd($varData3);
+            // dd($varData3);
             $val = 1 ;
         }
 
@@ -85,14 +84,26 @@ class TimesheetController extends Controller
         ]
         );
         if($val == 1){
-            $compact = [
-                'data' => $varData['data']['data'],
-                'data2' => $varData2['data'],
-                'varData' => $varData3['data'],
-                'varData2' => $varData3['data']['0']['details'],
-                'status' => $varData3['metadata']['HTTPStatusCode'],
-                'TimesheetData' => $varData4['data'],
-            ];
+            if($varData3['metadata']['HTTPStatusCode'] == "200"){
+                $compact = [
+                    'data' => $varData['data']['data'],
+                    'data2' => $varData2['data'],
+                    'varData' => $varData3['data'],
+                    'varData2' => $varData3['data']['0']['details'],
+                    'status' => $varData3['metadata']['HTTPStatusCode'],
+                    'TimesheetData' => $varData4['data'],
+                ];
+            }
+            else{
+                $compact = [
+                    'data' => $varData['data']['data'],
+                    'data2' => $varData2['data'],
+                    'varData' => $varData3['data'],
+                    'varData2' => $varData3['data'],
+                    'status' => $varData3['metadata']['HTTPStatusCode'],
+                    'TimesheetData' => $varData4['data'],
+                ];
+            }
         }
         else{
             $compact = [

@@ -4,14 +4,15 @@
         $(".headerDor1").hide();
         $(".headerDor2").hide();
         $(".headerDor3").hide();
+        $(".headerDor4").hide();
         $("#detailDor").hide();
         $("#detailDorList").hide();
-        // $("#dorCart").hide();
+        $("#headerPrNumber2").prop("disabled", true);
     });
 </script>
 
-<script>
-    $(function() {
+<script type="text/javascript">
+    $(document).ready(function() {
         $(".deliverType").on('click', function(e) {
             e.preventDefault();
             var valType = $(".deliverType").val();
@@ -19,14 +20,23 @@
                 $(".headerDor1").show();
                 $(".headerDor2").hide();
                 $(".headerDor3").hide();
+                $(".headerDor4").hide();
             }
             else if(valType == "Warehouse to Warehouse"){
                 $(".headerDor2").show();
                 $(".headerDor1").hide();
                 $(".headerDor3").hide();
+                $(".headerDor4").hide();
             }
             else if(valType == "Supplier to Site"){
                 $(".headerDor3").show();
+                $(".headerDor2").hide();
+                $(".headerDor1").hide();
+                $(".headerDor4").hide();
+            }
+            else if(valType == "Site to Warehouse"){
+                $(".headerDor4").show();
+                $(".headerDor3").hide();
                 $(".headerDor2").hide();
                 $(".headerDor1").hide();
             }

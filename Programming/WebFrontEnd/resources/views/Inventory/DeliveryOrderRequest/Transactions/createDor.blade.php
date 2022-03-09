@@ -88,7 +88,7 @@
                                                                 <input name="workIdDorDetail2" id="workIdDorDetail2" style="border-radius:0;" type="text" class="form-control">
                                                             </td>
                                                         </tr>
-                                                        <tr>
+                                                        <!-- <tr>
                                                             <td><label>Product Id</label></td>
                                                             <td>
                                                                 <input name="productIdDorDetail" id="productIdDorDetail" style="border-radius:0;" type="text" class="form-control">
@@ -96,7 +96,7 @@
                                                             <td>
                                                                 <input name="productIdDorDetail2" id="productIdDorDetail2" style="border-radius:0;" type="text" class="form-control">
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </table>
                                                 </div>
                                             </div>
@@ -127,6 +127,15 @@
                                                             </td>
                                                         </tr>
                                                         <tr>
+                                                            <td><label>Product Id</label></td>
+                                                            <td>
+                                                                <input name="productIdDorDetail" id="productIdDorDetail" style="border-radius:0;" type="text" class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input name="productIdDorDetail2" id="productIdDorDetail2" style="border-radius:0;" type="text" class="form-control">
+                                                            </td>
+                                                        </tr>
+                                                        <!-- <tr>
                                                             <td><Label>Discount</Label></td>
                                                             <td>
                                                                 <input name="discountDorDetail" id="discountDorDetail" style="border-radius:0;" type="text" class="form-control">
@@ -140,7 +149,7 @@
                                                             <td>
                                                                 <input name="afterDiscountDorDetail" id="afterDiscountDorDetail" style="border-radius:0;" type="text" class="form-control">
                                                             </td>
-                                                        </tr>
+                                                        </tr> -->
                                                     </table>
                                                 </div>
                                             </div>
