@@ -32,76 +32,28 @@
    $(document).ready(function () {
     
     $('#addFromDetailtoCart').click(function(ev){
-    ev.preventDefault();
-    ev.stopPropagation();
+        ev.preventDefault();
+        ev.stopPropagation();
 
-    var product_id = $("#putProductId").val();
-    var putProductName = $("#putProductName").val();
-    var qtyCek = $('#qtyCek').val();
-    var putUom = $("#putUom").val();
-    var priceCek = $("#priceCek").val().replace(/[^a-zA-Z0-9 ]/g, "");
-    var putCurrency = $("#putCurrency").val();
-    var totalArfDetails = $("#totalArfDetails").val().replace(/[^a-zA-Z0-9 ]/g, "");
-    var putRemark = $("#putRemark").val();
-    var totalBalance = $("#totalBalance").val();
-    var putPrice = $('#putPrice').val();
-    var status = $("#status").val();
+        var product_id = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val();
+        var putUom = $("#putUom").val();
+        var priceCek = $("#priceCek").val().replace(/[^a-zA-Z0-9 ]/g, "");
+        var putCurrency = $("#putCurrency").val();
+        var totalArfDetails = $("#totalArfDetails").val().replace(/[^a-zA-Z0-9 ]/g, "");
+        var putRemark = $("#putRemark").val();
+        var totalBalance = $("#totalBalance").val();
+        var putPrice = $('#putPrice').val();
+        var status = $("#status").val();
 
-    // if (product_id == "") {
-    //     $("#putProductId").css("border", "1px solid red");
-    //     $("#putProductName").css("border", "1px solid red");
-    //     $("#iconProductId").css("border", "1px solid red");
-    //     $("#iconProductId").css("borderRadius", "100pt");
-    //     $("#iconProductId").css("paddingRight", "5px");
-    //     $("#iconProductId").css("paddingLeft", "5px");
-    //     $("#iconProductId").css("paddingTop", "1px");
-    //     $("#iconProductId").css("paddingBottom", "1px");
-    //     $("#iconProductId2").show();
-    //     return false;
-
-    // } else if (qtyx == 0) {
-    //     $("#qtyCek").css    ("border", "1px solid red");
-    //     $("#putUom").css("border", "1px solid red");
-    //     $("#iconQty").css("border", "1px solid red");
-    //     $("#iconQty").css("borderRadius", "100pt");
-    //     $("#iconQty").css("paddingRight", "5px");
-    //     $("#iconQty").css("paddingLeft", "5px");
-    //     $("#iconQty").css("paddingTop", "1px");
-    //     $("#iconQty").css("paddingBottom", "1px");
-    //     $("#iconQty2").show();
-    //     return false;
-
-    // } else if (priceCek == "") {
-    //     $("#priceCek").css("border", "1px solid red");
-    //     $("#putCurrency").css("border", "1px solid red");
-    //     $("#iconUnitPrice").css("border", "1px solid red");
-    //     $("#iconUnitPrice").css("borderRadius", "100pt");
-    //     $("#iconUnitPrice").css("paddingRight", "5px");
-    //     $("#iconUnitPrice").css("paddingLeft", "5px");
-    //     $("#iconUnitPrice").css("paddingTop", "1px");
-    //     $("#iconUnitPrice").css("paddingBottom", "1px");
-    //     $("#iconUnitPrice2").show();
-    //     return false;
-
-    // } else if (putRemark == "") {
-    //     $("#putRemark").css("border", "1px solid red");
-    //     $("#iconRemark").css("border", "1px solid red");
-    //     $("#iconRemark").css("borderRadius", "100pt");
-    //     $("#iconRemark").css("paddingRight", "5px");
-    //     $("#iconRemark").css("paddingLeft", "5px");
-    //     $("#iconRemark").css("paddingTop", "1px");
-    //     $("#iconRemark").css("paddingBottom", "1px");
-    //     $("#iconRemark2").show();
-    //     return false;
-
-    // } else {
-
+        // console.log(putProductName);
         var html = '<tr>'+
                     '<td>'+
                         '<button type="button" class="btn btn-danger btn-xs remove"><i class="fa fa-trash"></i></button> '+
                         '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+product_id+'" data-id2="'+putProductName+'" data-id3="'+qtyCek+'" data-id4="'+putUom+'" data-id5="'+priceCek+'" data-id6="'+putCurrency+'" data-id7="'+totalArfDetails+'" data-id8="'+putRemark+'" data-id9="'+totalBalance+'" data-id10="'+status+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
                         '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                        '<input type="hidden" name="var_product_name[]" value="'+putProductName+'">'+
+                        '<input type="hidden" name="var_product_name[]" id="var_product_name" value="'+putProductName+'">'+
                         '<input type="hidden" name="var_quantity[]" value="'+qtyCek+'">'+
                         '<input type="hidden" name="var_uom[]" value="'+putUom+'">'+
                         '<input type="hidden" name="var_price[]" value="'+priceCek+'">'+
@@ -118,6 +70,7 @@
                     '<td>'+putCurrency+'</td>'+
                     '<td>'+putRemark+'</td>'+
                 '</tr>';
+        console.log(html);
                 
         $('table.tableArf tbody').append(html);
 
@@ -187,7 +140,6 @@
         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
         $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
         $("#detailArfList").show();
-    // }
     });
 });
 </script>
@@ -271,7 +223,7 @@
                     $('#totalArfDetails').val(0);
 
                 } else if (total > totalBalance) {
-                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
                     $("#priceCek").val(0);
                     $('#totalArfDetails').val(0);
                     $("#addFromDetailtoCart").prop("disabled", true);
@@ -288,7 +240,7 @@
                     $('#totalArfDetails').val(0);
 
                 } else if (total > total2) {
-                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
                     $("#priceCek").val(0);
                     $('#totalArfDetails').val(0);
                     $("#addFromDetailtoCart").prop("disabled", true);
@@ -682,7 +634,7 @@
 
                                 } else if (total > totalBalance) {
                                     alert(priceCek);
-                                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
                                     $("#lastPrice").val(priceCek);
                                     $('#totalAkhir').html(qtyCek * priceCek);
                                     $("#addFromDetailtoCart").prop("disabled", true);
@@ -706,7 +658,7 @@
                                     $("#addFromDetailtoCart").prop("disabled", true);
                                 } 
                                 else if (total > total2) {
-                                    Swal.fire("Error !", "Your Request Price Is Over Budget", "error");
+                                    Swal.fire("Error !", "Your Request Is Over Budget", "error");
                                     $("#lastPrice").val(priceCek);
                                     $('#totalAkhir').html(qtyCek * priceCek);
                                     $("#addFromDetailtoCart").prop("disabled", true);

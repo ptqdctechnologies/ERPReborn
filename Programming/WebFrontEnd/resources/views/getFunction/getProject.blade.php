@@ -57,6 +57,7 @@
             $("#headerProjectCode").val(code);
             $("#sitecode2").prop("disabled", false);
             $("#advance_number2").prop("disabled", false);
+            $("#headerPrNumber2").prop("disabled", false);
             
             $.ajaxSetup({
                 headers: {

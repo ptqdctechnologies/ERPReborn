@@ -141,29 +141,29 @@
                         $('#finishDate').val(convertdate(end));
                         $('#popUpCalender').modal("show");
                     },
-                    eventClick:function(event){
-                        $('#startDate2').val(convertdate(event.start));
-                        $('#finishDate2').val(convertdate(event.end));
-                        $('#backgroundColor2').val(event.color);
-                        $('#textColor2').val(event.textColor);
-                        $('#activity2').val(event.title);
-                        $('#timesheetId').val(event.timesheetId);
-                        $('#popUpCalenderEdit').modal("show");
-                    },
-                    eventClick:function(event){
-                        $('#startDate2').val(convertdate(event.start));
-                        $('#finishDate2').val(convertdate(event.end));
-                        $('#backgroundColor2').val(event.color);
-                        $('#textColor2').val(event.textColor);
-                        $('#activity2').val(event.title);
-                        $('#timesheetId').val(event.timesheetId);
-                        $('#popUpEditActivity').modal("show");
-                    },
+                    // eventClick:function(event){
+                    //     $('#startDate2').val(convertdate(event.start));
+                    //     $('#finishDate2').val(convertdate(event.end));
+                    //     $('#backgroundColor2').val(event.color);
+                    //     $('#textColor2').val(event.textColor);
+                    //     $('#activity2').val(event.title);
+                    //     $('#timesheetId').val(event.timesheetId);
+                    //     $('#popUpCalenderEdit').modal("show");
+                    // },
+                    // eventClick2:function(event){
+                    //     $('#startDate2').val(convertdate(event.start));
+                    //     $('#finishDate2').val(convertdate(event.end));
+                    //     $('#backgroundColor2').val(event.color);
+                    //     $('#textColor2').val(event.textColor);
+                    //     $('#activity2').val(event.title);
+                    //     $('#timesheetId').val(event.timesheetId);
+                    //     $('#popUpEditActivity').modal("show");
+                    // },
                     
                 });
             @endif
         @else
-        var calendar = $('#calendar').fullCalendar({
+            var calendar = $('#calendar').fullCalendar({
                 selectable:true,
                 height:600,
                 showNonCurrentDates:false,
