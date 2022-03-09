@@ -3220,6 +3220,7 @@ return array(
     'Illuminate\\Contracts\\Routing\\ResponseFactory' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Routing/ResponseFactory.php',
     'Illuminate\\Contracts\\Routing\\UrlGenerator' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Routing/UrlGenerator.php',
     'Illuminate\\Contracts\\Routing\\UrlRoutable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Routing/UrlRoutable.php',
+    'Illuminate\\Contracts\\Session\\Middleware\\AuthenticatesSessions' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Session/Middleware/AuthenticatesSessions.php',
     'Illuminate\\Contracts\\Session\\Session' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Session/Session.php',
     'Illuminate\\Contracts\\Support\\Arrayable' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/Arrayable.php',
     'Illuminate\\Contracts\\Support\\CanBeEscapedWhenCastToString' => $vendorDir . '/laravel/framework/src/Illuminate/Contracts/Support/CanBeEscapedWhenCastToString.php',

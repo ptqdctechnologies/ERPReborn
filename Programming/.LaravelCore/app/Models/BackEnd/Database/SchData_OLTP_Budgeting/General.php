@@ -412,7 +412,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CombinedBudgetSection($varUserSession, int $varBranchID,
-            int $varCombinedBudgetOwner_RefID,
+            int $varCombinedBudget_RefID,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -423,7 +423,51 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSection',
                         [
                             [$varBranchID, 'bigint'],
-                            [$varCombinedBudgetOwner_RefID, 'bigint'],
+                            [$varCombinedBudget_RefID, 'bigint'],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_CombinedBudgetSectionDetail                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2021-10-11                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Perincian Seksi Anggaran Gabungan                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCombinedBudgetOwner_RefID ► Combined Budget Owner ID                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataList_CombinedBudgetSectionDetail',
+                        [
+                            [$varBranchID, 'bigint'],
+                            [$varCombinedBudgetSection_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -692,6 +736,45 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudget',
                         [
                             [$varBranchID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CombinedBudgetSectionDetail                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Perincian Seksi Anggaran Gabungan                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCombinedBudgetSection_RefID ► Combined Budget Section Reference ID                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CombinedBudgetSectionDetail($varUserSession, int $varBranchID,
+            int $varCombinedBudgetSection_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Budgeting.Func_GetDataPickList_CombinedBudgetSectionDetail',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCombinedBudgetSection_RefID, 'bigint' ]
                         ]
                         )
                     );
