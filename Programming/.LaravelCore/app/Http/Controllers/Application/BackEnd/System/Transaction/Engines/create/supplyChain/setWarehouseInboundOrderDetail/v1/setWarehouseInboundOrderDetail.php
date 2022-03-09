@@ -68,6 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['warehouseInboundOrder_RefID'],
                             $varData['entities']['referenceDocument_RefID'],
+                            $varData['entities']['product_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
                             $varData['entities']['productUnitPriceCurrency_RefID'],
