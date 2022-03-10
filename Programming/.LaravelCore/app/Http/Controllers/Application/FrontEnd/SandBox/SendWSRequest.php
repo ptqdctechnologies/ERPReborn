@@ -27339,6 +27339,68 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setDeliveryOrderDetail                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateDeliveryOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setDeliveryOrderDetail', 
+                'latest', 
+                [
+                'recordID' => 181000000000001,
+                'entities' => [
+                    "deliveryOrder_RefID" => 180000000000001,
+                    "referenceDocument_RefID" => 666999,
+                    "quantity" => 10,
+                    "quantityUnit_RefID" => 73000000000001,
+                    "remarks" => 'Catatan'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdateDeliveryOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_RecordID" value=181000000000001>';
+            echo '<input type="text" id="dataInput_DeliveryOrder_RefID" value=180000000000001>';
+            echo '<input type="text" id="dataInput_ReferenceDocument_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_Quantity" value=10>';
+            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
+            echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setDeliveryOrderDetail', 
+                'latest', 
+                '{'.
+                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
+                    '"entities" : {'.
+                        '"deliveryOrder_RefID" : parseInt(document.getElementById("dataInput_DeliveryOrder_RefID").value), '.
+                        '"referenceDocument_RefID" : parseInt(document.getElementById("dataInput_ReferenceDocument_RefID").value), '.
+                        '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
+                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.update.supplyChain.setWarehouse                                                              |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
