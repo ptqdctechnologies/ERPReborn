@@ -27457,6 +27457,284 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setPurchaseOrder                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdatePurchaseOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseOrder', 
+                'latest', 
+                [
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-04',
+                    "requesterPerson_RefID" => 25000000000439,
+                    "supplier_RefID" => 126000000000001,
+                    "deliveryDateTimeTZ" => '2022-03-08',
+                    "shippingAddress" => 'QDC Technologies, Mampang',
+                    "billingAddress" => 'QDC Technologies, Mampang',
+                    "paymentTerm" => 'My Payment Term',
+                    "remarks" => 'My Remarks'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdatePurchaseOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
+            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
+            echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
+            echo '<input type="text" id="dataInput_ShippingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_BillingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
+            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseOrder', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
+                        '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
+                        '"shippingAddress" : document.getElementById("dataInput_ShippingAddress").value, '.
+                        '"billingAddress" : document.getElementById("dataInput_BillingAddress").value, '.
+                        '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setPurchaseOrderDetail                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdatePurchaseOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseOrderDetail', 
+                'latest', 
+                [
+                'entities' => [
+                    "purchaseOrder_RefID" => 85000000000001,
+                    "purchaseRequisitionDetail_RefID" => 666999,
+                    "quantity" => 10,
+                    "quantityUnit_RefID" => 73000000000001,
+                    "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                    "productUnitPriceValue_CurrencyeValue" => 25000,
+                    "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                    "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                    "productUnitPriceValueAddedTax_Currency_RefID" => 62000000000001,
+                    "productUnitPriceValueAddedTax_CurrencyExchangeRate" => 1,
+                    "productUnitPriceValueAddedTax_CurrencyeValue" => 2500,
+                    "remarks" => 'Catatan'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdatePurchaseOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_PurchaseOrder_RefID" value=85000000000001>';
+            echo '<input type="text" id="dataInput_PurchaseRequisitionDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_Quantity" value=10>';
+            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValue_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyeValue" value=25000>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyeValue" value=0>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue" value=2500>';
+            echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseOrderDetail', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"purchaseOrder_RefID" : parseInt(document.getElementById("dataInput_PurchaseOrder_RefID").value), '.
+                        '"purchaseRequisitionDetail_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisitionDetail_RefID").value), '.
+                        '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
+                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
+                        '"productUnitPriceValue_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValue_Currency_RefID").value), '.
+                        '"productUnitPriceValue_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyExchangeRate").value), '.
+                        '"productUnitPriceValue_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyeValue").value), '.
+                        '"productUnitPriceValueDiscount_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueDiscount_Currency_RefID").value), '.
+                        '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
+                        '"productUnitPriceValueDiscount_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyeValue").value), '.
+                        '"productUnitPriceValueAddedTax_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_Currency_RefID").value), '.
+                        '"productUnitPriceValueAddedTax_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate").value), '.
+                        '"productUnitPriceValueAddedTax_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setPurchaseRequisition                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdatePurchaseRequisition()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseRequisition', 
+                'latest', 
+                [
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "requesterPerson_RefID" => 25000000000439,
+                    "remarks" => 'My Remarks'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdatePurchaseRequisition()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07">';
+            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseRequisition', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.supplyChain.setPurchaseRequisitionDetail                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdatePurchaseRequisitionDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseRequisitionDetail', 
+                'latest', 
+                [
+                'entities' => [
+                    "purchaseRequisition_RefID" => 83000000000001,
+                    "combinedBudgetSectionDetail_RefID" => 666999,
+                    "product_RefID" => 88000000000002,
+                    "quantity" => 10,
+                    "quantityUnit_RefID" => 73000000000001,
+                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                    "productUnitPriceCurrencyExchangeRate" => 1,
+                    "productUnitPriceCurrencyValue" => 30000,
+                    "remarks" => 'Catatan'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataUpdatePurchaseRequisitionDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_PurchaseRequisition_RefID" value=83000000000001>';
+            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_Product_RefID" value=88000000000002>';
+            echo '<input type="text" id="dataInput_Quantity" value=10>';
+            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyValue" value=30000>';
+            echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.update.supplyChain.setPurchaseRequisitionDetail', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"purchaseRequisition_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisition_RefID").value), '.
+                        '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID").value), '.
+                        '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
+                        '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
+                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
+                        '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
+                        '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
+                        '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.update.supplyChain.setWarehouse                                                              |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+

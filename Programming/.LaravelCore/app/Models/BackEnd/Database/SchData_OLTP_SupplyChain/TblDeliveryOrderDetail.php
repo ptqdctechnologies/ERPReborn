@@ -120,8 +120,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             int $varDeliveryOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, string $varRemarks = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
+            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                //$varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -138,9 +138,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varRemarks, 'varchar']
                     ],
-                    )
+                //    )
                 );
-            return $varReturn['Data'][0];
+            //return $varReturn['Data'][0];
+            return $varReturn;
             }
         }
     }
