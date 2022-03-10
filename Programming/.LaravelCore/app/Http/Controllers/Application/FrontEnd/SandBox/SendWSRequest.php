@@ -1171,6 +1171,49 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.supplyChain.getDeliveryOrder                                                                |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getDeliveryOrder', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.supplyChain.getDeliveryOrder', 
+                'latest', 
+                '{'.
+                    '"parameter" : null'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : dataPickList.supplyChain.getPurchaseOrder                                                                |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -6306,6 +6349,118 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.supplyChain.setDeliveryOrder                                                          |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.supplyChain.setDeliveryOrder', 
+                'latest', 
+                [
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "requesterPerson_RefID" => 25000000000439,
+                    "remarks" => 'My Remarks'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07">';
+            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.supplyChain.setDeliveryOrder', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
+                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.supplyChain.setDeliveryOrderDetail                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateDeliveryOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.supplyChain.setDeliveryOrderDetail', 
+                'latest', 
+                [
+                'entities' => [
+                    "deliveryOrder_RefID" => 180000000000001,
+                    "referenceDocument_RefID" => 666999,
+                    "quantity" => 10,
+                    "quantityUnit_RefID" => 73000000000001,
+                    "remarks" => 'Catatan'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateDeliveryOrderDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_DeliveryOrder_RefID" value=180000000000001>';
+            echo '<input type="text" id="dataInput_ReferenceDocument_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_Quantity" value=10>';
+            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
+            echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.supplyChain.setDeliveryOrderDetail', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"deliveryOrder_RefID" : parseInt(document.getElementById("dataInput_DeliveryOrder_RefID").value), '.
+                        '"referenceDocument_RefID" : parseInt(document.getElementById("dataInput_ReferenceDocument_RefID").value), '.
+                        '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
+                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
+                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.supplyChain.setPurchaseOrder                                                          |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -6530,7 +6685,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "purchaseRequisition_RefID" => 83000000000001,
-                    "combinedBudgetDetail_RefID" => 666999,
+                    "combinedBudgetSectionDetail_RefID" => 666999,
+                    "product_RefID" => 88000000000002,
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
@@ -6549,7 +6705,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_PurchaseRequisition_RefID" value=83000000000001>';
-            echo '<input type="text" id="dataInput_CombinedBudgetDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_Product_RefID" value=88000000000002>';
             echo '<input type="text" id="dataInput_Quantity" value=10>';
             echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001>';
@@ -6564,7 +6721,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"purchaseRequisition_RefID" : parseInt(document.getElementById("dataInput_PurchaseRequisition_RefID").value), '.
-                        '"combinedBudgetDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetDetail_RefID").value), '.
+                        '"combinedBudgetSectionDetail_RefID" : parseInt(document.getElementById("dataInput_CombinedBudgetSectionDetail_RefID").value), '.
+                        '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
                         '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
@@ -15926,6 +16084,68 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"parameter" : {'.
                         '"projectSectionItem_RefID" : parseInt(document.getElementById("dataInput_ProjectSectionItem_RefID").value)'.
                         '}, '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataList.supplyChain.getDeliveryOrder                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataListDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getDeliveryOrder', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListDeliveryOrder()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDY4NzM1NzN9.OHfDBUVhn0ODxYLi-2IsC4VML2DWZJg6A-_aUJSA9M8';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataList.supplyChain.getDeliveryOrder', 
+                'latest', 
+                '{'.
+                    '"parameter" : null, '.
                     '"SQLStatement" : {'.
                         '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
                         '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.

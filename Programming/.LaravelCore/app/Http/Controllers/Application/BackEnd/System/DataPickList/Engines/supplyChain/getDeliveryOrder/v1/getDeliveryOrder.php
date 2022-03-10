@@ -3,28 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain                           |
-|                \setPurchaseRequisitionDetail\v1                                                                                  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getDeliveryOrder\v1             |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setPurchaseRequisitionDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\supplyChain\getDeliveryOrder\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPurchaseRequisitionDetail                                                                                 |
-    | ▪ Description : Menangani API transaction.create.supplyChain.setPurchaseRequisitionDetail Version 1                          |
+    | ▪ Class Name  : getDeliveryOrder                                                                                             |
+    | ▪ Description : Menangani API dataPickList.supplyChain.getDeliveryOrder Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPurchaseRequisitionDetail extends \App\Http\Controllers\Controller
+    class getDeliveryOrder extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +42,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-10                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,24 +56,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Purchase Requisition Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Delivery Order (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisitionDetail())->setDataInsert(
+                    try{
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataPickList_DeliveryOrder(
                             $varUserSession, 
-                            null, 
-                            null,
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['purchaseRequisition_RefID'],
-                            $varData['entities']['combinedBudgetSectionDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['remarks']
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))
                             {
                             throw new \Exception();
