@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.212.5',
-            'version' => '3.212.5.0',
+            'pretty_version' => '3.212.6',
+            'version' => '3.212.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'ed69594b385233bb895342e18008cd811e8225e7',
+            'reference' => 'fcb57b1f840938813e83f521e169914a076b3be9',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -1104,12 +1104,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.0.6',
-            'version' => '1.0.6.0',
+            'pretty_version' => '1.0.7',
+            'version' => '1.0.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => 'd349854331789aba9205fd755e0c1d1934ef1463',
+            'reference' => 'ea3a5401b631e8a2ce10581c1fec10c240b8e36e',
             'dev_requirement' => false,
         ),
         'swaggest/json-diff' => array(

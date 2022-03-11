@@ -5,7 +5,6 @@ namespace Spatie\LaravelIgnition;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\ViewException;
 use Laravel\Octane\Events\RequestReceived;
@@ -24,10 +23,6 @@ use Spatie\LaravelIgnition\Exceptions\InvalidConfig;
 use Spatie\LaravelIgnition\FlareMiddleware\AddJobs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddLogs;
 use Spatie\LaravelIgnition\FlareMiddleware\AddQueries;
-use Spatie\LaravelIgnition\Http\Controllers\ExecuteSolutionController;
-use Spatie\LaravelIgnition\Http\Controllers\HealthCheckController;
-use Spatie\LaravelIgnition\Http\Controllers\UpdateConfigController;
-use Spatie\LaravelIgnition\Http\Middleware\RunnableSolutionsEnabled;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\DumpRecorder;
 use Spatie\LaravelIgnition\Recorders\JobRecorder\JobRecorder;
 use Spatie\LaravelIgnition\Recorders\LogRecorder\LogRecorder;
@@ -49,6 +44,7 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->registerRenderer();
         $this->registerRecorders();
         $this->registerLogHandler();
+        $this->registerRoutes();
     }
 
     public function boot()
@@ -61,7 +57,6 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->configureTinker();
         $this->configureOctane();
         $this->registerViewExceptionMapper();
-        $this->registerRoutes();
         $this->startRecorders();
         $this->configureQueue();
     }
@@ -120,7 +115,7 @@ class IgnitionServiceProvider extends ServiceProvider
             return Flare::make()
                 ->setApiToken(config('flare.key') ?? '')
                 ->setBaseUrl(config('flare.base_url', 'https://flareapp.io/api'))
-                ->setStage(config('app.env'))
+                ->setStage(app()->environment())
                 ->registerMiddleware($this->getFlareMiddleware())
                 ->registerMiddleware(new AddSolutions(new SolutionProviderRepository($this->getSolutionProviders())));
         });
@@ -205,18 +200,7 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerRoutes(): void
     {
-        Route::group([
-            'as' => 'ignition.',
-            'prefix' => config('ignition.housekeeping_endpoint_prefix'),
-            'middleware' => [RunnableSolutionsEnabled::class],
-        ], function () {
-            Route::get('health-check', HealthCheckController::class)->name('healthCheck');
-
-            Route::post('execute-solution', ExecuteSolutionController::class)
-                ->name('executeSolution');
-
-            Route::post('update-config', UpdateConfigController::class)->name('updateConfig');
-        });
+        $this->loadRoutesFrom(realpath(__DIR__ . '/ignition-routes.php'));
     }
 
     protected function registerLogHandler(): void
