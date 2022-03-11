@@ -60,18 +60,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataInsert(
+//                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataInsert(
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisition())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['documentDateTimeTZ'],
                             $varData['entities']['requesterPerson_RefID'],
-                            $varData['entities']['remarks']
-                            ))))
+                            $varData['entities']['remarks'],
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
+//                            ))))
+                            )))
                             {
                             throw new \Exception();
                             }
+/*
+$varDataSend = [ 
+    'x' => \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'detailsxxx', $varData['entities'])
+    ];
+ */
+                            
+$varDataSend = ['x' => $varDataSend];
+                            
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

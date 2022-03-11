@@ -942,12 +942,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.0.6',
-            'version' => '1.0.6.0',
+            'pretty_version' => '1.0.7',
+            'version' => '1.0.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => 'd349854331789aba9205fd755e0c1d1934ef1463',
+            'reference' => 'ea3a5401b631e8a2ce10581c1fec10c240b8e36e',
             'dev_requirement' => false,
         ),
         'symfony/console' => array(

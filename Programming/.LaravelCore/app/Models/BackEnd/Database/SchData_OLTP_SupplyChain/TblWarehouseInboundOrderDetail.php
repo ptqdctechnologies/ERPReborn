@@ -42,9 +42,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Create     : 2022-03-08                                                                                           |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Last Update     : 2022-03-11                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -54,6 +54,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
         |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
@@ -67,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -83,6 +84,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         
                         [$varWarehouseInboundOrder_RefID, 'bigint'],
                         [$varReferenceDocument_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
@@ -100,9 +102,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Last Create     : 2022-03-08                                                                                           |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Last Update     : 2022-03-11                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -113,6 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varWarehouseInboundOrder_RefID ► Purchase Requisition Reference ID                                       |
         |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
+        |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
@@ -126,7 +129,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            int $varWarehouseInboundOrder_RefID = null, int $varReferenceDocument_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -142,6 +145,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         
                         [$varWarehouseInboundOrder_RefID, 'bigint'],
                         [$varReferenceDocument_RefID, 'bigint'],
+                        [$varProduct_RefID, 'bigint'],
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
