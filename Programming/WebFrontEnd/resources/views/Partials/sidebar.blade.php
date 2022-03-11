@@ -16,6 +16,12 @@
 @include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
 
+<!-- PURCHASE -->
+@include('Purchase.ProcurementRequest.Transactions.popupRevisionPR')
+@include('Purchase.ProcurementRequest.Functions.PopUp.searchPR')
+@include('Purchase.PurchaseOrder.Transactions.popupRevisionPO')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
+
 <!-- INVENTORY -->
 @include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
 @include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
@@ -1020,7 +1026,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PPM.addPPM') }}" class="nav-link">
+                                            <a href="{{ route('PPM.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Piece Meal</label>
                                             </a>
@@ -1430,13 +1436,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="{{ route('PR.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Procurement Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#prNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Procurement Request Revision</label>
                                             </a>
@@ -1491,13 +1497,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link">
+                                            <a href="{{ route('PO.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Purchase Order</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#poNumberPopup">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Purchase Order Revision</label>
                                             </a>

@@ -25,42 +25,43 @@
                                     </thead>
                                     <tbody>
                                         @php $no=1; @endphp
-                                        @for($i = 1; $i < 4; $i++) <tr>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal">{{ $no++ }}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <p>Site Name {{$i}}</p>
-                                            </td>
+                                        @for($i = 1; $i < 4; $i++) 
+                                            <tr>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal">{{ $no++ }}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSearchPr" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSearchPr" data-id="brfp_no {{ $i }}">Origin of Budget {{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSearchPr" data-id="project_id {{ $i }}">Project ID {{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSearchPr" data-id="project_name {{ $i }}">Project Name {{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span class="tag tag-success">
+                                                        <p data-dismiss="modal" class="klikSearchPr" data-id="site_code {{ $i }}" data-name="site_name {{ $i }}">Site Code {{$i}}</p>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <p>Site Name {{$i}}</p>
+                                                </td>
                                             </tr>
-                                            @endfor
+                                        @endfor
                                     </tbody>
                                 </table>
                             </div>

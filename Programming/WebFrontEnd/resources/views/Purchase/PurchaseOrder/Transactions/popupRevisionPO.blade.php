@@ -1,16 +1,16 @@
-<div id="prNumberPopup" class="modal fade" role="dialog" style="margin-top: 250px;">
+<div id="poNumberPopup" class="modal fade" role="dialog" style="margin-top: 250px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <form action="{{ route('PR.revisionPR') }}" method="post">
+                    <form action="{{ route('PO.revisionPO') }}" method="post">
                         @csrf
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label>PR Number</label></td>
+                                            <td><label>PO Number</label></td>
                                             <td>
                                                 <div class="input-group">
                                                     <input style="border-radius:0;" type="text" class="form-control">

@@ -1,10 +1,10 @@
-<div id="popupPO" class="modal fade" role="dialog" style="margin-top: 150px;margin-left:8px;">
+<div id="poNumberPopup" class="modal fade" role="dialog" style="margin-top: 150px;margin-left:8px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
                     <form action="{{ route('PO.revisionPO') }}" method="post">
-                    @csrf
+                        @csrf
                         <div class="card">
                             <div class="card-body">
                                 <div class="form-group">
