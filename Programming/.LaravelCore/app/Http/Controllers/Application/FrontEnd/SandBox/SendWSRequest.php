@@ -6636,25 +6636,27 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "remarks" => 'My Remarks',
                     "details" => [
                             [
-                            "combinedBudgetSectionDetail_RefID" => 666999,
+                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
                             "details" => [
                                     [
+                                    "sys_ID" => null,
                                     "product_RefID" => 88000000000002,
                                     "quantity" => 10,
                                     "quantityUnit_RefID" => 73000000000001,
                                     "productUnitPriceCurrency_RefID" => 62000000000001,
                                     "productUnitPriceCurrencyExchangeRate" => 1,
                                     "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan'                                        
+                                    "remarks" => 'Catatan Pertama' 
                                     ],
                                     [
+                                    "sys_ID" => null,
                                     "product_RefID" => 88000000000003,
                                     "quantity" => 10,
                                     "quantityUnit_RefID" => 73000000000001,
                                     "productUnitPriceCurrency_RefID" => 62000000000001,
                                     "productUnitPriceCurrencyExchangeRate" => 1,
                                     "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan'                                        
+                                    "remarks" => 'Catatan Kedua'
                                     ],
                                 ]
                             ],
@@ -27667,7 +27669,34 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
                     "requesterPerson_RefID" => 25000000000439,
-                    "remarks" => 'My Remarks'
+                    "remarks" => 'My Remarks',
+                    "details" => [
+                            [
+                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                            "details" => [
+                                    [
+                                    "sys_ID" => 84000000000001,
+                                    "product_RefID" => 88000000000002,
+                                    "quantity" => 10,
+                                    "quantityUnit_RefID" => 73000000000001,
+                                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                                    "productUnitPriceCurrencyExchangeRate" => 1,
+                                    "productUnitPriceCurrencyValue" => 30000,
+                                    "remarks" => 'Catatan Pertama Revisi'
+                                    ],
+                                    [
+                                    "sys_ID" => 84000000000002,
+                                    "product_RefID" => 88000000000003,
+                                    "quantity" => 10,
+                                    "quantityUnit_RefID" => 73000000000001,
+                                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                                    "productUnitPriceCurrencyExchangeRate" => 1,
+                                    "productUnitPriceCurrencyValue" => 30000,
+                                    "remarks" => 'Catatan Kedua Revisi'
+                                    ],
+                                ]
+                            ],
+                        ]
                     ]
                 ]
                 );
