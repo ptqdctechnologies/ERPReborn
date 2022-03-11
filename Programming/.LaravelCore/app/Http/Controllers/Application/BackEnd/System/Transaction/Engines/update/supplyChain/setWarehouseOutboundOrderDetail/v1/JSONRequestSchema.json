@@ -78,7 +78,7 @@
                         "maxLength": 512
                         }
                     },
-                "required": [ "warehouseInboundOrder_RefID", "referenceDocument_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
+                "required": [ "warehouseOutboundOrder_RefID", "referenceDocument_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
                 }
             },
         "required": [ "recordID", "entities" ]
