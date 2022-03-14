@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,6 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Creation Date   : 2021-06-14                                                                                           |
         | ▪ Last Update     : 2021-06-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -75,7 +77,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-			[$varName, 'varchar'],
+
+                        [$varName, 'varchar'],
 			[$varValidStartDateTimeTZ, 'timestamptz'],
 			[$varValidFinishDateTimeTZ, 'timestamptz'],
 			[$varCode, 'varchar']
@@ -91,6 +94,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Creation Date   : 2021-06-14                                                                                           |
         | ▪ Last Update     : 2021-06-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -123,7 +127,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-			[$varName, 'varchar'],
+
+                        [$varName, 'varchar'],
 			[$varValidStartDateTimeTZ, 'timestamptz'],
 			[$varValidFinishDateTimeTZ, 'timestamptz'],
 			[$varCode, 'varchar']
