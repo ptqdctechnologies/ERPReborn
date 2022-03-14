@@ -50,11 +50,6 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
-                        <td>
-                            <input name="status" id="status" style="border-radius:0;width:100px;" class="form-control" readonly="">
-                        </td>
-                    </tr>
                 </table>
             </div>
         </div>

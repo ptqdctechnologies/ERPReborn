@@ -7,7 +7,7 @@
 @include('getFunction.getManager')
 @include('getFunction.getFinanceStaff')
 @include('getFunction.getCurrency')
-@include('Advance.Advance.Functions.PopUp.searchArf')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
 
 <form method="post" enctype="multipart/form-data" action="{{ route('PO.submitData') }}" name="formArf1">
 <div class="content-wrapper">
