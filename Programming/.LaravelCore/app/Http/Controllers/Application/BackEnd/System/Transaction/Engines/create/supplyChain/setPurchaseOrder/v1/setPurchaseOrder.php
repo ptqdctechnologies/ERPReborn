@@ -72,7 +72,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['shippingAddress'],
                             $varData['entities']['billingAddress'],
                             $varData['entities']['paymentTerm'],
-                            $varData['entities']['remarks']
+                            $varData['entities']['remarks'],
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
                             ))))
                             {
                             throw new \Exception();
