@@ -35,21 +35,13 @@
       <code>static::readAttribute($haystackClassOrObject, $haystackAttributeName)</code>
       <code>static::readAttribute($haystackClassOrObject, $haystackAttributeName)</code>
     </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="21">
+    <DocblockTypeContradiction occurrences="13">
       <code>!$actual instanceof Countable &amp;&amp; !is_iterable($actual)</code>
       <code>!$actual instanceof Countable &amp;&amp; !is_iterable($actual)</code>
       <code>!$expected instanceof Countable &amp;&amp; !is_iterable($expected)</code>
       <code>!$expected instanceof Countable &amp;&amp; !is_iterable($expected)</code>
       <code>!$haystack instanceof Countable &amp;&amp; !is_iterable($haystack)</code>
       <code>!$haystack instanceof Countable &amp;&amp; !is_iterable($haystack)</code>
-      <code>$array instanceof ArrayAccess</code>
-      <code>$array instanceof ArrayAccess</code>
-      <code>$array instanceof ArrayAccess</code>
-      <code>$subset instanceof ArrayAccess</code>
-      <code>is_array($array) || $array instanceof ArrayAccess</code>
-      <code>is_array($array) || $array instanceof ArrayAccess</code>
-      <code>is_array($array) || $array instanceof ArrayAccess</code>
-      <code>is_array($subset) || $subset instanceof ArrayAccess</code>
       <code>is_int($key) || is_string($key)</code>
       <code>is_int($key) || is_string($key)</code>
       <code>is_object($object)</code>
@@ -202,7 +194,8 @@
     <RedundantConditionGivenDocblockType occurrences="1">
       <code>is_object($classOrObject)</code>
     </RedundantConditionGivenDocblockType>
-    <TypeDoesNotContainType occurrences="1">
+    <TypeDoesNotContainType occurrences="2">
+      <code>!$attribute</code>
       <code>!$attribute</code>
     </TypeDoesNotContainType>
   </file>
@@ -495,9 +488,6 @@
     </RedundantCondition>
   </file>
   <file src="src/Framework/Constraint/LogicalAnd.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$constraint instanceof Constraint</code>
-    </DocblockTypeContradiction>
     <MissingParamType occurrences="1">
       <code>$other</code>
     </MissingParamType>
@@ -514,9 +504,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Framework/Constraint/LogicalOr.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$constraint instanceof Constraint</code>
-    </DocblockTypeContradiction>
     <MissingParamType occurrences="1">
       <code>$other</code>
     </MissingParamType>
@@ -525,9 +512,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Framework/Constraint/LogicalXor.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$constraint instanceof Constraint</code>
-    </DocblockTypeContradiction>
     <MissingParamType occurrences="1">
       <code>$other</code>
     </MissingParamType>
@@ -703,7 +687,8 @@
     <PropertyNotSetInConstructor occurrences="1">
       <code>$deferredError</code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="1">
+    <RedundantConditionGivenDocblockType occurrences="2">
+      <code>$this-&gt;deferredError</code>
       <code>$this-&gt;deferredError</code>
     </RedundantConditionGivenDocblockType>
   </file>
@@ -722,13 +707,14 @@
       <code>$parametersRule</code>
       <code>$stub</code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="8">
+    <RedundantConditionGivenDocblockType occurrences="9">
       <code>$this-&gt;invocationRule !== null</code>
       <code>$this-&gt;methodNameRule !== null</code>
       <code>$this-&gt;methodNameRule !== null</code>
       <code>$this-&gt;parametersRule !== null</code>
       <code>$this-&gt;parametersRule !== null</code>
       <code>$this-&gt;parametersRule !== null</code>
+      <code>$this-&gt;stub</code>
       <code>$this-&gt;stub</code>
       <code>$this-&gt;stub !== null</code>
     </RedundantConditionGivenDocblockType>
@@ -785,9 +771,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Framework/MockObject/Rule/MethodName.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>$constraint instanceof Constraint</code>
-    </DocblockTypeContradiction>
     <MissingThrowsDocblock occurrences="1">
       <code>evaluate</code>
     </MissingThrowsDocblock>
@@ -891,14 +874,13 @@
     <DeprecatedMethod occurrences="2">
       <code>setMethods</code>
     </DeprecatedMethod>
-    <DocblockTypeContradiction occurrences="9">
+    <DocblockTypeContradiction occurrences="8">
       <code>$this-&gt;backupStaticAttributes === null</code>
       <code>$this-&gt;mockObjectGenerator === null</code>
       <code>$this-&gt;name === null</code>
       <code>$this-&gt;prophet === null</code>
       <code>$this-&gt;runClassInSeparateProcess === null</code>
       <code>$this-&gt;runTestInSeparateProcess === null</code>
-      <code>$this-&gt;snapshot instanceof Snapshot</code>
       <code>''</code>
       <code>is_int($this-&gt;dataName)</code>
     </DocblockTypeContradiction>
@@ -1022,8 +1004,7 @@
     <PossiblyInvalidArgument occurrences="1">
       <code>$linesToBeCovered</code>
     </PossiblyInvalidArgument>
-    <PossiblyUndefinedVariable occurrences="6">
-      <code>$_timeout</code>
+    <PossiblyUndefinedVariable occurrences="5">
       <code>$_timeout</code>
       <code>$e</code>
       <code>$e</code>
@@ -1039,7 +1020,7 @@
       <code>Invoker</code>
       <code>TimeoutException</code>
     </UndefinedClass>
-    <UndefinedInterfaceMethod occurrences="15">
+    <UndefinedInterfaceMethod occurrences="12">
       <code>addToAssertionCount</code>
       <code>addToAssertionCount</code>
       <code>doesNotPerformAssertions</code>
@@ -1050,9 +1031,6 @@
       <code>getNumAssertions</code>
       <code>getNumAssertions</code>
       <code>getNumAssertions</code>
-      <code>getSize</code>
-      <code>getSize</code>
-      <code>getSize</code>
       <code>hasOutput</code>
       <code>runBare</code>
     </UndefinedInterfaceMethod>
@@ -1547,7 +1525,6 @@
       <code>$this-&gt;getException($failures[0])</code>
       <code>$this-&gt;getException($warnings[0])</code>
     </ArgumentTypeCoercion>
-    <InvalidArgument occurrences="1"/>
     <LessSpecificReturnStatement occurrences="1">
       <code>$exception</code>
     </LessSpecificReturnStatement>
@@ -1607,11 +1584,6 @@
       <code>$out</code>
       <code>$outTarget</code>
     </PropertyNotSetInConstructor>
-    <RedundantConditionGivenDocblockType occurrences="3">
-      <code>$this-&gt;out</code>
-      <code>$this-&gt;out</code>
-      <code>$this-&gt;out</code>
-    </RedundantConditionGivenDocblockType>
   </file>
   <file src="src/Util/Test.php">
     <InvalidScalarArgument occurrences="1">
@@ -1633,6 +1605,10 @@
     <DeprecatedInterface occurrences="1">
       <code>CliTestDoxPrinter</code>
     </DeprecatedInterface>
+    <InvalidArrayOffset occurrences="2">
+      <code>self::SPINNER_ICONS[$id]</code>
+      <code>self::SPINNER_ICONS[$id]</code>
+    </InvalidArrayOffset>
     <MissingThrowsDocblock occurrences="1">
       <code>\PHPUnit\Util\Filter::getFilteredStacktrace($t)</code>
     </MissingThrowsDocblock>

@@ -101,8 +101,15 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
     // PPM
-    Route::post('revisionPPMIndex', 'procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
-    Route::get('addPPM', 'procurementTransactionPPM@addPPM')->name('PPM.addPPM');
+    Route::post('store2', 'procurementTransactionPPM@store2')->name('PPM.store2');
+    Route::post('revisionPPM', 'procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
+    Route::resource('PPM', 'procurementTransactionPPM');
+    Route::get('PR2', 'procurementTransactionPPM@index2')->name('PPM.index2');
+    Route::get('PPM3', 'proocurementTransactionPPM@index3')->name('PPM.index3');
+    Route::get('PPM4', 'proocurementTransactionPPM@index4')->name('PPM.index4');
+    Route::post('submitDataPPM', 'procurementTransactionPPM@submitData')->name('PPM.submitData');
+    // Route::post('revisionPPMIndex', 'procurementTransactionPPM@revisionPPMIndex')->name('PPM.revisionPPM');
+    // Route::get('addPPM', 'procurementTransactionPPM@addPPM')->name('PPM.addPPM');
 
 
     // RPI
@@ -119,17 +126,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
 
     // PR
-    Route::get('PR','procurementTransactionPR@index')->name('PR.createPR');
-    Route::post('editExistingPR','procurementTransactionPR@editExistingPR')->name('PR.editExistingPR');
-    Route::post('editExistingOverheadPR','procurementTransactionPR@editExistingOverheadPR')->name('PR.editExistingOverheadPR');
-    Route::post('editExistingSalesPR','procurementTransactionPR@editExistingSalesPR')->name('PR.editExistingSalesPR');
-    Route::post('revisionPR','procurementTransactionPR@revisionPR')->name('PR.revisionPR');
-    Route::post('revisionSalesPR','procurementTransactionPR@revisionSalesPR')->name('PR.revisionSalesPR');
-    Route::post('revisionOverheadPR','procurementTransactionPR@revisionOverheadPR')->name('PR.revisionOverheadPR');
-    Route::get('arflist/cancel/','procurementTransactionPR@prlistcancel');
-    Route::post('tests1','procurementTransactionPR@tests1')->name('PR.tests1');
-    Route::get('storePR','procurementTransactionArf@store')->name('PR.storePR');
-    Route::resource('PR','procurementTransactionPR');
+    Route::post('store2', 'procurementTransactionPR@store2')->name('PR.store2');
+    Route::post('revisionPR', 'procurementTransactionPR@revisionPRIndex')->name('PR.revisionPR');
+    Route::resource('PR', 'procurementTransactionPR');
+    Route::get('PR2', 'procurementTransactionPR@index2')->name('PR.index2');
+    Route::get('PR3', 'procurementTransactionPR@index3')->name('PR.index3');
+    Route::get('PR4', 'procurementTransactionPR@index4')->name('PR.index4');
+    Route::post('submitDataPR', 'procurementTransactionPR@submitData')->name('PR.submitData');
 
     // URP
     Route::get('createURP', 'procurementTransactionURP@createURP')->name('URP.createURP');
@@ -139,12 +142,19 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('PPNRemSet', 'procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
 
     // PO
-    Route::get('PO','procurementTransactionPO@createPO')->name('PO.createPO');
-    Route::post('revisionPO','procurementTransactionPO@revisionPO')->name('PO.revisionPO');
-    Route::get('createPOverhead','procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
-    Route::get('createPOSales','procurementTransactionPO@createPOSales')->name('PO.createPOSales');
-    Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
-    Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
+    Route::get('store', 'procurementTransactionPO@indexOverhead')->name('PO.indexOverhead');
+    Route::get('createPOSales', 'procurementTransactionPO@indexSales')->name('PO.indexSales');
+    // Route::get('createPOPulsaVoucher', 'procurementTransactionPO@indexPulsaVoucher')->name('PO.indexPulsaVoucher');
+    Route::post('revisionPO', 'procurementTransactionPO@revisionPOIndex')->name('PO.revisionPO');
+    Route::post('addListCartPO', 'procurementTransactionPO@addListCartPO')->name('PO.addListCartPO');
+    Route::resource('PO', 'procurementTransactionPO');
+    Route::post('submitDataPO', 'procurementTransactionPO@submitData')->name('PO.submitData');
+    // Route::get('PO','procurementTransactionPO@createPO')->name('PO.createPO');
+    // Route::post('revisionPO','procurementTransactionPO@revisionPO')->name('PO.revisionPO');
+    // Route::get('createPOverhead','procurementTransactionPO@createPOverhead')->name('PO.createPOverhead');
+    // Route::get('createPOSales','procurementTransactionPO@createPOSales')->name('PO.createPOSales');
+    // Route::get('requestCancelPO','procurementTransactionPO@requestCancelPO')->name('PO.requestCancelPO');
+    // Route::get('fileUploadPO','procurementTransactionPO@fileUploadPO')->name('PO.fileUploadPO');
 
     // BSF
     Route::post('revisionBsf', 'procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
