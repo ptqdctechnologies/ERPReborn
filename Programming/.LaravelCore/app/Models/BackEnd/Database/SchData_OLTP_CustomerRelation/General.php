@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : getDataList_Customer                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-02-16                                                                                           |
         | ▪ Last Update     : 2021-02-16                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pelanggan                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -66,6 +67,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : getDataList_SalesOrder                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-05-27                                                                                           |
         | ▪ Last Update     : 2021-05-27                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Sales Order                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
