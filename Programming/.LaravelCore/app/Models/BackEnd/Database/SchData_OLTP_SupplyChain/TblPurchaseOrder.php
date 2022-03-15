@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
         | ▪ Create Date     : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-03-04                                                                                           |
+        | ▪ Last Update     : 2022-03-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -61,6 +61,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
         |      ▪ (string) varPaymentTerm ► Payment Term                                                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (array)  varDetails ► Details Data                                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,7 +69,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null, array $varDetails = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -89,8 +90,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varShippingAddress, 'varchar'],
                         [$varBillingAddress, 'varchar'],
                         [$varPaymentTerm, 'varchar'],
-                        [$varRemarks, 'varchar']
-
+                        [$varRemarks, 'varchar'],
+                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
                     ]
                     )
                 );
@@ -102,9 +103,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
         | ▪ Create Date     : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-03-04                                                                                           |
+        | ▪ Last Update     : 2022-03-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -121,6 +122,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
         |      ▪ (string) varPaymentTerm ► Payment Term                                                                            |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (array)  varDetails ► Details Data                                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -128,7 +130,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null, array $varDetails = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -149,12 +151,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varShippingAddress, 'varchar'],
                         [$varBillingAddress, 'varchar'],
                         [$varPaymentTerm, 'varchar'],
-                        [$varRemarks, 'varchar']
+                        [$varRemarks, 'varchar'],
+                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
                     ],
                     )
                 );
             return $varReturn['Data'][0];
-//            return $varReturn;
             }
         }
     }

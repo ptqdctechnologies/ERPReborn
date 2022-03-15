@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-03-02                                                                                           |
         | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -42,6 +43,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-03-02                                                                                           |
         | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -71,6 +73,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varSalesOrder_RefID, 'bigint']
                     ]
                     )
@@ -84,6 +87,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : setDataSynchronize                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-03-02                                                                                           |
         | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : Data Synchronize                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -114,6 +118,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-03-02                                                                                           |
         | ▪ Last Update     : 2021-03-02                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -144,6 +149,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varSalesOrder_RefID, 'bigint']
                     ],
                     )

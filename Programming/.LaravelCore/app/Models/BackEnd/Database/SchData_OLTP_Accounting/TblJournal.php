@@ -23,6 +23,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -43,6 +44,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -76,6 +78,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varSignDataAuthentication, 'boolean'],
                         [$varSignJournalPosting, 'boolean'],
                         [$varJournalCode, 'varchar'],
@@ -93,6 +96,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-09-10                                                                                           |
         | ▪ Last Update     : 2020-09-10                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -127,6 +131,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+
                         [$varSignDataAuthentication, 'boolean'],
                         [$varSignJournalPosting, 'boolean'],
                         [$varJournalCode, 'varchar'],

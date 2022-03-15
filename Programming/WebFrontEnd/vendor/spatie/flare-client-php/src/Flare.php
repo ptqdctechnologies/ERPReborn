@@ -208,7 +208,6 @@ class Flare
             $middleware = [$middleware];
         }
 
-
         $this->middleware = array_merge($this->middleware, $middleware);
 
         return $this;
@@ -275,13 +274,13 @@ class Flare
         return $this;
     }
 
-    public function report(Throwable $throwable, callable $callback = null): ?Report
+    public function report(Throwable $throwable, callable $callback = null, Report $report = null): ?Report
     {
         if (! $this->shouldSendReport($throwable)) {
             return null;
         }
 
-        $report = $this->createReport($throwable);
+        $report ??= $this->createReport($throwable);
 
         if (! is_null($callback)) {
             call_user_func($callback, $report);

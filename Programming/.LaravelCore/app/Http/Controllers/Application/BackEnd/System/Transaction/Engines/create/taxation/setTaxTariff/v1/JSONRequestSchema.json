@@ -1,0 +1,76 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.taxation.setTaxTariff (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.taxation.setTaxTariff" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "taxType_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "validStartDateTimeTZ": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "validFinishDateTimeTZ": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 30
+                        },
+                    "tariffMinimumRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "tariffMaximumRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "roundUnit": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 32767
+                        },
+                    "signRoundUp": {
+                        "type": [ "boolean", "null" ]
+                        }
+                    },
+                "required": [ "taxType_RefID", "validStartDateTimeTZ", "validFinishDateTimeTZ", "tariffMinimumRate", "tariffMaximumRate", "roundUnit", "signRoundUp" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}
