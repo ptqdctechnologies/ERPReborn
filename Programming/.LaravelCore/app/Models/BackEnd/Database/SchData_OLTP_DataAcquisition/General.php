@@ -18,7 +18,24 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
     */
     class General //extends \Illuminate\Database\Eloquent\Model
         {
-        public function getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, int $varGoodsIdentityID, string $varTimeZoneOffset = null)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDevicePersonAccess_LastRecordDateTimeTZ                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2021-05-27                                                                                           |
+        | ▪ Last Update     : 2021-05-27                                                                                           |
+        | ▪ Description     : Mendapatkan Data Tanggal Terakhir dari Alat Akses Personal                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varGoodsIdentity_RefID ► Goods Identity Reference ID                                                     |
+        |      ▪ (string) varTimeZoneOffset ► TimeZone Offset                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, int $varGoodsIdentity_RefID, string $varTimeZoneOffset = null)
             {
             if(!$varTimeZoneOffset)
                 {
@@ -31,7 +48,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                     $varUserSession,
                     'SchData-OLTP-DataAcquisition.Func_Device_PersonAccess_GetLastRecordDateTimeTZ',
                     [
-                        [$varGoodsIdentityID, 'bigint'],
+                        [$varGoodsIdentity_RefID, 'bigint'],
                         [$varTimeZoneOffset, 'varchar']
                     ]
                     )
