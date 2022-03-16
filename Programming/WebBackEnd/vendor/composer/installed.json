@@ -109,7 +109,7 @@
                     "dev-master": "3.0-dev"
                 }
             },
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "files": [
                     "src/functions.php"
