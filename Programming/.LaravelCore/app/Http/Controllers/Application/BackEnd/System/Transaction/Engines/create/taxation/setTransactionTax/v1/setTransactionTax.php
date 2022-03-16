@@ -72,7 +72,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['currency_RefID'],
                             $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['currencyValue'],
-                            $varData['entities']['baseCurrencyValue'],
                             $varData['entities']['remarks']
                             ))))
                             {

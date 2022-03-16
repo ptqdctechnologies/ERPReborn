@@ -58,7 +58,6 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -67,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varReferenceDocument_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, float $varBaseCurrencyValue = null, string $varRemarks = null)
+            int $varReferenceDocument_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -86,7 +85,6 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyExchangeRate, 'numeric'],
                         [$varCurrencyValue, 'numeric'],
-                        [$varBaseCurrencyValue, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -115,7 +113,6 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (float)  varBaseCurrencyValue ► Base Currency Value                                                               |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -124,7 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varReferenceDocument_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, float $varBaseCurrencyValue = null, string $varRemarks = null)
+            int $varReferenceDocument_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -143,7 +140,6 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyExchangeRate, 'numeric'],
                         [$varCurrencyValue, 'numeric'],
-                        [$varBaseCurrencyValue, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )

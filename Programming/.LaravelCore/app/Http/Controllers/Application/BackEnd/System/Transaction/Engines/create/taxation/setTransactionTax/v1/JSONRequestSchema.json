@@ -53,17 +53,13 @@
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "baseCurrencyValue": {
-                        "type": [ "number", "null" ],
-                        "minimum": 0
-                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
                         }
                     },
-                "required": [ "referenceDocument_RefID", "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "baseCurrencyValue", "remarks" ]
+                "required": [ "referenceDocument_RefID", "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
                 }
             },
         "required": [ "entities" ]
