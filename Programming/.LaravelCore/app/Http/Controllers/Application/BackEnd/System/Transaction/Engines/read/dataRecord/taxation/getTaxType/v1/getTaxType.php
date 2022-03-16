@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\taxation\getTaxTariff\v1     |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\taxation\getTaxType\v1       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\taxation\getTaxTariff\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataRecord\taxation\getTaxType\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getTaxTariff                                                                                                 |
-    | ▪ Description : Menangani API transaction.read.dataRecord.taxation.getTaxTariff Version 1                                    |
+    | ▪ Class Name  : getTaxType                                                                                                   |
+    | ▪ Description : Menangani API transaction.read.dataRecord.taxation.getTaxType Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getTaxTariff extends \App\Http\Controllers\Controller
+    class getTaxType extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Tax Tariff Data Record (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Tax Type Data Record (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTaxTariff())->getDataRecord(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTaxType())->getDataRecord(
                             $varUserSession, 
                             $varData['recordID'],
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']

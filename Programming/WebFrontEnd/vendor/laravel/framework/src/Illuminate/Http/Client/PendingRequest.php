@@ -790,7 +790,7 @@ class PendingRequest
                 });
             })
             ->otherwise(function (TransferException $e) {
-                return $e instanceof RequestException ? $this->populateResponse(new Response($e->getResponse())) : $e;
+                return $e instanceof RequestException && $e->hasResponse() ? $this->populateResponse(new Response($e->getResponse())) : $e;
             });
     }
 
@@ -1041,11 +1041,11 @@ class PendingRequest
     public function runBeforeSendingCallbacks($request, array $options)
     {
         return tap($request, function ($request) use ($options) {
-            $this->beforeSendingCallbacks->each->__invoke(
-                (new Request($request))->withData($options['laravel_data']),
-                $options,
-                $this
-            );
+            $this->beforeSendingCallbacks->each(function ($callback) use ($request, $options) {
+                call_user_func(
+                    $callback, (new Request($request))->withData($options['laravel_data']), $options, $this
+                );
+            });
         });
     }
 
