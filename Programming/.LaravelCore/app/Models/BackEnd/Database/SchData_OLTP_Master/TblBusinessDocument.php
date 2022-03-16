@@ -22,8 +22,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-09-08                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Creation Date   : 2020-09-08                                                                                           |
+        | ▪ Last Update     : 2022-03-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,8 +43,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-06-30                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Creation Date   : 2021-06-30                                                                                           |
+        | ▪ Last Update     : 2022-03-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -53,6 +55,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
+        |      ▪ (int)    varCancelationBusinessDocument_RefID ► Cancelation Business Document Reference ID                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,7 +63,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null)
+            int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null, int $varCancelationBusinessDocument_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -74,7 +77,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBusinessDocumentType_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar']
+                        [$varDocumentNumber, 'varchar'],
+                        [$varCancelationBusinessDocument_RefID, 'bigint']
                     ]
                     )
                 );
@@ -87,6 +91,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataSynchronize                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-11-30                                                                                           |
         | ▪ Last Update     : 2020-11-30                                                                                           |
         | ▪ Description     : Data Synchronize                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -117,8 +122,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-06-30                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Creation Date   : 2021-06-30                                                                                           |
+        | ▪ Last Update     : 2022-03-16                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -129,6 +135,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type Reference ID                                      |
         |      ▪ (string) varDocumentNumber ► Document Number                                                                      |
+        |      ▪ (int)    varCancelationBusinessDocument_RefID ► Cancelation Business Document Reference ID                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -136,7 +143,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null)
+            int $varBusinessDocumentType_RefID = null, string $varDocumentNumber = null, int $varCancelationBusinessDocument_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -150,7 +157,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
                         [$varBusinessDocumentType_RefID, 'bigint'],
-                        [$varDocumentNumber, 'varchar']
+                        [$varDocumentNumber, 'varchar'],
+                        [$varCancelationBusinessDocument_RefID, 'bigint']
                     ],
                     )
                 );
