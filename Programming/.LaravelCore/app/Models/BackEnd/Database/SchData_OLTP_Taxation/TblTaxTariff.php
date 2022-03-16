@@ -95,7 +95,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffPercentage = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -112,7 +112,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTaxType_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
                         [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffPercentage, 'numeric'],
+                        [$varTariffMinimumRate, 'numeric'],
+                        [$varTariffMaximumRate, 'numeric'],
                         [$varRoundUnit, 'smallint'],
                         [$varSignRoundUp, 'boolean']
                     ]
@@ -150,7 +151,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffPercentage = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -167,7 +168,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTaxType_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
                         [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffPercentage, 'numeric'],
+                        [$varTariffMinimumRate, 'numeric'],
+                        [$varTariffMaximumRate, 'numeric'],
                         [$varRoundUnit, 'smallint'],
                         [$varSignRoundUp, 'boolean']
                     ],

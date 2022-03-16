@@ -1386,6 +1386,49 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.taxation.getTaxType                                                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListTaxType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.taxation.getTaxType', 
+                'latest',
+                [
+                'parameter' => [
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListTaxType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.taxation.getTaxType', 
+                'latest', 
+                '{'.
+                    '"parameter" : null'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : environment.general.session.getData                                                                      |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -7172,6 +7215,71 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"name" : document.getElementById("dataInput_Name").value, '.
                         '"annotation" : document.getElementById("dataInput_Annotation").value '.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.taxation.setTaxTariff                                                                 |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateTaxTariff()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.taxation.setTaxTariff', 
+                'latest', 
+                [
+                'entities' => [
+                    "taxType_RefID" => 182000000000001,
+                    "validStartDateTimeTZ" => '1970-01-01 00:00:00+07',
+                    "validFinishDateTimeTZ" => '9999-12-31 23:59:59+07',
+                    "tariffMinimumRate" => 0.10,
+                    "tariffMaximumRate" => 0.10 ,
+                    "roundUnit" => 1000,
+                    "signRoundUp" => TRUE
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_setDataCreateTaxTariff()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
+            echo '<input type="text" id="dataInput_ValidStartDateTimeTZ" value="1970-01-01 00:00:00+07">';
+            echo '<input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07">';
+            echo '<input type="text" id="dataInput_TariffMinimumRate" value=0.10>';
+            echo '<input type="text" id="dataInput_TariffMaximumRate" value=0.10>';
+            echo '<input type="text" id="dataInput_RoundUnit" value=1000>';
+            echo '<input type="text" id="dataInput_SignRoundUp" value="true">';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.create.taxation.setTaxTariff', 
+                'latest', 
+                '{'.
+                    '"entities" : {'.
+                        '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
+                        '"validStartDateTimeTZ" : document.getElementById("dataInput_ValidStartDateTimeTZ").value, '.
+                        '"validFinishDateTimeTZ" : document.getElementById("dataInput_ValidFinishDateTimeTZ").value, '.
+                        '"tariffMinimumRate" : parseFloat(document.getElementById("dataInput_TariffMinimumRate").value), '.
+                        '"tariffMaximumRate" : parseFloat(document.getElementById("dataInput_TariffMaximumRate").value), '.
+                        '"roundUnit" : parseFloat(document.getElementById("dataInput_RoundUnit").value), '.
+                        '"signRoundUp" : document.getElementById("dataInput_SignRoundUp").value, '.
                         '}'.
                 '}'
                 ); 
@@ -16766,6 +16874,68 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"parameter" : {'.
                         '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_RotateLog_FileUploadStagingArea_RefRPK").value)'.
                         '}, '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataList.taxation.getTaxType                                                            |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataListTaxType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.taxation.getTaxType', 
+                'latest', 
+                [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListTaxType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NDczOTU4NjZ9.4E7pBBB9VK79pWu4nLFL_LQBg2J71Ig0lHHvrLO5_O4';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataList.taxation.getTaxType', 
+                'latest', 
+                '{'.
+                    '"parameter" : null, '.
                     '"SQLStatement" : {'.
                         '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
                         '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
