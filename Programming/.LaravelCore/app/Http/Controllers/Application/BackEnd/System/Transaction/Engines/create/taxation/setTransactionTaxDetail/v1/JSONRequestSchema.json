@@ -1,0 +1,69 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.taxation.setTransactionTaxDetail (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.taxation.setTransactionTaxDetail" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "transactionTax_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "taxType_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "currency_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "currencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "currencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "remarks": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        }
+                    },
+                "required": [ "transactionTax_RefID", "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

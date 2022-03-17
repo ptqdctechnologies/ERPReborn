@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\taxation\setTransactionTax\v1         |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\taxation\setTransactionTaxDetail\v1   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\taxation\setTransactionTax\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\taxation\setTransactionTaxDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setTransactionTax                                                                                            |
-    | ▪ Description : Menangani API transaction.create.taxation.setTransactionTax Version 1                                        |
+    | ▪ Class Name  : setTransactionTaxDetail                                                                                      |
+    | ▪ Description : Menangani API transaction.create.taxation.setTransactionTaxDetail Version 1                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setTransactionTax extends \App\Http\Controllers\Controller
+    class setTransactionTaxDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,23 +58,25 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Transaction Tax Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Transaction Tax Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-//                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTransactionTax())->setDataInsert(
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Taxation\TblTransactionTax())->setDataInsert(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Taxation\TblTransactionTaxDetail())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
-//                            ))))
-                            )))
+                            $varData['entities']['transactionTax_RefID'],
+                            $varData['entities']['taxType_RefID'],
+                            $varData['entities']['currency_RefID'],
+                            $varData['entities']['currencyExchangeRate'],
+                            $varData['entities']['currencyValue'],
+                            $varData['entities']['remarks']
+                            ))))
                             {
                             throw new \Exception();
                             }
-$varDataSend = ['y' => $varDataSend];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

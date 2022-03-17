@@ -68,12 +68,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['entities']['referenceDocument_RefID'],
-                            $varData['entities']['taxType_RefID'],
-                            $varData['entities']['currency_RefID'],
-                            $varData['entities']['currencyExchangeRate'],
-                            $varData['entities']['currencyValue'],
-                            $varData['entities']['remarks']
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
                             ))))
                             {
                             throw new \Exception();

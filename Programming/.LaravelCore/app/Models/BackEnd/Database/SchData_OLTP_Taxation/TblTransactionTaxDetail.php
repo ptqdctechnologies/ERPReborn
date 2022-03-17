@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Taxation
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblTransactionTax                                                                                            |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Taxation ► TblTransactionTax                                        |
+    | ▪ Class Name  : TblTransactionTaxDetail                                                                                      |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Taxation ► TblTransactionTaxDetail                                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblTransactionTax extends \App\Models\Database\DefaultClassPrototype
+    class TblTransactionTaxDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -53,6 +53,12 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
+        |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -60,10 +66,10 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            array $varDetails = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
             {
-            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -73,12 +79,17 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
+
+                        [$varTransactionTax_RefID, 'bigint'],
+                        [$varTaxType_RefID, 'bigint'],
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varRemarks, 'varchar']
                     ]
-                //    )
+                    )
                 );
-//            return $varReturn['Data'][0];
-            return $varReturn;
+            return $varReturn['Data'][0];
             }
 
 
@@ -97,6 +108,12 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
+        |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
+        |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
+        |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -104,7 +121,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            array $varDetails = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -117,7 +134,13 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
+
+                        [$varTransactionTax_RefID, 'bigint'],
+                        [$varTaxType_RefID, 'bigint'],
+                        [$varCurrency_RefID, 'bigint'],
+                        [$varCurrencyExchangeRate, 'numeric'],
+                        [$varCurrencyValue, 'numeric'],
+                        [$varRemarks, 'varchar']
                     ],
                     )
                 );
