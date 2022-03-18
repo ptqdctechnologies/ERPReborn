@@ -99,7 +99,6 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                     {
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
-                   
                     /*
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.
@@ -109,8 +108,10 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         "<br>".
                         "<br>Processing HTTP MD5 Header : ".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
                         "<br>Processing HTTP MD5 Header Raw : ".md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))).
-                        "<br><br>".$varHTTPHeader['content-md5']." ".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
+                        "<br><br>Comparison<br>".$varHTTPHeader['content-md5']."<br>".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
                         "<br><br>".
+                        "<br>Result : ".strcmp((string) $varHTTPHeader['content-md5'], (string) base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) ).
+                        "<br><br>".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))).
                         ""
                         ]));
                     */                                                

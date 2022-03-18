@@ -395,8 +395,6 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varData = '{}';
                         }
                     $varData = htmlspecialchars_decode($varData);
-
-//                    $varData = '{"entities": {"details": [{"sys_ID":123, "remarks":"my remarks"}, {"sys_ID":123, "remarks":"my remarks"} ]}}';
                     
                     $varReturn = 
                         'function() '.
@@ -412,7 +410,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     '"'.$varAPIVersion.'", '.
                                     'varJSONData'.
                                     '); '.
-                                'alert(varJSONData); '.
+//                                'alert(varJSONData); '.
+//                                'alert("done"); '.
                                 '} '.
                             'catch(varError) '.
                                 '{ '.
