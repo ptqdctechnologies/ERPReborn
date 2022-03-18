@@ -6555,44 +6555,67 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "paymentTerm" => 'My Payment Term',
                     "remarks" => 'My Remarks',
                     "details" => [
-                            [
-                            "purchaseRequisitionDetail_RefID" => 84000000000001,
-                            "details" => [
-                                    [
-                                    "sys_ID" => null,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValue_CurrencyeValue" => 30000,
-                                    "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                    "productUnitPriceValueAddedTax_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValueAddedTax_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValueAddedTax_CurrencyeValue" => 3000,
-                                    "remarks" => 'Catatan Pertama' 
-                                    ],
+                        "itemList" => [
+                                [
+                                "purchaseRequisitionDetail_RefID" => 84000000000001,
+                                "items" => [
+                                        [
+                                        "recordID" => null,
+                                        "entities" => [
+                                            "quantity" => 10,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValue_CurrencyeValue" => 30000,
+                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                            "remarks" => 'Catatan Pertama'
+                                            ]
+                                        ],
+                                    ]
+                                ],
+                                [
+                                "purchaseRequisitionDetail_RefID" => 84000000000002,
+                                "items" => [
+                                        [
+                                        "recordID" => null,
+                                        "entities" => [
+                                            "quantity" => 10,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValue_CurrencyeValue" => 30000,
+                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                            "remarks" => 'Catatan Kedua'
+                                            ]
+                                        ],
+                                    ]
                                 ]
                             ],
-                            [
-                            "purchaseRequisitionDetail_RefID" => 84000000000002,
-                            "details" => [
+                        "taxes" => [
+                            "items" => [
                                     [
-                                    "sys_ID" => null,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValue_CurrencyeValue" => 30000,
-                                    "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                    "productUnitPriceValueAddedTax_Currency_RefID" => 62000000000001,
-                                    "productUnitPriceValueAddedTax_CurrencyExchangeRate" => 1,
-                                    "productUnitPriceValueAddedTax_CurrencyeValue" => 3000,
-                                    "remarks" => 'Catatan Kedua'
+                                    "recordID" => 185000000000001,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
                                     ],
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]                            
                                 ]
                             ]
                         ]
@@ -6666,9 +6689,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
                     "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                     "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                    "productUnitPriceValueAddedTax_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValueAddedTax_CurrencyExchangeRate" => 1,
-                    "productUnitPriceValueAddedTax_CurrencyeValue" => 2500,
                     "remarks" => 'Catatan'
                     ]
                 ]
@@ -6691,9 +6711,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_Currency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyeValue" value=0>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue" value=2500>';
             echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -6712,9 +6729,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"productUnitPriceValueDiscount_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueDiscount_Currency_RefID").value), '.
                         '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValueDiscount_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyeValue").value), '.
-                        '"productUnitPriceValueAddedTax_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_Currency_RefID").value), '.
-                        '"productUnitPriceValueAddedTax_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate").value), '.
-                        '"productUnitPriceValueAddedTax_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -7358,7 +7372,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'entities' => [
                     "details" => [
                             [
-                            "recordID" => null,
                             "entities" => [
                                 "taxType_RefID" => 182000000000001,
                                 "currency_RefID" => 62000000000001,
@@ -7368,7 +7381,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                 ]
                             ],
                             [
-                            "recordID" => null,
                             "entities" => [
                                 "taxType_RefID" => 182000000000002,
                                 "currency_RefID" => 62000000000001,
@@ -7390,14 +7402,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl1_RecordID" value="">';
             echo '<input type="text" id="dataInput_Dtl1_TaxType_RefID" value=182000000000001>';
             echo '<input type="text" id="dataInput_Dtl1_Currency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_Dtl1_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Dtl1_CurrencyValue" value=30000>';
             echo '<input type="text" id="dataInput_Dtl1_Remarks" value="Catatan 1">';
             echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl2_RecordID" value="">';
             echo '<input type="text" id="dataInput_Dtl2_TaxType_RefID" value=182000000000002>';
             echo '<input type="text" id="dataInput_Dtl2_Currency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_Dtl2_CurrencyExchangeRate" value=1>';
@@ -7414,7 +7424,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities": {'.
                         '"details": ['.
                             '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl1_RecordID").value), '.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
                                 '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Currency_RefID").value), '.
@@ -7424,7 +7433,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                 '}'.
                             '}, '.
                             '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl2_RecordID").value), '.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
                                 '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Currency_RefID").value), '.
@@ -28425,6 +28433,88 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 $varAPIWebToken, 
                 'transaction.update.supplyChain.setPurchaseOrder', 
                 'latest', 
+                [
+                'recordID' => 85000000000001,
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-04',
+                    "requesterPerson_RefID" => 25000000000439,
+                    "supplier_RefID" => 126000000000001,
+                    "deliveryDateTimeTZ" => '2022-03-08',
+                    "shippingAddress" => 'QDC Technologies, Mampang',
+                    "billingAddress" => 'QDC Technologies, Mampang',
+                    "paymentTerm" => 'My Payment Term',
+                    "remarks" => 'My Remarks',
+                    "details" => [
+                        "itemList" => [
+                                [
+                                "purchaseRequisitionDetail_RefID" => 84000000000001,
+                                "items" => [
+                                        [
+                                        "recordID" => 86000000000001,
+                                        "entities" => [
+                                            "quantity" => 10,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValue_CurrencyeValue" => 30000,
+                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                            "remarks" => 'Catatan Pertama'
+                                            ]
+                                        ],
+                                    ]
+                                ],
+                                [
+                                "purchaseRequisitionDetail_RefID" => 84000000000002,
+                                "items" => [
+                                        [
+                                        "recordID" => 86000000000002,
+                                        "entities" => [
+                                            "quantity" => 10,
+                                            "quantityUnit_RefID" => 73000000000001,
+                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValue_CurrencyeValue" => 30000,
+                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                            "remarks" => 'Catatan Kedua'
+                                            ]
+                                        ],
+                                    ]
+                                ]
+                            ],
+                        "taxes" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 185000000000001,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 1 Update'                                
+                                        ]
+                                    ],
+                                    [
+                                    "recordID" => 185000000000002,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 2 Update'
+                                        ]
+                                    ]                            
+                                ]
+                            ]
+                        ]
+                    ]
+                ]   
+                    
+                    
+                ,
                 [
                 'recordID' => 85000000000001,
                 'entities' => [

@@ -60,7 +60,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
+//                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
+                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
@@ -74,10 +75,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['paymentTerm'],
                             $varData['entities']['remarks'],
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
-                            ))))
+//                            ))))
+                            )))
                             {
                             throw new \Exception();
                             }
+$varDataSend = ["xxx" => $varDataSend];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
