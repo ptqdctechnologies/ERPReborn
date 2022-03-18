@@ -87,9 +87,12 @@ class IgnitionServiceProvider extends ServiceProvider
     protected function publishConfigs(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/flare.php' => config_path('flare.php'),
             __DIR__ . '/../config/ignition.php' => config_path('ignition.php'),
-        ]);
+        ], 'ignition-config');
+
+        $this->publishes([
+            __DIR__ . '/../config/flare.php' => config_path('flare.php'),
+        ], 'flare-config');
     }
 
     protected function registerRenderer(): void

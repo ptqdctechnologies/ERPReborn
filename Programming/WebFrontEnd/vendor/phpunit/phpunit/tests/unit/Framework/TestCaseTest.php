@@ -19,41 +19,41 @@ use function getcwd;
 use function ini_get;
 use function ini_set;
 use function trigger_error;
-use ChangeCurrentWorkingDirectoryTest;
-use ClassWithScalarTypeDeclarations;
-use DoNoAssertionTestCase;
-use ExceptionInAssertPostConditionsTest;
-use ExceptionInAssertPreConditionsTest;
-use ExceptionInSetUpTest;
-use ExceptionInTearDownTest;
-use ExceptionInTest;
-use ExceptionInTestDetectedInTeardown;
-use Failure;
 use InvalidArgumentException;
-use IsolationTest;
-use Mockable;
-use NoArgTestCaseTest;
-use OutputTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Runner\BaseTestRunner;
+use PHPUnit\TestFixture\ChangeCurrentWorkingDirectoryTest;
+use PHPUnit\TestFixture\ClassWithScalarTypeDeclarations;
+use PHPUnit\TestFixture\DoNoAssertionTestCase;
+use PHPUnit\TestFixture\ExceptionInAssertPostConditionsTest;
+use PHPUnit\TestFixture\ExceptionInAssertPreConditionsTest;
+use PHPUnit\TestFixture\ExceptionInSetUpTest;
+use PHPUnit\TestFixture\ExceptionInTearDownTest;
+use PHPUnit\TestFixture\ExceptionInTest;
+use PHPUnit\TestFixture\ExceptionInTestDetectedInTeardown;
+use PHPUnit\TestFixture\Failure;
+use PHPUnit\TestFixture\IsolationTest;
+use PHPUnit\TestFixture\Mockable;
+use PHPUnit\TestFixture\NoArgTestCaseTest;
+use PHPUnit\TestFixture\OutputTestCase;
+use PHPUnit\TestFixture\RequirementsTest;
+use PHPUnit\TestFixture\Singleton;
+use PHPUnit\TestFixture\Success;
+use PHPUnit\TestFixture\TestAutoreferenced;
+use PHPUnit\TestFixture\TestError;
+use PHPUnit\TestFixture\TestIncomplete;
+use PHPUnit\TestFixture\TestSkipped;
+use PHPUnit\TestFixture\TestWithDifferentNames;
+use PHPUnit\TestFixture\TestWithDifferentOutput;
+use PHPUnit\TestFixture\TestWithDifferentSizes;
+use PHPUnit\TestFixture\TestWithDifferentStatuses;
+use PHPUnit\TestFixture\ThrowExceptionTestCase;
+use PHPUnit\TestFixture\ThrowNoExceptionTestCase;
+use PHPUnit\TestFixture\WasRun;
 use PHPUnit\Util\Test as TestUtil;
-use RequirementsTest;
 use RuntimeException;
-use Singleton;
-use Success;
-use TestAutoreferenced;
-use TestError;
-use TestIncomplete;
-use TestSkipped;
-use TestWithDifferentNames;
-use TestWithDifferentOutput;
-use TestWithDifferentSizes;
-use TestWithDifferentStatuses;
-use ThrowExceptionTestCase;
-use ThrowNoExceptionTestCase;
 use TypeError;
-use WasRun;
 
 /**
  * @small
@@ -95,7 +95,10 @@ final class TestCaseTest extends TestCase
     public function testCaseToString(): void
     {
         $this->assertEquals(
-            'PHPUnit\Framework\TestCaseTest::testCaseToString',
+            sprintf(
+                '%s::testCaseToString',
+                self::class
+            ),
             $this->toString()
         );
     }
@@ -1070,7 +1073,7 @@ final class TestCaseTest extends TestCase
 
     public function testGetNameReturnsEmptyStringAsDefault(): void
     {
-        $testCase = new TestWithDifferentNames();
+        $testCase = new TestWithDifferentNames;
 
         $this->assertSame('', $testCase->getName());
     }
@@ -1083,7 +1086,10 @@ final class TestCaseTest extends TestCase
         $testCase = new TestWithDifferentNames($name);
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('PHPUnit\Framework\TestCase::$name must be a non-blank string.');
+        $this->expectExceptionMessage(sprintf(
+            '%s::$name must be a non-blank string.',
+            TestCase::class
+        ));
 
         $testCase->runBare();
     }
@@ -1099,7 +1105,7 @@ final class TestCaseTest extends TestCase
 
     public function testHasFailedReturnsFalseWhenTestHasNotRunYet(): void
     {
-        $test = new TestWithDifferentStatuses();
+        $test = new TestWithDifferentStatuses;
 
         $this->assertSame(BaseTestRunner::STATUS_UNKNOWN, $test->getStatus());
         $this->assertFalse($test->hasFailed());

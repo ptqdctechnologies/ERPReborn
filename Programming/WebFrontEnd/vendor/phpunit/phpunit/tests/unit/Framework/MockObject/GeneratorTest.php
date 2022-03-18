@@ -13,18 +13,18 @@ use function class_exists;
 use function md5;
 use function method_exists;
 use function microtime;
-use AbstractMockTestClass;
-use AbstractTrait;
-use AnInterface;
-use AnInterfaceWithReturnType;
-use ClassWithVariadicArgumentMethod;
 use Countable;
 use Exception;
-use ExceptionWithThrowable;
-use FinalClass;
-use InterfaceWithSemiReservedMethodName;
 use PHPUnit\Framework\TestCase;
-use SingletonClass;
+use PHPUnit\TestFixture\AbstractMockTestClass;
+use PHPUnit\TestFixture\AbstractTrait;
+use PHPUnit\TestFixture\AnInterface;
+use PHPUnit\TestFixture\AnInterfaceWithReturnType;
+use PHPUnit\TestFixture\ClassWithVariadicArgumentMethod;
+use PHPUnit\TestFixture\ExceptionWithThrowable;
+use PHPUnit\TestFixture\FinalClass;
+use PHPUnit\TestFixture\InterfaceWithSemiReservedMethodName;
+use PHPUnit\TestFixture\SingletonClass;
 use stdClass;
 use Throwable;
 
@@ -222,7 +222,7 @@ final class GeneratorTest extends TestCase
     {
         $mock = $this->generator->getMock(SingletonClass::class, ['doSomething'], [], '', false);
 
-        $this->assertInstanceOf('SingletonClass', $mock);
+        $this->assertInstanceOf(SingletonClass::class, $mock);
     }
 
     public function testExceptionIsRaisedForMutuallyExclusiveOptions(): void

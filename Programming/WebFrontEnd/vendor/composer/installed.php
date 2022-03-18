@@ -641,12 +641,12 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '8.5.24',
-            'version' => '8.5.24.0',
+            'pretty_version' => '8.5.25',
+            'version' => '8.5.25.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
-            'reference' => '293cb0099d75407d971a73f41e51f35b664667ed',
+            'reference' => '9ff23f4dfde040ccd3b8db876192d1184b934158',
             'dev_requirement' => true,
         ),
         'predis/predis' => array(
@@ -942,12 +942,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.0.9',
-            'version' => '1.0.9.0',
+            'pretty_version' => '1.0.10',
+            'version' => '1.0.10.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => 'd7b223300d511145eea87fdabae1663c7c0088aa',
+            'reference' => '71df77cad94aae4db904aaef1cc2f06950daed76',
             'dev_requirement' => false,
         ),
         'symfony/console' => array(

@@ -10,13 +10,13 @@
  */
 namespace PHPUnit\Framework\MockObject;
 
-use ClassWithAllPossibleReturnTypes;
-use Foo;
 use PHPUnit\Framework\Constraint\IsEqual;
 use PHPUnit\Framework\MockObject\Builder\InvocationMocker;
 use PHPUnit\Framework\MockObject\Stub\ReturnSelf;
 use PHPUnit\Framework\MockObject\Stub\ReturnStub;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\TestFixture\ClassWithAllPossibleReturnTypes;
+use PHPUnit\TestFixture\Foo;
 use PHPUnit\TestFixture\MockObject\ClassWithImplicitProtocol;
 use stdClass;
 
@@ -142,8 +142,12 @@ final class InvocationMockerTest extends TestCase
         $invocationMocker = $mock->method('methodWithClassReturnTypeDeclaration');
 
         $this->expectException(IncompatibleReturnValueException::class);
-        $this->expectExceptionMessage('Method methodWithClassReturnTypeDeclaration may not return value of type Foo, its return declaration is ": stdClass"');
-        $invocationMocker->willReturn(new Foo());
+        $this->expectExceptionMessage(sprintf(
+            'Method methodWithClassReturnTypeDeclaration may not return value of type %s, its return declaration is ": %s"',
+            Foo::class,
+            stdClass::class
+        ));
+        $invocationMocker->willReturn(new Foo);
     }
 
     public function testWillReturnAllowsMatchersForMultipleMethodsWithDifferentReturnTypes(): void
@@ -152,7 +156,7 @@ final class InvocationMockerTest extends TestCase
         $mock = $this->getMockBuilder(ClassWithAllPossibleReturnTypes::class)
             ->getMock();
 
-        $invocationMocker = $mock->method(new \PHPUnit\Framework\Constraint\IsAnything());
+        $invocationMocker = $mock->method(new \PHPUnit\Framework\Constraint\IsAnything);
         $invocationMocker->willReturn(true, 1);
 
         $this->assertEquals(true, $mock->methodWithBoolReturnTypeDeclaration());
@@ -254,7 +258,7 @@ final class InvocationMockerTest extends TestCase
 
         $mock->expects($this->any())
             ->method('bar')
-            ->willReturn(new ReturnSelf());
+            ->willReturn(new ReturnSelf);
 
         $this->assertSame('foo', $mock->foo());
         $this->assertSame($mock, $mock->bar());

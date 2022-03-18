@@ -40,8 +40,10 @@ final class XmlTest extends TestCase
         $this->assertNull(
             $e,
             sprintf(
-                '\PHPUnit\Util\Xml::prepareString("\x%02x") should not crash DomDocument',
-                ord($char)
+                '%s::prepareString("\x%02x") should not crash %s',
+                Xml::class,
+                ord($char),
+                DOMDocument::class
             )
         );
     }
@@ -107,7 +109,7 @@ final class XmlTest extends TestCase
      */
     public function testXmlToVariableCanHandleMultipleOfTheSameArgumentType(): void
     {
-        $xml = '<object class="SampleClass"><arguments><string>a</string><string>b</string><string>c</string></arguments></object>';
+        $xml = '<object class="PHPUnit\TestFixture\SampleClass"><arguments><string>a</string><string>b</string><string>c</string></arguments></object>';
         $dom = new DOMDocument;
         $dom->loadXML($xml);
 
