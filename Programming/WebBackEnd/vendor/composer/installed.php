@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.214.0',
-            'version' => '3.214.0.0',
+            'pretty_version' => '3.215.0',
+            'version' => '3.215.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'a2eacf8c1b55de4733f4cfc315da38f1d4c66501',
+            'reference' => '79c4ffdf93cdcc7be9196ae2e22f0d0323cb2557',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -1422,12 +1422,12 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.83.2',
-            'version' => '8.83.2.0',
+            'pretty_version' => 'v8.83.5',
+            'version' => '8.83.5.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
             'aliases' => array(),
-            'reference' => 'd9c66d586ec2d216d8a31283d73f8df1400cc722',
+            'reference' => '369a4eebc0d1763e6eba30526f190eaa76b78e8c',
             'dev_requirement' => false,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
