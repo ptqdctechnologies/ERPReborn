@@ -13,7 +13,9 @@ use Laravel\Octane\Events\TickReceived;
 use Monolog\Logger;
 use Spatie\FlareClient\Flare;
 use Spatie\FlareClient\FlareMiddleware\AddSolutions;
+use Spatie\Ignition\Config\FileConfigManager;
 use Spatie\Ignition\Config\IgnitionConfig;
+use Spatie\Ignition\Contracts\ConfigManager;
 use Spatie\Ignition\Contracts\SolutionProviderRepository as SolutionProviderRepositoryContract;
 use Spatie\Ignition\Ignition;
 use Spatie\LaravelIgnition\Commands\SolutionMakeCommand;
@@ -45,7 +47,6 @@ class IgnitionServiceProvider extends ServiceProvider
         $this->registerRenderer();
         $this->registerRecorders();
         $this->registerLogHandler();
-        $this->registerRoutes();
     }
 
     public function boot()
@@ -55,6 +56,7 @@ class IgnitionServiceProvider extends ServiceProvider
             $this->publishConfigs();
         }
 
+        $this->registerRoutes();
         $this->configureTinker();
         $this->configureOctane();
         $this->registerViewExceptionMapper();
@@ -104,7 +106,6 @@ class IgnitionServiceProvider extends ServiceProvider
             );
         }
 
-
         if (interface_exists('Illuminate\Contracts\Foundation\ExceptionRenderer')) {
             $this->app->bind(
                 'Illuminate\Contracts\Foundation\ExceptionRenderer',
@@ -130,8 +131,13 @@ class IgnitionServiceProvider extends ServiceProvider
 
     protected function registerIgnition(): void
     {
+        $this->app->singleton(
+            ConfigManager::class,
+            fn () => new FileConfigManager(config('ignition.settings_file_path', ''))
+        );
+
         $ignitionConfig = (new IgnitionConfig())
-            ->merge(config('ignition'))
+            ->merge(config('ignition', []))
             ->loadConfigFile();
 
         $solutionProviders = $this->getSolutionProviders();
