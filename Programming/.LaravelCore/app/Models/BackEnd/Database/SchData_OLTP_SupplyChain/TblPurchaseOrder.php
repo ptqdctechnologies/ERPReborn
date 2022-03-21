@@ -71,8 +71,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
             string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varPaymentTerm = null, string $varRemarks = null, array $varDetails = null)
             {
-            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -93,10 +93,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varRemarks, 'varchar'],
                         [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
                     ]
-                    //)
+                    )
                 );
-//            return $varReturn['Data'][0];
-            return $varReturn;
+            return $varReturn['Data'][0];
             }
 
 
