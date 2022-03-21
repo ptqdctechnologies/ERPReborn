@@ -6556,41 +6556,35 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "remarks" => 'My Remarks',
                     "details" => [
                         "itemList" => [
-                                [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            "purchaseRequisitionDetail_RefID" => 84000000000001,
-                                            "quantity" => 10,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValue_CurrencyeValue" => 30000,
-                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                            "remarks" => 'Catatan Pertama'
-                                            ]
-                                        ],
-                                    ]
-                                ],
-                                [
-                                "items" => [
-                                        [
-                                        "entities" => [
-                                            "purchaseRequisitionDetail_RefID" => 84000000000002,
-                                            "quantity" => 10,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValue_CurrencyeValue" => 30000,
-                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                            "remarks" => 'Catatan Kedua'
-                                            ]
-                                        ],
-                                    ]
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "purchaseRequisitionDetail_RefID" => 84000000000001,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "remarks" => 'Catatan Pertama'
+                                        ]                                    
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "purchaseRequisitionDetail_RefID" => 84000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "remarks" => 'Catatan Kedua'
+                                        ]                                    
+                                    ],
                                 ]
                             ],
                         "taxes" => [
@@ -6757,34 +6751,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "requesterPerson_RefID" => 25000000000439,
                     "remarks" => 'My Remarks',
                     "details" => [
-                            [
-                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                            "details" => [
+                        "itemList" => [
+                            "items" => [
                                     [
-                                    "sys_ID" => null,
-                                    "product_RefID" => 88000000000002,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan Pertama' 
+                                    "entities" => [
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                        "product_RefID" => 88000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "remarks" => 'Catatan Pertama'                                    
+                                        ]                                   
                                     ],
                                     [
-                                    "sys_ID" => null,
-                                    "product_RefID" => 88000000000003,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan Kedua'
+                                    "entities" => [
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                        "product_RefID" => 88000000000003,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "remarks" => 'Catatan Kedua'
+                                        ]
                                     ],
                                 ]
                             ]
                         ]
                     ]
-                ]
+                ]                    
                 );
             var_dump($varData);
             }
@@ -28443,43 +28440,37 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "remarks" => 'My Remarks',
                     "details" => [
                         "itemList" => [
-                                [
-                                "items" => [
-                                        [
-                                        "recordID" => 86000000000001,
-                                        "entities" => [
-                                            "purchaseRequisitionDetail_RefID" => 84000000000001,
-                                            "quantity" => 10,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValue_CurrencyeValue" => 30000,
-                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                            "remarks" => 'Catatan Pertama'
-                                            ]
-                                        ],
-                                    ]
-                                ],
-                                [
-                                "items" => [
-                                        [
-                                        "recordID" => null,
-                                        "entities" => [
-                                            "purchaseRequisitionDetail_RefID" => 84000000000002,
-                                            "quantity" => 10,
-                                            "quantityUnit_RefID" => 73000000000001,
-                                            "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValue_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValue_CurrencyeValue" => 30000,
-                                            "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                            "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
-                                            "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                                            "remarks" => 'Catatan Kedua'
-                                            ]
-                                        ],
-                                    ]
+                            "items" => [
+                                    [
+                                    "recordID" => 86000000000001,
+                                    "entities" => [
+                                        "purchaseRequisitionDetail_RefID" => 84000000000001,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "remarks" => 'Catatan Pertama Update'
+                                        ]                                    
+                                    ],
+                                    [
+                                    "recordID" => null,
+                                    "entities" => [
+                                        "purchaseRequisitionDetail_RefID" => 84000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceValue_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
+                                        "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "remarks" => 'Catatan Kedua Update'
+                                        ]                                    
+                                    ],
                                 ]
                             ],
                         "taxes" => [
@@ -28663,31 +28654,36 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "requesterPerson_RefID" => 25000000000439,
                     "remarks" => 'My Remarks',
                     "details" => [
-                            [
-                            "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                            "details" => [
+                        "itemList" => [
+                            "items" => [
                                     [
-                                    "sys_ID" => 84000000000001,
-                                    "product_RefID" => 88000000000002,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan Pertama Revisi'
+                                    "recordID" => 84000000000001,
+                                    "entities" => [
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                        "product_RefID" => 88000000000002,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "remarks" => 'Catatan Pertama Revisi'                                    
+                                        ]                                   
                                     ],
                                     [
-                                    "sys_ID" => 84000000000002,
-                                    "product_RefID" => 88000000000003,
-                                    "quantity" => 10,
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "productUnitPriceCurrencyValue" => 30000,
-                                    "remarks" => 'Catatan Kedua Revisi'
+                                    "recordID" => 84000000000002,
+                                    "entities" => [
+                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                                        "product_RefID" => 88000000000003,
+                                        "quantity" => 10,
+                                        "quantityUnit_RefID" => 73000000000001,
+                                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
+                                        "productUnitPriceCurrencyValue" => 30000,
+                                        "remarks" => 'Catatan Kedua Revisi'
+                                        ]
                                     ],
                                 ]
-                            ],
+                            ]
                         ]
                     ]
                 ]
