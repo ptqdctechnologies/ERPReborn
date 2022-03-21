@@ -10,11 +10,11 @@
 namespace PHPUnit\Runner;
 
 use function mt_srand;
-use EmptyTestCaseTest;
 use MultiDependencyTest;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\TestSuite;
-use TestWithDifferentSizes;
+use PHPUnit\TestFixture\EmptyTestCaseTest;
+use PHPUnit\TestFixture\TestWithDifferentSizes;
 
 /**
  * @testdox Reordering test execution
@@ -591,7 +591,13 @@ final class TestSuiteSorterTest extends TestCase
         $sorter->reorderTestsInSuite($suite, TestSuiteSorter::ORDER_DEFAULT, false, TestSuiteSorter::ORDER_DEFAULT);
 
         $this->assertSame(EmptyTestCaseTest::class, $suite->tests()[0]->getName());
-        $this->assertSame('No tests found in class "EmptyTestCaseTest".', $suite->tests()[0]->tests()[0]->getMessage());
+        $this->assertSame(
+            sprintf(
+                'No tests found in class "%s".',
+                EmptyTestCaseTest::class
+            ),
+            $suite->tests()[0]->tests()[0]->getMessage()
+        );
     }
 
     public function suiteSorterOptionPermutationsProvider(): array

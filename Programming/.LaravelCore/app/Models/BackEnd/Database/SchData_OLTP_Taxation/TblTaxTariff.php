@@ -72,9 +72,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-15                                                                                           |
-        | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Last Update     : 2022-03-16                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -85,7 +85,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
-        |      ▪ (float)  varTariffPercentage ► Tariff Percentage                                                                  |
+        |      ▪ (float)  varTariffMinimumRate ► Tariff Minimum Rate                                                               |
+        |      ▪ (float)  varTariffMaximumRate ► Tariff Maximum Rate                                                               |
         |      ▪ (int)    varRoundUnit ► Round Unit                                                                                |
         |      ▪ (bool)   varSignRoundUp ► RoundUp Sign                                                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -95,7 +96,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffPercentage = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -112,7 +113,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTaxType_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
                         [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffPercentage, 'numeric'],
+                        [$varTariffMinimumRate, 'numeric'],
+                        [$varTariffMaximumRate, 'numeric'],
                         [$varRoundUnit, 'smallint'],
                         [$varSignRoundUp, 'boolean']
                     ]
@@ -126,9 +128,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-15                                                                                           |
-        | ▪ Last Update     : 2022-03-15                                                                                           |
+        | ▪ Last Update     : 2022-03-16                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -140,7 +142,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (string) varValidStartDateTimeTZ ► Valid Start DateTimeTZ                                                         |
         |      ▪ (string) varValidFinishDateTimeTZ ► Valid Finish DateTimeTZ                                                       |
-        |      ▪ (float)  varTariffPercentage ► Tariff Percentage                                                                  |
+        |      ▪ (float)  varTariffMinimumRate ► Tariff Minimum Rate                                                               |
+        |      ▪ (float)  varTariffMaximumRate ► Tariff Maximum Rate                                                               |
         |      ▪ (int)    varRoundUnit ► Round Unit                                                                                |
         |      ▪ (bool)   varSignRoundUp ► RoundUp Sign                                                                            |
         | ▪ Output Variable :                                                                                                      |
@@ -150,7 +153,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffPercentage = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
+            int $varTaxType_RefID = null, string $varValidStartDateTimeTZ = null, string $varValidFinishDateTimeTZ = null, float $varTariffMinimumRate = null, float $varTariffMaximumRate = null, int $varRoundUnit = null, bool $varSignRoundUp = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -167,7 +170,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTaxType_RefID, 'bigint'],
                         [$varValidStartDateTimeTZ, 'timestamptz'],
                         [$varValidFinishDateTimeTZ, 'timestamptz'],
-                        [$varTariffPercentage, 'numeric'],
+                        [$varTariffMinimumRate, 'numeric'],
+                        [$varTariffMaximumRate, 'numeric'],
                         [$varRoundUnit, 'smallint'],
                         [$varSignRoundUp, 'boolean']
                     ],

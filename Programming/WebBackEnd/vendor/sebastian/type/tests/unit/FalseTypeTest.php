@@ -14,8 +14,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \SebastianBergmann\Type\FalseType
  *
- * @uses \SebastianBergmann\Type\Type
  * @uses \SebastianBergmann\Type\SimpleType
+ * @uses \SebastianBergmann\Type\Type
  */
 final class FalseTypeTest extends TestCase
 {
@@ -69,15 +69,5 @@ final class FalseTypeTest extends TestCase
         $type = new FalseType;
 
         $this->assertFalse($type->allowsNull());
-    }
-
-    public function testCannotBeRepresentedAsStringForReturnTypeDeclaration(): void
-    {
-        $type = new FalseType;
-
-        $this->expectException(LogicException::class);
-
-        /* @noinspection UnusedFunctionResultInspection */
-        $type->getReturnTypeDeclaration();
     }
 }

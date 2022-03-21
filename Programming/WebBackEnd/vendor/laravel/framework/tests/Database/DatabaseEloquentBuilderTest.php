@@ -832,6 +832,28 @@ class DatabaseEloquentBuilderTest extends TestCase
         $this->assertEquals($builder, $result);
     }
 
+    public function testQueryDynamicScopes()
+    {
+        $builder = $this->getBuilder();
+        $builder->getQuery()->shouldReceive('from');
+        $builder->getQuery()->shouldReceive('where')->once()->with('bar', 'foo');
+        $builder->setModel($model = new EloquentBuilderTestDynamicScopeStub);
+        $result = $builder->dynamic('bar', 'foo');
+
+        $this->assertEquals($builder, $result);
+    }
+
+    public function testQueryDynamicScopesNamed()
+    {
+        $builder = $this->getBuilder();
+        $builder->getQuery()->shouldReceive('from');
+        $builder->getQuery()->shouldReceive('where')->once()->with('foo', 'foo');
+        $builder->setModel($model = new EloquentBuilderTestDynamicScopeStub);
+        $result = $builder->dynamic(bar: 'foo');
+
+        $this->assertEquals($builder, $result);
+    }
+
     public function testNestedWhere()
     {
         $nestedQuery = m::mock(Builder::class);
@@ -954,6 +976,38 @@ class DatabaseEloquentBuilderTest extends TestCase
         $this->mockConnectionForModel($model, 'SQLite');
         $query = $model->newQuery()->one()->orWhere->two()->orWhere->three();
         $this->assertSame('select * from "table" where "one" = ? or ("two" = ?) or ("three" = ?)', $query->toSql());
+    }
+
+    public function testRealQueryHigherOrderWhereNotScopes()
+    {
+        $model = new EloquentBuilderTestHigherOrderWhereScopeStub;
+        $this->mockConnectionForModel($model, 'SQLite');
+        $query = $model->newQuery()->one()->whereNot->two();
+        $this->assertSame('select * from "table" where "one" = ? and not ("two" = ?)', $query->toSql());
+    }
+
+    public function testRealQueryChainedHigherOrderWhereNotScopes()
+    {
+        $model = new EloquentBuilderTestHigherOrderWhereScopeStub;
+        $this->mockConnectionForModel($model, 'SQLite');
+        $query = $model->newQuery()->one()->whereNot->two()->whereNot->three();
+        $this->assertSame('select * from "table" where "one" = ? and not ("two" = ?) and not ("three" = ?)', $query->toSql());
+    }
+
+    public function testRealQueryHigherOrderOrWhereNotScopes()
+    {
+        $model = new EloquentBuilderTestHigherOrderWhereScopeStub;
+        $this->mockConnectionForModel($model, 'SQLite');
+        $query = $model->newQuery()->one()->orWhereNot->two();
+        $this->assertSame('select * from "table" where "one" = ? or not ("two" = ?)', $query->toSql());
+    }
+
+    public function testRealQueryChainedHigherOrderOrWhereNotScopes()
+    {
+        $model = new EloquentBuilderTestHigherOrderWhereScopeStub;
+        $this->mockConnectionForModel($model, 'SQLite');
+        $query = $model->newQuery()->one()->orWhereNot->two()->orWhereNot->three();
+        $this->assertSame('select * from "table" where "one" = ? or not ("two" = ?) or not ("three" = ?)', $query->toSql());
     }
 
     public function testSimpleWhere()
@@ -1904,6 +1958,14 @@ class EloquentBuilderTestScopeStub extends Model
     public function scopeApproved($query)
     {
         $query->where('foo', 'bar');
+    }
+}
+
+class EloquentBuilderTestDynamicScopeStub extends Model
+{
+    public function scopeDynamic($query, $foo = 'foo', $bar = 'bar')
+    {
+        $query->where($foo, $bar);
     }
 }
 

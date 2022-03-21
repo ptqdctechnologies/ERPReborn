@@ -395,19 +395,23 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varData = '{}';
                         }
                     $varData = htmlspecialchars_decode($varData);
+                    
                     $varReturn = 
                         'function() '.
                             '{ '.
                             'varReturn = null; '.
                             'try '.
                                 '{ '.
+                                'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
                                 'varReturn = new zht_JSAPIRequest_Gateway('.
                                     '"'.$varAPIWebToken.'", '.
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
                                     '"'.$varAPIKey.'", '.
                                     '"'.$varAPIVersion.'", '.
-                                    $varData.
+                                    'varJSONData'.
                                     '); '.
+//                                'alert(varJSONData); '.
+//                                'alert("done"); '.
                                 '} '.
                             'catch(varError) '.
                                 '{ '.

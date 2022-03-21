@@ -68,6 +68,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionBackupGateway(array $args = [])
  * @method \Aws\Batch\BatchClient createBatch(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBatch(array $args = [])
+ * @method \Aws\BillingConductor\BillingConductorClient createBillingConductor(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionBillingConductor(array $args = [])
  * @method \Aws\Braket\BraketClient createBraket(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionBraket(array $args = [])
  * @method \Aws\Budgets\BudgetsClient createBudgets(array $args = [])
@@ -605,7 +607,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.213.0';
+    const VERSION = '3.215.0';
 
     /** @var array Arguments for creating clients */
     private $args;

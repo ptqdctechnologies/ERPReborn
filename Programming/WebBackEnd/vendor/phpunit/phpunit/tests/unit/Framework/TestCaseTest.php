@@ -20,16 +20,16 @@ use function getcwd;
 use function ini_get;
 use function ini_set;
 use function trigger_error;
-use DependencyFailureTest;
 use DependencyInputTest;
-use DependencyOnClassTest;
-use DependencySuccessTest;
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Runner\BaseTestRunner;
 use PHPUnit\TestFixture\ChangeCurrentWorkingDirectoryTest;
 use PHPUnit\TestFixture\ClassWithScalarTypeDeclarations;
+use PHPUnit\TestFixture\DependencyFailureTest;
+use PHPUnit\TestFixture\DependencyOnClassTest;
+use PHPUnit\TestFixture\DependencySuccessTest;
 use PHPUnit\TestFixture\DoNoAssertionTestCase;
 use PHPUnit\TestFixture\ExceptionInAssertPostConditionsTest;
 use PHPUnit\TestFixture\ExceptionInAssertPreConditionsTest;
@@ -100,7 +100,10 @@ class TestCaseTest extends TestCase
     public function testCaseToString(): void
     {
         $this->assertEquals(
-            'PHPUnit\Framework\TestCaseTest::testCaseToString',
+            sprintf(
+                '%s::testCaseToString',
+                self::class
+            ),
             $this->toString()
         );
     }
@@ -1130,7 +1133,10 @@ class TestCaseTest extends TestCase
         $testCase = new TestWithDifferentNames($name);
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('PHPUnit\Framework\TestCase::$name must be a non-blank string.');
+        $this->expectExceptionMessage(sprintf(
+            '%s::$name must be a non-blank string.',
+            TestCase::class
+        ));
 
         $testCase->runBare();
     }

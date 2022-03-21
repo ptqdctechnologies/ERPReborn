@@ -251,7 +251,8 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : generateContentMD5                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Creation Date   : 2022-03-18                                                                                           |
         | ▪ Last Update     : 2020-08-03                                                                                           |
         | ▪ Description     : Memunculkan nilai Content MD5 untuk HTTP Header dari data Content (varDataContent)                   |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -268,10 +269,11 @@ namespace App\Helpers\ZhtHelper\General
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'generate Content-MD5 HTTP Header');
                 try {
+                    /*
                     $varDataContent = (array) json_decode($varDataContent);
-                    
                     $varDataContent = \App\Helpers\ZhtHelper\General\Helper_Array::setRemoveElementByKey($varUserSession, 'header', $varDataContent);
                     $varDataContent = json_encode($varDataContent, JSON_FORCE_OBJECT);
+                    */
                     
                     $varReturn = base64_encode(md5($varDataContent));
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

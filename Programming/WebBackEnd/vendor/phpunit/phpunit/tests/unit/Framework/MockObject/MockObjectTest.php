@@ -14,7 +14,6 @@ use function func_get_args;
 use function get_class;
 use function get_parent_class;
 use Exception;
-use Foo;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit\TestFixture\AbstractTrait;
@@ -26,11 +25,14 @@ use PHPUnit\TestFixture\ClassWithStaticMethod;
 use PHPUnit\TestFixture\ClassWithStaticReturnTypes;
 use PHPUnit\TestFixture\ClassWithUnionReturnTypes;
 use PHPUnit\TestFixture\ExampleTrait;
+use PHPUnit\TestFixture\Foo;
+use PHPUnit\TestFixture\FunctionCallbackWrapper;
 use PHPUnit\TestFixture\InterfaceWithMethodsThatDeclareBooleanReturnTypes;
 use PHPUnit\TestFixture\InterfaceWithStaticMethod;
 use PHPUnit\TestFixture\MethodCallback;
 use PHPUnit\TestFixture\MethodCallbackByReference;
 use PHPUnit\TestFixture\MockObject\AbstractMockTestClass;
+use PHPUnit\TestFixture\MockObject\InterfaceWithMethodReturningIntersection;
 use PHPUnit\TestFixture\PartialMockTestClass;
 use PHPUnit\TestFixture\SomeClass;
 use PHPUnit\TestFixture\StringableClass;
@@ -295,7 +297,10 @@ final class MockObjectTest extends TestCase
 
         $mock->expects($this->once())
              ->method('doSomething')
-             ->willReturnCallback('PHPUnit\TestFixture\FunctionCallbackWrapper::functionCallback');
+             ->will($this->returnCallback(sprintf(
+                 '%s::functionCallback',
+                 FunctionCallbackWrapper::class
+             )));
 
         $this->assertEquals('pass', $mock->doSomething('foo', 'bar'));
 
@@ -305,7 +310,10 @@ final class MockObjectTest extends TestCase
 
         $mock->expects($this->once())
              ->method('doSomething')
-             ->willReturnCallback('PHPUnit\TestFixture\FunctionCallbackWrapper::functionCallback');
+             ->willReturnCallback(sprintf(
+                 '%s::functionCallback',
+                 FunctionCallbackWrapper::class
+             ));
 
         $this->assertEquals('pass', $mock->doSomething('foo', 'bar'));
     }
@@ -725,9 +733,15 @@ final class MockObjectTest extends TestCase
             $mock->right(['second']);
         } catch (ExpectationFailedException $e) {
             $this->assertSame(
-                "Expectation failed for method name is \"right\" when invoked 1 time(s)\n" .
-                'Parameter 0 for invocation PHPUnit\TestFixture\SomeClass::right(Array (...)) does not match expected value.' . "\n" .
-                'Failed asserting that two arrays are equal.',
+                sprintf(
+                    <<<'EOF'
+Expectation failed for method name is "right" when invoked 1 time(s)
+Parameter 0 for invocation %s::right(Array (...)) does not match expected value.
+Failed asserting that two arrays are equal.
+EOF
+                    ,
+                    SomeClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -739,17 +753,24 @@ final class MockObjectTest extends TestCase
 //            $this->fail('Expected exception');
         } catch (ExpectationFailedException $e) {
             $this->assertSame(
-                "Expectation failed for method name is \"right\" when invoked 1 time(s).\n" .
-                'Parameter 0 for invocation PHPUnit\TestFixture\SomeClass::right(Array (...)) does not match expected value.' . "\n" .
-                'Failed asserting that two arrays are equal.' . "\n" .
-                '--- Expected' . "\n" .
-                '+++ Actual' . "\n" .
-                '@@ @@' . "\n" .
-                ' Array (' . "\n" .
-                '-    0 => \'first\'' . "\n" .
-                '-    1 => \'second\'' . "\n" .
-                '+    0 => \'second\'' . "\n" .
-                ' )' . "\n",
+                sprintf(
+                    <<<'EOF'
+Expectation failed for method name is "right" when invoked 1 time(s).
+Parameter 0 for invocation %s::right(Array (...)) does not match expected value.
+Failed asserting that two arrays are equal.
+--- Expected
++++ Actual
+@@ @@
+ Array (
+-    0 => 'first'
+-    1 => 'second'
++    0 => 'second'
+ )
+
+EOF
+                    ,
+                    SomeClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -772,7 +793,10 @@ final class MockObjectTest extends TestCase
             $this->fail('Expected exception');
         } catch (ExpectationFailedException $e) {
             $this->assertSame(
-                'PHPUnit\TestFixture\SomeClass::right() was not expected to be called.',
+                sprintf(
+                    '%s::right() was not expected to be called.',
+                    SomeClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -795,7 +819,10 @@ final class MockObjectTest extends TestCase
             $this->fail('Expected exception');
         } catch (ExpectationFailedException $e) {
             $this->assertSame(
-                'PHPUnit\TestFixture\SomeClass::right() was not expected to be called.',
+                sprintf(
+                    '%s::right() was not expected to be called.',
+                    SomeClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -818,9 +845,15 @@ final class MockObjectTest extends TestCase
             $this->fail('Expected exception');
         } catch (ExpectationFailedException $e) {
             $this->assertSame(
-                "Expectation failed for method name is \"right\" when invoked 1 time(s)\n" .
-                'Parameter count for invocation PHPUnit\TestFixture\SomeClass::right() is too low.' . "\n" .
-                'To allow 0 or more parameters with any value, omit ->with() or use ->withAnyParameters() instead.',
+                sprintf(
+                    <<<'EOF'
+Expectation failed for method name is "right" when invoked 1 time(s)
+Parameter count for invocation %s::right() is too low.
+To allow 0 or more parameters with any value, omit ->with() or use ->withAnyParameters() instead.
+EOF
+                    ,
+                    SomeClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -1032,7 +1065,6 @@ final class MockObjectTest extends TestCase
     {
         return [
             Traversable::class                  => [Traversable::class],
-            '\Traversable'                      => [Traversable::class],
             TraversableMockTestInterface::class => [TraversableMockTestInterface::class],
         ];
     }
@@ -1075,7 +1107,10 @@ final class MockObjectTest extends TestCase
                      ->getMock();
 
         $this->expectException(ReturnValueNotConfiguredException::class);
-        $this->expectExceptionMessage('Return value inference disabled and no expectation set up for PHPUnit\TestFixture\SomeClass::doSomethingElse()');
+        $this->expectExceptionMessage(sprintf(
+            'Return value inference disabled and no expectation set up for %s::doSomethingElse()',
+            SomeClass::class
+        ));
 
         $mock->doSomethingElse(1);
     }
@@ -1094,7 +1129,10 @@ final class MockObjectTest extends TestCase
             $this->fail('Exception expected');
         } catch (RuntimeException $e) {
             $this->assertSame(
-                'Return value inference disabled and no expectation set up for PHPUnit\TestFixture\StringableClass::__toString()',
+                sprintf(
+                    'Return value inference disabled and no expectation set up for %s::__toString()',
+                    StringableClass::class
+                ),
                 $e->getMessage()
             );
         }
@@ -1236,6 +1274,18 @@ final class MockObjectTest extends TestCase
         $i->method('returnsBool')->willReturn(false);
 
         $this->assertFalse($i->returnsBool());
+    }
+
+    /**
+     * @requires PHP 8.1
+     */
+    public function testReturnValueCannotBeAutomaticallyGeneratedForMethodThatReturnsIntersection(): void
+    {
+        $stub = $this->createStub(InterfaceWithMethodReturningIntersection::class);
+
+        $this->expectException(\PHPUnit\Framework\MockObject\RuntimeException::class);
+
+        $stub->method();
     }
 
     private function resetMockObjects(): void
