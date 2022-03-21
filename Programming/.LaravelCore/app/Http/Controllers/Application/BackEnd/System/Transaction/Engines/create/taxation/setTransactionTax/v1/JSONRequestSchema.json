@@ -31,45 +31,57 @@
                 "type": "object",
                 "properties": {
                     "details": {
-                        "type": "array",
-                        "items": {
-                            "type": "object",
-                            "properties": {
-                                "entities": {
-                                    "type": "object",
-                                    "properties": {
-                                        "taxType_RefID": {
-                                             "type": [ "integer" ],
-                                             "minimum": 1,
-                                             "maximum": 9223372036854775807
-                                             },
-                                         "currency_RefID": {
-                                             "type": [ "integer" ],
-                                             "minimum": 1,
-                                             "maximum": 9223372036854775807
-                                             },
-                                         "currencyExchangeRate": {
-                                             "type": [ "number", "null" ],
-                                             "minimum": 0
-                                             },
-                                         "currencyValue": {
-                                             "type": [ "number", "null" ],
-                                             "minimum": 0
-                                             },
-                                         "remarks": {
-                                             "type": [ "string", "null" ],
-                                             "minLength": 1,
-                                             "maxLength": 256
-                                             }
-                                        },
-                                    "required": [ "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
-                                    }
-                                },
-                            "required": [ "entities" ]
-                            }
+                        "type": "object",
+                        "properties": {
+                            "itemList": {
+                                "type": "object",
+                                "properties": {
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "entities": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "taxType_RefID": {
+                                                            "type": [ "integer" ],
+                                                            "minimum": 1,
+                                                            "maximum": 9223372036854775807
+                                                            },
+                                                        "currency_RefID": {
+                                                            "type": [ "integer" ],
+                                                            "minimum": 1,
+                                                            "maximum": 9223372036854775807
+                                                            },
+                                                        "currencyExchangeRate": {
+                                                            "type": [ "number", "null" ],
+                                                            "minimum": 0
+                                                            },
+                                                        "currencyValue": {
+                                                            "type": [ "number", "null" ],
+                                                            "minimum": 0
+                                                            },
+                                                        "remarks": {
+                                                            "type": [ "string", "null" ],
+                                                            "minLength": 1,
+                                                            "maxLength": 256
+                                                            }
+                                                        },
+                                                    "required": [ "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
+                                                    }
+                                                },
+                                            "required": [ "entities" ]
+                                            }
+                                        }
+                                    },
+                                "required": [ "items" ]
+                                }
+                            },
+                        "required": [ "itemList" ]
                         }
                     },
-                "required": [ ]
+                "required": [ ]    
                 }
             },
         "required": [ "entities" ]

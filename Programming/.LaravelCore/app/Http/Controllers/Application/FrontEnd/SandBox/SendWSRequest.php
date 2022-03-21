@@ -7361,26 +7361,30 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
                 'transaction.create.taxation.setTransactionTax', 
-                'latest', 
+                'latest',
                 [
                 'entities' => [
                     "details" => [
-                            [
-                            "entities" => [
-                                "taxType_RefID" => 182000000000001,
-                                "currency_RefID" => 62000000000001,
-                                "currencyExchangeRate" => 1,
-                                "currencyValue" => 30000,
-                                "remarks" => 'Catatan 1'                                
-                                ]
-                            ],
-                            [
-                            "entities" => [
-                                "taxType_RefID" => 182000000000002,
-                                "currency_RefID" => 62000000000001,
-                                "currencyExchangeRate" => 1,
-                                "currencyValue" => 30000,
-                                "remarks" => 'Catatan 2'
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]
                                 ]
                             ]
                         ]
@@ -29300,24 +29304,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 184000000000001,
                 'entities' => [
                     "details" => [
-                            [
-                            "recordID" => 185000000000001,
-                            "entities" => [
-                                "taxType_RefID" => 182000000000001,
-                                "currency_RefID" => 62000000000001,
-                                "currencyExchangeRate" => 1,
-                                "currencyValue" => 30000,
-                                "remarks" => 'Catatan 1'                                
-                                ]
-                            ],
-                            [
-                            "recordID" => 185000000000002,
-                            "entities" => [
-                                "taxType_RefID" => 182000000000002,
-                                "currency_RefID" => 62000000000001,
-                                "currencyExchangeRate" => 1,
-                                "currencyValue" => 30000,
-                                "remarks" => 'Catatan 2'
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 185000000000001,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000001,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 1'                                
+                                        ]
+                                    ],
+                                    [
+                                    "recordID" => 185000000000002,
+                                    "entities" => [
+                                        "taxType_RefID" => 182000000000002,
+                                        "currency_RefID" => 62000000000001,
+                                        "currencyExchangeRate" => 1,
+                                        "currencyValue" => 30000,
+                                        "remarks" => 'Catatan 2'
+                                        ]
+                                    ]
                                 ]
                             ]
                         ]
