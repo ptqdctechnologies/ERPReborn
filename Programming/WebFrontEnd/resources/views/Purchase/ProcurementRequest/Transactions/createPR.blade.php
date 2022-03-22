@@ -19,7 +19,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Advanced
+                      Add New Procurement Request
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -248,7 +248,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Advance List (Cart)
+                      Procurement Request List (Cart)
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
