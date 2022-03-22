@@ -16,6 +16,12 @@
 @include('Advance.BussinesTrip.Functions.PopUp.searchBrf')
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
 
+<!-- PURCHASE -->
+@include('Purchase.ProcurementRequest.Transactions.popupRevisionPR')
+@include('Purchase.ProcurementRequest.Functions.PopUp.searchPR')
+@include('Purchase.PurchaseOrder.Transactions.popupRevisionPO')
+@include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
+
 <!-- INVENTORY -->
 @include('Inventory.MaterialReturn.Functions.PopUp.searchMret')
 @include('Inventory.DeliveryOrderRequest.Transactions.popupRevisionDor')
@@ -1020,7 +1026,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PPM.addPPM') }}" class="nav-link">
+                                            <a href="{{ route('PPM.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Piece Meal</label>
                                             </a>
