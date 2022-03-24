@@ -1926,6 +1926,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\FraudDetector\\FraudDetectorClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/FraudDetector/FraudDetectorClient.php',
         'Aws\\GameLift\\Exception\\GameLiftException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/GameLift/Exception/GameLiftException.php',
         'Aws\\GameLift\\GameLiftClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/GameLift/GameLiftClient.php',
+        'Aws\\GameSparks\\Exception\\GameSparksException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/GameSparks/Exception/GameSparksException.php',
+        'Aws\\GameSparks\\GameSparksClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/GameSparks/GameSparksClient.php',
         'Aws\\Glacier\\Exception\\GlacierException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Glacier/Exception/GlacierException.php',
         'Aws\\Glacier\\GlacierClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Glacier/GlacierClient.php',
         'Aws\\Glacier\\MultipartUploader' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Glacier/MultipartUploader.php',

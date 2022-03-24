@@ -1327,6 +1327,8 @@ return array(
     'Aws\\FraudDetector\\FraudDetectorClient' => $vendorDir . '/aws/aws-sdk-php/src/FraudDetector/FraudDetectorClient.php',
     'Aws\\GameLift\\Exception\\GameLiftException' => $vendorDir . '/aws/aws-sdk-php/src/GameLift/Exception/GameLiftException.php',
     'Aws\\GameLift\\GameLiftClient' => $vendorDir . '/aws/aws-sdk-php/src/GameLift/GameLiftClient.php',
+    'Aws\\GameSparks\\Exception\\GameSparksException' => $vendorDir . '/aws/aws-sdk-php/src/GameSparks/Exception/GameSparksException.php',
+    'Aws\\GameSparks\\GameSparksClient' => $vendorDir . '/aws/aws-sdk-php/src/GameSparks/GameSparksClient.php',
     'Aws\\Glacier\\Exception\\GlacierException' => $vendorDir . '/aws/aws-sdk-php/src/Glacier/Exception/GlacierException.php',
     'Aws\\Glacier\\GlacierClient' => $vendorDir . '/aws/aws-sdk-php/src/Glacier/GlacierClient.php',
     'Aws\\Glacier\\MultipartUploader' => $vendorDir . '/aws/aws-sdk-php/src/Glacier/MultipartUploader.php',
