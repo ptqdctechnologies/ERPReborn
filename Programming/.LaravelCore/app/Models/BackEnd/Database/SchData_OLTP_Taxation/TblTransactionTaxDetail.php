@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Last Update     : 2022-03-24                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null,  int $varBaseCurrency_RefID = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -83,8 +83,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varCurrencyValue, 'numeric'],
+                        [$varBaseCurrency_RefID, 'bigint'],
+                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -97,9 +98,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Last Update     : 2022-03-24                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -121,7 +122,7 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyExchangeRate = null, float $varCurrencyValue = null, string $varRemarks = null)
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null,  int $varBaseCurrency_RefID = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -138,8 +139,9 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
-                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varCurrencyValue, 'numeric'],
+                        [$varBaseCurrency_RefID, 'bigint'],
+                        [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )

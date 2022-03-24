@@ -50,11 +50,16 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "currencyExchangeRate": {
+                    "currencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "currencyValue": {
+                    "baseCurrency_RefID": {
+                        "type": [ "integer" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "currencyExchangeRate": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -64,7 +69,7 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "transactionTax_RefID", "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
+                "required": [ "transactionTax_RefID", "taxType_RefID", "currency_RefID", "currencyValue", "baseCurrency_RefID", "currencyExchangeRate", "remarks" ]
                 }
             },
         "required": [ "recordID", "entities" ]

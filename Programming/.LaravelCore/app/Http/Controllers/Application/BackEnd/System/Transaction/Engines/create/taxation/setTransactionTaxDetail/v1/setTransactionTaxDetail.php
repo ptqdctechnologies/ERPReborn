@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Last Update     : 2022-03-24                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -70,8 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['transactionTax_RefID'],
                             $varData['entities']['taxType_RefID'],
                             $varData['entities']['currency_RefID'],
-                            $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['currencyValue'],
+                            $varData['entities']['baseCurrency_RefID'],
+                            $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {
