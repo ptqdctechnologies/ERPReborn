@@ -59,12 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Purchase Order Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataInsert(
                             $varUserSession, 
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
                             $varData['entities']['documentDateTimeTZ'],
                             $varData['entities']['requesterPerson_RefID'],
                             $varData['entities']['supplier_RefID'],
@@ -73,7 +75,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['billingAddress'],
                             $varData['entities']['paymentTerm'],
                             $varData['entities']['remarks'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
                             {
                             throw new \Exception();

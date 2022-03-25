@@ -51,19 +51,23 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
-        |      ▪ (array)  varDetails ► Details Data                                                                                |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null, array $varDetails = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
+            array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -75,12 +79,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
+
+                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
                     ]
                     )
                 );
@@ -102,19 +108,23 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
-        |      ▪ (array)  varDetails ► Details Data                                                                                |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null, array $varDetails = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null, 
+            array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -126,12 +136,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varDetails), 'json']
+
+                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
                     ],
                     )
                 );

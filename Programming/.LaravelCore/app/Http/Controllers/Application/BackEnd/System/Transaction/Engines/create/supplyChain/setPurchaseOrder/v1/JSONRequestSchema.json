@@ -74,7 +74,7 @@
                         "minLength": 1,
                         "maxLength": 512
                         },
-                    "details": {
+                    "additionalData": {
                         "type": "object",
                         "properties": {
                             "itemList": {

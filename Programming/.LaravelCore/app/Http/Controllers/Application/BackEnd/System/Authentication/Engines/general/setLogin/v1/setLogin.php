@@ -138,6 +138,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'NOW()', 
                             '(NOW() + \''.$varSessionIntervalInSeconds.' seconds\'::interval)'
                             );
+
                         $varSysID = $varBufferDB['SignRecordID'];                        
                         $varBufferDB = (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())->getDataRecord(
                             $varUserSession, 
@@ -168,9 +169,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                             'redisID' => $varRedisID,
                             'optionList' => $varOptionList
                             ];
+                        
 //$varDataSend = ['xxx' => $varBufferDB];
 //$varDataSend = ['xxx' => $varData];
 //$varDataSend = ['xxx' => $varSysID];
+//$varDataSend = ['xxx' => $varUserName];
               
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend, $this->varAPIIdentity);
                         }

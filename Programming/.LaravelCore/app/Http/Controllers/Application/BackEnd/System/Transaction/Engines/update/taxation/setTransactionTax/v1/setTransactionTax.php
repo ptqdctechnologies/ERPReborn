@@ -68,7 +68,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'details', $varData['entities']) ? $varData['entities']['details'] : [])
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                                
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
                             {
                             throw new \Exception();

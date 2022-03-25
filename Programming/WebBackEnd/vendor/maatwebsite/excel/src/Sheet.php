@@ -285,15 +285,19 @@ class Sheet
 
         if ($import instanceof OnEachRow) {
             $headingRow          = HeadingRowExtractor::extract($this->worksheet, $import);
+            $headerIsGrouped     = HeadingRowExtractor::extractGrouping($headingRow, $import);
             $endColumn           = $import instanceof WithColumnLimit ? $import->endColumn() : null;
             $preparationCallback = $this->getPreparationCallback($import);
 
             foreach ($this->worksheet->getRowIterator()->resetStart($startRow ?? 1) as $row) {
-                $sheetRow = new Row($row, $headingRow);
+                $sheetRow = new Row($row, $headingRow, $headerIsGrouped);
+
+                if ($import instanceof WithValidation) {
+                    $sheetRow->setPreparationCallback($preparationCallback);
+                }
 
                 if (!$import instanceof SkipsEmptyRows || ($import instanceof SkipsEmptyRows && !$sheetRow->isEmpty($calculatesFormulas))) {
                     if ($import instanceof WithValidation) {
-                        $sheetRow->setPreparationCallback($preparationCallback);
                         $toValidate = [$sheetRow->getIndex() => $sheetRow->toArray(null, $import instanceof WithCalculatedFormulas, $import instanceof WithFormatData, $endColumn)];
 
                         try {
@@ -333,13 +337,14 @@ class Sheet
             return [];
         }
 
-        $endRow     = EndRowFinder::find($import, $startRow, $this->worksheet->getHighestRow());
-        $headingRow = HeadingRowExtractor::extract($this->worksheet, $import);
-        $endColumn  = $import instanceof WithColumnLimit ? $import->endColumn() : null;
+        $endRow          = EndRowFinder::find($import, $startRow, $this->worksheet->getHighestRow());
+        $headingRow      = HeadingRowExtractor::extract($this->worksheet, $import);
+        $headerIsGrouped = HeadingRowExtractor::extractGrouping($headingRow, $import);
+        $endColumn       = $import instanceof WithColumnLimit ? $import->endColumn() : null;
 
         $rows = [];
         foreach ($this->worksheet->getRowIterator($startRow, $endRow) as $index => $row) {
-            $row = new Row($row, $headingRow);
+            $row = new Row($row, $headingRow, $headerIsGrouped);
 
             if ($import instanceof SkipsEmptyRows && $row->isEmpty($calculateFormulas, $endColumn)) {
                 continue;

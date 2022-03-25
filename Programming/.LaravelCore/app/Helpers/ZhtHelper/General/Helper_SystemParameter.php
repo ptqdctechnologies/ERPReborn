@@ -81,6 +81,27 @@ namespace App\Helpers\ZhtHelper\General
             {
             self::$varNameSpace=get_class();
             }
+        
+        
+        public static function getApplicationParameter_BaseCurrencyID($varUserSession, int $varBranchID, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Application Parameter ► Base Currency ID');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    $varReturn = (new \App\Models\Database\SchSysConfig\General())->getApplicationParameter_BaseCurrencyID($varUserSession, $varBranchID, $varKey);
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                }
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
 
 
         public static function setTimeOut_ExecutionTime($varUserSession, int $varTimeOut = null)

@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-03-16                                                                                           |
-        | ▪ Last Update     : 2022-03-16                                                                                           |
+        | ▪ Last Update     : 2022-03-24                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,11 +68,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
                             $varData['entities']['transactionTax_RefID'],
                             $varData['entities']['taxType_RefID'],
                             $varData['entities']['currency_RefID'],
-                            $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['currencyValue'],
+                            $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

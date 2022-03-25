@@ -43,24 +43,26 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Create     : 2022-03-02                                                                                           |
-        | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Version         : 1.0000.0000004                                                                                       |
+        | ▪ Creation Data   : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-25                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPurchaseRequisition_RefID ► Purchase Requisition Reference ID                                         |
         |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -68,8 +70,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -81,7 +83,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varPurchaseRequisition_RefID, 'bigint'],
                         [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
@@ -89,8 +92,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
                     )
@@ -103,9 +106,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Create     : 2022-03-02                                                                                           |
-        | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Version         : 1.0000.0000004                                                                                       |
+        | ▪ Creation Data   : 2022-03-02                                                                                           |
+        | ▪ Last Update     : 2022-03-25                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -113,15 +116,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varPurchaseRequisition_RefID ► Purchase Requisition Reference ID                                         |
         |      ▪ (int)    varCombinedBudgetSectionDetail_RefID ► Combined Budget Section Detail Reference ID                       |
         |      ▪ (int)    varProduct_RefID ► Product Reference ID                                                                  |
         |      ▪ (float)  varQuantity ► Quantity                                                                                   |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductUnitPriceCurrency_RefID ► Product Unit Price Currency Reference ID                             |
-        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (float)  varProductUnitPriceCurrencyValue ► Product Unit Price Currency Value                                     |
+        |      ▪ (float)  varProductUnitPriceCurrencyExchangeRate ► Product Unit Price Currency Exchange Rate                      |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -129,8 +134,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyExchangeRate = null, float $varProductUnitPriceCurrencyValue = null, string $varRemarks = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varPurchaseRequisition_RefID = null, int $varCombinedBudgetSectionDetail_RefID = null, int $varProduct_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, int $varProductUnitPriceCurrency_RefID = null, float $varProductUnitPriceCurrencyValue = null, float $varProductUnitPriceCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -142,7 +147,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varPurchaseRequisition_RefID, 'bigint'],
                         [$varCombinedBudgetSectionDetail_RefID, 'bigint'],
@@ -150,8 +156,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varQuantity, 'numeric'],
                         [$varQuantityUnit_RefID, 'bigint'],
                         [$varProductUnitPriceCurrency_RefID, 'bigint'],
-                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varProductUnitPriceCurrencyValue, 'numeric'],
+                        [$varProductUnitPriceCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],
                     )
