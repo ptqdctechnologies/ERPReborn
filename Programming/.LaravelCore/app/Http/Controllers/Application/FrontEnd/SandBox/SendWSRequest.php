@@ -6556,7 +6556,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "billingAddress" => 'QDC Technologies, Mampang',
                     "paymentTerm" => 'My Payment Term',
                     "remarks" => 'My Remarks',
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -6565,11 +6565,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Pertama'
                                         ]                                    
                                     ],
@@ -6579,11 +6579,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua'
                                         ]                                    
                                     ],
@@ -6593,11 +6593,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua Tambahan'
                                         ]
                                     ],
@@ -6609,8 +6609,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
                                         "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
                                         "currencyValue" => 30000,
+                                        "currencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
                                     ],
@@ -6618,8 +6618,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
                                         "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
                                         "currencyValue" => 30000,
+                                        "currencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
                                     ]                            
@@ -6691,11 +6691,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
                     "productUnitPriceValue_CurrencyeValue" => 25000,
+                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
                     "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                     "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan'
                     ]
                 ]
@@ -6713,11 +6713,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_Quantity" value=10>';
             echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValue_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyeValue" value=25000>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyeValue" value=0>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -6731,11 +6731,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
                         '"productUnitPriceValue_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValue_Currency_RefID").value), '.
-                        '"productUnitPriceValue_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValue_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyeValue").value), '.
+                        '"productUnitPriceValue_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValueDiscount_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueDiscount_Currency_RefID").value), '.
-                        '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValueDiscount_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyeValue").value), '.
+                        '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -6766,7 +6766,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "documentDateTimeTZ" => '2022-03-07',
                     "requesterPerson_RefID" => 25000000000439,
                     "remarks" => 'My Remarks',
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -6776,8 +6776,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Pertama'                                    
                                         ]                                   
                                     ],
@@ -6788,8 +6788,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
                                         "productUnitPriceCurrencyValue" => 30000,
+                                        "productUnitPriceCurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua'
                                         ]
                                     ],
@@ -6847,13 +6847,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "purchaseRequisition_RefID" => 83000000000001,
-                    "combinedBudgetSectionDetail_RefID" => 666999,
+                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
                     "product_RefID" => 88000000000002,
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => 30000,
-                    "productUnitPriceBaseCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan'
                     ]
@@ -6868,13 +6867,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_PurchaseRequisition_RefID" value=83000000000001>';
-            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=169000000000001>';
             echo '<input type="text" id="dataInput_Product_RefID" value=88000000000002>';
             echo '<input type="text" id="dataInput_Quantity" value=10>';
             echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceBaseCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -6891,7 +6889,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
                         '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
                         '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue").value), '.
-                        '"productUnitPriceBaseCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceBaseCurrency_RefID").value), '.
                         '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
@@ -7383,7 +7380,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest',
                 [
                 'entities' => [
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -7439,7 +7436,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 '{'.
                     '"entities": {'.
-                        '"details": ['.
+                        '"additionalData": ['.
                             '{'.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
@@ -7489,7 +7486,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "taxType_RefID" => 182000000000001,
                     "currency_RefID" => 62000000000001,
                     "currencyValue" => 30000,
-                    "baseCurrency_RefID" => 62000000000001,
                     "currencyExchangeRate" => 1,
                     "remarks" => 'My Annotation'
                     ]
@@ -7507,7 +7503,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
             echo '<input type="text" id="dataInput_Currency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_BaseCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="My Annotation">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -7521,7 +7516,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
                         '"currency_RefID" : parseInt(document.getElementById("dataInput_Currency_RefID").value), '.
                         '"currencyValue" : parseFloat(document.getElementById("dataInput_CurrencyValue").value), '.
-                        '"baseCurrency_RefID" : parseInt(document.getElementById("dataInput_BaseCurrency_RefID").value), '.
                         '"currencyExchangeRate" : parseFloat(document.getElementById("dataInput_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
@@ -28464,7 +28458,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "billingAddress" => 'QDC Technologies, Mampang',
                     "paymentTerm" => 'My Payment Term',
                     "remarks" => 'My Remarks',
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -28474,11 +28468,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Pertama Update'
                                         ]                                    
                                     ],
@@ -28489,11 +28483,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "quantity" => 10,
                                         "quantityUnit_RefID" => 73000000000001,
                                         "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValue_CurrencyeValue" => 30000,
+                                        "productUnitPriceValue_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "productUnitPriceValueDiscount_CurrencyeValue" => 0,
+                                        "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Kedua Update'
                                         ]                                    
                                     ],
@@ -28502,22 +28496,22 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         "taxes" => [
                             "items" => [
                                     [
-                                    "recordID" => 185000000000049,
+                                    "recordID" => 185000000000001,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
                                         "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
                                         "currencyValue" => 30000,
+                                        "currencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1 Update'                                
                                         ]
                                     ],
                                     [
-                                    "recordID" => 185000000000050,
+                                    "recordID" => 185000000000002,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
                                         "currency_RefID" => 62000000000001,
-                                        "currencyExchangeRate" => 1,
                                         "currencyValue" => 30000,
+                                        "currencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2 Update'
                                         ]
                                     ]                            
@@ -28592,14 +28586,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceValue_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
                     "productUnitPriceValue_CurrencyeValue" => 25000,
+                    "productUnitPriceValue_CurrencyExchangeRate" => 1,
                     "productUnitPriceValueDiscount_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                     "productUnitPriceValueDiscount_CurrencyeValue" => 0,
-                    "productUnitPriceValueAddedTax_Currency_RefID" => 62000000000001,
-                    "productUnitPriceValueAddedTax_CurrencyExchangeRate" => 1,
-                    "productUnitPriceValueAddedTax_CurrencyeValue" => 2500,
+                    "productUnitPriceValueDiscount_CurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan'
                     ]
                 ]
@@ -28618,14 +28609,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_Quantity" value=10>';
             echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValue_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyeValue" value=25000>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValue_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyeValue" value=0>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue" value=2500>';
+            echo '<input type="text" id="dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -28640,14 +28628,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"quantity" : parseFloat(document.getElementById("dataInput_Quantity").value), '.
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
                         '"productUnitPriceValue_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValue_Currency_RefID").value), '.
-                        '"productUnitPriceValue_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValue_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyeValue").value), '.
+                        '"productUnitPriceValue_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValue_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValueDiscount_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueDiscount_Currency_RefID").value), '.
-                        '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
                         '"productUnitPriceValueDiscount_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyeValue").value), '.
-                        '"productUnitPriceValueAddedTax_Currency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_Currency_RefID").value), '.
-                        '"productUnitPriceValueAddedTax_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyExchangeRate").value), '.
-                        '"productUnitPriceValueAddedTax_CurrencyeValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueAddedTax_CurrencyeValue").value), '.
+                        '"productUnitPriceValueDiscount_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceValueDiscount_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -28679,7 +28664,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "documentDateTimeTZ" => '2022-03-07',
                     "requesterPerson_RefID" => 25000000000439,
                     "remarks" => 'My Remarks',
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -28765,13 +28750,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 84000000000001,
                 'entities' => [
                     "purchaseRequisition_RefID" => 83000000000001,
-                    "combinedBudgetSectionDetail_RefID" => 666999,
+                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
                     "product_RefID" => 88000000000002,
                     "quantity" => 10,
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => 30000,
-                    "productUnitPriceBaseCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan'
                     ]
@@ -28787,13 +28771,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=84000000000001>';
             echo '<input type="text" id="dataInput_PurchaseRequisition_RefID" value=83000000000001>';
-            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=666999>';
+            echo '<input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID" value=169000000000001>';
             echo '<input type="text" id="dataInput_Product_RefID" value=88000000000002>';
             echo '<input type="text" id="dataInput_Quantity" value=10>';
             echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_ProductUnitPriceBaseCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_ProductUnitPriceCurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="Catatan">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -28811,7 +28794,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
                         '"productUnitPriceCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitPriceCurrency_RefID").value), '.
                         '"productUnitPriceCurrencyValue" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyValue").value), '.
-                        '"productUnitPriceBaseCurrency_RefID" : parseInt(document.getElementById("dataInput_ProductUnitBasePriceCurrency_RefID").value), '.
                         '"productUnitPriceCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_ProductUnitPriceCurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
@@ -29328,7 +29310,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'recordID' => 184000000000001,
                 'entities' => [
-                    "details" => [
+                    "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
@@ -29390,14 +29372,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities": {'.
-                        '"details": ['.
+                        '"additionalData": ['.
                             '{'.
                             '"recordID": parseInt(document.getElementById("dataInput_Dtl1_RecordID").value), '.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
                                 '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Currency_RefID").value), '.
                                 '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyValue").value), '.
-                                '"baseCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl1_BaseCurrency_RefID").value), '.
                                 '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl1_Remarks").value'.
                                 '}'.
@@ -29408,7 +29389,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
                                 '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Currency_RefID").value), '.
                                 '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyValue").value), '.
-                                '"baseCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl2_BaseCurrency_RefID").value), '.
                                 '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl2_Remarks").value'.
                                 '}'.
@@ -29445,7 +29425,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "taxType_RefID" => 182000000000001,
                     "currency_RefID" => 62000000000001,
                     "currencyValue" => 30000,
-                    "baseCurrency_RefID" => 62000000000001,
                     "currencyExchangeRate" => 1,
                     "remarks" => 'My Annotation'
                     ]
@@ -29464,7 +29443,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
             echo '<input type="text" id="dataInput_Currency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_BaseCurrency_RefID" value=62000000000001>';
             echo '<input type="text" id="dataInput_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="My Annotation">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -29479,7 +29457,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
                         '"currency_RefID" : parseInt(document.getElementById("dataInput_Currency_RefID").value), '.
                         '"currencyValue" : parseFloat(document.getElementById("dataInput_CurrencyValue").value), '.
-                        '"baseCurrency_RefID" : parseInt(document.getElementById("dataInput_BaseCurrency_RefID").value), '.
                         '"currencyExchangeRate" : parseFloat(document.getElementById("dataInput_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.

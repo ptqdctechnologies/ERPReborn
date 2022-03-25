@@ -65,19 +65,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null, 
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
                             $varData['entities']['purchaseOrder_RefID'],
                             $varData['entities']['purchaseRequisitionDetail_RefID'],
                             $varData['entities']['quantity'],
                             $varData['entities']['quantityUnit_RefID'],
                             $varData['entities']['productUnitPriceValue_Currency_RefID'],
-                            $varData['entities']['productUnitPriceValue_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValue_CurrencyeValue'],
+                            $varData['entities']['productUnitPriceValue_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValueDiscount_Currency_RefID'],
-                            $varData['entities']['productUnitPriceValueDiscount_CurrencyExchangeRate'],
                             $varData['entities']['productUnitPriceValueDiscount_CurrencyeValue'],
-                            $varData['entities']['productUnitPriceValueAddedTax_Currency_RefID'],
-                            $varData['entities']['productUnitPriceValueAddedTax_CurrencyExchangeRate'],
-                            $varData['entities']['productUnitPriceValueAddedTax_CurrencyeValue'],
+                            $varData['entities']['productUnitPriceValueDiscount_CurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

@@ -35,7 +35,7 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "details": {
+                    "additionalData": {
                         "type": "object",
                         "properties": {
                             "itemList": {

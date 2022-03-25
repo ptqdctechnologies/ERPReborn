@@ -54,11 +54,11 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
         |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
@@ -112,11 +112,11 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
-        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
         |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
