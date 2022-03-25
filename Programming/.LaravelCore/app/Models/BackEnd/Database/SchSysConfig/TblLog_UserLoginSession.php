@@ -80,6 +80,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varUser_Name, 'varchar'],
                         [$varAPIWebToken, 'varchar'],
                         [$varOptionsList, 'json'],
@@ -139,6 +140,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varUser_Name, 'varchar'],
                         [$varAPIWebToken, 'varchar'],
                         [$varOptionsList, 'json'],
