@@ -68,11 +68,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             null,
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                            \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
                             $varData['entities']['transactionTax_RefID'],
                             $varData['entities']['taxType_RefID'],
                             $varData['entities']['currency_RefID'],
                             $varData['entities']['currencyValue'],
-                            $varData['entities']['baseCurrency_RefID'],
                             $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))

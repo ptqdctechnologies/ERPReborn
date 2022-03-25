@@ -55,20 +55,20 @@
                                                     "type": "object",
                                                     "properties": {
                                                         "taxType_RefID": {
-                                                            "type": [ "integer" ],
+                                                            "type": [ "integer", "null" ],
                                                             "minimum": 1,
                                                             "maximum": 9223372036854775807
                                                             },
                                                         "currency_RefID": {
-                                                            "type": [ "integer" ],
+                                                            "type": [ "integer", "null" ],
                                                             "minimum": 1,
                                                             "maximum": 9223372036854775807
                                                             },
-                                                        "currencyExchangeRate": {
+                                                        "currencyValue": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
-                                                        "currencyValue": {
+                                                        "currencyExchangeRate": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
@@ -78,7 +78,7 @@
                                                             "maxLength": 256
                                                             }
                                                         },
-                                                    "required": [ "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
+                                                    "required": [ "taxType_RefID", "currency_RefID", "currencyValue", "currencyExchangeRate", "remarks" ]
                                                     }
                                                 },
                                             "required": [ "recordID", "entities" ]

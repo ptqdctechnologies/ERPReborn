@@ -47,6 +47,33 @@ namespace App\Models\Database\SchSysConfig
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getApplicationParameter_BaseCurrencyID                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-03-24                                                                                           |
+        | ▪ Description     : Get Application Parameter Text ► Base Currency ID                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch Reference ID                                                                        |
+        |      ▪ (string) varKey ► Key                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (mixed)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getApplicationParameter_BaseCurrencyID($varUserSession, int $varBranchID, string $varKey)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession,
+                'SELECT "SchSysConfig"."FuncSys_General_GetParameterValue_App"(\''.$varKey.'\'::varchar, '.$varBranchID.'::bigint);'
+                );
+            return (int) $varReturn['Data'][0]['FuncSys_General_GetParameterValue_App'];            
+            }
+
+
         public function getDevicePersonAccess_LastRecordDateTimeTZ($varUserSession, int $varGoodsIdentityID, string $varTimeZoneOffset = null)
             {
             if(!$varTimeZoneOffset)

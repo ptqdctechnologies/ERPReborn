@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.216.0',
-            'version' => '3.216.0.0',
+            'pretty_version' => '3.216.1',
+            'version' => '3.216.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'e283b3210fcef6a60e686a68b92c4e81d34bb021',
+            'reference' => '00176c97319448c9520176d7c7d107b04b35406d',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -509,12 +509,12 @@
             'dev_requirement' => false,
         ),
         'maatwebsite/excel' => array(
-            'pretty_version' => '3.1.37',
-            'version' => '3.1.37.0',
+            'pretty_version' => '3.1.38',
+            'version' => '3.1.38.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maatwebsite/excel',
             'aliases' => array(),
-            'reference' => '49ccd4142d3d7bce492d6bfb9dd9a27b12935408',
+            'reference' => 'dff132ce4d30b19863f4e84de1613fca99604992',
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(

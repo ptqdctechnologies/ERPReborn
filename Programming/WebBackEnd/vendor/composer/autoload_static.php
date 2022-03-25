@@ -5202,6 +5202,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Maatwebsite\\Excel\\Concerns\\WithDrawings' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithDrawings.php',
         'Maatwebsite\\Excel\\Concerns\\WithEvents' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithEvents.php',
         'Maatwebsite\\Excel\\Concerns\\WithFormatData' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithFormatData.php',
+        'Maatwebsite\\Excel\\Concerns\\WithGroupedHeadingRow' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithGroupedHeadingRow.php',
         'Maatwebsite\\Excel\\Concerns\\WithHeadingRow' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithHeadingRow.php',
         'Maatwebsite\\Excel\\Concerns\\WithHeadings' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithHeadings.php',
         'Maatwebsite\\Excel\\Concerns\\WithLimit' => __DIR__ . '/..' . '/maatwebsite/excel/src/Concerns/WithLimit.php',

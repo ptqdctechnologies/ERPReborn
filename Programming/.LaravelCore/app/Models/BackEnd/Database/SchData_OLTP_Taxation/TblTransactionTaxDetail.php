@@ -52,12 +52,14 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -65,8 +67,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null,  int $varBaseCurrency_RefID = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -78,13 +80,13 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyValue, 'numeric'],
-                        [$varBaseCurrency_RefID, 'bigint'],
                         [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ]
@@ -108,12 +110,14 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |      ▪ (int)    varTransactionTax_RefID ► Transaction Tax Reference ID                                                   |
         |      ▪ (int)    varTaxType_RefID ► Tax Type Reference ID                                                                 |
         |      ▪ (int)    varCurrency_RefID ► Currency Reference ID                                                                |
-        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (float)  varCurrencyValue ► Currency Value                                                                        |
+        |      ▪ (int)    varBaseCurrency_RefID ► Base Currency Reference ID                                                       |
+        |      ▪ (float)  varCurrencyExchangeRate ► Currency Exchange Rate                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
@@ -121,8 +125,8 @@ namespace App\Models\Database\SchData_OLTP_Taxation
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null,  int $varBaseCurrency_RefID = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            int $varTransactionTax_RefID = null, int $varTaxType_RefID = null, int $varCurrency_RefID = null, float $varCurrencyValue = null, float $varCurrencyExchangeRate = null, string $varRemarks = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -134,13 +138,13 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varTransactionTax_RefID, 'bigint'],
                         [$varTaxType_RefID, 'bigint'],
                         [$varCurrency_RefID, 'bigint'],
                         [$varCurrencyValue, 'numeric'],
-                        [$varBaseCurrency_RefID, 'bigint'],
                         [$varCurrencyExchangeRate, 'numeric'],
                         [$varRemarks, 'varchar']
                     ],

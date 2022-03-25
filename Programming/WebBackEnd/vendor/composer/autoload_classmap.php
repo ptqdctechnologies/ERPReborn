@@ -4603,6 +4603,7 @@ return array(
     'Maatwebsite\\Excel\\Concerns\\WithDrawings' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithDrawings.php',
     'Maatwebsite\\Excel\\Concerns\\WithEvents' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithEvents.php',
     'Maatwebsite\\Excel\\Concerns\\WithFormatData' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithFormatData.php',
+    'Maatwebsite\\Excel\\Concerns\\WithGroupedHeadingRow' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithGroupedHeadingRow.php',
     'Maatwebsite\\Excel\\Concerns\\WithHeadingRow' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithHeadingRow.php',
     'Maatwebsite\\Excel\\Concerns\\WithHeadings' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithHeadings.php',
     'Maatwebsite\\Excel\\Concerns\\WithLimit' => $vendorDir . '/maatwebsite/excel/src/Concerns/WithLimit.php',
