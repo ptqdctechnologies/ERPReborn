@@ -1,5 +1,10 @@
 # CHANGELOG
 
+## 3.216.3 - 2022-03-28
+
+* `Aws\ACMPCA` - Updating service name entities
+* `Aws\MediaLive` - This release adds support for selecting a maintenance window.
+
 ## 3.216.2 - 2022-03-25
 
 * `Aws\Batch` - Bug Fix: Fixed a bug where shapes were marked as unboxed and were not serialized and sent over the wire, causing an API error from the service.
