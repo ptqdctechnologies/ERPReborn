@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.216.4 - 2022-03-29
+
+* `Aws\Organizations` - This release provides the new CloseAccount API that enables principals in the management account to close any member account within an organization.
+
 ## 3.216.3 - 2022-03-28
 
 * `Aws\ACMPCA` - Updating service name entities
