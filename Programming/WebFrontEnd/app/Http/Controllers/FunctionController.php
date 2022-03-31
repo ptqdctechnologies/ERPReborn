@@ -11,7 +11,8 @@ class FunctionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getSite(Request $request)
+
+    public function getProject(Request $request)
     {
         $projectcode = $request->input('projectcode');
 
@@ -29,9 +30,34 @@ class FunctionController extends Controller
             ]
         );
         
-        return response()->json($varData['data']);
+        return response()->json($varData['data']['data']);
     }
 
+    public function getSite(Request $request)
+    {
+        $sitecode = $request->input('sitecode');
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'report.form.resume.budgeting.getCombinedBudgetSectionUnsegmentedDetail', 
+            'latest', 
+            [
+            'parameter' => [
+                'combinedBudgetSection_RefID' => (int)$sitecode,
+                ],
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+        return response()->json($varData['data']);
+    }
 
 
     /**

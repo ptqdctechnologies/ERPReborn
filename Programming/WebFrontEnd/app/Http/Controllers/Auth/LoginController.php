@@ -42,7 +42,6 @@ class LoginController extends Controller
             $username,
             $password
         );
-
         if ($varData['metadata']['HTTPStatusCode'] == '401') {
             return response()->json($varData['metadata']['HTTPStatusCode']);
         } else {
@@ -83,8 +82,19 @@ class LoginController extends Controller
 
         if ($varData['metadata']['HTTPStatusCode'] == '200') {
 
-            session(['SessionLogin' => $varAPIWebToken]);
+            // $data = $request->session()->get('SessionLogin');
 
+            // if($data != NULL){
+            //     // unset($data['0']);
+            //     // $newClass = array_values($data);
+            //     // $request->session()->put('SessionLogin', $newClass);
+            //     // $request->session()->push('SessionLogin', $varAPIWebToken);
+            //     $request->session()->put('SessionLogin', $varAPIWebToken);
+            // }
+            // else{
+            //     $request->session()->put('SessionLogin', $varAPIWebToken);
+            // }
+            $request->session()->put('SessionLogin', $varAPIWebToken);
             return redirect('/projectDashboard');
         }
         return redirect('/')->with('message', 'Login Failed');

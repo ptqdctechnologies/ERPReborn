@@ -56,13 +56,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
     
     // ARF
-    Route::post('store2', 'procurementTransactionArf@store2')->name('ARF.store2');
+    Route::post('StoreValidateArf', 'procurementTransactionArf@StoreValidateArf')->name('ARF.StoreValidateArf');
+    Route::post('StoreValidateArf2', 'procurementTransactionArf@StoreValidateArf2')->name('ARF.StoreValidateArf2');
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
-    Route::get('ARF2', 'procurementTransactionArf@index2')->name('ARF.index2');
-    Route::get('ARF3', 'procurementTransactionArf@index3')->name('ARF.index3');
-    Route::get('ARF4', 'procurementTransactionArf@index4')->name('ARF.index4');
-    Route::post('submitDataArf', 'procurementTransactionArf@submitData')->name('ARF.submitData');
 
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
@@ -181,11 +178,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('/test/storeLogin/', 'procurementTransactionArf@teststoreLogin')->name('test.storeLogin');
 
 
-    Route::get('/test/stores/', 'procurementTransactionArf@teststores')->name('test.stores');
-
     Route::get('/test/store2', 'procurementTransactionArf@teststore2');
 
-    Route::get('arflist/cancel/', 'procurementTransactionArf@arflistcancel');
     Route::post('tests', 'procurementTransactionArf@tests')->name('ARF.tests');
 
     // ASF

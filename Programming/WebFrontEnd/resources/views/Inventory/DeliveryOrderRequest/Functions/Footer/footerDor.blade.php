@@ -5,282 +5,203 @@
         $(".headerDor2").hide();
         $(".headerDor3").hide();
         $(".headerDor4").hide();
+        $("#detailPR").hide();
         $("#detailDor").hide();
         $("#detailDorList").hide();
+        $("#tableShowHideDor").hide();
         $("#headerPrNumber2").prop("disabled", true);
     });
 </script>
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".deliverType").on('click', function(e) {
-            e.preventDefault();
-            var valType = $(".deliverType").val();
-            if(valType == "Warehouse to Site"){
-                $(".headerDor1").show();
-                $(".headerDor2").hide();
-                $(".headerDor3").hide();
-                $(".headerDor4").hide();
-            }
-            else if(valType == "Warehouse to Warehouse"){
-                $(".headerDor2").show();
-                $(".headerDor1").hide();
-                $(".headerDor3").hide();
-                $(".headerDor4").hide();
-            }
-            else if(valType == "Supplier to Site"){
-                $(".headerDor3").show();
-                $(".headerDor2").hide();
-                $(".headerDor1").hide();
-                $(".headerDor4").hide();
-            }
-            else if(valType == "Site to Warehouse"){
-                $(".headerDor4").show();
-                $(".headerDor3").hide();
-                $(".headerDor2").hide();
-                $(".headerDor1").hide();
-            }
-        });
+      $(".deliverType").on('click', function(e) {
+          e.preventDefault();
+          var valType = $(".deliverType").val();
+          if(valType == "Warehouse to Site"){
+              $(".headerDor1").show();
+              $(".headerDor2").hide();
+              $(".headerDor3").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Warehouse to Warehouse"){
+              $(".headerDor2").show();
+              $(".headerDor1").hide();
+              $(".headerDor3").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Supplier to Site"){
+              $(".headerDor3").show();
+              $(".headerDor2").hide();
+              $(".headerDor1").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Site to Warehouse"){
+              $(".headerDor4").show();
+              $(".headerDor3").hide();
+              $(".headerDor2").hide();
+              $(".headerDor1").hide();
+          }
+      });
+    });
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+      $(".deliverType").on('click', function(e) {
+          e.preventDefault();
+          var valType = $(".deliverType").val();
+          if(valType == "Warehouse to Site"){
+              $(".headerDor1").show();
+              $(".headerDor2").hide();
+              $(".headerDor3").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Warehouse to Warehouse"){
+              $(".headerDor2").show();
+              $(".headerDor1").hide();
+              $(".headerDor3").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Supplier to Site"){
+              $(".headerDor3").show();
+              $(".headerDor2").hide();
+              $(".headerDor1").hide();
+              $(".headerDor4").hide();
+          }
+          else if(valType == "Site to Warehouse"){
+              $(".headerDor4").show();
+              $(".headerDor3").hide();
+              $(".headerDor2").hide();
+              $(".headerDor1").hide();
+          }
+      });
+
+      $(".siteName1").on('click', function(e) {
+          e.preventDefault();
+          var valSite = $(".siteName1").val();
+          if(valSite == "WH-001"){
+              $("#headerAddressSiteName1").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+          }
+          else if(valSite == "WH-002"){
+              $("#headerAddressSiteName1").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+          }
+      });
+
+      $(".siteName2").on('click', function(e) {
+          e.preventDefault();
+          var valSite = $(".siteName2").val();
+          if(valSite == "WH-001"){
+              $("#headerAddressSiteName2").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+          }
+          else if(valSite == "WH-002"){
+              $("#headerAddressSiteName2").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+          }
+      });
+
+      $(".siteName3").on('click', function(e) {
+          e.preventDefault();
+          var valSite = $(".siteName3").val();
+          if(valSite == "WH-001"){
+              $("#headerAddressSiteName3").val("Jl. Baru Leko. Kode Pos, : 97796. Desa/Kelurahan, : DESA LEKO SULA. Kecamatan/Kota (LN), Kec. Mangoli Barat, Kab. Kepulauan Sula, Prov. Maluku Utara");
+          }
+          else if(valSite == "WH-002"){
+              $("#headerAddressSiteName3").val("Bekasi cyber park, RT.001/RW.009, Kayuringin Jaya, Kec. Bekasi Bar., Kota Bks, Jawa Barat 17415");
+          }
+      });
     });
 </script>
 <!--  END SHOW HIDE AVAILABEL -->
+<script type="text/javascript">
+   $(document).ready(function () {
 
-<script>
-
-    var x = 1,
-        y = 0;
-        xx = 0; //initlal text box count
-
-    function validateFormDetailDor() {
-
-        var prNumberDorDetail = document.forms["formDetailDor"]["prNumberDorDetail"].value;
-        var projectDorDetail = document.forms["formDetailDor"]["projectDorDetail"].value;
-        var projectDorDetail2 = document.forms["formDetailDor"]["projectDorDetail2"].value;
-        var siteDorDetail = document.forms["formDetailDor"]["siteDorDetail"].value;
-        var siteDorDetail2 = document.forms["formDetailDor"]["siteDorDetail2"].value;
-        var workIdDorDetail = document.forms["formDetailDor"]["workIdDorDetail"].value;
-        var workIdDorDetail2 = document.forms["formDetailDor"]["workIdDorDetail2"].value;
-        var productIdDorDetail = document.forms["formDetailDor"]["productIdDorDetail"].value;
-        var productIdDorDetail2 = document.forms["formDetailDor"]["productIdDorDetail2"].value;
-        var priceDorDetail = document.forms["formDetailDor"]["priceDorDetail"].value;
-        var averageDorDetail = document.forms["formDetailDor"]["averageDorDetail"].value;
-        var qtyDorDetail = document.forms["formDetailDor"]["qtyDorDetail"].value;
-        var qtyDorDetail2 = document.forms["formDetailDor"]["qtyDorDetail2"].value;
-        var discountDorDetail = document.forms["formDetailDor"]["discountDorDetail"].value;
-        var discountDorDetail2 = document.forms["formDetailDor"]["discountDorDetail2"].value;
-        var afterDiscountDorDetail = document.forms["formDetailDor"]["afterDiscountDorDetail"].value;
+    var x = 0;
+    
+    $('#addFromDetailtoCart').click(function(ev){
+        ev.preventDefault();
+        ev.stopPropagation();
         
-        if (prNumberDorDetail == "") {
-            Swal.fire("Error !", "Please Input PR Number !", "error");
-        }
-        else if (projectDorDetail == "") {
-            Swal.fire("Error !", "Please Input Project !", "error");
-        }
-        else if (projectDorDetail2 == "") {
-            Swal.fire("Error !", "Please InputProject !", "error");
-        }
-        else if (siteDorDetail == "") {
-            Swal.fire("Error !", "Please Input Site !", "error");
-        }
-        else if (siteDorDetail2 == "") {
-            Swal.fire("Error !", "Please Input Site !", "error");
-        }
-        else if (workIdDorDetail == "") {
-            Swal.fire("Error !", "Please Input Work Id !", "error");
-        }
-        else if (workIdDorDetail2 == "") {
-            Swal.fire("Error !", "Please Input Work Id !", "error");
-        }
-        else if (productIdDorDetail == "") {
-            Swal.fire("Error !", "Please Input Product Id !", "error");
-        }
-        else if (productIdDorDetail2 == "") {
-            Swal.fire("Error !", "Please Input Product Id !", "error");
-        }
-        else if (priceDorDetail == "") {
-            Swal.fire("Error !", "Please Input Price !", "error");
-        }
-        else if (averageDorDetail == "") {
-            Swal.fire("Error !", "Please Input Average !", "error");
-        }
-        else if (qtyDorDetail == "") {
-            Swal.fire("Error !", "Please Input Qty !", "error");
-        }
-        else if (qtyDorDetail2 == "") {
-            Swal.fire("Error !", "Please Input Qty !", "error");
-        }
-        else if (discountDorDetail == "") {
-            Swal.fire("Error !", "Please Input Discount !", "error");
-        }
-        else if (discountDorDetail2 == "") {
-            Swal.fire("Error !", "Please Input Discount !", "error");
-        }
-        else if (afterDiscountDorDetail == "") {
-            Swal.fire("Error !", "Please Input After Discount !", "error");
-        }
-        else{
-            $("#detailDorList").show();
-            var datas = [];
+        $("#detailDorList").show();
 
-            for (var i = 1; i <= x; i++) {
-                var data = {
-                    origin_budget: "xxxx",
-                    projectcode: "xxxx",
-                    projectname: "xxxx",
-                    sitecode: "xxxx",
-                    sitecode2: "xxxx",
-                    beneficiary: "xxxx",
-                    bank_name: "xxxx",
-                    account_name: "xxxx",
-                    account_number: "xxxx",
-                    internal_notes: "xxxx",
-                    request_name: "xxxx",
-                    putWorkId: "xxxx",
-                    putWorkName: "xxxx",
-                    putProductId: "xxxx",
-                    putProductName: "xxxx",
-                    putQty: "xxxx",
-                    putQtys: "xxxx",
-                    putUom: "xxxx",
-                    putPrice: "xxxx",
-                    putCurrency: "xxxx",
-                    totalArfDetails: "xxxx",
-                    putRemark: "xxxx",
-                    filenames: "xxxx",
-                    trano: "xxxx",
-                }
-                datas.push(data);
+        var trano = $("#prNumberDorDetail").val();
+        var project = $("#projectDorDetail").val();
+        var productIdDorDetail = $('#productIdDorDetail').val();
+        var productIdDorDetail2 = $("#productIdDorDetail2").val();
+
+        var html = '<tr>'+
+                    '<td>'+
+                        '<button type="button" class="btn btn-danger btn-xs remove"><i class="fa fa-trash"></i></button> '+
+                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+trano+'" data-id2="'+project+'" data-id3="'+productIdDorDetail+'" data-id4="'+productIdDorDetail2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                    '</td>'+
+                    '<td>'+trano+'</td>'+
+                    '<td>'+project+'</td>'+
+                    '<td>'+project+'</td>'+
+                    '<td>'+productIdDorDetail+'</td>'+
+                    '<td>'+productIdDorDetail2+'</td>'+
+                '</tr>';
+        $('table.tableDorCart tbody').append(html);
+
+        $("body").on("click", ".remove", function () {
+            $(this).closest("tr").remove();
+        });
+        $("body").on("click", ".edit", function () {
+            var $this = $(this);
+            var id1 = $this.data("id1");
+            var id2 = $this.data("id2");
+            var id3 = $this.data("id3");
+            var id4 = $this.data("id4");
+            var id5 = $this.data("id5");
+            var id6 = $this.data("id6");
+            var id7 = $this.data("id7");
+            var id8 = $this.data("id8");
+            var id9 = $this.data("id9");
+            var id10 = $this.data("id10");
+            $("#putProductId").val(id1);
+            $("#putProductName").val(id2);
+            $('#qtyCek').val(id3);
+            $("#putUom").val(id4);
+            $("#priceCek").val(id5);
+            $("#putCurrency").val(id6);
+            $("#totalArfDetails").val(id7);
+            $("#putRemark").val(id8);
+            $("#totalBalance").val(id9);
+
+            $(this).closest("tr").remove();
+
+            if(id10 == "Unspecified Product"){
+                $("#product_id2").prop("disabled", false);
             }
+            else{
+                $("#product_id2").prop("disabled", true);
+            }
+        });
 
-            var json_object = JSON.stringify(datas);
-            // console.log(json_object);
+        $("#prNumberDorDetail").val("");
+        $("#projectDorDetail").val("");
+        $("#projectDorDetail2").val("");
+        $("#siteDorDetail").val("");
+        $("#siteDorDetail2").val("");
+        $("#workIdDorDetail").val("");
+        $("#workIdDorDetail2").val("");
+        $("#priceDorDetail").val("");
+        $("#averageDorDetail").val("");
+        $("#qtyDorDetail").val("");
+        $("#qtyDorDetail2").val("");
+        $("#productIdDorDetail").val("");
+        $("#prQty").val("");
+        $("#inDorQty").val("");
+        $("#balanceQty").val("");
 
-            $.ajax({
-                type: "POST",
-                url: '{{route("ARF.store")}}',
-                data: json_object,
-                contentType: "application/json",
-                processData: true,
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-
-                success: function(data) {
-
-                  Swal.fire("Success !", "Data add to cart", "success");
-                  y++;
-                  $.each(data, function(key, val) {
-
-                      var t = $('#tableDorCart').DataTable();
-                      t.row.add([
-                          '<center><button class="btn btn-outline-danger btn-rounded btn-sm my-0 remove-val-list remove-attachment" style="border-radius: 100px;"><i class="fa fa-trash"></i></button></center>',
-                          '<span id="lastProductId_' + y + '">' + val.putProductId + '</span>',
-                          '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                          '<span id="lastUom_' + y + '">' + val.putUom + '</span>',
-                          '<span id="lastProductName_' + y + '">' + val.putProductName + '</span>',
-                          '<span id="lastPrice_' + y + '">' + val.putPrice + '</span>',
-                          '<span id="totalArfDetails_' + y + '">' + val.totalArfDetails + '</span>'
-                      ]).draw();
-                  });
-                },
-                error: function(data) {
-                    Swal.fire("Error !", "Data Canceled Added", "error");
-                }
-            });
-        }
-    }
+        $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", false);
+    });
+});
 </script>
 
-<script>
-  function buttonSubmitDor() {
-    var headerProjectCode = document.forms["formHeaderDor"]["headerProjectCode"].value;
-    var headerPrNumber = document.forms["formHeaderDor"]["headerPrNumber"].value;
-    var headerOriginBudget = document.forms["formHeaderDor"]["headerOriginBudget"].value;
-    var headerWarehouse1 = document.forms["formHeaderDor"]["headerWarehouse1"].value;
-    var headerAddres1 = document.forms["formHeaderDor"]["headerAddres1"].value;
-    var headerSiteName1 = document.forms["formHeaderDor"]["headerSiteName1"].value;
-    var headerAddress2 = document.forms["formHeaderDor"]["headerAddress2"].value;
-    var headerWarehouse2 = document.forms["formHeaderDor"]["headerWarehouse2"].value;
-    var headerAddress3 = document.forms["formHeaderDor"]["headerAddress3"].value;
-    var headerWarehouse3 = document.forms["formHeaderDor"]["headerWarehouse3"].value;
-    var headerAddress4 = document.forms["formHeaderDor"]["headerAddress4"].value;
-    var headerSupplier = document.forms["formHeaderDor"]["headerSupplier"].value;
-    var headerAddress5 = document.forms["formHeaderDor"]["headerAddress5"].value;
-    var headerSiteName2 = document.forms["formHeaderDor"]["headerSiteName2"].value;
-    var headerAddress6 = document.forms["formHeaderDor"]["headerAddress6"].value;
-    var headerReceiverName = document.forms["formHeaderDor"]["headerReceiverName"].value;
-    var headerReceiverNumber = document.forms["formHeaderDor"]["headerReceiverNumber"].value;
-
-    if (headerProjectCode == "") {
-      Swal.fire("Error !", "Please Input Project Code !", "error");
-    } else if (headerPrNumber == "") {
-      Swal.fire("Error !", "Please Input PR Number !", "error");
-    } else if (headerOriginBudget == "") {
-      Swal.fire("Error !", "Please Input Origin Budget !", "error");
-    } else if (headerWarehouse1 == "") {
-      Swal.fire("Error !", "Please Input Warehouse !", "error");
-    } else if (headerAddres1 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    } else if (headerSiteName1 == "") {
-      Swal.fire("Error !", "Please Input Site Name !", "error");
-    } else if (headerAddress2 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    } else if (headerWarehouse2 == "") {
-      Swal.fire("Error !", "Please Input Warehouse !", "error");
-    } else if (headerAddress3 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    } else if (headerWarehouse3 == "") {
-      Swal.fire("Error !", "Please Input Warehouse !", "error");
-    }else if (headerAddress4 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerSupplier == "") {
-      Swal.fire("Error !", "Please Input Supplier !", "error");
-    }else if (headerAddress5 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerSiteName2 == "") {
-      Swal.fire("Error !", "Please Input Site Name !", "error");
-    }else if (headerAddress6 == "") {
-      Swal.fire("Error !", "Please Input Address !", "error");
-    }else if (headerReceiverName == "") {
-      Swal.fire("Error !", "Please Input Receiver Name !", "error");
-    }else if (headerReceiverNumber == "") {
-      Swal.fire("Error !", "Please Input Receiver Number !", "error");
-    }
-     else {
-
-      const swalWithBootstrapButtons = Swal.mixin({
-        confirmButtonClass: 'btn btn-success',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: true,
-      })
-
-      swalWithBootstrapButtons.fire({
-
-        title: 'Are you sure?',
-        text: "Save this data?",
-        type: 'question',
-
-        showCancelButton: true,
-        confirmButtonText: 'Yes, save it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-      }).then((result) => {
-        if (result.value) {
-          swalWithBootstrapButtons.fire(
-            'Succesful!',
-            'Data has been updated !',
-            'success'
-        )   
-        } else if (
-          result.dismiss === Swal.DismissReason.cancel
-        ) {
-          swalWithBootstrapButtons.fire(
-            'Cancelled',
-            'Process Canceled !',
-            'error'
-          )
-        }
-      })
-    }
-  }
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".CancelDor").click(function() {
+            $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", false);
+        });
+    });
 </script>

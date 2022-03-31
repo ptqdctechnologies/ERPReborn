@@ -3,7 +3,11 @@
 @include('Partials.navbar')
 @include('Partials.sidebar')
 @include('getFunction.getProject')
+@include('getFunction.getSite')
 @include('getFunction.getPr')
+@include('getFunction.getWarehouse')
+@include('getFunction.getWarehouse2')
+@include('getFunction.getWarehouse3')
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -188,23 +192,25 @@
                                                                         </td>
                                                                         <td>Ls</td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <!-- <tr>
                                                                         <td><label>New Balance Qty</label></td>
                                                                         <td>:</td>
                                                                         <td style="font-weight:bold;color:red;">
                                                                             <input name="price" id="newBalanceQty" style="border-radius:0;background-color:white;border:1px solid white;color:red;" type="text" class="form-control">
                                                                         </td>
                                                                         <td>Ls</td>
-                                                                    </tr>
+                                                                    </tr> -->
                                                                 </tbody>
                                                             </table>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right">
+                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right CancelDor">
                                                     <i class="fa fa-times" aria-hidden="true" title="Cancel to Add DOR List Cart">Cancel</i>
                                                 </button>
-                                                <a class="btn btn-success btn-sm float-right" href="javascript:validateFormDetailDor()"><i class="fas fa-plus" aria-hidden="true">Add to List Cart</i></a>
+                                                <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;">
+                                                    <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add to List Cart</i>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -229,11 +235,10 @@
                             </div>
 
                             <div class="card-body table-responsive p-0" id="detailDorList">
-                                <table id="tableDorCart" class="table table-head-fixed text-nowrap">
+                                <table class="table table-head-fixed text-nowrap tableDorCart">
                                     <thead>
                                         <tr>
-                                            <th>Edit</th>
-                                            <th>Delete</th>
+                                            <th>Action</th>
                                             <th>Trano</th>
                                             <th>Project</th>
                                             <th>Site</th>
@@ -241,6 +246,9 @@
                                             <th>Product Name</th>
                                         </tr>
                                     </thead>
+                                    <tbody>
+
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
