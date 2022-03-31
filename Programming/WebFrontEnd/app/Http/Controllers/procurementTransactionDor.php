@@ -60,6 +60,7 @@ class procurementTransactionDor extends Controller
             ]
         );
         
+        // dd($varData);
         return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']['data']]);
 
     }

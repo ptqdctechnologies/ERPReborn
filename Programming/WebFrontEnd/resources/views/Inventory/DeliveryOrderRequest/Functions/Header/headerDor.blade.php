@@ -20,6 +20,21 @@
                                 <tr>
                                     <td><label>Budget Code</label></td>
                                     <td>
+                                        <div class="input-group" style="width: 70%;">
+                                            <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly>
+                                            <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="projectcode2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="input-group" style="width: 153%;position:relative;right:38%;">
+                                            <input id="projectname" style="border-radius:0;" class="form-control" name="var_budget_code2" readonly>
+                                        </div>
+                                    </td>
+                                    <!-- <td>
                                         <div class="input-group">
                                             <input id="headerProjectCode" style="border-radius:0;margin-left:25px;" name="headerProjectCode" class="form-control">
                                             <div class="input-group-append">
@@ -28,7 +43,7 @@
                                                 </span>
                                             </div>
                                         </div>
-                                    </td>
+                                    </td> -->
                                 </tr>
                             </table>
                         </div>
@@ -38,13 +53,23 @@
                             <table>
                                 <tr>
                                     <td><label>PR Number</label></td>
-                                    <td>
+                                    <!-- <td>
                                         <div class="input-group">
                                             <input id="headerPrNumber" style="border-radius:0;margin-left:25px;" name="headerPrNumber" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
                                                     <a href="#"><i id="headerPrNumber2" data-toggle="modal" data-target="#mySearchPr" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </td> -->
+                                    <td>
+                                        <div class="input-group" style="width: 70%;">
+                                            <input id="sitecode" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly>
+                                            <div class="input-group-append">
+                                            <span style="border-radius:0;" class="input-group-text form-control">
+                                                <a href="#"><i id="sitecode2" data-toggle="modal" data-target="#mySiteCode" class="fas fa-gift" style="color:grey;"></i></a>
+                                            </span>
                                             </div>
                                         </div>
                                     </td>
@@ -133,7 +158,7 @@
                                             <input id="headerWarehouse1" style="border-radius:0;margin-left:33px;" name="headerWarehouse1" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -143,7 +168,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="" id="headerAddres1" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                            <textarea class="form-control" name="" id="headerAddresWarehouse1" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -177,8 +202,10 @@
                                     <td><label>Site Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control">
-                                                <option value="Test">Test</option>
+                                            <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control siteName1">
+                                                <option value="">-- Select Site Name --</option>
+                                                <option value="WH-001">WH-001</option>
+                                                <option value="WH-002">WH-002</option>
                                             </select>
                                         </div>
                                     </td>
@@ -187,7 +214,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress2" id="headerAddress2" cols="25" rows="5"></textarea>
+                                            <textarea class="form-control" name="headerAddressSiteName1" id="headerAddressSiteName1" cols="25" rows="5"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -212,7 +239,7 @@
                                             <input id="headerWarehouse2" style="border-radius:0;margin-left:33px;" name="headerWarehouse2" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse2" data-toggle="modal" data-target="#mySearchWarehouse2" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -222,7 +249,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress3" id="headerAddress3" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                            <textarea class="form-control" name="headerAddress3" id="headerAddresWarehouse2" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -256,7 +283,7 @@
                                     <td><label>Warehouse Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="headerWarehouse3" id="headerWarehouse3" style="border-radius:0;" type="text" class="form-control">
+                                            <input name="headerWarehouse" id="headerWarehouse" style="border-radius:0;" type="text" class="form-control">
                                         </div>
                                     </td>
                                 </tr>
@@ -333,8 +360,10 @@
                                     <td><label>Site Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="headerSiteName2" id="headerSiteName2" style="border-radius:0;" class="form-control">
-                                                <option value="Test">Test</option>
+                                            <select name="headerSiteName2" id="headerSiteName2" style="border-radius:0;" class="form-control siteName2">
+                                                <option value="">-- Select Site Name --</option>
+                                                <option value="WH-001">WH-001</option>
+                                                <option value="WH-002">WH-002</option>
                                             </select>
                                         </div>
                                     </td>
@@ -343,7 +372,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress6" id="headerAddress6" cols="25" rows="5"></textarea>
+                                            <textarea class="form-control" name="headerAddressSiteName2" id="headerAddressSiteName2" cols="25" rows="5"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -364,8 +393,10 @@
                                     <td><label>Site Name</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select name="headerSiteName1" id="headerSiteName1" style="border-radius:0;" class="form-control">
-                                                <option value="Test">Test</option>
+                                            <select name="headerSiteName3" id="headerSiteName3" style="border-radius:0;" class="form-control siteName3">
+                                                <option value="">-- Select Site Name --</option>
+                                                <option value="WH-001">WH-001</option>
+                                                <option value="WH-002">WH-002</option>
                                             </select>
                                         </div>
                                     </td>
@@ -374,7 +405,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="headerAddress2" id="headerAddress2" cols="25" rows="5"></textarea>
+                                            <textarea class="form-control" name="headerAddressSiteName3" id="headerAddressSiteName3" cols="25" rows="5"></textarea>
                                         </div>
                                     </td>
                                 </tr>
@@ -408,10 +439,10 @@
                                     <td><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="headerWarehouse1" style="border-radius:0;margin-left:33px;" name="headerWarehouse1" class="form-control">
+                                            <input id="headerWarehouse3" style="border-radius:0;margin-left:33px;" name="headerWarehouse3" class="form-control">
                                             <div class="input-group-append">
                                                 <span style="border-radius:0;" class="input-group-text form-control">
-                                                    <a href="#"><i id="headerWarehouse1" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                                                    <a href="#"><i id="headerWarehouse3" data-toggle="modal" data-target="#mySearchWarehouse3" class="fas fa-gift" style="color:grey;"></i></a>
                                                 </span>
                                             </div>
                                         </div>
@@ -421,7 +452,7 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea class="form-control" name="" id="headerAddres1" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
+                                            <textarea class="form-control" name="" id="headerAddresWarehouse3" cols="20" rows="5" style="border-radius:0;margin-left:33px;"></textarea>
                                         </div>
                                     </td>
                                 </tr>

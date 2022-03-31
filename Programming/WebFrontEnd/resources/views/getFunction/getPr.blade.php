@@ -33,7 +33,7 @@
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="Q00018{{ $i }}">Q00018{{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPr" data-id="DOR-2200000{{ $i }}">DOR-2200000{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>

@@ -183,6 +183,21 @@
         "autoWidth": false,
         "paginate": false,
       });
+      $("#tableGetWarehouse").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetWarehouse2").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetWarehouse3").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
       $("#tableGetRequester").DataTable({
         "responsive": true,
         "autoWidth": false,

@@ -1,5 +1,5 @@
-<div class="card-body table-responsive p-0">
-    <table id="tablePrDetailDor" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
+<div class="card-body table-responsive p-0" style="height: 300px;" id="tableShowHideDor">
+    <table class="table table-head-fixed text-nowrap table-striped tablePrDetailDor">
         <thead>
             <tr>
                 <th>Action</th>
@@ -15,5 +15,8 @@
                 <th>Availabel</th>
             </tr>
         </thead>
-        </table>
-        </div>
+        <tbody>
+            
+        </tbody>
+    </table>
+</div>

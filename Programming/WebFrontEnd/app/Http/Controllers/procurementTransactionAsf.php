@@ -11,6 +11,7 @@ class procurementTransactionAsf extends Controller
      */
     public function index(Request $request)
     {
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
