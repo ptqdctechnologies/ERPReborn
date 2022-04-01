@@ -2144,6 +2144,8 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Aws\\PhpHash' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PhpHash.php',
         'Aws\\PinpointEmail\\Exception\\PinpointEmailException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointEmail/Exception/PinpointEmailException.php',
         'Aws\\PinpointEmail\\PinpointEmailClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointEmail/PinpointEmailClient.php',
+        'Aws\\PinpointSMSVoiceV2\\Exception\\PinpointSMSVoiceV2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointSMSVoiceV2/Exception/PinpointSMSVoiceV2Exception.php',
+        'Aws\\PinpointSMSVoiceV2\\PinpointSMSVoiceV2Client' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointSMSVoiceV2/PinpointSMSVoiceV2Client.php',
         'Aws\\PinpointSMSVoice\\Exception\\PinpointSMSVoiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointSMSVoice/Exception/PinpointSMSVoiceException.php',
         'Aws\\PinpointSMSVoice\\PinpointSMSVoiceClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PinpointSMSVoice/PinpointSMSVoiceClient.php',
         'Aws\\Pinpoint\\Exception\\PinpointException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pinpoint/Exception/PinpointException.php',
