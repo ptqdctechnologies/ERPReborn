@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 3.218.1 - 2022-04-01
+
+* `Aws\Connect` - This release updates these APIs: UpdateInstanceAttribute, DescribeInstanceAttribute and ListInstanceAttributes. You can use it to programmatically enable/disable multi-party conferencing using attribute type MULTI_PARTY_CONFERENCING on the specified Amazon Connect instance.
+
 ## 3.218.0 - 2022-03-31
 
 * `Aws\AuditManager` - This release adds documentation updates for Audit Manager. The updates provide data deletion guidance when a customer deregisters Audit Manager or deregisters a delegated administrator.

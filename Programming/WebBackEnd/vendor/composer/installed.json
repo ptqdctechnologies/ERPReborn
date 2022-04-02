@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.218.0",
-            "version_normalized": "3.218.0.0",
+            "version": "3.218.1",
+            "version_normalized": "3.218.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "714ed40bc2e60d4af907eb2d41fbfb75f980d2e2"
+                "reference": "fd902a4766d61afac98f7e7746736ba741d4dcce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/714ed40bc2e60d4af907eb2d41fbfb75f980d2e2",
-                "reference": "714ed40bc2e60d4af907eb2d41fbfb75f980d2e2",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/fd902a4766d61afac98f7e7746736ba741d4dcce",
+                "reference": "fd902a4766d61afac98f7e7746736ba741d4dcce",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-03-31T18:20:58+00:00",
+            "time": "2022-04-01T18:14:25+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -143,7 +143,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.218.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.218.1"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -4369,17 +4369,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.5.19",
-            "version_normalized": "9.5.19.0",
+            "version": "9.5.20",
+            "version_normalized": "9.5.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "35ea4b7f3acabb26f4bb640f8c30866c401da807"
+                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/35ea4b7f3acabb26f4bb640f8c30866c401da807",
-                "reference": "35ea4b7f3acabb26f4bb640f8c30866c401da807",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/12bc8879fb65aef2138b26fc633cb1e3620cffba",
+                "reference": "12bc8879fb65aef2138b26fc633cb1e3620cffba",
                 "shasum": ""
             },
             "require": {
@@ -4420,7 +4420,7 @@
                 "ext-soap": "*",
                 "ext-xdebug": "*"
             },
-            "time": "2022-03-15T09:57:31+00:00",
+            "time": "2022-04-01T12:37:26+00:00",
             "bin": [
                 "phpunit"
             ],
@@ -4459,7 +4459,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.19"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/9.5.20"
             },
             "funding": [
                 {
@@ -6388,17 +6388,17 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.1.1",
-            "version_normalized": "1.1.1.0",
+            "version": "1.2.0",
+            "version_normalized": "1.2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "f3243fd99351e0a79df6886a5354d8dd88d6d0d2"
+                "reference": "2b54c8c66f2d280f25e15064ebe3d5e3eda19820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/f3243fd99351e0a79df6886a5354d8dd88d6d0d2",
-                "reference": "f3243fd99351e0a79df6886a5354d8dd88d6d0d2",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/2b54c8c66f2d280f25e15064ebe3d5e3eda19820",
+                "reference": "2b54c8c66f2d280f25e15064ebe3d5e3eda19820",
                 "shasum": ""
             },
             "require": {
@@ -6425,7 +6425,7 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.27"
             },
-            "time": "2022-03-21T07:13:26+00:00",
+            "time": "2022-04-01T21:01:58+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -6439,6 +6439,9 @@
             },
             "installation-source": "source",
             "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
                 "psr-4": {
                     "Spatie\\LaravelIgnition\\": "src"
                 }
@@ -9102,17 +9105,17 @@
         },
         {
             "name": "tightenco/collect",
-            "version": "v8.83.5",
-            "version_normalized": "8.83.5.0",
+            "version": "v8.83.6",
+            "version_normalized": "8.83.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tighten/collect.git",
-                "reference": "369a4eebc0d1763e6eba30526f190eaa76b78e8c"
+                "reference": "e29832b2a3f20e7de307d3c69bf257693c07ce2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tighten/collect/zipball/369a4eebc0d1763e6eba30526f190eaa76b78e8c",
-                "reference": "369a4eebc0d1763e6eba30526f190eaa76b78e8c",
+                "url": "https://api.github.com/repos/tighten/collect/zipball/e29832b2a3f20e7de307d3c69bf257693c07ce2c",
+                "reference": "e29832b2a3f20e7de307d3c69bf257693c07ce2c",
                 "shasum": ""
             },
             "require": {
@@ -9124,7 +9127,7 @@
                 "nesbot/carbon": "^2.23.0",
                 "phpunit/phpunit": "^8.3"
             },
-            "time": "2022-03-18T22:24:16+00:00",
+            "time": "2022-04-01T16:23:12+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -9153,7 +9156,7 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/collect/issues",
-                "source": "https://github.com/tighten/collect/tree/v8.83.5"
+                "source": "https://github.com/tighten/collect/tree/v8.83.6"
             },
             "install-path": "../tightenco/collect"
         },

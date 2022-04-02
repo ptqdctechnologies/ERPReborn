@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.218.0',
-            'version' => '3.218.0.0',
+            'pretty_version' => '3.218.1',
+            'version' => '3.218.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '714ed40bc2e60d4af907eb2d41fbfb75f980d2e2',
+            'reference' => 'fd902a4766d61afac98f7e7746736ba741d4dcce',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -767,12 +767,12 @@
             'dev_requirement' => true,
         ),
         'phpunit/phpunit' => array(
-            'pretty_version' => '9.5.19',
-            'version' => '9.5.19.0',
+            'pretty_version' => '9.5.20',
+            'version' => '9.5.20.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../phpunit/phpunit',
             'aliases' => array(),
-            'reference' => '35ea4b7f3acabb26f4bb640f8c30866c401da807',
+            'reference' => '12bc8879fb65aef2138b26fc633cb1e3620cffba',
             'dev_requirement' => true,
         ),
         'predis/predis' => array(
@@ -1104,12 +1104,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.1.1',
-            'version' => '1.1.1.0',
+            'pretty_version' => '1.2.0',
+            'version' => '1.2.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => 'f3243fd99351e0a79df6886a5354d8dd88d6d0d2',
+            'reference' => '2b54c8c66f2d280f25e15064ebe3d5e3eda19820',
             'dev_requirement' => false,
         ),
         'swaggest/json-diff' => array(
@@ -1422,12 +1422,12 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.83.5',
-            'version' => '8.83.5.0',
+            'pretty_version' => 'v8.83.6',
+            'version' => '8.83.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
             'aliases' => array(),
-            'reference' => '369a4eebc0d1763e6eba30526f190eaa76b78e8c',
+            'reference' => 'e29832b2a3f20e7de307d3c69bf257693c07ce2c',
             'dev_requirement' => false,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
