@@ -150,6 +150,13 @@ class SupportStringableTest extends TestCase
         }));
     }
 
+    public function testUcsplitOnStringable()
+    {
+        $this->assertSame(['Taylor', 'Otwell'], $this->stringable('TaylorOtwell')->ucsplit()->toArray());
+        $this->assertSame(['Hello', 'From', 'Laravel'], $this->stringable('HelloFromLaravel')->ucsplit()->toArray());
+        $this->assertSame(['He_llo_', 'World'], $this->stringable('He_llo_World')->ucsplit()->toArray());
+    }
+
     public function testWhenEndsWith()
     {
         $this->assertSame('Tony Stark', (string) $this->stringable('tony stark')->whenEndsWith('ark', function ($stringable) {
@@ -410,6 +417,12 @@ class SupportStringableTest extends TestCase
     {
         $this->assertSame('@', (string) $this->stringable('@')->ascii());
         $this->assertSame('u', (string) $this->stringable('ü')->ascii());
+    }
+
+    public function testNewLine()
+    {
+        $this->assertSame('Laravel'.PHP_EOL, (string) $this->stringable('Laravel')->newLine());
+        $this->assertSame('foo'.PHP_EOL.PHP_EOL.'bar', (string) $this->stringable('foo')->newLine(2)->append('bar'));
     }
 
     public function testAsciiWithSpecificLocale()

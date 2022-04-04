@@ -207,7 +207,7 @@ abstract class Factory
     }
 
     /**
-     * Create a single model and persist it to the database.
+     * Create a single model and persist it to the database without dispatching any model events.
      *
      * @param  (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed>  $attributes
      * @return \Illuminate\Database\Eloquent\Model|TModel
@@ -233,7 +233,7 @@ abstract class Factory
     }
 
     /**
-     * Create a collection of models and persist them to the database.
+     * Create a collection of models and persist them to the database without dispatching any model events.
      *
      * @param  iterable<int, array<string, mixed>>  $records
      * @return \Illuminate\Database\Eloquent\Collection<int, \Illuminate\Database\Eloquent\Model|TModel>
@@ -274,7 +274,7 @@ abstract class Factory
     }
 
     /**
-     * Create a collection of models and persist them to the database.
+     * Create a collection of models and persist them to the database without dispatching any model events.
      *
      * @param  array<string, mixed>  $attributes
      * @param  \Illuminate\Database\Eloquent\Model|null  $parent
@@ -469,7 +469,7 @@ abstract class Factory
     /**
      * Add a new state transformation to the model definition.
      *
-     * @param  (callable(array<string, mixed>): array<string, mixed>)|array<string, mixed>  $state
+     * @param  (callable(array<string, mixed>, \Illuminate\Database\Eloquent\Model|null=): array<string, mixed>)|array<string, mixed>  $state
      * @return static
      */
     public function state($state)
@@ -492,6 +492,17 @@ abstract class Factory
     public function sequence(...$sequence)
     {
         return $this->state(new Sequence(...$sequence));
+    }
+
+    /**
+     * Add a new sequenced state transformation to the model definition and update the pending creation count to the size of the sequence.
+     *
+     * @param  array  $sequence
+     * @return static
+     */
+    public function forEachSequence(...$sequence)
+    {
+        return $this->state(new Sequence(...$sequence))->count(count($sequence));
     }
 
     /**

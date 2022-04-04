@@ -1652,6 +1652,108 @@ class TestResponseTest extends TestCase
         $this->assertSame('cookie-value', $cookie->getValue());
     }
 
+    public function testAssertSessionHasErrors()
+    {
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('errors', $errorBag = new ViewErrorBag);
+
+        $errorBag->put('default', new MessageBag([
+            'foo' => [
+                'foo is required',
+            ],
+        ]));
+
+        $response = TestResponse::fromBaseResponse(new Response());
+
+        $response->assertSessionHasErrors(['foo']);
+    }
+
+    public function testAssertSessionDoesntHaveErrors()
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('errors', $errorBag = new ViewErrorBag);
+
+        $errorBag->put('default', new MessageBag([
+            'foo' => [
+                'foo is required',
+            ],
+        ]));
+
+        $response = TestResponse::fromBaseResponse(new Response());
+
+        $response->assertSessionDoesntHaveErrors(['foo']);
+    }
+
+    public function testAssertSessionHasNoErrors()
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('errors', $errorBag = new ViewErrorBag);
+
+        $errorBag->put('default', new MessageBag([
+            'foo' => [
+                'foo is required',
+            ],
+        ]));
+
+        $response = TestResponse::fromBaseResponse(new Response());
+
+        $response->assertSessionHasNoErrors();
+    }
+
+    public function testAssertSessionHas()
+    {
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('foo', 'value');
+        $store->put('bar', 'value');
+
+        $response = TestResponse::fromBaseResponse(new Response());
+
+        $response->assertSessionHas('foo');
+        $response->assertSessionHas('bar');
+        $response->assertSessionHas(['foo', 'bar']);
+    }
+
+    public function testAssertSessionMissing()
+    {
+        $this->expectException(AssertionFailedError::class);
+
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('foo', 'value');
+
+        $response = TestResponse::fromBaseResponse(new Response());
+        $response->assertSessionMissing('foo');
+    }
+
+    public function testAssertSessionHasInput()
+    {
+        app()->instance('session.store', $store = new Store('test-session', new ArraySessionHandler(1)));
+
+        $store->put('_old_input', [
+            'foo' => 'value',
+            'bar' => 'value',
+        ]);
+
+        $response = TestResponse::fromBaseResponse(new Response());
+
+        $response->assertSessionHasInput('foo');
+        $response->assertSessionHasInput('foo', 'value');
+        $response->assertSessionHasInput('bar');
+        $response->assertSessionHasInput('bar', 'value');
+        $response->assertSessionHasInput(['foo', 'bar']);
+        $response->assertSessionHasInput('foo', function ($value) {
+            return $value === 'value';
+        });
+    }
+
     public function testGetEncryptedCookie()
     {
         $container = Container::getInstance();

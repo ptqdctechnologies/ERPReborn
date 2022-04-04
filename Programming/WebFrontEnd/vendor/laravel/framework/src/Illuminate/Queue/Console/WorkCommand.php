@@ -43,6 +43,8 @@ class WorkCommand extends Command
      * This name is used to identify the command during lazy loading.
      *
      * @var string|null
+     *
+     * @deprecated
      */
     protected static $defaultName = 'queue:work';
 
