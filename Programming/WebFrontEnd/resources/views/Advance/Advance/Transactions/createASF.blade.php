@@ -33,9 +33,7 @@
                 </div>
               </div>
             </div>
-          
-
-
+            
           <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
             <div class="row">
               <div class="col-12">

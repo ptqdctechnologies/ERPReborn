@@ -61,6 +61,20 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
 
+    // ASF
+    Route::post('StoreValidateAsf', 'procurementTransactionAsf@StoreValidateAsf')->name('ASF.StoreValidateAsf');
+    Route::post('StoreValidateAsf2', 'procurementTransactionArf@StoreValidateAsf2')->name('ASF.StoreValidateAsf2');
+    Route::get('store', 'procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
+    Route::get('createASFSales', 'procurementTransactionAsf@indexSales')->name('ASF.indexSales');
+    Route::get('createASFPulsaVoucher', 'procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
+
+    Route::post('revisionAsf', 'procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
+
+    Route::post('addListCartAsf', 'procurementTransactionAsf@addListCartAsf')->name('ASF.addListCartAsf');
+    Route::resource('ASF', 'procurementTransactionAsf');
+    Route::post('submitDataAsf', 'procurementTransactionAsf@submitData')->name('ASF.submitData');
+
+
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
 
@@ -182,17 +196,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('/test/store2', 'procurementTransactionArf@teststore2');
 
     Route::post('tests', 'procurementTransactionArf@tests')->name('ARF.tests');
-
-    // ASF
-    Route::get('store', 'procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
-    Route::get('createASFSales', 'procurementTransactionAsf@indexSales')->name('ASF.indexSales');
-    Route::get('createASFPulsaVoucher', 'procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
-
-    Route::post('revisionAsf', 'procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
-
-    Route::post('addListCartAsf', 'procurementTransactionAsf@addListCartAsf')->name('ASF.addListCartAsf');
-    Route::resource('ASF', 'procurementTransactionAsf');
-    Route::post('submitDataAsf', 'procurementTransactionAsf@submitData')->name('ASF.submitData');
 
     //MASTER DATA
     Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');

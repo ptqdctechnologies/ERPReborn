@@ -11,7 +11,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.submitData') }}" id="formCreateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formCreateArf">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -238,6 +238,8 @@
                                 <tr>
                                   <td>
                                     <input name="status" id="status" style="border-radius:0;width:100px;" type="hidden" class="form-control" readonly="">
+                                    <input name="haha" id="haha" style="border-radius:0;width:100px;" type="hidden" class="form-control" value="0">
+                                    <!-- <input type="hidden" id="hdnSession" name="hdnSession" value="{{ json_encode( Session::get('SessionArfItem') ) }}" /> -->
                                   </td>
                                 </tr>
                               </table>
@@ -349,7 +351,7 @@
                     </table>
                   </div>
                 </div>
-                <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
+                <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
                   <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
                 </a>
                 <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="submitArf">
