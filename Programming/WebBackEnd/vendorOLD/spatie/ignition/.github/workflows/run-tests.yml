@@ -1,0 +1,48 @@
+name: Run tests
+
+on: [push, pull_request]
+
+jobs:
+    php-tests:
+        runs-on: ${{ matrix.os }}
+        strategy:
+            fail-fast: false
+            matrix:
+                os: [ubuntu-latest, windows-latest]
+                php: [8.0, 8.1]
+                stability: [prefer-lowest, prefer-stable]
+
+        name: P${{ matrix.php }} - ${{ matrix.stability }} - ${{ matrix.os }}
+
+        steps:
+            -   name: Checkout code
+                uses: actions/checkout@v2
+
+            -   name: Setup PHP
+                uses: shivammathur/setup-php@v2
+                with:
+                    php-version: ${{ matrix.php }}
+                    extensions: mbstring
+                    coverage: none
+
+            -   name: Setup problem matchers
+                run: |
+                    echo "::add-matcher::${{ runner.tool_cache }}/php.json"
+                    echo "::add-matcher::${{ runner.tool_cache }}/phpunit.json"
+
+            -   name: Get composer cache directory
+                id: composer-cache
+                run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+            -   name: Cache composer dependencies
+                uses: actions/cache@v2
+                with:
+                    path: ${{ steps.composer-cache.outputs.dir }}
+                    key: ${{ matrix.os }}-php-${{ matrix.php }}-composer-${{ matrix.stability }}-${{ hashFiles('**/composer.json') }}
+                    restore-keys: ${{ matrix.os }}-php-${{ matrix.php }}-composer-${{ matrix.stability }}-
+
+            -   name: Install dependencies
+                run: composer update --${{ matrix.stability }} --prefer-dist --no-interaction
+
+            -   name: Execute tests
+                run: vendor/bin/pest

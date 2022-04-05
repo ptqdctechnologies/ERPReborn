@@ -1,0 +1,17 @@
+* text=auto
+
+/tests export-ignore
+/.editorconfig export-ignore
+/.gitattributes export-ignore
+/.github export-ignore
+/.gitignore export-ignore
+/.github export-ignore
+/Makefile export-ignore
+/phpstan.src.neon.dist export-ignore
+/phpstan.tests.neon.dist export-ignore
+/phpunit.xml.dist export-ignore
+/psalm-baseline.xml export-ignore
+/psalm.xml export-ignore
+/README.md export-ignore
+/UPGRADING.md export-ignore
+/vendor-bin export-ignore

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.0.1@b1e2e30026936ef8d5bf6a354d1c3959b6231f44">
+  <file src="src/Exporter.php">
+    <ConflictingReferenceConstraint occurrences="1">
+      <code>if (is_object($value)) {</code>
+    </ConflictingReferenceConstraint>
+    <InvalidArgument occurrences="1">
+      <code>$value</code>
+    </InvalidArgument>
+    <InvalidScalarArgument occurrences="2">
+      <code>$hash</code>
+      <code>$key</code>
+    </InvalidScalarArgument>
+    <MissingParamType occurrences="3">
+      <code>$value</code>
+      <code>$value</code>
+      <code>$value</code>
+    </MissingParamType>
+  </file>
+</files>

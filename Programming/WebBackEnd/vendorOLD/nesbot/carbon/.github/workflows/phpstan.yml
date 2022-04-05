@@ -1,0 +1,36 @@
+name: Linting
+
+on: [ pull_request, push ]
+
+jobs:
+  ubuntu:
+    name: PHPStan
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php: 8.1
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          extensions: json, msgpack
+          tools: composer:v2
+          coverage: none
+
+      - name: Install dependencies
+        run: |
+          composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
+          composer remove --no-update kylekatarnls/multi-tester --no-interaction;
+          composer require --no-update doctrine/orm --no-interaction;
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
+
+      - name: Run phpstan
+        run: composer phpstan

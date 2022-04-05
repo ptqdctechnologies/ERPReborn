@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.218.1',
-            'version' => '3.218.1.0',
+            'pretty_version' => '3.218.2',
+            'version' => '3.218.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'fd902a4766d61afac98f7e7746736ba741d4dcce',
+            'reference' => 'dd981c2e95fd1dd65d8e05b30e257b8413d63071',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -871,8 +871,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0.0 || 2.0.0 || 3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '1.0.0 || 2.0.0 || 3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
