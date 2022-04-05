@@ -1,6 +1,0 @@
-preset: psr2
-
-# Disabled, moved in .github/workflows/phpcs.yml
-finder:
-  exclude:
-    - "src"
