@@ -905,6 +905,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTax' => $baseDir . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTax.php',
     'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTaxDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTaxDetail.php',
     'App\\Models\\Database\\SchSysConfig\\General' => $baseDir . '/app/Models/Database/SchSysConfig/General.php',
+    'App\\Models\\Database\\SchSysConfig\\TblDBObject_Index' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Index.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
     'App\\Models\\Database\\SchSysConfig\\TblDBObject_User' => $baseDir . '/app/Models/Database/SchSysConfig/TblDBObject_User.php',

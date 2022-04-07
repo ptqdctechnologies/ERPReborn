@@ -1505,6 +1505,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTax' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTax.php',
         'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTaxDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTaxDetail.php',
         'App\\Models\\Database\\SchSysConfig\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/General.php',
+        'App\\Models\\Database\\SchSysConfig\\TblDBObject_Index' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Index.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_User' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_User.php',

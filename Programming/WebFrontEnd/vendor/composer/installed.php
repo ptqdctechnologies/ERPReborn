@@ -437,12 +437,12 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.0.13',
-            'version' => '3.0.13.0',
+            'pretty_version' => '3.0.14',
+            'version' => '3.0.14.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
-            'reference' => '15dc1ccb2db8daef507c4d3e501565bae42a9f0e',
+            'reference' => '46a5450352540e89cb8e7eb20c58b5b4aae481f6',
             'dev_requirement' => false,
         ),
         'league/mime-type-detection' => array(

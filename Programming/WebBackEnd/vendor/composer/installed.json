@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.218.3",
-            "version_normalized": "3.218.3.0",
+            "version": "3.218.4",
+            "version_normalized": "3.218.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "a1bd2174db1255598344570e88c864cb18ab84f7"
+                "reference": "db59241a678720d50deb166d7bfe332100898964"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a1bd2174db1255598344570e88c864cb18ab84f7",
-                "reference": "a1bd2174db1255598344570e88c864cb18ab84f7",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/db59241a678720d50deb166d7bfe332100898964",
+                "reference": "db59241a678720d50deb166d7bfe332100898964",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-04-05T18:15:32+00:00",
+            "time": "2022-04-06T18:16:53+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -143,7 +143,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.218.3"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.218.4"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -2226,17 +2226,17 @@
         },
         {
             "name": "league/flysystem",
-            "version": "3.0.13",
-            "version_normalized": "3.0.13.0",
+            "version": "3.0.14",
+            "version_normalized": "3.0.14.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "15dc1ccb2db8daef507c4d3e501565bae42a9f0e"
+                "reference": "46a5450352540e89cb8e7eb20c58b5b4aae481f6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/15dc1ccb2db8daef507c4d3e501565bae42a9f0e",
-                "reference": "15dc1ccb2db8daef507c4d3e501565bae42a9f0e",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/46a5450352540e89cb8e7eb20c58b5b4aae481f6",
+                "reference": "46a5450352540e89cb8e7eb20c58b5b4aae481f6",
                 "shasum": ""
             },
             "require": {
@@ -2265,7 +2265,7 @@
                 "phpunit/phpunit": "^9.5.11",
                 "sabre/dav": "^4.3.1"
             },
-            "time": "2022-04-02T08:55:13+00:00",
+            "time": "2022-04-06T18:17:37+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -2299,7 +2299,7 @@
             ],
             "support": {
                 "issues": "https://github.com/thephpleague/flysystem/issues",
-                "source": "https://github.com/thephpleague/flysystem/tree/3.0.13"
+                "source": "https://github.com/thephpleague/flysystem/tree/3.0.14"
             },
             "funding": [
                 {
