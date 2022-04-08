@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.dataForm.supplyChain.getPurchaseOrder (version 1)",
+"description": "JSON Request Schema of report.form.documentForm.taxation.getTransactionTax (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.dataForm.supplyChain.getPurchaseOrder" ]
+                        "enum": [ "report.form.documentForm.taxation.getTransactionTax" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
