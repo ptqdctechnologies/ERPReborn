@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\sysConfig\setDBObject_Index\v1    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\sysConfig\setDBObject_Table\v1    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\sysConfig\setDBObject_Index\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\sysConfig\setDBObject_Table\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setDBObject_Index                                                                                            |
-    | ▪ Description : Menangani API transaction.initialize.sysConfig.setDBObject_Index Version 1                                   |
+    | ▪ Class Name  : setDBObject_Table                                                                                            |
+    | ▪ Description : Menangani API transaction.initialize.sysConfig.setDBObject_Table Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setDBObject_Index extends \App\Http\Controllers\Controller
+    class setDBObject_Table extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize DBObject Index Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize DBObject Table Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchSysConfig\TblDBObject_Index())->setDataInitialize(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchSysConfig\TblDBObject_Table())->setDataInitialize(
                             $varUserSession
                             ))))
                             {
