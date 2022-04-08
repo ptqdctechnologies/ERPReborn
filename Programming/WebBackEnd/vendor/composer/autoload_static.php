@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
+class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -1008,6 +1008,9 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\supplyChain\\setSupplier\\v1\\setSupplier' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/supplyChain/setSupplier/v1/setSupplier.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\supplyChain\\setWarehouseType\\v1\\setWarehouseType' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/supplyChain/setWarehouseType/v1/setWarehouseType.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\supplyChain\\setWarehouse\\v1\\setWarehouse' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/supplyChain/setWarehouse/v1/setWarehouse.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Index\\v1\\setDBObject_Index' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Index/v1/setDBObject_Index.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Schema\\v1\\setDBObject_Schema' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Schema/v1/setDBObject_Schema.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setDBObject_Table\\v1\\setDBObject_Table' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setDBObject_Table/v1/setDBObject_Table.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setRotateLog_FileUploadStagingAreaDetail\\v1\\setRotateLog_FileUploadStagingAreaDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setRotateLog_FileUploadStagingAreaDetail/v1/setRotateLog_FileUploadStagingAreaDetail.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\sysConfig\\setRotateLog_FileUploadStagingArea\\v1\\setRotateLog_FileUploadStagingArea' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/sysConfig/setRotateLog_FileUploadStagingArea/v1/setRotateLog_FileUploadStagingArea.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\initialize\\taxation\\setTaxTariff\\v1\\setTaxTariff' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/initialize/taxation/setTaxTariff/v1/setTaxTariff.php',
@@ -1505,6 +1508,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTax' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTax.php',
         'App\\Models\\Database\\SchData_OLTP_Taxation\\TblTransactionTaxDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Taxation/TblTransactionTaxDetail.php',
         'App\\Models\\Database\\SchSysConfig\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/General.php',
+        'App\\Models\\Database\\SchSysConfig\\TblDBObject_Index' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Index.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Schema' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Schema.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_Table' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_Table.php',
         'App\\Models\\Database\\SchSysConfig\\TblDBObject_User' => __DIR__ . '/../..' . '/app/Models/Database/SchSysConfig/TblDBObject_User.php',
@@ -3902,6 +3906,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\Database\\Capsule\\Manager' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Capsule/Manager.php',
         'Illuminate\\Database\\ClassMorphViolationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/ClassMorphViolationException.php',
         'Illuminate\\Database\\Concerns\\BuildsQueries' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Concerns/BuildsQueries.php',
+        'Illuminate\\Database\\Concerns\\CompilesJsonPaths' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Concerns/CompilesJsonPaths.php',
         'Illuminate\\Database\\Concerns\\ExplainsQueries' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Concerns/ExplainsQueries.php',
         'Illuminate\\Database\\Concerns\\ManagesTransactions' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Concerns/ManagesTransactions.php',
         'Illuminate\\Database\\Concerns\\ParsesSearchPath' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Database/Concerns/ParsesSearchPath.php',
@@ -4430,6 +4435,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'Illuminate\\Routing\\ControllerMiddlewareOptions' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/ControllerMiddlewareOptions.php',
         'Illuminate\\Routing\\CreatesRegularExpressionRouteConstraints' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/CreatesRegularExpressionRouteConstraints.php',
         'Illuminate\\Routing\\Events\\RouteMatched' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Events/RouteMatched.php',
+        'Illuminate\\Routing\\Events\\Routing' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Events/Routing.php',
         'Illuminate\\Routing\\Exceptions\\BackedEnumCaseNotFoundException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/BackedEnumCaseNotFoundException.php',
         'Illuminate\\Routing\\Exceptions\\InvalidSignatureException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/InvalidSignatureException.php',
         'Illuminate\\Routing\\Exceptions\\StreamedResponseException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Routing/Exceptions/StreamedResponseException.php',
@@ -4838,6 +4844,15 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'League\\CommonMark\\Extension\\DescriptionList\\Renderer\\DescriptionTermRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DescriptionList/Renderer/DescriptionTermRenderer.php',
         'League\\CommonMark\\Extension\\DisallowedRawHtml\\DisallowedRawHtmlExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DisallowedRawHtml/DisallowedRawHtmlExtension.php',
         'League\\CommonMark\\Extension\\DisallowedRawHtml\\DisallowedRawHtmlRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/DisallowedRawHtml/DisallowedRawHtmlRenderer.php',
+        'League\\CommonMark\\Extension\\Embed\\Bridge\\OscaroteroEmbedAdapter' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/Bridge/OscaroteroEmbedAdapter.php',
+        'League\\CommonMark\\Extension\\Embed\\DomainFilteringAdapter' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/DomainFilteringAdapter.php',
+        'League\\CommonMark\\Extension\\Embed\\Embed' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/Embed.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedAdapterInterface' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedAdapterInterface.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedExtension.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedParser' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedParser.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedProcessor' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedProcessor.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedRenderer.php',
+        'League\\CommonMark\\Extension\\Embed\\EmbedStartParser' => __DIR__ . '/..' . '/league/commonmark/src/Extension/Embed/EmbedStartParser.php',
         'League\\CommonMark\\Extension\\ExtensionInterface' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExtensionInterface.php',
         'League\\CommonMark\\Extension\\ExternalLink\\ExternalLinkExtension' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExternalLink/ExternalLinkExtension.php',
         'League\\CommonMark\\Extension\\ExternalLink\\ExternalLinkProcessor' => __DIR__ . '/..' . '/league/commonmark/src/Extension/ExternalLink/ExternalLinkProcessor.php',
@@ -4985,6 +5000,7 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
         'League\\CommonMark\\Renderer\\Block\\DocumentRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Block/DocumentRenderer.php',
         'League\\CommonMark\\Renderer\\Block\\ParagraphRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Block/ParagraphRenderer.php',
         'League\\CommonMark\\Renderer\\ChildNodeRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/ChildNodeRendererInterface.php',
+        'League\\CommonMark\\Renderer\\DocumentRendererInterface' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/DocumentRendererInterface.php',
         'League\\CommonMark\\Renderer\\HtmlDecorator' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/HtmlDecorator.php',
         'League\\CommonMark\\Renderer\\HtmlRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/HtmlRenderer.php',
         'League\\CommonMark\\Renderer\\Inline\\NewlineRenderer' => __DIR__ . '/..' . '/league/commonmark/src/Renderer/Inline/NewlineRenderer.php',
@@ -8856,10 +8872,10 @@ class ComposerStaticInit1dee681be1a2de44a4e881442e082bdb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit1dee681be1a2de44a4e881442e082bdb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit1dee681be1a2de44a4e881442e082bdb::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit1dee681be1a2de44a4e881442e082bdb::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit1dee681be1a2de44a4e881442e082bdb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd1de04f9266c92095667a9ede948a3ef::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd1de04f9266c92095667a9ede948a3ef::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitd1de04f9266c92095667a9ede948a3ef::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitd1de04f9266c92095667a9ede948a3ef::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -1,0 +1,10 @@
+.idea/
+.vscode/
+/builds/
+/database/
+/vendor/
+.php-cs-fixer.cache
+.phpunit.result.cache
+.twgit_features_subject
+composer.lock
+coverage.xml

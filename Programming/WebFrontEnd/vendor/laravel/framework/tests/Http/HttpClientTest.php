@@ -2,6 +2,7 @@
 
 namespace Illuminate\Tests\Http;
 
+use Exception;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Promise\PromiseInterface;
 use GuzzleHttp\Psr7\Response as Psr7Response;
@@ -1132,6 +1133,24 @@ class HttpClientTest extends TestCase
         });
     }
 
+    public function testTheRequestSendingAndResponseReceivedEventsAreFiredForEveryRetry()
+    {
+        $events = m::mock(Dispatcher::class);
+        $events->shouldReceive('dispatch')->times(2)->with(m::type(RequestSending::class));
+        $events->shouldReceive('dispatch')->times(2)->with(m::type(ResponseReceived::class));
+
+        $factory = new Factory($events);
+        $factory->fake([
+            '*' => $factory->response(['error'], 403),
+        ]);
+
+        $response = $factory->retry(2, 1000, null, false)->get('http://foo.com/get');
+
+        $this->assertTrue($response->failed());
+
+        $factory->assertSentCount(2);
+    }
+
     public function testTheTransferStatsAreCalledSafelyWhenFakingTheRequest()
     {
         $this->factory->fake(['https://example.com' => ['world' => 'Hello world']]);
@@ -1184,15 +1203,53 @@ class HttpClientTest extends TestCase
 
     public function testRequestExceptionIsThrownWhenRetriesExhausted()
     {
-        $this->expectException(RequestException::class);
-
         $this->factory->fake([
             '*' => $this->factory->response(['error'], 403),
         ]);
 
-        $this->factory
-            ->retry(2, 1000, null, true)
-            ->get('http://foo.com/get');
+        $exception = null;
+
+        try {
+            $this->factory
+                ->retry(2, 1000, null, true)
+                ->get('http://foo.com/get');
+        } catch (RequestException $e) {
+            $exception = $e;
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(RequestException::class, $exception);
+
+        $this->factory->assertSentCount(2);
+    }
+
+    public function testRequestExceptionIsThrownWithoutRetriesIfRetryNotNecessary()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->response(['error'], 500),
+        ]);
+
+        $exception = null;
+        $whenAttempts = 0;
+
+        try {
+            $this->factory
+                ->retry(2, 1000, function ($exception) use (&$whenAttempts) {
+                    $whenAttempts++;
+
+                    return $exception->response->status() === 403;
+                }, true)
+                ->get('http://foo.com/get');
+        } catch (RequestException $e) {
+            $exception = $e;
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(RequestException::class, $exception);
+
+        $this->assertSame(1, $whenAttempts);
+
+        $this->factory->assertSentCount(1);
     }
 
     public function testRequestExceptionIsNotThrownWhenDisabledAndRetriesExhausted()
@@ -1206,6 +1263,81 @@ class HttpClientTest extends TestCase
             ->get('http://foo.com/get');
 
         $this->assertTrue($response->failed());
+
+        $this->factory->assertSentCount(2);
+    }
+
+    public function testRequestExceptionIsNotThrownWithoutRetriesIfRetryNotNecessary()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->response(['error'], 500),
+        ]);
+
+        $whenAttempts = 0;
+
+        $response = $this->factory
+            ->retry(2, 1000, function ($exception) use (&$whenAttempts) {
+                $whenAttempts++;
+
+                return $exception->response->status() === 403;
+            }, false)
+            ->get('http://foo.com/get');
+
+        $this->assertTrue($response->failed());
+
+        $this->assertSame(1, $whenAttempts);
+
+        $this->factory->assertSentCount(1);
+    }
+
+    public function testRequestCanBeModifiedInRetryCallback()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->sequence()
+                ->push(['error'], 500)
+                ->push(['ok'], 200),
+        ]);
+
+        $response = $this->factory
+            ->retry(2, 1000, function ($exception, $request) {
+                $this->assertInstanceOf(PendingRequest::class, $request);
+
+                $request->withHeaders(['Foo' => 'Bar']);
+
+                return true;
+            }, false)
+            ->get('http://foo.com/get');
+
+        $this->assertTrue($response->successful());
+
+        $this->factory->assertSent(function (Request $request) {
+            return $request->hasHeader('Foo') && $request->header('Foo') === ['Bar'];
+        });
+    }
+
+    public function testExceptionThrownInRetryCallbackWithoutRetrying()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->response(['error'], 500),
+        ]);
+
+        $exception = null;
+
+        try {
+            $this->factory
+                ->retry(2, 1000, function ($exception) use (&$whenAttempts) {
+                    throw new Exception('Foo bar');
+                }, false)
+                ->get('http://foo.com/get');
+        } catch (Exception $e) {
+            $exception = $e;
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(Exception::class, $exception);
+        $this->assertEquals('Foo bar', $exception->getMessage());
+
+        $this->factory->assertSentCount(1);
     }
 
     public function testMiddlewareRunsWhenFaked()

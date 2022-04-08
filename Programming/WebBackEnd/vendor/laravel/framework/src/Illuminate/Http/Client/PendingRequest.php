@@ -2,6 +2,7 @@
 
 namespace Illuminate\Http\Client;
 
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
 use GuzzleHttp\Exception\ConnectException;
@@ -707,23 +708,45 @@ class PendingRequest
             return $this->makePromise($method, $url, $options);
         }
 
-        return retry($this->tries ?? 1, function () use ($method, $url, $options) {
+        $shouldRetry = null;
+
+        return retry($this->tries ?? 1, function ($attempt) use ($method, $url, $options, &$shouldRetry) {
             try {
-                return tap(new Response($this->sendRequest($method, $url, $options)), function ($response) {
+                return tap(new Response($this->sendRequest($method, $url, $options)), function ($response) use ($attempt, &$shouldRetry) {
                     $this->populateResponse($response);
 
-                    if ($this->tries > 1 && $this->retryThrow && ! $response->successful()) {
-                        $response->throw();
-                    }
-
                     $this->dispatchResponseReceivedEvent($response);
+
+                    if (! $response->successful()) {
+                        try {
+                            $shouldRetry = $this->retryWhenCallback ? call_user_func($this->retryWhenCallback, $response->toException(), $this) : true;
+                        } catch (Exception $exception) {
+                            $shouldRetry = false;
+
+                            throw $exception;
+                        }
+
+                        if ($attempt < $this->tries && $shouldRetry) {
+                            $response->throw();
+                        }
+
+                        if ($this->tries > 1 && $this->retryThrow) {
+                            $response->throw();
+                        }
+                    }
                 });
             } catch (ConnectException $e) {
                 $this->dispatchConnectionFailedEvent();
 
                 throw new ConnectionException($e->getMessage(), 0, $e);
             }
-        }, $this->retryDelay ?? 100, $this->retryWhenCallback);
+        }, $this->retryDelay ?? 100, function ($exception) use (&$shouldRetry) {
+            $result = $shouldRetry ?? ($this->retryWhenCallback ? call_user_func($this->retryWhenCallback, $exception, $this) : true);
+
+            $shouldRetry = null;
+
+            return $result;
+        });
     }
 
     /**
