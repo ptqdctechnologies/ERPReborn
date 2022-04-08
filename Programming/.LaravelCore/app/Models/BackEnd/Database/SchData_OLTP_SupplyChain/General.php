@@ -678,5 +678,94 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrder                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
+        | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Perintah Penerimaan Barang Gudang (Warehouse Inbound Order)  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_WarehouseInboundOrder(
+            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrder',
+                        [
+                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder'])
+                    ];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseOutboundOrder                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
+        | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Perintah Pengeluaran Barang Gudang (Warehouse Outbound       |
+        |                     Order)                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DocumentForm_WarehouseOutboundOrder(
+            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseOutboundOrder',
+                        [
+                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return [
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        $varReturn['Data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder'])
+                    ];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
