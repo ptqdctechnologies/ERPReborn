@@ -1301,6 +1301,7 @@ return array(
     'Aws\\Endpoint\\UseFipsEndpoint\\ConfigurationProvider' => $vendorDir . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/ConfigurationProvider.php',
     'Aws\\Endpoint\\UseFipsEndpoint\\Exception\\ConfigurationException' => $vendorDir . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Exception/ConfigurationException.php',
     'Aws\\EventBridge\\EventBridgeClient' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/EventBridgeClient.php',
+    'Aws\\EventBridge\\EventBridgeEndpointMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/EventBridgeEndpointMiddleware.php',
     'Aws\\EventBridge\\Exception\\EventBridgeException' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/Exception/EventBridgeException.php',
     'Aws\\Exception\\AwsException' => $vendorDir . '/aws/aws-sdk-php/src/Exception/AwsException.php',
     'Aws\\Exception\\CommonRuntimeException' => $vendorDir . '/aws/aws-sdk-php/src/Exception/CommonRuntimeException.php',

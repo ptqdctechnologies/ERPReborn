@@ -1901,6 +1901,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Endpoint\\UseFipsEndpoint\\ConfigurationProvider' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/ConfigurationProvider.php',
         'Aws\\Endpoint\\UseFipsEndpoint\\Exception\\ConfigurationException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Exception/ConfigurationException.php',
         'Aws\\EventBridge\\EventBridgeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/EventBridgeClient.php',
+        'Aws\\EventBridge\\EventBridgeEndpointMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/EventBridgeEndpointMiddleware.php',
         'Aws\\EventBridge\\Exception\\EventBridgeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/Exception/EventBridgeException.php',
         'Aws\\Exception\\AwsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Exception/AwsException.php',
         'Aws\\Exception\\CommonRuntimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Exception/CommonRuntimeException.php',

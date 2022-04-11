@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.218.5',
-            'version' => '3.218.5.0',
+            'pretty_version' => '3.219.0',
+            'version' => '3.219.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '7fb005ed6887527028dbcadf52509c8b794aecf3',
+            'reference' => 'e77a9bc31fdd98d3893f398468a36e00b12db3dc',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -482,12 +482,12 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.0.14',
-            'version' => '3.0.14.0',
+            'pretty_version' => '3.0.15',
+            'version' => '3.0.15.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
-            'reference' => '46a5450352540e89cb8e7eb20c58b5b4aae481f6',
+            'reference' => '3b71cd136dc0331ee87b636b25f4ee339368c718',
             'dev_requirement' => false,
         ),
         'league/flysystem-aws-s3-v3' => array(
@@ -554,12 +554,12 @@
             'dev_requirement' => true,
         ),
         'monolog/monolog' => array(
-            'pretty_version' => '2.4.0',
-            'version' => '2.4.0.0',
+            'pretty_version' => '2.5.0',
+            'version' => '2.5.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../monolog/monolog',
             'aliases' => array(),
-            'reference' => 'd7fd7450628561ba697b7097d86db72662f54aef',
+            'reference' => '4192345e260f1d51b365536199744b987e160edc',
             'dev_requirement' => false,
         ),
         'mtdowling/cron-expression' => array(
@@ -871,8 +871,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0.0 || 2.0.0 || 3.0.0',
-                1 => '1.0|2.0|3.0',
+                0 => '1.0|2.0|3.0',
+                1 => '1.0.0 || 2.0.0 || 3.0.0',
             ),
         ),
         'psr/simple-cache' => array(
