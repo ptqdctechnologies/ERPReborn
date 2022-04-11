@@ -64,11 +64,6 @@
                         "minLength": 1,
                         "maxLength": 256
                         },
-                    "paymentTerm": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 512
-                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
@@ -186,12 +181,63 @@
                                         }   
                                     },
                                 "required": [ "items" ]
-                                }   
+                                },
+                            "paymentTerm": {
+                                "type": "object",
+                                "properties": {
+                                    "items": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "entities": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "paymentTerm_RefID": {
+                                                             "type": [ "integer", "null" ],
+                                                             "minimum": 1,
+                                                             "maximum": 9223372036854775807
+                                                             },
+                                                        "dueDateTimeTZ": {
+                                                            "type": [ "string", "null" ],
+                                                            "format": "string",
+                                                            "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
+                                                            "minLength": 10,
+                                                            "maxLength": 30
+                                                             },
+                                                        "currency_RefID": {
+                                                             "type": [ "integer", "null" ],
+                                                             "minimum": 1,
+                                                             "maximum": 9223372036854775807
+                                                             },
+                                                        "currencyValue": {
+                                                            "type": [ "number", "null" ],
+                                                            "minimum": 0
+                                                             },
+                                                        "currencyExchangeRate": {
+                                                            "type": [ "number", "null" ],
+                                                            "minimum": 0
+                                                             },
+                                                        "remarks": {
+                                                            "type": [ "string", "null" ],
+                                                            "minLength": 1,
+                                                            "maxLength": 256
+                                                             }
+                                                        },
+                                                    "required": [ "paymentTerm_RefID", "dueDateTimeTZ", "currency_RefID", "currencyValue", "currencyExchangeRate", "remarks" ]
+                                                    }
+                                                },
+                                            "required": [ "entities" ]
+                                            }
+                                        }   
+                                    },
+                                "required": [ "items" ]
+                                }
                             },
-                        "required": [ "itemList", "taxes" ]
+                        "required": [ "itemList", "taxes", "paymentTerm" ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterPerson_RefID", "supplier_RefID", "deliveryDateTimeTZ", "shippingAddress", "billingAddress", "paymentTerm", "remarks" ]
+                "required": [ "documentDateTimeTZ", "requesterPerson_RefID", "supplier_RefID", "deliveryDateTimeTZ", "shippingAddress", "billingAddress", "remarks" ]
                 }
             },
         "required": [ "entities" ]

@@ -74,7 +74,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['deliveryDateTimeTZ'],
                             $varData['entities']['shippingAddress'],
                             $varData['entities']['billingAddress'],
-                            $varData['entities']['paymentTerm'],
                             $varData['entities']['remarks'],
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
