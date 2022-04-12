@@ -12,19 +12,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblDeliveryOrderDetail                                                                                       |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblDeliveryOrderDetail                                |
+    | ▪ Class Name  : TblDeliveryDestinationType                                                                                   |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblDeliveryDestinationType                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblDeliveryOrderDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblDeliveryDestinationType extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Create Date     : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -41,31 +41,58 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataInitialize                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create Date     : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Description     : Data Initialize                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataInitialize($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                    []
+                    )
+                );
+            return $varReturn['Data'][0];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Create     : 2022-03-08                                                                                           |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Create Date     : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varDeliveryOrder_RefID ► Delivery Order Reference ID                                                     |
-        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varName ► Name                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInsert(
             $varUserSession, 
-            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varDeliveryOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, string $varRemarks = null)
+            string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -77,13 +104,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        
-                        [$varDeliveryOrder_RefID, 'bigint'],
-                        [$varReferenceDocument_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varRemarks, 'varchar']
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+
+                        [$varName, 'varchar']
                     ]
                     )
                 );
@@ -95,9 +119,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Create     : 2022-03-08                                                                                           |
-        | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Create Date     : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -105,23 +129,21 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysID ► System Record ID                                                                              |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
-        |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
-        |      ▪ (int)    varDeliveryOrder_RefID ► Delivery Order Reference ID                                                     |
-        |      ▪ (int)    varReferenceDocument_RefID ► Reference Document Reference ID                                             |
-        |      ▪ (float)  varQuantity ► Quantity                                                                                   |
-        |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
-        |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varName ► Name                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
             $varUserSession, 
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varDeliveryOrder_RefID = null, int $varReferenceDocument_RefID = null, float $varQuantity = null, int $varQuantityUnit_RefID = null, string $varRemarks = null)
+            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
+            string $varName = null)
             {
-            $varReturn = //\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                //$varUserSession, 
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
@@ -130,18 +152,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysID, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
-                        [$varSysBranchRefID, 'bigint'],
-                        
-                        [$varDeliveryOrder_RefID, 'bigint'],
-                        [$varReferenceDocument_RefID, 'bigint'],
-                        [$varQuantity, 'numeric'],
-                        [$varQuantityUnit_RefID, 'bigint'],
-                        [$varRemarks, 'varchar']
+                        [$varSysBranch_RefID, 'bigint'],
+                        [$varSysBaseCurrency_RefID, 'bigint'],
+
+                        [$varName, 'varchar']
                     ],
-                //    )
+                    )
                 );
-            //return $varReturn['Data'][0];
-            return $varReturn;
+            return $varReturn['Data'][0];
             }
         }
     }

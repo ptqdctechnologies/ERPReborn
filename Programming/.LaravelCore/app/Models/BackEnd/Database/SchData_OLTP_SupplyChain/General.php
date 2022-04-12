@@ -20,9 +20,56 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : Func_GetDataList_DeliveryDestinationType                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Tujuan Pengiriman                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_DeliveryDestinationType($varUserSession, int $varSysBranchRefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestinationType',
+                        [
+                            [$varSysBranchRefID, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_DeliveryOrder                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-10                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO)                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -68,6 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrder                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (PO)                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -113,6 +161,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseRequisition                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (PR)                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -158,6 +207,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Warehouse                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Last Update     : 2022-03-01                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -203,6 +253,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrder                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -248,6 +299,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseOutboundOrder                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -293,6 +345,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseType                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Last Update     : 2022-03-01                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Gudang                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -335,9 +388,48 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_DeliveryDestinationType                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Tujuan Pengiriman                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_DeliveryDestinationType(
+            $varUserSession, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestinationType',
+                        [
+                            [$varSysBranchRefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_DeliveryOrder                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-10                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pengiriman (DO)                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -375,6 +467,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseOrder                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (PO)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -412,6 +505,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseRequisition                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -449,6 +543,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_Warehouse                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Last Update     : 2022-03-02                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Gudang                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -486,6 +581,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseInboundOrder                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Penerimaan Barang Gudang                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -523,6 +619,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseOutboundOrder                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pengeluaran Barang Gudang                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -560,6 +657,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseType                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Last Update     : 2022-03-02                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Gudang                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
