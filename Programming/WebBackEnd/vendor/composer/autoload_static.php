@@ -5102,6 +5102,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'League\\Flysystem\\InMemory\\InMemoryFilesystemAdapterTest' => __DIR__ . '/..' . '/league/flysystem/src/InMemory/InMemoryFilesystemAdapterTest.php',
         'League\\Flysystem\\InvalidStreamProvided' => __DIR__ . '/..' . '/league/flysystem/src/InvalidStreamProvided.php',
         'League\\Flysystem\\InvalidVisibilityProvided' => __DIR__ . '/..' . '/league/flysystem/src/InvalidVisibilityProvided.php',
+        'League\\Flysystem\\Local\\FallbackMimeTypeDetector' => __DIR__ . '/..' . '/league/flysystem/src/Local/FallbackMimeTypeDetector.php',
         'League\\Flysystem\\Local\\LocalFilesystemAdapter' => __DIR__ . '/..' . '/league/flysystem/src/Local/LocalFilesystemAdapter.php',
         'League\\Flysystem\\Local\\LocalFilesystemAdapterTest' => __DIR__ . '/..' . '/league/flysystem/src/Local/LocalFilesystemAdapterTest.php',
         'League\\Flysystem\\MountManager' => __DIR__ . '/..' . '/league/flysystem/src/MountManager.php',

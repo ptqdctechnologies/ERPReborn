@@ -4502,6 +4502,7 @@ return array(
     'League\\Flysystem\\InMemory\\InMemoryFilesystemAdapterTest' => $vendorDir . '/league/flysystem/src/InMemory/InMemoryFilesystemAdapterTest.php',
     'League\\Flysystem\\InvalidStreamProvided' => $vendorDir . '/league/flysystem/src/InvalidStreamProvided.php',
     'League\\Flysystem\\InvalidVisibilityProvided' => $vendorDir . '/league/flysystem/src/InvalidVisibilityProvided.php',
+    'League\\Flysystem\\Local\\FallbackMimeTypeDetector' => $vendorDir . '/league/flysystem/src/Local/FallbackMimeTypeDetector.php',
     'League\\Flysystem\\Local\\LocalFilesystemAdapter' => $vendorDir . '/league/flysystem/src/Local/LocalFilesystemAdapter.php',
     'League\\Flysystem\\Local\\LocalFilesystemAdapterTest' => $vendorDir . '/league/flysystem/src/Local/LocalFilesystemAdapterTest.php',
     'League\\Flysystem\\MountManager' => $vendorDir . '/league/flysystem/src/MountManager.php',
