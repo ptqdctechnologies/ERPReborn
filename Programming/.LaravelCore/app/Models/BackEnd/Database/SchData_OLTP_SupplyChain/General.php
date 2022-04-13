@@ -20,6 +20,55 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : Func_GetDataList_DeliveryDestination                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-13                                                                                           |
+        | ▪ Last Update     : 2022-04-13                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Tujuan Pengiriman                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varDeliveryDestinationType_RefID ► Delivery Destination Type Reference ID                                |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_DeliveryDestination($varUserSession, int $varSysBranchRefID, 
+            int $varDeliveryDestinationType_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestination',
+                        [
+                            [$varSysBranchRefID, 'bigint'],
+                            [$varDeliveryDestinationType_RefID, 'bigint'],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : Func_GetDataList_DeliveryDestinationType                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -378,6 +427,44 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         ]
                         )
                     );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_DeliveryDestination                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
+        | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Tujuan Pengiriman                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_DeliveryDestination(
+            $varUserSession, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestination',
+                        [
+                            [$varSysBranchRefID, 'bigint' ]
+                        ]
+                        )
+                    );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
