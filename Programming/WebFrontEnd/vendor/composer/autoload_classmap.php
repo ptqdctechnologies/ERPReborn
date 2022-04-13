@@ -1018,6 +1018,7 @@ return array(
     'Illuminate\\Database\\Migrations\\MigrationCreator' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/MigrationCreator.php',
     'Illuminate\\Database\\Migrations\\MigrationRepositoryInterface' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/MigrationRepositoryInterface.php',
     'Illuminate\\Database\\Migrations\\Migrator' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Migrations/Migrator.php',
+    'Illuminate\\Database\\MultipleColumnsSelectedException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/MultipleColumnsSelectedException.php',
     'Illuminate\\Database\\MultipleRecordsFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/MultipleRecordsFoundException.php',
     'Illuminate\\Database\\MySqlConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/MySqlConnection.php',
     'Illuminate\\Database\\PDO\\Concerns\\ConnectsToDatabase' => $vendorDir . '/laravel/framework/src/Illuminate/Database/PDO/Concerns/ConnectsToDatabase.php',
