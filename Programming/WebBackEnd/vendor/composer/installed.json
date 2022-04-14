@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.219.2",
-            "version_normalized": "3.219.2.0",
+            "version": "3.219.3",
+            "version_normalized": "3.219.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "3d0d24d9dad824ea4344cfc711b9989d92070aac"
+                "reference": "2bbafacd922391077b9dcf40d57fc33ad9759e33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3d0d24d9dad824ea4344cfc711b9989d92070aac",
-                "reference": "3d0d24d9dad824ea4344cfc711b9989d92070aac",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2bbafacd922391077b9dcf40d57fc33ad9759e33",
+                "reference": "2bbafacd922391077b9dcf40d57fc33ad9759e33",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-04-12T19:03:09+00:00",
+            "time": "2022-04-13T18:15:40+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -143,7 +143,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.219.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.219.3"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -6479,17 +6479,17 @@
         },
         {
             "name": "spatie/laravel-ignition",
-            "version": "1.2.0",
-            "version_normalized": "1.2.0.0",
+            "version": "1.2.1",
+            "version_normalized": "1.2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/spatie/laravel-ignition.git",
-                "reference": "2b54c8c66f2d280f25e15064ebe3d5e3eda19820"
+                "reference": "9ad1d32acf8c855d711964bc19092b0bc9792273"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/2b54c8c66f2d280f25e15064ebe3d5e3eda19820",
-                "reference": "2b54c8c66f2d280f25e15064ebe3d5e3eda19820",
+                "url": "https://api.github.com/repos/spatie/laravel-ignition/zipball/9ad1d32acf8c855d711964bc19092b0bc9792273",
+                "reference": "9ad1d32acf8c855d711964bc19092b0bc9792273",
                 "shasum": ""
             },
             "require": {
@@ -6516,7 +6516,7 @@
                 "phpstan/phpstan-phpunit": "^1.0",
                 "spatie/laravel-ray": "^1.27"
             },
-            "time": "2022-04-01T21:01:58+00:00",
+            "time": "2022-04-13T08:06:05+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
