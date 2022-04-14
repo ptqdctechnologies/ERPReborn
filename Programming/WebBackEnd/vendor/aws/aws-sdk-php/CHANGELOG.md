@@ -1,5 +1,30 @@
 # CHANGELOG
 
+## 3.219.3 - 2022-04-13
+
+* `Aws\CloudWatch` - Adds support for additional statistics in CloudWatch Metric Streams.
+* `Aws\FSx` - This release adds support for deploying FSx for ONTAP file systems in a single Availability Zone.
+
+## 3.219.2 - 2022-04-12
+
+* `Aws\DevOpsGuru` - This release adds new APIs DeleteInsight to deletes the insight along with the associated anomalies, events and recommendations.
+* `Aws\EC2` - X2idn and X2iedn instances are powered by 3rd generation Intel Xeon Scalable processors with an all-core turbo frequency up to 3.5 GHzAmazon EC2. C6a instances are powered by 3rd generation AMD EPYC processors.
+* `Aws\EFS` - Amazon EFS adds support for a ThrottlingException when using the CreateAccessPoint API if the account is nearing the AccessPoint limit(120).
+* `Aws\IoTTwinMaker` - This release adds the following new features: 1) ListEntities API now supports search using ExternalId. 2) BatchPutPropertyValue and GetPropertyValueHistory API now allows users to represent time in sub-second level precisions.
+
+## 3.219.1 - 2022-04-11
+
+* `Aws\AmplifyUIBuilder` - In this release, we have added the ability to bind events to component level actions.
+* `Aws\AppRunner` - This release adds tracing for App Runner services with X-Ray using AWS Distro for OpenTelemetry. New APIs: CreateObservabilityConfiguration, DescribeObservabilityConfiguration, ListObservabilityConfigurations, and DeleteObservabilityConfiguration. Updated APIs: CreateService and UpdateService.
+* `Aws\WorkSpaces` - Added API support that allows customers to create GPU-enabled WorkSpaces using EC2 G4dn instances.
+
+## 3.219.0 - 2022-04-08
+
+* `Aws\EventBridge` - Adds sigv4 support for EventBridge putEvents calls when opt-in parameter EndpointId is specified
+* `Aws\MediaConvert` - AWS Elemental MediaConvert SDK has added support for the pass-through of WebVTT styling to WebVTT outputs, pass-through of KLV metadata to supported formats, and improved filter support for processing 444/RGB content.
+* `Aws\MediaPackageVod` - This release adds ScteMarkersSource as an available field for Dash Packaging Configurations. When set to MANIFEST, MediaPackage will source the SCTE-35 markers from the manifest. When set to SEGMENTS, MediaPackage will source the SCTE-35 markers from the segments.
+* `Aws\WAFV2` - Add a new CurrentDefaultVersion field to ListAvailableManagedRuleGroupVersions API response; add a new VersioningSupported boolean to each ManagedRuleGroup returned from ListAvailableManagedRuleGroups API response.
+
 ## 3.218.5 - 2022-04-07
 
 * `Aws\APIGateway` - ApiGateway CLI command get-usage now includes usagePlanId, startDate, and endDate fields in the output to match documentation.

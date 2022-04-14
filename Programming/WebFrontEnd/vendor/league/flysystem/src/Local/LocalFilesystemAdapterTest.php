@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Flysystem\Local;
 
+use League\MimeTypeDetection\FinfoMimeTypeDetector;
 use const LOCK_EX;
 use League\Flysystem\AdapterTestUtilities\FilesystemAdapterTestCase;
 use League\Flysystem\Config;
@@ -69,6 +70,19 @@ class LocalFilesystemAdapterTest extends FilesystemAdapterTestCase
     {
         $this->expectException(UnableToCreateDirectory::class);
         new LocalFilesystemAdapter('/cannot-create/this-directory/');
+    }
+
+    /**
+     * @test
+     * @see https://github.com/thephpleague/flysystem/issues/1442
+     */
+    public function falling_back_to_extension_lookup_when_finding_mime_type_of_empty_file(): void
+    {
+        $this->givenWeHaveAnExistingFile('something.csv', '');
+
+        $mimeType = $this->adapter()->mimeType('something.csv');
+
+        self::assertEquals('text/csv', $mimeType->mimeType());
     }
 
     /**
@@ -526,7 +540,10 @@ class LocalFilesystemAdapterTest extends FilesystemAdapterTestCase
     public function not_being_able_to_get_mimetype(): void
     {
         $this->expectException(UnableToRetrieveMetadata::class);
-        $adapter = new LocalFilesystemAdapter(static::ROOT);
+        $adapter = new LocalFilesystemAdapter(
+            location: static::ROOT,
+            mimeTypeDetector: new FinfoMimeTypeDetector(),
+        );
         $adapter->mimeType('flysystem.svg');
     }
 
