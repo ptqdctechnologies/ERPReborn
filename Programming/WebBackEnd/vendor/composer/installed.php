@@ -482,12 +482,12 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.0.16',
-            'version' => '3.0.16.0',
+            'pretty_version' => '3.0.17',
+            'version' => '3.0.17.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
-            'reference' => 'dea729954c596bdb6cdaecba6f73df9f3e2c4255',
+            'reference' => '29eb78cac0be0c22237c5e0f6f98234d97037d79',
             'dev_requirement' => false,
         ),
         'league/flysystem-aws-s3-v3' => array(

@@ -6780,8 +6780,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "requesterPerson_RefID" => 25000000000439,
                     "supplier_RefID" => 126000000000001,
                     "deliveryDateTimeTZ" => '2022-03-08',
-                    "shippingAddress" => 'QDC Technologies, Mampang',
-                    "billingAddress" => 'QDC Technologies, Mampang',
+                    "deliveryDestination_RefID" => 173000000000001,
+                    "supplierInvoiceBillingPurpose_RefID" => 189000000000001,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -6861,9 +6861,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                         "currency_RefID" => 62000000000001,
                                         "currencyValue" => 30000,
                                         "currencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 1'                                
+                                        "remarks" => 'Catatan 1'
                                         ]
-                                    ]                            
+                                    ]
                                 ]
                             ]                        
                         ]
@@ -6882,8 +6882,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
             echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
             echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_ShippingAddress" value="QDC Technologies, Mampang">';
-            echo '<input type="text" id="dataInput_BillingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_DeliveryDestination_RefID" value=173000000000001>';
+            echo '<input type="text" id="dataInput_SupplierInvoiceBillingPurpose_RefID" value=189000000000001>';
             echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -6897,8 +6897,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
                         '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
                         '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
-                        '"shippingAddress" : document.getElementById("dataInput_ShippingAddress").value, '.
-                        '"billingAddress" : document.getElementById("dataInput_BillingAddress").value, '.
+                        '"deliveryDestination_RefID" : parseInt(document.getElementById("dataInput_DeliveryDestination_RefID").value), '.
+                        '"supplierInvoiceBillingPurpose_RefID" : parseInt(document.getElementById("dataInput_SupplierInvoiceBillingPurpose_RefID").value), '.
                         '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
@@ -29505,8 +29505,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     "requesterPerson_RefID" => 25000000000439,
                     "supplier_RefID" => 126000000000001,
                     "deliveryDateTimeTZ" => '2022-03-08',
-                    "shippingAddress" => 'QDC Technologies, Mampang',
-                    "billingAddress" => 'QDC Technologies, Mampang',
+                    "deliveryDestination_RefID" => 173000000000001,
+                    "supplierInvoiceBillingPurpose_RefID" => 189000000000001,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -29599,8 +29599,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
             echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
             echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_ShippingAddress" value="QDC Technologies, Mampang">';
-            echo '<input type="text" id="dataInput_BillingAddress" value="QDC Technologies, Mampang">';
+            echo '<input type="text" id="dataInput_DeliveryDestination_RefID" value=173000000000001>';
+            echo '<input type="text" id="dataInput_SupplierInvoiceBillingPurpose_RefID" value=189000000000001>';
             echo '<input type="text" id="dataInput_PaymentTerm" value="My Payment Term">';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -29615,8 +29615,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                         '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
                         '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
                         '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
-                        '"shippingAddress" : document.getElementById("dataInput_ShippingAddress").value, '.
-                        '"billingAddress" : document.getElementById("dataInput_BillingAddress").value, '.
+                        '"deliveryDestination_RefID" : parseInt(document.getElementById("dataInput_DeliveryDestination_RefID").value), '.
+                        '"supplierInvoiceBillingPurpose_RefID" : parseInt(document.getElementById("dataInput_SupplierInvoiceBillingPurpose_RefID").value), '.
                         '"paymentTerm" : document.getElementById("dataInput_PaymentTerm").value, '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.

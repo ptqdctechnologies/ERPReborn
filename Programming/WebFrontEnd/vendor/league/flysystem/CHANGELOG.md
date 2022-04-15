@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.0.17 - 2022-04-14
+
+### Fixed
+
+- [SFTP v2] Avoid type errors when public key is not retrieved (#1446)
+- [SFTP v3] Avoid type errors when public key is not retrieved (#1446)
+
 ## 3.0.16 - 2022-04-11
 
 ### Fixed
@@ -126,6 +133,13 @@
 * FilesystemReader::fileExists to check for file existence
 * FilesystemAdapter::directoryExists to check for directory existence
 * FilesystemAdapter::fileExists to check for file existence
+
+## 2.4.4 - 2022-04-14
+
+### Fixed
+
+- [SFTP v2] Avoid type errors when public key is not retrieved (#1446)
+- [SFTP v3] Avoid type errors when public key is not retrieved (#1446)
 
 ## 2.4.3 - 2022-02-16
 

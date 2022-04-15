@@ -43,9 +43,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-04-11                                                                                           |
+        | ▪ Last Update     : 2022-04-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,8 +59,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (int)    varSupplier_RefID ► Supplier Reference ID                                                                |
         |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
-        |      ▪ (string) varShippingAddress ► Shipping Address                                                                    |
-        |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
+        |      ▪ (int)    varDeliveryDestination_RefID ► Delivery Destination Reference ID                                         |
+        |      ▪ (int)    varSupplierInvoiceBillingPurpose_RefID ► Supplier Invoice Billing Purpose Reference ID                   |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -71,7 +71,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null,
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -91,8 +91,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varSupplier_RefID, 'bigint'],
                         [$varDeliveryDateTimeTZ, 'timestamptz'],
-                        [$varShippingAddress, 'varchar'],
-                        [$varBillingAddress, 'varchar'],
+                        [$varDeliveryDestination_RefID, 'bigint'],
+                        [$varSupplierInvoiceBillingPurpose_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
 
                         [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
@@ -107,9 +107,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000001                                                                                       |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
-        | ▪ Last Update     : 2022-04-11                                                                                           |
+        | ▪ Last Update     : 2022-04-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -124,8 +124,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (int)    varSupplier_RefID ► Supplier Reference ID                                                                |
         |      ▪ (string) varDeliveryDateTimeTZ ► Delivery DateTimeTZ                                                              |
-        |      ▪ (string) varShippingAddress ► Shipping Address                                                                    |
-        |      ▪ (string) varBillingAddress ► Billing Address                                                                      |
+        |      ▪ (int)    varDeliveryDestination_RefID ► Delivery Destination Reference ID                                         |
+        |      ▪ (int)    varSupplierInvoiceBillingPurpose_RefID ► Supplier Invoice Billing Purpose Reference ID                   |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
         |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
@@ -136,7 +136,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, string $varShippingAddress = null, string $varBillingAddress = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null,
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -156,8 +156,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varSupplier_RefID, 'bigint'],
                         [$varDeliveryDateTimeTZ, 'timestamptz'],
-                        [$varShippingAddress, 'varchar'],
-                        [$varBillingAddress, 'varchar'],
+                        [$varDeliveryDestination_RefID, 'bigint'],
+                        [$varSupplierInvoiceBillingPurpose_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
 
                         [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
