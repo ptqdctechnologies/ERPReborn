@@ -3,13 +3,13 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataForm\supplyChain\getPurchaseRequisition   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\documentForm\supplyChain                      |
+|                \getPurchaseRequisition\v1                                                                                        |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\dataForm\supplyChain\getPurchaseRequisition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\PDF\documentForm\supplyChain\getPurchaseRequisition\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+

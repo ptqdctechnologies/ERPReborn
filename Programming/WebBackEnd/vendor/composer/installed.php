@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.219.3',
-            'version' => '3.219.3.0',
+            'pretty_version' => '3.219.5',
+            'version' => '3.219.5.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '2bbafacd922391077b9dcf40d57fc33ad9759e33',
+            'reference' => '7e8da5b45d545ca3129a14e972001698212b1a00',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -500,12 +500,12 @@
             'dev_requirement' => false,
         ),
         'league/mime-type-detection' => array(
-            'pretty_version' => '1.10.0',
-            'version' => '1.10.0.0',
+            'pretty_version' => '1.11.0',
+            'version' => '1.11.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/mime-type-detection',
             'aliases' => array(),
-            'reference' => '3e4a35d756eedc67096f30240a68a3149120dae7',
+            'reference' => 'ff6248ea87a9f116e78edd6002e39e5128a0d4dd',
             'dev_requirement' => false,
         ),
         'maatwebsite/excel' => array(
@@ -1104,12 +1104,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.2.1',
-            'version' => '1.2.1.0',
+            'pretty_version' => '1.2.2',
+            'version' => '1.2.2.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => '9ad1d32acf8c855d711964bc19092b0bc9792273',
+            'reference' => '924d1ae878874ad0bb49f63b69a9af759a34ee78',
             'dev_requirement' => false,
         ),
         'swaggest/json-diff' => array(
@@ -1422,12 +1422,12 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.83.6',
-            'version' => '8.83.6.0',
+            'pretty_version' => 'v8.83.8',
+            'version' => '8.83.8.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
             'aliases' => array(),
-            'reference' => 'e29832b2a3f20e7de307d3c69bf257693c07ce2c',
+            'reference' => '7275c1b5f6bfc539d72bb5984d3b9a89e47e27c9',
             'dev_requirement' => false,
         ),
         'tijsverkoyen/css-to-inline-styles' => array(
