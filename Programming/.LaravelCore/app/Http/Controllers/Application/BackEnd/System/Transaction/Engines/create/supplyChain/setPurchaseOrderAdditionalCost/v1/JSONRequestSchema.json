@@ -1,0 +1,73 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.create.supplyChain.setPurchaseOrderAdditionalCost (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.create.supplyChain.setPurchaseOrderAdditionalCost" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "purchaseOrder_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "purchaseOrderAdditionalCostType_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "currency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "currencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "currencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "baseCurrencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "remarks": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        }
+                    },
+                "required": [ "purchaseOrder_RefID", "purchaseOrderAdditionalCostType_RefID", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "remarks" ]
+                }
+            },
+        "required": [ "entities" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

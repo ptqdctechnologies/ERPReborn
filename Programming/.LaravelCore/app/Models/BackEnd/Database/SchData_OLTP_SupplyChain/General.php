@@ -39,7 +39,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_DeliveryDestination($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_DeliveryDestination(
+            $varUserSession, int $varSysBranchRefID, 
             int $varDeliveryDestinationType_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -87,7 +88,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_DeliveryDestinationType($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_DeliveryDestinationType(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -133,7 +135,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_DeliveryOrder($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_DeliveryOrder(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -179,7 +182,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_PurchaseOrder($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_PurchaseOrder(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -188,6 +192,53 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
+                        [
+                            [$varSysBranchRefID, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_PurchaseOrderAdditionalCostType                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
+        | ▪ Last Update     : 2022-04-18                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Biaya Tambahan Pesanan Pembelian (PO)                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_PurchaseOrderAdditionalCostType(
+            $varUserSession, int $varSysBranchRefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderAdditionalCostType',
                         [
                             [$varSysBranchRefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
@@ -225,7 +276,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_PurchaseRequisition($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_PurchaseRequisition(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -234,6 +286,53 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
+                        [
+                            [$varSysBranchRefID, 'bigint' ],
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_SupplierInvoiceBillingPurpose                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
+        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Tujuan Penagihan Invoice Penyedia                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_SupplierInvoiceBillingPurpose(
+            $varUserSession, int $varSysBranchRefID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierInvoiceBillingPurpose',
                         [
                             [$varSysBranchRefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
@@ -271,7 +370,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_Warehouse($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_Warehouse(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -317,7 +417,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_WarehouseInboundOrder($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_WarehouseInboundOrder(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -363,7 +464,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_WarehouseOutboundOrder($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_WarehouseOutboundOrder(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -409,7 +511,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataList_WarehouseType($varUserSession, int $varSysBranchRefID, 
+        public function getDataList_WarehouseType(
+            $varUserSession, int $varSysBranchRefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -589,6 +692,44 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_PurchaseOrderAdditionalCostType                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
+        | ▪ Last Update     : 2022-04-18                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Biaya Tambahan Pesanan Pembelian (PO)                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_PurchaseOrderAdditionalCostType(
+            $varUserSession, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrderAdditionalCostType',
+                        [
+                            [$varSysBranchRefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_PurchaseRequisition                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -612,6 +753,44 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisition',
+                        [
+                            [$varSysBranchRefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_SupplierInvoiceBillingPurpose                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
+        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR)                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_SupplierInvoiceBillingPurpose(
+            $varUserSession, int $varSysBranchRefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-SupplyChain.Func_GetDataPickList_SupplierInvoiceBillingPurpose',
                         [
                             [$varSysBranchRefID, 'bigint' ]
                         ]

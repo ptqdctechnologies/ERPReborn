@@ -59,15 +59,15 @@
                         "minLength": 10,
                         "maxLength": 30
                         },
-                    "shippingAddress": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                    "deliveryDestination_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
-                    "billingAddress": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                    "supplierInvoiceBillingPurpose_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         },
                     "remarks": {
                         "type": [ "string", "null" ],
@@ -257,7 +257,7 @@
                         "required": [ "itemList", "taxes", "paymentTerm" ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "requesterPerson_RefID", "supplier_RefID", "deliveryDateTimeTZ", "shippingAddress", "billingAddress", "remarks" ]
+                "required": [ "documentDateTimeTZ", "requesterPerson_RefID", "supplier_RefID", "deliveryDateTimeTZ", "deliveryDestination_RefID", "supplierInvoiceBillingPurpose_RefID", "remarks" ]
                 }
             },
         "required": [ "recordID", "entities" ]
