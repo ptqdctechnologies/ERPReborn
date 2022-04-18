@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.supplyChain.setPurchaseOrderAdditionalCost (version 1)",
+"description": "JSON Request Schema of transaction.create.supplyChain.setPurchaseOrderPaymentTerm (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.supplyChain.setPurchaseOrderAdditionalCost" ]
+                        "enum": [ "transaction.create.supplyChain.setPurchaseOrderPaymentTerm" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -35,10 +35,17 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "purchaseOrderAdditionalCostType_RefID": {
+                    "paymentTerm_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
+                        },
+                    "dueDateTimeTZ": {
+                        "type": [ "string", "null" ],
+                        "format": "string",
+                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})){0,1})$",
+                        "minLength": 10,
+                        "maxLength": 26
                         },
                     "currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -63,7 +70,7 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "purchaseOrderAdditionalCostType_RefID", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "remarks" ]
+                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDateTimeTZ", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "remarks" ]
                 }
             },
         "required": [ "entities" ]
