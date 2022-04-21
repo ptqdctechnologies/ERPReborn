@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.219.5",
+            "version": "3.220.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "7e8da5b45d545ca3129a14e972001698212b1a00"
+                "reference": "1436b69a1e2e8005cc867feb021455ab0a26a30f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/7e8da5b45d545ca3129a14e972001698212b1a00",
-                "reference": "7e8da5b45d545ca3129a14e972001698212b1a00",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1436b69a1e2e8005cc867feb021455ab0a26a30f",
+                "reference": "1436b69a1e2e8005cc867feb021455ab0a26a30f",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.219.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.220.1"
             },
-            "time": "2022-04-15T18:16:29+00:00"
+            "time": "2022-04-20T18:15:52+00:00"
         },
         {
             "name": "brick/math",
@@ -1474,16 +1474,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.8.1",
+            "version": "v9.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "9f468689964ac80b674a2fe71a56baa7e9e20493"
+                "reference": "4d5a07640891b772188d7737348886a0222737d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/9f468689964ac80b674a2fe71a56baa7e9e20493",
-                "reference": "9f468689964ac80b674a2fe71a56baa7e9e20493",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/4d5a07640891b772188d7737348886a0222737d8",
+                "reference": "4d5a07640891b772188d7737348886a0222737d8",
                 "shasum": ""
             },
             "require": {
@@ -1649,7 +1649,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-04-12T15:43:03+00:00"
+            "time": "2022-04-19T15:01:23+00:00"
         },
         {
             "name": "laravel/serializable-closure",

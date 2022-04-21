@@ -72,11 +72,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                             $varData['entities']['purchaseOrder_RefID'],
                             $varData['entities']['paymentTerm_RefID'],
-                            $varData['entities']['dueDateTimeTZ'],
+                            $varData['entities']['dueDays'],
                             $varData['entities']['currency_RefID'],
                             $varData['entities']['currencyValue'],
                             $varData['entities']['currencyExchangeRate'],
                             $varData['entities']['baseCurrencyValue'],
+                            $varData['entities']['discountDueDays'],
+                            $varData['entities']['discountPercentageRate'],
                             $varData['entities']['remarks'],
                             ))))
                             {

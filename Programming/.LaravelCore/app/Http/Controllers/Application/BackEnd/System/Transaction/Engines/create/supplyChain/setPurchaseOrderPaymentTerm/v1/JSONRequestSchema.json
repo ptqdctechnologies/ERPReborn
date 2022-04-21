@@ -40,12 +40,10 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "dueDateTimeTZ": {
-                        "type": [ "string", "null" ],
-                        "format": "string",
-                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})){0,1})$",
-                        "minLength": 10,
-                        "maxLength": 26
+                    "dueDays": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 32767
                         },
                     "currency_RefID": {
                         "type": [ "integer", "null" ],
@@ -64,13 +62,22 @@
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
+                    "discountDueDays": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 32767
+                        },
+                    "discountPercentageRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
                     "remarks": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDateTimeTZ", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "remarks" ]
+                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDays", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "discountDueDays", "discountPercentageRate", "remarks" ]
                 }
             },
         "required": [ "entities" ]
