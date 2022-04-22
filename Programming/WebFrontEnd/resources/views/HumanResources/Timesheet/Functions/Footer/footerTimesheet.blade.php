@@ -12,7 +12,7 @@
             
             $.ajax({
                 type: 'GET',
-                url: '{!! route("ARF.index2") !!}?projectcode=' + id,
+                url: '{!! route("getProject") !!}?projectcode=' + id,
                 success: function(data) {
                     $("#SelectSite").empty();
                     var datas = data;
@@ -44,7 +44,7 @@
             
             $.ajax({
                 type: 'GET',
-                url: '{!! route("ARF.index2") !!}?projectcode=' + id,
+                url: '{!! route("getProject") !!}?projectcode=' + id,
                 success: function(data) {
                     $("#SelectSite2").empty();
                     var datas = data;

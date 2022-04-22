@@ -208,6 +208,11 @@
         "autoWidth": false,
         "paginate": false,
       });
+      $("#tableSearchArfinAsf").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
       $("#tableSearchArfRevision").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -219,6 +224,16 @@
         "paginate": false,
       });
       $("#tableSearchBrf").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetCustomer").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableGetCurrency").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,
