@@ -97,6 +97,8 @@
                         $("#showContentBOQ2").show();
                         $("#tableShowHideBOQ2").show();
                         $("#tableShowHideBOQ3").show();
+                        $("#customerPopUp").prop("disabled", false);
+                        $("#currencyPopUp").prop("disabled", false);
                         $("#request_name2").prop("disabled", false);
                         $("#tableShowHideGetBudgetArf").show();
 
@@ -107,6 +109,7 @@
                         $("#sitecode2").val(name);
                         $("#sitename").val(name);
                         $("#sitecode2").prop("disabled", true);
+                        $("#productIdRemPopUp").prop("disabled", false);
 
                         //DATA MIX
 
@@ -148,8 +151,8 @@
                                                 '<td>'+'<span id="getWorkName">' + 'N/A' + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProductId">' + 'N/A' + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProductName">' + val2.name + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getQty2">' + val2.quantity + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQty">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getQty2">' + val2.quantity + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getPrice">' + val2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
                                                 '<td>'+'<span id="totalArf">' + val2.priceBaseCurrencyValue + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getUom">' + 'N/A' + '</span>'+'</td>'+

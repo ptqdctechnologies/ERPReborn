@@ -294,7 +294,7 @@
                         $("#price_amount").prop("disabled", false);
 
                     } else {
-                        Swal.fire("Cancelled", "Data is Available", "error");
+                        Swal.fire("Cancelled", "Please use edit to update this item !", "error");
                     }
                 },
             });

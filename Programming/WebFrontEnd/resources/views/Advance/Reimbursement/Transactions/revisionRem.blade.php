@@ -77,7 +77,7 @@
                                 <td><label>Requester Name</label></td>
                                 <td>
                                   <div class="input-group">
-                                    <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
+                                    <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                       <span style="border-radius:0;" class="input-group-text form-control">
                                         <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>

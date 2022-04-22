@@ -722,7 +722,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('BRF.createBRF') }}" class="nav-link">
+                                            <a href="{{ route('Rem.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
                                                 <label>Create Reimbursement</label>
                                             </a>

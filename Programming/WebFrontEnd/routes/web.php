@@ -60,6 +60,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateArf2', 'procurementTransactionArf@StoreValidateArf2')->name('ARF.StoreValidateArf2');
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
+    
 
     // ASF
     Route::post('StoreValidateAsf', 'procurementTransactionAsf@StoreValidateAsf')->name('ASF.StoreValidateAsf');
@@ -74,7 +75,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('ASF', 'procurementTransactionAsf');
     Route::post('submitDataAsf', 'procurementTransactionAsf@submitData')->name('ASF.submitData');
 
-
+    // REM
+    Route::post('StoreValidateRem', 'procurementTransactionRem@StoreValidateRem')->name('Rem.StoreValidateRem');
+    Route::post('StoreValidateRem2', 'procurementTransactionRem@StoreValidateRem2')->name('Rem.StoreValidateRem2');
+    Route::post('revisionRem', 'procurementTransactionRem@revisionRemIndex')->name('Rem.revisionRem');
+    Route::resource('Rem', 'procurementTransactionRem');
+    
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
 
