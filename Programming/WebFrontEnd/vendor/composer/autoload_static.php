@@ -2487,6 +2487,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'League\\Flysystem\\AdapterTestUtilities\\ExceptionThrowingFilesystemAdapter' => __DIR__ . '/..' . '/league/flysystem/src/AdapterTestUtilities/ExceptionThrowingFilesystemAdapter.php',
         'League\\Flysystem\\AdapterTestUtilities\\FilesystemAdapterTestCase' => __DIR__ . '/..' . '/league/flysystem/src/AdapterTestUtilities/FilesystemAdapterTestCase.php',
         'League\\Flysystem\\AdapterTestUtilities\\RetryOnTestException' => __DIR__ . '/..' . '/league/flysystem/src/AdapterTestUtilities/RetryOnTestException.php',
+        'League\\Flysystem\\AdapterTestUtilities\\ToxiproxyManagement' => __DIR__ . '/..' . '/league/flysystem/src/AdapterTestUtilities/ToxiproxyManagement.php',
         'League\\Flysystem\\AsyncAwsS3\\AsyncAwsS3Adapter' => __DIR__ . '/..' . '/league/flysystem/src/AsyncAwsS3/AsyncAwsS3Adapter.php',
         'League\\Flysystem\\AsyncAwsS3\\AsyncAwsS3AdapterTest' => __DIR__ . '/..' . '/league/flysystem/src/AsyncAwsS3/AsyncAwsS3AdapterTest.php',
         'League\\Flysystem\\AsyncAwsS3\\PortableVisibilityConverter' => __DIR__ . '/..' . '/league/flysystem/src/AsyncAwsS3/PortableVisibilityConverter.php',

@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 3.221.0 - 2022-04-26
+
+* `Aws\CloudFront` - CloudFront now supports the Server-Timing header in HTTP responses sent from CloudFront. You can use this header to view metrics that help you gain insights about the behavior and performance of CloudFront. To use this header, enable it in a response headers policy.
+* `Aws\Glue` - This release adds documentation for the APIs to create, read, delete, list, and batch read of AWS Glue custom patterns, and for Lake Formation configuration settings in the AWS Glue crawler.
+* `Aws\Lightsail` - This release adds support for Lightsail load balancer HTTP to HTTPS redirect and TLS policy configuration.
+* `Aws\NetworkFirewall` - AWS Network Firewall now enables customers to use a customer managed AWS KMS key for the encryption of their firewall resources.
+* `Aws\Pricing` - Documentation updates for Price List API
+* `Aws\SageMaker` - SageMaker Inference Recommender now accepts customer KMS key ID for encryption of endpoints and compilation outputs created during inference recommendation.
+* `Aws\ivschat` - Adds new APIs for IVS Chat, a feature for building interactive chat experiences alongside an IVS broadcast.
+
+## 3.220.4 - 2022-04-25
+
+* `Aws\Connect` - This release adds SearchUsers API which can be used to search for users with a Connect Instance
+* `Aws\GameLift` - Documentation updates for Amazon GameLift.
+* `Aws\MQ` - This release adds the CRITICAL_ACTION_REQUIRED broker state and the ActionRequired API property. CRITICAL_ACTION_REQUIRED informs you when your broker is degraded. ActionRequired provides you with a code which you can use to find instructions in the Developer Guide on how to resolve the issue.
+* `Aws\RDSDataService` - Support to receive SQL query results in the form of a simplified JSON string. This enables developers using the new JSON string format to more easily convert it to an object using popular JSON string parsing libraries.
+* `Aws\SecurityHub` - Security Hub now lets you opt-out of auto-enabling the defaults standards (CIS and FSBP) in accounts that are auto-enabled with Security Hub via Security Hub's integration with AWS Organizations.
+
 ## 3.220.3 - 2022-04-22
 
 * `Aws\ChimeSDKMeetings` - Include additional exceptions types.

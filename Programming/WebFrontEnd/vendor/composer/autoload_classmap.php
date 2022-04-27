@@ -1993,6 +1993,7 @@ return array(
     'League\\Flysystem\\AdapterTestUtilities\\ExceptionThrowingFilesystemAdapter' => $vendorDir . '/league/flysystem/src/AdapterTestUtilities/ExceptionThrowingFilesystemAdapter.php',
     'League\\Flysystem\\AdapterTestUtilities\\FilesystemAdapterTestCase' => $vendorDir . '/league/flysystem/src/AdapterTestUtilities/FilesystemAdapterTestCase.php',
     'League\\Flysystem\\AdapterTestUtilities\\RetryOnTestException' => $vendorDir . '/league/flysystem/src/AdapterTestUtilities/RetryOnTestException.php',
+    'League\\Flysystem\\AdapterTestUtilities\\ToxiproxyManagement' => $vendorDir . '/league/flysystem/src/AdapterTestUtilities/ToxiproxyManagement.php',
     'League\\Flysystem\\AsyncAwsS3\\AsyncAwsS3Adapter' => $vendorDir . '/league/flysystem/src/AsyncAwsS3/AsyncAwsS3Adapter.php',
     'League\\Flysystem\\AsyncAwsS3\\AsyncAwsS3AdapterTest' => $vendorDir . '/league/flysystem/src/AsyncAwsS3/AsyncAwsS3AdapterTest.php',
     'League\\Flysystem\\AsyncAwsS3\\PortableVisibilityConverter' => $vendorDir . '/league/flysystem/src/AsyncAwsS3/PortableVisibilityConverter.php',

@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.220.3',
-            'version' => '3.220.3.0',
+            'pretty_version' => '3.221.0',
+            'version' => '3.221.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'fbb2d7349916c15758ee02dfd001a714883a9adf',
+            'reference' => '6ef06165ef815358d3e60872b4c9f6c10deb3816',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -482,12 +482,12 @@
             'dev_requirement' => false,
         ),
         'league/flysystem' => array(
-            'pretty_version' => '3.0.17',
-            'version' => '3.0.17.0',
+            'pretty_version' => '3.0.18',
+            'version' => '3.0.18.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/flysystem',
             'aliases' => array(),
-            'reference' => '29eb78cac0be0c22237c5e0f6f98234d97037d79',
+            'reference' => 'c8e137e594948240b03372e012344b07c61b9193',
             'dev_requirement' => false,
         ),
         'league/flysystem-aws-s3-v3' => array(
