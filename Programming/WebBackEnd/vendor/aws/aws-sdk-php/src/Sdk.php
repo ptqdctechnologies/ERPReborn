@@ -78,6 +78,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionChime(array $args = [])
  * @method \Aws\ChimeSDKIdentity\ChimeSDKIdentityClient createChimeSDKIdentity(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionChimeSDKIdentity(array $args = [])
+ * @method \Aws\ChimeSDKMediaPipelines\ChimeSDKMediaPipelinesClient createChimeSDKMediaPipelines(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionChimeSDKMediaPipelines(array $args = [])
  * @method \Aws\ChimeSDKMeetings\ChimeSDKMeetingsClient createChimeSDKMeetings(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionChimeSDKMeetings(array $args = [])
  * @method \Aws\ChimeSDKMessaging\ChimeSDKMessagingClient createChimeSDKMessaging(array $args = [])
@@ -613,7 +615,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.221.0';
+    const VERSION = '3.222.0';
 
     /** @var array Arguments for creating clients */
     private $args;
