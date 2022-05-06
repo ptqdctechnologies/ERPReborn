@@ -5294,7 +5294,8 @@
           "shape":"TagSpecificationList",
           "locationName":"TagSpecification"
         },
-        "HostRecovery":{"shape":"HostRecovery"}
+        "HostRecovery":{"shape":"HostRecovery"},
+        "OutpostArn":{"shape":"String"}
       }
     },
     "AllocateHostsResult":{
@@ -9354,7 +9355,8 @@
         "TagSpecifications":{
           "shape":"TagSpecificationList",
           "locationName":"TagSpecification"
-        }
+        },
+        "KeyFormat":{"shape":"KeyFormat"}
       }
     },
     "CreateLaunchTemplateRequest":{
@@ -14155,7 +14157,8 @@
         "DryRun":{
           "shape":"Boolean",
           "locationName":"dryRun"
-        }
+        },
+        "IncludePublicKey":{"shape":"Boolean"}
       }
     },
     "DescribeKeyPairsResult":{
@@ -20917,6 +20920,10 @@
         "MemberOfServiceLinkedResourceGroup":{
           "shape":"Boolean",
           "locationName":"memberOfServiceLinkedResourceGroup"
+        },
+        "OutpostArn":{
+          "shape":"String",
+          "locationName":"outpostArn"
         }
       }
     },
@@ -25328,6 +25335,13 @@
       ]
     },
     "KernelId":{"type":"string"},
+    "KeyFormat":{
+      "type":"string",
+      "enum":[
+        "pem",
+        "ppk"
+      ]
+    },
     "KeyNameStringList":{
       "type":"list",
       "member":{
@@ -25390,6 +25404,14 @@
         "Tags":{
           "shape":"TagList",
           "locationName":"tagSet"
+        },
+        "PublicKey":{
+          "shape":"String",
+          "locationName":"publicKey"
+        },
+        "CreateTime":{
+          "shape":"MillisecondDateTime",
+          "locationName":"createTime"
         }
       }
     },
