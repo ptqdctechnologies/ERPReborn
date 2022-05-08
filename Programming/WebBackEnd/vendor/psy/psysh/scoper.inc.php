@@ -44,113 +44,14 @@ try {
 }
 
 return [
-    'whitelist' => [
-        'Psy\*',
-        'Symfony\Polyfill\*',
-
-        // Old Hoa global functions
-        'from',
-        'dnew',
-        'xcallable',
-        'curry',
-        'curry_ref',
+    'exclude-namespaces' => [
+        'Psy',
+        'Symfony\Polyfill',
     ],
 
     'exclude-files' => \array_merge($polyfillsBootstraps, $polyfillsStubs),
 
     'patchers' => [
-        // Un-patch overly enthusiastic internal constant patching.
-        // https://github.com/humbug/php-scoper/issues/356
-        static function (string $filePath, string $prefix, string $contents): string {
-            if ('src/Reflection/ReflectionClassConstant.php' !== $filePath) {
-                return $contents;
-            }
-
-            return \str_replace(
-                \sprintf("'%s\\\\ReflectionClassConstant'", $prefix),
-                "'\\\\ReflectionClassConstant'",
-                $contents
-            );
-        },
-        // https://github.com/bobthecow/psysh/issues/610
-        static function (string $filePath, string $prefix, string $contents): string {
-            if (!\in_array($filePath, ['vendor/symfony/var-dumper/Cloner/VarCloner.php', 'vendor/symfony/var-dumper/Caster/ReflectionCaster.php'], true)) {
-                return $contents;
-            }
-
-            return \str_replace(
-                \sprintf('\\%s\\ReflectionReference', $prefix),
-                '\\ReflectionReference',
-                $contents
-            );
-        },
-        // Hoa patches
-        static function (string $filePath, string $prefix, string $contents): string {
-            if ('vendor/hoa/stream/Stream.php' !== $filePath) {
-                return $contents;
-            }
-
-            return \preg_replace(
-                '/Hoa\\\\Consistency::registerShutdownFunction\(xcallable\(\'(.*)\'\)\)/',
-                \sprintf(
-                    'Hoa\\Consistency::registerShutdownFunction(xcallable(\'%s$1\'))',
-                    $prefix.'\\\\\\\\'
-                ),
-                $contents
-            );
-        },
-        static function (string $filePath, string $prefix, string $contents): string {
-            if ('vendor/hoa/consistency/Autoloader.php' !== $filePath) {
-                return $contents;
-            }
-            $contents = \preg_replace(
-                '/(\$entityPrefix = \$entity;)/',
-                \sprintf(
-                    '$entity = substr($entity, %d);$1',
-                    \strlen($prefix) + 1
-                ),
-                $contents
-            );
-            $contents = \preg_replace(
-                '/return \$this->runAutoloaderStack\((.*)\);/',
-                \sprintf(
-                    'return $this->runAutoloaderStack(\'%s\'.\'%s\'.$1);',
-                    $prefix,
-                    '\\\\\\'
-                ),
-                $contents
-            );
-
-            return $contents;
-        },
-        static function (string $filePath, string $prefix, string $contents): string {
-            if (!\in_array($filePath, ['vendor/hoa/console/Mouse.php', 'vendor/hoa/console/Console.php', 'vendor/hoa/core/Consistency.php'], true)) {
-                return $contents;
-            }
-
-            return \preg_replace(
-                '/\'(?:\\\\){0,2}(Hoa\\\\.+?)(::.+)\'/',
-                \sprintf(
-                    '\'%s\\\\\\\$1$2\'',
-                    $prefix
-                ),
-                $contents
-            );
-        },
-        static function (string $filePath, string $prefix, string $contents): string {
-            if ('vendor/hoa/core/Consistency.php' === $filePath) {
-                return $contents;
-            }
-
-            return \str_replace(
-                '$classname = \ltrim($classname, \'\\\\\');',
-                \sprintf(
-                    '$classname = \substr(\ltrim($classname, \'\\\\\'), %d);',
-                    \strlen($prefix) + 1
-                ),
-                $contents
-            );
-        },
         // https://github.com/humbug/php-scoper/issues/294
         // https://github.com/humbug/php-scoper/issues/286
         static function (string $filePath, string $prefix, string $contents): string {
@@ -262,6 +163,21 @@ return [
                 '\'PhpParser\\\\Parser\\\\Tokens::\'',
                 \sprintf(
                     '\'%s\\\\PhpParser\\\\Parser\\\\Tokens::\'',
+                    $prefix
+                ),
+                $contents
+            );
+        },
+        // https://github.com/bobthecow/psysh/issues/714
+        static function (string $filePath, string $prefix, string $contents): string {
+            if ('vendor/symfony/polyfill-intl-grapheme/Grapheme.php' !== $filePath) {
+                return $contents;
+            }
+
+            return \str_replace(
+                ' SYMFONY_GRAPHEME_CLUSTER_RX ',
+                \sprintf(
+                    ' \\%s\\SYMFONY_GRAPHEME_CLUSTER_RX ',
                     $prefix
                 ),
                 $contents

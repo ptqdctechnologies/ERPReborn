@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.222.5',
-            'version' => '3.222.5.0',
+            'pretty_version' => '3.222.7',
+            'version' => '3.222.7.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '26596820b043db985bf7c9deb98aa2234f6054cb',
+            'reference' => '03d35eef5c509798d2c08587cfd9a7c33afe2260',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -891,12 +891,12 @@
             ),
         ),
         'psy/psysh' => array(
-            'pretty_version' => 'v0.11.2',
-            'version' => '0.11.2.0',
+            'pretty_version' => 'v0.11.4',
+            'version' => '0.11.4.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),
-            'reference' => '7f7da640d68b9c9fec819caae7c744a213df6514',
+            'reference' => '05c544b339b112226ad14803e1e5b09a61957454',
             'dev_requirement' => false,
         ),
         'ralouphie/getallheaders' => array(
@@ -1104,12 +1104,12 @@
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
-            'pretty_version' => '1.2.2',
-            'version' => '1.2.2.0',
+            'pretty_version' => '1.2.3',
+            'version' => '1.2.3.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/laravel-ignition',
             'aliases' => array(),
-            'reference' => '924d1ae878874ad0bb49f63b69a9af759a34ee78',
+            'reference' => '51e5daaa7e43c154fe57f1ddfbba862f9fe57646',
             'dev_requirement' => false,
         ),
         'swaggest/json-diff' => array(

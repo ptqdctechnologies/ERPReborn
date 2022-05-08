@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.222.7 - 2022-05-06
+
+* `Aws\EC2` - Add new state values for IPAMs, IPAM Scopes, and IPAM Pools.
+* `Aws\LocationService` - Amazon Location Service now includes a MaxResults parameter for ListGeofences requests.
+* `Aws\MediaPackage` - This release adds Dvb Dash 2014 as an available profile option for Dash Origin Endpoints.
+* `Aws\RDS` - Various documentation improvements.
+* `Aws\Redshift` - Introduces new field 'LoadSampleData' in CreateCluster operation. Customers can now specify 'LoadSampleData' option during creation of a cluster, which results in loading of sample data in the cluster that is created.
+* `Aws\SecurityHub` - Documentation updates for Security Hub API reference
+
+## 3.222.6 - 2022-05-05
+
+* `Aws\DataSync` - AWS DataSync now supports a new ObjectTags Task API option that can be used to control whether Object Tags are transferred.
+* `Aws\EC2` - Amazon EC2 I4i instances are powered by 3rd generation Intel Xeon Scalable processors and feature up to 30 TB of local AWS Nitro SSD storage
+* `Aws\IoT` - AWS IoT Jobs now allows you to create up to 100,000 active continuous and snapshot jobs by using concurrency control.
+* `Aws\kendra` - AWS Kendra now supports hierarchical facets for a query. For more information, see https://docs.aws.amazon.com/kendra/latest/dg/filtering.html
+
 ## 3.222.5 - 2022-05-04
 
 * `Aws\Backup` - Adds support to 2 new filters about job complete time for 3 list jobs APIs in AWS Backup
