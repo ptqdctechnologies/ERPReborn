@@ -44,7 +44,6 @@ jobs:
             setup: lowest
 
           - php: 7.4
-            coverage: true
           - php: 7.4
             setup: lowest
 
@@ -61,15 +60,30 @@ jobs:
 
           - php: 8.0
             laravel: true
+            reference: 9.x
 
           - php: 8.0
             laravel: true
+            reference: 9.x
+            classmap-authoritative: true
+
+          - php: 8.1
+            coverage: true
+
+          - php: 8.1
+            laravel: true
+            reference: master
+
+          - php: 8.1
+            laravel: true
+            reference: master
             classmap-authoritative: true
 
     name: ${{ matrix.laravel && 'Laravel compatibility - ' || '' }}${{ matrix.classmap-authoritative && 'classmap-authoritative - ' || '' }}${{ matrix.coverage && 'Coverage - ' || '' }}PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - ubuntu
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -88,25 +102,36 @@ jobs:
         if: matrix.laravel
         uses: niden/actions-memcached@v7
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-ubuntu-${{ hashFiles('**/composer.json') }}"
+
       - name: Install dependencies
         run: |
           composer remove --no-update phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
           if [[ "${{ matrix.laravel }}" != 'true' ]]; then
             composer remove --no-update kylekatarnls/multi-tester --no-interaction;
           fi;
-          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
+          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.classmap-authoritative && '--classmap-authoritative' || '' }};
 
       - name: Run test suite
         run: |
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" = 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit --coverage-clover=coverage.xml --coverage-text;
           fi;
           if [[ "${{ matrix.laravel }}" != 'true' && "${{ matrix.coverage }}" != 'true' ]]; then
-            php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+            php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
           fi;
           if [[ "${{ matrix.laravel }}" = 'true' ]]; then
-            vendor/bin/multi-tester;
+            vendor/bin/multi-tester tests/Laravel/laravel-${{ matrix.reference }}.multi-tester.yml;
           fi;
         env:
           PHP_VERSION: ${{ matrix.php }}
@@ -172,7 +197,8 @@ jobs:
     name: PHP ${{ matrix.php }} - ${{ matrix.setup || 'stable' }} - windows
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v3
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -182,15 +208,26 @@ jobs:
           tools: composer:v2
           coverage: none
 
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+          restore-keys: "php-${{ matrix.php }}-{{ matrix.setup }}-windows-${{ hashFiles('**/composer.json') }}"
+
       - name: Install dependencies
         run: |
           composer remove --no-update kylekatarnls/multi-tester phpmd/phpmd friendsofphp/php-cs-fixer --no-interaction;
-          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.14 --no-interaction;' || '' }}
-          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }} ${{ matrix.php >= 8.1 && '--ignore-platform-req=php' || '' }};
+          ${{ matrix.php >= 8.1 && 'composer require --no-update phpunit/phpunit:^8.5.23 --no-interaction;' || '' }}
+          composer update --prefer-dist --no-progress --prefer-${{ matrix.setup || 'stable' }};
 
       - name: Run test suite
         run: |
-          php -d memory_limit=-1 -d zend.enable_gc=0 vendor/phpunit/phpunit/phpunit;
+          php -d memory_limit=-1 -d zend.enable_gc=0 -d error_reporting=-1 vendor/phpunit/phpunit/phpunit;
         env:
           PHP_VERSION: ${{ matrix.php }}
           REDIS_HOST: 127.0.0.1

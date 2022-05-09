@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace League\Flysystem\PhpseclibV3;
 
+use League\Flysystem\AdapterTestUtilities\ToxiproxyManagement;
 use phpseclib3\Exception\NoSupportedAlgorithmsException;
 use phpseclib3\Net\SFTP;
 use PHPUnit\Framework\TestCase;
@@ -247,6 +248,52 @@ class SftpConnectionProviderTest extends TestCase
     /**
      * @test
      */
+    public function retries_several_times_until_failure(): void
+    {
+        $connectivityChecker = new class implements ConnectivityChecker {
+            /** @var int */
+            public $calls = 0;
+
+            public function isConnected(SFTP $connection): bool
+            {
+                ++$this->calls;
+
+                return $connection->isConnected();
+            }
+        };
+
+        $managesConnectionToxics = ToxiproxyManagement::forServer();
+        $managesConnectionToxics->resetPeerOnRequest('sftp', 10);
+
+        $maxTries = 5;
+
+        $provider = SftpConnectionProvider::fromArray(
+            [
+                'host' => 'localhost',
+                'username' => 'bar',
+                'privateKey' => __DIR__ . '/../../test_files/sftp/id_rsa',
+                'passphrase' => 'secret',
+                'port' => 8222,
+                'maxTries' => $maxTries,
+                'timeout' => 1,
+                'connectivityChecker' => $connectivityChecker,
+            ]
+        );
+
+        $this->expectException(UnableToConnectToSftpHost::class);
+
+        try {
+            $provider->provideConnection();
+        } finally {
+            $managesConnectionToxics->removeAllToxics();
+
+            self::assertSame($maxTries + 1, $connectivityChecker->calls);
+        }
+    }
+
+    /**
+     * @test
+     */
     public function authenticate_with_supported_preferred_kex_algorithm_succedes(): void
     {
         $provider = SftpConnectionProvider::fromArray(
@@ -294,7 +341,7 @@ class SftpConnectionProviderTest extends TestCase
             ]
         );
 
-        $this->expectException(NoSupportedAlgorithmsException::class);
+        $this->expectException(UnableToConnectToSftpHost::class);
         $provider->provideConnection();
     }
 

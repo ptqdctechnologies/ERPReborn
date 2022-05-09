@@ -22,9 +22,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : Func_GetDataList_DeliveryDestination                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-04-13                                                                                           |
-        | ▪ Last Update     : 2022-04-13                                                                                           |
+        | ▪ Last Update     : 2022-04-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Tujuan Pengiriman                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,6 +51,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestination',
                         [
+                            [null, 'bigint'],
                             [$varSysBranchRefID, 'bigint'],
                             [$varDeliveryDestinationType_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
@@ -307,9 +308,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataList_SupplierInvoiceBillingPurpose                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Creation Date   : 2022-04-14                                                                                           |
-        | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Last Update     : 2022-04-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Tujuan Penagihan Invoice Penyedia                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -334,6 +335,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierInvoiceBillingPurpose',
                         [
+                            [null, 'bigint'],
                             [$varSysBranchRefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
@@ -967,14 +969,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrder(
-            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranchRefID, 
+            int $varSysID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1011,14 +1014,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisition(
-            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranchRefID, 
+            int $varSysID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1055,14 +1059,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrder(
-            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranchRefID, 
+            int $varSysID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1100,14 +1105,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseOutboundOrder(
-            $varUserSession, int $varSysID, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranchRefID, 
+            int $varSysID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

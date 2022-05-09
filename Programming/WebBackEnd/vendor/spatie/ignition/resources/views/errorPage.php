@@ -19,14 +19,19 @@
 
     <title><?= $viewModel->title() ?></title>
 
-    <style><?= $viewModel->getAssetContents('ignition.css') ?></style>
-
     <script>
-        // Process `auto` theme as soon as possible to avoid flashing of white background:
+        // Livewire modals remove CSS classes on the `html` element so we re-add
+        // the theme class again using JavaScript.
+        document.documentElement.classList.add('<?= $viewModel->theme() ?>');
+
+        // Process `auto` theme as soon as possible to avoid flashing of white background.
         if (document.documentElement.classList.contains('auto') && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             document.documentElement.classList.add('dark');
         }
-    </script>    
+    </script>
+
+    <style><?= $viewModel->getAssetContents('ignition.css') ?></style>
+
 </head>
 <body class="scrollbar-lg">
 

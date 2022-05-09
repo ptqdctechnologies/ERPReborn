@@ -5294,7 +5294,8 @@
           "shape":"TagSpecificationList",
           "locationName":"TagSpecification"
         },
-        "HostRecovery":{"shape":"HostRecovery"}
+        "HostRecovery":{"shape":"HostRecovery"},
+        "OutpostArn":{"shape":"String"}
       }
     },
     "AllocateHostsResult":{
@@ -9354,7 +9355,8 @@
         "TagSpecifications":{
           "shape":"TagSpecificationList",
           "locationName":"TagSpecification"
-        }
+        },
+        "KeyFormat":{"shape":"KeyFormat"}
       }
     },
     "CreateLaunchTemplateRequest":{
@@ -14155,7 +14157,8 @@
         "DryRun":{
           "shape":"Boolean",
           "locationName":"dryRun"
-        }
+        },
+        "IncludePublicKey":{"shape":"Boolean"}
       }
     },
     "DescribeKeyPairsResult":{
@@ -20917,6 +20920,10 @@
         "MemberOfServiceLinkedResourceGroup":{
           "shape":"Boolean",
           "locationName":"memberOfServiceLinkedResourceGroup"
+        },
+        "OutpostArn":{
+          "shape":"String",
+          "locationName":"outpostArn"
         }
       }
     },
@@ -24153,7 +24160,14 @@
         "c6a.32xlarge",
         "c6a.48xlarge",
         "c6a.metal",
-        "m6a.metal"
+        "m6a.metal",
+        "i4i.large",
+        "i4i.xlarge",
+        "i4i.2xlarge",
+        "i4i.4xlarge",
+        "i4i.8xlarge",
+        "i4i.16xlarge",
+        "i4i.32xlarge"
       ]
     },
     "InstanceTypeHypervisor":{
@@ -24918,7 +24932,10 @@
         "modify-failed",
         "delete-in-progress",
         "delete-complete",
-        "delete-failed"
+        "delete-failed",
+        "isolate-in-progress",
+        "isolate-complete",
+        "restore-in-progress"
       ]
     },
     "IpamResourceCidr":{
@@ -25091,7 +25108,10 @@
         "modify-failed",
         "delete-in-progress",
         "delete-complete",
-        "delete-failed"
+        "delete-failed",
+        "isolate-in-progress",
+        "isolate-complete",
+        "restore-in-progress"
       ]
     },
     "IpamScopeType":{
@@ -25119,7 +25139,10 @@
         "modify-failed",
         "delete-in-progress",
         "delete-complete",
-        "delete-failed"
+        "delete-failed",
+        "isolate-in-progress",
+        "isolate-complete",
+        "restore-in-progress"
       ]
     },
     "Ipv4PoolCoipId":{"type":"string"},
@@ -25328,6 +25351,13 @@
       ]
     },
     "KernelId":{"type":"string"},
+    "KeyFormat":{
+      "type":"string",
+      "enum":[
+        "pem",
+        "ppk"
+      ]
+    },
     "KeyNameStringList":{
       "type":"list",
       "member":{
@@ -25390,6 +25420,14 @@
         "Tags":{
           "shape":"TagList",
           "locationName":"tagSet"
+        },
+        "PublicKey":{
+          "shape":"String",
+          "locationName":"publicKey"
+        },
+        "CreateTime":{
+          "shape":"MillisecondDateTime",
+          "locationName":"createTime"
         }
       }
     },
@@ -33530,7 +33568,7 @@
           "locationName":"SecurityGroup"
         },
         "SubnetId":{"shape":"SubnetId"},
-        "UserData":{"shape":"String"},
+        "UserData":{"shape":"RunInstancesUserData"},
         "AdditionalInfo":{
           "shape":"String",
           "locationName":"additionalInfo"
@@ -33592,6 +33630,10 @@
         "PrivateDnsNameOptions":{"shape":"PrivateDnsNameOptionsRequest"},
         "MaintenanceOptions":{"shape":"InstanceMaintenanceOptionsRequest"}
       }
+    },
+    "RunInstancesUserData":{
+      "type":"string",
+      "sensitive":true
     },
     "RunScheduledInstancesRequest":{
       "type":"structure",

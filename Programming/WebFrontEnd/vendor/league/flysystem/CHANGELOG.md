@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.19 - 2022-05-03
+
+### Fixed
+
+- [FTP] Turn errors into proper exceptions when resolving the connection root (#1460)
+
+## 3.0.18 - 2022-04-25
+
+### Fixed
+
+- [SFTP v3] Fix retries (#1451)
+
 ## 3.0.17 - 2022-04-14
 
 ### Fixed
@@ -133,6 +145,10 @@
 * FilesystemReader::fileExists to check for file existence
 * FilesystemAdapter::directoryExists to check for directory existence
 * FilesystemAdapter::fileExists to check for file existence
+
+## 2.4.5 - 2022-04-25
+
+- [SFTP v3] Fix retries (#1451)
 
 ## 2.4.4 - 2022-04-14
 
