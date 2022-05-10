@@ -21,9 +21,18 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".detailTransaction").click(function() {
+        $(".cancelDetailArf").click(function() {
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+
+            $("#putProductId").val("");
+            $("#putProductName").val("");
+            $("#qtyCek").val("0");
+            $("#putUom").val("");
+            $("#priceCek").val("0");
+            $("#putCurrency").val("");
+            $("#totalBalance").val("0");
+            
         });
     });
 </script>
@@ -71,7 +80,7 @@
                                         '<input type="hidden" name="var_price[]" value="'+priceCek+'">'+
                                         '<input type="hidden" name="var_totalPrice[]" value="'+(priceCek * qtyCek)+'">'+
                                         '<input type="hidden" name="var_currency[]" value="'+putCurrency+'">'+
-                                        '<input type="hidden" name="var_remark[]" value="'+putRemark+'">'+
+                                        // '<input type="hidden" name="var_remark[]" value="'+putRemark+'">'+
                                     '</td>'+
                                     '<td>'+product_id+'</td>'+
                                     '<td>'+putProductName+'</td>'+
@@ -80,7 +89,7 @@
                                     '<td>'+priceCek+'</td>'+
                                     '<td>'+(priceCek * qtyCek)+'</td>'+
                                     '<td>'+putCurrency+'</td>'+
-                                    '<td>'+putRemark+'</td>'+
+                                    // '<td>'+putRemark+'</td>'+
                                 '</tr>';
                         $('table.tableArf tbody').append(html);
 
@@ -163,13 +172,13 @@
                         $("#detailArfList").show();
                     }
                     else{
-                        Swal.fire("Cancelled", "Please use edit to update this item !", "error");
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
                 },
             });   
         }
         else{
-            Swal.fire("Cancelled", "Data Cannot Empty", "error");
+            Swal.fire("Error !", "Data Cannot Empty", "error");
         }
     });
 });

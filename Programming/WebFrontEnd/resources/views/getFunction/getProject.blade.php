@@ -165,18 +165,17 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail2" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail2" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" data-id5="' + code + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
                                                 '</td>'+
-                                                '<td>'+'<span id="getWorkIdx">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getWorkIdx">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getWorkIdx">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getWorkNamex">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getProductIdx">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getProductNamex">' + val2.name + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getQtyx">' + val2.quantity + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getPrPricex">' + val2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getAveragex">' + val2.priceBaseCurrencyValue + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getUomx">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getTranoDor">' + code + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProjectDor">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getSiteDor">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProductIdDor">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProductNameDor">' + val2.name + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getQtyDor">' + val2.quantity + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getPriceDor">' + val2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getAverageDor">' + val2.priceBaseCurrencyValue + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getAvailable">' + 'N/A' + '</span>'+'</td>'+
                                             '</tr>';
                                             
                                     $('table.tablePrDetailDor tbody').append(html);
@@ -240,35 +239,28 @@
                                     var qty = $this.data("id2");
                                     var prPrice = $this.data("id3");
                                     var average = $this.data("id4");
-                                    var qtyDet = 'N/A';
-                                    var productId = 'N/A';
+                                    var prNumber = $this.data("id5");
                                     $("#detailDor").show();
                                     $("#tableShowHideDor").find("input,button,textarea,select").attr("disabled", true);
 
-                                    var get1 = $("#sitecode").val();
-                                    var get2 = $("#projectcode").val();
-                                    var get3 = $("#projectname").val();
-                                    var get4 = $("#projectcode").val();
-                                    var get5 = $("#projectname").val();
-                                    var get6 = $("#getWorkIdx").html();
-                                    var get7 = $("#getWorkIdx").html();
-
-                                    $("#prNumberDorDetail").val(get1);
-                                    $("#projectDorDetail").val(get2);
-                                    $("#projectDorDetail2").val(get3);
-                                    $("#siteDorDetail").val(get4);
-                                    $("#siteDorDetail2").val(get5);
-                                    $("#workIdDorDetail").val(get6);
-                                    $("#workIdDorDetail2").val(get7);
+                                    $("#prNumberDorDetail").val(prNumber);
+                                    $("#projectDorDetail").val("N/A");
+                                    $("#projectDorDetail2").val("N/A");
+                                    $("#siteDorDetail").val("N/A");
+                                    $("#siteDorDetail2").val("N/A");
+                                    $("#workIdDorDetail").val("N/A");
+                                    $("#workIdDorDetail2").val("N/A");
                                     $("#priceDorDetail").val(prPrice);
                                     $("#averageDorDetail").val(average);
                                     $("#qtyDorDetail").val(qty);
-                                    $("#qtyDorDetail2").val(qtyDet);
-                                    $("#productIdDorDetail").val(productId);
+                                    $("#qtyDorDetail2").val("N/A");
+                                    $("#productIdDorDetail").val("N/A");
                                     $("#productIdDorDetail2").val(productName);
                                     $("#prQty").val(qty);
                                     $("#inDorQty").val(qty);
                                     $("#balanceQty").val(qty);
+                                    $("#qtyDorHide").val(qty);
+                                    
                                 });
                             }
                         });

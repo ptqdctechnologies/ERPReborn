@@ -58,23 +58,19 @@
                         var totalRem = $("#totalRem").val();
                         var unitPriceNameRem = $("#unitPriceNameRem").val();
                         var qtyNameRem = $("#qtyNameRem").val();
-                        var netActRem = $("#netActRem").val();
-                        var remarkRem = $("#remarkRem").val();
                         
                         var html = '<tr>'+
                                     '<td>'+
                                         '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+productIdRem+'"><i class="fa fa-trash"></i></button> '+
-                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+productIdRem+'" data-id2="'+productNameRem+'" data-id3="'+qtyRem+'" data-id4="'+unitPriceRem+'" data-id5="'+totalRem+'" data-id6="'+unitPriceNameRem+'" data-id7="'+qtyNameRem+'" data-id8="'+netActRem+'" data-id9="'+remarkRem+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+productIdRem+'" data-id2="'+productNameRem+'" data-id3="'+qtyRem+'" data-id4="'+unitPriceRem+'" data-id5="'+totalRem+'" data-id6="'+unitPriceNameRem+'" data-id7="'+qtyNameRem+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
                                     '</td>'+
                                     '<td>'+productIdRem+'</td>'+
                                     '<td>'+productNameRem+'</td>'+
                                     '<td>'+qtyRem+'</td>'+
-                                    '<td>'+unitPriceRem+'</td>'+
-                                    '<td>'+(qtyRem * unitPriceRem)+'</td>'+
-                                    '<td>'+unitPriceNameRem+'</td>'+
                                     '<td>'+qtyNameRem+'</td>'+
-                                    '<td>'+netActRem+'</td>'+
-                                    '<td>'+remarkRem+'</td>'+
+                                    '<td>'+unitPriceRem+'</td>'+
+                                    '<td>'+unitPriceNameRem+'</td>'+
+                                    '<td>'+(qtyRem * unitPriceRem)+'</td>'+
                                 '</tr>';
                         $('table.tableArf tbody').append(html);
 
@@ -110,9 +106,6 @@
                             $("#totalRem").val(id5);
                             $("#unitPriceNameRem").val(id6);
                             $("#qtyNameRem").val(id7);
-                            $("#netActRem").val(id8);
-                            $("#remarkRem").val(id9);
-
                             $(this).closest("tr").remove();
 
                             // if(id1 == "Unspecified Product"){
@@ -125,7 +118,6 @@
 
                         $("#productIdRem").css("border", "1px solid #ced4da");
                         $("#productIdRem").css("border", "1px solid #ced4da");
-                        $("#remarkRem").css("border", "1px solid #ced4da");
                         $("#productNameRem").css    ("border", "1px solid #ced4da");
                         $("#unitPriceNameRem").css    ("border", "1px solid #ced4da");
 
@@ -136,8 +128,6 @@
                         $("#totalRem").val("");
                         $("#unitPriceNameRem").val("");
                         $("#qtyNameRem").val("");
-                        $("#netActRem").val("");
-                        $("#remarkRem").val("");
                         
                         $("#iconProductId").hide();
                         $("#iconQty").hide();
@@ -154,13 +144,13 @@
                         $("#detailArfList").show();
                     }
                     else{
-                        Swal.fire("Cancelled", "Please use edit to update this item !", "error");
+                        Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
                 },
             });   
         }
         else{
-            Swal.fire("Cancelled", "Data Cannot Empty", "error");
+            Swal.fire("Error !", "Data Cannot Empty", "error");
         }
     });
 });
@@ -183,7 +173,7 @@
 
 <script>
     $('document').ready(function() {
-        $('.cancelRem').keyup(function() {
+        $('.cancelRem').click(function() {
             $("#productIdRem").val("");
             $("#productNameRem").val("");
             $("#qtyRem").val("");
@@ -191,8 +181,6 @@
             $("#totalRem").val("");
             $("#unitPriceNameRem").val("");
             $("#qtyNameRem").val("");
-            $("#netActRem").val("");
-            $("#remarkRem").val("");
         });
     });
 </script>
