@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.222.7',
-            'version' => '3.222.7.0',
+            'pretty_version' => '3.222.8',
+            'version' => '3.222.8.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => '03d35eef5c509798d2c08587cfd9a7c33afe2260',
+            'reference' => 'c0344f5d8b1fa3238f96dcc60ff4edbeabbffcae',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
