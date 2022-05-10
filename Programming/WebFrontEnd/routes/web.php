@@ -179,9 +179,19 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('submitDataBRF', 'procurementTransactionBrf@submitData')->name('BRF.submitData');
 
     // DOR
+    Route::post('StoreValidateDor', 'procurementTransactionDor@StoreValidateDor')->name('DOR.StoreValidateDor');
+    Route::post('StoreValidateDor2', 'procurementTransactionDor@StoreValidateDor2')->name('DOR.StoreValidateDor2');
     Route::get('DOR', 'procurementTransactionDor@index')->name('DOR.index');
     Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
     Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
+
+
+    // iSupp
+    // Route::post('StoreValidateDor', 'procurementTransactionDor@StoreValidateDor')->name('DOR.StoreValidateDor');
+    // Route::post('StoreValidateDor2', 'procurementTransactionDor@StoreValidateDor2')->name('DOR.StoreValidateDor2');
+    Route::get('iSupp', 'procurementTransactioniSupp@index')->name('iSupp.index');
+    // Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
+    // Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
 
     // MRET
     Route::get('createMret', 'procurementTransactionMret@index')->name('MRET.index');

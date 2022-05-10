@@ -60,7 +60,7 @@
                   <div class="card">
                     <div class="card-header">
                       <label class="card-title">
-                        Advance
+                      File Attachment 
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -70,22 +70,10 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-md-4">
+                        <!-- <div class="col-md-4">
                           <div class="form-group">
                             <table>
-                              <tr>
-                                <td><label>Requester Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
-                                    <div class="input-group-append">
-                                      <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
-                                      </span>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
+                              
                               <tr>
                                 <td><label>Name Of Beneficiary</label></td>
                                 <td>
@@ -135,9 +123,9 @@
                               </tr>
                             </table>
                           </div>
-                        </div>
-                       <div class="col-md-4">
-                        <div class="card-body table-responsive p-0" style="height: 110px;width:100%;">
+                        </div> -->
+                       <div class="col-md-6">
+                        <div class="card-body table-responsive p-0" style="height: 50px;width:100%;">
                           <table class="table table-head-fixed text-nowrap">
                             <div class="form-group input_fields_wrap">
                               <div class="input-group control-group" style="width:100%;">
@@ -164,7 +152,7 @@
 
             <!-- <form method="post" enctype="multipart/form-data"> -->
               @csrf
-              <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
+              <!-- <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                 <div class="row">
                   <div class="col-12">
                     <div class="card">
@@ -239,7 +227,6 @@
                                   <td>
                                     <input name="status" id="status" style="border-radius:0;width:100px;" type="hidden" class="form-control" readonly="">
                                     <input name="haha" id="haha" style="border-radius:0;width:100px;" type="hidden" class="form-control" value="0">
-                                    <!-- <input type="hidden" id="hdnSession" name="hdnSession" value="{{ json_encode( Session::get('SessionArfItem') ) }}" /> -->
                                   </td>
                                 </tr>
                               </table>
@@ -313,8 +300,89 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
             <!-- </form> -->
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
+                          Detail Transaction Request & Balance
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
+                    </div>
+                  </div>
+
+                  <div class="card-body" id="detailTransAvail">
+                      <div class="row">
+                    <table class="table table-head-fixed text-nowrap">
+                      <thead>
+                        <tr>
+                          <th>Product Id</th>
+                          <th>Product Name</th>
+                          <th>Qty</th>
+                          <th>Uom</th>
+                          <th>Unit Price</th>
+                          <th>Currency</th>
+                          <th>Total</th>
+                          <th>Balance</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <td>
+                            <div class="input-group">
+                              <input id="putProductId" style="border-radius:0;width:100px;" name="putProductId" class="form-control" readonly>
+                              <div class="input-group-append">
+                                <span style="border-radius:0;" class="input-group-text form-control">
+                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="qtyx" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" value="0" autocomplete="off">
+                            <span id="putQtybyId"></span>
+                            <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice uang" value="0" autocomplete="off">
+                            <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="total" id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+
+                          <td>
+                            <input name="balance" id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn btn-outline btn-danger btn-sm float-right cancelDetailArf">
+                    <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart" style="color: white;">Cancel</i>
+                  </a>
+                  <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;">
+                    <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                  </a>
+
+                  </div>
+                </div>
+                
+              </div>
+            </div>
 
             <div class="row">
               <div class="col-12">
@@ -330,7 +398,10 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" id="detailArfList">
+                  <!-- <div class="card-body table-responsive p-0" id=""> -->
+                  <div class="card-body" id="detailArfList">
+                      <div class="row">
+
                     <table class="table table-head-fixed text-nowrap tableArf">
                       <thead>
                         <tr>
@@ -342,7 +413,7 @@
                           <th>Price</th>
                           <th>Total</th>
                           <th>Currency</th>
-                          <th>Remark</th>
+                          <!-- <th>Remark</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -350,7 +421,25 @@
                       </tbody>
                     </table>
                   </div>
+                  </div>
                 </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <table>
+                          <tr>
+                            <td><label>Remark</label></td>
+                            <td>
+                                <textarea name="remarks" id="putRemark" rows="1" cols="1000" class="form-control"></textarea>
+                              </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
                   <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
                 </a>

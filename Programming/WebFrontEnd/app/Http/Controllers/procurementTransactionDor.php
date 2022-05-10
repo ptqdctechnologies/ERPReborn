@@ -9,38 +9,6 @@ use PDO;
 
 class procurementTransactionDor extends Controller
 {
-
-    public function teststores(Request $request)
-    {
-
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array(); 
-        $files = [];
-        foreach ($data as $i => $v) {
-
-            foreach ($x as $file) {
-
-                $name = time() . rand(1, 100) . '.' . $file->extension();
-
-                // $file->move(public_path('files'), $name);
-
-                $files[] = $name;
-            }
-        }
-
-        dd($files);
-
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
-        $cek = [];
-        foreach ($data as $i => $v) {
-
-            $cek[] = $v['filenames'];
-        }
-        dd($cek);
-    }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -49,6 +17,7 @@ class procurementTransactionDor extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionDor");
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -64,6 +33,43 @@ class procurementTransactionDor extends Controller
         return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']['data']]);
 
     }
+
+    public function StoreValidateDor(Request $request)
+    {
+        $tamp = 0; $status = 200;
+        $val = $request->input('productIdDorDetail');
+        $data = $request->session()->get("SessionDor");
+        if($request->session()->has("SessionDor")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val){
+                    $tamp = 1;
+                }
+            }
+            if($tamp == 0){
+                $request->session()->push("SessionDor", $val);
+            }
+            else{
+                $status = 500;
+            }
+        }
+        else{
+            $request->session()->push("SessionDor", $val);
+        }
+
+        return response()->json($status);
+    }
+
+    public function StoreValidateDor2(Request $request)
+    {
+        $messages = $request->session()->get("SessionDor");
+        $val = $request->input('productIdDorDetail');
+        if (($key = array_search($val, $messages)) !== false) {
+            unset($messages[$key]);
+            $newClass = array_values($messages);
+            $request->session()->put("SessionDor", $newClass);
+        }
+    }
+
     public function arflistcancel()
     {
         return redirect()->back();

@@ -1,4 +1,4 @@
-<div class="card-body table-responsive p-0" style="height: 300px;" id="tableShowHideBOQ3">
+<div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideBOQ3">
     <table class="table table-head-fixed text-nowrap table-striped tableBudgetDetail">
         <thead>
             <tr>

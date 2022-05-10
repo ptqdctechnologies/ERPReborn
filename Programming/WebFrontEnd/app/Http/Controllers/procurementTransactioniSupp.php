@@ -7,11 +7,17 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 
-class procurementTransactionMret extends Controller
+class procurementTransactioniSupp extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionDor");
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -22,31 +28,46 @@ class procurementTransactionMret extends Controller
                 'parameter' => []
             ]
         );
-        // dd($varData);
+        return view('Inventory.iSupp.Transactions.createISupp', ['data' => $varData['data']['data']]);
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
-
-        $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
-        ];
-
-        return view('Inventory.MaterialReturn.Transactions.createMret', $compact);
     }
+
+    public function StoreValidateDor(Request $request)
+    {
+        $tamp = 0; $status = 200;
+        $val = $request->input('productIdDorDetail');
+        $data = $request->session()->get("SessionDor");
+        if($request->session()->has("SessionDor")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val){
+                    $tamp = 1;
+                }
+            }
+            if($tamp == 0){
+                $request->session()->push("SessionDor", $val);
+            }
+            else{
+                $status = 500;
+            }
+        }
+        else{
+            $request->session()->push("SessionDor", $val);
+        }
+
+        return response()->json($status);
+    }
+
+    public function StoreValidateDor2(Request $request)
+    {
+        $messages = $request->session()->get("SessionDor");
+        $val = $request->input('productIdDorDetail');
+        if (($key = array_search($val, $messages)) !== false) {
+            unset($messages[$key]);
+            $newClass = array_values($messages);
+            $request->session()->put("SessionDor", $newClass);
+        }
+    }
+
     public function arflistcancel()
     {
         return redirect()->back();
@@ -235,12 +256,12 @@ class procurementTransactionMret extends Controller
             ));
         }
         dd($dataAll);
-        // return view('Inventory.MaterialReturn.Transactions.createMret');
+        // return view('ProcurementAndCommercial.Transactions.ARF.createARF');
     }
 
-    public function revisionMret(Request $request)
+    public function revisionDorIndex(Request $request)
     {
-        if ($request->codeMaterialReturn == 'Q000181') {
+        if ($request->searchDorNumberRevision == 'Q000181') {
             $project = "Project Code 1";
             $projectDetail = "Project Detail 1";
             $site = "Site Code 1";
@@ -265,7 +286,7 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        else if ($request->codeMaterialReturn == 'Q000182') {
+        else if ($request->searchDorNumberRevision == 'Q000182') {
             $project = "Project Code 2";
             $projectDetail = "Project Detail 2";
             $site = "Site Code 2";
@@ -290,7 +311,7 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        else if ($request->codeMaterialReturn == 'Q000183') {
+        else if ($request->searchDorNumberRevision == 'Q000183') {
             $project = "Project Code 3";
             $projectDetail = "Project Detail 3";
             $site = "Site Code 3";
@@ -315,6 +336,22 @@ class procurementTransactionMret extends Controller
             $requestTotal = "200000";
             $balance = "200000";
         }
-        return view('Inventory.MaterialReturn.Transactions.revisionMret', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance'));
+
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        
+        $data = $varData['data'];
+
+
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance','data'));
     }
 }
