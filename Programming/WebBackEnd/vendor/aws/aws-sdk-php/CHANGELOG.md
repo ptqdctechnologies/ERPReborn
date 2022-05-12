@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## 3.222.10 - 2022-05-11
+
+* `Aws\EC2` - This release updates AWS PrivateLink APIs to support IPv6 for PrivateLink Services and Endpoints of type 'Interface'.
+* `Aws\SecretsManager` - Doc only update for Secrets Manager that fixes several customer-reported issues.
+
+## 3.222.9 - 2022-05-10
+
+* `Aws\ComputeOptimizer` - Documentation updates for Compute Optimizer
+* `Aws\EC2` - Added support for using NitroTPM and UEFI Secure Boot on EC2 instances.
+* `Aws\EKS` - Adds BOTTLEROCKET_ARM_64_NVIDIA and BOTTLEROCKET_x86_64_NVIDIA AMI types to EKS managed nodegroups
+* `Aws\EMR` - This release updates the Amazon EMR ModifyInstanceGroups API to support "MERGE" type cluster reconfiguration. Also, added the ability to specify a particular Amazon Linux release for all nodes in a cluster launch request.
+* `Aws\MigrationHubRefactorSpaces` - AWS Migration Hub Refactor Spaces documentation only update to fix a formatting issue.
+
 ## 3.222.8 - 2022-05-09
 
 * `Aws\CloudControlApi` - SDK release for Cloud Control API to include paginators for Python SDK.
