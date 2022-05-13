@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.222.10',
-            'version' => '3.222.10.0',
+            'pretty_version' => '3.222.11',
+            'version' => '3.222.11.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'a82c1b4903f5df893bf7108ec9de73328f74652a',
+            'reference' => '458d322b7f913a54dfc10dd25d3fbb35bb3f7502',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -1095,12 +1095,12 @@
             'dev_requirement' => false,
         ),
         'spatie/ignition' => array(
-            'pretty_version' => '1.2.10',
-            'version' => '1.2.10.0',
+            'pretty_version' => '1.3.0',
+            'version' => '1.3.0.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../spatie/ignition',
             'aliases' => array(),
-            'reference' => 'dd8c3a21170b1d0f4d15048b2f4fa4a1a3a92a64',
+            'reference' => '6aa8f1c8c46aff30c9bd4c354dc865eeee2ed59f',
             'dev_requirement' => false,
         ),
         'spatie/laravel-ignition' => array(
@@ -1422,8 +1422,8 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.83.8',
-            'version' => '8.83.8.0',
+            'pretty_version' => 'v8.83.12',
+            'version' => '8.83.12.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
             'aliases' => array(),
