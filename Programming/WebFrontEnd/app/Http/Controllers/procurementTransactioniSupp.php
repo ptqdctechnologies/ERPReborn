@@ -17,7 +17,7 @@ class procurementTransactioniSupp extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionDor");
+        $request->session()->forget("SessioniSupp");
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -32,39 +32,39 @@ class procurementTransactioniSupp extends Controller
 
     }
 
-    public function StoreValidateDor(Request $request)
+    public function StoreValidateiSupp(Request $request)
     {
         $tamp = 0; $status = 200;
-        $val = $request->input('productIdDorDetail');
-        $data = $request->session()->get("SessionDor");
-        if($request->session()->has("SessionDor")){
+        $val = $request->input('productiSuppDetail2');
+        $data = $request->session()->get("SessioniSupp");
+        if($request->session()->has("SessioniSupp")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
-                $request->session()->push("SessionDor", $val);
+                $request->session()->push("SessioniSupp", $val);
             }
             else{
                 $status = 500;
             }
         }
         else{
-            $request->session()->push("SessionDor", $val);
+            $request->session()->push("SessioniSupp", $val);
         }
 
         return response()->json($status);
     }
 
-    public function StoreValidateDor2(Request $request)
+    public function StoreValidateiSupp2(Request $request)
     {
-        $messages = $request->session()->get("SessionDor");
-        $val = $request->input('productIdDorDetail');
+        $messages = $request->session()->get("SessioniSupp");
+        $val = $request->input('productiSuppDetail2');
         if (($key = array_search($val, $messages)) !== false) {
             unset($messages[$key]);
             $newClass = array_values($messages);
-            $request->session()->put("SessionDor", $newClass);
+            $request->session()->put("SessioniSupp", $newClass);
         }
     }
 

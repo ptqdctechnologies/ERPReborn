@@ -271,6 +271,17 @@
         "autoWidth": false,
         "paginate": false,
       });
+
+      $("#tablePoNumber").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
+      $("#tableDoNumber").DataTable({
+        "responsive": true,
+        "autoWidth": false,
+        "paginate": false,
+      });
       
       $('#example2').DataTable({  
         "paging": true,

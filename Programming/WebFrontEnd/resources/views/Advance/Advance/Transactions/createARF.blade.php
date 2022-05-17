@@ -401,7 +401,6 @@
                   <!-- <div class="card-body table-responsive p-0" id=""> -->
                   <div class="card-body" id="detailArfList">
                       <div class="row">
-
                     <table class="table table-head-fixed text-nowrap tableArf">
                       <thead>
                         <tr>
@@ -457,4 +456,4 @@
 @include('Partials.footer')
 
 @include('Advance.Advance.Functions.Footer.footerArf')
-@endsection
+@endsection   
