@@ -186,9 +186,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
 
 
-    // iSupp
-    // Route::post('StoreValidateDor', 'procurementTransactionDor@StoreValidateDor')->name('DOR.StoreValidateDor');
-    // Route::post('StoreValidateDor2', 'procurementTransactionDor@StoreValidateDor2')->name('DOR.StoreValidateDor2');
+    //iSupp
+    Route::post('StoreValidateiSupp', 'procurementTransactioniSupp@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
+    Route::post('StoreValidateiSupp2', 'procurementTransactioniSupp@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
     Route::get('iSupp', 'procurementTransactioniSupp@index')->name('iSupp.index');
     // Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
     // Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');

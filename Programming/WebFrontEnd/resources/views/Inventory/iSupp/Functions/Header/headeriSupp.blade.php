@@ -43,10 +43,10 @@
                                     <td style="padding-top: 5px;"><label>PO Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
+                                            <input id="po_number" style="border-radius:0;" name="po_number" class="form-control" readonly>
                                             <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
+                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myPoNumber" class="fas fa-gift" style="color:grey;"></i></a>
                                             </span>
                                             </div>
                                         </div>
@@ -56,12 +56,12 @@
                                     <td><label>Project Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                            <input name="projectCodeiSupp" id="projectCodeiSupp" style="border-radius:0;" type="text" class="form-control projectCodeiSupp" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer2" style="border-radius:0;" class="form-control" name="var_customer2" readonly>
+                                            <input id="projectCodeiSupp2" style="border-radius:0;" class="form-control" name="projectCodeiSupp2" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -69,12 +69,12 @@
                                     <td><label>Supplier Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                            <input name="supplierCodeiSupp" id="supplierCodeiSupp" style="border-radius:0;" type="text" class="form-control" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer2" style="border-radius:0;" class="form-control" name="var_customer2" readonly>
+                                            <input id="supplierCodeiSupp2" style="border-radius:0;" class="form-control" name="supplierCodeiSupp2" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -88,7 +88,7 @@
                                     <td><label>Net Act</label></td>
                                     <td>
                                     <div class="input-group">
-                                        <input name="var_beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
+                                        <input name="netActiSupp" id="netActiSupp" style="border-radius:0;" type="text" class="form-control" disabled>
                                     </div>
                                     </td>
                                 </tr>
@@ -96,7 +96,7 @@
                                     <td><Label>Remark</Label></td>
                                     <td>
                                     <div class="input-group">
-                                        <textarea name="var_internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="1" class="form-control"></textarea>
+                                        <textarea name="remarkiSupp" id="remarkiSupp" style="border-radius:0;" cols="30" rows="1" class="form-control"></textarea>
                                     </div>
                                     </td>
                                 </tr>
@@ -104,10 +104,10 @@
                                     <td style="padding-top: 5px;"><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
+                                            <input id="headerWarehouse1" style="border-radius:0;" name="headerWarehouse1" class="form-control" readonly>
                                             <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
+                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#mySearchWarehouse1" class="fas fa-gift" style="color:grey;"></i></a>
                                             </span>
                                             </div>
                                         </div>
@@ -124,10 +124,10 @@
                                     <td style="padding-top: 5px;"><label>DO Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
+                                            <input id="do_number" style="border-radius:0;" name="do_number" class="form-control" readonly>
                                             <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
-                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
+                                                <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myDoNumber" class="fas fa-gift" style="color:grey;"></i></a>
                                             </span>
                                             </div>
                                         </div>
@@ -137,12 +137,12 @@
                                     <td><label>Project Code</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
+                                            <input name="projectCodeiSupp" id="projectCodeiSupp" style="border-radius:0;" type="text" class="form-control projectCodeiSupp" readonly>
                                         </div>
                                     </td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer2" style="border-radius:0;" class="form-control" name="var_customer2" readonly>
+                                            <input id="projectCodeiSupp4" style="border-radius:0;" class="form-control" name="projectCodeiSupp4" readonly>
                                         </div>
                                     </td>
                                 </tr>
@@ -150,7 +150,7 @@
                                     <td><Label>Remark</Label></td>
                                     <td>
                                     <div class="input-group">
-                                        <textarea name="var_internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="1" class="form-control"></textarea>
+                                        <textarea name="remarkiSupp2" id="remarkiSupp2" style="border-radius:0;" cols="30" rows="1" class="form-control"></textarea>
                                     </div>
                                     </td>
                                 </tr>
@@ -165,7 +165,7 @@
                                     <td style="padding-top: 5px;"><label>Warehouse (From)</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
+                                            <input id="headerWarehouse2" style="border-radius:0;" name="headerWarehouse2" class="form-control" readonly>
                                             <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
                                                 <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
@@ -179,7 +179,7 @@
                                     <td style="padding-top: 5px;"><label>Warehouse (Destination)</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="var_customer" style="border-radius:0;" name="var_customer" class="form-control" readonly>
+                                            <input id="headerWarehouse3" style="border-radius:0;" name="headerWarehouse3" class="form-control" readonly>
                                             <div class="input-group-append">
                                             <span style="border-radius:0;" class="input-group-text form-control">
                                                 <a href="#"><i id="customerPopUp" data-toggle="modal" data-target="#myCustomer" class="fas fa-gift" style="color:grey;"></i></a>
@@ -196,7 +196,7 @@
                 <button type="reset" class="btn btn-outline btn-danger btn-sm float-right CancelDor">
                     <i class="fa fa-times" aria-hidden="true" title="Cancel to Add DOR List Cart">Cancel</i>
                 </button>
-                <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailDortoCart" style="margin-right: 5px;">
+                <a class="btn btn-outline btn-success btn-sm float-right" id="addToPoDetail" style="margin-right: 5px;">
                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Submit</i>
                 </a>
             </div>

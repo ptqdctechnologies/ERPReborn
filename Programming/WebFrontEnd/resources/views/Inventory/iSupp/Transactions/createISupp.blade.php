@@ -2,12 +2,9 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
-@include('getFunction.getSite')
-@include('getFunction.getPr')
+@include('Inventory.iSupp.Functions.PopUp.searchPoNumber')
+@include('Inventory.iSupp.Functions.PopUp.searchDoNumber')
 @include('getFunction.getWarehouse')
-@include('getFunction.getWarehouse2')
-@include('getFunction.getWarehouse3')
 <div class="content-wrapper">
     <section class="content">
         <div class="container-fluid">
@@ -51,7 +48,7 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <div class="card-body" id="detailDor">
+                                    <div class="card-body" id="detailiSupp">
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -59,28 +56,25 @@
                                                         <tr>
                                                             <td><label>Project Code</label></td>
                                                             <td>
-                                                                <input name="projectDorDetail" id="projectDorDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="projectiSuppDetail" id="projectiSuppDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                             <td>
-                                                                <input name="projectDorDetail2" id="projectDorDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="projectiSuppDetail2" id="projectiSuppDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><label>Work Id</label></td>
                                                             <td>
-                                                                <input name="workIdDorDetail" id="workIdDorDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="workIdiSuppDetail" id="workIdiSuppDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                             <td>
-                                                                <input name="workIdDorDetail2" id="workIdDorDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="workIdiSuppDetail2" id="workIdiSuppDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><Label>Qty</Label></td>
                                                             <td>
-                                                                <input name="averageDorDetail" id="averageDorDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
-                                                            </td>
-                                                            <td>
-                                                                <input name="siteDorDetail2" id="siteDorDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="qtyiSupp" id="qtyiSupp" style="border-radius:0;" type="text" class="form-control">
                                                             </td>
                                                         </tr>
                                                     </table>
@@ -93,26 +87,26 @@
                                                         <tr>
                                                             <td><label>Site Code</label></td>
                                                             <td>
-                                                                <input name="siteDorDetail" id="siteDorDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="siteiSuppDetail" id="siteiSuppDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                             <td>
-                                                                <input name="siteDorDetail2" id="siteDorDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="siteiSuppDetail2" id="siteiSuppDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><label>Product Id</label></td>
                                                             <td>
-                                                                <input name="siteDorDetail" id="siteDorDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="productiSuppDetail" id="productiSuppDetail" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                             <td>
-                                                                <input name="siteDorDetail2" id="siteDorDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
+                                                                <input name="productiSuppDetail2" id="productiSuppDetail2" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                         </tr>
                                                         <tr>
                                                             <td><Label>Remark</Label></td>
                                                             <td>
                                                             <div class="input-group">
-                                                                <textarea name="var_internal_notes" id="internal_notes" style="border-radius:0;" cols="60" rows="1" class="form-control"></textarea>
+                                                                <textarea name="remarkiSuppDetail" id="remarkiSuppDetail" style="border-radius:0;" cols="60" rows="1" class="form-control"></textarea>
                                                             </div>
                                                             </td>
                                                         </tr>
@@ -131,10 +125,10 @@
                                                                 <tbody>
                                                                     <br>
                                                                     <tr>
-                                                                        <td title="Total BOQ Detail"><label>Qty in DO</label></td>
+                                                                        <td title="Total BOQ Detail"><label>Qty in PO</label></td>
                                                                         <td>:</td>
                                                                         <td style="font-weight:bold;">
-                                                                            <input name="price" id="prQty" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control">
+                                                                            <input name="qtyInPoiSupp" id="qtyInPoiSupp" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control">
                                                                         </td>
                                                                         <td>Pcs</td>
                                                                     </tr>
@@ -142,7 +136,7 @@
                                                                         <td><label>Qty in i-Supp</label></td>
                                                                         <td>:</td>
                                                                         <td style="font-weight:bold;">
-                                                                            <input name="price" id="inDorQty" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control">
+                                                                            <input name="qtyIniSupp" id="qtyIniSupp" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control">
                                                                         </td>
                                                                         <td>Pcs</td>
                                                                     </tr>
@@ -150,7 +144,7 @@
                                                                         <td><label>Balance Qty</label></td>
                                                                         <td>:</td>
                                                                         <td style="font-weight:bold;color:red;">
-                                                                            <input name="price" id="balanceQty" style="border-radius:0;background-color:white;border:1px solid white;color:red;" type="text" class="form-control">
+                                                                            <input name="balanceQtyiSupp" id="balanceQtyiSupp" style="border-radius:0;background-color:white;border:1px solid white;color:red;" type="text" class="form-control">
                                                                         </td>
                                                                         <td>Pcs</td>
                                                                     </tr>
@@ -159,10 +153,10 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right CancelDor">
+                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right CanceliSupp">
                                                     <i class="fa fa-times" aria-hidden="true" title="Cancel to Add DOR List Cart">Cancel</i>
                                                 </button>
-                                                <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailDortoCart" style="margin-right: 5px;">
+                                                <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailiSupptoCart" style="margin-right: 5px;">
                                                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add to i-Supp List Cart</i>
                                                 </a>
                                             </div>
@@ -188,24 +182,26 @@
                                 </div>
                             </div>
 
-                            <div class="card-body table-responsive p-0" id="detailDorList">
-                                <table class="table table-head-fixed text-nowrap tableDorCart">
-                                    <thead>
-                                        <tr>
-                                            <th>Action</th>
-                                            <th>Project</th>
-                                            <th>Site</th>
-                                            <th>Work Id</th>
-                                            <th>Product Id</th>
-                                            <th>Product Name</th>
-                                            <th>Qty</th>
-                                            <th>UOM</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <div class="card-body" id="iSuppCart">
+                                <div class="row">
+                                    <table class="table table-head-fixed text-nowrap tableiSuppCart">
+                                        <thead>
+                                            <tr>
+                                                <th>Action</th>
+                                                <th>Project</th>
+                                                <th>Site</th>
+                                                <th>Work Id</th>
+                                                <th>Product Id</th>
+                                                <th>Product Name</th>
+                                                <th>Qty</th>
+                                                <th>UOM</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                         <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
