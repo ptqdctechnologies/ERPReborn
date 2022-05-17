@@ -7679,6 +7679,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Spatie\\FlareClient\\Enums\\MessageLevels' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Enums/MessageLevels.php',
         'Spatie\\FlareClient\\Flare' => __DIR__ . '/..' . '/spatie/flare-client-php/src/Flare.php',
         'Spatie\\FlareClient\\FlareMiddleware\\AddDocumentationLinks' => __DIR__ . '/..' . '/spatie/flare-client-php/src/FlareMiddleware/AddDocumentationLinks.php',
+        'Spatie\\FlareClient\\FlareMiddleware\\AddEnvironmentInformation' => __DIR__ . '/..' . '/spatie/flare-client-php/src/FlareMiddleware/AddEnvironmentInformation.php',
         'Spatie\\FlareClient\\FlareMiddleware\\AddGitInformation' => __DIR__ . '/..' . '/spatie/flare-client-php/src/FlareMiddleware/AddGitInformation.php',
         'Spatie\\FlareClient\\FlareMiddleware\\AddGlows' => __DIR__ . '/..' . '/spatie/flare-client-php/src/FlareMiddleware/AddGlows.php',
         'Spatie\\FlareClient\\FlareMiddleware\\AddNotifierName' => __DIR__ . '/..' . '/spatie/flare-client-php/src/FlareMiddleware/AddNotifierName.php',

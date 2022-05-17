@@ -4020,6 +4020,7 @@ return array(
     'Spatie\\FlareClient\\Enums\\MessageLevels' => $vendorDir . '/spatie/flare-client-php/src/Enums/MessageLevels.php',
     'Spatie\\FlareClient\\Flare' => $vendorDir . '/spatie/flare-client-php/src/Flare.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddDocumentationLinks' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddDocumentationLinks.php',
+    'Spatie\\FlareClient\\FlareMiddleware\\AddEnvironmentInformation' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddEnvironmentInformation.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddGitInformation' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddGitInformation.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddGlows' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddGlows.php',
     'Spatie\\FlareClient\\FlareMiddleware\\AddNotifierName' => $vendorDir . '/spatie/flare-client-php/src/FlareMiddleware/AddNotifierName.php',
