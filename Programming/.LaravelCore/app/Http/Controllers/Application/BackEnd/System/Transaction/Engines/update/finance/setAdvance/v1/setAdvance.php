@@ -3,28 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain\setPurchaseOrder\v1       |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvance\v1                 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\supplyChain\setPurchaseOrder\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvance\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setPurchaseOrder                                                                                             |
-    | ▪ Description : Menangani API transaction.update.supplyChain.setPurchaseOrder Version 1                                      |
+    | ▪ Class Name  : setAdvance                                                                                                   |
+    | ▪ Description : Menangani API transaction.update.finance.setAdvance Version 1                                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setPurchaseOrder extends \App\Http\Controllers\Controller
+    class setAdvance extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-03-04                                                                                           |
-        | ▪ Creation Date   : 2022-03-04                                                                                           |
+        | ▪ Last Update     : 2022-05-17                                                                                           |
+        | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,9 +42,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-03-04                                                                                           |
+        | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Purchase Order Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Advance Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseOrder())->setDataUpdate(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvance())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
@@ -71,12 +71,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
                             $varData['entities']['documentDateTimeTZ'],
-                            null,
+                            $varData['entities']['fileAttachments_RefID'],
                             $varData['entities']['requesterPerson_RefID'],
-                            $varData['entities']['supplier_RefID'],
-                            $varData['entities']['deliveryDateTimeTZ'],
-                            $varData['entities']['deliveryDestination_RefID'],
-                            $varData['entities']['supplierInvoiceBillingPurpose_RefID'],
+                            $varData['entities']['beneficiaryPerson_RefID'],
+                            $varData['entities']['beneficiaryBankAccount_RefID'],
+                            $varData['entities']['internalNotes'],
                             $varData['entities']['remarks'],
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
