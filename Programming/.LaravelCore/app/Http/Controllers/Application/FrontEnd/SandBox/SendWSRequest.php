@@ -4049,7 +4049,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "fileAttachments_RefID" => '',
+                    "fileAttachments_RefID" => 91000000000001,
                     
                     
                     
@@ -4119,7 +4119,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.create.supplyChain.setPurchaseRequisitionDetail                                                    |
+        | ▪ API Key     : transaction.create.finance.setAdvanceDetail                                                              |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */

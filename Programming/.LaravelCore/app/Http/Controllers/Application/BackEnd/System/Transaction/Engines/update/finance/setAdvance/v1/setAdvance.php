@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
                             $varData['entities']['documentDateTimeTZ'],
-                            $varData['entities']['fileAttachments_RefID'],
+                            $varData['entities']['log_FileUpload_Pointer_RefID'],
                             $varData['entities']['requesterPerson_RefID'],
                             $varData['entities']['beneficiaryPerson_RefID'],
                             $varData['entities']['beneficiaryBankAccount_RefID'],
