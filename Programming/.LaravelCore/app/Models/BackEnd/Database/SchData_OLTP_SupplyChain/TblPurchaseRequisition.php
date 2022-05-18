@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-03-18                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -56,6 +56,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varFileAttachments_RefID ► File Attachments Reference ID                                                 |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
@@ -67,7 +68,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
+            string $varDocumentDateTimeTZ = null, int $varFileAttachments_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null,
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -84,6 +85,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
                         [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varFileAttachments_RefID, 'bigint'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
 
@@ -99,8 +101,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-03-18                                                                                           |
         | ▪ Creation Date   : 2020-09-14                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -113,6 +115,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varFileAttachments_RefID ► File Attachments Reference ID                                                 |
         |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
@@ -124,7 +127,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varRequesterPerson_RefID = null, string $varRemarks = null, 
+            string $varDocumentDateTimeTZ = null, int $varFileAttachments_RefID = null, int $varRequesterPerson_RefID = null, string $varRemarks = null, 
             array $varAdditionalData = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -141,6 +144,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varFileAttachments_RefID, 'bigint'],
                         [$varRequesterPerson_RefID, 'bigint'],
                         [$varRemarks, 'varchar'],
 
