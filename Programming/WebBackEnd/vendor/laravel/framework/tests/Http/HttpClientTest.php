@@ -25,6 +25,7 @@ use Mockery as m;
 use OutOfBoundsException;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
+use RuntimeException;
 use Symfony\Component\VarDumper\VarDumper;
 
 class HttpClientTest extends TestCase
@@ -149,6 +150,21 @@ class HttpClientTest extends TestCase
         $this->factory->fake($fakeRequest);
 
         $this->factory->withBody($body, 'application/json')->send('get', 'http://foo.com/api');
+    }
+
+    public function testSendRequestBodyWithManyAmpersands()
+    {
+        $body = str_repeat('A thousand &. ', 1000);
+
+        $fakeRequest = function (Request $request) use ($body) {
+            self::assertSame($body, $request->body());
+
+            return ['my' => 'response'];
+        };
+
+        $this->factory->fake($fakeRequest);
+
+        $this->factory->withBody($body, 'text/plain')->send('post', 'http://foo.com/api');
     }
 
     public function testUrlsCanBeStubbedByPath()
@@ -1420,6 +1436,39 @@ class HttpClientTest extends TestCase
         $this->assertInstanceOf(RequestException::class, $exception);
     }
 
+    public function testRequestExceptionIsThrownIfTheThrowIfOnThePendingRequestIsSetToTrueOnFailure()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->response(['error'], 403),
+        ]);
+
+        $exception = null;
+
+        try {
+            $this->factory
+                ->throwIf(true)
+                ->get('http://foo.com/get');
+        } catch (RequestException $e) {
+            $exception = $e;
+        }
+
+        $this->assertNotNull($exception);
+        $this->assertInstanceOf(RequestException::class, $exception);
+    }
+
+    public function testRequestExceptionIsNotThrownIfTheThrowIfOnThePendingRequestIsSetToFalseOnFailure()
+    {
+        $this->factory->fake([
+            '*' => $this->factory->response(['error'], 403),
+        ]);
+
+        $response = $this->factory
+            ->throwIf(false)
+            ->get('http://foo.com/get');
+
+        $this->assertSame(403, $response->status());
+    }
+
     public function testRequestExceptionIsThrownWithCallbackIfThePendingRequestIsSetToThrowOnFailure()
     {
         $this->factory->fake([
@@ -1526,5 +1575,44 @@ class HttpClientTest extends TestCase
         $response = $this->factory->get('http://foo.com/api')->throwIf(false);
 
         $this->assertSame('{"result":{"foo":"bar"}}', $response->body());
+    }
+
+    public function testItCanEnforceFaking()
+    {
+        $this->factory->preventStrayRequests();
+        $this->factory->fake(['https://vapor.laravel.com' => Factory::response('ok', 200)]);
+        $this->factory->fake(['https://forge.laravel.com' => Factory::response('ok', 200)]);
+
+        $responses = [];
+        $responses[] = $this->factory->get('https://vapor.laravel.com')->body();
+        $responses[] = $this->factory->get('https://forge.laravel.com')->body();
+        $this->assertSame(['ok', 'ok'], $responses);
+
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Attempted request to [https://laravel.com] without a matching fake.');
+
+        $this->factory->get('https://laravel.com');
+    }
+
+    public function testItCanAddAuthorizationHeaderIntoRequestUsingBeforeSendingCallback()
+    {
+        $this->factory->fake();
+
+        $this->factory->beforeSending(function (Request $request) {
+            $requestLine = sprintf(
+                '%s %s HTTP/%s',
+                $request->toPsrRequest()->getMethod(),
+                $request->toPsrRequest()->getUri()->withScheme('')->withHost(''),
+                $request->toPsrRequest()->getProtocolVersion()
+            );
+
+            return $request->toPsrRequest()->withHeader('Authorization', 'Bearer '.$requestLine);
+        })->get('http://foo.com/json');
+
+        $this->factory->assertSent(function (Request $request) {
+            return
+                $request->url() === 'http://foo.com/json' &&
+                $request->hasHeader('Authorization', 'Bearer GET /json HTTP/1.1');
+        });
     }
 }
