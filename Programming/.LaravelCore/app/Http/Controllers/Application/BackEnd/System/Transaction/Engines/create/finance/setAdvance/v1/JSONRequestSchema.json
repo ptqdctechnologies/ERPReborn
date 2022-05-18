@@ -67,10 +67,10 @@
                         "minLength": 1,
                         "maxLength": 512
                         },
-                    "additionalData": {
+                    "additionalData": {       
                         "type": "object",
                         "properties": {
-                            "itemList": {
+                            "itemList": {                                    
                                 "type": "object",
                                 "properties": {
                                     "items": {
@@ -120,7 +120,7 @@
                                                             }
                                                         },
                                                     "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
-                                                    }
+                                                     }
                                                 },
                                             "required": [ "entities" ]
                                             }
