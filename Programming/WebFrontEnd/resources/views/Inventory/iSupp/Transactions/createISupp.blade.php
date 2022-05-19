@@ -74,7 +74,11 @@
                                                         <tr>
                                                             <td><Label>Qty</Label></td>
                                                             <td>
-                                                                <input name="qtyiSupp" id="qtyiSupp" style="border-radius:0;" type="text" class="form-control">
+                                                                <input name="qtyiSuppChange" id="qtyiSuppChange" style="border-radius:0;" type="text" class="form-control ChangeQty">
+                                                                <input name="qtyiSupp" id="qtyiSupp" style="border-radius:0;" type="hidden" class="form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input name="qtyiSupp2" id="qtyiSupp2" style="border-radius:0;" type="text" class="form-control" readonly="">
                                                             </td>
                                                         </tr>
                                                     </table>
