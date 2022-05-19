@@ -36,47 +36,53 @@ Main Features :
       3. **volume-redis**
       4. **volume-pgadmin4**
    3. Pull Images Docker yang terdiri atas :
-      1. **postgres:latest**
-      2. **php:8.1-apache**
-      3. **redis:latest**
-      4. **nowsci/samba-domain:latest**
-      5. **minio/minio:latest**
-      6. **grafana/grafana:latest**
-      7. **dpage/pgadmin4:latest**
-   4. Rebuild Images Docker yang terdiri atas :
-      1. **erp-reborn-postgresql** (turunan dari Image postgres:latest)
-      2. **erp-reborn-phpapache-backend** (turunan dari Image php:8.1-apache)
-      3. **erp-reborn-phpapache-frontend** (turunan dari Image php:8.1-apache)
-      4. **erp-reborn-samba** (turunan dari Image nowsci/samba-domain:latest)
-      5. **erp-reborn-minio** (turunan dari Image minio/minio:latest)
-      6. **erp-reborn-devtools-pgadmin4** (turunan dari Image dpage/pgadmin4:latest)
-      7. **erp-reborn-devtools-openproject** (turunan dari Image openproject/community:12)
+      **Image** | **Tag**
+      :--- | :---
+      postgres | latest
+      php | 8.1-apache
+      redis | latest
+      nowsci/samba-domain | latest
+      minio/minio | latest
+      grafana/grafana | latest
+      dpage/pgadmin4 | latest
+      openproject/community | 12
+   4. Rebuild Customized Images Docker yang terdiri atas :
+      **Customized Image** | **Source Image**
+      :--- | :---
+      erp-reborn-postgresql | postgres:latest
+      erp-reborn-phpapache-backend | php:8.1-apache
+      erp-reborn-phpapache-frontend | php:8.1-apache
+      erp-reborn-samba | nowsci/samba-domain:latest
+      erp-reborn-minio | minio/minio:latest
+      erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
+      erp-reborn-devtools-openproject | openproject/community:12
    5. Rebuild Network Docker yang berupa **erpreborn_app-network** (mode bridge)
    6. Menjalankankan grup container Docker melalui docker-compose dengan memanggil images :
-      1. **erp-reborn-postgresql** &rarr; membentuk container bernama **postgresql** (Docker IP : 172.28.0.2)
-      2. **erp-reborn-phpapache-frontend** &rarr; membentuk container bernama **php-apache-backend** (Docker IP : 172.28.0.3)
-      3. **erp-reborn-phpapache-backend** &rarr; membentuk container bernama **php-apache-frontend** (Docker IP : 172.28.0.4)
-      4. **redis** &rarr; membentuk container bernama **redis** (Docker IP : 172.28.0.5)
-      5. **erp-reborn-samba** &rarr; membentuk container bernama **samba** (Docker IP : 172.28.0.7)
-      6. **grafana/grafana** &rarr; membentuk container bernama **grafana** (Docker IP : 172.28.0.8)
-      7. **erp-reborn-minio** &rarr; membentuk container bernama **minio-node1** (Docker IP : 172.28.0.9), **minio-node2** (Docker IP : 172.28.0.7.10), **minio-node3** (Docker IP : 172.28.0.11), **minio-node4** (Docker IP : 172.28.0.12)
-      8. **dpage/pgadmin4** &rarr; membentuk container bernama **pgadmin4** (Docker IP : 172.28.0.100)
-      9. **openproject/community** &rarr; membentuk container bernama **openproject** (Docker IP : 172.28.0.101)
-      
+      **Containers** | **Docker's IP** | **Image**
+      :--- | :--- | :---
+      postgresql | 172.28.0.2 | erp-reborn-postgresql
+      php-apache-backend | 172.28.0.3 | erp-reborn-phpapache-backend
+      php-apache-frontend | 172.28.0.4 | erp-reborn-phpapache-frontend
+      redis | 172.28.0.5 | redis
+      samba | 172.28.0.7 | erp-reborn-samba
+      grafana | 172.28.0.8 | grafana
+      minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | 172.28.0.9<br />172.28.0.7.10<br />172.28.0.7.11<br />172.28.0.7.12 | erp-reborn-minio
+      pgadmin4 | 172.28.0.100 | erp-reborn-devtools-pgadmin4
+      openproject | 172.28.0.101 | erp-reborn-devtools-openproject
+
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
-   **Service** | **Local Host & Port** | **NAT From**
-   :--- | :--- | :---
-   postgresql | http://localhost:15432 | http://172.28.0.2:5432
-   mysql | http://localhost:13306 | http://172.28.0.2:3306
-   apache WebBackEnd | http://localhost:10080 | http://172.28.0.3:80
-   apache WebFrontEnd | http://localhost:20080 | http://172.28.0.4:80
-   redis | http://localhost:16379 | http://172.28.0.5:6379
-   samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | http://172.28.0.7:137<br />http://172.28.0.7:138<br />http://172.28.0.7:139<br />http://172.28.0.7:445
-   minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
-   grafana | http://localhost:13000 | http://172.28.0.8:3000
-   pgadmin4 | http://localhost:15050 | http://172.28.0.100:5050
-   openproject | http://localhost:30080 | http://172.28.0.101:80
-   
+   **Service** | **Local Host & Port** | **Container** | **NAT From**
+   :--- | :--- | :--- | :---
+   postgresql | http://localhost:15432 | postgresql | http://172.28.0.2:5432
+   mysql | http://localhost:13306 | postgresql | http://172.28.0.2:3306
+   apache | http://localhost:10080<br />http://localhost:20080 | php-apache-backend<br />php-apache-frontend | http://172.28.0.3:80<br >http://172.28.0.4:80 
+   redis | http://localhost:16379 | redis | http://172.28.0.5:6379
+   samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | samba | http://172.28.0.7:137<br />http://172.28.0.7:138<br />http://172.28.0.7:139<br />http://172.28.0.7:445
+   minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | minio-node1<br />minio-node2<br />minio-node3<br />minio-node4 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
+   grafana | http://localhost:13000 | grafana | http://172.28.0.8:3000
+   pgadmin4 | http://localhost:15050 | pgadmin4 | http://172.28.0.100:5050
+   openproject | http://localhost:30080 | openproject | http://172.28.0.101:80
+
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
 7. Untuk menjalankannnya docker-compose kembali dapat menggunakan **./BashScript/Script.Docker.Start.sh**
