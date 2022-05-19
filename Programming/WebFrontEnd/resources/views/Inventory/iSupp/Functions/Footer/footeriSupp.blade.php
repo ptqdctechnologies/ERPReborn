@@ -52,7 +52,7 @@
                     console.log(val2.name);
                         var html = '<tr>'+
                                     '<td>'+
-                                        '<button type="reset" class="btn btn-outline-success btn-sm float-right klikPoDetail" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                        '<button type="reset" class="btn btn-outline-success btn-sm float-right klikPoDetail" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.quantityUnitName + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
                                     '</td>'+
                                     '<td>'+'<span id="getProject">' + 'N/A' + '</span>'+'</td>'+
                                     '<td>'+'<span id="getSite">' + 'N/A' + '</span>'+'</td>'+
@@ -115,106 +115,118 @@
         ev.preventDefault();
         ev.stopPropagation();
 
-        var val = $("#productiSuppDetail2").val();
-        if(val != ""){
-            $.ajax({
-                type: "POST",
-                url: '{!! route("iSupp.StoreValidateiSupp") !!}?productiSuppDetail2=' + $('#productiSuppDetail2').val(),
-                success: function(data) {
+        var qtyReq = $('#qtyiSuppChange').val();
+        var qtyiSupp = $('#qtyiSupp').val();
+        
 
-                    if(data == "200"){
-                        $("#iSuppCart").show();
+        if (qtyReq > qtyiSupp) {
+            Swal.fire("Error !", "Your Qty Request is Over", "error");
+            $("#qtyiSuppChange").val(0);
+            $("#addFromDetailiSupptoCart").prop("disabled", true);
+        }else {
+            $("#qtyiSuppChange").val("");
+            $("#addFromDetailiSupptoCart").prop("disabled", false);
 
-                        var projectiSupp = $("#projectiSuppDetail").val();
-                        var siteiSupp = $("#siteiSuppDetail").val();
-                        var workIdiSuppDetail = $('#workIdiSuppDetail').val();
-                        var productiSuppDetail = $("#productiSuppDetail").val();
-                        var productiSuppDetail2 = $("#productiSuppDetail2").val();
-                        var qtyiSupp = $('#qtyiSupp').val();
-                        var qtyiSupp2 = $("#qtyiSupp2").val();
+            var val = $("#productiSuppDetail2").val();
+            if(val != ""){
+                $.ajax({
+                    type: "POST",
+                    url: '{!! route("iSupp.StoreValidateiSupp") !!}?productiSuppDetail2=' + $('#productiSuppDetail2').val(),
+                    success: function(data) {
 
-                        var html = '<tr>'+
-                                    '<td>'+
-                                        '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+productiSuppDetail2+'"><i class="fa fa-trash"></i></button> '+
-                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+productiSuppDetail2+'" data-id2="'+qtyiSupp+'" data-id3="'+qtyiSupp2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                    '</td>'+
-                                    '<td>'+'<span id="getProject">' + projectiSupp + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getSite">' + siteiSupp + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getWorkId">' + workIdiSuppDetail + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getProductId">' + productiSuppDetail + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getProductName">' + productiSuppDetail2 + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getQty">' + qtyiSupp + '</span>'+'</td>'+
-                                    '<td>'+'<span id="getUom">' + qtyiSupp2 + '</span>'+'</td>'+
-                                '</tr>';
-                        $('table.tableiSuppCart tbody').append(html);
+                        if(data == "200"){
+                            $("#iSuppCart").show();
 
-                        $("body").on("click", ".remove", function () {
-                            $(this).closest("tr").remove();
-                            var ProductId = $(this).data("id1");
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail2=' + ProductId,
+                            var projectiSupp = $("#projectiSuppDetail").val();
+                            var siteiSupp = $("#siteiSuppDetail").val();
+                            var workIdiSuppDetail = $('#workIdiSuppDetail').val();
+                            var productiSuppDetail = $("#productiSuppDetail").val();
+                            var productiSuppDetail2 = $("#productiSuppDetail2").val();
+                            var qtyiSupp2 = $('#qtyiSupp2').val();
+
+                            var html = '<tr>'+
+                                        '<td>'+
+                                            '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+productiSuppDetail2+'"><i class="fa fa-trash"></i></button> '+
+                                            '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+productiSuppDetail2+'" data-id2="'+qtyReq+'" data-id3="'+qtyiSupp2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
+                                        '</td>'+
+                                        '<td>'+'<span id="getProject">' + projectiSupp + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getSite">' + siteiSupp + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getWorkId">' + workIdiSuppDetail + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getProductId">' + productiSuppDetail + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getProductName">' + productiSuppDetail2 + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getQty">' + qtyReq + '</span>'+'</td>'+
+                                        '<td>'+'<span id="getUom">' + qtyiSupp2 + '</span>'+'</td>'+
+                                    '</tr>';
+                            $('table.tableiSuppCart tbody').append(html);
+
+                            $("body").on("click", ".remove", function () {
+                                $(this).closest("tr").remove();
+                                var ProductId = $(this).data("id1");
+                                $.ajax({
+                                    type: "POST",
+                                    url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail2=' + ProductId,
+                                });
                             });
-                        });
-                        $("body").on("click", ".edit", function () {
-                            var $this = $(this);
-                            var id1 = $this.data("id1");
-                            var id2 = $this.data("id2");
-                            var id3 = $this.data("id3");
+                            $("body").on("click", ".edit", function () {
+                                var $this = $(this);
+                                var id1 = $this.data("id1");
+                                var id2 = $this.data("id2");
+                                var id3 = $this.data("id3");
 
-                            $.ajax({
-                                type: "POST",
-                                url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail2=' + id1,
+                                $.ajax({
+                                    type: "POST",
+                                    url: '{!! route("iSupp.StoreValidateiSupp2") !!}?productiSuppDetail2=' + id1,
+                                });
+
+                                $("#projectiSuppDetail").val("N/A");
+                                $("#projectiSuppDetail2").val("N/A");
+                                $("#workIdiSuppDetail").val("N/A");
+                                $("#workIdiSuppDetail2").val("N/A");
+                                $("#qtyiSuppChange").val(id2);
+                                $("#qtyiSupp2").val(id3);
+                                $("#siteiSuppDetail").val("N/A");
+                                $("#siteiSuppDetail2").val("N/A");
+                                $("#productiSuppDetail").val("N/A");
+                                $("#productiSuppDetail2").val(id1);
+                                $("#remarkiSuppDetail").val("N/A");
+                                $("#qtyInPoiSupp").val("N/A");
+                                $("#qtyIniSupp").val("N/A");
+                                $("#balanceQtyiSupp").val("N/A");
+
+                                $(this).closest("tr").remove();
+
+                                // if(id10 == "Unspecified Product"){
+                                //     $("#projectiSupp2").prop("disabled", false);
+                                // }
+                                // else{
+                                //     $("#projectiSupp2").prop("disabled", true);
+                                // }
                             });
 
-                            $("#projectiSuppDetail").val("N/A");
-                            $("#projectiSuppDetail2").val("N/A");
-                            $("#workIdiSuppDetail").val("N/A");
-                            $("#workIdiSuppDetail2").val("N/A");
-                            $("#qtyiSupp").val(id2);
-                            $("#qtyiSupp2").val(id3);
-                            $("#siteiSuppDetail").val("N/A");
-                            $("#siteiSuppDetail2").val("N/A");
-                            $("#productiSuppDetail").val("N/A");
-                            $("#productiSuppDetail2").val(id1);
-                            $("#remarkiSuppDetail").val("N/A");
-                            $("#qtyInPoiSupp").val("N/A");
-                            $("#qtyIniSupp").val("N/A");
-                            $("#balanceQtyiSupp").val("N/A");
-
-                            $(this).closest("tr").remove();
-
-                            // if(id10 == "Unspecified Product"){
-                            //     $("#projectiSupp2").prop("disabled", false);
-                            // }
-                            // else{
-                            //     $("#projectiSupp2").prop("disabled", true);
-                            // }
-                        });
-
-                        $("#projectiSuppDetail").val("");
-                        $("#projectiSuppDetail2").val("");
-                        $("#workIdiSuppDetail").val("");
-                        $("#workIdiSuppDetail2").val("");
-                        $("#qtyiSupp").val("");
-                        $("#qtyiSupp2").val("");
-                        $("#siteiSuppDetail").val("");
-                        $("#siteiSuppDetail2").val("");
-                        $("#productiSuppDetail").val("");
-                        $("#productiSuppDetail2").val("");
-                        $("#remarkiSuppDetail").val("");
-                        $("#qtyInPoiSupp").val("");
-                        $("#qtyIniSupp").val("");
-                        $("#balanceQtyiSupp").val("");
-                    }
-                    else{
-                        Swal.fire("Error !", "Please use edit to update this item !", "error");
-                    }
-                },
-            });   
-        }
-        else{
-            Swal.fire("Error !", "Data Cannot Empty", "error");
+                            $("#projectiSuppDetail").val("");
+                            $("#projectiSuppDetail2").val("");
+                            $("#workIdiSuppDetail").val("");
+                            $("#workIdiSuppDetail2").val("");
+                            $("#qtyiSuppChange").val("");
+                            $("#qtyiSupp2").val("");
+                            $("#siteiSuppDetail").val("");
+                            $("#siteiSuppDetail2").val("");
+                            $("#productiSuppDetail").val("");
+                            $("#productiSuppDetail2").val("");
+                            $("#remarkiSuppDetail").val("");
+                            $("#qtyInPoiSupp").val("");
+                            $("#qtyIniSupp").val("");
+                            $("#balanceQtyiSupp").val("");
+                        }
+                        else{
+                            Swal.fire("Error !", "Please use edit to update this item !", "error");
+                        }
+                    },
+                });   
+            }
+            else{
+                Swal.fire("Error !", "Data Cannot Empty", "error");
+            }
         }
     });
 });
