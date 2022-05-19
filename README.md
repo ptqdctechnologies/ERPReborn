@@ -2,7 +2,19 @@
 
 ![LogoERPReborn](https://i.ibb.co/fnL12cm/Logo-Phoenix.png)
 
+
+```diff
+It's not just ordinary ERP
+```
+
 **ERP Reborn** merupakan proyek sistem Enterprise Resource Planning yang digunakan oleh PT QDC Technologies (diinisiasi sejak tahun 2020)
+
+```diff
+Main Features :
+1. Multiple Users
+1. Multiple Companies & Branches
+2. Multiple Base Currencies & Transaction Currencies
+```
 
 <h3>Langkah-Langkah Instalasi dan Cloning Repository</h3>
 
@@ -52,16 +64,18 @@
       9. **openproject/community** &rarr; membentuk container bernama **openproject** (Docker IP : 172.28.0.101)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
-   1. **postgresql** &rarr; **http://localhost:15432** (NAT dari 172.28.0.2:5432)
-   2. **mysql** &rarr; **http://localhost:13306** (NAT dari 172.28.0.2:3306)
-   3. **apache WebBackEnd** &rarr; **http://localhost:10080** (NAT dari 172.28.0.3:80)
-   4. **apache WebFrontEnd** &rarr; **http://localhost:20080** (NAT dari 172.28.0.4:80)
-   5. **redis** &rarr; **http://localhost:16379** (NAT dari 172.28.0.5:6379)
-   7. **samba** &rarr; **http://localhost:10137** (NAT dari 172.28.0.7:137), **http://localhost:10138** (NAT dari 172.28.0.7:138), **http://localhost:10139** (NAT dari 172.28.0.7:139), **http://localhost:10445** (NAT dari 172.28.0.7:445)
-   6. **minio** &rarr; **http://localhost:19000** (NAT dari 172.28.0.9:9000), **http://localhost:29000** (NAT dari 172.28.0.10:9000), **http://localhost:39000** (NAT dari 172.28.0.11:9000), **http://localhost:49000** (NAT dari 172.28.0.12:9000)
-   8. **grafana** &rarr; **http://localhost:13000** (NAT dari http://172.28.0.8:3000)
-   9. **pgadmin4** &rarr; **http://localhost:15050** (NAT dari 172.28.0.100:5050)
-   9. **openproject** &rarr; **http://localhost:30080** (NAT dari 172.28.0.101:80)
+   Service | Local Host & Port | NAT From
+   :--- | :--- | :---
+   postgresql | http://localhost:15432 | 172.28.0.2:5432
+   mysql | http://localhost:13306 | 172.28.0.2:3306
+   apache WebBackEnd | http://localhost:10080 | 172.28.0.3:80
+   apache WebFrontEnd | http://localhost:20080 | 172.28.0.4:80
+   redis | http://localhost:16379 | 172.28.0.5:6379
+   samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | 172.28.0.7:137<br />172.28.0.7:138<br />172.28.0.7:139<br />172.28.0.7:445
+   minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | 172.28.0.9:9000<br />172.28.0.10:9000<br />172.28.0.11:9000<br />172.28.0.12:9000
+   grafana | http://localhost:13000 | 172.28.0.8:3000
+   pgadmin4 | http://localhost:15050 | 172.28.0.100:5050
+   openproject | http://localhost:30080 | 172.28.0.101:80
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
