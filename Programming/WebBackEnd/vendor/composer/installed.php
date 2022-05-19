@@ -20,12 +20,12 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.222.14',
-            'version' => '3.222.14.0',
+            'pretty_version' => '3.222.15',
+            'version' => '3.222.15.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
-            'reference' => 'd9f586558a2f3313c34f34f4a01c5ddbbbcfb3c0',
+            'reference' => '2c73f3f3716516f733d449f504e954446a994994',
             'dev_requirement' => false,
         ),
         'brick/math' => array(
@@ -518,12 +518,12 @@
             'dev_requirement' => false,
         ),
         'maennchen/zipstream-php' => array(
-            'pretty_version' => '2.1.0',
-            'version' => '2.1.0.0',
+            'pretty_version' => '2.2.1',
+            'version' => '2.2.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../maennchen/zipstream-php',
             'aliases' => array(),
-            'reference' => 'c4c5803cc1f93df3d2448478ef79394a5981cc58',
+            'reference' => '211e9ba1530ea5260b45d90c9ea252f56ec52729',
             'dev_requirement' => false,
         ),
         'markbaker/complex' => array(
