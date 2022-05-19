@@ -64,18 +64,18 @@ Main Features :
       9. **openproject/community** &rarr; membentuk container bernama **openproject** (Docker IP : 172.28.0.101)
       
 5. Setelah seluruh container terbentuk maka akan berjalan service didalam docker berupa :
-   Service | Local Host & Port | NAT From
+   **Service** | **Local Host & Port** | **NAT From**
    :--- | :--- | :---
-   postgresql | http://localhost:15432 | 172.28.0.2:5432
-   mysql | http://localhost:13306 | 172.28.0.2:3306
-   apache WebBackEnd | http://localhost:10080 | 172.28.0.3:80
-   apache WebFrontEnd | http://localhost:20080 | 172.28.0.4:80
-   redis | http://localhost:16379 | 172.28.0.5:6379
-   samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | 172.28.0.7:137<br />172.28.0.7:138<br />172.28.0.7:139<br />172.28.0.7:445
-   minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | 172.28.0.9:9000<br />172.28.0.10:9000<br />172.28.0.11:9000<br />172.28.0.12:9000
-   grafana | http://localhost:13000 | 172.28.0.8:3000
-   pgadmin4 | http://localhost:15050 | 172.28.0.100:5050
-   openproject | http://localhost:30080 | 172.28.0.101:80
+   postgresql | http://localhost:15432 | http://172.28.0.2:5432
+   mysql | http://localhost:13306 | http://172.28.0.2:3306
+   apache WebBackEnd | http://localhost:10080 | http://172.28.0.3:80
+   apache WebFrontEnd | http://localhost:20080 | http://172.28.0.4:80
+   redis | http://localhost:16379 | http://172.28.0.5:6379
+   samba | http://localhost:10137<br />http://localhost:10138<br />http://localhost:10139<br />http://localhost:10445 | http://172.28.0.7:137<br />http://172.28.0.7:138<br />http://172.28.0.7:139<br />http://172.28.0.7:445
+   minio | http://localhost:19000<br />http://localhost:29000<br />http://localhost:39000<br />http://localhost:49000 | http://172.28.0.9:9000<br />http://172.28.0.10:9000<br />http://172.28.0.11:9000<br />http://172.28.0.12:9000
+   grafana | http://localhost:13000 | http://172.28.0.8:3000
+   pgadmin4 | http://localhost:15050 | http://172.28.0.100:5050
+   openproject | http://localhost:30080 | http://172.28.0.101:80
    
 6. Untuk mematikan docker-composer tekan **[Ctrl+C]**
 
