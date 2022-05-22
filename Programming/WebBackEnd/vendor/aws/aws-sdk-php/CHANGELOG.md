@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 3.222.17 - 2022-05-20
+
+* `Aws\CloudWatchLogs` - Doc-only update to publish the new valid values for log retention
+* `Aws\Comprehend` - Comprehend releases 14 new entity types for DetectPiiEntities and ContainsPiiEntities APIs.
+
+## 3.222.16 - 2022-05-19
+
+* `Aws\GameSparks` - This release adds an optional DeploymentResult field in the responses of GetStageDeploymentIntegrationTests and ListStageDeploymentIntegrationTests APIs.
+* `Aws\LookoutMetrics` - In this release we added SnsFormat to SNSConfiguration to support human readable alert.
+
 ## 3.222.15 - 2022-05-18
 
 * `Aws\AppMesh` - This release updates the existing Create and Update APIs for meshes and virtual nodes by adding a new IP preference field. This new IP preference field can be used to control the IP versions being used with the mesh and allows for IPv6 support within App Mesh.
