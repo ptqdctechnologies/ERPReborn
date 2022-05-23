@@ -98,6 +98,7 @@ return array(
     'App\\Http\\Controllers\\procurementTransactionRPI' => $baseDir . '/app/Http/Controllers/procurementTransactionRPI.php',
     'App\\Http\\Controllers\\procurementTransactionRem' => $baseDir . '/app/Http/Controllers/procurementTransactionRem.php',
     'App\\Http\\Controllers\\procurementTransactionURP' => $baseDir . '/app/Http/Controllers/procurementTransactionURP.php',
+    'App\\Http\\Controllers\\procurementTransactioniSupp' => $baseDir . '/app/Http/Controllers/procurementTransactioniSupp.php',
     'App\\Http\\Controllers\\projectManagementAFE' => $baseDir . '/app/Http/Controllers/projectManagementAFE.php',
     'App\\Http\\Controllers\\projectManagementCEPS' => $baseDir . '/app/Http/Controllers/projectManagementCEPS.php',
     'App\\Http\\Controllers\\projectManagementMCFS' => $baseDir . '/app/Http/Controllers/projectManagementMCFS.php',
