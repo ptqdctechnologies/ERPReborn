@@ -1130,15 +1130,6 @@
             'reference' => '193ba39cce1ffa2d55ddd5445315e945a63298a2',
             'dev_requirement' => false,
         ),
-        'swiftmailer/swiftmailer' => array(
-            'pretty_version' => 'v6.3.0',
-            'version' => '6.3.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../swiftmailer/swiftmailer',
-            'aliases' => array(),
-            'reference' => '8a5d5072dca8f48460fce2f4131fcc495eec654c',
-            'dev_requirement' => false,
-        ),
         'symfony/console' => array(
             'pretty_version' => 'v6.0.8',
             'version' => '6.0.8.0',
@@ -1260,15 +1251,6 @@
             'install_path' => __DIR__ . '/../symfony/polyfill-ctype',
             'aliases' => array(),
             'reference' => '30885182c981ab175d4d034db0f6f469898070ab',
-            'dev_requirement' => false,
-        ),
-        'symfony/polyfill-iconv' => array(
-            'pretty_version' => 'v1.25.0',
-            'version' => '1.25.0.0',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../symfony/polyfill-iconv',
-            'aliases' => array(),
-            'reference' => 'f1aed619e28cb077fc83fac8c4c0383578356e40',
             'dev_requirement' => false,
         ),
         'symfony/polyfill-intl-grapheme' => array(

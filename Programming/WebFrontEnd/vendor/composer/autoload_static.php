@@ -592,6 +592,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\procurementTransactionRPI' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionRPI.php',
         'App\\Http\\Controllers\\procurementTransactionRem' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionRem.php',
         'App\\Http\\Controllers\\procurementTransactionURP' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactionURP.php',
+        'App\\Http\\Controllers\\procurementTransactioniSupp' => __DIR__ . '/../..' . '/app/Http/Controllers/procurementTransactioniSupp.php',
         'App\\Http\\Controllers\\projectManagementAFE' => __DIR__ . '/../..' . '/app/Http/Controllers/projectManagementAFE.php',
         'App\\Http\\Controllers\\projectManagementCEPS' => __DIR__ . '/../..' . '/app/Http/Controllers/projectManagementCEPS.php',
         'App\\Http\\Controllers\\projectManagementMCFS' => __DIR__ . '/../..' . '/app/Http/Controllers/projectManagementMCFS.php',
