@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource\setWorker\v1        |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource                     |
+|                \setOrganizationalDepartment\v1                                                                                   |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource\setWorker\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\initialize\humanResource\setOrganizationalDepartment\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setWorker                                                                                                    |
-    | ▪ Description : Menangani API transaction.initialize.humanResource.setWorker Version 1                                       |
+    | ▪ Class Name  : setOrganizationalDepartment                                                                                  |
+    | ▪ Description : Menangani API transaction.initialize.humanResource.setOrganizationalDepartment Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setWorker extends \App\Http\Controllers\Controller
+    class setOrganizationalDepartment extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-23                                                                                           |
-        | ▪ Creation Date   : 2022-05-23                                                                                           |
+        | ▪ Last Update     : 2022-05-24                                                                                           |
+        | ▪ Creation Date   : 2022-05-24                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-23                                                                                           |
-        | ▪ Creation Date   : 2022-05-23                                                                                           |
+        | ▪ Last Update     : 2022-05-24                                                                                           |
+        | ▪ Creation Date   : 2022-05-24                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -58,11 +59,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\in
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize Worker Internal Career Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Initialize Organizational Department Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorker())->setDataInitialize(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataInitialize($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblOrganizationalDepartment())->setDataInitialize(
                             $varUserSession
                             ))))
                             {
