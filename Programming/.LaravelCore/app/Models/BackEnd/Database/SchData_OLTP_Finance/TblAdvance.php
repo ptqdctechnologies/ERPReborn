@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-05-25                                                                                           |
         | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -72,7 +72,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
-            array $varAdditionalData = null)
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -95,7 +95,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
 
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
                     )
                 );
@@ -107,8 +107,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-05-25                                                                                           |
         | ▪ Creation Date   : 2022-05-17                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -137,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
-            array $varAdditionalData = null)
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -160,8 +160,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varInternalNotes, 'varchar'],
                         [$varRemarks, 'varchar'],
 
-                        [\App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData), 'json']
-                    ],
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                    ]
                     )
                 );
             return $varReturn['Data'][0];

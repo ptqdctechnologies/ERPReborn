@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000003                                                                                       |
-        | ▪ Create Date     : 2022-03-02                                                                                           |
+        | ▪ Version         : 1.0000.0000004                                                                                       |
+        | ▪ Create Date     : 2022-05-25                                                                                           |
         | ▪ Last Update     : 2022-03-14                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -73,7 +73,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null,
                             $varData['entities']['requesterPerson_RefID'],
                             $varData['entities']['remarks'],
-                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
+                                
+                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])
                             ))))
                             {
                             throw new \Exception();

@@ -67,69 +67,74 @@
                         "minLength": 1,
                         "maxLength": 512
                         },
-                    "additionalData": {       
-                        "type": "object",
-                        "properties": {
-                            "itemList": {                                    
+                    "additionalData": {
+                        "anyOf": [
+                                {"type": "null"},
+                                {
                                 "type": "object",
                                 "properties": {
-                                    "items": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "object",
-                                            "properties": {
-                                                "entities": {
+                                    "itemList": {                                    
+                                        "type": "object",
+                                        "properties": {
+                                            "items": {
+                                                "type": [ "array", "null" ],
+                                                "items": {
                                                     "type": "object",
                                                     "properties": {
-                                                        "combinedBudgetSectionDetail_RefID": {
-                                                            "type": [ "integer", "null" ],
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
-                                                        "product_RefID": {
-                                                            "type": [ "integer", "null" ],
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
-                                                        "quantity": {
-                                                            "type": [ "number", "null" ],
-                                                            "minimum": 0
-                                                            },
-                                                        "quantityUnit_RefID": {
-                                                            "type": [ "integer", "null" ],
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
-                                                        "productUnitPriceCurrency_RefID": {
-                                                            "type": [ "integer", "null" ],
-                                                            "minimum": 1,
-                                                            "maximum": 9223372036854775807
-                                                            },
-                                                        "productUnitPriceCurrencyExchangeRate": {
-                                                            "type": [ "number", "null" ],
-                                                            "minimum": 0
-                                                            },
-                                                        "productUnitPriceCurrencyValue": {
-                                                            "type": [ "number", "null" ],
-                                                            "minimum": 0
-                                                            },
-                                                        "remarks": {
-                                                            "type": [ "string", "null" ],
-                                                            "minLength": 1,
-                                                            "maxLength": 512
-                                                            }
+                                                        "entities": {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "combinedBudgetSectionDetail_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "product_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "quantity": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "quantityUnit_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceCurrency_RefID": {
+                                                                    "type": [ "integer", "null" ],
+                                                                    "minimum": 1,
+                                                                    "maximum": 9223372036854775807
+                                                                    },
+                                                                "productUnitPriceCurrencyExchangeRate": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "productUnitPriceCurrencyValue": {
+                                                                    "type": [ "number", "null" ],
+                                                                    "minimum": 0
+                                                                    },
+                                                                "remarks": {
+                                                                    "type": [ "string", "null" ],
+                                                                    "minLength": 1,
+                                                                    "maxLength": 512
+                                                                    }
+                                                                },
+                                                            "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
+                                                             }
                                                         },
-                                                    "required": [ "combinedBudgetSectionDetail_RefID", "product_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyValue", "remarks" ]
-                                                     }
-                                                },
-                                            "required": [ "entities" ]
-                                            }
+                                                    "required": [ "entities" ]
+                                                    }
+                                                }
+                                            },
+                                        "required": [ "items" ]
                                         }
                                     },
-                                "required": [ "items" ]
+                                "required": [ "itemList" ]
                                 }
-                            },
-                        "required": [ "itemList" ]
+                            ]
                         }
                     },
                 "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterPerson_RefID", "beneficiaryPerson_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    

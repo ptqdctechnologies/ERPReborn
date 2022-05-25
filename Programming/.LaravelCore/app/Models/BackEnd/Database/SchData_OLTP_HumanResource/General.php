@@ -24,6 +24,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-12-23                                                                                           |
+        | ▪ Creation Date   : 2021-12-23                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pekerja                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -49,6 +50,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varBranchID, 'bigint' ],
                             [NULL, 'timestamptz'],
+                            
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -70,6 +72,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-01-12                                                                                           |
+        | ▪ Creation Date   : 2022-01-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Timesheet Pekerjaan Perorangan                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -94,6 +97,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheet',
                         [
                             [$varBranchID, 'bigint' ],
+                            
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -115,6 +119,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-01-12                                                                                           |
+        | ▪ Creation Date   : 2022-01-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Aktivitas Timesheet Pekerjaan Perorangan                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -140,6 +145,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         'SchData-OLTP-HumanResource.Func_GetDataList_PersonWorkTimeSheetActivity',
                         [
                             [$varBranchID, 'bigint'],
+                            
                             [$varPersonWorkTimeSheet_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
@@ -162,6 +168,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-10-21                                                                                           |
+        | ▪ Creation Date   : 2021-10-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pekerja                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -186,6 +193,104 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         'SchData-OLTP-HumanResource.Func_GetDataList_Worker',
                         [
                             [$varBranchID, 'bigint' ],
+                            
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );                
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WorkerCareerInternal                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-05-25                                                                                           |
+        | ▪ Creation Date   : 2022-05-25                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pekerja                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WorkerCareerInternal($varUserSession, int $varBranchID, 
+            int $varWorker_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataList_WorkerCareerInternal',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varWorker_RefID, 'bigint' ],
+                            
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WorkerType                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-05-25                                                                                           |
+        | ▪ Creation Date   : 2022-05-25                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Jenis Pekerja                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WorkerType($varUserSession, int $varBranchID, 
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataList_WorkerType',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -207,6 +312,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-12-23                                                                                           |
+        | ▪ Creation Date   : 2021-12-23                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -245,6 +351,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-10-21                                                                                           |
+        | ▪ Creation Date   : 2021-10-21                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Worker                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -282,8 +389,8 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         | ▪ Method Name     : getDataReportFormResume_PersonWorkTimeSheet                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create Date     : 2022-01-31                                                                                           |
         | ▪ Last Update     : 2022-02-02                                                                                           |
+        | ▪ Creation Date   : 2022-01-31                                                                                           |
         | ▪ Description     : Mendapatkan Data Report Form Resume Person Work Time Sheet                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
