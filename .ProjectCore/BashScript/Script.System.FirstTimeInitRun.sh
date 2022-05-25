@@ -27,6 +27,7 @@ clear;
 ./BashScript/Script.Docker.BuildPermanentStorage.OpenProject.sh;
 
 ./BashScript/Script.Docker.BuildTemporaryStorage.PostgreSQL.sh;
+./BashScript/Script.Docker.BuildTemporaryStorage.OpenProject.sh;
 
 ./BashScript/Script.Docker.BuildVolume.All.sh;
 
