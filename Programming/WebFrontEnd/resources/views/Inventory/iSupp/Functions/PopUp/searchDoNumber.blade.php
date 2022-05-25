@@ -58,7 +58,7 @@
             $("#do_number").val(code);
             $(".projectCodeiSupp").val("143000000000029");
             $("#projectCodeiSupp4").val("Pengadaan jasa elektrifikasi PI 402 (Kluster KMJ 11, KMJ9, dan KMJ 24) di PT PGE area Kamojang");
-            $("#remarkiSupp2").val("Tagihan Listrik Infra media dinamika bulan Mei 2022.");
+            // $("#remarkiSupp2").val("Tagihan Listrik Infra media dinamika bulan Mei 2022.");
             $("#headerWarehouse2").val("Head Office Jakarta");
             $("#headerWarehouse3").val("Pasar Jatinegara");
         });

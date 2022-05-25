@@ -40,22 +40,24 @@ class FunctionController extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.resume.budgeting.getCombinedBudgetSectionUnsegmentedDetail', 
-            'latest', 
-            [
-            'parameter' => [
-                'combinedBudgetSection_RefID' => (int)$sitecode,
-                ],
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.budgeting.getCombinedBudgetSectionDetail', 
+        'latest', 
+        [
+        'parameter' => [
+            'combinedBudgetSection_RefID' => (int)$sitecode,
+            ],
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
             ]
+        ]
         );
+        // dd($varData);
+
         return response()->json($varData['data']);
     }
 

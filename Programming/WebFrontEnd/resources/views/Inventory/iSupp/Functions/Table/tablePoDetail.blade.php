@@ -8,7 +8,8 @@
                 <th>Work Id</th>
                 <th>Product Id</th>
                 <th>Product Name</th>
-                <th>Qty</th>
+                <th>Qty Budget</th>
+                <th>Qty Available</th>
                 <th>UOM</th>
                 <th>Progress</th>
             </tr>

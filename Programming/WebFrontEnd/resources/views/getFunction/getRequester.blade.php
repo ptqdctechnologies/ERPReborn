@@ -43,36 +43,13 @@
     |----------------------------------------------------------------------------------|-->
 
 <script>
-    function myFunction() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("req_name_arf");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("table1");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-</script>
-
-<script>
     $(function() {
         $(".klikRequester").on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
             var $this = $(this);
             var id = $this.data("id");
             var name = $this.data("name");
+            $("#request_name_id").val(id);
             $("#request_name").val(name);
             $("#budget_name").val(name);
             

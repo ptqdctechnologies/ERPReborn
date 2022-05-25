@@ -18,7 +18,7 @@
                         <div class="form-group">
                             <table>
                                 <tr>
-                                    <td><label>Material Source</label></td>
+                                    <td><label style="position:relative;top:4px;">Material Source</label></td>
                                     <td>
                                         <div class="input-group">
                                             <select class="form-control materialSource" style="border-radius:0;" name="headerOriginBudget" id="headerOriginBudget">
@@ -53,7 +53,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label>Project Code</label></td>
+                                    <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
                                             <input name="projectCodeiSupp" id="projectCodeiSupp" style="border-radius:0;" type="text" class="form-control projectCodeiSupp" readonly>
@@ -84,14 +84,14 @@
                     <div class="col-md-6 headeriSupp1">
                         <div class="form-group">
                             <table>
-                                <tr>
+                                <!-- <tr>
                                     <td><label>Net Act</label></td>
                                     <td>
                                     <div class="input-group">
                                         <input name="netActiSupp" id="netActiSupp" style="border-radius:0;" type="text" class="form-control" disabled>
                                     </div>
                                     </td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td><Label>Remark</Label></td>
                                     <td>
@@ -134,7 +134,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td><label>Project Code</label></td>
+                                    <td><label>Budget Code</label></td>
                                     <td>
                                         <div class="input-group">
                                             <input name="projectCodeiSupp" id="projectCodeiSupp" style="border-radius:0;" type="text" class="form-control projectCodeiSupp" readonly>

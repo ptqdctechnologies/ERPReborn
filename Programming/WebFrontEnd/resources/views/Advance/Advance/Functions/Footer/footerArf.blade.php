@@ -122,6 +122,7 @@
                             var totalBalance = $("#totalBalance").val();
                             var putPrice = $('#putPrice').val();
                             var status = $("#status").val();
+                            var combinedBudget = $("#combinedBudget").val();
                             var html = '<tr>'+
                                         '<td>'+
                                             '<button type="button" class="btn btn-danger btn-xs remove" data-id1="'+putProductName+'"><i class="fa fa-trash"></i></button> '+
@@ -133,7 +134,7 @@
                                             '<input type="hidden" name="var_price[]" value="'+priceCek+'">'+
                                             '<input type="hidden" name="var_totalPrice[]" value="'+(priceCek * qtyCek)+'">'+
                                             '<input type="hidden" name="var_currency[]" value="'+putCurrency+'">'+
-                                            // '<input type="hidden" name="var_remark[]" value="'+putRemark+'">'+
+                                            '<input type="hidden" name="var_combinedBudget[]" value="'+combinedBudget+'">'+
                                         '</td>'+
                                         '<td>'+product_id+'</td>'+
                                         '<td>'+putProductName+'</td>'+
@@ -142,7 +143,6 @@
                                         '<td>'+priceCek+'</td>'+
                                         '<td>'+(priceCek * qtyCek)+'</td>'+
                                         '<td>'+putCurrency+'</td>'+
-                                        // '<td>'+putRemark+'</td>'+
                                     '</tr>';
                             $('table.tableArf tbody').append(html);
 
