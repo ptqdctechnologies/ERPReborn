@@ -1316,7 +1316,7 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>i-Supp</label>
+                                <label>Material Receive</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
@@ -1340,68 +1340,13 @@
                                         <li class="nav-item">
                                             <a href="{{ route('iSupp.index') }}"" class=" nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create i-Supp</label>
+                                                <label>Create Material Receive</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#revisionDorPopUp">
                                                 <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Edit i-Supp</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:blue;"></i>
-                                <label>Material Receive</label>
-                                <i class="right fas fa-angle-left"></i>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                        <label>Report</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Receive Detail Report</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Receive Summary Report</label>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:yellow;"></i>
-                                        <label>Transaction</label>
-                                        <i class="right fas fa-angle-left"></i>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Create Material Receive</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#FF69B4;"></i>
-                                                <label>Material Receive Revision</label>
+                                                <label>Edit Material Receive</label>
                                             </a>
                                         </li>
                                     </ul>

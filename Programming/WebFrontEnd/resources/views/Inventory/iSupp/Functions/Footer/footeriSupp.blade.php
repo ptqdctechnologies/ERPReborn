@@ -59,6 +59,7 @@
                                     '<td>'+'<span id="getWorkId">' + 'N/A' + '</span>'+'</td>'+
                                     '<td>'+'<span id="getProductId">' + 'N/A' + '</span>'+'</td>'+
                                     '<td>'+'<span id="getProductName">' + val2.name + '</span>'+'</td>'+
+                                    '<td>'+'<span id="getQtyBudget">' + 'N/A' + '</span>'+'</td>'+
                                     '<td>'+'<span id="getQty">' + val2.quantity + '</span>'+'</td>'+
                                     '<td>'+'<span id="getUom">' + val2.quantityUnitName + '</span>'+'</td>'+
                                     '<td>'+'<span id="getRemark">' + 'N/A' + '</span>'+'</td>'+
@@ -194,13 +195,6 @@
                                 $("#balanceQtyiSupp").val("N/A");
 
                                 $(this).closest("tr").remove();
-
-                                // if(id10 == "Unspecified Product"){
-                                //     $("#projectiSupp2").prop("disabled", false);
-                                // }
-                                // else{
-                                //     $("#projectiSupp2").prop("disabled", true);
-                                // }
                             });
 
                             $("#projectiSuppDetail").val("");

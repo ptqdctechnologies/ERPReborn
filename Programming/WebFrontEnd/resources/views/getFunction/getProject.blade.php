@@ -142,14 +142,14 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + val2.quantity + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
                                                 '</td>'+
                                                 '<td>'+
                                                     '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>'+
                                                 '</td>'+
-                                                '<td>'+'<span id="getWorkId">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getWorkName">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getProductId">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProductId">' + val2.product_RefID + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProductName">' + val2.name + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQty">' + 'N/A' + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQty2">' + val2.quantity + '</span>'+'</td>'+
@@ -170,7 +170,7 @@
                                                 '<td>'+'<span id="getTranoDor">' + code + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProjectDor">' + 'N/A' + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getSiteDor">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getProductIdDor">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProductIdDor">' + val2.product_RefID + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProductNameDor">' + val2.name + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQtyDor">' + val2.quantity + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getPriceDor">' + val2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
@@ -185,7 +185,7 @@
                                     e.preventDefault();
                                     var $this = $(this);
                                     var status = $this.data("id1");
-
+                                    var combinedBudget = $this.data("id4");
                                     $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
                                     $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
                                     $("#addFromDetailtoCart").prop("disabled", true);
@@ -230,6 +230,7 @@
                                     $("#putUom").val(get81);
                                     $("#putCurrency").val(get91);
                                     $("#status").val(status);
+                                    $("#combinedBudget").val(combinedBudget);
                                 });
 
                                 $('.klikBudgetDetail2').on('click', function(e){

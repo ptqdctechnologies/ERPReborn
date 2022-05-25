@@ -57,6 +57,8 @@
             <td style="padding-top: 10px;">
               <div class="input-group">
                 <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly required>
+                <input name="var_request_name_id" id="request_name_id" style="border-radius:0;" type="hidden" class="form-control" readonly required>
+                <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly required>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
                     <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
