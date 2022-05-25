@@ -1,6 +1,12 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/ui/compare/v3.4.4...3.x)
+## [Unreleased](https://github.com/laravel/ui/compare/v3.4.5...3.x)
+
+## [v3.4.5](https://github.com/laravel/ui/compare/v3.4.4...v3.4.5) - 2022-02-22
+
+### Changed
+
+- Update 2014_10_12_100000_create_password_resets_table.php by @ashkanfekridev in https://github.com/laravel/ui/pull/223
 
 ## [v3.4.4](https://github.com/laravel/ui/compare/v3.4.3...v3.4.4) - 2022-02-15
 
