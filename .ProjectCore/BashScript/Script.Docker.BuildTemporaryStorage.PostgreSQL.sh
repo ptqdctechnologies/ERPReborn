@@ -1,7 +1,7 @@
 #----------------------------------------------------------------------------------------------------
 # ▪ Nama               : Script.Docker.BuildTemporaryStorage.PostgreSQL.sh
-# ▪ Versi              : 1.00.0000
-# ▪ Tanggal            : 2022-02-08
+# ▪ Versi              : 1.00.0001
+# ▪ Tanggal            : 2022-05-27
 # ▪ Input              : -
 # ▪ Output             : -
 # ▪ Deskripsi          : Script ini digunakan untuk memetakan Temporary storage PostgreSQL didalam 

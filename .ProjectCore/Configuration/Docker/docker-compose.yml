@@ -406,15 +406,19 @@ services:
     image: 'erp-reborn-devtools-openproject'
     restart: 'unless-stopped'
     ports:
+      - '25432:5432'
       - '30080:80'
     environment:
       SECRET_KEY_BASE: 'secret'
+      DATABASE_URL: 'postgresql://SysEngine:748159263@192.168.1.24:5432/dbERPReborn-Documentation-OpenProject'
     networks:
       app-network:
         ipv4_address: '172.28.0.101'
     volumes:
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
+      - './../ERPReborn-TemporaryStorage/BindMount/OpenProject/Temp/:/var/openproject/temp'
+#      - './.ProjectCore/PermanentStorage/OpenProject/zhtConf/Script:/zhtConf/Script'
 
 
 #---> Docker Volumes
