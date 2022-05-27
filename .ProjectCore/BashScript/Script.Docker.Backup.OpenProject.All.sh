@@ -40,7 +40,6 @@ tar czvf dbERPReborn-Documentation-OpenProject.tgz ./dbERPReborn-Documentation-O
 rm -rf ./*.sql;
 cd -;
 mv ./Database/Structure/PostgreSQL/dbERPReborn-Documentation-OpenProject.tgz ./Database/AllEntities/OpenProject/;
-cd -;
 
 git add ./Database/AllEntities/OpenProject/dbERPReborn-Documentation-OpenProject.tgz;
 git status; 
