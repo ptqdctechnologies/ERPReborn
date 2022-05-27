@@ -418,7 +418,7 @@ services:
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/pgdata/:/var/openproject/pgdata'
       - './.ProjectCore/PermanentStorage/OpenProject/var/lib/openproject/assets/:/var/openproject/assets'
       - './../ERPReborn-TemporaryStorage/BindMount/OpenProject/Temp/:/var/openproject/temp'
-      - './.ProjectCore/PermanentStorage/OpenProject/zhtConf/Script:/zhtConf/Script'
+#      - './.ProjectCore/PermanentStorage/OpenProject/zhtConf/Script:/zhtConf/Script'
 
 
 #---> Docker Volumes
