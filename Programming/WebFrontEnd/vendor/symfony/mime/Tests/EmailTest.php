@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\Mime\Tests;
 
+use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Mime\Email;
@@ -19,6 +20,7 @@ use Symfony\Component\Mime\Part\Multipart\AlternativePart;
 use Symfony\Component\Mime\Part\Multipart\MixedPart;
 use Symfony\Component\Mime\Part\Multipart\RelatedPart;
 use Symfony\Component\Mime\Part\TextPart;
+use Symfony\Component\Mime\Test\Constraint\EmailHeaderSame;
 use Symfony\Component\PropertyInfo\Extractor\PhpDocExtractor;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Normalizer\ArrayDenormalizer;
@@ -351,6 +353,14 @@ class EmailTest extends TestCase
         // 2 parts only, not 3 (text + embedded image once)
         $this->assertCount(2, $parts = $body->getParts());
         $this->assertStringMatchesFormat('html content <img src=3D"cid:%s@symfony">', $parts[0]->bodyToString());
+
+        $e = (new Email())->from('me@example.com')->to('you@example.com');
+        $e->html('<div background="cid:test.gif"></div>');
+        $e->embed($image, 'test.gif');
+        $body = $e->getBody();
+        $this->assertInstanceOf(RelatedPart::class, $body);
+        $this->assertCount(2, $parts = $body->getParts());
+        $this->assertStringMatchesFormat('<div background=3D"cid:%s@symfony"></div>', $parts[0]->bodyToString());
     }
 
     public function testAttachments()
@@ -457,5 +467,77 @@ EOF;
         $expected->from('fabien@symfony.com');
         $this->assertEquals($expected->getHeaders(), $n->getHeaders());
         $this->assertEquals($expected->getBody(), $n->getBody());
+    }
+
+    public function testMissingHeaderDoesNotThrowError()
+    {
+        $this->expectException(ExpectationFailedException::class);
+        $this->expectExceptionMessage('Failed asserting that the Email has header "foo" with value "bar" (value is null).');
+
+        $e = new Email();
+        $emailHeaderSame = new EmailHeaderSame('foo', 'bar');
+        $emailHeaderSame->evaluate($e);
+    }
+
+    public function testAttachBodyExpectStringOrResource()
+    {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('The body must be a string or a resource (got "bool").');
+
+        (new Email())->attach(false);
+    }
+
+    public function testEmbedBodyExpectStringOrResource()
+    {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('The body must be a string or a resource (got "bool").');
+
+        (new Email())->embed(false);
+    }
+
+    public function testHtmlBodyExpectStringOrResourceOrNull()
+    {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('The body must be a string, a resource or null (got "bool").');
+
+        (new Email())->html(false);
+    }
+
+    public function testHtmlBodyAcceptedTypes()
+    {
+        $email = new Email();
+
+        $email->html('foo');
+        $this->assertSame('foo', $email->getHtmlBody());
+
+        $email->html(null);
+        $this->assertNull($email->getHtmlBody());
+
+        $contents = file_get_contents(__DIR__.'/Fixtures/mimetypes/test', 'r');
+        $email->html($contents);
+        $this->assertSame($contents, $email->getHtmlBody());
+    }
+
+    public function testTextBodyExpectStringOrResourceOrNull()
+    {
+        $this->expectException(\TypeError::class);
+        $this->expectExceptionMessage('The body must be a string, a resource or null (got "bool").');
+
+        (new Email())->text(false);
+    }
+
+    public function testTextBodyAcceptedTypes()
+    {
+        $email = new Email();
+
+        $email->text('foo');
+        $this->assertSame('foo', $email->getTextBody());
+
+        $email->text(null);
+        $this->assertNull($email->getTextBody());
+
+        $contents = file_get_contents(__DIR__.'/Fixtures/mimetypes/test', 'r');
+        $email->text($contents);
+        $this->assertSame($contents, $email->getTextBody());
     }
 }
