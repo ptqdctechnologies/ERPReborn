@@ -23,7 +23,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Last Update     : 2022-05-30                                                                                           |
+        | ▪ Creation Date   : 2022-05-30                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-10-12                                                                                           |
+        | ▪ Last Update     : 2022-05-30                                                                                           |
+        | ▪ Creation Date   : 2022-05-30                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -51,19 +53,20 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varCode ► Code                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varProjectSection_RefID = null, string $varName = null, string $varCode = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varProjectSectionItem_RefID = null, string $varName = null, int $varMaterialProductAssembly_RefID = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -76,16 +79,17 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varProjectSection_RefID, 'bigint'],
+                        [$varProjectSectionItem_RefID, 'bigint'],
                         [$varName, 'varchar'], 
+                        [$varMaterialProductAssembly_RefID, 'bigint'],
                         [$varCode, 'varchar']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
             }
-*/
 
 
         /*
@@ -124,7 +128,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-07                                                                                           |
+        | ▪ Last Update     : 2022-05-30                                                                                           |
+        | ▪ Creation Date   : 2022-05-30                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -133,19 +138,20 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation                                                            |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varBusinessDocumentVersion_RefID ► Business Document Version Reference ID                                |
-        |      ▪ (int)    varProjectSection_RefID ► Project Section Reference ID                                                   |
+        |      ▪ (int)    varProjectSectionItem_RefID ► Project Section Item Reference ID                                          |
         |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varCode ► Code                                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-/*
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null,
-            int $varBusinessDocumentVersion_RefID = null, int $varProjectSection_RefID = null, string $varName = null, string $varCode = null)
+            int $varBusinessDocumentVersion_RefID = null, int $varProjectSectionItem_RefID = null, string $varName = null, int $varMaterialProductAssembly_RefID = null, string $varCode = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -158,16 +164,16 @@ namespace App\Models\Database\SchData_OLTP_Project
                         [$varSysDataAnnotation, 'varchar'],
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranchRefID, 'bigint'],
+                        
                         [$varBusinessDocumentVersion_RefID, 'bigint'],
-                        [$varProjectSection_RefID, 'bigint'],
+                        [$varProjectSectionItem_RefID, 'bigint'],
                         [$varName, 'varchar'], 
+                        [$varMaterialProductAssembly_RefID, 'bigint'],
                         [$varCode, 'varchar']
                     ],
                     )
                 );
             return $varReturn['Data'][0];
             }
- */
-
         }
     }
