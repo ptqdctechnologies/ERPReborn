@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-29                                                                                           |
+        | ▪ Creation Date   : 2021-06-29                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-06-29                                                                                           |
+        | ▪ Creation Date   : 2021-06-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

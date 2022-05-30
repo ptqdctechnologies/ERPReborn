@@ -759,7 +759,7 @@
         }
     },
     "emr-serverless": {
-        "namespace": "EMRServerlessWebService",
+        "namespace": "EMRServerless",
         "versions": {
             "latest": "2021-07-13",
             "2021-07-13": "2021-07-13"

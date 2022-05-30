@@ -1,10 +1,10 @@
 <?php
-namespace Aws\EMRServerlessWebService;
+namespace Aws\EMRServerless;
 
 use Aws\AwsClient;
 
 /**
- * This client is used to interact with the **EMR Serverless Web Service** service.
+ * This client is used to interact with the **EMR Serverless** service.
  * @method \Aws\Result cancelJobRun(array $args = [])
  * @method \GuzzleHttp\Promise\Promise cancelJobRunAsync(array $args = [])
  * @method \Aws\Result createApplication(array $args = [])
@@ -34,4 +34,4 @@ use Aws\AwsClient;
  * @method \Aws\Result updateApplication(array $args = [])
  * @method \GuzzleHttp\Promise\Promise updateApplicationAsync(array $args = [])
  */
-class EMRServerlessWebServiceClient extends AwsClient {}
+class EMRServerlessClient extends AwsClient {}
