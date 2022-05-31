@@ -1,10 +1,17 @@
 # CHANGELOG
 
+## 3.224.0 - 2022-05-27
+
+* `Aws\` - Removed `EMRServerlessWebService`, which was released with an incorrect name
+* `Aws\Appflow` - Adding the following features/changes: Parquet output that preserves typing from the source connector, Failed executions threshold before deactivation for scheduled flows, increasing max size of access and refresh token from 2048 to 4096
+* `Aws\DataSync` - AWS DataSync now supports TLS encryption in transit, file system policies and access points for EFS locations.
+* `Aws\EMRServerless` - This release adds support for Amazon EMR Serverless, a serverless runtime environment that simplifies running analytics applications using the latest open source frameworks such as Apache Spark and Apache Hive.
+* `Aws\SageMaker` - Amazon SageMaker Notebook Instances now allows configuration of Instance Metadata Service version and Amazon SageMaker Studio now supports G5 instance types.
+
 ## 3.223.0 - 2022-05-26
 
 * `Aws\` - Add missing PHPDoc annotation for PromiseInterface implementations.
 * `Aws\EC2` - C7g instances, powered by the latest generation AWS Graviton3 processors, provide the best price performance in Amazon EC2 for compute-intensive workloads.
-* `Aws\EMRServerlessWebService` - This release adds support for Amazon EMR Serverless, a serverless runtime environment that simplifies running analytics applications using the latest open source frameworks such as Apache Spark and Apache Hive.
 * `Aws\ForecastService` - Introduced a new field in Auto Predictor as Time Alignment Boundary. It helps in aligning the timestamps generated during Forecast exports
 * `Aws\Lightsail` - Amazon Lightsail now supports the ability to configure a Lightsail Container Service to pull images from Amazon ECR private repositories in your account.
 
