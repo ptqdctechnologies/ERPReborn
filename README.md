@@ -39,7 +39,7 @@ Main Features :
       **Image** | **Tag**
       :--- | :---
       postgres | latest
-      php | 8.1-apache
+      php | 8.1.6-apache
       redis | latest
       nowsci/samba-domain | latest
       minio/minio | latest
@@ -50,8 +50,8 @@ Main Features :
       **Customized Image** | **Source Image**
       :--- | :---
       erp-reborn-postgresql | postgres:latest
-      erp-reborn-phpapache-backend | php:8.1-apache
-      erp-reborn-phpapache-frontend | php:8.1-apache
+      erp-reborn-phpapache-backend | php:8.1.6-apache
+      erp-reborn-phpapache-frontend | php:8.1.6-apache
       erp-reborn-samba | nowsci/samba-domain:latest
       erp-reborn-minio | minio/minio:latest
       erp-reborn-devtools-pgadmin4 | dpage/pgadmin4:latest
