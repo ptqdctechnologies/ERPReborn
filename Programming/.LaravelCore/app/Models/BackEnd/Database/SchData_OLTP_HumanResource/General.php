@@ -231,7 +231,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WorkerCareerInternal($varUserSession, int $varBranchID, 
-            int $varWorker_RefID = null,
+            int $varWorker_RefID = null, string $varDateTimeTZ = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -243,6 +243,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         [
                             [$varBranchID, 'bigint' ],
                             [$varWorker_RefID, 'bigint' ],
+                            [$varDateTimeTZ, 'timestamptz' ],
                             
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
