@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.humanResource.getWorkerCareerInternal (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.finance.getAdvance (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.humanResource.getWorkerCareerInternal" ]
+                        "enum": [ "transaction.read.dataList.finance.getAdvance" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -28,22 +28,7 @@
         "type": "object",
         "properties": {
             "parameter": {
-                "type": "object",
-                "properties": {
-                    "worker_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
-                        },
-                    "dateTimeTZ": {
-                        "type": [ "string", "null" ],
-                        "format": "string",
-                        "pattern": "^((([0-9]{1,4})((-){1})(0[1-9]|1[0-2])((-){1})(0[1-9]|1[0-9]|2[0-9]|3[0-1]))(([ ]{1,})(([0-9]|0[0-9]|1[0-9]|2[0-3]):([0-9]|[0-5][0-9]):([0-9]|[0-5][0-9]))(([.]{1}[0-9]{1,6}){0,1})((([ ]{0,})([+|-]{1})(([0-9]|0[0-9]|1[0-5]){1})){0,1})){0,1})$",
-                        "minLength": 10,
-                        "maxLength": 30
-                        }
-                    },
-                "required": [ "worker_RefID", "dateTimeTZ" ]
+                "additionalProperties": false
                 },
             "SQLStatement": {
                 "type": "object",
