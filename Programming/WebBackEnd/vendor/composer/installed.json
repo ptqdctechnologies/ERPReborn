@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.224.0",
-            "version_normalized": "3.224.0.0",
+            "version": "3.224.2",
+            "version_normalized": "3.224.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "bc5eb18414ef703c5f39a5a009a437c74c228306"
+                "reference": "a2e6461261a92570128e6c2b6fb1896f3d16b424"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/bc5eb18414ef703c5f39a5a009a437c74c228306",
-                "reference": "bc5eb18414ef703c5f39a5a009a437c74c228306",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a2e6461261a92570128e6c2b6fb1896f3d16b424",
+                "reference": "a2e6461261a92570128e6c2b6fb1896f3d16b424",
                 "shasum": ""
             },
             "require": {
@@ -102,7 +102,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-05-27T20:23:28+00:00",
+            "time": "2022-06-01T18:17:06+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -143,7 +143,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.224.0"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.224.2"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1655,17 +1655,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.14.1",
-            "version_normalized": "9.14.1.0",
+            "version": "v9.15.0",
+            "version_normalized": "9.15.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "2ca86f96118635a79ee3389013ccab110ae14bea"
+                "reference": "dc32641f5963578858fb71a9d2fbf995fe1e1ea3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/2ca86f96118635a79ee3389013ccab110ae14bea",
-                "reference": "2ca86f96118635a79ee3389013ccab110ae14bea",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/dc32641f5963578858fb71a9d2fbf995fe1e1ea3",
+                "reference": "dc32641f5963578858fb71a9d2fbf995fe1e1ea3",
                 "shasum": ""
             },
             "require": {
@@ -1789,7 +1789,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2022-05-25T18:18:07+00:00",
+            "time": "2022-05-31T14:56:46+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2175,7 +2175,7 @@
                     "dev-main": "1.2-dev"
                 }
             },
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "League\\Config\\": "src"
@@ -2346,7 +2346,7 @@
             },
             "time": "2022-04-01T22:05:11+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "League\\Flysystem\\AwsS3V3\\": ""
@@ -2404,7 +2404,7 @@
             },
             "time": "2022-04-17T13:12:02+00:00",
             "type": "library",
-            "installation-source": "dist",
+            "installation-source": "source",
             "autoload": {
                 "psr-4": {
                     "League\\MimeTypeDetection\\": "src"
@@ -3333,17 +3333,17 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.13.2",
-            "version_normalized": "4.13.2.0",
+            "version": "v4.14.0",
+            "version_normalized": "4.14.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077"
+                "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/210577fe3cf7badcc5814d99455df46564f3c077",
-                "reference": "210577fe3cf7badcc5814d99455df46564f3c077",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/34bea19b6e03d8153165d8f30bba4c3be86184c1",
+                "reference": "34bea19b6e03d8153165d8f30bba4c3be86184c1",
                 "shasum": ""
             },
             "require": {
@@ -3354,7 +3354,7 @@
                 "ircmaxell/php-yacc": "^0.0.7",
                 "phpunit/phpunit": "^6.5 || ^7.0 || ^8.0 || ^9.0"
             },
-            "time": "2021-11-30T19:35:32+00:00",
+            "time": "2022-05-31T20:59:12+00:00",
             "bin": [
                 "bin/php-parse"
             ],
@@ -3386,7 +3386,7 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.13.2"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.14.0"
             },
             "install-path": "../nikic/php-parser"
         },
