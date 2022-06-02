@@ -11,8 +11,9 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formCreateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.update', 1) }}" id="formUpdateArf">
           @csrf
+          @method('PUT')
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -70,60 +71,6 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <!-- <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              
-                              <tr>
-                                <td><label>Name Of Beneficiary</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><Label>Internal Notes</Label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <textarea name="var_internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              <tr>
-                                <td><label>Bank Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_bank_name" id="bank_name" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_account_name" id="account_name" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Number</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_account_number" id="account_number" style="border-radius:0;" type="number" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div> -->
                        <div class="col-md-6">
                         <div class="card-body table-responsive p-0" style="height: 50px;width:100%;">
                           <table class="table table-head-fixed text-nowrap">
@@ -166,7 +113,7 @@
 
                   <div class="card-body" id="detailTransAvail">
                       <div class="row">
-                    <table class="table table-head-fixed text-nowrap">
+                    <table class="table table-head-fixed text-nowrap" style="text-align: center;">
                       <thead>
                         <tr>
                           <th>Product Id</th>
@@ -194,7 +141,7 @@
                             <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQtyvvvv quantity" value="0" autocomplete="off">
+                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off" value="0">
                             <span id="putQtybyId"></span>
                             <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
@@ -202,7 +149,7 @@
                             <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice uang" value="0" autocomplete="off">
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
                             <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
@@ -215,6 +162,11 @@
                           <td>
                             <input name="balance" id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
+
+                          <td>
+                            <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                          </td>
+
                       </tbody>
                     </table>
                   </div>
@@ -277,7 +229,7 @@
                           <tr>
                             <td><label>Remark</label></td>
                             <td>
-                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control"></textarea>
+                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control" required></textarea>
                               </td>
                           </tr>
                         </table>
@@ -303,4 +255,4 @@
 @include('Partials.footer')
 
 @include('Advance.Advance.Functions.Footer.footerArf')
-@endsection   
+@endsection

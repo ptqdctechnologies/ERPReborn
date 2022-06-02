@@ -31,7 +31,7 @@
                                                 </span>
                                             </td>
                                             <td>
-                                                <p>Detail {{$i}}</p>
+                                                <p>Product Name {{$i}}</p>
                                             </td>
                                             <td>Pcs</td>
                                             <td>N</td>
@@ -57,10 +57,18 @@
             var name = $this.data("name");
             var uom = $this.data("id2");
             var valuta = $this.data("id3");
+
+            //REM
             $("#productIdRem").val(code);
             $("#productNameRem").val(name);
             $("#qtyNameRem").val(uom);
             $("#unitPriceNameRem").val(valuta);
+
+
+            $("#putProductId").val(code);
+            $("#putProductName").val(name);
+
+            //ARF
         });
     });
 </script>

@@ -35,7 +35,108 @@
 </script>
 
 <script>
+    $(document).ready(function() {
 
+        $('.klikArfDetail1').click(function() {
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
+            $("#addAsfListCart").prop("disabled", false);
+            $(".detailASF").show();
+            $("#arf_number").val($("#getTrano1").html());
+            $("#arf_date").val("23-02-2021");
+
+            $("#productIdHide").val($("#getProductId1").html());
+            
+            $("#nameMaterialHide").val($("#getProductName1").html());
+            $("#uomHide").val($("#getUom1").html());
+
+            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
+            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
+
+            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4);
+            var getBalance = (getTotalArf - getTotalArfDetail1);
+
+            $("#total_arf").val(getTotalArf);
+            $("#total_arf2").val("IDR");
+            $("#total_asf").val($("#getTotalArfDetail1").html());
+            $("#total_asf2").val("IDR");
+            $("#balance").val(getBalance);
+            $("#balance2").val("IDR");
+            $("#qty_expense2").val("Ls");
+            $("#price_expense2").val("IDR");
+            $("#total_expense2").val("IDR");
+            $("#qty_amount2").val("Ls");
+            $("#price_amount2").val("IDR");
+            $("#total_amount2").val("IDR");
+
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".detailSettlement").click(function() {
+            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", false);
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_expense').keyup(function() {
+            var price_expense = $(this).val();
+            var qty_expense = $('#qty_expense').val();
+            var total_expense = price_expense * qty_expense;
+            $("#total_expense").val(parseFloat(total_expense).toFixed(2));
+            
+        });
+    });
+</script>
+
+<script>
+    $('document').ready(function() {
+        $('#price_amount').keyup(function() {
+            var price_amount = $(this).val();
+            var qty_amount = $('#qty_amount').val();
+            var total_amount = price_amount * qty_amount;// var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            $("#total_amount").val(parseFloat(total_amount).toFixed(2));
+        });
+    });
+</script>
+
+<script>
+    $('#qty_expense').on('blur', function() {
+    var qty = $('#qty_expense').val().replace(/^\s+|\s+$/g, '');
+    if( ($('#qty_expense').val() != '') && (!qty.match(/^$/) )){
+        $('#qty_expense').val( parseFloat(qty).toFixed(2));
+    }
+    });
+
+    $('#price_expense').on('blur', function() {
+    var price = $('#price_expense').val().replace(/^\s+|\s+$/g, '');
+    if( ($('#price_expense').val() != '') && (!price.match(/^$/) )){
+        $('#price_expense').val( parseFloat(price).toFixed(2));
+    }
+    });
+
+    $('#qty_amount').on('blur', function() {
+    var qty = $('#qty_amount').val().replace(/^\s+|\s+$/g, '');
+    if( ($('#qty_amount').val() != '') && (!qty.match(/^$/) )){
+        $('#qty_amount').val( parseFloat(qty).toFixed(2));
+    }
+    });
+
+    $('#price_amount').on('blur', function() {
+    var price = $('#price_amount').val().replace(/^\s+|\s+$/g, '');
+    if( ($('#price_amount').val() != '') && (!price.match(/^$/) )){
+        $('#price_amount').val( parseFloat(price).toFixed(2));
+    }
+    });
+    
+</script>
+
+<script>
     $('#addAsfListCart').click(function() {
 
         var balance = $('#balance').val();
@@ -79,7 +180,7 @@
 
                         var html = '<tr>'+
                                         '<td>'+
-                                            '<button type="button" class="btn btn-danger btn-xs remove_amount" data-id="1"><i class="fa fa-trash"></i></button> '+
+                                            '<button type="button" class="btn btn-danger btn-xs remove_amount" data-id1="'+product_name+'"><i class="fa fa-trash"></i></button> '+
                                             '<button type="button" class="btn btn-warning btn-xs edit_amount" data-dismiss="modal" data-id1="'+product_name+'" data-id2="'+arf_date+'" data-id3="'+total_arf+'" data-id4="'+total_arf2+'" data-id5="'+total_asf+'" data-id6="'+total_asf2+'" data-id7="'+balance+'" data-id8="'+balance2+'" data-id9="'+qty_expense+'" data-id10="'+qty_expense2+'" data-id11="'+price_expense+'" data-id12="'+price_expense2+'" data-id13="'+total_expense+'" data-id14="'+total_expense2+'" data-id15="'+qty_amount+'" data-id16="'+qty_amount2+'" data-id17="'+price_amount+'" data-id18="'+price_amount2+'" data-id19="'+total_amount+'" data-id20="'+total_amount2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
                                             '<input type="hidden" name="var_trano[]" value="'+trano+'">'+
                                             '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
@@ -104,7 +205,7 @@
 
                         var html2 = '<tr>'+
                                         '<td>'+
-                                            '<button type="button" class="btn btn-danger btn-xs remove_expense" data-id="1"><i class="fa fa-trash"></i></button> '+
+                                            '<button type="button" class="btn btn-danger btn-xs remove_expense" data-id1="'+product_name+'"><i class="fa fa-trash"></i></button> '+
                                             '<button type="button" class="btn btn-warning btn-xs edit_expense" data-dismiss="modal" data-id1="'+product_name+'" data-id2="'+arf_date+'" data-id3="'+total_arf+'" data-id4="'+total_arf2+'" data-id5="'+total_asf+'" data-id6="'+total_asf2+'" data-id7="'+balance+'" data-id8="'+balance2+'" data-id9="'+qty_expense+'" data-id10="'+qty_expense2+'" data-id11="'+price_expense+'" data-id12="'+price_expense2+'" data-id13="'+total_expense+'" data-id14="'+total_expense2+'" data-id15="'+qty_amount+'" data-id16="'+qty_amount2+'" data-id17="'+price_amount+'" data-id18="'+price_amount2+'" data-id19="'+total_amount+'" data-id20="'+total_amount2+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
                                             '<input type="hidden" id="var_tranox" name="var_trano[]" value="'+trano+'">'+
                                             '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
@@ -302,211 +403,5 @@
         else{
             Swal.fire("Error !", "Request over budget", "error");
         }
-    });
-</script>
-
-<script>
-    var wrapper = $(".input_fields_wrap"); //Fields wrapper
-    $('.add_field_button').click(function() {
-        cek = 0;
-        addColomn();
-    });
-
-    function addColomn() { //on add input button click
-        if (cek == 0) {
-            cek++;
-            x++; //text box increment
-            for ($x = 1; $x < 5; $x++) {
-
-            }
-            $(wrapper).append(
-
-                '<div class="col-md-12">' +
-                '<div class="form-group">' +
-                '<div class="input-group control-group" style="width:105%;position:relative;right:8px;">' +
-                '<input type="file" class="form-control filenames" id="filenames_' + x + '" style="height:26px;">' +
-                '<div class="input-group-btn">' +
-                '<button class="btn btn-outline-secondary btn-sm remove_field" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '</div>'
-
-            ); //add input box                
-        }
-    }
-
-    $(wrapper).on("click", ".remove_field", function(e) { //user click on remove text
-        e.preventDefault();
-        $(this).parent().parent().parent('div').remove();
-        x--;
-    })
-</script>
-
-<script>
-    $(document).ready(function() {
-
-        $('.klikArfDetail1').click(function() {
-            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
-            $("#addAsfListCart").prop("disabled", false);
-            $(".detailASF").show();
-            $("#arf_number").val($("#getTrano1").html());
-            $("#arf_date").val("23-02-2021");
-
-            $("#productIdHide").val($("#getProductId1").html());
-            
-            $("#nameMaterialHide").val($("#getProductName1").html());
-            $("#uomHide").val($("#getUom1").html());
-
-            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
-
-            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4);
-            var getBalance = (getTotalArf - getTotalArfDetail1);
-
-            $("#total_arf").val(getTotalArf);
-            $("#total_arf2").val("IDR");
-            $("#total_asf").val($("#getTotalArfDetail1").html());
-            $("#total_asf2").val("IDR");
-            $("#balance").val(getBalance);
-            $("#balance2").val("IDR");
-            $("#qty_expense2").val("Ls");
-            $("#price_expense2").val("IDR");
-            $("#total_expense2").val("IDR");
-            $("#qty_amount2").val("Ls");
-            $("#price_amount2").val("IDR");
-            $("#total_amount2").val("IDR");
-
-        });
-        $('.klikArfDetail2').click(function() {
-
-            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
-            $("#addAsfListCart").prop("disabled", false);
-            $(".detailASF").show();
-            $("#arf_number").val($("#getTrano2").html());
-            $("#arf_date").val("23-02-2021");
-
-            $("#productIdHide").val($("#getProductId2").html());
-            $("#nameMaterialHide").val($("#getProductName2").html());
-            $("#uomHide").val($("#getUom2").html());
-
-            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
-
-            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail2).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-            $("#total_arf").val(getTotalArf);
-            $("#total_arf2").val("IDR");
-            $("#total_asf").val($("#getTotalArfDetail2").html());
-            $("#total_asf2").val("IDR");
-            $("#balance").val(getBalance);
-            $("#balance2").val("IDR");
-            $("#qty_expense2").val("Ls");
-            $("#price_expense2").val("IDR");
-            $("#total_expense2").val("IDR");
-            $("#qty_amount2").val("Ls");
-            $("#price_amount2").val("IDR");
-            $("#total_amount2").val("IDR");
-        });
-        $('.klikArfDetail3').click(function() {
-
-            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
-            $("#addAsfListCart").prop("disabled", false);
-            $(".detailASF").show();
-            $("#arf_number").val($("#getTrano3").html());
-            $("#arf_date").val("23-02-2021");
-
-            $("#productIdHide").val($("#getProductId3").html());
-            $("#nameMaterialHide").val($("#getProductName3").html());
-            $("#uomHide").val($("#getUom3").html());
-
-            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
-
-            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail3).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-            $("#total_arf").val(getTotalArf);
-            $("#total_arf2").val("IDR");
-            $("#total_asf").val($("#getTotalArfDetail3").html());
-            $("#total_asf2").val("IDR");
-            $("#balance").val(getBalance);
-            $("#balance2").val("IDR");
-            $("#qty_expense2").val("Ls");
-            $("#price_expense2").val("IDR");
-            $("#total_expense2").val("IDR");
-            $("#qty_amount2").val("Ls");
-            $("#price_amount2").val("IDR");
-            $("#total_amount2").val("IDR");
-        });
-        $('.klikArfDetail4').click(function() {
-
-            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", true);
-            $("#addAsfListCart").prop("disabled", false);
-            $(".detailASF").show();
-            $("#arf_number").val($("#getTrano4").html());
-            $("#arf_date").val("23-02-2021");
-
-            $("#productIdHide").val($("#getProductId4").html());
-            $("#nameMaterialHide").val($("#getProductName4").html());
-            $("#uomHide").val($("#getUom4").html());
-
-            var getTotalArfDetail1 = $("#getTotalArfDetail1").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail2 = $("#getTotalArfDetail2").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail3 = $("#getTotalArfDetail3").html().replace(/[^a-zA-Z0-9 ]/g, "");
-            var getTotalArfDetail4 = $("#getTotalArfDetail4").html().replace(/[^a-zA-Z0-9 ]/g, "");
-
-            var getTotalArf =(+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            var getBalance = ((+getTotalArfDetail1 + +getTotalArfDetail2 + +getTotalArfDetail3 + +getTotalArfDetail4) - getTotalArfDetail4).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
-            $("#total_arf").val(getTotalArf);
-            $("#total_arf2").val("IDR");
-            $("#total_asf").val($("#getTotalArfDetail4").html());
-            $("#total_asf2").val("IDR");
-            $("#balance").val(getBalance);
-            $("#balance2").val("IDR");
-            $("#qty_expense2").val("Ls");
-            $("#price_expense2").val("IDR");
-            $("#total_expense2").val("IDR");
-            $("#qty_amount2").val("Ls");
-            $("#price_amount2").val("IDR");
-            $("#total_amount2").val("IDR");
-        });
-    });
-</script>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        $(".detailSettlement").click(function() {
-            $("#tableShowHideBOQ2").find("input,button,textarea,select").attr("disabled", false);
-        });
-    });
-</script>
-
-<script>
-    $('document').ready(function() {
-        $('#price_expense').keyup(function() {
-            var price_expense = $(this).val();
-            var qty_expense = $('#qty_expense').val();
-            var total_expense = price_expense * qty_expense;$("#total_expense").val(total_expense);
-        });
-    });
-</script>
-
-<script>
-    $('document').ready(function() {
-        $('#price_amount').keyup(function() {
-            var price_amount = $(this).val();
-            var qty_amount = $('#qty_amount').val();
-            var total_amount = price_amount * qty_amount;// var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-            $("#total_amount").val(total_amount);
-        });
     });
 </script>
