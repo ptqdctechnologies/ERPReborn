@@ -23,13 +23,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : Func_GetDataList_DeliveryDestination                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-04-13                                                                                           |
         | ▪ Last Update     : 2022-04-21                                                                                           |
+        | ▪ Creation Date   : 2022-04-13                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Tujuan Pengiriman                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varDeliveryDestinationType_RefID ► Delivery Destination Type Reference ID                                |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
@@ -40,7 +40,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestination(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varDeliveryDestinationType_RefID = null,
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
@@ -52,7 +52,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestination',
                         [
                             [null, 'bigint'],
-                            [$varSysBranchRefID, 'bigint'],
+                            [$varSysBranch_RefID, 'bigint'],
                             [$varDeliveryDestinationType_RefID, 'bigint'],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
@@ -74,13 +74,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : Func_GetDataList_DeliveryDestinationType                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Tujuan Pengiriman                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -90,7 +90,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestinationType(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -100,7 +100,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestinationType',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -121,13 +121,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_DeliveryOrder                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pesanan Pengiriman (DO)                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -137,7 +137,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -147,7 +147,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -168,13 +168,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrder                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pesanan Pembelian (PO)                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -184,7 +184,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -194,7 +194,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -215,13 +215,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseOrderAdditionalCostType                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Last Update     : 2022-04-18                                                                                           |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Biaya Tambahan Pesanan Pembelian (PO)                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -231,7 +231,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrderAdditionalCostType(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -241,7 +241,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderAdditionalCostType',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -262,13 +262,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_PurchaseRequisition                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (PR)                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -278,7 +278,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisition(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -288,7 +288,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisition',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -309,13 +309,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_SupplierInvoiceBillingPurpose                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Creation Date   : 2022-04-14                                                                                           |
         | ▪ Last Update     : 2022-04-21                                                                                           |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Tujuan Penagihan Invoice Penyedia                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -325,7 +325,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SupplierInvoiceBillingPurpose(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -336,7 +336,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierInvoiceBillingPurpose',
                         [
                             [null, 'bigint'],
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -357,13 +357,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_Warehouse                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Gudang                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -373,7 +373,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Warehouse(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -383,7 +383,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_Warehouse',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -404,13 +404,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseInboundOrder                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Penerimaan Barang Gudang                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -420,7 +420,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -430,7 +430,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -451,13 +451,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseOutboundOrder                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pengeluaran Barang Gudang                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -467,7 +467,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -477,7 +477,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -498,13 +498,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataList_WarehouseType                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Last Update     : 2022-03-01                                                                                           |
+        | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Jenis Gudang                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -514,7 +514,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseType(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
             {
             try {
@@ -524,7 +524,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseType',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
                             [$varFilterStatement, 'varchar'],
@@ -545,19 +545,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_DeliveryDestination                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Tujuan Pengiriman                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestination(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -566,7 +566,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestination',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -583,19 +583,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_DeliveryDestinationType                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Last Update     : 2022-04-12                                                                                           |
+        | ▪ Creation Date   : 2022-04-12                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Tujuan Pengiriman                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestinationType(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -604,7 +604,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestinationType',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -621,19 +621,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_DeliveryOrder                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Last Update     : 2022-03-10                                                                                           |
+        | ▪ Creation Date   : 2022-03-10                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pengiriman (DO)                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryOrder(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -642,7 +642,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -659,19 +659,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseOrder                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pesanan Pembelian (PO)                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -680,7 +680,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -697,19 +697,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseOrderAdditionalCostType                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Last Update     : 2022-04-18                                                                                           |
+        | ▪ Creation Date   : 2022-04-18                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Biaya Tambahan Pesanan Pembelian (PO)                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrderAdditionalCostType(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -718,7 +718,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseOrderAdditionalCostType',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -735,19 +735,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_PurchaseRequisition                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Last Update     : 2022-03-07                                                                                           |
+        | ▪ Creation Date   : 2022-03-07                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseRequisition(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -756,7 +756,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_PurchaseRequisition',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -773,19 +773,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_SupplierInvoiceBillingPurpose                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-14                                                                                           |
         | ▪ Last Update     : 2022-04-14                                                                                           |
+        | ▪ Creation Date   : 2022-04-14                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Pembelian (PR)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_SupplierInvoiceBillingPurpose(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -794,7 +794,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_SupplierInvoiceBillingPurpose',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -811,19 +811,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_Warehouse                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Gudang                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Warehouse(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -832,7 +832,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_Warehouse',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -849,19 +849,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseInboundOrder                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Penerimaan Barang Gudang                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -870,7 +870,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseInboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -887,19 +887,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseOutboundOrder                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Pengeluaran Barang Gudang                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -908,7 +908,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseOutboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -925,19 +925,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getDataPickList_WarehouseType                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Last Update     : 2022-03-02                                                                                           |
+        | ▪ Creation Date   : 2022-03-02                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Pilihan Data Jenis Gudang                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseType(
-            $varUserSession, int $varSysBranchRefID)
+            $varUserSession, int $varSysBranch_RefID)
             {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -946,7 +946,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseType',
                         [
-                            [$varSysBranchRefID, 'bigint' ]
+                            [$varSysBranch_RefID, 'bigint' ]
                         ]
                         )
                     );
@@ -963,20 +963,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseOrder                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Pesanan Pembelian (Purchase Order)                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varSysID)
             {
             try {
@@ -986,7 +986,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varSysID, 'bigint' ]
                         ]
                         )
@@ -1008,20 +1008,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseRequisition                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Permintaan Pembelian (Purchase Requisition)                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisition(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varSysID)
             {
             try {
@@ -1031,7 +1031,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisition',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varSysID, 'bigint' ]
                         ]
                         )
@@ -1053,20 +1053,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseInboundOrder                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Perintah Penerimaan Barang Gudang (Warehouse Inbound Order)  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varSysID)
             {
             try {
@@ -1076,7 +1076,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varSysID, 'bigint' ]
                         ]
                         )
@@ -1098,21 +1098,21 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         | ▪ Method Name     : getReport_Form_DocumentForm_WarehouseOutboundOrder                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Last Update     : 2022-04-08                                                                                           |
+        | ▪ Creation Date   : 2022-04-08                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Perintah Pengeluaran Barang Gudang (Warehouse Outbound       |
         |                     Order)                                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranchRefID ► Branch ID                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (int)    varSysID ► Record ID                                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranchRefID, 
+            $varUserSession, int $varSysBranch_RefID, 
             int $varSysID)
             {
             try {
@@ -1122,7 +1122,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varUserSession,
                         'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseOutboundOrder',
                         [
-                            [$varSysBranchRefID, 'bigint' ],
+                            [$varSysBranch_RefID, 'bigint' ],
                             [$varSysID, 'bigint' ]
                         ]
                         )

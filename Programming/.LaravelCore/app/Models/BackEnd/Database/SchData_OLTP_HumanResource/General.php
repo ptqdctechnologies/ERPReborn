@@ -222,6 +222,7 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
         |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        |      ▪ (string) varDateTimeTZ ► DateTimeTZ                                                                               |
         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
@@ -244,6 +245,56 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                             [$varBranchID, 'bigint' ],
                             [$varWorker_RefID, 'bigint' ],
                             [$varDateTimeTZ, 'timestamptz' ],
+                            
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_WorkerCurrentJobsPosition                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Creation Date   : 2022-06-02                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Posisi Jabatan Pekerja Saat Ini                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_WorkerCurrentJobsPosition($varUserSession, int $varBranchID, 
+            int $varWorker_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataList_WorkerCurrentJobsPosition',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varWorker_RefID, 'bigint' ],
                             
                             [$varPickStatement, 'varchar'],
                             [$varSortStatement, 'varchar'],
@@ -374,6 +425,48 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
                         'SchData-OLTP-HumanResource.Func_GetDataPickList_Worker',
                         [
                             [$varBranchID, 'bigint']
+                        ]
+                        )
+                    );
+                return $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_WorkerCurrentJobsPosition                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-02                                                                                           |
+        | ▪ Creation Date   : 2022-06-02                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Posisi Jabatan Pekerja Saat Ini                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varWorker_RefID ► Worker Reference ID                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_WorkerCurrentJobsPosition(
+            $varUserSession, int $varBranchID,
+            int $varWorker_RefID = null
+            )
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-HumanResource.Func_GetDataPickList_WorkerCurrentJobsPosition',
+                        [
+                            [$varBranchID, 'bigint'],
+                            [$varWorker_RefID, 'bigint' ]
                         ]
                         )
                     );
