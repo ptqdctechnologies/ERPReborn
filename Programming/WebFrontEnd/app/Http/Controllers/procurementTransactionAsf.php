@@ -63,20 +63,6 @@ class procurementTransactionAsf extends Controller
         return view('Advance.Advance.Transactions.createASF', $compact);
     }
 
-    public function indexOverhead()
-    {
-        return view('Advance.Advance.Transactions.createASFOverhead');
-    }
-
-    public function indexSales()
-    {
-        return view('Advance.Advance.Transactions.createASFSales');
-    }
-    public function indexPulsaVoucher()
-    {
-        return view('Advance.Advance.Transactions.createASFPulsaVoucher');
-    }
-
     public function StoreValidateAsf(Request $request)
     {
         $tamp = 0; $status = 200;

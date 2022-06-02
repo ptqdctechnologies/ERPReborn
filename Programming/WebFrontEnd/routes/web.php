@@ -64,7 +64,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // ASF
     Route::post('StoreValidateAsf', 'procurementTransactionAsf@StoreValidateAsf')->name('ASF.StoreValidateAsf');
-    Route::post('StoreValidateAsf2', 'procurementTransactionArf@StoreValidateAsf2')->name('ASF.StoreValidateAsf2');
+    Route::post('StoreValidateAsf2', 'procurementTransactionAsf@StoreValidateAsf2')->name('ASF.StoreValidateAsf2');
     Route::get('store', 'procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
     Route::get('createASFSales', 'procurementTransactionAsf@indexSales')->name('ASF.indexSales');
     Route::get('createASFPulsaVoucher', 'procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');

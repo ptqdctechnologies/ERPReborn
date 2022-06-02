@@ -11,8 +11,9 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formCreateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.update', 1) }}" id="formUpdateArf">
           @csrf
+          @method('PUT')
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -60,7 +61,7 @@
                   <div class="card">
                     <div class="card-header">
                       <label class="card-title">
-                        Advance
+                      File Attachment 
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -70,74 +71,8 @@
                     </div>
                     <div class="card-body">
                       <div class="row">
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              <tr>
-                                <td><label>Requester Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_request_name" id="request_name" style="border-radius:0;" type="text" class="form-control" readonly>
-                                    <div class="input-group-append">
-                                      <span style="border-radius:0;" class="input-group-text form-control">
-                                        <a href="#"><i id="request_name2" data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></i></a>
-                                      </span>
-                                    </div>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Name Of Beneficiary</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_beneficiary" id="beneficiary" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><Label>Internal Notes</Label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <textarea name="var_internal_notes" id="internal_notes" style="border-radius:0;" cols="30" rows="3" class="form-control"></textarea>
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-
-                        <div class="col-md-4">
-                          <div class="form-group">
-                            <table>
-                              <tr>
-                                <td><label>Bank Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_bank_name" id="bank_name" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Name</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_account_name" id="account_name" style="border-radius:0;" type="text" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td><label>Account Number</label></td>
-                                <td>
-                                  <div class="input-group">
-                                    <input name="var_account_number" id="account_number" style="border-radius:0;" type="number" class="form-control">
-                                  </div>
-                                </td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                       <div class="col-md-4">
-                        <div class="card-body table-responsive p-0" style="height: 110px;width:100%;">
+                       <div class="col-md-6">
+                        <div class="card-body table-responsive p-0" style="height: 50px;width:100%;">
                           <table class="table table-head-fixed text-nowrap">
                             <div class="form-group input_fields_wrap">
                               <div class="input-group control-group" style="width:100%;">
@@ -161,160 +96,92 @@
                 </div>
               </div>
             </div>
-
-            <!-- <form method="post" enctype="multipart/form-data"> -->
-              @csrf
-              <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card">
-                      <div class="card-header">
-                        <label class="card-title">
+            
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <label class="card-title">
                           Detail Transaction Request & Balance
-                        </label>
-                        <div class="card-tools">
-                          <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                          </button>
-                        </div>
-                      </div>
-                      <div class="card-body" id="detailTransAvail">
-                        <div class="row">
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <table>
-                                <tr>
-                                  <td><label>Product Id</label></td>
-                                  <td>
-                                    <div class="input-group">
-                                      <input id="putProductId" style="border-radius:0;width:100px;" name="putProductId" class="form-control" readonly>
-                                      <div class="input-group-append">
-                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                          <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
-                                        </span>
-                                      </div>
-                                    </div>
-                                  </td>
-                                  <td>
-                                    <input name="product_name" id="putProductName" style="border-radius:0;width:95px;" type="text" class="form-control" readonly="">
-                                  </td>
-                                  <td>
-                                    <div id="iconProductId" style="color:red;margin-left:3px;" title="Please input product id"><span id="iconProductId2">!</span></div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td><label>Qty</label></td>
-                                  <td>
-                                    <input name="qtyx" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" value="0" autocomplete="off">
-                                    <span id="putQtybyId"></span>
-                                    <input name="qty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
-                                  </td>
-                                  <td>
-                                    <input name="qty_detail" id="putUom" style="border-radius:0;width:50px;position:relative;right:30px;" type="text" class="form-control" readonly="">
-                                  </td>
-                                  <td>
-                                    <div id="iconQty" style="color: red;margin-left:5px;" title="Please input qty"><span id="iconQty2">!</span></div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td><label>Unit Price</label></td>
-                                  <td>
-                                    <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice uang" value="0" autocomplete="off">
-                                    <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
-                                  </td>
-                                  <td>
-                                    <input name="price_detail" id="putCurrency" style="border-radius:0;width:50px;position:relative;right:30px;" type="text" class="form-control" readonly="">
-                                  </td>
-                                  <td>
-                                    <div id="iconUnitPrice" style="color: red;position:relative;right:30px;"><span id="iconUnitPrice2">!</span></div>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td><label>Total</label></td>
-                                  <td>
-                                    <input name="price" id="totalArfDetails" style="border-radius:0;width:100px;" type="text" class="form-control" readonly="">
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>
-                                    <input name="status" id="status" style="border-radius:0;width:100px;" type="hidden" class="form-control" readonly="">
-                                    <input name="haha" id="haha" style="border-radius:0;width:100px;" type="hidden" class="form-control" value="0">
-                                    <!-- <input type="hidden" id="hdnSession" name="hdnSession" value="{{ json_encode( Session::get('SessionArfItem') ) }}" /> -->
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-
-                          <div class="col-md-4">
-                            <div class="form-group">
-                              <table>
-                                <tr>
-                                  <td><Label>Remark</Label></td>
-                                  <td>
-                                    <textarea name="remarks" id="putRemark" rows="5" cols="51" class="form-control"></textarea>
-                                  </td>
-                                  <td>
-                                    <div id="iconRemark" style="color: red;margin-left:5px;" title="Please input remark"><span id="iconRemark2">!</span></div>
-                                  </td>
-                                </tr>
-                              </table>
-                            </div>
-                          </div>
-
-                          <div class="col-md-4">
-                            <div class="card">
-                              <div class="card-body">
-                                <div class="card-title" style="border:5px solid #DCDCDC;width:100%;">
-                                  <p style="position:relative;text-align:center;top:7px;">Balance</p>
-                                </div>
-                                <div class="card-body table-responsive p-0 available" style="height:100px;">
-                                  <table>
-                                    <tbody>
-                                      <tr>
-                                        <input name="price" id="totalBudget" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="" hidden>
-                                        <td><label>Total Requested </label></td>
-                                        <td>:</td>
-                                        <td style="font-weight:bold;">
-                                          <input name="" id="totalRequester" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
-                                        </td>
-                                        <td>IDR</td>
-                                      </tr>
-                                      <tr>
-                                        <td title="Total BOQ Detail"><label>Total Qty Requested</label></td>
-                                        <td>:</td>
-                                        <td style="font-weight:bold;">
-                                          <input name="" id="totalQtyRequest" style="border-radius:0;background-color:white;border:1px solid white;" type="text" class="form-control" readonly="">
-                                        </td>
-                                      </tr>
-                                      <br>
-                                      <tr>
-                                        <td><label>Balance</label></td>
-                                        <td>:</td>
-                                        <td style="font-weight:bold;color:red;">
-                                          <input name="" id="totalBalance" style="border-radius:0;background-color:white;border:1px solid white;color:red;" type="text" class="form-control" readonly="">
-                                        </td>
-                                        <td>IDR</td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </div>
-                              </div>
-                            </div>
-                            <button type="reset" class="btn btn-outline btn-danger btn-sm float-right detailTransaction">
-                              <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart">Cancel</i>
-                            </button>
-                            <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;">
-                              <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
+                    </label>
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                      </button>
                     </div>
                   </div>
+
+                  <div class="card-body" id="detailTransAvail">
+                      <div class="row">
+                    <table class="table table-head-fixed text-nowrap" style="text-align: center;">
+                      <thead>
+                        <tr>
+                          <th>Product Id</th>
+                          <th>Product Name</th>
+                          <th>Qty</th>
+                          <th>Uom</th>
+                          <th>Unit Price</th>
+                          <th>Currency</th>
+                          <th>Total</th>
+                          <th>Balance</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                          <td>
+                            <div class="input-group">
+                              <input id="putProductId" style="border-radius:0;width:100px;" name="putProductId" class="form-control" readonly>
+                              <div class="input-group-append">
+                                <span style="border-radius:0;" class="input-group-text form-control">
+                                  <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
+                                </span>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off" value="0">
+                            <span id="putQtybyId"></span>
+                            <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                            <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
+                          </td>
+                          <td>
+                            <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          </td>
+                          <td>
+                            <input name="total" id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+
+                          <td>
+                            <input name="balance" id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+
+                          <td>
+                            <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                          </td>
+
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="btn btn-outline btn-danger btn-sm float-right cancelDetailArf">
+                    <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart" style="color: white;">Cancel</i>
+                  </a>
+                  <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;">
+                    <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
+                  </a>
+
+                  </div>
                 </div>
+                
               </div>
-            <!-- </form> -->
+            </div>
 
             <div class="row">
               <div class="col-12">
@@ -330,7 +197,9 @@
                     </div>
                   </div>
 
-                  <div class="card-body table-responsive p-0" id="detailArfList">
+                  <!-- <div class="card-body table-responsive p-0" id=""> -->
+                  <div class="card-body" id="detailArfList">
+                      <div class="row">
                     <table class="table table-head-fixed text-nowrap tableArf">
                       <thead>
                         <tr>
@@ -342,7 +211,7 @@
                           <th>Price</th>
                           <th>Total</th>
                           <th>Currency</th>
-                          <th>Remark</th>
+                          <!-- <th>Remark</th> -->
                         </tr>
                       </thead>
                       <tbody>
@@ -350,7 +219,25 @@
                       </tbody>
                     </table>
                   </div>
+                  </div>
                 </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <table>
+                          <tr>
+                            <td><label>Remark</label></td>
+                            <td>
+                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control" required></textarea>
+                              </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
                   <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
                 </a>

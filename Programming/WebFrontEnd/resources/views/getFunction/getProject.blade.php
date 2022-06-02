@@ -142,21 +142,21 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + val2.quantity + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
                                                 '</td>'+
                                                 '<td>'+
                                                     '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>'+
                                                 '</td>'+
                                                 '<td>'+'<span id="getWorkId">' + val2.combinedBudgetSubSectionLevel1_RefID + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getWorkName">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getWorkName">' + val2.combinedBudgetSubSectionLevel2Name + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProductId">' + val2.product_RefID + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getProductName">' + val2.name + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getProductName">' + val2.productName + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQty">' + 'N/A' + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getQty2">' + val2.quantity + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getPrice">' + val2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
                                                 '<td>'+'<span id="totalArf">' + val2.priceBaseCurrencyValue + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getUom">' + 'N/A' + '</span>'+'</td>'+
-                                                '<td>'+'<span id="getCurrency">' + 'N/A' + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getUom">' + val2.quantityUnitName + '</span>'+'</td>'+
+                                                '<td>'+'<span id="getCurrency">' + val2.priceBaseCurrencyISOCode + '</span>'+'</td>'+
                                             '</tr>';
                                             
                                     $('table.tableBudgetDetail tbody').append(html);
@@ -184,53 +184,42 @@
                                 $('.klikBudgetDetail').on('click', function(e){
                                     e.preventDefault();
                                     var $this = $(this);
-                                    var status = $this.data("id1");
+                                    var price = $this.data("id3");
+                                    var productId = $this.data("id1");
+                                    var qty = $this.data("id2");
                                     var combinedBudget = $this.data("id4");
+                                    var productName = $this.data("id5");
+                                    var uom = $this.data("id6");
+                                    var currency = $this.data("id7");
+                                    
+                                    if(productName == "Unspecified Product"){
+                                        $("#product_id2").prop("disabled", false);
+                                        var putProductName = "";
+                                        var putProductId = "";
+                                        $("#statusProduct").val("Yes");
+                                    }
+                                    else{
+                                        $("#product_id2").prop("disabled", true);
+                                        var putProductName = productName;
+                                        var putProductId = productId;
+                                        $("#statusProduct").val("No");
+                                    }
+                                    $("#putProductId").val(putProductId);
+                                    $("#putProductName").val(putProductName);
+                                    $("#putQty").val(qty);
+                                    $("#putUom").val(uom);
+                                    $("#putPrice").val(price);
+                                    $("#putCurrency").val(currency);
+                                    $("#totalBalance").val(parseFloat(qty * price).toFixed(2));
+                                    $("#combinedBudget").val(combinedBudget);
+
+
                                     $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
                                     $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
                                     $("#addFromDetailtoCart").prop("disabled", true);
                                     $(".available").show();
                                     $("#detailTransAvail").show();
                                     $("#putProductId2").prop("disabled", true);
-                                    
-                                    if(status == "Unspecified Product"){
-                                        $("#product_id2").prop("disabled", false);
-                                        var get31 = "";
-                                        var get71 = "";
-                                    }
-                                    else{
-                                        $("#product_id2").prop("disabled", true);
-                                        var get31 = $("#getProductId").html();
-                                        var get71 = $this.data("id1");
-                                    }
-
-                                    var get11 = $("#getWorkId").html();
-                                    var get21 = $("#getWorkName").html();
-                                    var get4 = $("#getQty").html().replace(/[^a-zA-Z0-9 ]/g, "");
-                                    var get41 = $this.data("id2");
-                                    var get51 = $this.data("id3");
-                                    var get61 = $("#getRemark").html();
-                                    var get81 = $("#getUom").html();
-                                    var get91 = $("#getCurrency").html();
-                                    var get101 = $("#getRequester").html();
-
-                                    var totalBalance = (get41 * get51);
-                                    var totalRequested = ((get4 - get41) * get51);
-
-                                    $("#putWorkId").val(get11);
-                                    $("#putWorkName").val(get21);
-                                    $("#putProductId").val(get31);
-                                    $("#totalRequester").val(totalRequested);
-                                    $("#totalQtyRequest").val(get4 - get41);
-                                    $("#totalBalance").val(totalBalance);
-                                    $("#putQty").val(get41);
-                                    $("#putPrice").val(get51);
-                                    $("#putRemark").val(get61);
-                                    $("#putProductName").val(get71);
-                                    $("#putUom").val(get81);
-                                    $("#putCurrency").val(get91);
-                                    $("#status").val(status);
-                                    $("#combinedBudget").val(combinedBudget);
                                 });
 
                                 $('.klikBudgetDetail2').on('click', function(e){
