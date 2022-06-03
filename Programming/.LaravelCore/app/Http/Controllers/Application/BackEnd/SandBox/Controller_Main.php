@@ -23,8 +23,21 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
 //            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputText($varUserSession, 'MyID', 'MyValue');
             
             
+            /*
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setSelect($varUserSession, 'MyListID', '001',
+                [
+                    ['ID' => '001', 'Text' => '001 Name'],
+                    ['ID' => '002', 'Text' => '002 Name'],
+                    ['ID' => '003', 'Text' => '003 Name'],
+                    ['ID' => '004', 'Text' => '004 Name']
+                ]
+                );
             
-            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setSelect($varUserSession, 'MyListID', 'first',
+            echo "<br>-----------------------------------------<br>";
+          */
+
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithBoundedSuggestion($varUserSession, 'MyInputTextWithListID', 
+                'xxx',
                 [
                     ['ID' => '001', 'Text' => '001 Name'],
                     ['ID' => '002', 'Text' => '002 Name'],
@@ -32,18 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     ['ID' => '004', 'Text' => '004 Name']
                 ]
                 );
-          
-/*
-            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithDataList($varUserSession, 'MyInputTextWithListID', 
-                '',
-                [
-                    ['ID' => '001', 'Text' => '001 Name'],
-                    ['ID' => '002', 'Text' => '002 Name'],
-                    ['ID' => '003', 'Text' => '003 Name'],
-                    ['ID' => '004', 'Text' => '004 Name']
-                ]
-                );
-*/            
+
             echo "Done";
             }
             
