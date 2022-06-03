@@ -12,6 +12,42 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testHTMLDOM()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+            echo "Test HTML DOM<br>";
+            
+            
+            
+//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setLabel($varUserSession, 'MyLabel', 'MyLabelValue');
+//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputText($varUserSession, 'MyID', 'MyValue');
+            
+            
+            
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setSelect($varUserSession, 'MyListID', 'first',
+                [
+                    ['ID' => '001', 'Text' => '001 Name'],
+                    ['ID' => '002', 'Text' => '002 Name'],
+                    ['ID' => '003', 'Text' => '003 Name'],
+                    ['ID' => '004', 'Text' => '004 Name']
+                ]
+                );
+          
+/*
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithDataList($varUserSession, 'MyInputTextWithListID', 
+                '',
+                [
+                    ['ID' => '001', 'Text' => '001 Name'],
+                    ['ID' => '002', 'Text' => '002 Name'],
+                    ['ID' => '003', 'Text' => '003 Name'],
+                    ['ID' => '004', 'Text' => '004 Name']
+                ]
+                );
+*/            
+            echo "Done";
+            }
+            
+            
         public function testTelegramBot()
             {
             \BotMan\BotMan\Drivers\DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);

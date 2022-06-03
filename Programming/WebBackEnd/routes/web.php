@@ -23,6 +23,7 @@ Route::get('/', function () {
 Route::match(['get', 'post'], '/botman', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Botman@handle');
 
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testHTMLDOM', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testHTMLDOM');
 
 
 //testTelegramBot
