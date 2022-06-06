@@ -334,12 +334,23 @@ namespace App\Helpers\ZhtHelper\General
                     'document.getElementById(\''.$varID.'_'.self::$varHTMLInternalSystemTag.'_InputText'.'\').value = \'\';'.
                     '"';
 
+            $varCSS_DataList = 
+                'style="'.
+                    'color: blue;'.
+                    '.datalist-input {'.
+                        'width: 50%; '.
+                        'color: red; '.
+                        '}'.
+                    '"';
+            
             $varReturn = 
                 self::setDiv($varUserSession, $varID,
                     self::setInputHidden($varUserSession, $varID, $varValue).
-                    self::setInputText($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_InputText', '', $varJSEvent_InputText, $varCSS, 'list="'.$varID.'_'.self::$varHTMLInternalSystemTag.'_DataList'.'" '.$varExtraProperties).
-                    self::setDataList($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_DataList', $varDataListValue).
-                    self::setButton($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_ButtonClear', 'Hapus Inputan', $varJSEvent_ButtonClear)
+                        self::setInputText($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_InputText', '', $varJSEvent_InputText, $varCSS, 'list="'.$varID.'_'.self::$varHTMLInternalSystemTag.'_DataList'.'" '.$varExtraProperties).
+                        self::setDataList($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_DataList', $varDataListValue, '', $varCSS_DataList).
+                        self::setButton($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_ButtonClear', 'Hapus Inputan', $varJSEvent_ButtonClear),
+                    '',
+                    'style="color: blue;"'
                     );
             
             return $varReturn;
@@ -380,14 +391,11 @@ namespace App\Helpers\ZhtHelper\General
                     'document.getElementById(\''.$varID.'_'.self::$varHTMLInternalSystemTag.'_InputText'.'\').value = \'\';'.
                     '"';
             
-            $varCSS_DataList = 
-                'style="color:blue;"';
-            
             $varReturn = 
                 self::setDiv($varUserSession, $varID,
                     self::setInputHidden($varUserSession, $varID, $varValue).
                     self::setInputText($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_InputText', $varValue, $varJSEvent_InputText, $varCSS, 'list="'.$varID.'_'.self::$varHTMLInternalSystemTag.'_DataList'.'" '.$varExtraProperties).
-                    self::setDataList($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_DataList', $varDataListValue, '', $varCSS_DataList).
+                    self::setDataList($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_DataList', $varDataListValue).
                     self::setButton($varUserSession, $varID.'_'.self::$varHTMLInternalSystemTag.'_ButtonClear', 'Hapus Inputan', $varJSEvent_ButtonClear)
                     );
             

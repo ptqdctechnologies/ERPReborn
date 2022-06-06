@@ -51,6 +51,12 @@ class AssertTest extends TestCase
     {
         $resource = self::getResource();
 
+        $nanList = array('key' => 2, NAN);
+        unset($nanList['key']);
+
+        $normalList = array('foo' => 'b', 3);
+        unset($normalList['foo']);
+
         return array(
             array('string', array('value'), true),
             array('string', array(''), true),
@@ -495,6 +501,8 @@ class AssertTest extends TestCase
             array('isList', array(array(false)), true),
             array('isList', array(array(array(1), array(2))), true),
             array('isList', array(array(array('foo' => 'bar'), array('baz' => 'tab'))), true),
+            array('isList', array($nanList), true),
+            array('isList', array($normalList), true),
             array('isNonEmptyList', array(array(1, 2, 3)), true),
             array('isNonEmptyList', array(array()), false),
             array('isNonEmptyList', array(array(0 => 1, 2 => 3)), false),
@@ -675,6 +683,38 @@ class AssertTest extends TestCase
     /**
      * @dataProvider getTests
      */
+    public function testAllNullOrArray($method, $args, $success, $multibyte = false, $minVersion = null)
+    {
+        if ($minVersion && PHP_VERSION_ID < $minVersion) {
+            $this->markTestSkipped(sprintf('This test requires php %s or upper.', $minVersion));
+
+            return;
+        }
+        if ($multibyte && !function_exists('mb_strlen')) {
+            $this->markTestSkipped('The function mb_strlen() is not available');
+        }
+
+        $arg = array_shift($args);
+
+        if ($arg === null) {
+            $this->addToAssertionCount(1);
+
+            return;
+        }
+
+        if (!$success) {
+            $this->expectException('\InvalidArgumentException');
+        }
+
+        array_unshift($args, array($arg, null));
+
+        call_user_func_array(array('Webmozart\Assert\Assert', 'allNullOr'.ucfirst($method)), $args);
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @dataProvider getTests
+     */
     public function testAllTraversable($method, $args, $success, $multibyte = false, $minVersion = null)
     {
         if ($minVersion && PHP_VERSION_ID < $minVersion) {
@@ -718,7 +758,7 @@ class AssertTest extends TestCase
             array('eq', array(new ArrayIterator(array()), new stdClass()), 'Expected a value equal to stdClass. Got: ArrayIterator'),
             array('eq', array(1, self::getResource()), 'Expected a value equal to resource. Got: 1'),
 
-            array('lessThan', array(new \DateTime('2020-01-01 00:00:00'), new \DateTime('1999-01-01 00:00:00')), 'Expected a value less than DateTime: "1999-01-01T00:00:00+00:00". Got: DateTime: "2020-01-01T00:00:00+00:00"'),
+            array('lessThan', array(new \DateTime('2020-01-01 00:00:00+00:00'), new \DateTime('1999-01-01 00:00:00+00:00')), 'Expected a value less than DateTime: "1999-01-01T00:00:00+00:00". Got: DateTime: "2020-01-01T00:00:00+00:00"'),
         );
     }
 
@@ -727,7 +767,7 @@ class AssertTest extends TestCase
      */
     public function testConvertValuesToStrings($method, $args, $exceptionMessage)
     {
-        $this->expectException('\InvalidArgumentException', $exceptionMessage);
+        $this->expectException('\InvalidArgumentException');
         $this->expectExceptionMessage($exceptionMessage);
 
         call_user_func_array(array('Webmozart\Assert\Assert', $method), $args);
@@ -738,6 +778,45 @@ class AssertTest extends TestCase
         $this->expectException('\BadMethodCallException');
 
         Assert::nonExistentMethod();
+    }
+
+    public function getInvalidIsAOfCases(): iterable
+    {
+        yield array(
+            array('stdClass', 123),
+            'Expected class as a string. Got: integer',
+        );
+
+        yield array(
+            array('Iterator', 'ArrayIterator'),
+            'Expected an instance of this class or to this class among its parents "ArrayIterator". Got: "Iterator"',
+        );
+
+        yield array(
+            array(123, 'Iterator'),
+            'Expected an instance of this class or to this class among its parents "Iterator". Got: 123',
+        );
+
+        yield array(
+            array(array(), 'Iterator'),
+            'Expected an instance of this class or to this class among its parents "Iterator". Got: array',
+        );
+
+        yield array(
+            array(new \stdClass(), 'Iterator'),
+            'Expected an instance of this class or to this class among its parents "Iterator". Got: stdClass',
+        );
+    }
+
+    /**
+     * @dataProvider getInvalidIsAOfCases
+     */
+    public function testIsAOfExceptionMessages(array $args, string $exceptionMessage): void
+    {
+        $this->expectException('\InvalidArgumentException');
+        $this->expectExceptionMessage($exceptionMessage);
+
+        call_user_func_array(array('Webmozart\Assert\Assert', 'isAOf'), $args);
     }
 }
 

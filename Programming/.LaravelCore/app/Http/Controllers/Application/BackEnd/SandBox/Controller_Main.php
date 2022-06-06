@@ -15,8 +15,82 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testHTMLDOM()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            echo "Test HTML DOM<br>";
+
             
+            echo
+                "<style>
+datalist {
+  position: absolute;
+  background-color: white;
+  border: 1px solid blue;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  font-family: sans-serif;
+  width: 350px;
+  padding: 5px;
+
+}
+
+option {
+  background-color: white;
+  padding: 4px;
+  color: blue;
+  margin-bottom: 1px;
+   font-size: 18px;
+  cursor: pointer;
+}
+
+option:hover, .active{
+    background-color: lightblue;
+    }
+                </style>";
+
+            /*
+            echo 
+                "<style>
+                body {
+                  background-color: linen;
+                    }
+
+                h1 {
+                  color: maroon;
+                  margin-left: 40px;
+                    }
+                    
+                datalist {
+                    position: absolute;
+                    background-color: white;
+                    border: 1px solid blue;
+                    border-radius: 0 0 5px 5px;
+                    border-top: none;
+                    font-size: 5px;
+                    font-family: sans-serif;
+                    width: 350px;
+                    padding: 5px;
+                    max-height: 10rem;
+                    overflow-y: auto
+                    }
+
+                option {
+                    background-color: white;
+                    padding: 4px;
+                    color: blue;
+                    margin-bottom: 1px;
+                    font-size: 5px;
+                    cursor: pointer;
+                    }
+
+
+
+                </style>";
+*/            
+            echo "Test HTML DOM<br>";
+/*
+                option:hover, .active{
+                    background-color: lightblue;
+                    font-size: 5px;
+                    }
+ */            
             
             
 //            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setLabel($varUserSession, 'MyLabel', 'MyLabelValue');
