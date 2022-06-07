@@ -54,10 +54,28 @@ class procurementTransactionAsf extends Controller
             ]
             );
 
+        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        // dd($varData5);
+
         $compact = [
             'data' => $varData['data']['data'],
             'data2' => $varData2['data'],
             'data4' => $varData4['data'],
+            'data5' => $varData5['data'],
         ];
 
         return view('Advance.Advance.Transactions.createASF', $compact);

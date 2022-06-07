@@ -23,36 +23,28 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no=1; @endphp
-                                        @for($i = 1; $i < 5; $i++) <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">ARF-000{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">P000{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Besi {{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">S000{{$i}}</p>
-                                                </span>
-                                            </td>
-                                            <td>
-                                                <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="ARF-000{{ $i }}" data-id2="P000{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Test {{$i}}</p>
-                                                </span>
-                                            </td>
+
+                                        @php $no = 1 @endphp
+                                        @foreach($data5 as $datas)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                </td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                </td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                </td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                </td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                </td>
                                             </tr>
-                                            @endfor
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -109,20 +101,7 @@
 
 
             var html = '<tr>'+
-                            '<td>'+
-                            '<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>'+
-                                // '<input type="hidden" name="var_trano[]" value="'+trano+'">'+
-                                // '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                                // '<input type="hidden" name="var_product_name[]" value="'+putProductName+'">'+
-                                // '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                                // '<input type="hidden" name="var_product_name[]" value="'+putProductName+'">'+
-                                // '<input type="hidden" name="var_uom[]" value="'+uom+'">'+
-                                // '<input type="hidden" name="var_price_amount[]" value="'+price_amount+'">'+
-                                // '<input type="hidden" name="var_qty_amount[]" value="'+qty_amount+'">'+
-                                // '<input type="hidden" name="var_total_amount[]" value="'+total_amount+'">'+
-                                // '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
-                                // '<input type="hidden" name="var_description[]" id="var_description[]" value="'+description+'">'+
-                            '</td>'+
+                            '<td>'+'<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>'+'</td>'+
                             '<td>'+'N/A'+'</td>'+
                             '<td>'+trano+'</td>'+
                             '<td>'+product_id+'</td>'+
