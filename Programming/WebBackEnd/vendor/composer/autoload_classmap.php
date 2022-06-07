@@ -49,6 +49,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_Encode' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Encode.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Encryption' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Encryption.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_File' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_File.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_HTMLDOM' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTMLDOM.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',

@@ -45,6 +45,8 @@ final class MixinGenerator
     private $skipMethods = [
         'nullOrNull',           // meaningless
         'nullOrNotNull',        // meaningless
+        'allNullOrNull',        // meaningless
+        'allNullOrNotNull',     // meaningless
     ];
 
     public function generate(): string
@@ -52,10 +54,6 @@ final class MixinGenerator
         return \sprintf(
             <<<'PHP'
 <?php
-
-/**
- * provides type inference and auto-completion for magic static methods of Assert.
- */
 
 %s
 PHP
@@ -96,12 +94,17 @@ PHP
             if (null !== $all) {
                 $declaredMethods[] = $all;
             }
+
+            $allNullOr = $this->allNullOr($method, 4);
+            if (null !== $allNullOr) {
+                $declaredMethods[] = $allNullOr;
+            }
         }
 
         return \sprintf(
             <<<'PHP'
 /**
- * This trait aids static analysis tooling in introspecting assertion magic methods.
+ * This trait provides nurllOr*, all* and allNullOr* variants of assertion base methods.
  * Do not use this trait directly: it will change, and is not designed for reuse.
  */
 trait Mixin
@@ -125,7 +128,9 @@ PHP
      */
     private function nullOr(ReflectionMethod $method, int $indent): ?string
     {
-        return $this->assertion($method, 'nullOr%s', '%s|null', $indent);
+        return $this->assertion($method, 'nullOr%s', '%s|null', $indent, function (string $firstParameter, string $parameters) use ($method) {
+            return "null === {$firstParameter} || static::{$method->name}({$firstParameter}, {$parameters});";
+        });
     }
 
     /**
@@ -138,20 +143,52 @@ PHP
      */
     private function all(ReflectionMethod $method, int $indent): ?string
     {
-        return $this->assertion($method, 'all%s', 'iterable<%s>', $indent);
+        return $this->assertion($method, 'all%s', 'iterable<%s>', $indent, function (string $firstParameter, string $parameters) use ($method) {
+            return <<<BODY
+static::isIterable({$firstParameter});
+
+foreach ({$firstParameter} as \$entry) {
+    static::{$method->name}(\$entry, {$parameters});
+}
+BODY;
+        });
     }
 
     /**
      * @param ReflectionMethod $method
-     * @param string           $methodNameTemplate
-     * @param string           $typeTemplate
      * @param int              $indent
      *
      * @return string|null
      *
      * @throws ReflectionException
      */
-    private function assertion(ReflectionMethod $method, string $methodNameTemplate, string $typeTemplate, int $indent): ?string
+    private function allNullOr(ReflectionMethod $method, int $indent): ?string
+    {
+        return $this->assertion($method, 'allNullOr%s', 'iterable<%s|null>', $indent, function (string $firstParameter, string $parameters) use ($method) {
+            return <<<BODY
+static::isIterable({$firstParameter});
+
+foreach ({$firstParameter} as \$entry) {
+    null === \$entry || static::{$method->name}(\$entry, {$parameters});
+}
+BODY;
+        });
+    }
+
+    /**
+     * @psalm-param callable(string,string):string $body
+     *
+     * @param ReflectionMethod $method
+     * @param string           $methodNameTemplate
+     * @param string           $typeTemplate
+     * @param int              $indent
+     * @param callable         $body
+     *
+     * @return string|null
+     *
+     * @throws ReflectionException
+     */
+    private function assertion(ReflectionMethod $method, string $methodNameTemplate, string $typeTemplate, int $indent, callable $body): ?string
     {
         $newMethodName = sprintf($methodNameTemplate, ucfirst($method->name));
 
@@ -258,7 +295,7 @@ PHP
             $phpdocLinesDeduplicatedEmptyLines[] = $line;
         }
 
-        return $this->staticMethod($newMethodName, $parameters, $parametersDefaults, $phpdocLinesDeduplicatedEmptyLines, $indent);
+        return $this->staticMethod($newMethodName, $parameters, $parametersDefaults, $phpdocLinesDeduplicatedEmptyLines, $indent, $body);
     }
 
     private function applyTypeTemplate(string $type, string $typeTemplate): string
@@ -318,29 +355,32 @@ PHP
      * @psalm-param list<string> $parameters
      * @psalm-param array<string, scalar|null> $defaultValues
      * @psalm-param list<string> $phpdocLines
+     * @psalm-param callable(string,string):string $body
      *
      * @param string   $name
      * @param string[] $parameters
      * @param string[] $defaultValues
      * @param array    $phpdocLines
      * @param int      $indent
+     * @param callable $body
      *
      * @return string
      */
-    private function staticMethod(string $name, array $parameters, array $defaultValues, array $phpdocLines, int $indent): string
+    private function staticMethod(string $name, array $parameters, array $defaultValues, array $phpdocLines, int $indent, callable $body): string
     {
         $indentation = str_repeat(' ', $indent);
 
         $staticFunction = $this->phpdoc($phpdocLines, $indent)."\n";
         $staticFunction .= $indentation.'public static function '.$name.$this->functionParameters($parameters, $defaultValues)."\n"
-            .$indentation."{\n"
-            .$indentation.$indentation.'static::__callStatic('
-            .'\'' . $name . '\', array('
-            .implode(', ', \array_map(static function (string $parameter): string {
-                return '$'. $parameter;
-            }, $parameters))
-            ."));\n"
-            .$indentation.'}';
+            .$indentation."{\n";
+
+        $firstParameter = '$'.array_shift($parameters);
+        $parameters = implode(', ', \array_map(static function (string $parameter): string {
+            return '$'.$parameter;
+        }, $parameters));
+
+        $staticFunction .= preg_replace('/(?<=^|\n)(?!\n)/', $indentation.$indentation, $body($firstParameter, $parameters))."\n";
+        $staticFunction .= $indentation.'}';
 
         return $staticFunction;
     }

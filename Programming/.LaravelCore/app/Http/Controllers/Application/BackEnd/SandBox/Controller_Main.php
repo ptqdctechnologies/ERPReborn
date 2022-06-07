@@ -12,6 +12,118 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
 
+        public function testHTMLDOM()
+            {
+            $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            
+            echo
+                "<style>
+datalist {
+  position: absolute;
+  background-color: white;
+  border: 1px solid blue;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  font-family: sans-serif;
+  width: 350px;
+  padding: 5px;
+
+}
+
+option {
+  background-color: white;
+  padding: 4px;
+  color: blue;
+  margin-bottom: 1px;
+   font-size: 18px;
+  cursor: pointer;
+}
+
+option:hover, .active{
+    background-color: lightblue;
+    }
+                </style>";
+
+            /*
+            echo 
+                "<style>
+                body {
+                  background-color: linen;
+                    }
+
+                h1 {
+                  color: maroon;
+                  margin-left: 40px;
+                    }
+                    
+                datalist {
+                    position: absolute;
+                    background-color: white;
+                    border: 1px solid blue;
+                    border-radius: 0 0 5px 5px;
+                    border-top: none;
+                    font-size: 5px;
+                    font-family: sans-serif;
+                    width: 350px;
+                    padding: 5px;
+                    max-height: 10rem;
+                    overflow-y: auto
+                    }
+
+                option {
+                    background-color: white;
+                    padding: 4px;
+                    color: blue;
+                    margin-bottom: 1px;
+                    font-size: 5px;
+                    cursor: pointer;
+                    }
+
+
+
+                </style>";
+*/            
+            echo "Test HTML DOM<br>";
+/*
+                option:hover, .active{
+                    background-color: lightblue;
+                    font-size: 5px;
+                    }
+ */            
+            
+            
+//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setLabel($varUserSession, 'MyLabel', 'MyLabelValue');
+//            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputText($varUserSession, 'MyID', 'MyValue');
+            
+            
+            /*
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setSelect($varUserSession, 'MyListID', '001',
+                [
+                    ['ID' => '001', 'Text' => '001 Name'],
+                    ['ID' => '002', 'Text' => '002 Name'],
+                    ['ID' => '003', 'Text' => '003 Name'],
+                    ['ID' => '004', 'Text' => '004 Name']
+                ]
+                );
+            
+            echo "<br>-----------------------------------------<br>";
+          */
+
+            echo \App\Helpers\ZhtHelper\General\Helper_HTMLDOM::setInputTextWithBoundedSuggestion($varUserSession, 'MyInputTextWithListID', 
+                'xxx',
+                [
+                    ['ID' => '001', 'Text' => '001 Name'],
+                    ['ID' => '002', 'Text' => '002 Name'],
+                    ['ID' => '003', 'Text' => '003 Name'],
+                    ['ID' => '004', 'Text' => '004 Name']
+                ]
+                );
+
+            echo "Done";
+            }
+            
+            
         public function testTelegramBot()
             {
             \BotMan\BotMan\Drivers\DriverManager::loadDriver(\BotMan\Drivers\Telegram\TelegramDriver::class);
