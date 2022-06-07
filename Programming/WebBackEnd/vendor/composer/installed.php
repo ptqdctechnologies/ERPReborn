@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.224.3',
-            'version' => '3.224.3.0',
-            'reference' => '52f45dfe0d1e5a77f33c050bde5134901fc54a57',
+            'pretty_version' => '3.224.4',
+            'version' => '3.224.4.0',
+            'reference' => '8c8a713b8c1e1a20f66a801f9d2cd7fd80d8d3f8',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
@@ -1404,8 +1404,8 @@
             'dev_requirement' => true,
         ),
         'tightenco/collect' => array(
-            'pretty_version' => 'v8.83.12',
-            'version' => '8.83.12.0',
+            'pretty_version' => 'v8.83.15',
+            'version' => '8.83.15.0',
             'reference' => '7275c1b5f6bfc539d72bb5984d3b9a89e47e27c9',
             'type' => 'library',
             'install_path' => __DIR__ . '/../tightenco/collect',
