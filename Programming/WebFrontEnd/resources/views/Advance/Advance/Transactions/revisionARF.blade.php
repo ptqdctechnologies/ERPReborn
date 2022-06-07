@@ -11,9 +11,12 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
+        @foreach($data5 as $datas)
         <form method="post" enctype="multipart/form-data" action="{{ route('ARF.update', 1) }}" id="formUpdateArf">
           @csrf
           @method('PUT')
+
+          <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{$datas['sys_ID']}}" class="form-control" type="hidden">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -248,6 +251,7 @@
             </div>
           </div>
         </form>
+        @endforeach
       </div>
     </div>
   </section>

@@ -1,5 +1,5 @@
-<div id="arfNumberPopUp" class="modal fade" role="dialog" style="margin-top: 250px;">
-    <div class="modal-dialog">
+<div id="arfNumberPopUp" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 250px;margin-left:6px;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
@@ -29,10 +29,10 @@
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 180px;">
-                            <i class="fa fa-pencil" aria-hidden="true">Edit</i>
+                            <i class="fas fa-edit" aria-hidden="true"> Edit</i>
                         </button>
                         <button type="reset" class="btn btn-outline btn-danger btn-sm">
-                            <i class="fa fa-time" aria-hidden="true">cancel</i>
+                            <i class="far fa-times-circle" aria-hidden="true"> Cancel </i>
                         </button>
                     </form>
                 </div>

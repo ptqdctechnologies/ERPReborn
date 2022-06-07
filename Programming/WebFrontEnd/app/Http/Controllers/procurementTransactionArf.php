@@ -13,6 +13,7 @@ class procurementTransactionArf extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionArf");
+        
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -38,10 +39,26 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
-
+        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        // dd($varData5);
         $compact = [
             'data' => $varData['data']['data'],
             'data2' => $varData2['data'],
+            'data5' => $varData5['data'],
         ];
         // dd($compact);
         return view('Advance.Advance.Transactions.createARF', $compact);
@@ -173,10 +190,27 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
+        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        // dd($varData5);
 
         $compact = [
             'data' => $varData['data']['data'],
             'data2' => $varData2['data'],
+            'data5' => $varData5['data'],
         ];
 
         return view('Advance.Advance.Transactions.revisionARF', $compact);
@@ -195,7 +229,7 @@ class procurementTransactionArf extends Controller
             'transaction.update.finance.setAdvance', 
             'latest', 
             [
-                'recordID' => 76000000000001,
+                'recordID' => (int)$input['var_recordID'],
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
@@ -208,8 +242,6 @@ class procurementTransactionArf extends Controller
             ]                    
         );
 
-        $advance_RefID = $varData['data']['recordID'];
-
         if ($count_product > 0 && isset($count_product)) {
             for ($n = 0; $n < $count_product; $n++) {
 
@@ -219,9 +251,9 @@ class procurementTransactionArf extends Controller
                     'transaction.update.finance.setAdvanceDetail', 
                     'latest', 
                     [
-                    'recordID' => 82000000000001,
+                    'recordID' => 82000000000029,
                     'entities' => [
-                            "advance_RefID" => (int) $advance_RefID,
+                            "advance_RefID" => (int) $input['var_recordID'],
                             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
                             "product_RefID" => (int) $input['var_product_id'][$n],
                             "quantity" => (int) $input['var_quantity'][$n],

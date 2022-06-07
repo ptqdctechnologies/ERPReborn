@@ -9,9 +9,28 @@ class homeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function projectDashboard()
+    public function projectDashboard(Request $request)
     {
-        return view('Layouts.dashboard');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        $compact = [
+            'data5' => $varData['data'],
+        ];
+        return view('Layouts.dashboard', $compact);
     }
 
     public function checkDocument()
