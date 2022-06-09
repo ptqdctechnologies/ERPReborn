@@ -690,11 +690,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : dataPickList.humanResource.getWorkerCurrentJobsPosition                                                  |
+        | ▪ API Key     : dataPickList.humanResource.getWorkerJobsPosition                                                         |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_getDataPickListWorkerCurrentJobsPosition()
+        public function APIGateway_getDataPickListWorkerJobsPosition()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
@@ -702,7 +702,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'dataPickList.humanResource.getWorkerCurrentJobsPosition', 
+                'dataPickList.humanResource.getWorkerJobsPosition', 
                 'latest',
                 [
                 'parameter' => [
@@ -712,22 +712,70 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        public function APIGatewayJQuery_getDataPickListWorkerCurrentJobsPosition()
+        public function APIGatewayJQuery_getDataPickListWorkerJobsPosition()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Worker RefID ► '.
-                '<input type="text" id="dataInput_WorkerCurrentJobsPosition_RefID" value=32000000000439>';
+                '<input type="text" id="dataInput_Worker_RefID" value=32000000000439>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'dataPickList.humanResource.getWorkerCurrentJobsPosition', 
+                'dataPickList.humanResource.getWorkerJobsPosition', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                         '"worker_RefID" : parseInt(document.getElementById("dataInput_WorkerCurrentJobsPosition_RefID").value) '.
+                         '"worker_RefID" : parseInt(document.getElementById("dataInput_Worker_RefID").value) '.
+                        '}'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.humanResource.getWorkerJobsPositionCurrent                                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListWorkerJobsPositionCurrent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
+                'latest',
+                [
+                'parameter' => [
+                    'worker_RefID' => 32000000000439
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListWorkerJobsPositionCurrent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<br>Worker RefID ► '.
+                '<input type="text" id="dataInput_Worker_RefID" value=32000000000439>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                         '"worker_RefID" : parseInt(document.getElementById("dataInput_Worker_RefID").value) '.
                         '}'.
                 '}'
                 );            
@@ -907,6 +955,156 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"parameter" : {'.
                         '"country_RefID" : parseInt(document.getElementById("dataInput_Country_RefID").value) '.
+                        '}'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.master.getCountryAdministrativeAreaLevel2                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel2', 
+                'latest',
+                [
+                'parameter' => [
+                    'countryAdministrativeAreaLevel1_RefID' => 21000000000013
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Country&nbsp;RefID</td><td><input type="text" id="dataInput_CountryAdministrativeAreaLevel1_RefID" value=21000000000013></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel2', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"countryAdministrativeAreaLevel1_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel1_RefID").value) '.
+                        '}'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.master.getCountryAdministrativeAreaLevel3                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel3', 
+                'latest',
+                [
+                'parameter' => [
+                    'countryAdministrativeAreaLevel2_RefID' => 22000000000192
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Country&nbsp;RefID</td><td><input type="text" id="dataInput_CountryAdministrativeAreaLevel2_RefID" value=22000000000192></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel3', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"countryAdministrativeAreaLevel2_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel2_RefID").value) '.
+                        '}'.
+                '}'
+                );            
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : dataPickList.master.getCountryAdministrativeAreaLevel4                                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataPickListCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel4', 
+                'latest',
+                [
+                'parameter' => [
+                    'countryAdministrativeAreaLevel3_RefID' => 23000000002673
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataPickListCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Country&nbsp;RefID</td><td><input type="text" id="dataInput_CountryAdministrativeAreaLevel3_RefID" value=23000000002673></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'dataPickList.master.getCountryAdministrativeAreaLevel4', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"countryAdministrativeAreaLevel3_RefID" : parseInt(document.getElementById("dataInput_CountryAdministrativeAreaLevel3_RefID").value) '.
                         '}'.
                 '}'
                 );            
@@ -16381,11 +16579,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.read.dataList.humanResource.getWorkerCurrentJobsPosition                                     |
+        | ▪ API Key     : transaction.read.dataList.humanResource.getWorkerJobsPosition                                            |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function APIGateway_getDataListWorkerCurrentJobsPosition()
+        public function APIGateway_getDataListWorkerJobsPosition()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
@@ -16393,7 +16591,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'transaction.read.dataList.humanResource.getWorkerCurrentJobsPosition', 
+                'transaction.read.dataList.humanResource.getWorkerJobsPosition', 
                 'latest', 
                 [
                 'parameter' => [
@@ -16409,7 +16607,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump($varData);
             }
-        public function APIGatewayJQuery_getDataListWorkerCurrentJobsPosition()
+        public function APIGatewayJQuery_getDataListWorkerJobsPosition()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
@@ -16427,7 +16625,74 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'transaction.read.dataList.humanResource.getWorkerCurrentJobsPosition', 
+                'transaction.read.dataList.humanResource.getWorkerJobsPosition', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"worker_RefID" : document.getElementById("dataInput_Worker_RefID).value'.
+                        '}, '.
+                    '"SQLStatement" : {'.
+                        '"pick" : document.getElementById("dataInput_SQLStatement_pick").value, '.
+                        '"sort" : document.getElementById("dataInput_SQLStatement_sort").value, '.
+                        '"filter" : document.getElementById("dataInput_SQLStatement_filter").value, '.
+                        '"paging" : document.getElementById("dataInput_SQLStatement_paging").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent                                     |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataListWorkerJobsPositionCurrent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent', 
+                'latest', 
+                [
+                'parameter' => [
+                    'worker_RefID' => 32000000000439
+                    ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataListWorkerJobsPositionCurrent()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTQ3MzY2OTd9.Ei1b7OjEc0o8Ih7c4fyZ2-QN4QmKrs_uNJMhUN0qE_g';
+            //---Core---
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Parameter</p></td></tr>';
+            echo '<tr><td>Worker&nbsp;RefID</td><td><input type="text" id="dataInput_Worker_RefID" value=32000000000439></td></tr>';
+            echo '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">SQL Statement</p></td></tr>';
+            echo '<tr><td>Pick</td><td><input type="text" id="dataInput_SQLStatement_pick" value=""></td></tr>';
+            echo '<tr><td>Sort</td><td><input type="text" id="dataInput_SQLStatement_sort" value=""></td></tr>';
+            echo '<tr><td>Filter</td><td><input type="text" id="dataInput_SQLStatement_filter" value=""></td></tr>';
+            echo '<tr><td>Paging</td><td> <input type="text" id="dataInput_SQLStatement_paging" value=""></td></tr>';
+            echo '</table>';
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.

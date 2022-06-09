@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of dataPickList.master.getCountryAdministrativeAreaLevel3 (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "dataPickList.master.getCountryAdministrativeAreaLevel3" ]
+                        "enum": [ "transaction.read.dataList.humanResource.getWorkerJobsPositionCurrent" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,16 +30,34 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "countryAdministrativeAreaLevel2_RefID": {
+                    "worker_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "countryAdministrativeAreaLevel2_RefID" ]
-                }    
+                "required": [ "worker_RefID" ]
+                },
+            "SQLStatement": {
+                "type": "object",
+                "properties": {
+                    "pick": {
+                        "type": [ "string", "null" ]
+                        },
+                    "sort": {
+                        "type": [ "string", "null" ]
+                        },
+                    "filter": {
+                        "type": [ "string", "null" ]
+                        },
+                    "paging": {
+                        "type": [ "string", "null" ]
+                        }
+                    },
+                "required": [ "pick", "sort", "filter", "paging" ]
+                }
             },
-        "required": [ "parameter" ]
+        "required": [ "parameter", "SQLStatement" ]
         }
     },
 "required": [ "metadata", "data" ]

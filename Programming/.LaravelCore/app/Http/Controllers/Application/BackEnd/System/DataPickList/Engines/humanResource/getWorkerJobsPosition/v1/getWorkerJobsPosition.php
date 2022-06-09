@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\master\getCountryAdministrativeAreaLevel2   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource\getWorkerJobsPosition\v1      |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\master\getCountryAdministrativeAreaLevel2\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource\getWorkerJobsPosition\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getCountryAdministrativeAreaLevel2                                                                           |
-    | ▪ Description : Menangani API dataPickList.master.getCountryAdministrativeAreaLevel2 Version 1                               |
+    | ▪ Class Name  : getWorkerJobsPosition                                                                                        |
+    | ▪ Description : Menangani API dataPickList.humanResource.getWorkerJobsPosition Version 1                                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getCountryAdministrativeAreaLevel2 extends \App\Http\Controllers\Controller
+    class getWorkerJobsPosition extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -59,15 +58,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\m
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Country Administrative Area Level 2 (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Worker Jobs Position (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataPickList_CountryAdministrativeAreaLevel2(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_WorkerJobsPosition(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                
-                            $varData['parameter']['countryAdministrativeAreaLevel1_RefID']
+                            $varData['parameter']['worker_RefID']
                             ))))
                             {
                             throw new \Exception();
