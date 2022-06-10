@@ -200,6 +200,35 @@ class UtilsTest extends TestCase
         Psr7\Utils::tryFopen('', 'r');
     }
 
+    /**
+     * @requires PHP 7.4
+     */
+    public function testGetsContentsThrowExceptionWhenNotReadable(): void
+    {
+        $r = fopen(tempnam(sys_get_temp_dir(), 'guzzle-psr7-'), 'w');
+        fwrite($r, 'hello world!');
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to read stream contents');
+
+        try {
+            Psr7\Utils::tryGetContents($r);
+        } finally {
+            fclose($r);
+        }
+    }
+
+    public function testGetsContentsThrowExceptionWhenCLosed(): void
+    {
+        $r = fopen(tempnam(sys_get_temp_dir(), 'guzzle-psr7-'), 'r+');
+        fclose($r);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to read stream contents');
+
+        Psr7\Utils::tryGetContents($r);
+    }
+
     public function testCreatesUriForValue(): void
     {
         self::assertInstanceOf('GuzzleHttp\Psr7\Uri', Psr7\Utils::uriFor('/foo'));

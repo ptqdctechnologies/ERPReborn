@@ -149,4 +149,33 @@ class HeaderTest extends TestCase
         self::assertSame($result, Psr7\Header::normalize([$header]));
         self::assertSame($result, Psr7\Header::normalize($header));
     }
+
+    /**
+     * @dataProvider normalizeProvider
+     */
+    public function testSplitList($header, $result): void
+    {
+        self::assertSame($result, Psr7\Header::splitList($header));
+    }
+
+    public function testSplitListRejectsNestedArrays(): void
+    {
+        $this->expectException(\TypeError::class);
+
+        Psr7\Header::splitList([['foo']]);
+    }
+
+    public function testSplitListArrayContainingNonStrings(): void
+    {
+        $this->expectException(\TypeError::class);
+
+        Psr7\Header::splitList(['foo', 'bar', 1, false]);
+    }
+
+    public function testSplitListRejectsNonStrings(): void
+    {
+        $this->expectException(\TypeError::class);
+
+        Psr7\Header::splitList(false);
+    }
 }

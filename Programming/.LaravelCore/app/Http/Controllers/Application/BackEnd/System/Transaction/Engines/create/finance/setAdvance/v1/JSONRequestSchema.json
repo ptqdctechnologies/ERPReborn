@@ -42,12 +42,12 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807 
                         },
-                    "requesterPerson_RefID": {
+                    "requesterWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807 
                         },
-                    "beneficiaryPerson_RefID": {
+                    "beneficiaryWorkerJobsPosition_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807 
@@ -137,7 +137,7 @@
                             ]
                         }
                     },
-                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterPerson_RefID", "beneficiaryPerson_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    
+                "required": [ "documentDateTimeTZ", "log_FileUpload_Pointer_RefID", "requesterWorkerJobsPosition_RefID", "beneficiaryWorkerJobsPosition_RefID", "beneficiaryBankAccount_RefID", "internalNotes", "remarks" ]    
                 }
             },
         "required": [ "entities" ]
