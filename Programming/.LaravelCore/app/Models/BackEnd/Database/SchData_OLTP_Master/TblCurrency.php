@@ -88,8 +88,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function getDataEntities($varUserSession, 
             int $varSysID)
             {
-            $varFunctionName='Func_GetDataEntities_Currency';
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.parent::getTableName($varUserSession)));
+            $varReturn =\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
