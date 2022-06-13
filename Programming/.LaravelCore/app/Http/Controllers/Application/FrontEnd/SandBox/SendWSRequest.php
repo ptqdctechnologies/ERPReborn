@@ -15367,7 +15367,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 );
             var_dump(json_encode($varData));
             }
-        public function APIGatewayJQuery_getDataEntitiesWorkerJobPosition()
+        public function APIGatewayJQuery_getDataEntitiesWorkerCareerInternal()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
@@ -15409,7 +15409,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'parameter' => [                    
-                    'recordID' => 167000000000001
+                    'recordIDSet' => '{167000000000001}'
                     ]
                 ]
                 );
@@ -15420,7 +15420,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
             //---Core---
-            echo '<input type="text" id="dataInput_RecordID" value=167000000000001>';
+            echo '<input type="text" id="dataInput_RecordID" value="{167000000000001}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -15430,7 +15430,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"parameter" : '.
                         '{'.
-                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordID").value'.
                         '}'.
                 '}'
                 ); 
@@ -15457,7 +15457,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'latest', 
                 [
                 'parameter' => [                    
-                    'recordID' => 20000000000001
+                    'recordIDSet' => '{20000000000001}'
                     ]
                 ]
                 );
@@ -15468,12 +15468,204 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
             //---Core---
-            echo '<input type="text" id="dataInput_RecordID" value=20000000000001>';
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{20000000000001}">';
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.dataEntities.master.getCountry', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel1                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel1', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{21000000000001}'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel1()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{21000000000001}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel1', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel2                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel2', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{22000000000001}'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel2()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{22000000000001}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel2', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel3                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel3', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{23000000000001}'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel3()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{23000000000001}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel3', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel4                                  |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel4', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{24000000000001}'
+                    ]
+                ]
+                );
+            var_dump(json_encode($varData));
+            }
+        public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel4()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUwOTQ4ODF9.0m6XkjjhuD1ENitpll-2I_NOv20pNcrFRQh3v6rn4Ok';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{24000000000001}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getCountryAdministrativeAreaLevel4', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
