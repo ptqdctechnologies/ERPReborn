@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataEntities.humanResource.getWorkerJobPosition (version 1)",
+"description": "JSON Request Schema of transaction.read.dataEntities.humanResource.getWorkerCareerInternal (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataEntities.humanResource.getWorkerJobPosition" ]
+                        "enum": [ "transaction.read.dataEntities.humanResource.getWorkerCareerInternal" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,13 +30,14 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "recordID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                    "recordIDSet": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^([{]([0-9]{0,})(([,][0-9]{1,}){0,})[}])$",
+                        "minLength": 2
                         }
                     },
-                "required": [ "recordID" ]
+                "required": [ "recordIDSet" ]
                 }
             },
         "required": [ "parameter" ]

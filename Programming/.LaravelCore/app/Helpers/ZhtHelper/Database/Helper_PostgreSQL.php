@@ -182,6 +182,11 @@ namespace App\Helpers\ZhtHelper\Database
                                         {throw new \Exception('Error');}
                                     break;
                                     }
+                                case 'bigint[]':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::bigint[]";
+                                    break;
+                                    }
                                 case 'boolean':
                                     {
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, ($varData[$i][0]==null ? null : ($varData[$i][0]==true ? 'TRUE' : 'FALSE'))))."::boolean";

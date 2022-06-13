@@ -41,6 +41,47 @@ namespace App\Models\Database\SchData_OLTP_HumanResource
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataEntities                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-10                                                                                           |
+        | ▪ Creation Date   : 2022-06-10                                                                                           |
+        | ▪ Description     : Get Data Entities                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysID ► System Record ID                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataEntities($varUserSession, 
+            string $varIDSet)
+            {
+            $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.parent::getTableName($varUserSession)));
+            $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    parent::getSchemaName($varUserSession).'.'.$varFunctionName,
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varIDSet, 'bigint[]']
+                    ]
+                    )
+                );
+            for ($i=0; $i!=count($varTemp['Data']); $i++)
+                {
+                $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                    $varUserSession, 
+                    $varTemp['Data'][$i][$varFunctionName]);
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInitialize                                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

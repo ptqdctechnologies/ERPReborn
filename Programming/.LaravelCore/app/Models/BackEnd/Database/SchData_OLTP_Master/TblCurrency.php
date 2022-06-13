@@ -86,25 +86,27 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataEntities($varUserSession, 
-            int $varSysID)
+            string $varIDSet)
             {
             $varFunctionName=('Func_GetDataEntities_'.str_replace('_Tbl', '', '_'.parent::getTableName($varUserSession)));
-            $varReturn =\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+            $varTemp = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                     $varUserSession,
                     parent::getSchemaName($varUserSession).'.'.$varFunctionName,
                     [
                         [$varUserSession, 'bigint'],
-                        [$varSysID, 'bigint']
+                        [$varIDSet, 'bigint[]']
                     ]
                     )
                 );
-            return [
-                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+            for ($i=0; $i!=count($varTemp['Data']); $i++)
+                {
+                $varReturn[$i] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                     $varUserSession, 
-                    $varReturn['Data'][0][$varFunctionName])
-                ];
+                    $varTemp['Data'][$i][$varFunctionName]);
+                }
+            return $varReturn;
             }
 
 

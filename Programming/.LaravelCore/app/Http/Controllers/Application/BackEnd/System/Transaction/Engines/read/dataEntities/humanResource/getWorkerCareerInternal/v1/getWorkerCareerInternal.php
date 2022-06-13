@@ -4,20 +4,20 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\humanResource              |
-|                \getWorkerJobPosition\v1                                                                                          |
+|                \getWorkerCareerInternal\v1                                                                                       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\humanResource\getWorkerJobPosition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\humanResource\getWorkerCareerInternal\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getWorkerJobPosition                                                                                         |
-    | ▪ Description : Menangani API transaction.read.dataEntities.humanResource.getWorkerJobPosition Version 1                     |
+    | ▪ Class Name  : getWorkerCareerInternal                                                                                      |
+    | ▪ Description : Menangani API transaction.read.dataEntities.humanResource.getWorkerCareerInternal Version 1                  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getWorkerJobPosition extends \App\Http\Controllers\Controller
+    class getWorkerCareerInternal extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,11 +62,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Worker Job Position Data Entities (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorker())->getDataEntities(
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\TblWorkerCareerInternal())->getDataEntities(
                             $varUserSession, 
                             
-                            $varData['parameter']['recordID'],
+                            $varData['parameter']['recordIDSet'],
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID']
                             ))))
                             {
