@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource\getWorkerCurrentJobsPosition  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\master\getCountryAdministrativeAreaLevel2   |
 |                \v1                                                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\humanResource\getWorkerCurrentJobsPosition\v1
+namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\master\getCountryAdministrativeAreaLevel2\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getWorkerCurrentJobsPosition                                                                                 |
-    | ▪ Description : Menangani API dataPickList.humanResource.getWorkerCurrentJobsPosition Version 1                              |
+    | ▪ Class Name  : getCountryAdministrativeAreaLevel2                                                                           |
+    | ▪ Description : Menangani API dataPickList.master.getCountryAdministrativeAreaLevel2 Version 1                               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getWorkerCurrentJobsPosition extends \App\Http\Controllers\Controller
+    class getCountryAdministrativeAreaLevel2 extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-02                                                                                           |
-        | ▪ Creation Date   : 2022-06-02                                                                                           |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\h
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-02                                                                                           |
-        | ▪ Creation Date   : 2022-06-02                                                                                           |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,14 +59,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\DataPickList\Engines\h
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Worker (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Data Pick List Country Administrative Area Level 2 (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_HumanResource\General())->getDataPickList_WorkerCurrentJobsPosition(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataPickList_CountryAdministrativeAreaLevel2(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['parameter']['worker_RefID']
+                                
+                            $varData['parameter']['countryAdministrativeAreaLevel1_RefID']
                             ))))
                             {
                             throw new \Exception();

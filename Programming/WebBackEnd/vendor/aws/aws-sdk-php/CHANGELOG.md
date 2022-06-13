@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## 3.225.2 - 2022-06-10
+
+* `Aws\` - Bump Guzzle 6 and 7 due to security advisory
+* `Aws\` - Remove RedshiftServerless service
+* `Aws\FraudDetector` - Documentation updates for Amazon Fraud Detector (AWSHawksNest)
+
+## 3.225.1 - 2022-06-09
+
+* `Aws\ChimeSDKMeetings` - Adds support for live transcription in AWS GovCloud (US) Regions.
+
+## 3.225.0 - 2022-06-08
+
+* `Aws\DatabaseMigrationService` - This release adds DMS Fleet Advisor APIs and exposes functionality for DMS Fleet Advisor. It adds functionality to create and modify fleet advisor instances, and to collect and analyze information about the local data infrastructure.
+* `Aws\IAM` - Documentation updates for AWS Identity and Access Management (IAM).
+* `Aws\MainframeModernization` - AWS Mainframe Modernization service is a managed mainframe service and set of tools for planning, migrating, modernizing, and running mainframe workloads on AWS
+* `Aws\Neptune` - This release adds support for Neptune to be configured as a global database, with a primary DB cluster in one region, and up to five secondary DB clusters in other regions.
+* `Aws\Redshift` - Adds new API GetClusterCredentialsWithIAM to return temporary credentials.
+
+## 3.224.5 - 2022-06-07
+
+* `Aws\AuditManager` - This release introduces 2 updates to the Audit Manager API. The roleType and roleArn attributes are now required when you use the CreateAssessment or UpdateAssessment operation. We also added a throttling exception to the RegisterAccount API operation.
+* `Aws\CostExplorer` - Added two new APIs to support cost allocation tags operations: ListCostAllocationTags, UpdateCostAllocationTagsStatus.
+
 ## 3.224.4 - 2022-06-06
 
 * `Aws\ChimeSDKMessaging` - This release adds support for searching channels by members via the SearchChannels API, removes required restrictions for Name and Mode in UpdateChannel API and enhances CreateChannel API by exposing member and moderator list as well as channel id as optional parameters.

@@ -12,6 +12,7 @@
 namespace Symfony\Component\Mime\Tests\Part;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Mime\Exception\InvalidArgumentException;
 use Symfony\Component\Mime\Header\Headers;
 use Symfony\Component\Mime\Header\IdentificationHeader;
 use Symfony\Component\Mime\Header\ParameterizedHeader;
@@ -124,6 +125,36 @@ class DataPartTest extends TestCase
             new ParameterizedHeader('Content-Type', 'image/jpeg', ['name' => 'photo.gif']),
             new UnstructuredHeader('Content-Transfer-Encoding', 'base64'),
             new ParameterizedHeader('Content-Disposition', 'attachment', ['name' => 'photo.gif', 'filename' => 'photo.gif'])
+        ), $p->getPreparedHeaders());
+    }
+
+    public function testFromPathWithNotAFile()
+    {
+        $this->expectException(InvalidArgumentException::class);
+        DataPart::fromPath(__DIR__.'/../Fixtures/mimetypes/');
+    }
+
+    /**
+     * @group network
+     */
+    public function testFromPathWithUrl()
+    {
+        if (!\in_array('https', stream_get_wrappers())) {
+            $this->markTestSkipped('"https" stream wrapper is not enabled.');
+        }
+
+        $p = DataPart::fromPath($file = 'https://symfony.com/images/common/logo/logo_symfony_header.png');
+        $content = file_get_contents($file);
+        $this->assertEquals($content, $p->getBody());
+        $maxLineLength = 76;
+        $this->assertEquals(substr(base64_encode($content), 0, $maxLineLength), substr($p->bodyToString(), 0, $maxLineLength));
+        $this->assertEquals(substr(base64_encode($content), 0, $maxLineLength), substr(implode('', iterator_to_array($p->bodyToIterable())), 0, $maxLineLength));
+        $this->assertEquals('image', $p->getMediaType());
+        $this->assertEquals('png', $p->getMediaSubType());
+        $this->assertEquals(new Headers(
+            new ParameterizedHeader('Content-Type', 'image/png', ['name' => 'logo_symfony_header.png']),
+            new UnstructuredHeader('Content-Transfer-Encoding', 'base64'),
+            new ParameterizedHeader('Content-Disposition', 'attachment', ['name' => 'logo_symfony_header.png', 'filename' => 'logo_symfony_header.png'])
         ), $p->getPreparedHeaders());
     }
 

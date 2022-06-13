@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataList.humanResource.getWorkerCurrentJobsPosition (version 1)",
+"description": "JSON Request Schema of transaction.read.dataList.humanResource.getWorkerJobsPosition (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataList.humanResource.getWorkerCurrentJobsPosition" ]
+                        "enum": [ "transaction.read.dataList.humanResource.getWorkerJobsPosition" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],

@@ -1264,6 +1264,13 @@
             "2020-11-20": "2020-11-20"
         }
     },
+    "m2": {
+        "namespace": "MainframeModernization",
+        "versions": {
+            "latest": "2021-04-28",
+            "2021-04-28": "2021-04-28"
+        }
+    },
     "machinelearning": {
         "namespace": "MachineLearning",
         "versions": {

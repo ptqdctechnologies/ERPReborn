@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace GuzzleHttp\Tests\Psr7;
 
+use GuzzleHttp\Psr7\FnStream;
 use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\StreamWrapper;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -255,7 +257,7 @@ class StreamTest extends TestCase
         $stream->close();
     }
 
-    public function testStreamReadingFreadError(): void
+    public function testStreamReadingFreadFalse(): void
     {
         self::$isFReadError = true;
         $r = fopen('php://temp', 'r');
@@ -273,6 +275,30 @@ class StreamTest extends TestCase
 
         self::$isFReadError = false;
         $stream->close();
+    }
+
+    public function testStreamReadingFreadException(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to read from stream');
+
+        $r = StreamWrapper::getResource(new FnStream([
+            'read' => function ($len): string {
+                throw new \ErrorException('Some error');
+            },
+            'isReadable' => function (): bool {
+                return true;
+            },
+            'isWritable' => function (): bool {
+                return false;
+            },
+            'eof' => function (): bool {
+                return false;
+            }
+        ]));
+
+        $stream = new Stream($r);
+        $stream->read(1);
     }
 
     /**
@@ -390,6 +416,24 @@ class StreamTest extends TestCase
         self::assertFalse($stream->isWritable());
 
         $stream->close();
+    }
+
+    public function testCannotReadUnreadableStream(): void
+    {
+        $r = fopen(tempnam(sys_get_temp_dir(), 'guzzle-psr7-'), 'w');
+        $stream = new Stream($r);
+
+        $stream->write("Hello world!!");
+
+        $stream->seek(0);
+
+        $this->expectException(\RuntimeException::class);
+
+        try {
+            $stream->getContents();
+        } finally {
+            $stream->close();
+        }
     }
 }
 

@@ -1519,6 +1519,170 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CountryAdministrativeAreaLevel1                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-07                                                                                           |
+        | ▪ Creation Date   : 2022-06-07                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Country Administrative Area Level 1                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCountry_RefID ► Country Reference ID                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CountryAdministrativeAreaLevel1(
+            $varUserSession, int $varBranchID, 
+            int $varCountry_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel1',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCountry_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CountryAdministrativeAreaLevel2                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Country Administrative Area Level 2                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel1_RefID ► Country Administrative Area Level 1 Reference ID              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CountryAdministrativeAreaLevel2(
+            $varUserSession, int $varBranchID, 
+            int $varCountryAdministrativeAreaLevel1_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel2',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCountryAdministrativeAreaLevel1_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CountryAdministrativeAreaLevel3                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Country Administrative Area Level 3                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel2_RefID ► Country Administrative Area Level 2 Reference ID              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CountryAdministrativeAreaLevel3(
+            $varUserSession, int $varBranchID, 
+            int $varCountryAdministrativeAreaLevel2_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel3',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCountryAdministrativeAreaLevel2_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_CountryAdministrativeAreaLevel4                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-06-09                                                                                           |
+        | ▪ Creation Date   : 2022-06-09                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Country Administrative Area Level 4                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |      ▪ (int)    varCountryAdministrativeAreaLevel3_RefID ► Country Administrative Area Level 3 Reference ID              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_CountryAdministrativeAreaLevel4(
+            $varUserSession, int $varBranchID, 
+            int $varCountryAdministrativeAreaLevel3_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_GetDataPickList_CountryAdministrativeAreaLevel4',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varCountryAdministrativeAreaLevel3_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_BudgetOrigin                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-11-13                                                                                           |
+        | ▪ Creation Date   : 2020-11-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\General())->getDataList_CountryAdministrativeAreaLevel1(
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 
+                            
                             $varData['parameter']['country_RefID'], 
+                            
                             $varData['SQLStatement']['pick'], 
                             $varData['SQLStatement']['sort'], 
                             $varData['SQLStatement']['filter'], 

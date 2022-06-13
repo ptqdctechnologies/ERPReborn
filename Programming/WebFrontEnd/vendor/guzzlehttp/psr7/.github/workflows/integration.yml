@@ -10,7 +10,7 @@ jobs:
 
   build:
     name: Test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
       max-parallel: 10
       matrix:
@@ -26,17 +26,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Mimic PHP 8.0
-        run: composer config platform.php 8.0.999
-        if: matrix.php > 8
-
       - name: Install dependencies
         run: composer update --no-interaction --no-progress
 
       - name: Start server
         run: php -S 127.0.0.1:10002 tests/Integration/server.php &
 
-      - name: Run tests
+      - name: Run Guzzle tests
         env:
           TEST_SERVER: 127.0.0.1:10002
-        run: ./vendor/bin/phpunit --testsuite Integration
+        run: vendor/bin/phpunit --testsuite "Guzzle PSR-7 Integration Test Suite"
+
+      - name: Run Interop tests
+        env:
+          TEST_SERVER: 127.0.0.1:10002
+        run: vendor/bin/phpunit --testsuite "PSR-17 Integration Test Suite"
