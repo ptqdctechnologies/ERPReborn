@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.read.dataEntities.master.getCountry (version 1)",
+"description": "JSON Request Schema of transaction.read.dataEntities.master.getBusinessDocumentVersion (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.read.dataEntities.master.getCountry" ]
+                        "enum": [ "transaction.read.dataEntities.master.getBusinessDocumentVersion" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
