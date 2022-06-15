@@ -16,10 +16,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Project ID</th>
-                                            <th>Project Name</th>
-                                            <th>Site Code</th>
-                                            <th>Site Name</th>
+                                            <th>BUdget Code</th>
+                                            <th>BUdget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>

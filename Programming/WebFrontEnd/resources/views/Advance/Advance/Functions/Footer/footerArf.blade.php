@@ -5,7 +5,9 @@
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
-        $("#addFromDetailtoCart").prop("disabled", true);
+        $("#request_name").prop("readonly", true);
+        // $("#addFromDetailtoCart").prop("disabled", true);
+
         $("#showContentBOQ3").hide();
         $("#tableShowHideBOQ3").hide();
 
@@ -24,14 +26,16 @@
         $(".cancelDetailArf").click(function() {
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+            $("#putProductId").css("border", "1px solid #ced4da");
 
             $("#putProductId").val("");
             $("#putProductName").val("");
-            $("#qtyCek").val("0");
+            $("#qtyCek").val("");
             $("#putUom").val("");
-            $("#priceCek").val("0");
+            $("#priceCek").val("");
             $("#putCurrency").val("");
-            $("#totalBalance").val("0");
+            $("#totalBalance").val("");
+            
             
         });
     });
@@ -45,13 +49,30 @@
         }
     });
     
-   $(document).ready(function () {
-    $('#addFromDetailtoCart').click(function(ev){
-        ev.preventDefault();
-        ev.stopPropagation();
+    function addFromDetailtoCartJs() {
 
-        var val = $("#putProductId").val();
-        if(val != ""){
+        var valProductId = $("#putProductId").val();
+        var valQty = $("#qtyCek").val();
+        var valPrice = $("#priceCek").val();
+        
+        $("#putProductId").css("border", "1px solid #ced4da");
+
+        if(valProductId === ""){
+            $("#putProductId").focus();
+            $("#putProductId").attr('required', true);
+            $("#putProductId").css("border", "1px solid red");
+        }
+        else if(valQty === ""){
+            $("#qtyCek").focus();
+            $("#qtyCek").attr('required', true);
+            $("#qtyCek").css("border", "1px solid red");
+        }
+        else if(valPrice === ""){
+            $("#priceCek").focus();
+            $("#priceCek").attr('required', true);
+            $("#priceCek").css("border", "1px solid red");
+        }
+        else{
             $.ajax({
                 type: "POST",
                 url: '{!! route("ARF.StoreValidateArf") !!}?putProductId=' + $('#putProductId').val(),
@@ -144,23 +165,15 @@
                             }
                         });
 
-                        $("#putProductId").css("border", "1px solid #ced4da");
-                        $("#putProductName").css("border", "1px solid #ced4da");
-                        $("#putRemark").css("border", "1px solid #ced4da");
-                        $("#qtyCek").css    ("border", "1px solid #ced4da");
-                        $("#putUom").css    ("border", "1px solid #ced4da");
-
                         $("#putProductId").val("");
                         $("#putProductName").val("");
-                        $("#qtyCek").val("0");
                         $("#putUom").val("");
-                        $("#priceCek").val("0");
+                        $("#qtyCek").val("");
+                        $("#priceCek").val("");
                         $("#putCurrency").val("");
                         $("#putRemark").val("");
                         $("#totalArfDetails").val("");
-                        $("#totalRequester").val("0");
-                        $("#totalQtyRequest").val("0");
-                        $("#totalBalance").val("0");
+                        $("#totalBalance").val("");
 
                         $("#iconProductId").hide();
                         $("#iconQty").hide();
@@ -175,6 +188,10 @@
                         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
                         $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
                         $("#detailArfList").show();
+
+                        $("#qtyCek").attr('required', false);
+                        $("#putProductId").attr('required', false);
+                        $("#priceCek").attr('required', false);
                     }
                     else{
                         Swal.fire("Error !", "Please use edit to update this item !", "error");
@@ -182,11 +199,7 @@
                 },
             });   
         }
-        else{
-            Swal.fire("Error !", "Data Cannot Empty", "error");
-        }
-    });
-});
+    }
 </script>
 
 <script>
@@ -218,24 +231,27 @@
             var total = putQty * priceCek;
             var total2 = qtyReq * priceCek;
             if (parseFloat(qtyReq) == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
+                // $("#addFromDetailtoCart").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
-
+                $("#qtyCek").css("border", "1px solid red");
             } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
                 $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
+                // $("#addFromDetailtoCart").prop("disabled", true);
                 $("#saveArfList").prop("disabled", true);
+                $("#qtyCek").css("border", "1px solid red");
             } else if (parseFloat(total2) > parseFloat(total)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
+                // $("#addFromDetailtoCart").prop("disabled", true);
+                $("#qtyCek").css("border", "1px solid red");
             } else {
                 var totalReq = parseFloat(total2);
                 $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                $("#addFromDetailtoCart").prop("disabled", false);
+                // $("#addFromDetailtoCart").prop("disabled", false);
+                $("#qtyCek").css("border", "1px solid #ced4da");
             }
         });
     });
@@ -256,23 +272,140 @@
             var totalBalance = $("#totalBalance").val();
 
             if (priceReq == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
+                // $("#addFromDetailtoCart").prop("disabled", true);
                 $('#totalArfDetails').val(0);
+                $("#priceCek").css("border", "1px solid red");
 
             } else if (parseFloat(total) > parseFloat(total2)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#priceCek").val(0);
                 $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
+                // $("#addFromDetailtoCart").prop("disabled", true);
+                $("#priceCek").css("border", "1px solid red");
             } else {
                 var totalReq = total;
                 $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                $("#addFromDetailtoCart").prop("disabled", false);
+                // $("#addFromDetailtoCart").prop("disabled", false);
+                $("#priceCek").css("border", "1px solid #ced4da");
             }
 
         });
     });
 </script>
+
+<script>
+    $(function() {
+      $("#formUpdateArf").on("submit", function(e) { //id of form 
+        e.preventDefault();
+
+        var valRequestName = $("#request_name").val();
+        var valRemark = $("#putRemark").val();
+        $("#request_name").css("border", "1px solid #ced4da");
+        $("#putRemark").css("border", "1px solid #ced4da");
+
+        if(valRequestName === ""){
+            $("#request_name").focus();
+            $("#request_name").attr('required', true);
+            $("#request_name").css("border", "1px solid red");
+        }
+        else if(valRemark === ""){
+            $("#putRemark").focus();
+            $("#putRemark").attr('required', true);
+            $("#putRemark").css("border", "1px solid red");
+        }
+        else{
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
+
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success',
+                cancelButtonClass: 'btn btn-danger',
+                buttonsStyling: true,
+            })
+
+            swalWithBootstrapButtons.fire({
+
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, cancel!',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        url: action,
+                        dataType: 'json', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: method,
+
+                        
+                        success: function(response) {
+                            if(response.status){
+
+                                $(document).ready(function() {
+                                    $("#loading").show();
+                                    $(".loader").show();
+
+                                    setTimeout(function() {
+                                        $("#loading").hide();
+                                        $(".loader").hide();
+                                            location.reload();
+                                    }, 1000);
+                                })
+
+                                swalWithBootstrapButtons.fire(
+                                    'Succesful!',
+                                    'Data has been updated !',
+                                    'success'
+                                )
+                            }
+                        },
+                        
+                        error: function(response) { // handle the error
+                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                            try {
+                            var erroJson = JSON.parse(response.responseText);
+                            for (var err in erroJson) {
+                                for (var errstr of erroJson[err])
+                                $("[name='" + err + "']").after("<div class='alert alert-danger'>" + errstr + "</div>");
+                            }
+                            if (options.error) {
+                                options.error(response);
+                            }
+                            } catch (err) {
+
+                            }
+
+                        },
+
+                    })
+
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Process Canceled !',
+                        'error'
+                    )
+                }
+            })
+        }
+      });
+
+    });
+  </script>
+
 <!-- 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -283,64 +416,3 @@
         // $( '.quantity' ).mask('000.000.000', {reverse: true});
     })
 </script> -->
-
-<script>
-    $(document).ready(function() {
-        $("#formUpdateArf").validate({
-            rules: {
-                projectcode: "required",
-                sitecode: "required",
-                request_name: "required",
-                putRemark: "required",
-            },
-            messages: {
-                projectcode: "<span title='Please Enter Projec Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                sitecode: "<span title='Please Enter Site Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                request_name: "<span title='Please Enter Beneficiary ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                putRemark: "<span title='Please Enter Internal Notes' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-            },
-            unhighlight: function(element) {
-                $(element).removeClass('error');
-            },
-            submitHandler: function(form) {
-
-                form.submit();
-
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: true,
-                })
-
-                swalWithBootstrapButtons.fire({
-
-                    title: 'Are you sure?',
-                    text: "Save this data?",
-                    type: 'question',
-
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, save it!',
-                    cancelButtonText: 'No, cancel!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        swalWithBootstrapButtons.fire(
-                            'Succesful!',
-                            'Data has been updated !',
-                            'success'
-                        )
-
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        swalWithBootstrapButtons.fire(
-                            'Cancelled',
-                            'Process Canceled !',
-                            'error'
-                        )
-                    }
-                })
-            }
-        });
-    });
-</script>

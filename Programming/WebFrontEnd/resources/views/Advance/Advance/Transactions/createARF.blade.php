@@ -11,9 +11,8 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.update', 1) }}" id="formUpdateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formUpdateArf">
           @csrf
-          @method('PUT')
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
               <div class="col-12">
@@ -141,7 +140,7 @@
                             <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off" value="0">
+                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
                             <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
@@ -149,7 +148,7 @@
                             <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
                             <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
@@ -173,7 +172,7 @@
                   <a class="btn btn-outline btn-danger btn-sm float-right cancelDetailArf">
                     <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart" style="color: white;">Cancel</i>
                   </a>
-                  <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailtoCart" style="margin-right: 5px;">
+                  <a class="btn btn-outline btn-success btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;">
                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
                   </a>
 
@@ -229,7 +228,7 @@
                           <tr>
                             <td><label>Remark</label></td>
                             <td>
-                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control" required></textarea>
+                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control"></textarea>
                               </td>
                           </tr>
                         </table>

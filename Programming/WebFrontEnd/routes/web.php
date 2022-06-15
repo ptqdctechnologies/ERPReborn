@@ -56,8 +56,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
     
     // ARF
+    
     Route::post('StoreValidateArf', 'procurementTransactionArf@StoreValidateArf')->name('ARF.StoreValidateArf');
     Route::post('StoreValidateArf2', 'procurementTransactionArf@StoreValidateArf2')->name('ARF.StoreValidateArf2');
+    Route::post('AdvanceListCartRevision', 'procurementTransactionArf@AdvanceListCartRevision')->name('ARF.AdvanceListCartRevision');
     Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
     Route::resource('ARF', 'procurementTransactionArf');
     

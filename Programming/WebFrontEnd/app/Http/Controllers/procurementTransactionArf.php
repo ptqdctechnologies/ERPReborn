@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use DB;
-use PDO;
 
 class procurementTransactionArf extends Controller
 {
@@ -54,7 +52,6 @@ class procurementTransactionArf extends Controller
                 ]
             ]
             );
-        // dd($varData5);
         $compact = [
             'data' => $varData['data']['data'],
             'data2' => $varData2['data'],
@@ -65,14 +62,9 @@ class procurementTransactionArf extends Controller
 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        
         $input = $request->all();
         $count_product = count($input['var_product_id']);
 
@@ -121,8 +113,11 @@ class procurementTransactionArf extends Controller
                 );
             }
         }
+        $compact = [
+            "status"=>true,
+        ];
 
-        return redirect()->route('ARF.index');
+        return response()->json($compact); 
     }
 
     public function StoreValidateArf(Request $request)
@@ -154,10 +149,12 @@ class procurementTransactionArf extends Controller
     {
         $messages = $request->session()->get("SessionArf");
         $val = $request->input('putProductId');
-        if (($key = array_search($val, $messages)) !== false) {
-            unset($messages[$key]);
-            $newClass = array_values($messages);
-            $request->session()->put("SessionArf", $newClass);
+        if($request->session()->has("SessionArf")){
+            if (($key = array_search($val, $messages)) !== false) {
+                unset($messages[$key]);
+                $newClass = array_values($messages);
+                $request->session()->put("SessionArf", $newClass);
+            }
         }
     }
 
@@ -190,22 +187,18 @@ class procurementTransactionArf extends Controller
                 ]
             ]
         );
+
         $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.finance.getAdvance', 
+            'transaction.read.dataRecord.finance.getAdvance', 
             'latest', 
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
+            'recordID' => (int) $request->searchArfNumberRevisionId,
             ]
             );
         // dd($varData5);
+
 
         $compact = [
             'data' => $varData['data']['data'],
@@ -219,7 +212,6 @@ class procurementTransactionArf extends Controller
     public function update(Request $request, $id)
     {
         $input = $request->all();
-        dd($input);
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -270,45 +262,49 @@ class procurementTransactionArf extends Controller
 
         return redirect()->route('ARF.index');
     }
+    public function AdvanceListCartRevision(Request $request)
+    {
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $val = $request->input('putProductId');
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken, 
+        'transaction.read.dataList.finance.getAdvanceDetail', 
+        'latest', 
+        [
+        'parameter' => [
+            'advance_RefID' => (int) $val,
+            ],
+        'SQLStatement' => [
+            'pick' => null,
+            'sort' => null,
+            'filter' => null,
+            'paging' => null
+            ]
+        ]
+        );     
+        // dd($varData);
+
+        return response()->json($varData['data']);
+    }
+
     public function create()
     {
         
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

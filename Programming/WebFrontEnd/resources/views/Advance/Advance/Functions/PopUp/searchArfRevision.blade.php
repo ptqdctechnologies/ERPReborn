@@ -15,10 +15,10 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>Project Code</th>
-                                            <th>Project Name</th>
-                                            <th>Site Code</th>
-                                            <th>Site Name</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -28,19 +28,19 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -63,7 +63,10 @@
         $(".klikSearchArfRevision").on('click', function(e) {
             e.preventDefault();
             var $this = $(this);
-            $("#searchArfNumberRevision").val($this.data("id1"));
+            var code = $this.data("id1");
+            var id = $this.data("id2");
+            $("#searchArfNumberRevisions").val(code);
+            $("#searchArfNumberRevisionId").val(id);
         });
     });
 </script>
