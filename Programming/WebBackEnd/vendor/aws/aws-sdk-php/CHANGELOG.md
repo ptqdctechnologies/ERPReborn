@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 3.225.4 - 2022-06-14
+
+* `Aws\Budgets` - Add a budgets ThrottlingException. Update the CostFilters value pattern.
+* `Aws\LookoutMetrics` - Adding filters to Alert and adding new UpdateAlert API.
+* `Aws\MediaConvert` - AWS Elemental MediaConvert SDK has added support for rules that constrain Automatic-ABR rendition selection when generating ABR package ladders.
+
+## 3.225.3 - 2022-06-13
+
+* `Aws\` - Revert previous guzzle bump due to lack of exposure to security advisories
+* `Aws\Outposts` - This release adds API operations AWS uses to install Outpost servers.
+
 ## 3.225.2 - 2022-06-10
 
 * `Aws\` - Bump Guzzle 6 and 7 due to security advisory
