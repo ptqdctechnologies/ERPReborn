@@ -100,6 +100,7 @@
                         $("#customerPopUp").prop("disabled", false);
                         $("#currencyPopUp").prop("disabled", false);
                         $("#request_name2").prop("disabled", false);
+                        $("#request_name").attr('required', true);
                         $("#tableShowHideGetBudgetArf").show();
 
                         var $this = $(this);
@@ -216,7 +217,7 @@
 
                                     $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
                                     $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
-                                    $("#addFromDetailtoCart").prop("disabled", true);
+                                    // $("#addFromDetailtoCart").prop("disabled", true);
                                     $(".available").show();
                                     $("#detailTransAvail").show();
                                     $("#putProductId2").prop("disabled", true);

@@ -31,7 +31,7 @@
                       </button>
                     </div>
                   </div>
-                  @include('Advance.Advance.Functions.Header.headerArf')
+                  @include('Advance.Advance.Functions.Header.headerArfRevision')
                 </div>
               </div>
             </div>
@@ -127,6 +127,7 @@
                           <th>Currency</th>
                           <th>Total</th>
                           <th>Balance</th>
+                          <th>Payment</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -167,8 +168,13 @@
                           </td>
 
                           <td>
+                            <input name="payment" id="totalPayment" style="border-radius:0;" type="text" class="form-control" readonly="">
+                          </td>
+
+                          <td>
                             <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
+                          
 
                       </tbody>
                     </table>
@@ -185,7 +191,6 @@
                 
               </div>
             </div>
-
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -206,7 +211,7 @@
                     <table class="table table-head-fixed text-nowrap tableArf">
                       <thead>
                         <tr>
-                          <th>Delete</th>
+                          <th>Edit</th>
                           <th>Product Id</th>
                           <th>Product Name</th>
                           <th>Qty</th>
@@ -214,11 +219,9 @@
                           <th>Price</th>
                           <th>Total</th>
                           <th>Currency</th>
-                          <!-- <th>Remark</th> -->
                         </tr>
                       </thead>
                       <tbody>
-                            
                       </tbody>
                     </table>
                   </div>
@@ -232,8 +235,8 @@
                           <tr>
                             <td><label>Remark</label></td>
                             <td>
-                                <textarea name="var_remark" id="putRemark" rows="1" cols="1000" class="form-control" required></textarea>
-                              </td>
+                              <textarea name="var_remark" id="putRemark" rows="2" cols="1000" class="form-control" required>{{$datas['remarks']}}</textarea>
+                            </td>
                           </tr>
                         </table>
                       </div>
@@ -258,5 +261,5 @@
 </div>
 @include('Partials.footer')
 
-@include('Advance.Advance.Functions.Footer.footerArf')
+@include('Advance.Advance.Functions.Footer.footerArfRevision')
 @endsection

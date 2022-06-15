@@ -49,12 +49,6 @@ class LoginController extends Controller
         }
     }
 
-    public function logout(Request $request)
-    {
-        $request->session()->flush();
-        return redirect('/')->with(['success' => 'Thank you for your visit']);
-    }
-
     public function login(Request $request)
     {
         $username = $request->input('username');
@@ -98,5 +92,11 @@ class LoginController extends Controller
             return redirect('/projectDashboard');
         }
         return redirect('/')->with('message', 'Login Failed');
+    }
+
+    public function logout(Request $request)
+    {
+        $request->session()->flush();
+        return redirect('/')->with(['success' => 'Thank you for your visit']);
     }
 }

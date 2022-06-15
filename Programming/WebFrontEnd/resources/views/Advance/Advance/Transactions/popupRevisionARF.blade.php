@@ -10,10 +10,11 @@
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label style="margin-left: 85px;">ARF Number</label></td>
+                                            <td><label style="margin-left: 65px;">ARF Number</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input required="" id="searchArfNumberRevision" style="border-radius:0;" name="searchArfNumberRevision" type="text" class="form-control">
+                                                    <input id="searchArfNumberRevisionId" style="border-radius:0;" name="searchArfNumberRevisionId" type="hidden" class="form-control">
+                                                    <input required="" id="searchArfNumberRevisions" style="border-radius:0;" name="searchArfNumberRevisions" type="text" class="form-control">
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a href="#"><i data-toggle="modal" data-target="#mySearchArfRevision" class="fas fa-gift" style="color:grey;"></i></a>
@@ -28,7 +29,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 180px;">
+                        <button type="submit" class="btn btn-outline btn-warning btn-sm" style="margin-left: 160px;color:white;">
                             <i class="fas fa-edit" aria-hidden="true"> Edit</i>
                         </button>
                         <button type="reset" class="btn btn-outline btn-danger btn-sm">
