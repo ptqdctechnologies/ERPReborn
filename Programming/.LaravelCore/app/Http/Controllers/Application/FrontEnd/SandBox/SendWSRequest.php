@@ -7339,7 +7339,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks'
                     ]
                 ]
@@ -7353,7 +7353,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -7363,7 +7363,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -7451,7 +7451,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-04',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "supplier_RefID" => 126000000000001,
                     "deliveryDateTimeTZ" => '2022-03-08',
                     "deliveryDestination_RefID" => 173000000000001,
@@ -7568,7 +7568,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
             echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
             echo '<input type="text" id="dataInput_DeliveryDestination_RefID" value=173000000000001>';
@@ -7583,7 +7583,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
                         '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
                         '"deliveryDestination_RefID" : parseInt(document.getElementById("dataInput_DeliveryDestination_RefID").value), '.
@@ -7741,7 +7741,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -7787,7 +7787,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<table border="1" style="border-collapse: collapse;">';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Requisition Main Data</p></td></tr>';
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07"></td></tr>';
-            echo        '<tr><td>RequesterPerson_RefID</td><td><input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439></td></tr>';
+            echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Requisition Detail Data</p></td></tr></tr>';
             echo        '<tr><td>CombinedBudgetSectionDetail_RefID_1</td><td><input type="text" id="dataInput_CombinedBudgetSectionDetail_RefID_1" value=169000000000001></td></tr>';
@@ -7816,7 +7816,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.
                             '"itemList" : {'.
@@ -8001,7 +8001,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     'documentDateTimeTZ' => '2022-03-08',
-                    'requesterPerson_RefID' => 25000000000439,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
                     'remarks' => 'My Remarks'
                     ]
                 ]
@@ -8015,7 +8015,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -8025,7 +8025,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value '.
                         '}'.
                 '}'
@@ -8125,7 +8125,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'entities' => [
                     'documentDateTimeTZ' => '2022-03-08',
-                    'requesterPerson_RefID' => 25000000000439,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
                     'remarks' => 'My Remarks'
                     ]
                 ]
@@ -8139,7 +8139,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -8149,7 +8149,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 '{'.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value '.
                         '}'.
                 '}'
@@ -15391,7 +15391,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesLog_Device_PersonAccessFetch()
             {
@@ -15439,7 +15439,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesLog_FileUpload_Pointer()
             {
@@ -15487,7 +15487,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesAdvance()
             {
@@ -15535,7 +15535,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesAdvanceDetail()
             {
@@ -15583,7 +15583,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesWorkerCareerInternal()
             {
@@ -15631,7 +15631,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesBank()
             {
@@ -15679,7 +15679,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesBankAccount()
             {
@@ -15727,7 +15727,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesBusinessDocument()
             {
@@ -15775,7 +15775,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesBusinessDocumentType()
             {
@@ -15823,7 +15823,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesBusinessDocumentVersion()
             {
@@ -15871,7 +15871,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCountry()
             {
@@ -15919,7 +15919,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel1()
             {
@@ -15967,7 +15967,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel2()
             {
@@ -16015,7 +16015,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel3()
             {
@@ -16063,7 +16063,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCountryAdministrativeAreaLevel4()
             {
@@ -16111,7 +16111,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesCurrency()
             {
@@ -16159,7 +16159,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesProduct()
             {
@@ -16207,7 +16207,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesProductType()
             {
@@ -16255,7 +16255,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesQuantityUnit()
             {
@@ -16303,7 +16303,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesTradeMark()
             {
@@ -16316,6 +16316,102 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.dataEntities.master.getTradeMark', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.supplyChain.getPurchaseRequisition                                         |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPurchaseRequisition()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUzNDI4OTV9.pC-F2G8xsp0RY45GzxKy1bw1VYmrwhjIow9tJJoO0Vc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseRequisition', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{83000000000001, 83000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPurchaseRequisition()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUzNDI4OTV9.pC-F2G8xsp0RY45GzxKy1bw1VYmrwhjIow9tJJoO0Vc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{83000000000001, 83000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseRequisition', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.supplyChain.getPurchaseRequisitionDetail                                   |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPurchaseRequisitionDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUzNDI4OTV9.pC-F2G8xsp0RY45GzxKy1bw1VYmrwhjIow9tJJoO0Vc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseRequisitionDetail', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{84000000000001, 84000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPurchaseRequisitionDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTUzNDI4OTV9.pC-F2G8xsp0RY45GzxKy1bw1VYmrwhjIow9tJJoO0Vc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{84000000000001, 84000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseRequisitionDetail', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
@@ -16351,7 +16447,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesTaxTariff()
             {
@@ -16399,7 +16495,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesTaxType()
             {
@@ -16447,7 +16543,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesTransactionTax()
             {
@@ -16495,7 +16591,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     ]
                 ]
                 );
-            var_dump(json_encode($varData));
+            var_dump($varData);
             }
         public function APIGatewayJQuery_getDataEntitiesTransactionTaxDetail()
             {
@@ -32832,7 +32928,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 180000000000001,
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks'
                     ]
                 ]
@@ -32847,7 +32943,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=181000000000001>';
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -32858,7 +32954,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -32950,7 +33046,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 85000000000001,
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-04',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "supplier_RefID" => 126000000000001,
                     "deliveryDateTimeTZ" => '2022-03-08',
                     "deliveryDestination_RefID" => 173000000000001,
@@ -33058,7 +33154,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=85000000000001>';
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-04">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Supplier_RefID" value=126000000000001>';
             echo '<input type="text" id="dataInput_DeliveryDateTimeTZ" value="2022-03-08">';
             echo '<input type="text" id="dataInput_DeliveryDestination_RefID" value=173000000000001>';
@@ -33074,7 +33170,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"supplier_RefID" : parseInt(document.getElementById("dataInput_Supplier_RefID").value), '.
                         '"deliveryDateTimeTZ" : document.getElementById("dataInput_DeliveryDateTimeTZ").value, '.
                         '"deliveryDestination_RefID" : parseInt(document.getElementById("dataInput_DeliveryDestination_RefID").value), '.
@@ -33239,7 +33335,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 83000000000001,
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
-                    "requesterPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
                     "remarks" => 'My Remarks',
                     "additionalData" => [
                         "itemList" => [
@@ -33288,7 +33384,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Requisition Main Data</p></td></tr>';
             echo        '<tr><td>RecordID</td><td><input type="text" id="dataInput_RecordID" value=83000000000001></td></tr>';
             echo        '<tr><td>DocumentDateTimeTZ</td><td><input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-07"></td></tr>';
-            echo        '<tr><td>RequesterPerson_RefID</td><td><input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439></td></tr>';
+            echo        '<tr><td>RequesterWorkerJobsPosition_RefID</td><td><input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497></td></tr>';
             echo        '<tr><td>Remarks</td><td><input type="text" id="dataInput_Remarks" value="My Remarks"></td></tr>';
             echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Purchase Requisition Detail Data</p></td></tr></tr>';
             echo        '<tr><td>RecordIDDetail_RefID_2</td><td><input type="text" id="dataInput_RecordIDDetail_RefID_1" value=84000000000001></td></tr>';
@@ -33320,7 +33416,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value, '.
                         '"additionalData" : {'.
                             '"itemList" : {'.
@@ -33514,7 +33610,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 176000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2022-03-08',
-                    'requesterPerson_RefID' => 25000000000439,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
                     'remarks' => 'My Remarks'
                     ]
                 ]
@@ -33529,7 +33625,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=176000000000001>';
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -33540,7 +33636,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value '.
                         '}'.
                 '}'
@@ -33644,7 +33740,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'recordID' => 178000000000001,
                 'entities' => [
                     'documentDateTimeTZ' => '2022-03-08',
-                    'requesterPerson_RefID' => 25000000000439,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
                     'remarks' => 'My Remarks'
                     ]
                 ]
@@ -33659,7 +33755,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_RecordID" value=178000000000001>';
             echo '<input type="text" id="dataInput_DocumentDateTimeTZ" value="2022-03-08">';
-            echo '<input type="text" id="dataInput_RequesterPerson_RefID" value=25000000000439>';
+            echo '<input type="text" id="dataInput_RequesterWorkerJobsPosition_RefID" value=164000000000497>';
             echo '<input type="text" id="dataInput_Remarks" value="My Remarks">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -33670,7 +33766,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
                     '"entities" : {'.
                         '"documentDateTimeTZ" : document.getElementById("dataInput_DocumentDateTimeTZ").value, '.
-                        '"requesterPerson_RefID" : parseInt(document.getElementById("dataInput_RequesterPerson_RefID").value), '.
+                        '"requesterWorkerJobsPosition_RefID" : parseInt(document.getElementById("dataInput_RequesterWorkerJobsPosition_RefID").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value '.
                         '}'.
                 '}'

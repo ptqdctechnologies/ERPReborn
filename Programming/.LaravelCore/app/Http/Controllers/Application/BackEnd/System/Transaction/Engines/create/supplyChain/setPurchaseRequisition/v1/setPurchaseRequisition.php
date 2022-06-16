@@ -71,7 +71,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                             $varData['entities']['documentDateTimeTZ'],
                             null,
-                            $varData['entities']['requesterPerson_RefID'],
+                            $varData['entities']['requesterWorkerJobsPosition_RefID'],
                             $varData['entities']['remarks'],
                                 
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? ((!is_null($varData['entities']['additionalData'])) ? $varData['entities']['additionalData'] : []) : [])

@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\master\getBank\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain                |
+|                \getPurchaseRequisitionDetail\v1                                                                                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\master\getBank\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\read\dataEntities\supplyChain\getPurchaseRequisitionDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBank                                                                                                      |
-    | ▪ Description : Menangani API transaction.read.dataEntities.master.getBank Version 1                                         |
+    | ▪ Class Name  : getPurchaseRequisitionDetail                                                                                 |
+    | ▪ Description : Menangani API transaction.read.dataEntities.supplyChain.getPurchaseRequisitionDetail Version 1               |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBank extends \App\Http\Controllers\Controller
+    class getPurchaseRequisitionDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-15                                                                                           |
-        | ▪ Creation Date   : 2022-06-15                                                                                           |
+        | ▪ Last Update     : 2022-06-16                                                                                           |
+        | ▪ Creation Date   : 2022-06-16                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-15                                                                                           |
-        | ▪ Creation Date   : 2022-06-15                                                                                           |
+        | ▪ Last Update     : 2022-06-16                                                                                           |
+        | ▪ Creation Date   : 2022-06-16                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblBank())->getDataEntities(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_SupplyChain\TblPurchaseRequisitionDetail())->getDataEntities(
                             $varUserSession, 
                             
                             $varData['parameter']['recordIDSet'],
