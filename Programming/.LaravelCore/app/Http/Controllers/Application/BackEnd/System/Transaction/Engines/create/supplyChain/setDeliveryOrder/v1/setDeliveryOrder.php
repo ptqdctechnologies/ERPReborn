@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             null,
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['entities']['documentDateTimeTZ'],
-                            $varData['entities']['requesterPerson_RefID'],
+                            $varData['entities']['requesterWorkerJobsPosition_RefID'],
                             $varData['entities']['remarks']
                             ))))
                             {
