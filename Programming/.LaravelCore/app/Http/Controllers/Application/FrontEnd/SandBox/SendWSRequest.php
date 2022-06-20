@@ -7509,18 +7509,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     [
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
                                     ],
                                     [
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
                                     ]                            
@@ -7531,9 +7531,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     [
                                     "entities" => [
                                         "purchaseOrderAdditionalCostType_RefID" => 190000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "price_Currency_RefID" => 62000000000001,
+                                        "price_CurrencyValue" => 30000,
+                                        "price_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Additional Cost'
                                         ]
                                     ]
@@ -7545,9 +7545,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "entities" => [
                                         "paymentTerm_RefID" => 174000000000001,
                                         "dueDays" => 30,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "price_Currency_RefID" => 62000000000001,
+                                        "price_CurrencyValue" => 30000,
+                                        "price_CurrencyExchangeRate" => 1,
                                         "discountDueDays" => 15,
                                         "discountPercentageRate" => 2.00,
                                         "remarks" => 'Down Payment'
@@ -8419,18 +8419,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     [
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
                                     ],
                                     [
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
                                     ]
@@ -8473,18 +8473,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                             '{'.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
-                                '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Currency_RefID").value), '.
-                                '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyValue").value), '.
-                                '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyExchangeRate").value), '.
+                                '"tariff_Currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Tariff_Currency_RefID").value), '.
+                                '"tariff_CurrencyValue": parseFloat(document.getElementById("dataInput_Dtl1_Tariff_CurrencyValue").value), '.
+                                '"tariff_CurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_Tariff_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl1_Remarks").value'.
                                 '}'.
                             '}, '.
                             '{'.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
-                                '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Currency_RefID").value), '.
-                                '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyValue").value), '.
-                                '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyExchangeRate").value), '.
+                                '"tariff_Currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Tariff_Currency_RefID").value), '.
+                                '"tariff_CurrencyValue": parseFloat(document.getElementById("dataInput_Dtl2_Tariff_CurrencyValue").value), '.
+                                '"tariff_CurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_Tariff_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl2_Remarks").value'.
                                 '}'.
                             '} '.
@@ -8517,9 +8517,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'entities' => [
                     "transactionTax_RefID" => 184000000000001,
                     "taxType_RefID" => 182000000000001,
-                    "currency_RefID" => 62000000000001,
-                    "currencyValue" => 30000,
-                    "currencyExchangeRate" => 1,
+                    "tariff_Currency_RefID" => 62000000000001,
+                    "tariff_CurrencyValue" => 30000,
+                    "tariff_CurrencyExchangeRate" => 1,
                     "remarks" => 'My Annotation'
                     ]
                 ]
@@ -8534,9 +8534,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<input type="text" id="dataInput_TransactionTax_RefID" value=184000000000001>';
             echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_Tariff_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_Tariff_CurrencyValue" value=30000>';
+            echo '<input type="text" id="dataInput_Tariff_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="My Annotation">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -8547,9 +8547,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"transactionTax_RefID" : parseInt(document.getElementById("dataInput_TransactionTax_RefID").value), '.
                         '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
-                        '"currency_RefID" : parseInt(document.getElementById("dataInput_Currency_RefID").value), '.
-                        '"currencyValue" : parseFloat(document.getElementById("dataInput_CurrencyValue").value), '.
-                        '"currencyExchangeRate" : parseFloat(document.getElementById("dataInput_CurrencyExchangeRate").value), '.
+                        '"tariff_Currency_RefID" : parseInt(document.getElementById("dataInput_Tariff_Currency_RefID").value), '.
+                        '"tariff_CurrencyValue" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyValue").value), '.
+                        '"tariff_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -16747,6 +16747,54 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.dataEntities.master.getTradeMark', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.supplyChain.getPurchaseOrderAdditionalCostType                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPurchaseOrderAdditionalCostType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseOrderAdditionalCostType', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{190000000000001, 190000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPurchaseOrderAdditionalCostType()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{190000000000001, 190000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.supplyChain.getPurchaseOrderAdditionalCostType', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
@@ -33620,9 +33668,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 185000000000001,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1 Update'                                
                                         ]
                                     ],
@@ -33630,9 +33678,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 185000000000002,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2 Update'
                                         ]
                                     ]                            
@@ -33644,9 +33692,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 191000000000001,
                                     "entities" => [
                                         "purchaseOrderAdditionalCostType_RefID" => 190000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "price_Currency_RefID" => 62000000000001,
+                                        "price_CurrencyValue" => 30000,
+                                        "price_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan Additional Cost Update'
                                         ]
                                     ]
@@ -33658,11 +33706,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 187000000000001,
                                     "entities" => [
                                         "paymentTerm_RefID" => 174000000000001,
-                                        "dueDateTimeTZ" => '2022-04-30',
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 1'                                
+                                        "dueDays" => 30,
+                                        "price_Currency_RefID" => 62000000000001,
+                                        "price_CurrencyValue" => 30000,
+                                        "price_CurrencyExchangeRate" => 1,
+                                        "discountDueDays" => 15,
+                                        "discountPercentageRate" => 2.00,
+                                        "remarks" => 'Down Payment'
                                         ]
                                     ]                            
                                 ]
@@ -34553,7 +34603,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.update.taxation.setTransactionTax                                                                   |
+        | ▪ API Key     : transaction.update.taxation.                                                                   |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -34577,9 +34627,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 185000000000001,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000001,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 1'                                
                                         ]
                                     ],
@@ -34587,9 +34637,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                                     "recordID" => 185000000000002,
                                     "entities" => [
                                         "taxType_RefID" => 182000000000002,
-                                        "currency_RefID" => 62000000000001,
-                                        "currencyValue" => 30000,
-                                        "currencyExchangeRate" => 1,
+                                        "tariff_Currency_RefID" => 62000000000001,
+                                        "tariff_CurrencyValue" => 30000,
+                                        "tariff_CurrencyExchangeRate" => 1,
                                         "remarks" => 'Catatan 2'
                                         ]
                                     ]
@@ -34611,16 +34661,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<hr>';
             echo '<input type="text" id="dataInput_Dtl1_RecordID" value=185000000000001>';
             echo '<input type="text" id="dataInput_Dtl1_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl1_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_Dtl1_Tarif_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyValue" value=30000>';
+            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Dtl1_Remarks" value="Catatan 1 Update">';
             echo '<hr>';
             echo '<input type="text" id="dataInput_Dtl2_RecordID" value=185000000000002>';
             echo '<input type="text" id="dataInput_Dtl2_TaxType_RefID" value=182000000000002>';
-            echo '<input type="text" id="dataInput_Dtl2_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl2_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl2_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_Dtl2_Tarif_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyValue" value=30000>';
+            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Dtl2_Remarks" value="Catatan 2 Update">';
             echo '<hr>';
 
@@ -34637,9 +34687,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                             '"recordID": parseInt(document.getElementById("dataInput_Dtl1_RecordID").value), '.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
-                                '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Currency_RefID").value), '.
-                                '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyValue").value), '.
-                                '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_CurrencyExchangeRate").value), '.
+                                '"tariff_Currency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Tarif_Currency_RefID").value), '.
+                                '"tariff_CurrencyValue": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyValue").value), '.
+                                '"tariff_CurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl1_Remarks").value'.
                                 '}'.
                             '}, '.
@@ -34647,9 +34697,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                             '"recordID": parseInt(document.getElementById("dataInput_Dtl2_RecordID").value), '.
                             '"entities": {'.
                                 '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
-                                '"currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Currency_RefID").value), '.
-                                '"currencyValue": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyValue").value), '.
-                                '"currencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_CurrencyExchangeRate").value), '.
+                                '"tariff_Currency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Tarif_Currency_RefID").value), '.
+                                '"tariff_CurrencyValue": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyValue").value), '.
+                                '"tariff_CurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyExchangeRate").value), '.
                                 '"remarks": document.getElementById("dataInput_Dtl2_Remarks").value'.
                                 '}'.
                             '} '.
@@ -34683,9 +34733,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 'entities' => [
                     "transactionTax_RefID" => 184000000000001,
                     "taxType_RefID" => 182000000000001,
-                    "currency_RefID" => 62000000000001,
-                    "currencyValue" => 30000,
-                    "currencyExchangeRate" => 1,
+                    "tariff_Currency_RefID" => 62000000000001,
+                    "tariff_CurrencyValue" => 30000,
+                    "tariff_CurrencyExchangeRate" => 1,
                     "remarks" => 'My Annotation'
                     ]
                 ]
@@ -34701,9 +34751,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo '<input type="text" id="dataInput_RecordID" value=185000000000001>';
             echo '<input type="text" id="dataInput_TransactionTax_RefID" value=184000000000001>';
             echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_CurrencyExchangeRate" value=1>';
+            echo '<input type="text" id="dataInput_Tariff_Currency_RefID" value=62000000000001>';
+            echo '<input type="text" id="dataInput_Tariff_CurrencyValue" value=30000>';
+            echo '<input type="text" id="dataInput_Tariff_CurrencyExchangeRate" value=1>';
             echo '<input type="text" id="dataInput_Remarks" value="My Annotation">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -34715,9 +34765,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                     '"entities" : {'.
                         '"transactionTax_RefID" : parseInt(document.getElementById("dataInput_TransactionTax_RefID").value), '.
                         '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
-                        '"currency_RefID" : parseInt(document.getElementById("dataInput_Currency_RefID").value), '.
-                        '"currencyValue" : parseFloat(document.getElementById("dataInput_CurrencyValue").value), '.
-                        '"currencyExchangeRate" : parseFloat(document.getElementById("dataInput_CurrencyExchangeRate").value), '.
+                        '"tariff_Currency_RefID" : parseInt(document.getElementById("dataInput_Tariff_Currency_RefID").value), '.
+                        '"tariff_CurrencyValue" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyValue").value), '.
+                        '"tariff_CurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyExchangeRate").value), '.
                         '"remarks" : document.getElementById("dataInput_Remarks").value'.
                         '}'.
                 '}'
@@ -34725,158 +34775,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
-
-            
-            
-            
-
-
-
-
-
-
-
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
         /*

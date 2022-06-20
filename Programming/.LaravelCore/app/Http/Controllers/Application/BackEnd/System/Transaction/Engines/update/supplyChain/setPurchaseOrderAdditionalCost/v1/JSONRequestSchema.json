@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.create.supplyChain.setPurchaseOrderAdditionalCost (version 1)",
+"description": "JSON Request Schema of transaction.update.supplyChain.setPurchaseOrderAdditionalCost (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "transaction.create.supplyChain.setPurchaseOrderAdditionalCost" ]
+                        "enum": [ "transaction.update.supplyChain.setPurchaseOrderAdditionalCost" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,6 +27,11 @@
     "data": {
         "type": "object",
         "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
             "entities" : {
                 "type": "object",
                 "properties": {
@@ -66,7 +71,7 @@
                 "required": [ "purchaseOrder_RefID", "purchaseOrderAdditionalCostType_RefID", "price_Currency_RefID", "price_CurrencyValue", "price_CurrencyExchangeRate", "price_BaseCurrencyValue", "remarks" ]
                 }
             },
-        "required": [ "entities" ]
+        "required": [ "recordID", "entities" ]
         }
     },
 "required": [ "metadata", "data" ]

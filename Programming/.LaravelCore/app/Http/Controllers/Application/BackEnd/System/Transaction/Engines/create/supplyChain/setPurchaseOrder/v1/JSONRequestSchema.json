@@ -157,16 +157,16 @@
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                 "currency_RefID": {
+                                                                 "tariff_Currency_RefID": {
                                                                      "type": [ "integer" ],
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                 "currencyExchangeRate": {
+                                                                 "tariff_CurrencyExchangeRate": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
-                                                                 "currencyValue": {
+                                                                 "tariff_CurrencyValue": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
@@ -176,7 +176,7 @@
                                                                      "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "taxType_RefID", "currency_RefID", "currencyExchangeRate", "currencyValue", "remarks" ]
+                                                            "required": [ "taxType_RefID", "tariff_Currency_RefID", "tariff_CurrencyExchangeRate", "tariff_CurrencyValue", "remarks" ]
                                                             }
                                                         },
                                                     "required": [ "entities" ]
@@ -206,16 +206,16 @@
                                                                     "minimum": 1,
                                                                     "maximum": 32767
                                                                      },
-                                                                "currency_RefID": {
+                                                                "price_Currency_RefID": {
                                                                      "type": [ "integer", "null" ],
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                "currencyValue": {
+                                                                "price_CurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                      },
-                                                                "currencyExchangeRate": {
+                                                                "price_CurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                      },
@@ -234,7 +234,7 @@
                                                                     "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "paymentTerm_RefID", "dueDays", "currency_RefID", "currencyValue", "currencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
+                                                            "required": [ "paymentTerm_RefID", "dueDays", "price_Currency_RefID", "price_CurrencyValue", "price_CurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
                                                             }
                                                         },
                                                     "required": [ "entities" ]
@@ -248,10 +248,6 @@
                                 }
                             ]
                         }
-                        
-                        
-                        
-                        
                     },
                 "required": [ "documentDateTimeTZ", "requesterWorkerJobsPosition_RefID", "supplier_RefID", "deliveryDateTimeTZ", "deliveryDestination_RefID", "supplierInvoiceBillingPurpose_RefID", "remarks" ]
                 }
