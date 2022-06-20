@@ -19,7 +19,7 @@ class procurementTransactionDor extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionDor");
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -30,7 +30,7 @@ class procurementTransactionDor extends Controller
         );
         
         // dd($varData);
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['data' => $varData['data']['data']]);
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', ['dataProject' => $varDataProject['data']['data']]);
 
     }
 

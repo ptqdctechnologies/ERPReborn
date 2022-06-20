@@ -1,5 +1,5 @@
-<div id="myRequester" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+<div id="myRequester" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Select Requester</h4>
@@ -19,14 +19,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @php $no = 1 @endphp
-                                        @foreach($data2 as $datas)
-                                        <tr>
-                                            <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikRequester" data-id="{{$datas['sys_ID']}}" data-name="{{$datas['name']}}">{{$datas['sys_ID']}}</td>
-                                            <td>{{$datas['name']}}</td>
-                                        </tr>
-                                        @endforeach
+
                                     </tbody>
                                     
                                 </table>
@@ -38,21 +31,3 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                             End Funtion My Requester                             |
-    |----------------------------------------------------------------------------------|-->
-
-<script>
-    $('document').ready(function() {
-        $(".klikRequester").on('click', function(e) {
-            e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var id = $this.data("id");
-            var name = $this.data("name");
-            $("#request_name_id").val(id);
-            $("#request_name").val(name);
-            $("#budget_name").val(name);
-            
-        });
-    });
-</script>

@@ -2,18 +2,36 @@
 @section('main')
 @include('Partials.navbar')
 @include('Partials.sidebar')
-@include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getRequester')
 @include('getFunction.getProduk')
+@include('Advance.Advance.Functions.PopUp.revisionARF')
+@include('Advance.Advance.Functions.PopUp.searchArfRevision')
+@include('getFunction.getProject')
+@include('Advance.Advance.Functions.PopUp.requesterAdvance')
+@include('getFunction.getWorker')
+@include('getFunction.getRequester')
 
-<div class="content-wrapper">
+<div class="content-wrapper" style="position:relative;bottom:12px;">
   <section class="content">
     <div class="container-fluid">
-      <div class="card">
+      <div class="row mb-2" style="background-color:#4B586A;">
+          <div class="col-sm-6">
+            <label style="font-size:20px;position:relative;top:14px;color:white;">Advance Request</label>
+            </div>
+            <div class="col-sm-6" style="position:relative;top:8px;">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Advance</a></li>
+                <li class="breadcrumb-item active">Create Advance Request</li>
+            </ol>
+          </div>
+      </div>
+      @include('Advance.Advance.Functions.Menu.menuArf')
+
+      <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formUpdateArf">
           @csrf
-          <div class="tab-content p-3" id="nav-tabContent">
+          <div class="tab-content p-3" id="nav-tabContent">        
+
             <div class="row">
               <div class="col-12">
                 <div class="card">
@@ -169,10 +187,10 @@
                       </tbody>
                     </table>
                   </div>
-                  <a class="btn btn-outline btn-danger btn-sm float-right cancelDetailArf">
-                    <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart" style="color: white;">Cancel</i>
+                  <a class="btn btn-outline btn-sm float-right cancelDetailArf" style="color:white;background-color:#4B586A;font-weight:bold;">
+                    <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart">Cancel</i>
                   </a>
-                  <a class="btn btn-outline btn-success btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;">
+                  <a class="btn btn-outline btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;color:white;background-color:#4B586A;font-weight:bold;">
                     <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
                   </a>
 
@@ -237,10 +255,10 @@
                   </div>
                 </div>
 
-                <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
+                <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-sm float-right remove-arf-list" style="color:white;background-color:#4B586A;font-weight:bold;">
                   <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
                 </a>
-                <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="submitArf">
+                <button class="btn btn-outline btn-sm float-right" type="submit" style="margin-right: 5px;color:white;background-color:#4B586A;font-weight:bold;" id="submitArf">
                   <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
                 </button>
               </div>

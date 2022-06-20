@@ -20,11 +20,11 @@
                                     </thead>
                                     <tbody>
                                         @php $no = 1 @endphp
-                                        @foreach($data as $datas)
+                                        @foreach($dataProject as $dataProjects)
                                         <tr>
                                             <td>{{ $no++ }}</td>
-                                            <td data-dismiss="modal" class="klikProject" data-id="{{$datas['sys_ID']}}" data-name="{{$datas['sys_Text']}}">{{$datas['sys_ID']}}</td>
-                                            <td>{{$datas['sys_Text']}}</td>
+                                            <td data-dismiss="modal" class="klikProject" data-id="{{$dataProjects['sys_ID']}}" data-name="{{$dataProjects['sys_Text']}}">{{$dataProjects['sys_ID']}}</td>
+                                            <td>{{$dataProjects['sys_Text']}}</td>
                                         </tr>
                                         @endforeach
                                     </tbody>

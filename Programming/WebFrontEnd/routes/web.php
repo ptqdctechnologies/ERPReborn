@@ -25,6 +25,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
+    Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
 
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
     

@@ -24,23 +24,23 @@
                                     <tbody>
 
                                         @php $no = 1 @endphp
-                                        @foreach($data5 as $datas)
+                                        @foreach($dataAdvanceRequest as $dataAdvanceRequests)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['businessDocument_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$datas['sys_ID']}}" data-id2="{{$datas['sys_ID']}}">{{$datas['sys_ID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -63,10 +63,10 @@
         $(".klikSearchArfRevision").on('click', function(e) {
             e.preventDefault();
             var $this = $(this);
-            var code = $this.data("id1");
-            var id = $this.data("id2");
-            $("#searchArfNumberRevisions").val(code);
+            var id = $this.data("id1");
+            var code = $this.data("id2");
             $("#searchArfNumberRevisionId").val(id);
+            $("#searchArfNumberRevisions").val(code);
         });
     });
 </script>
