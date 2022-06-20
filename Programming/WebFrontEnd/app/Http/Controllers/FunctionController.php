@@ -30,6 +30,7 @@ class FunctionController extends Controller
             ]
         );
         
+        // dd($varData);
         return response()->json($varData['data']['data']);
     }
 
@@ -56,9 +57,29 @@ class FunctionController extends Controller
             ]
         ]
         );
-        // dd($varData);
 
         return response()->json($varData['data']);
+    }
+
+    public function getWorker(Request $request)
+    {
+        $worker = $request->input('workerid');
+        
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varDataJobPosition = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'dataPickList.humanResource.getWorkerJobsPositionCurrent', 
+            'latest',
+            [
+            'parameter' => [
+                'worker_RefID' => (int) $worker
+                ]
+            ]
+            );
+            
+        return response()->json($varDataJobPosition['data']['data']);
     }
 
 

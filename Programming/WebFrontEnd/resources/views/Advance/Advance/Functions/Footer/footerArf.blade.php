@@ -6,17 +6,13 @@
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
         $("#request_name").prop("readonly", true);
-        // $("#addFromDetailtoCart").prop("disabled", true);
-
         $("#showContentBOQ3").hide();
         $("#tableShowHideBOQ3").hide();
-
         $("#iconProductId2").hide();
         $("#iconQty2").hide();
         $("#iconUnitPrice2").hide();
         $("#iconRemark2").hide();
         $("#product_id2").prop("disabled", true);
-
         $("#submitArf").prop("disabled", true);
     });
 </script>
@@ -231,7 +227,7 @@
             var total = putQty * priceCek;
             var total2 = qtyReq * priceCek;
             if (parseFloat(qtyReq) == '') {
-                // $("#addFromDetailtoCart").prop("disabled", true);
+                
                 $("#saveArfList").prop("disabled", true);
                 $('#totalArfDetails').val(0);
                 $("#qtyCek").css("border", "1px solid red");
@@ -239,18 +235,18 @@
                 Swal.fire("Error !", "Your Qty Request is Over", "error");
                 $("#qtyCek").val(0);
                 $('#totalArfDetails').val(0);
-                // $("#addFromDetailtoCart").prop("disabled", true);
+                
                 $("#saveArfList").prop("disabled", true);
                 $("#qtyCek").css("border", "1px solid red");
             } else if (parseFloat(total2) > parseFloat(total)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $('#totalArfDetails').val(0);
-                // $("#addFromDetailtoCart").prop("disabled", true);
+                
                 $("#qtyCek").css("border", "1px solid red");
             } else {
                 var totalReq = parseFloat(total2);
                 $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                // $("#addFromDetailtoCart").prop("disabled", false);
+                
                 $("#qtyCek").css("border", "1px solid #ced4da");
             }
         });
@@ -272,7 +268,7 @@
             var totalBalance = $("#totalBalance").val();
 
             if (priceReq == '') {
-                // $("#addFromDetailtoCart").prop("disabled", true);
+                
                 $('#totalArfDetails').val(0);
                 $("#priceCek").css("border", "1px solid red");
 
@@ -280,12 +276,12 @@
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#priceCek").val(0);
                 $('#totalArfDetails').val(0);
-                // $("#addFromDetailtoCart").prop("disabled", true);
+                
                 $("#priceCek").css("border", "1px solid red");
             } else {
                 var totalReq = total;
                 $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                // $("#addFromDetailtoCart").prop("disabled", false);
+                
                 $("#priceCek").css("border", "1px solid #ced4da");
             }
 
@@ -346,7 +342,6 @@
                         processData: false,
                         data: form_data,
                         type: method,
-
                         
                         success: function(response) {
                             if(response.status){

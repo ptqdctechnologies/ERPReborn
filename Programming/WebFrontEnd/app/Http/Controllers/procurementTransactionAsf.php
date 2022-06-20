@@ -14,7 +14,7 @@ class procurementTransactionAsf extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionAsf");
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -23,7 +23,7 @@ class procurementTransactionAsf extends Controller
                 'parameter' => []
             ]
         );
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.humanResource.getWorker', 
@@ -37,7 +37,7 @@ class procurementTransactionAsf extends Controller
                 'paging' => null
                 ]
             ]
-        );
+            );
         $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -72,8 +72,8 @@ class procurementTransactionAsf extends Controller
         // dd($varData5);
 
         $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
+            'dataProject' => $varDataProject['data']['data'],
+            'dataWorker' => $varDataWorker['data'],
             'data4' => $varData4['data'],
             'data5' => $varData5['data'],
         ];

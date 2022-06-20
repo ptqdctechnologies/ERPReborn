@@ -12,7 +12,7 @@ class procurementTransactionArf extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionArf");
         
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -22,10 +22,10 @@ class procurementTransactionArf extends Controller
             ]
         );
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getPerson', 
+            'transaction.read.dataList.humanResource.getWorker', 
             'latest', 
             [
             'parameter' => null,
@@ -36,8 +36,8 @@ class procurementTransactionArf extends Controller
                 'paging' => null
                 ]
             ]
-        );
-        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            );
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.finance.getAdvance', 
@@ -52,12 +52,12 @@ class procurementTransactionArf extends Controller
                 ]
             ]
             );
+
         $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
-            'data5' => $varData5['data'],
+            'dataProject' => $varDataProject['data']['data'],
+            'dataWorker' => $varDataWorker['data'],
+            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
         ];
-        // dd($compact);
         return view('Advance.Advance.Transactions.createARF', $compact);
 
     }
@@ -76,17 +76,17 @@ class procurementTransactionArf extends Controller
         'latest', 
             [
                 'entities' => [
+                    
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterPerson_RefID" => (int)$input['var_request_name_id'],
-                    "beneficiaryPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+                    "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                     "beneficiaryBankAccount_RefID" => 167000000000001,
                     "internalNotes" => 'My Internal Notes',
                     "remarks" => $input['var_remark']
                 ]
             ]                    
         );
-
         $advance_RefID = $varData['data']['recordID'];
 
         if ($count_product > 0 && isset($count_product)) {
@@ -113,6 +113,7 @@ class procurementTransactionArf extends Controller
                 );
             }
         }
+
         $compact = [
             "status"=>true,
         ];
@@ -188,6 +189,17 @@ class procurementTransactionArf extends Controller
             ]
         );
 
+        // $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken, 
+        //     'report.form.documentForm.finance.getAdvance', 
+        //     'latest',
+        //     [
+        //     'parameter' => [
+        //         'recordID' => (int) $request->searchArfNumberRevisionId,
+        //         ]
+        //     ]
+        //     );
         $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -197,7 +209,7 @@ class procurementTransactionArf extends Controller
             'recordID' => (int) $request->searchArfNumberRevisionId,
             ]
             );
-        // dd($varData5);
+        dd($varData5);
 
 
         $compact = [
@@ -225,8 +237,8 @@ class procurementTransactionArf extends Controller
                 'entities' => [
                     "documentDateTimeTZ" => '2022-03-07',
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterPerson_RefID" => (int)$input['var_request_name_id'],
-                    "beneficiaryPerson_RefID" => 25000000000439,
+                    "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+                    "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                     "beneficiaryBankAccount_RefID" => 167000000000001,
                     "internalNotes" => 'My Internal Notes',
                     "remarks" => $input['var_remark']

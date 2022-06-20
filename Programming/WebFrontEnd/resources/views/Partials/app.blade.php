@@ -367,6 +367,12 @@
           "paginate": false,
         });
 
+        $("#tableGetWorker").DataTable({
+          "responsive": true,
+          "autoWidth": false,
+          "paginate": false,
+        });
+
         $("#tableSearchBsf").DataTable({
           "responsive": true,
           "autoWidth": false,

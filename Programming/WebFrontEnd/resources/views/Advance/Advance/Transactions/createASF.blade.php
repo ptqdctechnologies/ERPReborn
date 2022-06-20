@@ -15,24 +15,27 @@
     <div class="container-fluid">
       <div class="card">
         <div class="tab-content p-3" id="nav-tabContent">
-            <div class="row">
-              @csrf
-              <div class="col-12">
-                <div class="card">
-                  <div class="card-header">
-                    <label class="card-title">
-                      Add New Settlement
-                    </label>
-                    <div class="card-tools">
-                      <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
-                      </button>
-                    </div>
+          
+          @include('Advance.Advance.Functions.Menu.menuAsf')
+
+          <div class="row">
+            @csrf
+            <div class="col-12">
+              <div class="card">
+                <div class="card-header">
+                  <label class="card-title">
+                    Add New Settlement
+                  </label>
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
+                    </button>
                   </div>
-                  @include('Advance.Advance.Functions.Header.headerAsf2')
                 </div>
+                @include('Advance.Advance.Functions.Header.headerAsf2')
               </div>
             </div>
+          </div>
             
           <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
             <div class="row">
