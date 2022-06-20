@@ -16331,6 +16331,149 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getPaymentMethod                                                    |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPaymentMethod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPaymentMethod', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{175000000000001, 175000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPaymentMethod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{175000000000001, 175000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPaymentMethod', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getPaymentTerm                                                      |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPaymentTerm()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPaymentTerm', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{174000000000001, 174000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPaymentTerm()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{174000000000001, 174000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPaymentTerm', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.read.dataEntities.master.getPeriod                                                           |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_getDataEntitiesPeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPeriod', 
+                'latest', 
+                [
+                'parameter' => [                    
+                    'recordIDSet' => '{59000000000001, 59000000000002}'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+        public function APIGatewayJQuery_getDataEntitiesPeriod()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
+            //---Core---
+            echo '<input type="text" id="dataInput_RecordIDSet" value="{59000000000001, 59000000000002}">';
+            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'transaction.read.dataEntities.master.getPeriod', 
+                'latest', 
+                '{'.
+                    '"parameter" : '.
+                        '{'.
+                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
+                        '}'.
+                '}'
+                ); 
+            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            dd($varJQueryFunction);
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.read.dataEntities.master.getPerson                                                           |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -16508,54 +16651,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'transaction.read.dataEntities.master.getQuantityUnit', 
-                'latest', 
-                '{'.
-                    '"parameter" : '.
-                        '{'.
-                        '"recordIDSet" : document.getElementById("dataInput_RecordIDSet").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.read.dataEntities.master.getPeriod                                                           |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getDataEntitiesPeriod()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataEntities.master.getPeriod', 
-                'latest', 
-                [
-                'parameter' => [                    
-                    'recordIDSet' => '{59000000000001, 59000000000002}'
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_getDataEntitiesPeriod()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTU2OTM0Njh9.79QTJfcWlZhoJ3qVk16nHoLieFHslDm8GiTm9MEy1Dc';
-            //---Core---
-            echo '<input type="text" id="dataInput_RecordIDSet" value="{59000000000001, 59000000000002}">';
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataEntities.master.getPeriod', 
                 'latest', 
                 '{'.
                     '"parameter" : '.
