@@ -71,9 +71,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
 
                             $varData['entities']['transactionTax_RefID'],
                             $varData['entities']['taxType_RefID'],
-                            $varData['entities']['tariff_Currency_RefID'],
-                            $varData['entities']['tariff_CurrencyValue'],
-                            $varData['entities']['tariff_CurrencyExchangeRate'],
+                            $varData['entities']['tariffCurrency_RefID'],
+                            $varData['entities']['tariffCurrencyValue'],
+                            $varData['entities']['tariffCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {

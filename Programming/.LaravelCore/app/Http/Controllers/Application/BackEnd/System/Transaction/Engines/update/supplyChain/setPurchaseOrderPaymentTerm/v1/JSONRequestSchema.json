@@ -45,16 +45,16 @@
                         "minimum": 1,
                         "maximum": 32767
                         },
-                    "price_Currency_RefID": {
+                    "priceCurrency_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "price_CurrencyValue": {
+                    "priceCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "price_CurrencyExchangeRate": {
+                    "priceCurrencyExchangeRate": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -73,7 +73,7 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDays", "price_Currency_RefID", "price_CurrencyValue", "price_CurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
+                "required": [ "purchaseOrder_RefID", "paymentTerm_RefID", "dueDays", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
                 }
             },
         "required": [ "entities" ]

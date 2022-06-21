@@ -59,16 +59,16 @@
                                                             "minimum": 1,
                                                             "maximum": 9223372036854775807
                                                             },
-                                                        "currency_RefID": {
+                                                        "tariffCurrency_RefID": {
                                                             "type": [ "integer", "null" ],
                                                             "minimum": 1,
                                                             "maximum": 9223372036854775807
                                                             },
-                                                        "currencyValue": {
+                                                        "tariffCurrencyValue": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
-                                                        "currencyExchangeRate": {
+                                                        "tariffCurrencyExchangeRate": {
                                                             "type": [ "number", "null" ],
                                                             "minimum": 0
                                                             },
@@ -78,7 +78,7 @@
                                                             "maxLength": 256
                                                             }
                                                         },
-                                                    "required": [ "taxType_RefID", "currency_RefID", "currencyValue", "currencyExchangeRate", "remarks" ]
+                                                    "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyValue", "tariffCurrencyExchangeRate", "remarks" ]
                                                     }
                                                 },
                                             "required": [ "recordID", "entities" ]

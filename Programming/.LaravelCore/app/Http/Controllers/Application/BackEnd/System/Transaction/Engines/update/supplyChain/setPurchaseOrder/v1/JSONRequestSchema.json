@@ -105,29 +105,29 @@
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceValue_Currency_RefID": {
+                                                                "productUnitPriceCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceValue_CurrencyExchangeRate": {
+                                                                "productUnitPriceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceValue_CurrencyeValue": {
+                                                                "productUnitPriceCurrencyeValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceValueDiscount_Currency_RefID": {
+                                                                "productUnitPriceDiscountCurrency_RefID": {
                                                                     "type": [ "integer", "null" ],
                                                                     "minimum": 1,
                                                                     "maximum": 9223372036854775807
                                                                     },
-                                                                "productUnitPriceValueDiscount_CurrencyExchangeRate": {
+                                                                "productUnitPriceDiscountCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
-                                                                "productUnitPriceValueDiscount_CurrencyeValue": {
+                                                                "productUnitPriceDiscountCurrencyeValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                     },
@@ -137,7 +137,7 @@
                                                                     "maxLength": 256
                                                                     }
                                                                 },
-                                                            "required": [ "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceValue_Currency_RefID", "productUnitPriceValue_CurrencyExchangeRate", "productUnitPriceValue_CurrencyeValue", "productUnitPriceValueDiscount_Currency_RefID", "productUnitPriceValueDiscount_CurrencyExchangeRate", "productUnitPriceValueDiscount_CurrencyeValue", "remarks" ]
+                                                            "required": [ "purchaseRequisitionDetail_RefID", "quantity", "quantityUnit_RefID", "productUnitPriceCurrency_RefID", "productUnitPriceCurrencyExchangeRate", "productUnitPriceCurrencyeValue", "productUnitPriceDiscountCurrency_RefID", "productUnitPriceDiscountCurrencyExchangeRate", "productUnitPriceDiscountCurrencyeValue", "remarks" ]
                                                             }
                                                         },
                                                     "required": [ "entities" ]
@@ -167,16 +167,16 @@
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                 "tariff_Currency_RefID": {
+                                                                 "tariffCurrency_RefID": {
                                                                      "type": [ "integer" ],
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                 "tariff_CurrencyExchangeRate": {
+                                                                 "tariffCurrencyExchangeRate": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
-                                                                 "tariff_CurrencyValue": {
+                                                                 "tariffCurrencyValue": {
                                                                      "type": [ "number", "null" ],
                                                                      "minimum": 0
                                                                      },
@@ -186,7 +186,7 @@
                                                                      "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "taxType_RefID", "tariff_Currency_RefID", "tariff_CurrencyExchangeRate", "tariff_CurrencyValue", "remarks" ]
+                                                            "required": [ "taxType_RefID", "tariffCurrency_RefID", "tariffCurrencyExchangeRate", "tariffCurrencyValue", "remarks" ]
                                                             }
                                                         },
                                                     "required": [ "recordID", "entities" ]
@@ -221,16 +221,16 @@
                                                                     "minimum": 1,
                                                                     "maximum": 32767
                                                                      },
-                                                                "price_Currency_RefID": {
+                                                                "priceCurrency_RefID": {
                                                                      "type": [ "integer", "null" ],
                                                                      "minimum": 1,
                                                                      "maximum": 9223372036854775807
                                                                      },
-                                                                "price_CurrencyValue": {
+                                                                "priceCurrencyValue": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                      },
-                                                                "price_CurrencyExchangeRate": {
+                                                                "priceCurrencyExchangeRate": {
                                                                     "type": [ "number", "null" ],
                                                                     "minimum": 0
                                                                      },
@@ -249,7 +249,7 @@
                                                                     "maxLength": 256
                                                                      }
                                                                 },
-                                                            "required": [ "paymentTerm_RefID", "dueDays", "price_Currency_RefID", "price_CurrencyValue", "price_CurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
+                                                            "required": [ "paymentTerm_RefID", "dueDays", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "discountDueDays", "discountPercentageRate", "remarks" ]
                                                             }
                                                         },
                                                     "required": [ "entities" ]

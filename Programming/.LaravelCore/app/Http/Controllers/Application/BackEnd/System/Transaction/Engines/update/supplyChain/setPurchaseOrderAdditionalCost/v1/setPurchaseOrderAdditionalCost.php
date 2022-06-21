@@ -73,10 +73,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                 
                             $varData['entities']['purchaseOrder_RefID'],
                             $varData['entities']['purchaseOrderAdditionalCostType_RefID'],
-                            $varData['entities']['price_Currency_RefID'],
-                            $varData['entities']['price_CurrencyValue'],
-                            $varData['entities']['price_CurrencyExchangeRate'],
-                            $varData['entities']['price_BaseCurrencyValue'],
+                            $varData['entities']['priceCurrency_RefID'],
+                            $varData['entities']['priceCurrencyValue'],
+                            $varData['entities']['priceCurrencyExchangeRate'],
+                            $varData['entities']['priceBaseCurrencyValue'],
                             $varData['entities']['remarks']
                             ))))
                             {
