@@ -1,0 +1,47 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.read.dataEntities.master.getPaymentMethod (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.read.dataEntities.master.getPaymentMethod" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [ "key", "version" ]
+                }
+            },
+        "required": [ "API" ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "recordIDSet": {
+                        "type": [ "string" ],
+                        "format": "string",
+                        "pattern": "^([{]\\s*([0-9]{0,})((\\s*[,]\\s*[0-9]{1,}){0,})\\s*[}])$",
+                        "minLength": 2
+                        }
+                    },
+                "required": [ "recordIDSet" ]
+                }
+            },
+        "required": [ "parameter" ]
+        }
+    },
+"required": [ "metadata", "data" ]
+}

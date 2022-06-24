@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## 3.228.2 - 2022-06-23
+
+* `Aws\Guzzle` - Bump Guzzle versions to address CVE-2022-31090 and CVE-2022-31091
+* `Aws\LookoutEquipment` - This release adds visualizations to the scheduled inference results. Users will be able to see interference results, including diagnostic results from their running inference schedulers.
+* `Aws\MediaConvert` - AWS Elemental MediaConvert SDK has released support for automatic DolbyVision metadata generation when converting HDR10 to DolbyVision.
+* `Aws\MigrationHubRefactorSpaces` - This release adds the new API UpdateRoute that allows route to be updated to ACTIVE/INACTIVE state. In addition, CreateRoute API will now allow users to create route in ACTIVE/INACTIVE state.
+* `Aws\SageMaker` - SageMaker Ground Truth now supports Virtual Private Cloud. Customers can launch labeling jobs and access to their private workforce in VPC mode.
+* `Aws\mgn` - New and modified APIs for the Post-Migration Framework
+
+## 3.228.1 - 2022-06-22
+
+* `Aws\APIGateway` - Documentation updates for Amazon API Gateway
+* `Aws\Pricing` - This release introduces 1 update to the GetProducts API. The serviceCode attribute is now required when you use the GetProductsRequest.
+* `Aws\Transfer` - Until today, the service supported only RSA host keys and user keys. Now with this launch, Transfer Family has expanded the support for ECDSA and ED25519 host keys and user keys, enabling customers to support a broader set of clients by choosing RSA, ECDSA, and ED25519 host and user keys.
+
+## 3.228.0 - 2022-06-21
+
+* `Aws\EC2` - This release adds support for Private IP VPNs, a new feature allowing S2S VPN connections to use private ip addresses as the tunnel outside ip address over Direct Connect as transport.
+* `Aws\ECS` - Amazon ECS UpdateService now supports the following parameters: PlacementStrategies, PlacementConstraints and CapacityProviderStrategy.
+* `Aws\S3` - Adds support for new object and bucket existence methods within the streamwrapper via `registerStreamWrapperV2`
+* `Aws\WellArchitected` - Adds support for lens tagging, Adds support for multiple helpful-resource urls and multiple improvement-plan urls.
+
+## 3.227.1 - 2022-06-20
+
+* `Aws\DirectoryService` - This release adds support for describing and updating AWS Managed Microsoft AD settings
+* `Aws\Kafka` - Documentation updates to use Az Id during cluster creation.
+* `Aws\Outposts` - This release adds the AssetLocation structure to the ListAssets response. AssetLocation includes the RackElevation for an Asset.
+
+## 3.227.0 - 2022-06-17
+
+* `Aws\Connect` - This release updates these APIs: UpdateInstanceAttribute, DescribeInstanceAttribute and ListInstanceAttributes. You can use it to programmatically enable/disable High volume outbound communications using attribute type HIGH_VOLUME_OUTBOUND on the specified Amazon Connect instance.
+* `Aws\ConnectCampaignService` - Added Amazon Connect high volume outbound communications SDK.
+* `Aws\DynamoDB` - Doc only update for DynamoDB service
+* `Aws\DynamoDBStreams` - Doc only update for DynamoDB service
+
 ## 3.226.0 - 2022-06-16
 
 * `Aws\RedshiftDataAPIService` - This release adds a new --workgroup-name field to operations that connect to an endpoint. Customers can now execute queries against their serverless workgroups.

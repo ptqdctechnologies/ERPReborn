@@ -43,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-04-18                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Creation Date   : 2022-06-20                                                                                           |
         | ▪ Last Update     : 2022-04-18                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -73,10 +73,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             $varData['entities']['purchaseOrder_RefID'],
                             $varData['entities']['paymentTerm_RefID'],
                             $varData['entities']['dueDays'],
-                            $varData['entities']['currency_RefID'],
-                            $varData['entities']['currencyValue'],
-                            $varData['entities']['currencyExchangeRate'],
-                            $varData['entities']['baseCurrencyValue'],
+                            $varData['entities']['priceCurrency_RefID'],
+                            $varData['entities']['priceCurrencyValue'],
+                            $varData['entities']['priceCurrencyExchangeRate'],
+                            $varData['entities']['priceBaseCurrencyValue'],
                             $varData['entities']['discountDueDays'],
                             $varData['entities']['discountPercentageRate'],
                             $varData['entities']['remarks'],

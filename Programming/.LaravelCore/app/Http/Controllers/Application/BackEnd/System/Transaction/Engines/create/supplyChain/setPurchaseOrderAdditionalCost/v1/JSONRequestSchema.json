@@ -40,20 +40,20 @@
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "currency_RefID": {
+                    "priceCurrency_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "currencyValue": {
+                    "priceCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "currencyExchangeRate": {
+                    "priceCurrencyExchangeRate": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
-                    "baseCurrencyValue": {
+                    "priceBaseCurrencyValue": {
                         "type": [ "number", "null" ],
                         "minimum": 0
                         },
@@ -63,7 +63,7 @@
                         "maxLength": 256
                         }
                     },
-                "required": [ "purchaseOrder_RefID", "purchaseOrderAdditionalCostType_RefID", "currency_RefID", "currencyValue", "currencyExchangeRate", "baseCurrencyValue", "remarks" ]
+                "required": [ "purchaseOrder_RefID", "purchaseOrderAdditionalCostType_RefID", "priceCurrency_RefID", "priceCurrencyValue", "priceCurrencyExchangeRate", "priceBaseCurrencyValue", "remarks" ]
                 }
             },
         "required": [ "entities" ]
