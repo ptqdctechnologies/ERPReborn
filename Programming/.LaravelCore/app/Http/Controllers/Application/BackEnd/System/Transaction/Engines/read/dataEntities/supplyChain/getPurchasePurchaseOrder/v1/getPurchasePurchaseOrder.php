@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-16                                                                                           |
-        | ▪ Creation Date   : 2022-06-16                                                                                           |
+        | ▪ Last Update     : 2022-06-24                                                                                           |
+        | ▪ Creation Date   : 2022-06-24                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-06-16                                                                                           |
-        | ▪ Creation Date   : 2022-06-16                                                                                           |
+        | ▪ Last Update     : 2022-06-24                                                                                           |
+        | ▪ Creation Date   : 2022-06-24                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
