@@ -1,5 +1,14 @@
 # CHANGELOG
 
+## 3.228.4 - 2022-06-27
+
+* `Aws\IoT` - This release ease the restriction for the input of tag value to align with AWS standard, now instead of min length 1, we change it to min length 0.
+
+## 3.228.3 - 2022-06-24
+
+* `Aws\Glue` - This release enables the new ListCrawls API for viewing the AWS Glue Crawler run history.
+* `Aws\RDSDataService` - Documentation updates for RDS Data API
+
 ## 3.228.2 - 2022-06-23
 
 * `Aws\Guzzle` - Bump Guzzle versions to address CVE-2022-31090 and CVE-2022-31091
@@ -38,7 +47,6 @@
 ## 3.226.0 - 2022-06-16
 
 * `Aws\RedshiftDataAPIService` - This release adds a new --workgroup-name field to operations that connect to an endpoint. Customers can now execute queries against their serverless workgroups.
-* `Aws\RedshiftServerless` - Add new API operations for Amazon Redshift Serverless, a new way of using Amazon Redshift without needing to manually manage provisioned clusters. The new operations let you interact with Redshift Serverless resources, such as create snapshots, list VPC endpoints, delete resource policies, and more.
 * `Aws\SecretsManager` - Documentation updates for Secrets Manager
 * `Aws\SecurityHub` - Added Threats field for security findings. Added new resource details for ECS Container, ECS Task, RDS SecurityGroup, Kinesis Stream, EC2 TransitGateway, EFS AccessPoint, CloudFormation Stack, CloudWatch Alarm, VPC Peering Connection and WAF Rules
 
