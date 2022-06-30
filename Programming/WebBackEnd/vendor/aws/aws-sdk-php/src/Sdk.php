@@ -476,6 +476,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionRedshift(array $args = [])
  * @method \Aws\RedshiftDataAPIService\RedshiftDataAPIServiceClient createRedshiftDataAPIService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRedshiftDataAPIService(array $args = [])
+ * @method \Aws\RedshiftServerless\RedshiftServerlessClient createRedshiftServerless(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionRedshiftServerless(array $args = [])
  * @method \Aws\Rekognition\RekognitionClient createRekognition(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionRekognition(array $args = [])
  * @method \Aws\ResilienceHub\ResilienceHubClient createResilienceHub(array $args = [])
@@ -621,7 +623,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.228.4';
+    const VERSION = '3.229.0';
 
     /** @var array Arguments for creating clients */
     private $args;

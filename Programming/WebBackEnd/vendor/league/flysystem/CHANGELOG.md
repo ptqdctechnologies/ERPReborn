@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1.0 - 2022-06-29
+
+- Added option for the Local adapter to create the root directory only on the first mutating (write/copy/move) action.
+
+## 3.0.23 - 2022-06-29
+
+- Added reasons for exceptions for all adapters that were missing previous exception messages.
+
+## 3.0.22 - 2022-06-29
+
+- [AwsS3V3] Added reasons for exceptions
+- [AwsS3V3] Use ListObjectsV2 instead of ListObjects
+
 ## 3.0.21 - 2022-06-12
 
 - [AwsS3V3] Use ListObjectsV2 instead of ListObjects
