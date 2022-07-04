@@ -570,6 +570,14 @@ Route::get('showLogError', function () {
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
+| Route for API : report.form.documentForm.taxation...                                                                             |
++----------------------------------------------------------------------------------------------------------------------------------+
+*/
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportForm_DocumentForm_TransactionTax', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportForm_DocumentForm_TransactionTax', 'webWithoutCSRF');
+
+
+/*
++----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : report.form.resume.budgeting...                                                                                  |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */

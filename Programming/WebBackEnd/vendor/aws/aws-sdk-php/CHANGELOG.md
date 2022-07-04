@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 3.229.2 - 2022-07-01
+
+* `Aws\` - Change service namespace generation to use the service id instead of service full name for parity across SDKs
+* `Aws\DatabaseMigrationService` - Added new features for AWS DMS version 3.4.7 that includes new endpoint settings for S3, OpenSearch, Postgres, SQLServer and Oracle.
+* `Aws\RDS` - Adds support for additional retention periods to Performance Insights.
+
+## 3.229.1 - 2022-06-30
+
+* `Aws\Athena` - This feature introduces the API support for Athena's parameterized query and BatchGetPreparedStatement API.
+* `Aws\CustomerProfiles` - This release adds the optional MinAllowedConfidenceScoreForMerging parameter to the CreateDomain, UpdateDomain, and GetAutoMergingPreview APIs in Customer Profiles. This parameter is used as a threshold to influence the profile auto-merging step of the Identity Resolution process.
+* `Aws\EMR` - This release adds support for the ExecutionRoleArn parameter in the AddJobFlowSteps and DescribeStep APIs. Customers can use ExecutionRoleArn to specify the IAM role used for each job they submit using the AddJobFlowSteps API.
+* `Aws\Glue` - This release adds tag as an input of CreateDatabase
+* `Aws\MWAA` - Documentation updates for Amazon Managed Workflows for Apache Airflow.
+* `Aws\Pricing` - Documentation update for GetProducts Response.
+* `Aws\WellArchitected` - Added support for UpdateGlobalSettings API. Added status filter to ListWorkloadShares and ListLensShares.
+* `Aws\WorkMail` - This release adds support for managing user availability configurations in Amazon WorkMail.
+* `Aws\kendra` - Amazon Kendra now provides a data source connector for alfresco
+
 ## 3.229.0 - 2022-06-29
 
 * `Aws\AppStream` - Includes support for StreamingExperienceSettings in CreateStack and UpdateStack APIs
