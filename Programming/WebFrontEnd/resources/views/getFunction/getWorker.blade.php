@@ -49,9 +49,7 @@
             var id = $this.data("id");
             var name = $this.data("name");
             $("#popUpWorkerId").val(name);
-            // $("#request_name").val(name);
-            // $("#budget_name").val(name);
-
+            
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -63,33 +61,25 @@
                 url: '{!! route("getWorker") !!}?workerid=' + id,
                 success: function(data) {
 
-                    var no = 1;
+                    $(".popUpPositionWorker").empty();
 
-                    var t = $('#tableGetRequester').DataTable();
+                    var option = "<option value='" + '' + "'>" + 'Select Job Position' + "</option>";
+                    $(".popUpPositionWorker").append(option);
+
                     $.each(data, function(key, value) {
 
-                        t.row.add([
-                                '<tbody><tr><td>' + no++ + '</td>',
-                                '<td><span data-dismiss="modal" class="klikRequester" data-id="' + value.sys_ID + '" data-name="' + value.sys_Text + '">' + value.sys_ID + '</span></td>',
-                                '<td><span data-dismiss="modal" class="klikRequester" data-id="' + value.sys_ID + '" data-name="' + value.sys_Text + '">' + value.sys_Text + '</span></td></tr></tbody>'
-                        ])  .draw();
-                        
-                    });
-
-                    $('.klikRequester').on('click', function(e){
-                        e.preventDefault();
-                        
-                        var $this = $(this);
-                        var id = $this.data("id");
-                        var position = $this.data("name");
-                        var worker = $("#popUpWorkerId").val();
-                        $("#popUpPositionWorker").val(position);
-                        $("#request_name").val(worker)
-                        $("#request_name_id").val(id)
+                        var option = "<option value='" + value.sys_ID + "'>" + value.sys_Text + "</option>";
+                        $(".popUpPositionWorker").append(option);
                     });
                 }
             });
             
         });
     });
+    
+
+    function FunctionJobPositioinAdvance(valueRequestId) {
+        $("#request_name").val($("#popUpWorkerId").val())
+        $("#request_name_id").val(valueRequestId)
+    }
 </script>

@@ -7,7 +7,6 @@
 @include('getFunction.getUom')
 
 <!-- ADVANCE -->
-@include('Advance.Advance.Functions.PopUp.revisionASF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBRF')
 @include('Advance.BussinesTrip.Transactions.popupRevisionBSF')
 @include('Advance.Advance.Functions.PopUp.searchAsf')
@@ -62,7 +61,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-home" style="color:#e9ecef;"></i>
                         <label>
                             Home
                         </label>
@@ -550,7 +549,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('ARF.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Request</label>
                                             </a>

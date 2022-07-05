@@ -78,6 +78,7 @@ class FunctionController extends Controller
                 ]
             ]
             );
+        
             
         return response()->json($varDataJobPosition['data']['data']);
     }

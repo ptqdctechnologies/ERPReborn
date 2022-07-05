@@ -1,5 +1,4 @@
-<br>
-<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light" style="height:35px;padding-top:14px;">
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
@@ -34,12 +33,12 @@
         </li>
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="/AdminLTE-master/dist/img/user2-160x160.jpg" class="user-image img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="user-image img-circle elevation-2" alt="User Image">
                 <span class="d-none d-md-inline">IT</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <li class="user-header bg-primary">
-                    <img src="/AdminLTE-master/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <li class="user-header bg-secondary">
+                    <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="img-circle elevation-2" alt="User Image">
                     <p>
                         Aldi Mulyadi - QDC Technology
                         <small>Member since Oct. 2020</small>
@@ -47,8 +46,8 @@
                 </li>
                 
                 <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                    <a href="{{ route('logout') }}" class="btn btn-default btn-flat float-right">Sign out</a>
+                    <a href="#" class="btn btn-default btn-sm">Profile</a>
+                    <a href="{{ route('logout') }}" class="btn btn-default btn-sm float-right">Sign out</a>
                 </li>
             </ul>
         </li>

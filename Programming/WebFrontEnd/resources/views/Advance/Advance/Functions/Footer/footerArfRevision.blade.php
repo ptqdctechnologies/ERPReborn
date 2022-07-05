@@ -23,42 +23,98 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".cancelDetailArf").click(function() {
-            $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
-            $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
-
-            $("#putProductId").val("");
-            $("#putProductName").val("");
-            $("#qtyCek").val("0");
-            $("#putUom").val("");
-            $("#priceCek").val("0");
-            $("#putCurrency").val("");
-            $("#totalBalance").val("0");
+        let product_id = $("#putProductId").val();
+        if(product_id != ""){
+            let putProductName = $("#putProductName").val();
+            let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+            let putUom = $("#putUom").val();
+            let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+            let putCurrency = $("#putCurrency").val();
+            let totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
+            let putRemark = $("#putRemark").val();
+            let totalBalance = $("#totalBalance").val();
+            let putPrice = $('#putPrice').val();
+            let combinedBudget = $("#combinedBudget").val();
+            let recordIDDetail = $("#recordIDDetail").val();
+            let statusProduct = $("#statusProduct").val();
+            let html = '<tr>' +
+                '<td>' +
+                '<button type="button" class="btn btn-xs editAdvanceDetail" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" data-id10="' + statusProduct + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> '+
+                '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
+                '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
+                '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
+                '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
+                '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
+                '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                '<input type="hidden" name="var_recordIDDetail[]" value="' + recordIDDetail + '">' +
+                '<input type="hidden" name="var_statusProduct[]" value="' + statusProduct + '">' +
+                '</td>' +
+                '<td>' + product_id + '</td>' +
+                '<td>' + putProductName + '</td>' +
+                '<td>' + qtyCek + '</td>' +
+                '<td>' + putUom + '</td>' +
+                '<td>' + priceCek + '</td>' +
+                '<td>' + totalArfDetails + '</td>' +
+                '<td>' + putCurrency + '</td>' +
+                '</tr>';
+            $('table.tableArf tbody').append(html);
+        }
             
+        $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
+        $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
+
+        $("#putProductId").val("");
+        $("#putProductName").val("");
+        $("#qtyCek").val("");
+        $("#putUom").val("");
+        $("#priceCek").val("");
+        $("#putCurrency").val("");
+        $("#totalBalance").val("");
+        $("#totalPayment").val("");
+        $("#totalArfDetails").val("");
+
         });
     });
 </script>
 
 <script type="text/javascript">
-    
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
     
-   $(document).ready(function () {
-    $('#addFromDetailtoCart').click(function(ev){
-        ev.preventDefault();
-        ev.stopPropagation();
+    function addFromDetailtoCartJs() {
+        var valProductId = $("#putProductId").val();
+        var valQty = $("#qtyCek").val();
+        var valPrice = $("#priceCek").val();
+        
+        $("#putProductId").css("border", "1px solid #ced4da");
 
-        var val = $("#putProductId").val();
-        if(val != ""){
+        if(valProductId === ""){
+            $("#putProductId").focus();
+            $("#putProductId").attr('required', true);
+            $("#putProductId").css("border", "1px solid red");
+        }
+        else if(valQty === ""){
+            $("#qtyCek").focus();
+            $("#qtyCek").attr('required', true);
+            $("#qtyCek").css("border", "1px solid red");
+        }
+        else if(valPrice === ""){
+            $("#priceCek").focus();
+            $("#priceCek").attr('required', true);
+            $("#priceCek").css("border", "1px solid red");
+        }
+        else{
             $.ajax({
                 type: "POST",
                 url: '{!! route("ARF.StoreValidateArf") !!}?putProductId=' + $('#putProductId').val(),
                 success: function(data) {
 
-                    if(data == "200"){
+                    if (data == "200") {
 
                         $("#product_id2").prop("disabled", true);
 
@@ -73,31 +129,33 @@
                         var totalBalance = $("#totalBalance").val();
                         var putPrice = $('#putPrice').val();
                         var combinedBudget = $("#combinedBudget").val();
+                        var recordIDDetail = $("#recordIDDetail").val();
                         var statusProduct = $("#statusProduct").val();
-                        var html = '<tr>'+
-                                    '<td>'+
-                                        '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+product_id+'" data-id2="'+putProductName+'" data-id3="'+qtyCek+'" data-id4="'+putUom+'" data-id5="'+priceCek+'" data-id6="'+putCurrency+'" data-id7="'+totalArfDetails+'" data-id8="'+putRemark+'" data-id9="'+totalBalance+'" data-id10="'+statusProduct+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                        '<input type="hidden" name="var_product_id[]" value="'+product_id+'">'+
-                                        '<input type="hidden" name="var_product_name[]" id="var_product_name" value="'+putProductName+'">'+
-                                        '<input type="hidden" name="var_quantity[]" value="'+qtyCek+'">'+
-                                        '<input type="hidden" name="var_uom[]" value="'+putUom+'">'+
-                                        '<input type="hidden" name="var_price[]" value="'+priceCek+'">'+
-                                        '<input type="hidden" name="var_totalPrice[]" value="'+(priceCek * qtyCek)+'">'+
-                                        '<input type="hidden" name="var_currency[]" value="'+putCurrency+'">'+
-                                        '<input type="hidden" name="var_combinedBudget[]" value="'+combinedBudget+'">'+
-                                        '<input type="hidden" name="var_statusProduct[]" value="'+statusProduct+'">'+
-                                    '</td>'+
-                                    '<td>'+product_id+'</td>'+
-                                    '<td>'+putProductName+'</td>'+
-                                    '<td>'+qtyCek+'</td>'+
-                                    '<td>'+putUom+'</td>'+
-                                    '<td>'+priceCek+'</td>'+
-                                    '<td>'+totalArfDetails+'</td>'+
-                                    '<td>'+putCurrency+'</td>'+
-                                '</tr>';
+                        var html = '<tr>' +
+                            '<td>' +
+                            '<button type="button" class="btn btn-xs editAdvanceDetail" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" data-id10="' + statusProduct + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> '+
+                            '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
+                            '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                            '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
+                            '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
+                            '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
+                            '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                            '<input type="hidden" name="var_recordIDDetail[]" value="' + recordIDDetail + '">' +
+                            '<input type="hidden" name="var_statusProduct[]" value="' + statusProduct + '">' +
+                            '</td>' +
+                            '<td>' + product_id + '</td>' +
+                            '<td>' + putProductName + '</td>' +
+                            '<td>' + qtyCek + '</td>' +
+                            '<td>' + putUom + '</td>' +
+                            '<td>' + priceCek + '</td>' +
+                            '<td>' + totalArfDetails + '</td>' +
+                            '<td>' + putCurrency + '</td>' +
+                            '</tr>';
                         $('table.tableArf tbody').append(html);
 
-                        $("body").on("click", ".remove", function () {
+                        $("body").on("click", ".remove", function() {
                             $(this).closest("tr").remove();
                             var ProductId = $(this).data("id1");
                             $.ajax({
@@ -105,7 +163,7 @@
                                 url: '{!! route("ARF.StoreValidateArf2") !!}?putProductId=' + ProductId,
                             });
                         });
-                        $("body").on("click", ".edit", function () {
+                        $("body").on("click", ".editAdvanceDetail", function() {
                             var $this = $(this);
                             var id1 = $this.data("id1");
                             var id2 = $this.data("id2");
@@ -117,7 +175,6 @@
                             var id8 = $this.data("id8");
                             var id9 = $this.data("id9");
                             var id10 = $this.data("id10");
-                            console.log(id10);
 
                             $.ajax({
                                 type: "POST",
@@ -136,31 +193,23 @@
 
                             $(this).closest("tr").remove();
 
-                            if(id10 == "Yes"){
+                            if (id10 == "Yes") {
                                 $("#product_id2").prop("disabled", false);
-                            }
-                            else{
+                            } else {
                                 $("#product_id2").prop("disabled", true);
                             }
                         });
 
-                        $("#putProductId").css("border", "1px solid #ced4da");
-                        $("#putProductName").css("border", "1px solid #ced4da");
-                        $("#putRemark").css("border", "1px solid #ced4da");
-                        $("#qtyCek").css    ("border", "1px solid #ced4da");
-                        $("#putUom").css    ("border", "1px solid #ced4da");
-
                         $("#putProductId").val("");
                         $("#putProductName").val("");
-                        $("#qtyCek").val("0");
+                        $("#qtyCek").val("");
                         $("#putUom").val("");
-                        $("#priceCek").val("0");
+                        $("#priceCek").val("");
                         $("#putCurrency").val("");
-                        $("#putRemark").val("");
                         $("#totalArfDetails").val("");
-                        $("#totalRequester").val("0");
-                        $("#totalQtyRequest").val("0");
-                        $("#totalBalance").val("0");
+                        $("#totalRequester").val("");
+                        $("#totalQtyRequest").val("");
+                        $("#totalBalance").val("");
 
                         $("#iconProductId").hide();
                         $("#iconQty").hide();
@@ -175,68 +224,64 @@
                         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
                         $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
                         $("#detailArfList").show();
-                    }
-                    else{
+                    } else {
                         Swal.fire("Error !", "Please use edit to update this item !", "error");
                     }
                 },
             });   
         }
-        else{
-            Swal.fire("Error !", "Data Cannot Empty", "error");
-        }
-    });
-});
+    }
 </script>
 
 
 <script type="text/javascript">
-    
     //GET ARF LIST 
-    
+
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-    
-    var val = $("#var_recordID").val();
+
+    var advance_RefID = $("#var_recordID").val();
 
     $.ajax({
         type: "POST",
-        url: '{!! route("ARF.AdvanceListCartRevision") !!}?putProductId=' + val,
+        url: '{!! route("ARF.AdvanceListCartRevision") !!}?advance_RefID=' + advance_RefID,
         success: function(data) {
 
             $.each(data, function(key, value) {
+                console.log(value);
                 $("#product_id2").prop("disabled", true);
-                var combinedBudget = $("#combinedBudget").val();
                 var statusProduct = $("#statusProduct").val();
-                    var html = 
-                        '<tr>'+
-                            '<td>'+
-                                '<button type="button" class="btn btn-warning btn-xs edit" data-dismiss="modal" data-id1="'+value.product_RefID+'" data-id2="'+value.productName+'" data-id3="'+value.quantity+'" data-id4="'+value.quantityUnitName+'" data-id5="'+value.productUnitPriceCurrencyValue+'" data-id6="'+value.priceCurrencyISOCode+'" data-id7="'+value.remarks+'" data-id8="'+value.priceBaseCurrencyValue+'" data-id9="'+statusProduct+'"><i class="fa fa-edit" style="color:white;"></i></button> '+
-                                '<input type="hidden" name="var_product_id[]" value="'+value.product_RefID+'">'+
-                                '<input type="hidden" name="var_product_name[]" id="var_product_name" value="'+value.productName+'">'+
-                                '<input type="hidden" name="var_quantity[]" value="'+value.quantity+'">'+
-                                '<input type="hidden" name="var_uom[]" value="'+value.quantityUnitName+'">'+
-                                '<input type="hidden" name="var_price[]" value="'+value.productUnitPriceCurrencyValue+'">'+
-                                '<input type="hidden" name="var_totalPrice[]" value="'+(priceCek * qtyCek)+'">'+
-                                '<input type="hidden" name="var_currency[]" value="'+value.priceCurrencyISOCode+'">'+
-                                '<input type="hidden" name="var_combinedBudget[]" value="'+combinedBudget+'">'+
-                                '<input type="hidden" name="var_statusProduct[]" value="'+statusProduct+'">'+
-                            '</td>'+
-                            '<td>'+value.product_RefID+'</td>'+
-                            '<td>'+value.productName+'</td>'+
-                            '<td>'+value.quantity+'</td>'+
-                            '<td>'+value.quantityUnitName+'</td>'+
-                            '<td>'+value.productUnitPriceCurrencyValue+'</td>'+
-                            '<td>'+value.priceBaseCurrencyValue+'</td>'+
-                            '<td>'+value.priceCurrencyISOCode+'</td>'+
-                        '</tr>';
-            
-                    $('table.tableArf tbody').append(html);
+                var html =
+                    '<tr>' +
+                    '<td>' +
+                    '&nbsp;<button type="button" class="btn btn-xs editAdvanListCart" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceCurrencyISOCode + '" data-id7="' + value.remarks + '" data-id8="' + value.priceBaseCurrencyValue + '" data-id9="' + statusProduct + '" data-id10="' + value.combinedBudgetSectionDetail_RefID + '" data-id11="' + value.sys_ID + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="15" alt="" title="Edit"></button> ' +
+                    '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
+                    '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + value.productName + '">' +
+                    '<input type="hidden" name="var_quantity[]" value="' + value.quantity + '">' +
+                    '<input type="hidden" name="var_uom[]" value="' + value.quantityUnitName + '">' +
+                    '<input type="hidden" name="var_price[]" value="' + value.productUnitPriceCurrencyValue + '">' +
+                    '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
+                    '<input type="hidden" name="var_currency[]" value="' + value.priceCurrencyISOCode + '">' +
+                    '<input type="hidden" name="var_combinedBudget[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
+                    '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
+                    '<input type="hidden" name="var_statusProduct[]" value="' + statusProduct + '">' +
+                    '</td>' +
+                    '<td>' + value.product_RefID + '</td>' +
+                    '<td>' + value.productName + '</td>' +
+                    '<td>' + value.quantity + '</td>' +
+                    '<td>' + value.quantityUnitName + '</td>' +
+                    '<td>' + value.productUnitPriceCurrencyValue + '</td>' +
+                    '<td>' + value.priceBaseCurrencyValue + '</td>' +
+                    '<td>' + value.priceCurrencyISOCode + '</td>' +
+                    '</tr>';
+
+                $('table.tableArf tbody').append(html);
             });
-            $("body").on("click", ".edit", function () {
+
+            $("body").on("click", ".editAdvanListCart", function() {
                 var $this = $(this);
                 var id1 = $this.data("id1");
                 var id2 = $this.data("id2");
@@ -247,13 +292,15 @@
                 var id7 = $this.data("id7");
                 var id8 = $this.data("id8");
                 var id9 = $this.data("id9");
-                
+                var id10 = $this.data("id10");
+                var id11 = $this.data("id11");
+
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
-                
+
                 $.ajax({
                     type: "POST",
                     url: '{!! route("ARF.StoreValidateArf2") !!}?putProductId=' + id1,
@@ -262,32 +309,36 @@
                 $("#putProductId").val(id1);
                 $("#putProductName").val(id2);
                 $('#qtyCek').val(id3);
+                $('#putQty').val(id3);
                 $("#putUom").val(id4);
                 $("#priceCek").val(id5);
                 $("#putCurrency").val(id6);
                 $("#totalArfDetails").val(id8);
                 $("#totalBalance").val(id8);
+                $("#totalPayment").val("0");
+                $("#combinedBudget").val(id10);
+                $("#recordIDDetail").val(id11);
+                
 
                 $(this).closest("tr").remove();
 
-                if(id9 == "Yes"){
+                if (id9 == "Yes") {
                     $("#product_id2").prop("disabled", false);
-                }
-                else{
+                } else {
                     $("#product_id2").prop("disabled", true);
                 }
             });
 
             $("#putProductId").val("");
             $("#putProductName").val("");
-            $("#qtyCek").val("0");
+            $("#qtyCek").val("");
             $("#putUom").val("");
-            $("#priceCek").val("0");
+            $("#priceCek").val("");
             $("#putCurrency").val("");
             $("#totalArfDetails").val("");
-            $("#totalRequester").val("0");
-            $("#totalQtyRequest").val("0");
-            $("#totalBalance").val("0");
+            $("#totalRequester").val("");
+            $("#totalQtyRequest").val("");
+            $("#totalBalance").val("");
 
             $("#iconProductId").hide();
             $("#iconQty").hide();
@@ -302,42 +353,44 @@
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
             $("#detailArfList").show();
-        
+
         },
     });
 
     //GET BUDGET
 
+    var siteCodeRevArfAfter = $("#siteCodeRevArfAfter").val();
+
     $.ajax({
         type: 'GET',
-        url: '{!! route("getSite") !!}?sitecode=' + 143000000000029 + '&var=' + 1,
-        
-        success: function(data) {    
+        url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
+
+        success: function(data) {
             var no = 1;
             $.each(data, function(key, value2) {
-                var html = '<tr>'+
-                            '<td>'+
-                                '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + value2.product_RefID + '" data-id2="' + value2.quantity + '" data-id3="' + value2.unitPriceBaseCurrencyValue + '" data-id4="' + value2.sys_ID + '" data-id5="' + value2.productName + '" data-id6="' + value2.quantityUnitName + '" data-id7="' + value2.priceBaseCurrencyISOCode + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
-                            '</td>'+
-                            '<td>'+
-                                '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>'+
-                            '</td>'+
-                            '<td>'+'<span id="getWorkId">' + value2.combinedBudgetSubSectionLevel1_RefID + '</span>'+'</td>'+
-                            '<td>'+'<span id="getWorkName">' + value2.combinedBudgetSubSectionLevel2Name + '</span>'+'</td>'+
-                            '<td>'+'<span id="getProductId">' + value2.product_RefID + '</span>'+'</td>'+
-                            '<td>'+'<span id="getProductName">' + value2.productName + '</span>'+'</td>'+
-                            '<td>'+'<span id="getQty">' + 'N/A' + '</span>'+'</td>'+
-                            '<td>'+'<span id="getQty2">' + value2.quantity + '</span>'+'</td>'+
-                            '<td>'+'<span id="getPrice">' + value2.unitPriceBaseCurrencyValue + '</span>'+'</td>'+
-                            '<td>'+'<span id="totalArf">' + value2.priceBaseCurrencyValue + '</span>'+'</td>'+
-                            '<td>'+'<span id="getUom">' + value2.quantityUnitName + '</span>'+'</td>'+
-                            '<td>'+'<span id="getCurrency">' + value2.priceBaseCurrencyISOCode + '</span>'+'</td>'+
-                        '</tr>';
-                        
+                var html = '<tr>' +
+                    '<td>' +
+                    '<button type="reset" class="btn btn-sm float-right klikBudgetAdvanceRevision" data-id1="' + value2.product_RefID + '" data-id2="' + value2.quantity + '" data-id3="' + value2.unitPriceBaseCurrencyValue + '" data-id4="' + value2.sys_ID + '" data-id5="' + value2.productName + '" data-id6="' + value2.quantityUnitName + '" data-id7="' + value2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
+                    '</td>' +
+                    '<td>' +
+                    '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                    '</td>' +
+                    '<td>' + '<span id="getWorkId">' + value2.combinedBudgetSubSectionLevel1_RefID + '</span>' + '</td>' +
+                    '<td>' + '<span id="getWorkName">' + value2.combinedBudgetSubSectionLevel2Name + '</span>' + '</td>' +
+                    '<td>' + '<span id="getProductId">' + value2.product_RefID + '</span>' + '</td>' +
+                    '<td>' + '<span id="getProductName">' + value2.productName + '</span>' + '</td>' +
+                    '<td>' + '<span id="getQty">' + 'N/A' + '</span>' + '</td>' +
+                    '<td>' + '<span id="getQty2">' + value2.quantity + '</span>' + '</td>' +
+                    '<td>' + '<span id="getPrice">' + value2.unitPriceBaseCurrencyValue + '</span>' + '</td>' +
+                    '<td>' + '<span id="totalArf">' + value2.priceBaseCurrencyValue + '</span>' + '</td>' +
+                    '<td>' + '<span id="getUom">' + value2.quantityUnitName + '</span>' + '</td>' +
+                    '<td>' + '<span id="getCurrency">' + value2.priceBaseCurrencyISOCode + '</span>' + '</td>' +
+                    '</tr>';
+
                 $('table.tableBudgetDetail tbody').append(html);
             });
 
-            $('.klikBudgetDetail').on('click', function(e){
+            $('.klikBudgetAdvanceRevision').on('click', function(e) {
                 e.preventDefault();
                 var $this = $(this);
                 var price = $this.data("id3");
@@ -347,14 +400,13 @@
                 var productName = $this.data("id5");
                 var uom = $this.data("id6");
                 var currency = $this.data("id7");
-                
-                if(productName == "Unspecified Product"){
+
+                if (productName == "Unspecified Product") {
                     $("#product_id2").prop("disabled", false);
                     var putProductName = "";
                     var putProductId = "";
                     $("#statusProduct").val("Yes");
-                }
-                else{
+                } else {
                     $("#product_id2").prop("disabled", true);
                     var putProductName = productName;
                     var putProductId = productId;
@@ -379,7 +431,6 @@
             });
         }
     });
-
 </script>
 
 <script>
@@ -395,46 +446,52 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            
+
+            var siteCodeRevArfAfter = $("#siteCodeRevArfAfter").val();
+            var productId = $('#putProductId').val();
+            var qtyProduct = $('#qtyCek').val();
+            var priceProduct = $('#priceCek').val();
+
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getSite") !!}?sitecode=' + 143000000000029 + '&var=' + 1,
-                
-                success: function(data) {    
-                    var no = 1;
+                url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
+
+                success: function(data) {
                     $.each(data, function(key, value3) {
                         var putProductId = $('#putProductId').val();
-                        if(putProductId == value3.product_RefID){
-                            var putQty = value3.quantity;
-                            console.log(putQty);    
+                        if (putProductId == value3.product_RefID) {
+                            var qtyProduct2 = value3.quantity;
+                            var priceProduct2 = value3.unitPriceBaseCurrencyValue;
+                            var total = qtyProduct * priceProduct;
+                            var total2 = qtyProduct2 * priceProduct2;
+
+                            if (parseFloat(qtyProduct) == '') {
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                                $("#saveArfList").prop("disabled", true);
+                                $('#totalArfDetails').val(0);
+                            }
+                            else if(parseFloat(qtyProduct) > parseFloat(qtyProduct2)){
+                                Swal.fire("Error !", "Your Qty Request is Over", "error");
+                                $("#qtyCek").val('');
+                                $('#totalArfDetails').val('');
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                                $("#saveArfList").prop("disabled", true);
+                            }
+                            else if(parseFloat(total) > parseFloat(total2)){
+                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                                $('#totalArfDetails').val(0);
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                            }
+                            else{
+                                var totalReq = parseFloat(total);
+                                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
+                                $("#addFromDetailtoCart").prop("disabled", false);
+                            }
+
                         }
                     });
                 }
             });
-            
-            var priceCek = $('#priceCek').val();
-            var total = putQty * priceCek;
-            var total2 = qtyReq * priceCek;
-            if (parseFloat(qtyReq) == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
-                $("#saveArfList").prop("disabled", true);
-                $('#totalArfDetails').val(0);
-
-            } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
-                Swal.fire("Error !", "Your Qty Request is Over", "error");
-                $("#qtyCek").val(0);
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-                $("#saveArfList").prop("disabled", true);
-            } else if (parseFloat(total2) > parseFloat(total)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-            } else {
-                var totalReq = parseFloat(total2);
-                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                $("#addFromDetailtoCart").prop("disabled", false);
-            }
         });
     });
 </script>
@@ -447,116 +504,185 @@
             if (priceReq == 0 || priceReq == '') {
                 priceReq = 0;
             }
-            var qtyCek = $('#qtyCek').val();
-            var putPrice = $('#putPrice').val();
-            var total = qtyCek * priceReq;
-            var total2 = qtyCek * putPrice;
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var siteCodeRevArfAfter = $("#siteCodeRevArfAfter").val();
+            var productId = $('#putProductId').val();
+            var qtyProduct = $('#qtyCek').val();
+            var priceProduct = $('#priceCek').val();
             var totalBalance = $("#totalBalance").val();
 
-            if (priceReq == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
-                $('#totalArfDetails').val(0);
+            $.ajax({
+                type: 'GET',
+                url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
 
-            } else if (parseFloat(total) > parseFloat(total2)) {
-                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#priceCek").val(0);
-                $('#totalArfDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
-            } else {
-                var totalReq = total;
-                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                $("#addFromDetailtoCart").prop("disabled", false);
-            }
+                success: function(data) {
+                    $.each(data, function(key, value3) {
+                        var putProductId = $('#putProductId').val();
+                        if (putProductId == value3.product_RefID) {
+                            var qtyProduct2 = value3.quantity;
+                            var priceProduct2 = value3.unitPriceBaseCurrencyValue;
+                            var total = qtyProduct * priceProduct;
+                            var total2 = qtyProduct2 * priceProduct2;
+
+                            if (parseFloat(priceProduct) == '') {
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                                $('#totalArfDetails').val(0);
+                            }
+                            else if(parseFloat(priceProduct) > parseFloat(priceProduct2)){
+                                Swal.fire("Error !", "Your Price Request is Over", "error");
+                                $("#priceCek").val("");
+                                $('#totalArfDetails').val('');
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                            }
+                            else if (parseFloat(total) > parseFloat(total2)) {
+                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                                $("#priceCek").val("");
+                                $('#totalArfDetails').val(0);
+                                $("#addFromDetailtoCart").prop("disabled", true);
+                            }
+                            else{
+                                var totalReq = parseFloat(total);
+                                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
+                                $("#addFromDetailtoCart").prop("disabled", false);
+                            }
+
+                        }
+                    });
+                }
+            });
 
         });
     });
 </script>
-<!-- 
-<script type="text/javascript">
-    $(document).ready(function() {
-        // Format mata uang.
-        $('.uang').mask('000.000.000.000', {
-            reverse: true
-        });
-        // $( '.quantity' ).mask('000.000.000', {reverse: true});
-    })
-</script> -->
-
 
 <script>
     $('#qtyCek').on('blur', function() {
-    var amount = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-    if( ($('#qtyCek').val() != '') && (!amount.match(/^$/) )){
-        $('#qtyCek').val( parseFloat(amount).toFixed(2));
-    }
+        var amount = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        if (($('#qtyCek').val() != '') && (!amount.match(/^$/))) {
+            $('#qtyCek').val(parseFloat(amount).toFixed(2));
+        }
     });
 
     $('#priceCek').on('blur', function() {
-    var price = $('#priceCek').val().replace(/^\s+|\s+$/g, '');
-    if( ($('#priceCek').val() != '') && (!price.match(/^$/) )){
-        $('#priceCek').val( parseFloat(price).toFixed(2));
-    }
+        var price = $('#priceCek').val().replace(/^\s+|\s+$/g, '');
+        if (($('#priceCek').val() != '') && (!price.match(/^$/))) {
+            $('#priceCek').val(parseFloat(price).toFixed(2));
+        }
     });
-    
 </script>
 
 <script>
-    $(document).ready(function() {
-        $("#formUpdateArf").validate({
-            rules: {
-                projectcode: "required",
-                sitecode: "required",
-                request_name: "required",
-                putRemark: "required",
-            },
-            messages: {
-                projectcode: "<span title='Please Enter Projec Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                sitecode: "<span title='Please Enter Site Name ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                request_name: "<span title='Please Enter Beneficiary ' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-                putRemark: "<span title='Please Enter Internal Notes' style='color:red;font-size:10px;'>&nbsp!&nbsp</span>",
-            },
-            unhighlight: function(element) {
-                $(element).removeClass('error');
-            },
-            submitHandler: function(form) {
+    $(function() {
+      $("#formUpdateArf").on("submit", function(e) { //id of form 
+        e.preventDefault();
 
-                form.submit();
+        var valRequestName = $("#request_name").val();
+        var valRemark = $("#putRemark").val();
+        $("#request_name").css("border", "1px solid #ced4da");
+        $("#putRemark").css("border", "1px solid #ced4da");
 
-                const swalWithBootstrapButtons = Swal.mixin({
-                    confirmButtonClass: 'btn btn-success',
-                    cancelButtonClass: 'btn btn-danger',
-                    buttonsStyling: true,
-                })
+        if(valRequestName === ""){
+            $("#request_name").focus();
+            $("#request_name").attr('required', true);
+            $("#request_name").css("border", "1px solid red");
+        }
+        else if(valRemark === ""){
+            $("#putRemark").focus();
+            $("#putRemark").attr('required', true);
+            $("#putRemark").css("border", "1px solid red");
+        }
+        else{
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
 
-                swalWithBootstrapButtons.fire({
 
-                    title: 'Are you sure?',
-                    text: "Save this data?",
-                    type: 'question',
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-sm',
+                cancelButtonClass: 'btn btn-sm',
+                buttonsStyling: true,
+            })
 
-                    showCancelButton: true,
-                    confirmButtonText: 'Yes, save it!',
-                    cancelButtonText: 'No, cancel!',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.value) {
-                        swalWithBootstrapButtons.fire(
-                            'Succesful!',
-                            'Data has been updated !',
-                            'success'
-                        )
+            swalWithBootstrapButtons.fire({
 
-                    } else if (
-                        result.dismiss === Swal.DismissReason.cancel
-                    ) {
-                        swalWithBootstrapButtons.fire(
-                            'Cancelled',
-                            'Process Canceled !',
-                            'error'
-                        )
-                    }
-                })
-            }
-        });
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
+
+                showCancelButton: true,
+                confirmButtonText:'<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""> <span style="color:black;"> Yes, save it! </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""> <span style="color:black;"> No, cancel ! </span>',
+                confirmButtonColor: '#e9ecef',
+                cancelButtonColor: '#e9ecef',
+                reverseButtons: true
+
+            }).then((result) => {
+                if (result.value) {
+
+                    $("#loading").show();
+                    $(".loader").show();
+                    
+                    $.ajax({
+                        url: action,
+                        dataType: 'json', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: method,
+                        success: function(response) {
+                            if(response.status){
+
+                                $("#loading").hide();
+                                $(".loader").hide();
+                                
+                                swalWithBootstrapButtons.fire(
+                                    'Succesful!',
+                                    'Data has been updated !',
+                                    'success'
+                                )
+                                location.reload();
+                            }
+                        },
+                        
+                        error: function(response) { // handle the error
+                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                        },
+
+                    })
+
+
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+
+                        title: 'Cancelled',
+                        text: "Process Canceled !",
+                        type: 'error',
+                        confirmButtonColor: '#e9ecef',
+                        confirmButtonText: '<span style="color:black;"><i class="fa fa-thumbs-up"></i> Oke ! </span>',
+                        
+                    })
+                }
+            })
+        }
+      });
+
     });
+</script>
+
+<script type="text/javascript">
+    function cancelAdvance() {
+        $("#loading").show();
+        $(".loader").show();
+        location.reload();
+    }
 </script>

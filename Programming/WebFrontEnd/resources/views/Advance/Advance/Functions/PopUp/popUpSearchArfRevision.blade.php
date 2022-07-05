@@ -28,19 +28,19 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['businessDocument_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['businessDocument_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -65,8 +65,10 @@
             var $this = $(this);
             var id = $this.data("id1");
             var code = $this.data("id2");
+            var sitecode = $this.data("id3");
             $("#searchArfNumberRevisionId").val(id);
             $("#searchArfNumberRevisions").val(code);
+            
         });
     });
 </script>

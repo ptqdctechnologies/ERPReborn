@@ -1,4 +1,4 @@
-<div id="arfNumberPopUp" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="popUpAdvanceRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
@@ -11,14 +11,15 @@
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label>Advance Number</label></td>
+                                            <td><label>Advance Number &nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
                                                     <input id="searchArfNumberRevisionId" style="border-radius:0;" name="searchArfNumberRevisionId" type="hidden" class="form-control">
-                                                    <input required="" id="searchArfNumberRevisions" style="border-radius:0;" name="searchArfNumberRevisions" type="text" class="form-control">
+                                                    <input id="siteCodeRevArfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
+                                                    <input required="" id="searchArfNumberRevisions" style="border-radius:0;" name="searchArfNumberRevisions" type="text" class="form-control" required>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="#"><i data-toggle="modal" data-target="#mySearchArfRevision" class="fas fa-gift" style="color:grey;"></i></a>
+                                                            <a data-toggle="modal" data-target="#mySearchArfRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -30,11 +31,11 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline btn-sm" style="margin-left: 38%;color:white;background-color:#4B586A;">
-                            <i class="fas fa-edit" aria-hidden="true"> Edit</i>
+                        <button type="submit" class="btn btn-sm" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                         </button>
-                        <button type="reset" class="btn btn-outline btn-sm" style="color:white;background-color:#4B586A;">
-                            <i class="far fa-times-circle" aria-hidden="true"> Cancel </i>
+                        <button type="reset" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
                         </button>
                     </form>
                 </div>
