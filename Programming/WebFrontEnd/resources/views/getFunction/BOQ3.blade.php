@@ -2,7 +2,7 @@
     <table class="table table-head-fixed text-nowrap table-striped tableBudgetDetail">
         <thead>
             <tr>
-                <th>Action</th>
+                <th>&nbsp;Action</th>
                 <th>Applied</th>
                 <th>Work Id</th>
                 <th>Work Name</th>

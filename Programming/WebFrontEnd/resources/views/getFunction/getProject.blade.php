@@ -67,7 +67,7 @@
             
             $.ajax({
                 type: 'GET',
-                url: '{!! route("getProject") !!}?projectcode=' + $('#projectcode').val()+ '&var=' + 1,
+                url: '{!! route("getProject") !!}?projectcode=' + $('#projectcode').val(),
                 success: function(data) {
                     
                     var no = 1;
@@ -135,7 +135,7 @@
 
                         $.ajax({
                             type: 'GET',
-                            url: '{!! route("getSite") !!}?sitecode=' + $('#sitecode').val()+ '&var=' + 1,
+                            url: '{!! route("getSite") !!}?sitecode=' + $('#sitecode').val(),
                             success: function(data) {
                                 // console.log(data.data);
                                 
@@ -143,7 +143,7 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                                    '&nbsp;<button type="reset" class="btn btn-sm klikBudgetDetailAdvance" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>'+
                                                 '</td>'+
                                                 '<td>'+
                                                     '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>'+
@@ -166,7 +166,7 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '<button type="reset" class="btn btn-outline-success btn-sm float-right klikBudgetDetail2" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" data-id5="' + code + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
+                                                    '<button type="reset" class="btn btn-outline-success btn-sm klikBudgetPr" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" data-id5="' + code + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>'+
                                                 '</td>'+
                                                 '<td>'+'<span id="getTranoDor">' + code + '</span>'+'</td>'+
                                                 '<td>'+'<span id="getProjectDor">' + 'N/A' + '</span>'+'</td>'+
@@ -182,7 +182,7 @@
                                     $('table.tablePrDetailDor tbody').append(html);
                                 });
 
-                                $('.klikBudgetDetail').on('click', function(e){
+                                $('.klikBudgetDetailAdvance').on('click', function(e){
                                     e.preventDefault();
                                     var $this = $(this);
                                     var price = $this.data("id3");
@@ -223,7 +223,7 @@
                                     $("#putProductId2").prop("disabled", true);
                                 });
 
-                                $('.klikBudgetDetail2').on('click', function(e){
+                                $('.klikBudgetPr').on('click', function(e){
                                     e.preventDefault();
                                     var $this = $(this);
                                     var productName = $this.data("id1");

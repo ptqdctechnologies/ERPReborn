@@ -15,7 +15,7 @@
                                                     <input id="popUpWorkerId" style="border-radius:0;" name="popUpWorkerId" type="text" class="form-control" required>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#myWorker" class="fas fa-gift" style="color:grey;"></a>
+                                                            <a data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
@@ -25,12 +25,9 @@
                                             <td><label>Job Position &nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="popUpPositionWorker" style="border-radius:0;" name="popUpPositionWorker" type="text" class="form-control" required>
-                                                    <div class="input-group-append">
-                                                        <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#myRequester" class="fas fa-gift" style="color:grey;"></a>
-                                                        </span>
-                                                    </div>
+                                                    <select class="form-control popUpPositionWorker" name="popUpPositionWorker" id="popUpPositionWorker"  onchange="FunctionJobPositioinAdvance(value);">
+                                                        <option selected="selected" value=""> Select Job Position </option>
+                                                    </select>
                                                 </div>
                                             </td>                                            
                                         </tr>

@@ -10,6 +10,7 @@ class procurementTransactionArf extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        
         $request->session()->forget("SessionArf");
         
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -52,11 +53,17 @@ class procurementTransactionArf extends Controller
                 ]
             ]
             );
-
+        
+        $var = 0;
+        if(!empty($_GET['var'])){
+           $var =  $_GET['var'];
+        }
+        
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
             'dataWorker' => $varDataWorker['data'],
             'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            'var' => $var,
         ];
         return view('Advance.Advance.Transactions.createARF', $compact);
 
@@ -64,61 +71,90 @@ class procurementTransactionArf extends Controller
 
     public function store(Request $request)
     {
-        
         $input = $request->all();
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.create.finance.setAdvance', 
-        'latest', 
-            [
+        
+        $advanceDetail = [];
+        $advanceDetailCombine = [];
+        for($n =0; $n < $count_product; $n++){
+            $advanceDetail[$n] = [
                 'entities' => [
-                    
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
-                    "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-                    "beneficiaryBankAccount_RefID" => 167000000000001,
-                    "internalNotes" => 'My Internal Notes',
-                    "remarks" => $input['var_remark']
-                ]
-            ]                    
-        );
-        $advance_RefID = $varData['data']['recordID'];
-
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-
-                $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.finance.setAdvanceDetail', 
-                'latest', 
-                    [
-                        'entities' => [
-                            "advance_RefID" => (int) $advance_RefID,
-                            "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                            "product_RefID" => (int) $input['var_product_id'][$n],
-                            "quantity" => (int) $input['var_quantity'][$n],
-                            "quantityUnit_RefID" => 73000000000001,
-                            "productUnitPriceCurrency_RefID" => 62000000000001,
-                            "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-                            "productUnitPriceCurrencyExchangeRate" => 1,
-                            "remarks" => 'Catatan'
-                        ]
-                    ]
-                );
-            }
+                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
+                    "product_RefID" => 88000000000002,
+                    "quantity" => 10,
+                    "quantityUnit_RefID" => 73000000000001,
+                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                    "productUnitPriceCurrencyValue" => 30000,
+                    "productUnitPriceCurrencyExchangeRate" => 1,
+                    "remarks" => 'Catatan Pertama'                                    
+                ],
+            ];
         }
+        // $advanceDetailCombine = [
+        //     'entities' => [
+        //         "additionalData" => [
+        //             "itemList" => [
+        //                 "items" => [
 
-        $compact = [
-            "status"=>true,
-        ];
+        //                 ],
+        //             ],
+        //         ],
+        //     ],
+        // ];
+        dd($advanceDetail);die;
 
-        return response()->json($compact); 
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        // \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        // $varAPIWebToken, 
+        // 'transaction.create.finance.setAdvance', 
+        // 'latest', 
+        //     [
+        //         'entities' => [
+        //             "documentDateTimeTZ" => '2022-03-07',
+        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //             "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //             "beneficiaryBankAccount_RefID" => 167000000000001,
+        //             "internalNotes" => 'My Internal Notes',
+        //             "remarks" => $input['var_remark']
+        //         ]
+        //     ]                    
+        // );
+        // $advance_RefID = $varData['data']['recordID'];
+
+
+        // if ($count_product > 0 && isset($count_product)) {
+        //     for ($n = 0; $n < $count_product; $n++) {
+
+        //         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //         $varAPIWebToken, 
+        //         'transaction.create.finance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ', 
+        //         'latest', 
+        //             [
+        //                 'entities' => [
+        //                     "advance_RefID" => (int) $advance_RefID,
+        //                     "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //                     "product_RefID" => (int) $input['var_product_id'][$n],
+        //                     "quantity" => (int) $input['var_quantity'][$n],
+        //                     "quantityUnit_RefID" => 73000000000001,
+        //                     "productUnitPriceCurrency_RefID" => 62000000000001,
+        //                     "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+        //                     "productUnitPriceCurrencyExchangeRate" => 1,
+        //                     "remarks" => 'Catatan'
+        //                 ]
+        //             ]
+        //         );
+        //     }
+        // }
+
+        // $compact = [
+        //     "advnumber"=> "ADV-testing-00111",
+        // ];
+
+        // return response()->json($compact); 
     }
 
     public function StoreValidateArf(Request $request)
@@ -163,7 +199,7 @@ class procurementTransactionArf extends Controller
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionArf");
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -173,10 +209,10 @@ class procurementTransactionArf extends Controller
             ]
         );
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataList.master.getPerson', 
+            'transaction.read.dataList.humanResource.getWorker', 
             'latest', 
             [
             'parameter' => null,
@@ -187,35 +223,45 @@ class procurementTransactionArf extends Controller
                 'paging' => null
                 ]
             ]
-        );
+            );
 
-        // $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //     $varAPIWebToken, 
-        //     'report.form.documentForm.finance.getAdvance', 
-        //     'latest',
-        //     [
-        //     'parameter' => [
-        //         'recordID' => (int) $request->searchArfNumberRevisionId,
-        //         ]
-        //     ]
-        //     );
-        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
-            'transaction.read.dataRecord.finance.getAdvance', 
+            'transaction.read.dataList.finance.getAdvance', 
             'latest', 
             [
-            'recordID' => (int) $request->searchArfNumberRevisionId,
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
             ]
             );
-        dd($varData5);
 
-
+        $varDataAdvanceRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'report.form.documentForm.finance.getAdvance', 
+            'latest',
+            [
+            'parameter' => [
+                'recordID' => (int) $request->searchArfNumberRevisionId,
+                ]
+            ]
+            );
+        // dd($varDataAdvanceRevision);
+        // dd($varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester']);
         $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
-            'data5' => $varData5['data'],
+            'dataProject' => $varDataProject['data']['data'],
+            'dataWorker' => $varDataWorker['data'],
+            'dataAdvanceRevisions' => $varDataAdvanceRevision['data'][0]['document']['content']['itemList']['ungrouped'][0],
+            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            'dataRequester' => $varDataAdvanceRevision['data'][0]['document']['content']['involvedPersons']['requester'],
+            'dataJobPosition' => $varDataAdvanceRevision['data'],
+            'var_recordID' => $request->searchArfNumberRevisionId,
         ];
 
         return view('Advance.Advance.Transactions.revisionARF', $compact);
@@ -225,6 +271,7 @@ class procurementTransactionArf extends Controller
     {
         $input = $request->all();
         $count_product = count($input['var_product_id']);
+        
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -245,40 +292,68 @@ class procurementTransactionArf extends Controller
                 ]
             ]                    
         );
-
+        // ($input['var_recordIDDetail'][$n] == "null" ? null : (int) $input['var_recordIDDetail'][$n])
         if ($count_product > 0 && isset($count_product)) {
             for ($n = 0; $n < $count_product; $n++) {
+                
 
-                $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.update.finance.setAdvanceDetail', 
-                    'latest', 
-                    [
-                    'recordID' => 82000000000029,
-                    'entities' => [
-                            "advance_RefID" => (int) $input['var_recordID'],
-                            "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                            "product_RefID" => (int) $input['var_product_id'][$n],
-                            "quantity" => (int) $input['var_quantity'][$n],
-                            "quantityUnit_RefID" => 73000000000001,
-                            "productUnitPriceCurrency_RefID" => 62000000000001,
-                            "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-                            "productUnitPriceCurrencyExchangeRate" => 1,
-                            "remarks" => 'Catatan'
+                if($input['var_recordIDDetail'][$n] == "null"){
+                    $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.create.finance.setAdvanceDetail', 
+                        'latest', 
+                            [
+                                'entities' => [
+                                    "advance_RefID" => (int) $input['var_recordID'],
+                                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                                    "product_RefID" => (int) $input['var_product_id'][$n],
+                                    "quantity" => (int) $input['var_quantity'][$n],
+                                    "quantityUnit_RefID" => 73000000000001,
+                                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                                    "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                                    "productUnitPriceCurrencyExchangeRate" => 1,
+                                    "remarks" => 'Catatan'
+                                ]
+                            ]
+                        );
+                }
+                else{
+                    $varDatas = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.finance.setAdvanceDetail', 
+                        'latest', 
+                        [
+                        'recordID' => (int) $input['var_recordIDDetail'][$n],
+                        'entities' => [
+                                "advance_RefID" => (int) $input['var_recordID'],
+                                "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                                "product_RefID" => (int) $input['var_product_id'][$n],
+                                "quantity" => (int) $input['var_quantity'][$n],
+                                "quantityUnit_RefID" => 73000000000001,
+                                "productUnitPriceCurrency_RefID" => 62000000000001,
+                                "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                                "productUnitPriceCurrencyExchangeRate" => 1,
+                                "remarks" => 'Catatan'
+                            ]
                         ]
-                    ]
-                );
+                    );
+                }
+                
             }
         }
+        $compact = [
+            "status"=>true,
+        ];
 
-        return redirect()->route('ARF.index');
+        return response()->json($compact); 
     }
     public function AdvanceListCartRevision(Request $request)
     {
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $val = $request->input('putProductId');
+        $advance_RefID = $request->input('advance_RefID');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -287,7 +362,7 @@ class procurementTransactionArf extends Controller
         'latest', 
         [
         'parameter' => [
-            'advance_RefID' => (int) $val,
+            'advance_RefID' => (int) $advance_RefID,
             ],
         'SQLStatement' => [
             'pick' => null,
@@ -296,9 +371,12 @@ class procurementTransactionArf extends Controller
             'paging' => null
             ]
         ]
-        );     
-        // dd($varData);
+        );
+        
 
+        foreach($varData['data'] as $varDatas){
+            $request->session()->push("SessionArf", (string) $varDatas['product_RefID']);
+        }
         return response()->json($varData['data']);
     }
 
