@@ -1744,6 +1744,8 @@ return array(
     'Aws\\Retry\\RetryHelperTrait' => $vendorDir . '/aws/aws-sdk-php/src/Retry/RetryHelperTrait.php',
     'Aws\\RoboMaker\\Exception\\RoboMakerException' => $vendorDir . '/aws/aws-sdk-php/src/RoboMaker/Exception/RoboMakerException.php',
     'Aws\\RoboMaker\\RoboMakerClient' => $vendorDir . '/aws/aws-sdk-php/src/RoboMaker/RoboMakerClient.php',
+    'Aws\\RolesAnywhere\\Exception\\RolesAnywhereException' => $vendorDir . '/aws/aws-sdk-php/src/RolesAnywhere/Exception/RolesAnywhereException.php',
+    'Aws\\RolesAnywhere\\RolesAnywhereClient' => $vendorDir . '/aws/aws-sdk-php/src/RolesAnywhere/RolesAnywhereClient.php',
     'Aws\\Route53Domains\\Exception\\Route53DomainsException' => $vendorDir . '/aws/aws-sdk-php/src/Route53Domains/Exception/Route53DomainsException.php',
     'Aws\\Route53Domains\\Route53DomainsClient' => $vendorDir . '/aws/aws-sdk-php/src/Route53Domains/Route53DomainsClient.php',
     'Aws\\Route53RecoveryCluster\\Exception\\Route53RecoveryClusterException' => $vendorDir . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Exception/Route53RecoveryClusterException.php',

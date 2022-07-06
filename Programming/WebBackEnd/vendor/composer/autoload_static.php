@@ -2337,6 +2337,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\Retry\\RetryHelperTrait' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Retry/RetryHelperTrait.php',
         'Aws\\RoboMaker\\Exception\\RoboMakerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RoboMaker/Exception/RoboMakerException.php',
         'Aws\\RoboMaker\\RoboMakerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RoboMaker/RoboMakerClient.php',
+        'Aws\\RolesAnywhere\\Exception\\RolesAnywhereException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RolesAnywhere/Exception/RolesAnywhereException.php',
+        'Aws\\RolesAnywhere\\RolesAnywhereClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/RolesAnywhere/RolesAnywhereClient.php',
         'Aws\\Route53Domains\\Exception\\Route53DomainsException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Exception/Route53DomainsException.php',
         'Aws\\Route53Domains\\Route53DomainsClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53Domains/Route53DomainsClient.php',
         'Aws\\Route53RecoveryCluster\\Exception\\Route53RecoveryClusterException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Route53RecoveryCluster/Exception/Route53RecoveryClusterException.php',
