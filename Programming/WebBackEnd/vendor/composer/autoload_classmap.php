@@ -1834,6 +1834,7 @@ return array(
     'Aws\\SavingsPlans\\SavingsPlansClient' => $vendorDir . '/aws/aws-sdk-php/src/SavingsPlans/SavingsPlansClient.php',
     'Aws\\Schemas\\Exception\\SchemasException' => $vendorDir . '/aws/aws-sdk-php/src/Schemas/Exception/SchemasException.php',
     'Aws\\Schemas\\SchemasClient' => $vendorDir . '/aws/aws-sdk-php/src/Schemas/SchemasClient.php',
+    'Aws\\Script\\Composer\\Composer' => $vendorDir . '/aws/aws-sdk-php/src/Script/Composer/Composer.php',
     'Aws\\Sdk' => $vendorDir . '/aws/aws-sdk-php/src/Sdk.php',
     'Aws\\SecretsManager\\Exception\\SecretsManagerException' => $vendorDir . '/aws/aws-sdk-php/src/SecretsManager/Exception/SecretsManagerException.php',
     'Aws\\SecretsManager\\SecretsManagerClient' => $vendorDir . '/aws/aws-sdk-php/src/SecretsManager/SecretsManagerClient.php',

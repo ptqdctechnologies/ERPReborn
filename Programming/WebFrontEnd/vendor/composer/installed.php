@@ -765,9 +765,9 @@
             ),
         ),
         'psy/psysh' => array(
-            'pretty_version' => 'v0.11.6',
-            'version' => '0.11.6.0',
-            'reference' => '3f5b5f8aaa979fbd0d1783173f4c82ad529fe621',
+            'pretty_version' => 'v0.11.7',
+            'version' => '0.11.7.0',
+            'reference' => '77fc7270031fbc28f9a7bea31385da5c4855cb7a',
             'type' => 'library',
             'install_path' => __DIR__ . '/../psy/psysh',
             'aliases' => array(),

@@ -2427,6 +2427,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Aws\\SavingsPlans\\SavingsPlansClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SavingsPlans/SavingsPlansClient.php',
         'Aws\\Schemas\\Exception\\SchemasException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Schemas/Exception/SchemasException.php',
         'Aws\\Schemas\\SchemasClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Schemas/SchemasClient.php',
+        'Aws\\Script\\Composer\\Composer' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Script/Composer/Composer.php',
         'Aws\\Sdk' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Sdk.php',
         'Aws\\SecretsManager\\Exception\\SecretsManagerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SecretsManager/Exception/SecretsManagerException.php',
         'Aws\\SecretsManager\\SecretsManagerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/SecretsManager/SecretsManagerClient.php',
