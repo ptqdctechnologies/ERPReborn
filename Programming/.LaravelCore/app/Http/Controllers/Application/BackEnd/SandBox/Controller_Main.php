@@ -11,6 +11,16 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             //$this->middleware(\App\Http\Middleware\Application\BackEnd\RequestHandler_General::class);
             }
+            
+        public function testAja()
+            {
+            $varCheck = null;
+            //$varCheck = 456;
+            
+            $NewValue = ((!$varCheck) ? NULL : (int) 123);
+            
+            echo $NewValue;
+            }
 
         public function testHTMLDOM()
             {

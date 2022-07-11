@@ -33,6 +33,8 @@ Route::match(['get', 'post'], '/botman', '\App\Http\Controllers\Application\Back
 //---[ Default ERP Reborn (Front End & Back End) ]---(START)------
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('sendRequest', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\SendWSRequest@SendRequest');
 
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testAja', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testAja');
+
 
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testPDF', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testPDF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testUpload', 'get', '\App\Http\Controllers\Application\BackEnd\SandBox\Controller_Main@testUpload');
