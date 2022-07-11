@@ -436,14 +436,20 @@ You can read a .csv file using the following code:
 
 ```php
 $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-$spreadsheet = $reader->load("sample.csv");
+$spreadsheet = $reader->load('sample.csv');
+```
+
+You can also treat a string as if it were the contents of a CSV file as follows:
+
+```php
+$reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
+$spreadsheet = $reader->loadSpreadsheetFromString($data);
 ```
 
 #### Setting CSV options
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
-as a separator. You can instruct
-`\PhpOffice\PhpSpreadsheet\Reader\Csv` some options before reading a CSV
+as a separator. You can set some options before reading a CSV
 file.
 
 The separator will be auto-detected, so in most cases it should not be necessary
@@ -497,6 +503,12 @@ $reader->setEnclosure('');
 $reader->setSheetIndex(0);
 
 $spreadsheet = $reader->load('sample.csv');
+```
+
+The CSV reader will normally not load null strings into the spreadsheet.
+To load them:
+```php
+$reader->setPreserveNullString(true);
 ```
 
 Finally, you can set a callback to be invoked when the constructor is executed,
@@ -577,8 +589,7 @@ $writer->save("05featuredemo.csv");
 #### Setting CSV options
 
 Often, CSV files are not really "comma separated", or use semicolon (`;`)
-as a separator. You can instruct
-`\PhpOffice\PhpSpreadsheet\Writer\Csv` some options before writing a CSV
+as a separator. You can set some options before writing a CSV
 file:
 
 ```php

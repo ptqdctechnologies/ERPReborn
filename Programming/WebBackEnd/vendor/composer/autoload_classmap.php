@@ -5837,6 +5837,7 @@ return array(
     'PhpOffice\\PhpSpreadsheet\\Cell\\StringValueBinder' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Cell/StringValueBinder.php',
     'PhpOffice\\PhpSpreadsheet\\Chart\\Axis' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/Axis.php',
     'PhpOffice\\PhpSpreadsheet\\Chart\\Chart' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/Chart.php',
+    'PhpOffice\\PhpSpreadsheet\\Chart\\ChartColor' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/ChartColor.php',
     'PhpOffice\\PhpSpreadsheet\\Chart\\DataSeries' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/DataSeries.php',
     'PhpOffice\\PhpSpreadsheet\\Chart\\DataSeriesValues' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/DataSeriesValues.php',
     'PhpOffice\\PhpSpreadsheet\\Chart\\Exception' => $vendorDir . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet/Chart/Exception.php',
