@@ -3,20 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvanceDetail\v1           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvancePaymentDetail\v1    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvanceDetail\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\update\finance\setAdvancePaymentDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAdvanceDetail                                                                                             |
-    | ▪ Description : Menangani API transaction.update.finance.setAdvanceDetail Version 1                                          |
+    | ▪ Class Name  : setAdvancePaymentDetail                                                                                      |
+    | ▪ Description : Menangani API transaction.update.finance.setAdvancePaymentDetail Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setAdvanceDetail extends \App\Http\Controllers\Controller
+    class setAdvancePaymentDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -58,11 +58,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Advance Detail Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Advance Payment Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvanceDetail())->setDataUpdate(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\TblAdvancePaymentDetail())->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
@@ -70,14 +70,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                            $varData['entities']['advance_RefID'],
-                            $varData['entities']['combinedBudgetSectionDetail_RefID'],
-                            $varData['entities']['product_RefID'],
-                            $varData['entities']['quantity'],
-                            $varData['entities']['quantityUnit_RefID'],
-                            $varData['entities']['productUnitPriceCurrency_RefID'],
-                            $varData['entities']['productUnitPriceCurrencyValue'],
-                            $varData['entities']['productUnitPriceCurrencyExchangeRate'],
+                            $varData['entities']['advancePayment_RefID'],
+                            $varData['entities']['advanceDetail_RefID'],
+                            $varData['entities']['amountCurrency_RefID'],
+                            $varData['entities']['amountCurrencyValue'],
+                            $varData['entities']['amountCurrencyExchangeRate'],
                             $varData['entities']['remarks']
                             ))))
                             {
