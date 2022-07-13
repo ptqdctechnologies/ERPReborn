@@ -922,6 +922,8 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvanceDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblAdvanceDetail.php',
     'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvancePayment' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblAdvancePayment.php',
     'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvancePaymentDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblAdvancePaymentDetail.php',
+    'App\\Models\\Database\\SchData_OLTP_Finance\\TblPayment' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblPayment.php',
+    'App\\Models\\Database\\SchData_OLTP_Finance\\TblPaymentDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblPaymentDetail.php',
     'App\\Models\\Database\\SchData_OLTP_FixedAsset\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_FixedAsset/General.php',
     'App\\Models\\Database\\SchData_OLTP_FixedAsset\\TblGoodsIdentity' => $baseDir . '/app/Models/Database/SchData_OLTP_FixedAsset/TblGoodsIdentity.php',
     'App\\Models\\Database\\SchData_OLTP_HumanResource\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_HumanResource/General.php',

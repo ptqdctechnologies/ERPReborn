@@ -77,6 +77,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['beneficiaryBankAccount_RefID'],
                             $varData['entities']['internalNotes'],
                             $varData['entities']['remarks'],
+
                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
                             ))))
                             {

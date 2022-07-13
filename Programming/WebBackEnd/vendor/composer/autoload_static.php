@@ -1515,6 +1515,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvanceDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblAdvanceDetail.php',
         'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvancePayment' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblAdvancePayment.php',
         'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvancePaymentDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblAdvancePaymentDetail.php',
+        'App\\Models\\Database\\SchData_OLTP_Finance\\TblPayment' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblPayment.php',
+        'App\\Models\\Database\\SchData_OLTP_Finance\\TblPaymentDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblPaymentDetail.php',
         'App\\Models\\Database\\SchData_OLTP_FixedAsset\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_FixedAsset/General.php',
         'App\\Models\\Database\\SchData_OLTP_FixedAsset\\TblGoodsIdentity' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_FixedAsset/TblGoodsIdentity.php',
         'App\\Models\\Database\\SchData_OLTP_HumanResource\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_HumanResource/General.php',

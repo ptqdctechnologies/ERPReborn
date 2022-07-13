@@ -4663,6 +4663,92 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.finance.setAdvancePayment                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateAdvancePayment()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTc2ODczNTh9.6sHwnweXM1qaku3ZupGU-HbhIgUqqoxQp1hIG7afOTM';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.finance.setAdvancePayment', 
+                'latest', 
+                [
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "log_FileUpload_Pointer_RefID" => null,
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "remarks" => 'My Remarks',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => [
+                                    [
+                                    "entities" => [
+                                        "advancePayment_RefID" => 169000000000001,
+                                        "advanceDetail_RefID" => 88000000000001,
+                                        "amountCurrency_RefID" => 62000000000001,
+                                        "amountCurrencyValue" => 30000,
+                                        "amountCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Pertama'                                    
+                                        ]                                   
+                                    ],
+                                    [
+                                    "entities" => [
+                                        "advancePayment_RefID" => 169000000000001,
+                                        "advanceDetail_RefID" => 88000000000002,
+                                        "amountCurrency_RefID" => 62000000000001,
+                                        "amountCurrencyValue" => 40000,
+                                        "amountCurrencyExchangeRate" => 1,
+                                        "remarks" => 'Catatan Kedua'
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]                    
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.create.finance.setAdvancePaymentDetail                                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataCreateAdvancePaymentDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTc2ODczNTh9.6sHwnweXM1qaku3ZupGU-HbhIgUqqoxQp1hIG7afOTM';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.create.finance.setAdvancePaymentDetail', 
+                'latest', 
+                [
+                'entities' => [
+                    'advancePayment_RefID' => 169000000000001,
+                    'advanceDetail_RefID' => 88000000000001,
+                    'amountCurrency_RefID' => 62000000000001,
+                    'amountCurrencyValue' => 30000,
+                    'amountCurrencyExchangeRate' => 1,
+                    'remarks' => 'Catatan Pertama'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.create.humanResource.setPersonWorkTimeSheet                                                  |
         | ▪ API Version : 1                                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -30653,40 +30739,40 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'recordID' => 76000000000001,
                 'entities' => [
-                    "documentDateTimeTZ" => '2022-03-07',
-                    "log_FileUpload_Pointer_RefID" => 91000000000001,
-                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                    "beneficiaryWorkerJobsPosition_RefID" => 164000000000439,
-                    "beneficiaryBankAccount_RefID" => 167000000000001,
-                    "internalNotes" => 'My Internal Notes',
-                    "remarks" => 'My Remarks',
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
+                    'documentDateTimeTZ' => '2022-03-07',
+                    'log_FileUpload_Pointer_RefID' => 91000000000001,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                    'beneficiaryWorkerJobsPosition_RefID' => 164000000000439,
+                    'beneficiaryBankAccount_RefID' => 167000000000001,
+                    'internalNotes' => 'My Internal Notes',
+                    'remarks' => 'My Remarks',
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
                                     [
-                                    "recordID" => 82000000000001,
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000002,
-                                        "quantity" => 10,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "productUnitPriceCurrencyValue" => 30000,
-                                        "remarks" => 'Catatan Pertama Revisi'                                    
+                                    'recordID' => 82000000000001,
+                                    'entities' => [
+                                        'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                        'product_RefID' => 88000000000002,
+                                        'quantity' => 10,
+                                        'quantityUnit_RefID' => 73000000000001,
+                                        'productUnitPriceCurrency_RefID' => 62000000000001,
+                                        'productUnitPriceCurrencyExchangeRate' => 1,
+                                        'productUnitPriceCurrencyValue' => 30000,
+                                        'remarks' => 'Catatan Pertama Revisi'                                    
                                         ]                                   
                                     ],
                                     [
-                                    "recordID" => 82000000000002,
-                                    "entities" => [
-                                        "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000003,
-                                        "quantity" => 5,
-                                        "quantityUnit_RefID" => 73000000000001,
-                                        "productUnitPriceCurrency_RefID" => 62000000000001,
-                                        "productUnitPriceCurrencyExchangeRate" => 1,
-                                        "productUnitPriceCurrencyValue" => 40000,
-                                        "remarks" => 'Catatan Kedua Revisi'
+                                    'recordID' => 82000000000002,
+                                    'entities' => [
+                                        'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                                        'product_RefID' => 88000000000003,
+                                        'quantity' => 5,
+                                        'quantityUnit_RefID' => 73000000000001,
+                                        'productUnitPriceCurrency_RefID' => 62000000000001,
+                                        'productUnitPriceCurrencyExchangeRate' => 1,
+                                        'productUnitPriceCurrencyValue' => 40000,
+                                        'remarks' => 'Catatan Kedua Revisi'
                                         ]
                                     ],
                                 ]
@@ -30810,15 +30896,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
                 [
                 'recordID' => 82000000000001,
                 'entities' => [
-                    "advance_RefID" => 76000000000001,
-                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                    "product_RefID" => 88000000000002,
-                    "quantity" => 10,
-                    "quantityUnit_RefID" => 73000000000001,
-                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => 30000,
-                    "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan'
+                    'advance_RefID' => 76000000000001,
+                    'combinedBudgetSectionDetail_RefID' => 169000000000001,
+                    'product_RefID' => 88000000000002,
+                    'quantity' => 10,
+                    'quantityUnit_RefID' => 73000000000001,
+                    'productUnitPriceCurrency_RefID' => 62000000000001,
+                    'productUnitPriceCurrencyValue' => 30000,
+                    'productUnitPriceCurrencyExchangeRate' => 1,
+                    'remarks' => 'Catatan'
                     ]
                 ]
                 );
@@ -30867,6 +30953,96 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             dd($varJQueryFunction);
             }
 
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.finance.setAdvancePayment                                                             |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateAdvancePayment()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTc2ODczNTh9.6sHwnweXM1qaku3ZupGU-HbhIgUqqoxQp1hIG7afOTM';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.finance.setAdvancePayment', 
+                'latest', 
+                [
+                'recordID' => 194000000000001,
+                'entities' => [
+                    'documentDateTimeTZ' => '2022-03-07',
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                    'remarks' => 'My Remarks',
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
+                                    [
+                                    'recordID' => 195000000000001,
+                                    'entities' => [
+                                        'advancePayment_RefID' => 169000000000001,
+                                        'advanceDetail_RefID' => 88000000000001,
+                                        'amountCurrency_RefID' => 62000000000001,
+                                        'amountCurrencyValue' => 30000,
+                                        'amountCurrencyExchangeRate' => 1,
+                                        'remarks' => 'Catatan Pertama'                                    
+                                        ]                                   
+                                    ],
+                                    [
+                                    'recordID' => 195000000000002,
+                                    'entities' => [
+                                        'advancePayment_RefID' => 169000000000001,
+                                        'advanceDetail_RefID' => 88000000000002,
+                                        'amountCurrency_RefID' => 62000000000001,
+                                        'amountCurrencyValue' => 40000,
+                                        'amountCurrencyExchangeRate' => 1,
+                                        'remarks' => 'Catatan Kedua'
+                                        ]
+                                    ],
+                                ]
+                            ]
+                        ]
+                    ]
+                ]                    
+                );
+            var_dump($varData);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ API Key     : transaction.update.finance.setAdvancePaymentDetail                                                       |
+        | ▪ API Version : 1                                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function APIGateway_setDataUpdateAdvancePaymentDetail()
+            {
+            //---Parameter Set---
+            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTc2ODczNTh9.6sHwnweXM1qaku3ZupGU-HbhIgUqqoxQp1hIG7afOTM';
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'transaction.update.finance.setAdvancePaymentDetail', 
+                'latest', 
+                [
+                'recordID' => 195000000000001,
+                'entities' => [
+                    'advancePayment_RefID' => 169000000000001,
+                    'advanceDetail_RefID' => 88000000000001,
+                    'amountCurrency_RefID' => 62000000000001,
+                    'amountCurrencyValue' => 30000,
+                    'amountCurrencyExchangeRate' => 1,
+                    'remarks' => 'Catatan Pertama'
+                    ]
+                ]
+                );
+            var_dump($varData);
+            }
+            
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

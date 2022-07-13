@@ -12,11 +12,11 @@ namespace App\Models\Database\SchData_OLTP_Finance
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : TblAdvancePaymentDetail                                                                                      |
-    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblAdvancePaymentDetail                                   |
+    | ▪ Class Name  : TblPaymentDetail                                                                                             |
+    | ▪ Description : Menangani Models Database ► SchData-OLTP-Finance ► TblPaymentDetail                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblAdvancePaymentDetail extends \App\Models\Database\DefaultClassPrototype
+    class TblPaymentDetail extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -44,8 +44,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Last Update     : 2022-07-13                                                                                           |
+        | ▪ Creation Date   : 2022-07-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -55,20 +55,24 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varAdvancePayment_RefID ► Advance Payment Reference ID                                                   |
-        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
-        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
-        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
-        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                                 |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
+        |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
+        |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataInsert(
+        /*public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -83,17 +87,20 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
                         
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varBeneficiaryPerson_RefID, 'bigint'],
+                        [$varBeneficiaryBankAccount_RefID, 'bigint'],
+                        [$varInternalNotes, 'varchar'],
+                        [$varRemarks, 'varchar'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
                     )
                 );
             return $varReturn['Data'][0];
-            }
+            }*/
 
 
         /*
@@ -101,8 +108,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-05-17                                                                                           |
-        | ▪ Creation Date   : 2022-05-17                                                                                           |
+        | ▪ Last Update     : 2022-07-13                                                                                           |
+        | ▪ Creation Date   : 2022-07-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -113,20 +120,24 @@ namespace App\Models\Database\SchData_OLTP_Finance
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varAdvancePayment_RefID ► Advance Payment Reference ID                                                   |
-        |      ▪ (int)    varAdvanceDetail_RefID ► Advance Detail Reference ID                                                     |
-        |      ▪ (int)    varAmountCurrency_RefID ► Amount Currency Reference ID                                                   |
-        |      ▪ (float)  varAmountCurrencyValue ► Amount Currency Value                                                           |
-        |      ▪ (float)  varAmountCurrencyExchangeRate ► Amount Currency Exchange Rate                                            |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                                 |
+        |      ▪ (int)    varRequesterPerson_RefID ► Requester Person Reference ID                                                 |
+        |      ▪ (int)    varBeneficiaryPerson_RefID ► Beneficiary Person Reference ID                                             |
+        |      ▪ (int)    varBeneficiaryBankAccount_RefID ► Beneficiary Bank Account Reference ID                                  |
+        |      ▪ (string) varInternalNotes ► InternalNotes                                                                         |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataUpdate(
+        /*public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varAdvancePayment_RefID = null, int $varAdvanceDetail_RefID = null, int $varAmountCurrency_RefID = null, float $varAmountCurrencyValue = null, float $varAmountCurrencyExchangeRate = null, string $varRemarks = null)
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterPerson_RefID = null, int $varBeneficiaryPerson_RefID = null, int $varBeneficiaryBankAccount_RefID = null, string $varInternalNotes = null, string $varRemarks = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -140,17 +151,20 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                         [$varSysBranch_RefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
-                        
-                        [$varAdvancePayment_RefID, 'bigint'],
-                        [$varAdvanceDetail_RefID, 'bigint'],
-                        [$varAmountCurrency_RefID, 'bigint'],
-                        [$varAmountCurrencyValue, 'numeric'],
-                        [$varAmountCurrencyExchangeRate, 'numeric'],
-                        [$varRemarks, 'varchar']
-                    ],
+
+                        [$varDocumentDateTimeTZ, 'timestamptz'],
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        [$varRequesterPerson_RefID, 'bigint'],
+                        [$varBeneficiaryPerson_RefID, 'bigint'],
+                        [$varBeneficiaryBankAccount_RefID, 'bigint'],
+                        [$varInternalNotes, 'varchar'],
+                        [$varRemarks, 'varchar'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
+                    ]
                     )
                 );
             return $varReturn['Data'][0];
-            }
+            }*/
         }
     }
