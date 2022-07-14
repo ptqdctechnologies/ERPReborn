@@ -44,6 +44,33 @@
     new zht_JSCore();
   </script> -->
   <script src ="{{ asset('js/zht-js/core.js') }}"></script>
+  <style>
+    body {
+        font-family: "Work Sans", sans-serif;
+    
+        background: rgb(230, 230, 230);
+    }
+    .time { 
+      margin:100px auto;
+        background: rgb(12, 12, 12);
+        color: #fff;
+        border: 7px solid rgb(255, 252, 252);
+        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+        padding: 8px;
+        text-align: center;
+        width: 500px;
+    }
+    .hms {
+        font-size: 68pt;
+        font-weight: 200;
+    }
+    .ampm {
+        font-size: 22pt;
+    }
+    .date {
+        font-size: 15pt;
+    }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -310,5 +337,27 @@
       });
     });
   </script>
+  <script>
+
+	   setInterval(customClock, 500);
+	   function customClock() {
+	       var time = new Date();
+         var date = time.getDate();
+         var year = time.getFullYear();
+	       var hrs = time.getHours();
+	       var min = time.getMinutes();
+	       var sec = time.getSeconds();
+         var ampm = (time.getHours() >= 12) ? "PM" : "AM";
+
+          // var dow = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+          // var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+          // document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + month[time.getMonth()] + " " + date + ", " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
+          var dow = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
+          var month = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+          document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " "  + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
+	       
+	       
+	   }
+	</script>
 </body>
 </html>

@@ -10,7 +10,7 @@
                 <input id="projectcode" style="border-radius:0;" name="var_project_code" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="projectcode2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                    <a id="projectcode2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>
@@ -34,7 +34,7 @@
                 <input id="advance_number" style="border-radius:0;" name="var_advance_number" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="advance_number2" data-toggle="modal" data-target="#mySearchArf" class="fas fa-gift" style="color:grey;"></i></a>
+                    <a id="advance_number2" data-toggle="modal" data-target="#mySearchArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>

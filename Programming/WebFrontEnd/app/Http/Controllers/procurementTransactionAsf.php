@@ -54,7 +54,7 @@ class procurementTransactionAsf extends Controller
             ]
             );
 
-        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataAdvanceRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.finance.getAdvance', 
@@ -71,11 +71,17 @@ class procurementTransactionAsf extends Controller
             );
         // dd($varData5);
 
+        $var = 0;
+        if(!empty($_GET['var'])){
+           $var =  $_GET['var'];
+        }
+
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
             'dataWorker' => $varDataWorker['data'],
             'data4' => $varData4['data'],
-            'data5' => $varData5['data'],
+            'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
+            'var' => $var,
         ];
 
         return view('Advance.Advance.Transactions.createASF', $compact);

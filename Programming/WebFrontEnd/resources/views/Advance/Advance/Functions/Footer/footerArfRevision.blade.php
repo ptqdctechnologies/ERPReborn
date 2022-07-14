@@ -22,21 +22,22 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".cancelDetailArf").click(function() {
+        $("#cancelDetailArfRevision").click(function() {
         let product_id = $("#putProductId").val();
-        if(product_id != ""){
-            let putProductName = $("#putProductName").val();
-            let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-            let putUom = $("#putUom").val();
-            let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
-            let putCurrency = $("#putCurrency").val();
-            let totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
-            let putRemark = $("#putRemark").val();
-            let totalBalance = $("#totalBalance").val();
-            let putPrice = $('#putPrice').val();
-            let combinedBudget = $("#combinedBudget").val();
-            let recordIDDetail = $("#recordIDDetail").val();
-            let statusProduct = $("#statusProduct").val();
+        let putProductName = $("#putProductName").val();
+        let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        let putUom = $("#putUom").val();
+        let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+        let putCurrency = $("#putCurrency").val();
+        let totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
+        let putRemark = $("#putRemark").val();
+        let totalBalance = $("#totalBalance").val();
+        let putPrice = $('#putPrice').val();
+        let combinedBudget = $("#combinedBudget").val();
+        let recordIDDetail = $("#recordIDDetail").val();
+        let statusProduct = $("#statusProduct").val();
+        let statusEditArfRevision = $("#statusEditArfRevision").val();
+        if(statusEditArfRevision == "Yes"){
             let html = '<tr>' +
                 '<td>' +
                 '<button type="button" class="btn btn-xs editAdvanceDetail" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" data-id10="' + statusProduct + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> '+
@@ -60,6 +61,7 @@
                 '<td>' + putCurrency + '</td>' +
                 '</tr>';
             $('table.tableArf tbody').append(html);
+            $("#statusEditArfRevision").val("No");
         }
             
         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
@@ -74,6 +76,7 @@
         $("#totalBalance").val("");
         $("#totalPayment").val("");
         $("#totalArfDetails").val("");
+        $("#totalPayment").val("");
 
         });
     });
@@ -154,6 +157,7 @@
                             '<td>' + putCurrency + '</td>' +
                             '</tr>';
                         $('table.tableArf tbody').append(html);
+                        $("#statusEditArfRevision").val("No");
 
                         $("body").on("click", ".remove", function() {
                             $(this).closest("tr").remove();
@@ -190,6 +194,8 @@
                             $("#totalArfDetails").val(id7);
                             $("#putRemark").val(id8);
                             $("#totalBalance").val(id9);
+                            $("#totalPayment").val("0");
+                            $("#statusEditArfRevision").val("Yes");
 
                             $(this).closest("tr").remove();
 
@@ -210,6 +216,7 @@
                         $("#totalRequester").val("");
                         $("#totalQtyRequest").val("");
                         $("#totalBalance").val("");
+                        $("#totalPayment").val("");
 
                         $("#iconProductId").hide();
                         $("#iconQty").hide();
@@ -318,6 +325,7 @@
                 $("#totalPayment").val("0");
                 $("#combinedBudget").val(id10);
                 $("#recordIDDetail").val(id11);
+                $("#statusEditArfRevision").val("Yes");
                 
 
                 $(this).closest("tr").remove();
@@ -420,6 +428,7 @@
                 $("#putCurrency").val(currency);
                 $("#totalBalance").val(parseFloat(qty * price).toFixed(2));
                 $("#combinedBudget").val(combinedBudget);
+                $("#totalPayment").val("0");
 
 
                 $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
@@ -471,7 +480,7 @@
                                 $('#totalArfDetails').val(0);
                             }
                             else if(parseFloat(qtyProduct) > parseFloat(qtyProduct2)){
-                                Swal.fire("Error !", "Your Qty Request is Over", "error");
+                                Swal.fire("Error !", "Your Quantity Request is Over", "error");
                                 $("#qtyCek").val('');
                                 $('#totalArfDetails').val('');
                                 $("#addFromDetailtoCart").prop("disabled", true);

@@ -17,10 +17,11 @@
                             <td>
                                 <div class="input-group">
                                     <input id="managerAsfUid" style="border-radius:0;" name="var_manager_name" type="text" class="form-control" readonly>
-                                    <diRequesterv class="input-group-append">
+                                    <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="ManagerNameId" data-toggle="modal" data-target="#myManager" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a id="ManagerNameId" data-toggle="modal" data-target="#myManager"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
+                                    </div>
                                 </div>
                             </td>
                             <td>
@@ -34,7 +35,7 @@
                                     <input id="currencyCode" style="border-radius:0;" name="var_currency" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="CurrencyId" data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a id="CurrencyId" data-toggle="modal" data-target="#myCurrency"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
                                 </div>
@@ -54,7 +55,7 @@
                                     <input id="financeArfUtableBudgetBrfid" style="border-radius:0;" name="var_finance_receiving" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="FinanceId" data-toggle="modal" data-target="#myfinance" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a id="FinanceId" data-toggle="modal" data-target="#myfinance"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                         </span>
                                     </div>
                                 </div>

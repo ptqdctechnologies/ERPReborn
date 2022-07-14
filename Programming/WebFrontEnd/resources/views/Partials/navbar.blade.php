@@ -1,10 +1,21 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light" style="height:35px;padding-top:14px;">
     <ul class="navbar-nav">
         <li class="nav-item">
+            <br>
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-    </ul>    
-    <ul class="navbar-nav ml-auto">            
+        
+    </ul>
+    <!-- <ul class="navbar-nav">
+        <li class="nav-item">
+            <span id="clock"></span>
+        </li>
+    </ul>     -->
+    <ul class="navbar-nav ml-auto">      
+    <li class="nav-item">
+            <br><span id="clock"></span>&nbsp;&nbsp;&nbsp;&nbsp;
+        </li>
+
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell"></i>
@@ -34,7 +45,7 @@
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
                 <img src="{{ asset('AdminLTE-master/dist/img/user.png')}}" class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline">IT</span>
+                <span class="d-none d-md-inline">IT PT QDC</span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <li class="user-header bg-secondary">

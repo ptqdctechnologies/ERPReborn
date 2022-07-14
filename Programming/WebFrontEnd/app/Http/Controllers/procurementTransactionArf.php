@@ -77,84 +77,49 @@ class procurementTransactionArf extends Controller
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
         $advanceDetail = [];
-        $advanceDetailCombine = [];
         for($n =0; $n < $count_product; $n++){
             $advanceDetail[$n] = [
-                'entities' => [
-                    "combinedBudgetSectionDetail_RefID" => 169000000000001,
-                    "product_RefID" => 88000000000002,
-                    "quantity" => 10,
+            'entities' => [
+                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                    "product_RefID" => (int) $input['var_product_id'][$n],
+                    "quantity" => (int) $input['var_quantity'][$n],
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => 30000,
+                    "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan Pertama'                                    
-                ],
+                    "remarks" => 'Catatan Detail'
+                ]
             ];
         }
-        // $advanceDetailCombine = [
-        //     'entities' => [
-        //         "additionalData" => [
-        //             "itemList" => [
-        //                 "items" => [
 
-        //                 ],
-        //             ],
-        //         ],
-        //     ],
-        // ];
-        dd($advanceDetail);die;
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.create.finance.setAdvance', 
+            'latest', 
+            [
+            'entities' => [
+                "documentDateTimeTZ" => '2022-03-07',
+                "log_FileUpload_Pointer_RefID" => 91000000000001,
+                "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+                "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+                "beneficiaryBankAccount_RefID" => 167000000000001,
+                "internalNotes" => 'My Internal Notes',
+                "remarks" => $input['var_remark'],
+                "additionalData" => [
+                    "itemList" => [
+                        "items" => $advanceDetail
+                        ]
+                    ]
+                ]
+            ]                    
+            );
 
-        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        // \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        // $varAPIWebToken, 
-        // 'transaction.create.finance.setAdvance', 
-        // 'latest', 
-        //     [
-        //         'entities' => [
-        //             "documentDateTimeTZ" => '2022-03-07',
-        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
-        //             "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
-        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
-        //             "beneficiaryBankAccount_RefID" => 167000000000001,
-        //             "internalNotes" => 'My Internal Notes',
-        //             "remarks" => $input['var_remark']
-        //         ]
-        //     ]                    
-        // );
-        // $advance_RefID = $varData['data']['recordID'];
+        $compact = [
+            "advnumber"=> "ADV-testing-00111",
+        ];
 
-
-        // if ($count_product > 0 && isset($count_product)) {
-        //     for ($n = 0; $n < $count_product; $n++) {
-
-        //         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-        //         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        //         $varAPIWebToken, 
-        //         'transaction.create.finance.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ', 
-        //         'latest', 
-        //             [
-        //                 'entities' => [
-        //                     "advance_RefID" => (int) $advance_RefID,
-        //                     "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-        //                     "product_RefID" => (int) $input['var_product_id'][$n],
-        //                     "quantity" => (int) $input['var_quantity'][$n],
-        //                     "quantityUnit_RefID" => 73000000000001,
-        //                     "productUnitPriceCurrency_RefID" => 62000000000001,
-        //                     "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-        //                     "productUnitPriceCurrencyExchangeRate" => 1,
-        //                     "remarks" => 'Catatan'
-        //                 ]
-        //             ]
-        //         );
-        //     }
-        // }
-
-        // $compact = [
-        //     "advnumber"=> "ADV-testing-00111",
-        // ];
-
-        // return response()->json($compact); 
+        return response()->json($compact); 
     }
 
     public function StoreValidateArf(Request $request)
@@ -271,9 +236,26 @@ class procurementTransactionArf extends Controller
     {
         $input = $request->all();
         $count_product = count($input['var_product_id']);
-        
-
         $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $advanceDetail = [];
+        if ($count_product > 0 && isset($count_product)) {
+            for($n =0; $n < $count_product; $n++){
+                $advanceDetail[$n] = [
+                    'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+                    'entities' => [
+                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                        "product_RefID" => (int) $input['var_product_id'][$n],
+                        "quantity" => (int) $input['var_quantity'][$n],
+                        "quantityUnit_RefID" => 73000000000001,
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                        "productUnitPriceCurrencyExchangeRate" => 1,
+                        "remarks" => 'Catatan'
+                    ]
+                ];
+            }
+        }
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
@@ -288,61 +270,15 @@ class procurementTransactionArf extends Controller
                     "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
                     "beneficiaryBankAccount_RefID" => 167000000000001,
                     "internalNotes" => 'My Internal Notes',
-                    "remarks" => $input['var_remark']
-                ]
-            ]                    
-        );
-        // ($input['var_recordIDDetail'][$n] == "null" ? null : (int) $input['var_recordIDDetail'][$n])
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-                
-
-                if($input['var_recordIDDetail'][$n] == "null"){
-                    $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.create.finance.setAdvanceDetail', 
-                        'latest', 
-                            [
-                                'entities' => [
-                                    "advance_RefID" => (int) $input['var_recordID'],
-                                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                                    "product_RefID" => (int) $input['var_product_id'][$n],
-                                    "quantity" => (int) $input['var_quantity'][$n],
-                                    "quantityUnit_RefID" => 73000000000001,
-                                    "productUnitPriceCurrency_RefID" => 62000000000001,
-                                    "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-                                    "productUnitPriceCurrencyExchangeRate" => 1,
-                                    "remarks" => 'Catatan'
-                                ]
-                            ]
-                        );
-                }
-                else{
-                    $varDatas = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'transaction.update.finance.setAdvanceDetail', 
-                        'latest', 
-                        [
-                        'recordID' => (int) $input['var_recordIDDetail'][$n],
-                        'entities' => [
-                                "advance_RefID" => (int) $input['var_recordID'],
-                                "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                                "product_RefID" => (int) $input['var_product_id'][$n],
-                                "quantity" => (int) $input['var_quantity'][$n],
-                                "quantityUnit_RefID" => 73000000000001,
-                                "productUnitPriceCurrency_RefID" => 62000000000001,
-                                "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-                                "productUnitPriceCurrencyExchangeRate" => 1,
-                                "remarks" => 'Catatan'
+                    "remarks" => $input['var_remark'],
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $advanceDetail
                             ]
                         ]
-                    );
-                }
-                
-            }
-        }
+                    ]
+                ]                   
+        );
         $compact = [
             "status"=>true,
         ];

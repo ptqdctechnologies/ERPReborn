@@ -128,7 +128,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm far fa-folder-open" style="color:#e9ecef;"></i>
                         <label>
                             Master Data
                         </label>
@@ -379,7 +379,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-calculator" style="color:#e9ecef;"></i>
                         <label>
                             Accounting
                         </label>
@@ -486,7 +486,7 @@
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-shopping-basket" style="color:#e9ecef;"></i>
                         <label>
                             Advance
                         </label>
@@ -555,7 +555,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('ASF.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement</label>
                                             </a>
@@ -738,7 +738,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fa fa-building" style="color:#e9ecef;"></i>
                         <label>
                             Bank
                         </label>
@@ -813,7 +813,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm far fa-money-bill-alt" style="color:#e9ecef;"></i>
                         <label>
                             Budget
                         </label>
@@ -966,7 +966,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
                         <label>
                             Human Resources
                         </label>
@@ -1120,7 +1120,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-warehouse" style="color:#e9ecef;"></i>
                         <label>
                             Inventory
                         </label>
@@ -1398,7 +1398,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-cart-arrow-down" style="color:#e9ecef;"></i>
                         <label>
                             Purchase
                         </label>
@@ -1639,7 +1639,7 @@
                 </li>
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                        <i class="nav-icon-sm fas fa-chart-line" style="color:#e9ecef;"></i>
                         <label>
                             Sales
                         </label>

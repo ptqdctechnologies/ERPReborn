@@ -18,6 +18,7 @@
           </div>
       </div>
       @include('Advance.Advance.Functions.Menu.menuAsf')
+      @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
         <form method="post" enctype="multipart/form-data" action="{{ route('ASF.submitData') }}" name="formArf1">
         @csrf
@@ -92,130 +93,217 @@
                         </button>
                       </div>
                     </div>
+                    <div class="card-body table-responsive p-0" id="detailASF">
+                      <table class="table" style="text-align: center;">
+                        <thead>
+                          <tr>
+                              <th rowspan="2" style="padding-bottom:25px;border:1px solid #e9ecef;"> ARF Number</th>
+                              <th rowspan="2" style="padding-bottom:30px;border:1px solid #e9ecef;"> ARF Date</th>
+                              <th colspan="6" style="border:1px solid #e9ecef;">Expense Claim</th>
+                              <th colspan="6" style="border:1px solid #e9ecef;">Amount due To Company</th>
+                              <th rowspan="2" colspan="2" style="padding-bottom:30px;border:1px solid #e9ecef;"> Balance</th>
+                          </tr>
+                          <tr>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Qty</th>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Price</th>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Total</th>
 
-                    <div class="card-body" id="detailASF">
-                        <div class="row">
-                        <table class="table" style="text-align: center;">
-                          <thead>
-                            <tr>
-                                <th rowspan="2" style="padding-bottom:25px;border:1px solid #e9ecef;"> ARF Number</th>
-                                <th rowspan="2" style="padding-bottom:30px;border:1px solid #e9ecef;"> ARF Date</th>
-                                <th colspan="6" style="border:1px solid #e9ecef;">Expense Claim</th>
-                                <th colspan="6" style="border:1px solid #e9ecef;">Amount due To Company</th>
-                                <th rowspan="2" colspan="2" style="padding-bottom:30px;border:1px solid #e9ecef;"> Balance</th>
-                            </tr>
-                            <tr>
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Qty</th>
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Price</th>
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Total</th>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Qty</th>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Price</th>
+                              <th colspan="2" style="border:1px solid #e9ecef;"> Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              &nbsp;<input readonly name="var_arf_number" id="arf_number" style="border-radius:0;width:85px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:90px;">
+                            <div class="input-group">
+                              <input readonly name="var_arf_date" id="arf_date" style="border-radius:0;width:80px;" type="text" class="form-control">
+                            </div>
+                          </td>
 
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Qty</th>
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Price</th>
-                                <th colspan="2" style="border:1px solid #e9ecef;"> Total</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <td style="border:1px solid #e9ecef;">
-                              <div class="input-group">
-                                <input readonly name="var_arf_number" id="arf_number" style="border-radius:0;width:85px;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:90px;">
-                              <div class="input-group">
-                                <input readonly name="var_arf_date" id="arf_date" style="border-radius:0;width:80px;" type="text" class="form-control">
-                              </div>
-                            </td>
+                          <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
+                      
+                          <td style="border:1px solid #e9ecef;width:75px;">
+                            <div class="input-group">
+                              <input id="qty_expense" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="qty_expense2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:110px;">
+                            <div class="input-group">
+                              <input id="price_expense" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:110px;">
+                            <div class="input-group">
+                              <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="total_expense2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:75px;">
+                            <div class="input-group">
+                              <input id="qty_amount" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="qty_amount2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:110px;">
+                            <div class="input-group">
+                              <input id="price_amount" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:120px;">
+                            <div class="input-group">
+                              <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly id="total_amount2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
 
-                            <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
-                            <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
-                            <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
-                            <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
-                        
-                            <td style="border:1px solid #e9ecef;width:75px;">
-                              <div class="input-group">
-                                <input id="qty_expense" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="qty_expense2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:110px;">
-                              <div class="input-group">
-                                <input id="price_expense" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="price_expense2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:110px;">
-                              <div class="input-group">
-                                <input readonly id="total_expense" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="total_expense2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:75px;">
-                              <div class="input-group">
-                                <input id="qty_amount" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="qty_amount2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:110px;">
-                              <div class="input-group">
-                                <input id="price_amount" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="price_amount2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:120px;">
-                              <div class="input-group">
-                                <input readonly id="total_amount" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly id="total_amount2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
+                          <td style="border:1px solid #e9ecef;width:110px;">
+                            <div class="input-group">
+                              <input readonly name="balance" id="balance" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;width:65px;">
+                            <div class="input-group">
+                              <input readonly name="balance2" id="balance2" style="border-radius:0;" type="text" class="form-control">
+                            </div>
+                          </td>
+                        </tbody>
+                        <!-- <tbody>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              &nbsp;<input readonly name="var_arf_number" id="arf_number" style="border-radius:0;width:85px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly name="var_arf_date" id="arf_date" style="border-radius:0;width:80px;" type="text" class="form-control">
+                            </div>
+                          </td>
 
-                            <td style="border:1px solid #e9ecef;width:110px;">
-                              <div class="input-group">
-                                <input readonly name="balance" id="balance" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                            <td style="border:1px solid #e9ecef;width:60px;">
-                              <div class="input-group">
-                                <input readonly name="balance2" id="balance2" style="border-radius:0;" type="text" class="form-control">
-                              </div>
-                            </td>
-                          </tbody>
+                          <input readonly name="" id="productIdHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="nameMaterialHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="uomHide" style="border-radius:0;" type="hidden" class="form-control">
+                          <input readonly name="" id="descriptionHide" style="border-radius:0;" type="hidden" class="form-control">
+                      
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input id="qty_expense" style="border-radius:0;width:75px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="qty_expense2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input id="price_expense" style="border-radius:0;width:110px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="price_expense2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="total_expense" style="border-radius:0;width:110px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="total_expense2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input id="qty_amount" style="border-radius:0;width:75px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="qty_amount2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input id="price_amount" style="border-radius:0;width:110px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="price_amount2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="total_amount" style="border-radius:0;width:120px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly id="total_amount2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly name="balance" id="balance" style="border-radius:0;width:110px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                          <td style="border:1px solid #e9ecef;">
+                            <div class="input-group">
+                              <input readonly name="balance2" id="balance2" style="border-radius:0;width:65px;" type="text" class="form-control">
+                            </div>
+                          </td>
+                        </tbody> -->
                       </table>
-                    </div>
-                    <button type="reset" class="btn btn-outline btn-danger btn-sm float-right detailSettlement">
-                      <i class="fa fa-times" aria-hidden="true" title="Cancel to Add Advance List Cart">Cancel</i>
-                    </button>
-
-                    <a class="btn btn-outline btn-success btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;">
-                      <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add</i>
-                    </a>
-
+                      <br>
+                      <div style="padding-right:10px;">
+                        <button type="reset" class="btn btn-default btn-sm float-right detailSettlement" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                        </button>
+                        <a class="btn btn-default btn-sm float-right" id="addAsfListCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                          <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                        </a>
+                      </div>
+                      <br><br><br>
                     </div>
                   </div>
-                  
                 </div>
               </div>
             <!-- </form> -->
@@ -308,16 +396,26 @@
             </div>
 
             
-            <button type="reset" class="btn btn-danger btn-sm float-right">
-              <i class="fa fa-times" aria-hidden="true"></i>
-              Cancel
+            <button type="reset" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
             </button>
-            <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="saveAsfList">
-              <i class="fas fa-save" aria-hidden="true" title="Submit to Advance">Submit</i>
+            <button class="btn btn-default btn-sm float-right" type="submit" id="saveAsfList" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+              <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
             </button>
+
+            <!-- <a onclick="cancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+              <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
+            </a>
+
+            <button class="btn btn-default btn-sm float-right" type="submit" id="submitArf" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+              <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+            </button> -->
+
+            
           </div>
         </form>
       </div>
+      @endif
     </div>
   </section>
 </div>
