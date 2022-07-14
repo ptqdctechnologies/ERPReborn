@@ -427,7 +427,7 @@
                         var json_object = JSON.stringify(datax);
                         $.ajax({
                             type: "POST",
-                            url: '{{route("PPM.store")}}',
+                            url: '{{route("PR.store")}}',
                             data: json_object,
                             contentType: "application/json",
                             processData: true,

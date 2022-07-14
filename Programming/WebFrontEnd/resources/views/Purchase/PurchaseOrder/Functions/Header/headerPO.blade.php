@@ -6,13 +6,13 @@
                 <div class="form-group">
                     <table>
                         <tr>
-                            <td><label>Project Code</label></td>
+                            <td><label>Budget Code</label></td>
                             <td>
                                 <div class="input-group">
                                     <input id="projectCode" style="border-radius:0;" name="var_currency" type="text" class="form-control" readonly>
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="ProjectId" data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a href="#"><i id="ProjectId" data-toggle="modal" class="fas fa-gift" style="color:grey;" readonly></i></a>
                                         </span>
                                     </div>
                                 </div>
@@ -22,10 +22,10 @@
                             <td><label>Supplier Code</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="supplierCode" style="border-radius:0;" name="var_currency" type="text" class="form-control" readonly>
+                                    <input id="supplierCode" style="border-radius:0;" name="var_currency" type="text" class="form-control">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                            <a href="#"><i id="SupplierId" data-toggle="modal" data-target="#myCurrency" class="fas fa-gift" style="color:grey;"></i></a>
+                                            <a href="#"><i id="supplierId" data-toggle="modal" data-target="#mySupplier" class="fas fa-gift" style="color:grey;"></i></a>
                                         </span>
                                     </div>
                                 </div>
@@ -35,7 +35,7 @@
                             <td><label>Supplier Name</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="suppliername" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="supplierName" style="border-radius:0;" type="text" class="form-control" readonly>
                                 </div>
                             </td>
                         </tr>
@@ -56,33 +56,18 @@
                             <td><label>Exchange Rate</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="exchange" style="border-radius:0;" type="text" class="form-control">
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Origin Of Budget</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <input id="oob" style="border-radius:0;" type="text" class="form-control" readonly>
-                                </div>
-                            </td>
-                        </tr>
                         <tr>
                             <td><label>COD</label></td>
                             <td>
-                                <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="checkboxPrimary1" checked>
-                                    <label for="checkboxPrimary1">
-                                        Yes
-                                    </label>
-                                </div>
-                                <div class="icheck-primary d-inline">
-                                    <input type="checkbox" id="checkboxPrimary2">
-                                    <label for="checkboxPrimary2">
-                                        No
-                                    </label>
-                                </div>
+                                <input type="radio" id="yes" name="fav_language" value="HTML">
+                                <label for="html">Yes</label>
+                                <input type="radio" id="no" name="fav_language" value="HTML" checked="checked">
+                                <label for="html">No</label>
                             </td>
                         </tr>
                     </table>
@@ -95,7 +80,7 @@
                             <td><label>Deliver To</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="projectcode" style="border-radius:0;" type="text" class="form-control">
+                                    <input id="deliverto" style="border-radius:0;" type="text" class="form-control">
                                     <div class="input-group-append">
                                         <span style="border-radius:0;" class="input-group-text form-control">
                                             <a href="#"><i data-toggle="modal" data-target="#myDelieverTo" class="fas fa-gift" style="color:grey;"></i></a>
@@ -105,7 +90,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Date Commance Travel</label></td>
+                            <td><label>Delivery Date Estimate</label></td>
                             <td>
                                 <div class="input-group">
                                     <div class="input-group date" id="reservationdate" data-target-input="nearest">
@@ -118,19 +103,6 @@
                                 </div>
                             </td>
                         </tr>
-                        <!-- <tr>
-                            <td><label>Delivery Date Estimate</label></td>
-                            <td>
-                                <div class="input-group">
-                                    <div class="input-group date" id="reservationdate" data-target-input="nearest">
-                                        <input style="border-radius:0;" type="text" class="input-group form-control datetimepicker-input" data-target="#reservationdate" />
-                                        <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr> -->
                         <tr>
                             <td><label>Invoice To</label></td>
                             <td>
@@ -151,12 +123,12 @@
                             <td><label>TOP</label></td>
                             <td>
                                 <div class="input-group">
-                                    <input id="requestcode" style="border-radius:0;" type="text" class="form-control"><label>Days</label>
+                                    <input id="top" style="border-radius:0;" type="number" class="form-control"><label>Days</label>
                                 </div>
                             </td>
                         </tr>
                         <tr>
-                            <td><label>Remark</label></td>
+                            <td><label>Remark PO</label></td>
                             <td>
                                 <div class="input-group">
                                     <input id="requestcode" style="border-radius:0;" type="text" class="form-control">

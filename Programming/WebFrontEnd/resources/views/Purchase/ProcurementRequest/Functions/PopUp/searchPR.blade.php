@@ -12,43 +12,43 @@
                         <div class="card">
                             <div class="card-body table-responsive p-0" style="height: 400px;">
                                 <table class="table table-head-fixed text-nowrap" id="tableSearchArf">
-                                    <thead>
+                                    <!-- <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Trano</th>
-                                            <th>Project ID</th>
-                                            <th>Project Name</th>
-                                            <th>Site Code</th>
-                                            <th>Site Name</th>
+                                            <th>PR Number</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
-                                    </thead>
+                                    </thead> -->
                                     <tbody>
                                         @php $no=1; @endphp
                                         @for($i = 1; $i < 5; $i++) <tr>
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                     <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">PR-000{{$i}}</p>
+                                                     <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">PR-220000{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">P000{{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Q0001{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Besi {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">SUTT 150 Kv Maluku</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">S000{{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">100{{$i}}</p>
                                                 </span>
                                             </td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Test {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchPR" data-id1="PR-000{{ $i }}" data-id2="PR00{{ $i }}" data-id3="Besi {{ $i }}" data-id4="S000{{ $i }}" data-id5="Test {{ $i }}">Overhead</p>
                                                 </span>
                                             </td>
                                             </tr>
