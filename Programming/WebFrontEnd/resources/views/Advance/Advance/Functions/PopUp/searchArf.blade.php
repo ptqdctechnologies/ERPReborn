@@ -25,23 +25,23 @@
                                     <tbody>
 
                                         @php $no = 1 @endphp
-                                        @foreach($data5 as $datas)
+                                        @foreach($dataAdvanceRequest as $dataAdvanceRequests)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$datas['documentNumber']}}" data-id2="{{$datas['documentNumber']}}" data-id3="{{$datas['documentNumber']}}" data-id4="{{$datas['documentNumber']}}" data-id5="{{$datas['documentNumber']}}">{{$datas['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -101,7 +101,7 @@
 
 
             var html = '<tr>'+
-                            '<td>'+'<center><a class="btn btn-outline-success btn-rounded btn-sm my-0 addToDetailSettlement" style="border-radius: 100px;"><i class="fa fa-plus"></i></a></center>'+'</td>'+
+                            '<td>'+'<center><a class="btn btn-sm addToDetailSettlement" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></a>'+'</td>'+
                             '<td>'+'N/A'+'</td>'+
                             '<td>'+trano+'</td>'+
                             '<td>'+product_id+'</td>'+

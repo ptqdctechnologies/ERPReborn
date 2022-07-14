@@ -174,6 +174,10 @@
                             <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
 
+                          <td>
+                            <input name="statusEditArf" id="statusEditArf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                          </td>
+
                       </tbody>
                     </table>
                     <div style="padding-right:10px;">

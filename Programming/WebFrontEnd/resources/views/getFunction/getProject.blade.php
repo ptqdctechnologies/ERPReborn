@@ -48,9 +48,9 @@
     $(function() {
         $('.klikProject').on('click', function(e) {
             e.preventDefault(); // in chase you change to a link or button
-            var $this = $(this);
-            var code = $this.data("id");
-            var name = $this.data("name");
+            let $this = $(this);
+            let code = $this.data("id");
+            let name = $this.data("name");
             $("#projectcode").val(code);
             $("#projectcode2").val(code);
             $("#projectname").val(name);
@@ -221,6 +221,8 @@
                                     $(".available").show();
                                     $("#detailTransAvail").show();
                                     $("#putProductId2").prop("disabled", true);
+                                    $("#statusEditArf").val("No");
+                                    $("#statusEditArfRevision").val("No");
                                 });
 
                                 $('.klikBudgetPr').on('click', function(e){

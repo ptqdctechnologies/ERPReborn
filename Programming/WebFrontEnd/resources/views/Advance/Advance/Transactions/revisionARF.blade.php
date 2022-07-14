@@ -162,7 +162,7 @@
                             <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangePrice" autocomplete="off">
                             <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
@@ -183,12 +183,14 @@
                           <td>
                             <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
-                          
+                          <td>
+                            <input name="statusEditArfRevision" id="statusEditArfRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                          </td>
 
                       </tbody>
                     </table>
                     <div style="padding-right:10px;">
-                      <a class="btn btn-default btn-sm float-right cancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                      <a class="btn btn-default btn-sm float-right" id="cancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
                       <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
