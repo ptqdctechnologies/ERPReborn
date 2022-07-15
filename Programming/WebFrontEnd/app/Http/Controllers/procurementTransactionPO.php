@@ -12,6 +12,7 @@ class procurementTransactionPO extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionAsf");
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -26,7 +27,7 @@ class procurementTransactionPO extends Controller
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.humanResource.getWorker', 
-            'latest',
+            'latest', 
             [
             'parameter' => null,
             'SQLStatement' => [
@@ -37,28 +38,83 @@ class procurementTransactionPO extends Controller
                 ]
             ]
         );
+        $varData4 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.master.getCurrency', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+
+        $varData5 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.finance.getAdvance', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+            );
+        // dd($varData5);
 
         $compact = [
             'data' => $varData['data']['data'],
             'data2' => $varData2['data'],
+            'data4' => $varData4['data'],
+            'data5' => $varData5['data'],
         ];
 
         return view('Purchase.PurchaseOrder.Transactions.createPO', $compact);
     }
 
-    public function indexOverhead()
+    public function StoreValidatePO(Request $request)
     {
-        return view('Purchase.PurchaseOrder.Transactions.createPOOverhead');
-    }
+        $tamp = 0; $status = 200;
+        $val = $request->input('putProductName');
+        $data = $request->session()->get("SessionAsf");
+        if($request->session()->has("SessionAsf")){
+            for($i = 0; $i < count($data); $i++){
+                if($data[$i] == $val){
+                    $tamp = 1;
+                }
+            }
+            if($tamp == 0){
+                $request->session()->push("SessionAsf", $val);
+            }
+            else{
+                $status = 500;
+            }
+        }
+        else{
+            $request->session()->push("SessionAsf", $val);
+        }
 
-    public function indexSales()
-    {
-        return view('Purchase.PurchaseOrder.Transactions.createPOSales');
+        return response()->json($status);
     }
-    // public function indexPulsaVoucher()
-    // {
-    //     return view('Advance.Advance.Transactions.createPOPulsaVoucher');
-    // }
+    public function StoreValidatePO2(Request $request)
+    {
+        $messages = $request->session()->get("SessionAsf");
+        $val = $request->input('putProductName');
+        if (($key = array_search($val, $messages)) !== false) {
+            unset($messages[$key]);
+            $newClass = array_values($messages);
+            $request->session()->put("SessionAsf", $newClass);
+        }
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -125,8 +181,8 @@ class procurementTransactionPO extends Controller
     {
         //
     }
-    public function revisionPOIndex(Request $request)
-    {
+    public function revisionAsfIndex(Request $request)
+    {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -139,7 +195,7 @@ class procurementTransactionPO extends Controller
             ]
         );
         
-        return view('Purchase.PurchaseOrder.Transactions.revisionPO', ['data' => $varData['data']['data']]);
+        return view('Advance.Advance.Transactions.revisionASF', ['data' => $varData['data']['data']]);
     }
 
 
@@ -153,16 +209,12 @@ class procurementTransactionPO extends Controller
             array_push($dataAll, array(
                 'trano' => $v['trano'],
                 'productId' => $v['productId'],
-                'nameMaterial' => $v['nameMaterial'],
+                'productName' => $v['productName'],
                 'uom' => $v['uom'],
-                'unitPriceExpense' => $v['unitPriceExpense'],
-                'qtyExpense' => $v['qtyExpense'],
-                'totalExpense' => $v['totalExpense'],
-                'unitPriceAmount' => $v['unitPriceAmount'],
-                'qtyAmount' => $v['qtyAmount'],
-                'totalAmount' => $v['totalAmount'],
-                'description' => $v['description']
-
+                'qty' => $v['qty'],
+                'unit_Price' => $v['unit_Price'],
+                'ppn_value' => $v['ppn_value'],
+                'total' => $v['total']
             ));
         }
         return response()->json($dataAll);
