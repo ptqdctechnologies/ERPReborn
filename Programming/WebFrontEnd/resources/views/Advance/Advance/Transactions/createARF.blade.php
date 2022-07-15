@@ -148,7 +148,7 @@
                             <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangeQty quantity" autocomplete="off">
+                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
                             <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
@@ -156,7 +156,7 @@
                             <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="number" class="form-control ChangePrice" autocomplete="off">
+                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
                             <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>

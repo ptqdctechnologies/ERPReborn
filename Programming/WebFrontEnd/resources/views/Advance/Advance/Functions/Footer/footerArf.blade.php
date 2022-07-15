@@ -351,8 +351,8 @@
                 type: 'question',
 
                 showCancelButton: true,
-                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it! </span>',
-                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel ! </span>',
+                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
                 confirmButtonColor: '#e9ecef',
                 cancelButtonColor: '#e9ecef',
                 reverseButtons: true
@@ -379,11 +379,11 @@
 
                                 title: 'Successful !',
                                 type: 'success',
-                                html:'Data has been saved. Your transaction number is '+'<b>'+response.advnumber+'</b>',
+                                html:'Data has been saved. Your transaction number is '+'<span style="color:red;">'+response.advnumber+'</span>',
                                 showCloseButton: false,
                                 showCancelButton: false,
                                 focusConfirm: false,
-                                confirmButtonText:'<span style="color:black;"><i class="fa fa-thumbs-up"></i> Oke ! </span>',
+                                confirmButtonText:'<span style="color:black;"> Ok </span>',
                                 confirmButtonColor: '#4B586A',
                                 confirmButtonColor: '#e9ecef',
                                 reverseButtons: true
@@ -409,10 +409,10 @@
                     swalWithBootstrapButtons.fire({
 
                         title: 'Cancelled',
-                        text: "Process Canceled !",
+                        text: "Process Canceled",
                         type: 'error',
                         confirmButtonColor: '#e9ecef',
-                        confirmButtonText: '<span style="color:black;"><i class="fa fa-thumbs-up"></i> Oke ! </span>',
+                        confirmButtonText: '<span style="color:black;"> Ok </span>',
 
                     })
                 }
