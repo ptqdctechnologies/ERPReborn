@@ -14,7 +14,6 @@
 @include('Advance.BussinesTrip.Functions.PopUp.searchBsf')
 
 <!-- PURCHASE -->
-@include('Purchase.ProcurementRequest.Transactions.popupRevisionPR')
 @include('Purchase.ProcurementRequest.Functions.PopUp.searchPR')
 @include('Purchase.PurchaseOrder.Transactions.popupRevisionPO')
 @include('Purchase.PurchaseOrder.Functions.PopUp.searchPO')
@@ -126,7 +125,7 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview">
+                <!-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm far fa-folder-open" style="color:#e9ecef;"></i>
                         <label>
@@ -482,7 +481,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -736,7 +735,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-item has-treeview">
+                <!-- <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fa fa-building" style="color:#e9ecef;"></i>
                         <label>
@@ -860,7 +859,6 @@
 
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudget">
-                                            <!-- <a href="{{ route('BudgetExpense.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Budget Expense</label>
                                             </a>
@@ -874,7 +872,6 @@
                                         </li>
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLine">
-                                            <!-- <a href="{{ route('BudgetExpenseLine.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Budget Expense Line</label>
                                             </a>
@@ -882,14 +879,12 @@
 
                                         <li class="nav-item">
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLineCeiling">
-                                            <!-- <a href="{{ route('BudgetExpenseLineCeiling.index') }}" class="nav-link"> -->
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Budget Expense Line Ceiling</label>
                                             </a>
                                         </li>
 
                                         <li class="nav-item">
-                                            <!-- <a href="{{ route('BudgetExpenseLineCeilingObjects.index') }}" class="nav-link"> -->
                                             <a href="#" class="nav-link" data-toggle="modal" data-target="#popupBudgetExpenseLineCeilingObjects">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Budget Expense Ceiling Objects</label>
@@ -963,7 +958,7 @@
                             </ul>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon-sm fas fa-users" style="color:#e9ecef;"></i>
@@ -974,27 +969,27 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                            <a href="#" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Piece Meal</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Piece Meal Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Piece Meal Summary Report</label>
                                             </a>
@@ -1004,22 +999,16 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('PPM.index') }}" class="nav-link">
+                                            <a href="{{ route('PieceMeal.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Piece Meal</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#ppmNumberPopUp">
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Piece Meal Revision</label>
+                                                <label>Piece Meal</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1027,6 +1016,7 @@
                             </ul>
                         </li>
                     </ul>
+
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -1406,27 +1396,27 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                            <a href="#" class="nav-link">&nbsp;
+                                <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                 <label>Procurement Request</label>
                                 <i class="right fas fa-angle-left"></i>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Report</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Procurement Request Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">
+                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#arfNumberPopUp">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Procurement Request Summary Report</label>
                                             </a>
@@ -1436,22 +1426,16 @@
                             </ul>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="nav-icon-sm fas fa-folder" style="color:#e9ecef;"></i>
+                                    <a href="#" class="nav-link">&nbsp;&nbsp;&nbsp;
+                                        <i class="nav-icon-sm fas fa-arrow-circle-right" style="color:#e9ecef;"></i>
                                         <label>Transaction</label>
                                         <i class="right fas fa-angle-left"></i>
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="" class="nav-link">
+                                            <a href="{{ route('ProcurementRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Create Procurement Request</label>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link" data-toggle="modal" data-target="#popupRevisionPR">
-                                                <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
-                                                <label>Procurement Request Revision</label>
+                                                <label>Procurement Request</label>
                                             </a>
                                         </li>
                                     </ul>
@@ -1459,6 +1443,7 @@
                             </ul>
                         </li>
                     </ul>
+
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="#" class="nav-link">

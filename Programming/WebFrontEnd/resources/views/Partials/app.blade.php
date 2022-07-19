@@ -240,7 +240,7 @@
         "autoWidth": false,
         "paginate": false,
       });
-      $("#tableSearchArf").DataTable({
+      $("#TableSearchProcReq").DataTable({
         "responsive": true,
         "autoWidth": false,
         "paginate": false,

@@ -10,7 +10,7 @@
                 <input id="projectcode" style="border-radius:0;" name="var_budget_code" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="projectcode2" data-toggle="modal" data-target="#myProject" class="fas fa-gift" style="color:grey;"></i></a>
+                    <a href="#" id="projectcode2" data-toggle="modal" data-target="#myProject"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>
@@ -32,9 +32,10 @@
             <td>
               <div class="input-group" style="width: 70%;">
                 <input id="sitecode" style="border-radius:0;" name="var_sub_budget_code" class="form-control" readonly>
+                <input name="var_combinedBudget" id="combinedBudget" style="border-radius:0;" type="hidden" class="form-control" readonly>
                 <div class="input-group-append">
                   <span style="border-radius:0;" class="input-group-text form-control">
-                    <a href="#"><i id="sitecode2" data-toggle="modal" data-target="#mySiteCode" class="fas fa-gift" style="color:grey;"></i></a>
+                    <a href="#" id="sitecode2" data-toggle="modal" data-target="#mySiteCode"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                   </span>
                 </div>
               </div>

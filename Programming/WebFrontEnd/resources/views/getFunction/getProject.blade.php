@@ -137,13 +137,12 @@
                             type: 'GET',
                             url: '{!! route("getSite") !!}?sitecode=' + $('#sitecode').val(),
                             success: function(data) {
-                                // console.log(data.data);
                                 
                                 var no = 1;
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>'+
                                                 '<td>'+
-                                                    '&nbsp;<button type="reset" class="btn btn-sm klikBudgetDetailAdvance" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>'+
+                                                    '&nbsp;<button type="reset" class="btn btn-sm klikBudgetDetail" data-id1="' + val2.product_RefID + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.sys_ID + '" data-id5="' + val2.productName + '" data-id6="' + val2.quantityUnitName + '" data-id7="' + val2.priceBaseCurrencyISOCode + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>'+
                                                 '</td>'+
                                                 '<td>'+
                                                     '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>'+
@@ -182,7 +181,7 @@
                                     $('table.tablePrDetailDor tbody').append(html);
                                 });
 
-                                $('.klikBudgetDetailAdvance').on('click', function(e){
+                                $('.klikBudgetDetail').on('click', function(e){
                                     e.preventDefault();
                                     var $this = $(this);
                                     var price = $this.data("id3");

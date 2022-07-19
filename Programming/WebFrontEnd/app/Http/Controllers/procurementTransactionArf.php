@@ -54,6 +54,7 @@ class procurementTransactionArf extends Controller
             ]
             );
         
+            // dd($varDataAdvanceRequest);
         $var = 0;
         if(!empty($_GET['var'])){
            $var =  $_GET['var'];
@@ -308,7 +309,7 @@ class procurementTransactionArf extends Controller
             ]
         ]
         );
-        
+        // dd($varData);
 
         foreach($varData['data'] as $varDatas){
             $request->session()->push("SessionArf", (string) $varDatas['product_RefID']);
