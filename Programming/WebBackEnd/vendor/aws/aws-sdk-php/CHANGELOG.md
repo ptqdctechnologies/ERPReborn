@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## 3.231.8 - 2022-07-18
+
+* `Aws\ApplicationDiscoveryService` - Add AWS Agentless Collector details to the GetDiscoverySummary API response
+* `Aws\EC2` - Documentation updates for Amazon EC2.
+* `Aws\ElastiCache` - Adding AutoMinorVersionUpgrade in the DescribeReplicationGroups API
+* `Aws\KMS` - Added support for the SM2 KeySpec in China Partition Regions
+* `Aws\MediaPackage` - This release adds "IncludeIframeOnlyStream" for Dash endpoints and increases the number of supported video and audio encryption presets for Speke v2
+* `Aws\SSOAdmin` - AWS SSO now supports attaching customer managed policies and a permissions boundary to your permission sets. This release adds new API operations to manage and view the customer managed policies and the permissions boundary for a given permission set.
+* `Aws\SageMaker` - Amazon SageMaker Edge Manager provides lightweight model deployment feature to deploy machine learning models on requested devices.
+
+## 3.231.7 - 2022-07-15
+
+* `Aws\CloudWatchEvidently` - This release adds support for the new segmentation feature.
+* `Aws\DataSync` - Documentation updates for AWS DataSync regarding configuring Amazon FSx for ONTAP location security groups and SMB user permissions.
+* `Aws\S3` - Fixed possible issue in TransferManager's downloadDirectory operation where files could be downloaded to some sibling directories of the destination directory if the key contained specially-crafted relative paths.
+* `Aws\WAFV2` - This SDK release provide customers ability to add sensitivity level for WAF SQLI Match Statements.
+* `Aws\drs` - Changed existing APIs to allow choosing a dynamic volume type for replicating volumes, to reduce costs for customers.
+
 ## 3.231.6 - 2022-07-14
 
 * `Aws\Athena` - This release updates data types that contain either QueryExecutionId, NamedQueryId or ExpectedBucketOwner. Ids must be between 1 and 128 characters and contain only non-whitespace characters. ExpectedBucketOwner must be 12-digit string.
