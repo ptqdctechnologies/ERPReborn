@@ -21,7 +21,7 @@
       @include('Advance.Advance.Functions.Menu.menuArf')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formUpdateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formSubmitArf">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">

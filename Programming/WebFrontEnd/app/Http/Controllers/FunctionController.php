@@ -58,6 +58,8 @@ class FunctionController extends Controller
         ]
         );
 
+        // dd($varData);
+
         return response()->json($varData['data']);
     }
 

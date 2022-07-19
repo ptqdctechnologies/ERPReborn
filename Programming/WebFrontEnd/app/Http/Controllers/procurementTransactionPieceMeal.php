@@ -7,14 +7,14 @@ use Illuminate\Support\Facades\Input;
 use DB;
 use PDO;
 
-class procurementTransactionPPM extends Controller
+class procurementTransactionPieceMeal extends Controller
 {
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionPPM");
+        $request->session()->forget("SessionPieceMeal");
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -24,28 +24,18 @@ class procurementTransactionPPM extends Controller
             ]
         );
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-        );
+        $var = 0;
+        if (!empty($_GET['var'])) {
+            $var =  $_GET['var'];
+        }
 
         $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
+            'dataProject' => $varDataProject['data']['data'],
+            'var' => $var,
         ];
 
-        return view('HumanResources.PieceMeal.Transactions.addPPM', $compact);
+
+        return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
 
     }
 
@@ -58,74 +48,40 @@ class procurementTransactionPPM extends Controller
     public function store(Request $request)
     {
         $input = $request->all();
-        $count_product = count($input['var_product_id']);
-
-        $input_header = array(
-            'var_budget_code'	=> $input['var_budget_code'],
-            'var_budget_code2'	=> $input['var_budget_code2'],
-            'var_sub_budget_code'	=> $input['var_sub_budget_code'],
-            'var_sub_budget_code2'	=> $input['var_sub_budget_code2'],
-            // 'var_request_name'	=> $input['var_request_name'],
-            // 'var_beneficiary'	=> $input['var_beneficiary'],
-            // 'var_internal_notes'	=> $input['var_internal_notes'],
-            // 'var_bank_name'	=> $input['var_bank_name'],
-            // 'var_account_name'	=> $input['var_account_name'],
-            // 'var_account_number'	=> $input['var_account_number']
-        );
-
-        print_r($input_header);
-
-        $input_product = array(); 
-        if ($count_product > 0 && isset($count_product)) {
-            for ($n = 0; $n < $count_product; $n++) {
-                $input_product['var_Pr_number'] = $input['var_Pr_number'][$n];
-                $input_product['var_product_id'] = $input['var_product_id'][$n];
-                $input_product['var_product_name'] = $input['var_product_name'][$n];
-                // $input_product['var_quantity'] = $input['var_quantity'][$n];
-                $input_product['var_uom'] = $input['var_uom'][$n];
-                $input_product['var_price'] = $input['var_price'][$n];
-                $input_product['var_totalPrice'] = $input['var_totalPrice'][$n];
-                // $input_product['var_currency'] = $input['var_currency'][$n];
-                $input_product['var_remark'] = $input['var_remark'][$n];
-                
-                print_r($input_product);
-            }
-        }
     }
 
-    public function StoreValidatePPM(Request $request)
+    public function StoreValidatePieceMeal(Request $request)
     {
-        $tamp = 0; $status = 200;
-        $val = $request->input('putProductName');
-        $data = $request->session()->get("SessionPPM");
-        if($request->session()->has("SessionPPM")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+        $tamp = 0;
+        $status = 200;
+        $val = $request->input('putProductId');
+        $data = $request->session()->get("SessionPieceMeal");
+        if ($request->session()->has("SessionPieceMeal")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $val) {
                     $tamp = 1;
                 }
             }
-            if($tamp == 0){
-                $request->session()->push("SessionPPM", $val);
-            }
-            else{
+            if ($tamp == 0) {
+                $request->session()->push("SessionPieceMeal", $val);
+            } else {
                 $status = 500;
             }
-        }
-        else{
-            $request->session()->push("SessionPPM", $val);
+        } else {
+            $request->session()->push("SessionPieceMeal", $val);
         }
 
         return response()->json($status);
     }
 
-    public function StoreValidatePPM2(Request $request)
+    public function StoreValidatePieceMeal2(Request $request)
     {
-        $messages = $request->session()->get("SessionPPM");
-        $val = $request->input('putProductName');
+        $messages = $request->session()->get("SessionPieceMeal");
+        $val = $request->input('putProductId');
         if (($key = array_search($val, $messages)) !== false) {
             unset($messages[$key]);
             $newClass = array_values($messages);
-            $request->session()->put("SessionPPM", $newClass);
+            $request->session()->put("SessionPieceMeal", $newClass);
         }
     }
 
