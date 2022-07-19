@@ -17,7 +17,7 @@ use League\Flysystem\StorageAttributes;
 use League\Flysystem\UnableToCheckDirectoryExistence;
 use League\Flysystem\UnableToCheckFileExistence;
 use League\Flysystem\UnableToCopyFile;
-use League\Flysystem\UnableToCreateDirectory;
+use League\Flysystem\UnableToDeleteDirectory;
 use League\Flysystem\UnableToDeleteFile;
 use League\Flysystem\UnableToMoveFile;
 use League\Flysystem\UnableToReadFile;
@@ -173,7 +173,7 @@ class AwsS3V3Adapter implements FilesystemAdapter
         $key = $this->prefixer->prefixPath($path);
         $options = $this->createOptionsFromConfig($config);
         $acl = $options['params']['ACL'] ?? $this->determineAcl($config);
-        $shouldDetermineMimetype = $body !== '' && ! array_key_exists('ContentType', $options['params']);
+        $shouldDetermineMimetype = ! array_key_exists('ContentType', $options['params']);
 
         if ($shouldDetermineMimetype && $mimeType = $this->mimeTypeDetector->detectMimeType($key, $body)) {
             $options['params']['ContentType'] = $mimeType;
@@ -261,7 +261,7 @@ class AwsS3V3Adapter implements FilesystemAdapter
         try {
             $this->client->deleteMatchingObjects($this->bucket, $prefix);
         } catch (Throwable $exception) {
-            throw UnableToCreateDirectory::dueToFailure($path, $exception);
+            throw UnableToDeleteDirectory::atLocation($path, '', $exception);
         }
     }
 
