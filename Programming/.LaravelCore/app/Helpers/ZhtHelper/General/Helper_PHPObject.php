@@ -29,9 +29,9 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varNameSpace ► Name Space                                                                                |
+        |      ▪ (string) $varFilePath ► File Path                                                                                 |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
+        |      ▪ (array) varReturn                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath)

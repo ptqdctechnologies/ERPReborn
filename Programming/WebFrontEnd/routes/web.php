@@ -300,9 +300,31 @@ Route::get('showLogError', function () {
 
 
 
+//---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
+$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+$varUserSession = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
+$varArrayExampleAPIKey = \App\Helpers\ZhtHelper\General\Helper_File::getDeepestSubFoldersInFolder(
+    $varUserSession,
+    getcwd().'/../app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall');
+
+//$varArrayTemp = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
 
 
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testAja', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\Controller_Examples@testAja');
+for($i=0, $iMax=count($varArrayExampleAPIKey); $i!=$iMax; $i++)
+    {
+    $varClass = '\App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall'.str_replace('/', '\\', $varArrayExampleAPIKey[$i]).'\example';
+
+    $varFilePath = getcwd().'/../app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php';
+    $varArrayFunctionEntities = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
+    for($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
+        {
+        Route::get(
+            str_replace('/', '.', str_replace('#/', '', '#'.$varArrayExampleAPIKey[$i])).'_'.$varArrayFunctionEntities[$j]['Name'], 
+            $varClass.'@'.$varArrayFunctionEntities[$j]['Name']
+            )->defaults('APIWebToken', $varUserSession);
+        }
+    }
+//---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
 
 
 /*

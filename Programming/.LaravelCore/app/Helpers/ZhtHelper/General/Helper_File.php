@@ -202,6 +202,57 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDeepestSubFoldersInFolder                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan daftar seluruh subfolder terdalam pada file path (varFilePath)                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDeepestSubFoldersInFolder($varUserSession, $varFilePath)
+            {
+            $varArrayData = self::getDeepestSubFolderInFolders_ENGINE($varUserSession, $varFilePath);
+            for($i=0; $i!=count($varArrayData); $i++)
+                {
+                $varReturn[$i] = str_replace('#'.$varFilePath, '', '#'.$varArrayData[$i]);;
+                }
+            return $varReturn;
+            }
+            
+        private static function getDeepestSubFolderInFolders_ENGINE($varUserSession, $varFilePath)
+            {
+            $varArrayData = self::getSubFoldersInFolder($varUserSession, $varFilePath);
+            $iMax=count($varArrayData);
+            if($iMax > 0)
+                {
+                $varIndex=0;
+                for($i=0; $i!=$iMax; $i++)
+                    {
+                    $varSubFolder = self::getDeepestSubFolderInFolders_ENGINE($varUserSession, $varArrayData[$i]);
+                    for($j=0; $j!=count($varSubFolder); $j++)
+                        {
+                        $varReturn[$varIndex] = $varSubFolder[$j];
+                        $varIndex++;
+                        }
+                    } 
+                }
+            else
+                {
+                $varReturn[0] = $varFilePath;
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileContent                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -308,5 +359,28 @@ namespace App\Helpers\ZhtHelper\General
             {
             return include($varFilePath.'*');
             }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSubFoldersInFolder                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan daftar seluruh subfolder pada file path (varFilePath)                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSubFoldersInFolder($varUserSession, $varFilePath)
+            {
+            $varArrayData = glob($varFilePath . '/*' , GLOB_ONLYDIR);
+            return $varArrayData;
+            }
+            
         }
     }
