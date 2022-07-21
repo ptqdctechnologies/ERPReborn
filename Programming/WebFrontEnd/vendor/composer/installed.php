@@ -454,6 +454,15 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'lombax85/create_function' => array(
+            'pretty_version' => '1.0.3',
+            'version' => '1.0.3.0',
+            'reference' => 'd14b98647bbd8e70e0284944ebd768f8437452e6',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../lombax85/create_function',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
         'mockery/mockery' => array(
             'pretty_version' => '1.5.0',
             'version' => '1.5.0.0',

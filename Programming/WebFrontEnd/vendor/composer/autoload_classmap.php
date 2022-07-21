@@ -50,6 +50,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
+    'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_Examples' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_Examples.php',
     'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => $baseDir . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
     'App\\Http\\Controllers\\Auth\\LoginController' => $baseDir . '/app/Http/Controllers/Auth/LoginController.php',
     'App\\Http\\Controllers\\BudgetController' => $baseDir . '/app/Http/Controllers/BudgetController.php',

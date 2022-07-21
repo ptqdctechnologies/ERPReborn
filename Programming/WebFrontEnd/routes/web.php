@@ -298,6 +298,13 @@ Route::get('showLogError', function () {
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIAuthentication_sendAuthRequest', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIAuthentication_SendAuthRequest', 'webWithoutCSRF');
 
 
+
+
+
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('testAja', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\Controller_Examples@testAja');
+
+
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : authentication.general....                                                                                       |

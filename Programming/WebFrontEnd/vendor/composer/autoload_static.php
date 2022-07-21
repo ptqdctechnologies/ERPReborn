@@ -30,6 +30,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'c7a3c339e7e14b60e06a2d7fcce9476b' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Events/functions.php',
         'f0906e6318348a765ffb6eb24e0d0938' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
+        '64a84bbc153d0f0a91d9c33b1bbea9a2' => __DIR__ . '/..' . '/lombax85/create_function/src/helper.php',
         '320163ac6b93aebe3dc25b60a0533d56' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/helpers.php',
     );
 
@@ -544,6 +545,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPResponse' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPResponse.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Registry' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Registry.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Controller_Examples' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Controller_Examples.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\SendWSRequest' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/SendWSRequest.php',
         'App\\Http\\Controllers\\Auth\\LoginController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/LoginController.php',
         'App\\Http\\Controllers\\BudgetController' => __DIR__ . '/../..' . '/app/Http/Controllers/BudgetController.php',

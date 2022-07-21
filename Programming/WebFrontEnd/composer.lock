@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5f4b86fa84cb05957b445cd4bc556f73",
+    "content-hash": "69f1cba671130b71b502b54811a2c717",
     "packages": [
         {
             "name": "brick/math",
@@ -1863,6 +1863,52 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
+        },
+        {
+            "name": "lombax85/create_function",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lombax85/create_function.git",
+                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lombax85/create_function/zipball/d14b98647bbd8e70e0284944ebd768f8437452e6",
+                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/helper.php"
+                ],
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabio Lombardo",
+                    "email": "lombax85@gmail.com"
+                }
+            ],
+            "description": "A replacement for the function create_function for PHP 8",
+            "support": {
+                "issues": "https://github.com/lombax85/create_function/issues",
+                "source": "https://github.com/lombax85/create_function/tree/1.0.3"
+            },
+            "time": "2021-04-17T22:40:34+00:00"
         },
         {
             "name": "monolog/monolog",
