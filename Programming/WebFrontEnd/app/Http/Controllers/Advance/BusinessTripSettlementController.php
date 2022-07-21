@@ -1,8 +1,12 @@
 <?php
-namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
-class procurementTransactionBsf extends Controller
+namespace App\Http\Controllers\Advance;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
+
+class BusinessTripSettlementController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -132,7 +136,7 @@ class procurementTransactionBsf extends Controller
     {
         //
     }
-    public function revisionBsfIndex(Request $request)
+    public function RevisionBsfIndex(Request $request)
     {
         return view('Advance.BussinesTrip.Transactions.revisionBSF');
     }

@@ -1,8 +1,12 @@
 <?php
-namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
-class procurementTransactionBrf extends Controller
+namespace App\Http\Controllers\Advance;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
+
+class BusinessTripRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -171,7 +175,7 @@ class procurementTransactionBrf extends Controller
     {
         //
     }
-    public function revisionBrfIndex(Request $request)
+    public function RevisionBrfIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 

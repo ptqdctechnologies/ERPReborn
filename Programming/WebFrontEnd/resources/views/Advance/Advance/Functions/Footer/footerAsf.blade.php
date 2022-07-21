@@ -148,7 +148,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{!! route("ASF.StoreValidateAsf") !!}?putProductName=' + $("#nameMaterialHide").val(),
+                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement") !!}?putProductName=' + $("#nameMaterialHide").val(),
                 success: function(data) {
                 
                     if(data == "200"){
@@ -236,7 +236,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ASF.StoreValidateAsf2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductName=' + ProductId,
                             });
                         });
 
@@ -246,7 +246,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ASF.StoreValidateAsf2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductName=' + ProductId,
                             });
 
                             var id1 = $this.data("id1");
@@ -304,7 +304,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ASF.StoreValidateAsf2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductName=' + ProductId,
                             });
                             
                         });
@@ -315,7 +315,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ASF.StoreValidateAsf2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductName=' + ProductId,
                             });
 
                             var id1 = $this.data("id1");

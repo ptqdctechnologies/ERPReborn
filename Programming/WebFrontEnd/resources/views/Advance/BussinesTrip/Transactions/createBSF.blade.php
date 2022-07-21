@@ -3,7 +3,7 @@
   @include('Partials.navbar')
   @include('Partials.sidebar')
   
-  <form method="post" enctype="multipart/form-data" action="{{ route('BSF.submitData') }}" name="formArf1">
+  <form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripSettlement.store') }}" name="formArf1">
   @csrf
   <div class="content-wrapper">
     <section class="content">

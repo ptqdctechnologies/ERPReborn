@@ -1,18 +1,17 @@
 <?php
-namespace App\Http\Controllers;
-use Illuminate\Http\Request;
 
-class procurementTransactionAsf extends Controller
+namespace App\Http\Controllers\Advance;
+
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
+
+class AdvanceSettlementController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionAsf");
+        $request->session()->forget("SessionAdvanceSetllement");
 
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -87,107 +86,42 @@ class procurementTransactionAsf extends Controller
         return view('Advance.Advance.Transactions.createASF', $compact);
     }
 
-    public function StoreValidateAsf(Request $request)
+    public function StoreValidateAdvanceSettlement(Request $request)
     {
         $tamp = 0; $status = 200;
         $val = $request->input('putProductName');
-        $data = $request->session()->get("SessionAsf");
-        if($request->session()->has("SessionAsf")){
+        $data = $request->session()->get("SessionAdvanceSetllement");
+        if($request->session()->has("SessionAdvanceSetllement")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
-                $request->session()->push("SessionAsf", $val);
+                $request->session()->push("SessionAdvanceSetllement", $val);
             }
             else{
                 $status = 500;
             }
         }
         else{
-            $request->session()->push("SessionAsf", $val);
+            $request->session()->push("SessionAdvanceSetllement", $val);
         }
 
         return response()->json($status);
     }
-    public function StoreValidateAsf2(Request $request)
+    public function StoreValidateAdvanceSettlement2(Request $request)
     {
-        $messages = $request->session()->get("SessionAsf");
+        $messages = $request->session()->get("SessionAdvanceSetllement");
         $val = $request->input('putProductName');
         if (($key = array_search($val, $messages)) !== false) {
             unset($messages[$key]);
             $newClass = array_values($messages);
-            $request->session()->put("SessionAsf", $newClass);
+            $request->session()->put("SessionAdvanceSetllement", $newClass);
         }
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-    public function revisionAsfIndex(Request $request)
+    public function RevisionAsfIndex(Request $request)
     {   
         $varAPIWebToken = $request->session()->get('SessionLogin');
 

@@ -24,6 +24,23 @@ class procurementTransactionPieceMeal extends Controller
             ]
         );
 
+        $varDataPieceMeal = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+        // dd($varDataPieceMeal);
+
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -31,10 +48,10 @@ class procurementTransactionPieceMeal extends Controller
 
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
+            'dataPieceMeal' => $varDataPieceMeal['data'],
             'var' => $var,
         ];
-
-
+        
         return view('HumanResources.PieceMeal.Transactions.CreatePieceMeal', $compact);
 
     }

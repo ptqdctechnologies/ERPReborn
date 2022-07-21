@@ -4,7 +4,7 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getRequester')
+@include('getFunction.getWorker')
 @include('getFunction.getCustomer')
 @include('getFunction.getCurrency')
 @include('getFunction.getProduk')
@@ -13,7 +13,7 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formCreateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ReimbursableExpenditure.store') }}" id="formCreateArf">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
           <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab">
@@ -149,7 +149,7 @@
                     </table>
                   </div>
                 </div>
-                <a href="{{ route('ARF.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
+                <a href="{{ route('ReimbursableExpenditure.index') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
                   <i class="fa fa-times" aria-hidden="true" title="Cancel Advance List Cart">Cancel</i>
                 </a>
                 <button class="btn btn-outline btn-success btn-sm float-right" type="submit" style="margin-right: 5px;color:white;" id="submitArf">

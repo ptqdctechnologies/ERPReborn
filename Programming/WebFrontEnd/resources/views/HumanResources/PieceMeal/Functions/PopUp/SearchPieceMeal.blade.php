@@ -1,8 +1,8 @@
-<div id="mySearchProcReqRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchPieceMealRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose ARF</label>
+                <label class="card-title">Choose Piece Meal</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -19,28 +19,32 @@
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
                                         @php $no = 1 @endphp
-                                        @foreach($dataProcurementRequest as $dataProcurementRequests)
+                                        @foreach($dataPieceMeal as $dataPieceMeals)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataProcurementRequests['sys_ID']}}" data-id2="{{$dataProcurementRequests['documentNumber']}}" data-id3="{{$dataProcurementRequests['combinedBudgetSection_RefID']}}">{{$dataProcurementRequests['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">{{$dataPieceMeals['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataProcurementRequests['sys_ID']}}" data-id2="{{$dataProcurementRequests['documentNumber']}}" data-id3="{{$dataProcurementRequests['combinedBudgetSection_RefID']}}">{{$dataProcurementRequests['combinedBudget_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">{{$dataPieceMeals['combinedBudget_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataProcurementRequests['sys_ID']}}" data-id2="{{$dataProcurementRequests['documentNumber']}}" data-id3="{{$dataProcurementRequests['combinedBudgetSection_RefID']}}">{{$dataProcurementRequests['combinedBudgetName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">{{$dataPieceMeals['combinedBudgetName']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataProcurementRequests['sys_ID']}}" data-id2="{{$dataProcurementRequests['documentNumber']}}" data-id3="{{$dataProcurementRequests['combinedBudgetSection_RefID']}}">{{$dataProcurementRequests['combinedBudgetSection_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">{{$dataPieceMeals['combinedBudgetSection_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataProcurementRequests['sys_ID']}}" data-id2="{{$dataProcurementRequests['documentNumber']}}" data-id3="{{$dataProcurementRequests['combinedBudgetSection_RefID']}}">{{$dataProcurementRequests['combinedBudgetSectionName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">{{$dataPieceMeals['combinedBudgetSectionName']}}</p>
+                                                </td>
+                                                <td>
+                                                    <p data-dismiss="modal" class="klikSearchProcReq" data-id1="{{$dataPieceMeals['sys_ID']}}" data-id2="{{$dataPieceMeals['documentNumber']}}" data-id3="{{$dataPieceMeals['combinedBudgetSection_RefID']}}">0</p>
                                                 </td>
                                             </tr>
                                         @endforeach

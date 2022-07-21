@@ -26,21 +26,21 @@ class procurementTransactionProcurementRequest extends Controller
 
         $varDataProcurementRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
+        );
         // dd($varDataProcurementRequest);
-        
+
         $var = 0;
         if (!empty($_GET['var'])) {
             $var =  $_GET['var'];
@@ -67,48 +67,47 @@ class procurementTransactionProcurementRequest extends Controller
         $count_product = count($input['var_product_id']);
 
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        
+
         $ProcurementRequestDetail = [];
-        for($n =0; $n < $count_product; $n++){
+        for ($n = 0; $n < $count_product; $n++) {
             $ProcurementRequestDetail[$n] = [
-            "entities" => [
-                "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
-                "product_RefID" => (int) $input['var_product_id'][$n],
-                "quantity" => (int) $input['var_quantity'][$n],
-                "quantityUnit_RefID" => 73000000000001,
-                "productUnitPriceCurrency_RefID" => 62000000000001,
-                "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
-                "productUnitPriceCurrencyExchangeRate" => 1,
-                "remarks" => 'Catatan Detail'                                    
+                "entities" => [
+                    "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                    "product_RefID" => (int) $input['var_product_id'][$n],
+                    "quantity" => (int) $input['var_quantity'][$n],
+                    "quantityUnit_RefID" => 73000000000001,
+                    "productUnitPriceCurrency_RefID" => 62000000000001,
+                    "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                    "productUnitPriceCurrencyExchangeRate" => 1,
+                    "remarks" => $input['var_remark'][$n],
                 ]
             ];
         }
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.create.supplyChain.setPurchaseRequisition', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.create.supplyChain.setPurchaseRequisition',
+            'latest',
             [
-            'entities' => [
-                "documentDateTimeTZ" => '2022-03-07',
-                "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                "remarks" => 'My Remarks',
-                "additionalData" => [
-                    "itemList" => [
-                        "items" => $ProcurementRequestDetail
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "remarks" => 'My Remarks',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $ProcurementRequestDetail
                         ]
                     ]
                 ]
-            ]                    
-            );
+            ]
+        );
 
         $compact = [
-            "advnumber"=> "ADV-testing-00111",
+            "advnumber" => "ADV-testing-00111",
         ];
 
-        return response()->json($compact); 
-        
+        return response()->json($compact);
     }
 
     public function StoreValidateProcurementRequest(Request $request)
@@ -149,6 +148,7 @@ class procurementTransactionProcurementRequest extends Controller
     public function RevisionPrIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        $request->session()->forget("SessionProcurementRequest");
 
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -162,32 +162,32 @@ class procurementTransactionProcurementRequest extends Controller
 
         $varDataProcurementRequest = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.supplyChain.getPurchaseRequisition', 
-            'latest', 
-            [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
-                ]
-            ]
-            );
-        $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'report.form.documentForm.supplyChain.getPurchaseRequisition', 
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisition',
             'latest',
             [
-            'parameter' => [
-                'recordID' => (int) $request->searchPrNumberRevisionId
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
+        );
+        $varDataProcReqRevision = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'report.form.documentForm.supplyChain.getPurchaseRequisition',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $request->searchPrNumberRevisionId
+                ]
+            ]
+        );
         // dd($varDataProcReqRevision);
-        
+
 
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
@@ -199,6 +199,60 @@ class procurementTransactionProcurementRequest extends Controller
         return view('Purchase.ProcurementRequest.Transactions.RevisionProcurementRequest', $compact);
     }
 
+    public function update(Request $request, $id)
+    {
+        $input = $request->all();
+        // dd($input);/
+        $count_product = count($input['var_product_id']);
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $ProcReqDetail = [];
+        if ($count_product > 0 && isset($count_product)) {
+            for ($n = 0; $n < $count_product; $n++) {
+                $ProcReqDetail[$n] = [
+                    'recordID' => ((!$input['var_recordIDDetail'][$n]) ? null : (int) $input['var_recordIDDetail'][$n]),
+                    'entities' => [
+                        "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+                        "product_RefID" => (int) $input['var_product_id'][$n],
+                        "quantity" => (int) $input['var_quantity'][$n],
+                        "quantityUnit_RefID" => 73000000000001,
+                        "productUnitPriceCurrency_RefID" => 62000000000001,
+                        "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                        "productUnitPriceCurrencyExchangeRate" => 1,
+                        "remarks" => $input['var_remark'][$n],
+                    ]
+                ];
+            }
+        }
+
+        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.update.supplyChain.setPurchaseRequisition',
+            'latest',
+            [
+                'recordID' => (int)$input['var_recordID'],
+                'entities' => [
+                    "documentDateTimeTZ" => '2022-03-07',
+                    "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                    "remarks" => 'My Remarks',
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $ProcReqDetail
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+
+        $compact = [
+            "status" => true,
+        ];
+
+        return response()->json($compact);
+    }
+
     public function ProcReqListCartRevision(Request $request)
     {
 
@@ -207,18 +261,25 @@ class procurementTransactionProcurementRequest extends Controller
 
         $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataRecord.supplyChain.getPurchaseRequisitionDetail', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.supplyChain.getPurchaseRequisitionDetail',
+            'latest',
             [
-            'recordID' => (int) $ProcReqRefID
+                'parameter' => [
+                    'purchaseRequisition_RefID' => (int) $ProcReqRefID
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-            );
-        
-        dd($varData);
-        // foreach($varData['data'] as $varDatas){
-        //     $request->session()->push("SessionArf", (string) $varDatas['product_RefID']);
-        // }
+        );
+        // dd($varData);
+        foreach ($varData['data'] as $varDatas) {
+            $request->session()->push("SessionProcurementRequest", (string) $varDatas['product_RefID']);
+        }
         return response()->json($varData['data']);
     }
     /**
@@ -258,10 +319,7 @@ class procurementTransactionProcurementRequest extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -9,7 +9,7 @@
 @include('getFunction.getCurrency')
 @include('Advance.Advance.Functions.PopUp.searchArf')
 
-<form method="post" enctype="multipart/form-data" action="{{ route('ASF.submitData') }}" name="formArf1">
+<form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" name="formArf1">
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">

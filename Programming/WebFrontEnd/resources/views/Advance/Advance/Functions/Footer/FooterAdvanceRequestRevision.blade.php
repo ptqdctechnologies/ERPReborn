@@ -22,23 +22,30 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#cancelDetailArfRevision").click(function() {
-        let product_id = $("#putProductId").val();
-        let putProductName = $("#putProductName").val();
-        let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-        let putUom = $("#putUom").val();
-        let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
-        let putCurrency = $("#putCurrency").val();
-        let totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
-        let putRemark = $("#putRemark").val();
-        let totalBalance = $("#totalBalance").val();
-        let putPrice = $('#putPrice').val();
-        let combinedBudget = $("#combinedBudget").val();
-        let recordIDDetail = $("#recordIDDetail").val();
-        let statusProduct = $("#statusProduct").val();
-        let statusEditArfRevision = $("#statusEditArfRevision").val();
+        $("#CancelDetailArfRevision").click(function() {
+        console.log($("#putQty").val().replace(/^\s+|\s+$/g, ''));
+        console.log($("#putPrice").val().replace(/^\s+|\s+$/g, ''));
+        var product_id = $("#putProductId").val();
+        var putProductName = $("#putProductName").val();
+        var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
+        var putUom = $("#putUom").val();
+        var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
+        var putCurrency = $("#putCurrency").val();
+        var totalArfDetails = $("#totalArfDetails").val().replace(/^\s+|\s+$/g, '');
+        var putRemark = $("#putRemark").val();
+        var totalBalance = $("#totalBalance").val();
+        var combinedBudget = $("#combinedBudget").val();
+        var recordIDDetail = $("#recordIDDetail").val();
+        var statusProduct = $("#statusProduct").val();
+        var statusEditArfRevision = $("#statusEditArfRevision").val();
         if(statusEditArfRevision == "Yes"){
-            let html = '<tr>' +
+            
+            var qtyCek = $('#putQty').val().replace(/^\s+|\s+$/g, '');
+            var priceCek = $("#putPrice").val().replace(/^\s+|\s+$/g, '');
+            var totalArfDetails = parseFloat(qtyCek * priceCek).toFixed(2);
+            
+            
+            var html = '<tr>' +
                 '<td>' +
                 '<button type="button" class="btn btn-xs editAdvanceDetail" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" data-id10="' + statusProduct + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> '+
                 '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
@@ -114,7 +121,7 @@
         else{
             $.ajax({
                 type: "POST",
-                url: '{!! route("ARF.StoreValidateArf") !!}?putProductId=' + $('#putProductId').val(),
+                url: '{!! route("AdvanceRequest.StoreValidateAdvance") !!}?putProductId=' + $('#putProductId').val(),
                 success: function(data) {
 
                     if (data == "200") {
@@ -164,7 +171,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ARF.StoreValidateArf2") !!}?putProductId=' + ProductId,
+                                url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + ProductId,
                             });
                         });
                         $("body").on("click", ".editAdvanceDetail", function() {
@@ -182,7 +189,7 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("ARF.StoreValidateArf2") !!}?putProductId=' + id1,
+                                url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + id1,
                             });
 
                             $("#putProductId").val(id1);
@@ -254,17 +261,16 @@
 
     $.ajax({
         type: "POST",
-        url: '{!! route("ARF.AdvanceListCartRevision") !!}?advance_RefID=' + advance_RefID,
+        url: '{!! route("AdvanceRequest.AdvanceListCartRevision") !!}?advance_RefID=' + advance_RefID,
         success: function(data) {
 
             $.each(data, function(key, value) {
-                console.log(value);
                 $("#product_id2").prop("disabled", true);
                 var statusProduct = $("#statusProduct").val();
                 var html =
                     '<tr>' +
                     '<td>' +
-                    '&nbsp;<button type="button" class="btn btn-xs editAdvanListCart" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceCurrencyISOCode + '" data-id7="' + value.remarks + '" data-id8="' + value.priceBaseCurrencyValue + '" data-id9="' + statusProduct + '" data-id10="' + value.combinedBudgetSectionDetail_RefID + '" data-id11="' + value.sys_ID + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="15" alt="" title="Edit"></button> ' +
+                    '&nbsp;<button type="button" class="btn btn-xs EditAdvanListCart" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceCurrencyISOCode + '" data-id7="' + value.remarks + '" data-id8="' + value.priceBaseCurrencyValue + '" data-id9="' + statusProduct + '" data-id10="' + value.combinedBudgetSectionDetail_RefID + '" data-id11="' + value.sys_ID + '" data-id12="' + value.combinedBudget_Quantity + '" data-id13="' + value.combinedBudget_UnitPriceBaseCurrencyValue + '" data-id14="' + value.combinedBudget_PriceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="15" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + value.productName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + value.quantity + '">' +
@@ -288,19 +294,8 @@
                 $('table.tableArf tbody').append(html);
             });
 
-            $("body").on("click", ".editAdvanListCart", function() {
+            $("body").on("click", ".EditAdvanListCart", function() {
                 var $this = $(this);
-                var id1 = $this.data("id1");
-                var id2 = $this.data("id2");
-                var id3 = $this.data("id3");
-                var id4 = $this.data("id4");
-                var id5 = $this.data("id5");
-                var id6 = $this.data("id6");
-                var id7 = $this.data("id7");
-                var id8 = $this.data("id8");
-                var id9 = $this.data("id9");
-                var id10 = $this.data("id10");
-                var id11 = $this.data("id11");
 
                 $.ajaxSetup({
                     headers: {
@@ -310,27 +305,30 @@
 
                 $.ajax({
                     type: "POST",
-                    url: '{!! route("ARF.StoreValidateArf2") !!}?putProductId=' + id1,
+                    url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1"),
                 });
 
-                $("#putProductId").val(id1);
-                $("#putProductName").val(id2);
-                $('#qtyCek').val(id3);
-                $('#putQty').val(id3);
-                $("#putUom").val(id4);
-                $("#priceCek").val(id5);
-                $("#putCurrency").val(id6);
-                $("#totalArfDetails").val(id8);
-                $("#totalBalance").val(id8);
+                $("#putProductId").val($this.data("id1"));
+                $("#putProductName").val($this.data("id2"));
+                $('#qtyCek').val($this.data("id3"));
+                $('#putQty').val($this.data("id3"));
+                $("#putUom").val($this.data("id4"));
+                $("#priceCek").val($this.data("id5"));
+                $("#putPrice").val($this.data("id5"));
+                $("#putCurrency").val($this.data("id6"));
+                $("#putRemark").val($this.data("id7"));
+                $("#totalArfDetails").val($this.data("id8"));
                 $("#totalPayment").val("0");
-                $("#combinedBudget").val(id10);
-                $("#recordIDDetail").val(id11);
+                $("#combinedBudget").val($this.data("id10"));
+                $("#recordIDDetail").val($this.data("id11"));
+                $("#ValidateQuantity").val($this.data("id12"));
+                $("#ValidatePrice").val($this.data("id13"));
+                $("#totalBalance").val($this.data("id14"));
                 $("#statusEditArfRevision").val("Yes");
-                
 
                 $(this).closest("tr").remove();
 
-                if (id9 == "Yes") {
+                if ($this.data("id9") == "Yes") {
                     $("#product_id2").prop("disabled", false);
                 } else {
                     $("#product_id2").prop("disabled", true);
@@ -430,6 +428,8 @@
                 $("#combinedBudget").val(combinedBudget);
                 $("#totalPayment").val("0");
 
+                $("#ValidateQuantity").val($this.data("id2"));
+                $("#ValidatePrice").val($this.data("id3"));
 
                 $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", true);
                 $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", true);
@@ -445,62 +445,42 @@
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-            var qtyReq = $(this).val();
-            if (qtyReq == 0 || qtyReq == '') {
-                qtyReq = 0;
-            }
 
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
-            var siteCodeRevArfAfter = $("#siteCodeRevArfAfter").val();
-            var productId = $('#putProductId').val();
             var qtyProduct = $('#qtyCek').val();
             var priceProduct = $('#priceCek').val();
 
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
+            var qtyProduct2 = $('#ValidateQuantity').val();
+            var priceProduct2 = $('#ValidatePrice').val();
+            var total = qtyProduct * priceProduct;
+            var total2 = qtyProduct2 * priceProduct2;
 
-                success: function(data) {
-                    $.each(data, function(key, value3) {
-                        var putProductId = $('#putProductId').val();
-                        if (putProductId == value3.product_RefID) {
-                            var qtyProduct2 = value3.quantity;
-                            var priceProduct2 = value3.unitPriceBaseCurrencyValue;
-                            var total = qtyProduct * priceProduct;
-                            var total2 = qtyProduct2 * priceProduct2;
-
-                            if (parseFloat(qtyProduct) == '') {
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                                $('#totalArfDetails').val(0);
-                            }
-                            else if(parseFloat(qtyProduct) > parseFloat(qtyProduct2)){
-                                Swal.fire("Error !", "Your Quantity Request is Over", "error");
-                                $("#qtyCek").val('');
-                                $('#totalArfDetails').val('');
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                                $("#saveArfList").prop("disabled", true);
-                            }
-                            else if(parseFloat(total) > parseFloat(total2)){
-                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                                $('#totalArfDetails').val(0);
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                            }
-                            else{
-                                var totalReq = parseFloat(total);
-                                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                                $("#addFromDetailtoCart").prop("disabled", false);
-                            }
-
-                        }
-                    });
-                }
-            });
+            if (parseFloat(qtyProduct) == '') {
+                $("#addFromDetailtoCart").prop("disabled", true);
+                $("#saveArfList").prop("disabled", true);
+                $('#totalArfDetails').val(0);
+            }
+            else if(parseFloat(qtyProduct) > parseFloat(qtyProduct2)){
+                Swal.fire("Error !", "Your Quantity Request is Over", "error");
+                $("#qtyCek").val('');
+                $('#totalArfDetails').val('');
+                $("#addFromDetailtoCart").prop("disabled", true);
+                $("#saveArfList").prop("disabled", true);
+            }
+            else if(parseFloat(total) > parseFloat(total2)){
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $('#totalArfDetails').val(0);
+                $("#addFromDetailtoCart").prop("disabled", true);
+            }
+            else{
+                var totalReq = parseFloat(total);
+                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
+                $("#addFromDetailtoCart").prop("disabled", false);
+            }
         });
     });
 </script>
@@ -509,62 +489,42 @@
     $('document').ready(function() {
         $('.ChangePrice').keyup(function() {
 
-            var priceReq = $(this).val();
-            if (priceReq == 0 || priceReq == '') {
-                priceReq = 0;
-            }
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
-            var siteCodeRevArfAfter = $("#siteCodeRevArfAfter").val();
-            var productId = $('#putProductId').val();
             var qtyProduct = $('#qtyCek').val();
             var priceProduct = $('#priceCek').val();
             var totalBalance = $("#totalBalance").val();
 
-            $.ajax({
-                type: 'GET',
-                url: '{!! route("getSite") !!}?sitecode=' + siteCodeRevArfAfter,
+            var qtyProduct2 = $('#ValidateQuantity').val();
+            var priceProduct2 = $('#ValidatePrice').val();
+            var total = qtyProduct * priceProduct;
+            var total2 = qtyProduct2 * priceProduct2;
 
-                success: function(data) {
-                    $.each(data, function(key, value3) {
-                        var putProductId = $('#putProductId').val();
-                        if (putProductId == value3.product_RefID) {
-                            var qtyProduct2 = value3.quantity;
-                            var priceProduct2 = value3.unitPriceBaseCurrencyValue;
-                            var total = qtyProduct * priceProduct;
-                            var total2 = qtyProduct2 * priceProduct2;
-
-                            if (parseFloat(priceProduct) == '') {
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                                $('#totalArfDetails').val(0);
-                            }
-                            else if(parseFloat(priceProduct) > parseFloat(priceProduct2)){
-                                Swal.fire("Error !", "Your Price Request is Over", "error");
-                                $("#priceCek").val("");
-                                $('#totalArfDetails').val('');
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                            }
-                            else if (parseFloat(total) > parseFloat(total2)) {
-                                Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                                $("#priceCek").val("");
-                                $('#totalArfDetails').val(0);
-                                $("#addFromDetailtoCart").prop("disabled", true);
-                            }
-                            else{
-                                var totalReq = parseFloat(total);
-                                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
-                                $("#addFromDetailtoCart").prop("disabled", false);
-                            }
-
-                        }
-                    });
-                }
-            });
+            if (parseFloat(priceProduct) == '') {
+                $("#addFromDetailtoCart").prop("disabled", true);
+                $('#totalArfDetails').val(0);
+            }
+            else if(parseFloat(priceProduct) > parseFloat(priceProduct2)){
+                Swal.fire("Error !", "Your Price Request is Over", "error");
+                $("#priceCek").val("");
+                $('#totalArfDetails').val('');
+                $("#addFromDetailtoCart").prop("disabled", true);
+            }
+            else if (parseFloat(total) > parseFloat(total2)) {
+                Swal.fire("Error !", "Your Request Is Over Budget", "error");
+                $("#priceCek").val("");
+                $('#totalArfDetails').val(0);
+                $("#addFromDetailtoCart").prop("disabled", true);
+            }
+            else{
+                var totalReq = parseFloat(total);
+                $('#totalArfDetails').val(parseFloat(totalReq).toFixed(2));
+                $("#addFromDetailtoCart").prop("disabled", false);
+            }
 
         });
     });
@@ -626,8 +586,8 @@
                 type: 'question',
 
                 showCancelButton: true,
-                confirmButtonText:'<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""> <span style="color:black;"> Yes, save it! </span>',
-                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""> <span style="color:black;"> No, cancel ! </span>',
+                confirmButtonText:'<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""> <span style="color:black;"> Yes, save it </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""> <span style="color:black;"> No, cancel </span>',
                 confirmButtonColor: '#e9ecef',
                 cancelButtonColor: '#e9ecef',
                 reverseButtons: true
@@ -653,8 +613,8 @@
                                 $(".loader").hide();
                                 
                                 swalWithBootstrapButtons.fire(
-                                    'Succesful!',
-                                    'Data has been updated !',
+                                    'Succesful ',
+                                    'Data has been updated',
                                     'success'
                                 )
                                 location.reload();
@@ -677,7 +637,7 @@
                         text: "Process Canceled !",
                         type: 'error',
                         confirmButtonColor: '#e9ecef',
-                        confirmButtonText: '<span style="color:black;"><i class="fa fa-thumbs-up"></i> Oke ! </span>',
+                        confirmButtonText: '<span style="color:black;"> Oke </span>',
                         
                     })
                 }

@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <form action="{{ route('BRF.revisionBrf') }}" method="post">
+                    <form action="{{ route('BusinessTripRequest.RevisionBusinessTripRequest') }}" method="post">
                         @csrf
                         <div class="card">
                             <div class="card-body">
