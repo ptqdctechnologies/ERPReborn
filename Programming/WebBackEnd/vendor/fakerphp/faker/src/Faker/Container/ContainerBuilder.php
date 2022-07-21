@@ -2,10 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Faker\Extension;
+namespace Faker\Container;
 
 use Faker\Core;
-use Psr\Container\ContainerInterface;
+use Faker\Extension\BarcodeExtension;
+use Faker\Extension\BloodExtension;
+use Faker\Extension\ColorExtension;
+use Faker\Extension\DateTimeExtension;
+use Faker\Extension\FileExtension;
+use Faker\Extension\NumberExtension;
+use Faker\Extension\UuidExtension;
+use Faker\Extension\VersionExtension;
 
 /**
  * @experimental This class is experimental and does not fall under our BC promise
@@ -64,6 +71,7 @@ final class ContainerBuilder
             BarcodeExtension::class => Core\Barcode::class,
             BloodExtension::class => Core\Blood::class,
             ColorExtension::class => Core\Color::class,
+            DateTimeExtension::class => Core\DateTime::class,
             FileExtension::class => Core\File::class,
             NumberExtension::class => Core\Number::class,
             VersionExtension::class => Core\Version::class,

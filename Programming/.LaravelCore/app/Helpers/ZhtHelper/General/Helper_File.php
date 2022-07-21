@@ -202,6 +202,120 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAutoMatchDirectoryPath                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mencari posisi directory path varPostfix relatif terhadap varPrefix                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
+        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varPath                                                                                                  |
+        |                                                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */            
+        public static function getAutoMatchDirectoryPath($varUserSession, $varPrefix, $varPostfix)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'get automatic match system directory path');
+                try {
+                    $varPrefix = (strcmp(substr($varPrefix, strlen($varPrefix)-1, 1), '/')==0 ? substr($varPrefix, 0, strlen($varPrefix)-1) : $varPrefix);
+                    $varPostfix = (strcmp(substr($varPostfix, 0, 1), '/')==0 ? substr($varPostfix, 1, strlen($varPostfix)-1) : $varPostfix);
+                    $varPath=$varPrefix.'/'.$varPostfix;
+                    
+                    
+                    if(is_dir($varPath)==0)
+                        {
+                        $varPath = null;
+                        $iMax = substr_count($varPrefix, '/');
+                        for ($i=0; $i!=$iMax; $i++)
+                            {
+                            //echo "<br>".($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix);
+                            if(is_dir($varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix))
+                                {
+                                $varPath = $varPrefix.'/.'.str_repeat("/..", $i).'/'.$varPostfix;
+                                break;
+                                }
+                            }
+                        }
+
+                    if(is_dir($varPath)==0)
+                        {
+                        throw new \Exception('File path is not found');
+                        }
+                    //echo "<br>".$varPath;
+                    $varReturn = $varPath;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDeepestSubFoldersInFolder                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan daftar seluruh subfolder terdalam pada file path (varFilePath)                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getDeepestSubFoldersInFolder($varUserSession, $varFilePath)
+            {
+            $varArrayData = self::getDeepestSubFolderInFolders_ENGINE($varUserSession, $varFilePath);
+            for($i=0; $i!=count($varArrayData); $i++)
+                {
+                $varReturn[$i] = str_replace('#'.$varFilePath, '', '#'.$varArrayData[$i]);;
+                }
+            return $varReturn;
+            }
+            
+        private static function getDeepestSubFolderInFolders_ENGINE($varUserSession, $varFilePath)
+            {
+            $varArrayData = self::getSubFoldersInFolder($varUserSession, $varFilePath);
+            $iMax=count($varArrayData);
+            if($iMax > 0)
+                {
+                $varIndex=0;
+                for($i=0; $i!=$iMax; $i++)
+                    {
+                    $varSubFolder = self::getDeepestSubFolderInFolders_ENGINE($varUserSession, $varArrayData[$i]);
+                    for($j=0; $j!=count($varSubFolder); $j++)
+                        {
+                        $varReturn[$varIndex] = $varSubFolder[$j];
+                        $varIndex++;
+                        }
+                    } 
+                }
+            else
+                {
+                $varReturn[0] = $varFilePath;
+                }
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileContent                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
@@ -308,5 +422,28 @@ namespace App\Helpers\ZhtHelper\General
             {
             return include($varFilePath.'*');
             }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSubFoldersInFolder                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mendapatkan daftar seluruh subfolder pada file path (varFilePath)                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varFilePath ► Path File                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSubFoldersInFolder($varUserSession, $varFilePath)
+            {
+            $varArrayData = glob($varFilePath . '/*' , GLOB_ONLYDIR);
+            return $varArrayData;
+            }
+            
         }
     }

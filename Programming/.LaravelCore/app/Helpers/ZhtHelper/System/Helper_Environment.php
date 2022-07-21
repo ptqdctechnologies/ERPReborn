@@ -681,6 +681,42 @@ namespace App\Helpers\ZhtHelper\System
                 }
             return $varReturn;
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAPIWebToken_System                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
+        | ▪ Description     : Mencari API Web Token of System (SysEngine)                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAPIWebToken_System()
+            {
+            $varUserSession = self::getUserSessionID_System();
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysConfig.FuncSys_General_GetAPIWebToken_SysEngine',
+                        [
+                        ]
+                        )
+                    );
+                return $varReturn['Data'][0]['FuncSys_General_GetAPIWebToken_SysEngine'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
 

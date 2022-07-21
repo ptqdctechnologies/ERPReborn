@@ -14,12 +14,15 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testAja()
             {
-            $varCheck = null;
+            //$varCheck = null;
             //$varCheck = 456;
             
-            $NewValue = ((!$varCheck) ? NULL : (int) 123);
+            //$NewValue = ((!$varCheck) ? NULL : (int) 123);
             
-            echo $NewValue;
+            //echo $NewValue;
+            
+            var_dump(\App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System());
+            echo "xxx";
             }
 
         public function testHTMLDOM()
