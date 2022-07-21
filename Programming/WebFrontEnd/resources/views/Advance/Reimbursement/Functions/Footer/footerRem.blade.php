@@ -47,7 +47,7 @@
         if(val != ""){
             $.ajax({
                 type: "POST",
-                url: '{!! route("Rem.StoreValidateRem") !!}?productIdRem=' + $('#productIdRem').val(),
+                url: '{!! route("ReimbursableExpenditure.StoreValidateReimbursableExpenditure") !!}?productIdRem=' + $('#productIdRem').val(),
                 success: function(data) {
 
                     if(data == "200"){
@@ -79,7 +79,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("Rem.StoreValidateRem2") !!}?productIdRem=' + ProductId,
+                                url: '{!! route("ReimbursableExpenditure.StoreValidateReimbursableExpenditure2") !!}?productIdRem=' + ProductId,
                             });
                         });
                         $("body").on("click", ".edit", function () {
@@ -96,7 +96,7 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("Rem.StoreValidateRem2") !!}?productIdRem=' + id1,
+                                url: '{!! route("ReimbursableExpenditure.StoreValidateReimbursableExpenditure2") !!}?productIdRem=' + id1,
                             });
 
                             $("#productIdRem").val(id1);
@@ -279,7 +279,7 @@
                         var json_object = JSON.stringify(datax);
                         $.ajax({
                             type: "POST",
-                            url: '{{route("ARF.store")}}',
+                            url: '{{route("ReimbursableExpenditure.store")}}',
                             data: json_object,
                             contentType: "application/json",
                             processData: true,

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+
+namespace App\Http\Controllers\Advance;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use DB;
-use PDO;
+use App\Http\Controllers\Controller;
 
-class procurementTransactionRem extends Controller
+class ReimbursableExpenditureController extends Controller
 {
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         $request->session()->forget("SessionRem");
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -24,7 +24,7 @@ class procurementTransactionRem extends Controller
             ]
         );
 
-        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataWorker = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken, 
             'transaction.read.dataList.humanResource.getWorker', 
@@ -38,7 +38,7 @@ class procurementTransactionRem extends Controller
                 'paging' => null
                 ]
             ]
-        );
+            );
 
         $varData3 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -73,8 +73,8 @@ class procurementTransactionRem extends Controller
             );
 
         $compact = [
-            'data' => $varData['data']['data'],
-            'data2' => $varData2['data'],
+            'dataProject' => $varDataProject['data']['data'],
+            'dataWorker' => $varDataWorker['data'],
             'data3' => $varData3['data'],
             'data4' => $varData4['data'],
         ];
@@ -162,7 +162,7 @@ class procurementTransactionRem extends Controller
         }
     }
 
-    public function revisionArfIndex(Request $request)
+    public function RevisionArfIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 

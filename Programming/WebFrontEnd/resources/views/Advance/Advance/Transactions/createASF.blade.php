@@ -20,7 +20,7 @@
       @include('Advance.Advance.Functions.Menu.menuAsf')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ASF.submitData') }}" name="formArf1">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceSettlement.store') }}" name="formArf1">
         @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">

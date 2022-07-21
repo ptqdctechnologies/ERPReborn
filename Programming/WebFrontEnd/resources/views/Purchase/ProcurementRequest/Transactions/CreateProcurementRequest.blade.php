@@ -145,7 +145,7 @@
                             <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off" value="0">
+                            <input id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
                             <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
@@ -153,23 +153,27 @@
                             <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
                             <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
                             <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="totalProcRequestDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                            <input id="totalProcReqDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
                             <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
+                            <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
                             <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
+                            <!-- Untuk Validasi -->
                             <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
                         </tbody>
                       </table>

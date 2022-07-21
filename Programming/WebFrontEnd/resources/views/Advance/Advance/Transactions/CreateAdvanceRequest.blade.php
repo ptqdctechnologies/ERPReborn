@@ -18,10 +18,10 @@
             <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Request</label>
           </div>
       </div>
-      @include('Advance.Advance.Functions.Menu.menuArf')
+      @include('Advance.Advance.Functions.Menu.MenuAdvance')
       @if($var == 0)
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.store') }}" id="formSubmitArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.store') }}" id="formSubmitArf">
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
@@ -29,7 +29,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Advanced
+                      Add New Advance Request
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -136,7 +136,7 @@
                       <tbody>
                           <td>
                             <div class="input-group">
-                              &nbsp;<input id="putProductId" style="border-radius:0;width:100px;" name="putProductId" class="form-control" readonly>
+                              &nbsp;<input id="putProductId" style="border-radius:0;width:100px;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
                                   <a href="#" id="product_id2" data-toggle="modal" data-target="#myProductArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -145,37 +145,36 @@
                             </div>
                           </td>
                           <td>
-                            <input name="product_name" id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
+                            <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="qtyCek" id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
+                            <input id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
-                            <input name="putQty" id="putQty" style="border-radius:0;" type="hidden" class="form-control">
+                            <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
-                            <input name="qty_detail" id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                            <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="price" id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
-                            <input name="price2" id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
+                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
+                            <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
-                            <input name="price_detail" id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                            <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input name="total" id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
-                          </td>
-
-                          <td>
-                            <input name="balance" id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
+                            <input id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
 
                           <td>
-                            <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-
                           <td>
-                            <input name="statusEditArf" id="statusEditArf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <!-- Untuk Validasi -->
+                            <input id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="statusEditArf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
 
                       </tbody>
@@ -263,5 +262,5 @@
 </div>
 @include('Partials.footer')
 
-@include('Advance.Advance.Functions.Footer.footerArf')
+@include('Advance.Advance.Functions.Footer.FooterAdvanceRequest')
 @endsection

@@ -13,12 +13,12 @@
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Procurement Request</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Procurement Request Revision</label>
         </div>
       </div>
       @include('Purchase.ProcurementRequest.Functions.Menu.MenuPr')
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ProcurementRequest.update', $var_recordID) }}" id="formSubmitPr">
+        <form method="post" enctype="multipart/form-data" action="{{ route('ProcurementRequest.update', $var_recordID) }}" id="FormSubmitProcReqRevision">
           @csrf
           @method('PUT')
           <input id="var_recordID" style="border-radius:0;" name="var_recordID" value="{{ $var_recordID }}" class="form-control" type="hidden">
@@ -163,16 +163,21 @@
                             <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="totalProcRequestDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
+                            <input id="totalProcReqDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
                             <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
+                            <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
                             <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <!-- Untuk Validari -->
+                            <input id="statusEditProcReqRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
                         </tbody>
                       </table>

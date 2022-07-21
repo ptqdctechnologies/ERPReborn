@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Advance\AdvanceRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,22 +14,33 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // LOGIN
-    Route::get('/', 'Auth\LoginController@index')->name('login');
-    Route::post('login', 'Auth\LoginController@login')->name('login');
-    Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
-    Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
-    Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
+Route::get('/', 'Auth\LoginController@index')->name('login');
+Route::post('login', 'Auth\LoginController@login')->name('login');
+Route::get('loginStore', 'Auth\LoginController@loginStore')->name('loginStore');
+Route::get('loginStorex', 'Auth\LoginController@loginStorex')->name('loginStorex');
+Route::get('loginStores', 'Auth\LoginController@loginStores')->name('loginStores');
 
 
 Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], function () {
-
-
-    Route::get('getProject', 'FunctionController@getProject')->name('getProject');
-    Route::get('getSite', 'FunctionController@getSite')->name('getSite');
-    Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
-
+    //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-    
+
+    //MASTER DATA
+
+    Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
+    Route::post('tranoTypeStore', 'masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
+    Route::get('tranoNumber', 'masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
+    Route::get('exchangeRate', 'masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
+    Route::get('COA', 'masterDataCoa@Coa')->name('COA.index');
+
+    // Dashboard
+    Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
+    Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
+    Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
+    Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
+    Route::get('approvedDocument', 'homeController@approvedDocument')->name('home.approvedDocument');
+    Route::get('documentWorkflow', 'homeController@documentWorkflow')->name('home.documentWorkflow');
+
     //Periode
     Route::resource('Periode', 'masterDataPeriode');
     //ProductType
@@ -55,35 +67,65 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentType', 'masterDataBusinessDocumentType');
     //BusinessDocumentVersion
     Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
-    
+
+    // Budget
+    Route::resource('Budget', 'BudgetController');
+    // Budget Expense
+    Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
+    Route::resource('BudgetExpense', 'BudgetExpenseController');
+    // Budget ExpenseGroup
+    Route::resource('BudgetExpenseGroup', 'BudgetExpenseGroupController');
+    // Budget ExpenseLine
+    Route::get('BudgetExpenseLine/GetBudgetExpense', 'BudgetExpenseLineController@GetBudgetExpense')->name('BudgetExpenseLine.GetBudgetExpense');
+    Route::resource('BudgetExpenseLine', 'BudgetExpenseLineController');
+    // Budget ExpenseLineCeiling
+    Route::get('BudgetExpenseLineCeiling/GetBudgetExpenseLine', 'BudgetExpenseLineCeilingController@GetBudgetExpenseLine')->name('BudgetExpenseLineCeiling.GetBudgetExpenseLine');
+    Route::resource('BudgetExpenseLineCeiling', 'BudgetExpenseLineCeilingController');
+    // Budget ExpenseLineCeilingObjects
+    Route::get('BudgetExpenseLineCeilingObjects/GetBudgetExpenseLineCeiling', 'BudgetExpenseLineCeilingObjectsController@GetBudgetExpenseLineCeiling')->name('BudgetExpenseLineCeilingObjects.GetBudgetExpenseLineCeiling');
+    Route::resource('BudgetExpenseLineCeilingObjects', 'BudgetExpenseLineCeilingObjectsController');
+    // Budget Type
+    Route::resource('BudgetType', 'BudgetTypeController');
+    // CodeOfBudgeting
+    Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
+
+
+    //Function
+    Route::get('getProject', 'FunctionController@getProject')->name('getProject');
+    Route::get('getSite', 'FunctionController@getSite')->name('getSite');
+    Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
+
     // ARF
-    
-    Route::post('StoreValidateArf', 'procurementTransactionArf@StoreValidateArf')->name('ARF.StoreValidateArf');
-    Route::post('StoreValidateArf2', 'procurementTransactionArf@StoreValidateArf2')->name('ARF.StoreValidateArf2');
-    Route::post('AdvanceListCartRevision', 'procurementTransactionArf@AdvanceListCartRevision')->name('ARF.AdvanceListCartRevision');
-    Route::post('revisionArf', 'procurementTransactionArf@revisionArfIndex')->name('ARF.revisionArf');
-    Route::resource('ARF', 'procurementTransactionArf');
-    
+    Route::post('StoreValidateAdvance', 'Advance\AdvanceRequestController@StoreValidateAdvance')->name('AdvanceRequest.StoreValidateAdvance');
+    Route::post('StoreValidateAdvance2', 'Advance\AdvanceRequestController@StoreValidateAdvance2')->name('AdvanceRequest.StoreValidateAdvance2');
+    Route::post('AdvanceListCartRevision', 'Advance\AdvanceRequestController@AdvanceListCartRevision')->name('AdvanceRequest.AdvanceListCartRevision');
+    Route::post('RevisionAdvance', 'Advance\AdvanceRequestController@RevisionAdvanceIndex')->name('AdvanceRequest.RevisionAdvance');
+    Route::resource('AdvanceRequest', 'Advance\AdvanceRequestController');
 
     // ASF
-    Route::post('StoreValidateAsf', 'procurementTransactionAsf@StoreValidateAsf')->name('ASF.StoreValidateAsf');
-    Route::post('StoreValidateAsf2', 'procurementTransactionAsf@StoreValidateAsf2')->name('ASF.StoreValidateAsf2');
-    Route::get('store', 'procurementTransactionAsf@indexOverhead')->name('ASF.indexOverhead');
-    Route::get('createASFSales', 'procurementTransactionAsf@indexSales')->name('ASF.indexSales');
-    Route::get('createASFPulsaVoucher', 'procurementTransactionAsf@indexPulsaVoucher')->name('ASF.indexPulsaVoucher');
+    Route::post('StoreValidateAdvanceSettlement', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement')->name('AdvanceSettlement.StoreValidateAdvanceSettlement');
+    Route::post('StoreValidateAdvanceSettlement2', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement2')->name('AdvanceSettlement.StoreValidateAdvanceSettlement2');
+    Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
+    Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
 
-    Route::post('revisionAsf', 'procurementTransactionAsf@revisionAsfIndex')->name('ASF.revisionAsf');
+    // BSF
+    Route::post('StoreValidateBusinessTripSettlement', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement');
+    Route::post('StoreValidateBusinessTripSettlement2', 'Advance\BusinessTripSettlementController@StoreValidateBusinessTripSettlement2')->name('BusinessTripSettlement.StoreValidateBusinessTripSettlement2');
+    Route::post('RevisionBusinessTripSettlement', 'Advance\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlement');
+    Route::resource('BusinessTripSettlement', 'Advance\BusinessTripSettlementController');
 
-    Route::post('addListCartAsf', 'procurementTransactionAsf@addListCartAsf')->name('ASF.addListCartAsf');
-    Route::resource('ASF', 'procurementTransactionAsf');
-    Route::post('submitDataAsf', 'procurementTransactionAsf@submitData')->name('ASF.submitData');
+    // BRF
+    Route::post('StoreValidateBusinessTripRequest', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest')->name('BusinessTripRequest.StoreValidateBusinessTripRequest');
+    Route::post('StoreValidateBusinessTripRequest2', 'Advance\BusinessTripRequestController@StoreValidateBusinessTripRequest2')->name('BusinessTripRequest.StoreValidateBusinessTripRequest2');
+    Route::post('RevisionBusinessTripRequest', 'Advance\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequest');
+    Route::resource('BusinessTripRequest', 'Advance\BusinessTripRequestController');
 
     // REM
-    Route::post('StoreValidateRem', 'procurementTransactionRem@StoreValidateRem')->name('Rem.StoreValidateRem');
-    Route::post('StoreValidateRem2', 'procurementTransactionRem@StoreValidateRem2')->name('Rem.StoreValidateRem2');
-    Route::post('revisionRem', 'procurementTransactionRem@revisionRemIndex')->name('Rem.revisionRem');
-    Route::resource('Rem', 'procurementTransactionRem');
-    
+    Route::post('StoreValidateReimbursableExpenditure', 'Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure');
+    Route::post('StoreValidateReimbursableExpenditure2', 'Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
+    Route::post('RevisionReimbursableExpenditure', 'Advance\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
+    Route::resource('ReimbursableExpenditure', 'Advance\ReimbursableExpenditureController');
+
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
 
@@ -144,15 +186,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('createDebitNote', 'procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
     Route::get('createPaidDebitNote', 'procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
 
-
-    // PR
-
     // PR
     Route::post('StoreValidateProcurementRequest', 'procurementTransactionProcurementRequest@StoreValidateProcurementRequest')->name('ProcurementRequest.StoreValidateProcurementRequest');
     Route::post('StoreValidateProcurementRequest2', 'procurementTransactionProcurementRequest@StoreValidateProcurementRequest2')->name('ProcurementRequest.StoreValidateProcurementRequest2');
     Route::post('store2', 'procurementTransactionProcurementRequest@store2')->name('PR.store2');
     Route::post('RevisionPrIndex', 'procurementTransactionProcurementRequest@RevisionPrIndex')->name('ProcurementRequest.RevisionPrIndex');
-    Route::post('ProcReqListCartRevision', 'procurementTransactionProcurementRequest@ProcReqListCartRevision')->name('ProcurementRequest.ProcReqListCartRevision'); 
+    Route::post('ProcReqListCartRevision', 'procurementTransactionProcurementRequest@ProcReqListCartRevision')->name('ProcurementRequest.ProcReqListCartRevision');
     Route::resource('ProcurementRequest', 'procurementTransactionProcurementRequest');
     Route::get('PR2', 'procurementTransactionProcurementRequest@index2')->name('PR.index2');
     Route::get('PR3', 'procurementTransactionProcurementRequest@index3')->name('PR.index3');
@@ -174,27 +213,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PO', 'procurementTransactionPO');
     Route::post('submitDataPO', 'procurementTransactionPO@submitData')->name('PO.submitData');
 
-    // BSF
-    Route::post('revisionBsf', 'procurementTransactionBsf@revisionBsfIndex')->name('BSF.revisionBsf');
-    Route::post('BSF/store', 'procurementTransactionBsf@store')->name('BSF.store');
-    Route::get('BSF', 'procurementTransactionBsf@createBSF')->name('BSF.createBSF');
-    Route::post('submitDataBSF', 'procurementTransactionBsf@submitData')->name('BSF.submitData');
-
-
-    // BRF
-    Route::post('revisionBrf', 'procurementTransactionBrf@revisionBrfIndex')->name('BRF.revisionBrf');
-    Route::get('BRF', 'procurementTransactionBrf@createBRF')->name('BRF.createBRF');
-    Route::post('BRF/store', 'procurementTransactionBrf@store')->name('BRF.store');
-    Route::post('BRF/storePaymentSequence', 'procurementTransactionBrf@storePaymentSequenceBrf')->name('BRF.storePaymentSequenceBrf');
-    Route::post('submitDataBRF', 'procurementTransactionBrf@submitData')->name('BRF.submitData');
-
     // DOR
     Route::post('StoreValidateDor', 'procurementTransactionDor@StoreValidateDor')->name('DOR.StoreValidateDor');
     Route::post('StoreValidateDor2', 'procurementTransactionDor@StoreValidateDor2')->name('DOR.StoreValidateDor2');
     Route::get('DOR', 'procurementTransactionDor@index')->name('DOR.index');
     Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
     Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
-
 
     //iSupp
     Route::post('StoreValidateiSupp', 'procurementTransactioniSupp@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
@@ -212,23 +236,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
-
-
-    Route::get('/test/store/', 'procurementTransactionArf@teststore')->name('test.store');
-
-    Route::get('/test/storeLogin/', 'procurementTransactionArf@teststoreLogin')->name('test.storeLogin');
-
-
-    Route::get('/test/store2', 'procurementTransactionArf@teststore2');
-
-    Route::post('tests', 'procurementTransactionArf@tests')->name('ARF.tests');
-
-    //MASTER DATA
-    Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
-    Route::post('tranoTypeStore', 'masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
-    Route::get('tranoNumber', 'masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
-    Route::get('exchangeRate', 'masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
-    Route::get('COA', 'masterDataCoa@Coa')->name('COA.index');
 
     //Supplier
     Route::get('Supplier', 'masterDataSupplier@supplier')->name('supplier.index');
@@ -254,41 +261,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('bankChargers', 'finance@bankChargers')->name('bankChargers.index');
     Route::get('editBankChargers', 'finance@editBankChargers')->name('editBankChargers.index');
 
-    // Budget
-    Route::resource('Budget','BudgetController');
-    // Budget Expense
-    Route::get('BudgetExpense/GetBudget','BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
-    Route::resource('BudgetExpense','BudgetExpenseController');
-    // Budget ExpenseGroup
-    Route::resource('BudgetExpenseGroup','BudgetExpenseGroupController');
-    // Budget ExpenseLine
-    Route::get('BudgetExpenseLine/GetBudgetExpense','BudgetExpenseLineController@GetBudgetExpense')->name('BudgetExpenseLine.GetBudgetExpense');
-    Route::resource('BudgetExpenseLine','BudgetExpenseLineController');
-    // Budget ExpenseLineCeiling
-    Route::get('BudgetExpenseLineCeiling/GetBudgetExpenseLine','BudgetExpenseLineCeilingController@GetBudgetExpenseLine')->name('BudgetExpenseLineCeiling.GetBudgetExpenseLine');
-    Route::resource('BudgetExpenseLineCeiling','BudgetExpenseLineCeilingController');
-    // Budget ExpenseLineCeilingObjects
-    Route::get('BudgetExpenseLineCeilingObjects/GetBudgetExpenseLineCeiling','BudgetExpenseLineCeilingObjectsController@GetBudgetExpenseLineCeiling')->name('BudgetExpenseLineCeilingObjects.GetBudgetExpenseLineCeiling');
-    Route::resource('BudgetExpenseLineCeilingObjects','BudgetExpenseLineCeilingObjectsController');
-    // Budget Type
-    Route::resource('BudgetType','BudgetTypeController');
-    // CodeOfBudgeting
-    Route::resource('CodeOfBudgeting','CodeOfBudgetingController');
-
-
-    // 
+    //Timesheet
     Route::post('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
     Route::post('Timesheet/updates', 'TimesheetController@updates')->name('Timesheet.updates');
     Route::post('Timesheet/storeActivity', 'TimesheetController@storeActivity')->name('Timesheet.storeActivity');
-    Route::resource('Timesheet','TimesheetController');
-
-    // Dashboard
-    Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
-    Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
-    Route::get('myDocument', 'homeController@myDocument')->name('home.myDocument');
-    Route::get('submittedDocument', 'homeController@submittedDocument')->name('home.submittedDocument');
-    Route::get('approvedDocument', 'homeController@approvedDocument')->name('home.approvedDocument');
-    Route::get('documentWorkflow', 'homeController@documentWorkflow')->name('home.documentWorkflow');
+    Route::resource('Timesheet', 'TimesheetController');
 });
 
 

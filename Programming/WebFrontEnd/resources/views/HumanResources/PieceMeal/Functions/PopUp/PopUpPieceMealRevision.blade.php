@@ -1,31 +1,31 @@
-<div id="popUpAdvanceRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+<div id="PopUpPieceMealRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:33%;font-weight:bold;">ADVANCE REVISION</span><br><br><br>
-                    <form action="{{ route('AdvanceRequest.RevisionAdvance') }}" method="post">
-                    @csrf
+                    <span style="font-size: 15px;position:relative;left:32%;font-weight:bold;">PIECE MEAL REVISION</span><br><br><br>
+                    <form action="{{ route('ProcurementRequest.RevisionPrIndex') }}" method="post">
+                        @csrf
                         <div class="card" style="margin-left: 8%;">
-                            <div class="card-body"> 
+                            <div class="card-body">
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label>Advance Number &nbsp;</label></td>
+                                            <td style="padding-top: 20px;"><label>Piece Meal &nbsp;&nbsp;&nbsp;&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="searchArfNumberRevisionId" style="border-radius:0;" name="searchArfNumberRevisionId" type="hidden" class="form-control">
+                                                    <input id="searchPrNumberRevisionId" style="border-radius:0;" name="searchPrNumberRevisionId" type="hidden" class="form-control">
                                                     <input id="siteCodeRevArfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
-                                                    <input required="" id="searchArfNumberRevisions" style="border-radius:0;" name="searchArfNumberRevisions" type="text" class="form-control" required readonly>
+                                                    <input required="" id="searchPrNumberRevisions" style="border-radius:0;" name="searchPrNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#mySearchArfRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#mySearchPieceMealRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </td>
 
-                                            
+
                                         </tr>
                                     </table>
                                 </div>

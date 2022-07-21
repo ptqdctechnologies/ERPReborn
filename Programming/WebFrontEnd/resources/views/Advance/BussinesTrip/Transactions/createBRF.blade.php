@@ -6,7 +6,7 @@
 @include('getFunction.getSite')
 @include('getFunction.getRequester')
 
-<form method="post" enctype="multipart/form-data" action="{{ route('BRF.submitData') }}" name="formArf1">
+<form method="post" enctype="multipart/form-data" action="{{ route('BusinessTripRequest.store') }}" name="formArf1">
 <div class="content-wrapper">
   <section class="content">
     <div class="container-fluid">

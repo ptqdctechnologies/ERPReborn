@@ -18,10 +18,10 @@
             <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Request Revision</label>
           </div>
       </div>
-      @include('Advance.Advance.Functions.Menu.menuArf')
+      @include('Advance.Advance.Functions.Menu.MenuAdvance')
 
       <div class="card" style="position:relative;bottom:10px;">
-        <form method="post" enctype="multipart/form-data" action="{{ route('ARF.update', $var_recordID) }}" id="formUpdateArf">
+        <form method="post" enctype="multipart/form-data" action="{{ route('AdvanceRequest.update', $var_recordID) }}" id="formUpdateArf">
           @csrf
           @method('PUT')
 
@@ -33,7 +33,7 @@
                 <div class="card">
                   <div class="card-header">
                     <label class="card-title">
-                      Add New Advanced
+                      Advance Request Revision
                     </label>
                     <div class="card-tools">
                       <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -183,14 +183,18 @@
                           <td>
                             <input name="statusProduct" id="statusProduct" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
+
                           <td>
-                            <input name="statusEditArfRevision" id="statusEditArfRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <!-- Untuk Validasi -->
+                            <input id="statusEditArfRevision" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           </td>
 
                       </tbody>
                     </table>
                     <div style="padding-right:10px;">
-                      <a class="btn btn-default btn-sm float-right" id="cancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                      <a class="btn btn-default btn-sm float-right" id="CancelDetailArfRevision" style="background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
                       <a class="btn btn-default btn-sm float-right" onclick="addFromDetailtoCartJs();" id="addFromDetailtoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
@@ -267,5 +271,5 @@
   </section>
 </div>
 @include('Partials.footer')
-@include('Advance.Advance.Functions.Footer.footerArfRevision')
+@include('Advance.Advance.Functions.Footer.FooterAdvanceRequestRevision')
 @endsection

@@ -19,7 +19,7 @@
                                                     <input required="" id="searchPrNumberRevisions" style="border-radius:0;" name="searchPrNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a data-toggle="modal" data-target="#mySearchArfRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
+                                                            <a data-toggle="modal" data-target="#mySearchProcReqRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>

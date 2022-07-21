@@ -10,7 +10,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('ASF.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
+                                    <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Advance Settlement</i>
                                     </a>
                                 </li>

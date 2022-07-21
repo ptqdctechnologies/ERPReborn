@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Advance;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
+use App\Http\Controllers\Controller;
 
-class procurementTransactionArf extends Controller
+class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
         
-        $request->session()->forget("SessionArf");
+        $request->session()->forget("SessionAdvance");
         
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -66,7 +67,7 @@ class procurementTransactionArf extends Controller
             'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'var' => $var,
         ];
-        return view('Advance.Advance.Transactions.createARF', $compact);
+        return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
 
     }
 
@@ -123,48 +124,48 @@ class procurementTransactionArf extends Controller
         return response()->json($compact); 
     }
 
-    public function StoreValidateArf(Request $request)
+    public function StoreValidateAdvance(Request $request)
     {
         $tamp = 0; $status = 200;
         $val = $request->input('putProductId');
-        $data = $request->session()->get("SessionArf");
-        if($request->session()->has("SessionArf")){
+        $data = $request->session()->get("SessionAdvance");
+        if($request->session()->has("SessionAdvance")){
             for($i = 0; $i < count($data); $i++){
                 if($data[$i] == $val){
                     $tamp = 1;
                 }
             }
             if($tamp == 0){
-                $request->session()->push("SessionArf", $val);
+                $request->session()->push("SessionAdvance", $val);
             }
             else{
                 $status = 500;
             }
         }
         else{
-            $request->session()->push("SessionArf", $val);
+            $request->session()->push("SessionAdvance", $val);
         }
 
         return response()->json($status);
     }
 
-    public function StoreValidateArf2(Request $request)
+    public function StoreValidateAdvance2(Request $request)
     {
-        $messages = $request->session()->get("SessionArf");
+        $messages = $request->session()->get("SessionAdvance");
         $val = $request->input('putProductId');
-        if($request->session()->has("SessionArf")){
+        if($request->session()->has("SessionAdvance")){
             if (($key = array_search($val, $messages)) !== false) {
                 unset($messages[$key]);
                 $newClass = array_values($messages);
-                $request->session()->put("SessionArf", $newClass);
+                $request->session()->put("SessionAdvance", $newClass);
             }
         }
     }
 
-    public function revisionArfIndex(Request $request)
+    public function RevisionAdvanceIndex(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        $request->session()->forget("SessionArf");
+        $request->session()->forget("SessionAdvance");
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
@@ -230,7 +231,7 @@ class procurementTransactionArf extends Controller
             'var_recordID' => $request->searchArfNumberRevisionId,
         ];
 
-        return view('Advance.Advance.Transactions.revisionARF', $compact);
+        return view('Advance.Advance.Transactions.RevisionAdvanceRequest', $compact);
     }
 
     public function update(Request $request, $id)
@@ -312,30 +313,9 @@ class procurementTransactionArf extends Controller
         // dd($varData);
 
         foreach($varData['data'] as $varDatas){
-            $request->session()->push("SessionArf", (string) $varDatas['product_RefID']);
+            $request->session()->push("SessionAdvance", (string) $varDatas['product_RefID']);
         }
         return response()->json($varData['data']);
     }
-
-    public function create()
-    {
-        
-    }
-    
-    public function show($id)
-    {
-        //
-    }
-
-    public function edit($id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
-    }
-
     
 }

@@ -470,7 +470,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Advance Request</label>
                                             </a>
@@ -507,7 +507,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Detail Report</label>
                                             </a>
@@ -519,7 +519,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement Detail Report</label>
                                             </a>
@@ -548,13 +548,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Request</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceSettlement.index') }}?var=1" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Advance Settlement</label>
                                             </a>
@@ -580,7 +580,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Detail Report</label>
                                             </a>
@@ -592,7 +592,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Business Trip Settlement Detail Report</label>
                                             </a>
@@ -621,7 +621,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('BRF.createBRF') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Business Trip Request</label>
                                             </a>
@@ -633,7 +633,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('BSF.createBSF') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Business Trip Settlement</label>
                                             </a>
@@ -665,7 +665,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Reimbursement Report</label>
                                             </a>
@@ -677,7 +677,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ASF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Debit Note Detail Report</label>
                                             </a>
@@ -706,7 +706,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('Rem.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('ReimbursableExpenditure.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Reimbursement</label>
                                             </a>
@@ -718,7 +718,7 @@
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('BSF.createBSF') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('BusinessTripSettlement.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Create Debit Note</label>
                                             </a>
@@ -834,7 +834,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Budget Report</label>
                                             </a>
@@ -925,7 +925,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Modification Budget Report</label>
                                             </a>
@@ -983,7 +983,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Piece Meal Detail Report</label>
                                             </a>
@@ -1132,13 +1132,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>PR Reallocation Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>PR Reallocation Summary Report</label>
                                             </a>
@@ -1410,7 +1410,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Procurement Request Detail Report</label>
                                             </a>
@@ -1460,7 +1460,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Purchase Order Detail Report</label>
                                             </a>
@@ -1521,7 +1521,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Account Payable Detail Report</label>
                                             </a>
@@ -1582,7 +1582,7 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>PPN Rem Detail Report</label>
                                             </a>
@@ -1646,13 +1646,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Customer Order Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Customer Order Summary Report</label>
                                             </a>
@@ -1701,13 +1701,13 @@
                                     </a>
                                     <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Invoice Detail Report</label>
                                             </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="{{ route('ARF.index') }}" class="nav-link">
+                                            <a href="{{ route('AdvanceRequest.index') }}" class="nav-link">
                                                 <i class="far fa-file nav-icon-sm" style="color:#e9ecef;"></i>
                                                 <label>Invoice Summary Report</label>
                                             </a>
