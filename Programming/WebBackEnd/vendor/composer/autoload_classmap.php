@@ -74,6 +74,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_EMail' => $baseDir . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_EMail.php',
     'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_FileUpload' => $baseDir . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_FileUpload.php',
     'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_APICall' => $baseDir . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_APICall.php',
+    'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_LaravelRoute' => $baseDir . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_LaravelRoute.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
     'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => $baseDir . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',

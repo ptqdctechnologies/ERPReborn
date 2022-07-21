@@ -673,6 +673,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_EMail' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_EMail.php',
         'App\\Helpers\\ZhtHelper\\System\\BackEnd\\Helper_FileUpload' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/BackEnd/Helper_FileUpload.php',
         'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_APICall' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_APICall.php',
+        'App\\Helpers\\ZhtHelper\\System\\FrontEnd\\Helper_LaravelRoute' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/FrontEnd/Helper_LaravelRoute.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_Environment' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_Environment.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPError' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPError.php',
         'App\\Helpers\\ZhtHelper\\System\\Helper_HTTPRequest' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/System/Helper_HTTPRequest.php',
