@@ -2799,18 +2799,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getAdvance', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 76000000000001
-                    ]
-                ]
-                );
-            var_dump($varData);
+
             }
 
 

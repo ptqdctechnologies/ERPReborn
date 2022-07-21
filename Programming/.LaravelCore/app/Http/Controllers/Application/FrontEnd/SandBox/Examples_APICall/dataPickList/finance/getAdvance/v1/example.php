@@ -20,8 +20,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.finance.getAdvance.v1_throughAPIGateway                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -51,8 +51,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         |                     ► http://172.28.0.4/dataPickList.finance.getAdvance.v1_throughAPIGatewayJQuery                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
