@@ -10,96 +10,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             {
             }
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : dataPickList.budgeting.getBudget                                                                         |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getDataPickListBudget()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getBudget', 
-                'latest',
-                [
-                'parameter' => [
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_getDataPickListBudget()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getBudget', 
-                'latest', 
-                '{'.
-                    '"parameter" : null'.
-                '}'
-                );            
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : dataPickList.budgeting.getBudgetExpense                                                                  |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getDataPickListBudgetExpense()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getBudgetExpense', 
-                'latest',
-                [
-                'parameter' => [
-                    'budget_RefID' => null
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_getDataPickListBudgetExpense()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo '<br>Budget RefID ► '.
-                '<input type="text" id="dataInput_Budget_RefID" value="">';
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'dataPickList.budgeting.getBudgetExpense', 
-                'latest', 
-                '{'.
-                    '"parameter" : {'.
-                        '"budget_RefID" : parseInt(document.getElementById("dataInput_Budget_RefID").value) '.
-                        '}'.
-                '}'
-                );
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
-
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1910,35 +1820,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.getFilesList', 
-                'latest', 
-                [
-                'rotateLog_FileUploadStagingArea_RefRPK' => 1
-                ]
-                );
-            var_dump($varData);
+
             }
         public function APIGatewayJQuery_getUploadStagingAreaFilesList()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=1>';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.getFilesList', 
-                'latest', 
-                '{'.
-                    '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value)'.
-                '}'
-                );            
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+
             }
 
 
