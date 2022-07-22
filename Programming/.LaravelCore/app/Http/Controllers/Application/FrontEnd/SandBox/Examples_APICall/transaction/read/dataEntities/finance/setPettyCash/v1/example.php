@@ -5,7 +5,7 @@
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataEntities\finance        |
 |                 \setPettyCash\v1                                                                                                 |
-| ▪ API Key     : transaction.read\dataEntities.finance.setPettyCash                                                               |
+| ▪ API Key     : transaction.read.dataEntities.finance.getPettyCash                                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |

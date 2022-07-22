@@ -3,8 +3,9 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\humanResource\getOrganizationalDepartment\v1           |
-| ▪ API Key     : dataPickList.finance.getAdvance                                                                                  |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\humanResource                   |
+|                 \getOrganizationalDepartment\v1                                                                                  |
+| ▪ API Key     : dataPickList.humanResource.getOrganizationalDepartment                                                           |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
