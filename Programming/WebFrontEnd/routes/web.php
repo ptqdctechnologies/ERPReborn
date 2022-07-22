@@ -388,9 +388,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lz
 | Route for API : report.excel.dataList.master...                                                                                  |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCitizenIdentity', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCitizenIdentity', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCountry', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCountry', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel1', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel1', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel2', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel2', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel3', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel3', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel4', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel4', 'webWithoutCSRF');
@@ -416,14 +413,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lz
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportForm_DocumentForm_PurchaseRequisition', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportForm_DocumentForm_PurchaseRequisition', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportForm_DocumentForm_WarehouseInboundOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportForm_DocumentForm_WarehouseInboundOrder', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportForm_DocumentForm_WarehouseOutboundOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportForm_DocumentForm_WarehouseOutboundOrder', 'webWithoutCSRF');
-
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : report.form.documentForm.taxation...                                                                             |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getReportForm_DocumentForm_TransactionTax', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getReportForm_DocumentForm_TransactionTax', 'webWithoutCSRF');
 
 
 /*

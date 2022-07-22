@@ -610,80 +610,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.excel.dataList.master.getCitizenIdentity                                                          |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportExcelDataListCitizenIdentity()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getCitizenIdentity', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Citizen Identity.xlsx',
-                'parameter' => [
-                    ]
-                ]
-                );
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.excel.dataList.master.getCountry                                                                  |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportExcelDataListCountry()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getCountry', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Country.xlsx',
-                'parameter' => [
-                    ]
-                ]
-                );
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.excel.dataList.master.getCountryAdministrativeAreaLevel1                                          |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportExcelDataListCountryAdministrativeAreaLevel1()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getCountryAdministrativeAreaLevel1', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Country Administrative Area Level 1.xlsx',
-                'parameter' => [
-                    'country_RefID' => 20000000000078
-                    ]
-                ]
-                );
-            }
 
 
         /*
@@ -697,19 +623,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getCountryAdministrativeAreaLevel2', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Country Administrative Area Level 2.xlsx',
-                'parameter' => [
-                    'countryAdministrativeAreaLevel1_RefID' => 21000000000001
-                    ]
-                ]
-                );
-            var_dump($varData);
+
             }
 
 
@@ -724,18 +638,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getCountryAdministrativeAreaLevel3', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Country Administrative Area Level 3.xlsx',
-                'parameter' => [
-                    'countryAdministrativeAreaLevel2_RefID' => 22000000000001
-                    ]
-                ]
-                );
+
             var_dump($varData);
             }
 
@@ -910,31 +813,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             var_dump($varData);
             }
 
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.form.documentForm.taxation.getTransactionTax                                                      |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportForm_DocumentForm_TransactionTax()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.taxation.getTransactionTax', 
-                'latest',
-                [
-                'parameter' => [
-                    'recordID' => 184000000000001
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
 
 
         /*
