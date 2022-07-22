@@ -3,8 +3,8 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\budgeting\getBudgetExpense\v1         |
-| ▪ API Key     : dataPickList.finance.getAdvance                                                                                  |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dataPickList\budgeting\getBudgetExpense\v1   |
+| ▪ API Key     : dataPickList.budgeting.getBudgetExpense                                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
@@ -16,8 +16,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGateway                               |
-        |                     ► http://172.28.0.4/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGateway                            |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGateway                        |
+        |                     ► http://172.28.0.4/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-22                                                                                           |
@@ -48,8 +48,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGatewayJQuery                         |
-        |                     ► http://172.28.0.4/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGatewayJQuery                      |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGatewayJQuery                  |
+        |                     ► http://172.28.0.4/dataPickList.budgeting.getBudgetExpense.v1_throughAPIGatewayJQuery               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-22                                                                                           |
