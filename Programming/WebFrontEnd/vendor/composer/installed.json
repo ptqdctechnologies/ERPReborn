@@ -1327,17 +1327,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.21.4",
-            "version_normalized": "9.21.4.0",
+            "version": "v9.21.5",
+            "version_normalized": "9.21.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7707d6a16c70da1561bf80964e89b1b94ca78a48"
+                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7707d6a16c70da1561bf80964e89b1b94ca78a48",
-                "reference": "7707d6a16c70da1561bf80964e89b1b94ca78a48",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a1944cd0d160a2cc423ef5a451d002711c5f014f",
+                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f",
                 "shasum": ""
             },
             "require": {
@@ -1462,7 +1462,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2022-07-21T13:30:12+00:00",
+            "time": "2022-07-21T19:38:16+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -2050,55 +2050,6 @@
                 }
             ],
             "install-path": "../league/mime-type-detection"
-        },
-        {
-            "name": "lombax85/create_function",
-            "version": "1.0.3",
-            "version_normalized": "1.0.3.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lombax85/create_function.git",
-                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lombax85/create_function/zipball/d14b98647bbd8e70e0284944ebd768f8437452e6",
-                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5"
-            },
-            "time": "2021-04-17T22:40:34+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "src/helper.php"
-                ],
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabio Lombardo",
-                    "email": "lombax85@gmail.com"
-                }
-            ],
-            "description": "A replacement for the function create_function for PHP 8",
-            "support": {
-                "issues": "https://github.com/lombax85/create_function/issues",
-                "source": "https://github.com/lombax85/create_function/tree/1.0.3"
-            },
-            "install-path": "../lombax85/create_function"
         },
         {
             "name": "mockery/mockery",

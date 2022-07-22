@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69f1cba671130b71b502b54811a2c717",
+    "content-hash": "5f4b86fa84cb05957b445cd4bc556f73",
     "packages": [
         {
             "name": "brick/math",
@@ -1165,16 +1165,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.21.4",
+            "version": "v9.21.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7707d6a16c70da1561bf80964e89b1b94ca78a48"
+                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7707d6a16c70da1561bf80964e89b1b94ca78a48",
-                "reference": "7707d6a16c70da1561bf80964e89b1b94ca78a48",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a1944cd0d160a2cc423ef5a451d002711c5f014f",
+                "reference": "a1944cd0d160a2cc423ef5a451d002711c5f014f",
                 "shasum": ""
             },
             "require": {
@@ -1341,7 +1341,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-07-21T13:30:12+00:00"
+            "time": "2022-07-21T19:38:16+00:00"
         },
         {
             "name": "laravel/serializable-closure",
@@ -1864,52 +1864,6 @@
                 }
             ],
             "time": "2022-04-17T13:12:02+00:00"
-        },
-        {
-            "name": "lombax85/create_function",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/lombax85/create_function.git",
-                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/lombax85/create_function/zipball/d14b98647bbd8e70e0284944ebd768f8437452e6",
-                "reference": "d14b98647bbd8e70e0284944ebd768f8437452e6",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/helper.php"
-                ],
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabio Lombardo",
-                    "email": "lombax85@gmail.com"
-                }
-            ],
-            "description": "A replacement for the function create_function for PHP 8",
-            "support": {
-                "issues": "https://github.com/lombax85/create_function/issues",
-                "source": "https://github.com/lombax85/create_function/tree/1.0.3"
-            },
-            "time": "2021-04-17T22:40:34+00:00"
         },
         {
             "name": "monolog/monolog",
