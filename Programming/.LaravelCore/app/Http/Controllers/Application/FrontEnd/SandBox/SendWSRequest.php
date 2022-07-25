@@ -612,60 +612,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
 
 
 
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.excel.dataList.master.getGoodsModel                                                               |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportExcelDataListGoodsModel()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getGoodsModel', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Goods Model.xlsx',
-                'parameter' => [
-                    'tradeMark_RefID' => 15000000000002
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : report.excel.dataList.master.getPerson                                                                   |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getReportExcelDataListPerson()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayDownloadExcel(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.excel.dataList.master.getPerson', 
-                'latest', 
-                [
-                'outputFileName' => 'Data List - Person.xlsx',
-                'parameter' => [
-                    ]
-                ]
-                );
-            }
-
-
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : report.form.documentForm.finance.getAdvance                                                              |
