@@ -3,6 +3,12 @@
 #sudo mkdir -p ./Programming/WebBackEnd/storage/app/Application/Upload/StagingArea/;
 #sudo chmod 777 ./Programming/WebBackEnd/storage/app/Application/Upload/StagingArea/;
 
+#sudo mkdir -p ./Programming/WebBackEnd/storage/logs;
+#sudo mkdir -p ./Programming/WebFrontEnd/storage/logs;
+
+#sudo mkdir -p ./Programming/WebBackEnd/bootstrap/cache;
+#sudo mkdir -p ./Programming/WebFrontEnd/bootstrap/cache;
+
 sudo chown -R 33:33 ./Programming/WebBackEnd/storage/;
 sudo chown -R 33:33 ./Programming/WebFrontEnd/storage/;
 

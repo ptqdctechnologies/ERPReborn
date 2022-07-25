@@ -59,21 +59,24 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                     getcwd(), 
                     '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall'.$varArrayExampleAPIKey[$i].'/example.php'
                     );
-                $varArrayFunctionEntities = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
-
-                /*
-                echo "\n";
-                var_dump($varClass);
-                var_dump($varFilePath);
-                var_dump($varArrayFunctionEntities);
-                */
-
-                for($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
+                if(is_file($varFilePath))
                     {
-                    Route::get(
-                        str_replace('/', '.', str_replace('#/', '', '#'.$varArrayExampleAPIKey[$i])).'_'.$varArrayFunctionEntities[$j]['Name'], 
-                        $varClass.'@'.$varArrayFunctionEntities[$j]['Name']
-                        )->defaults('APIWebToken', $varAPIWebToken);
+                    $varArrayFunctionEntities = \App\Helpers\ZhtHelper\General\Helper_PHPObject::getAllFunctionEntitiesFromPHPFile($varUserSession, $varFilePath);
+
+                    /*
+                    echo "\n";
+                    var_dump($varClass);
+                    var_dump($varFilePath);
+                    var_dump($varArrayFunctionEntities);
+                    */
+
+                    for($j=0, $jMax=count($varArrayFunctionEntities); $j!=$jMax; $j++)
+                        {
+                        Route::get(
+                            str_replace('/', '.', str_replace('#/', '', '#'.$varArrayExampleAPIKey[$i])).'_'.$varArrayFunctionEntities[$j]['Name'], 
+                            $varClass.'@'.$varArrayFunctionEntities[$j]['Name']
+                            )->defaults('APIWebToken', $varAPIWebToken);
+                        }                    
                     }
                 }
             }

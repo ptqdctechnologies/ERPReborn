@@ -13,7 +13,7 @@ namespace App\Models\LocalStorage
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : DefaultClassPrototype                                                                                        |
-    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models CloudStorage                                            |
+    | ▪ Description : Menangani Prototype untuk diwariskan ke Class Models LocalStorage                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class DefaultClassPrototype
