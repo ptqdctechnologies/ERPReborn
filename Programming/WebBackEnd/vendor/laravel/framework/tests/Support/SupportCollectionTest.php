@@ -2173,6 +2173,44 @@ class SupportCollectionTest extends TestCase
     /**
      * @dataProvider collectionClassProvider
      */
+    public function testPluckWithDotNotation($collection)
+    {
+        $data = new $collection([
+            [
+                'name' => 'amir',
+                'skill' => [
+                    'backend' => ['php', 'python'],
+                ],
+            ],
+            [
+                'name' => 'taylor',
+                'skill' => [
+                    'backend' => ['php', 'asp', 'java'],
+                ],
+            ],
+        ]);
+
+        $this->assertEquals([['php', 'python'], ['php', 'asp', 'java']], $data->pluck('skill.backend')->all());
+    }
+
+    /**
+     * @dataProvider collectionClassProvider
+     */
+    public function testPluckDuplicateKeysExist($collection)
+    {
+        $data = new collection([
+            ['brand' => 'Tesla', 'color' => 'red'],
+            ['brand' => 'Pagani', 'color' => 'white'],
+            ['brand' => 'Tesla', 'color' => 'black'],
+            ['brand' => 'Pagani', 'color' => 'orange'],
+        ]);
+
+        $this->assertEquals(['Tesla' => 'black', 'Pagani' => 'orange'], $data->pluck('color', 'brand')->all());
+    }
+
+    /**
+     * @dataProvider collectionClassProvider
+     */
     public function testHas($collection)
     {
         $data = new $collection(['id' => 1, 'first' => 'Hello', 'second' => 'World']);
@@ -2819,6 +2857,13 @@ class SupportCollectionTest extends TestCase
      */
     public function testMap($collection)
     {
+        $data = new $collection([1, 2, 3]);
+        $mapped = $data->map(function ($item, $key) {
+            return $item * 2;
+        });
+        $this->assertEquals([2, 4, 6], $mapped->all());
+        $this->assertEquals([1, 2, 3], $data->all());
+
         $data = new $collection(['first' => 'taylor', 'last' => 'otwell']);
         $data = $data->map(function ($item, $key) {
             return $key.'-'.strrev($item);
@@ -2933,6 +2978,7 @@ class SupportCollectionTest extends TestCase
         });
 
         $this->assertEquals([1 => [0, 4], 2 => [1, 3], 3 => [2]], $groups->toArray());
+        $this->assertEquals([1, 2, 3, 2, 1], $data->all());
     }
 
     /**
@@ -3786,6 +3832,9 @@ class SupportCollectionTest extends TestCase
     {
         $c = new $collection(['name' => 'taylor', 'framework' => 'laravel']);
         $this->assertEquals(['name', 'framework'], $c->keys()->all());
+
+        $c = new $collection(['taylor', 'laravel']);
+        $this->assertEquals([0, 1], $c->keys()->all());
     }
 
     /**
