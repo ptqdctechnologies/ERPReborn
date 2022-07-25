@@ -246,8 +246,9 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get local storage base path');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    self::init($varUserSession, $varDiskID);
-                    $varReturn = self::$ObjLocalStorage->getAdapter()->getPathPrefix();
+                    self::init($varUserSession, $varDiskID);                    
+                    $varReturn = (self::$ObjLocalStorage)->path('');
+                    //$varReturn = self::$ObjLocalStorage->getAdapter()->getPathPrefix();
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

@@ -67,7 +67,7 @@ return [
 
         'minio' => [
             'driver' => 's3',
-            'endpoint' => env('MINIO_ENDPOINT', 'http://172.28.0.7:9000'),
+            'endpoint' => env('MINIO_ENDPOINT', 'http://172.28.0.9:9000'),
             'use_path_style_endpoint' => true,
             'key' => env('MINIO_KEY'),
             'secret' => env('MINIO_SECRET'),
