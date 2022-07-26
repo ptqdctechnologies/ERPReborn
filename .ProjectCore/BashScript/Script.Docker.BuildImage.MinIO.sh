@@ -17,7 +17,7 @@ clear;
 
 #sudo docker pull bitnami/minio:latest;
 sudo docker pull minio/minio;
-sudo docker pull minio/mc;
+#sudo docker pull minio/mc;
 #sudo docker pull minio/minio:RELEASE.2021-08-31T05-46-54Z.fips;
 #sudo docker pull minio/minio:RELEASE.2021-08-25T00-41-18Z.fips;
 #sudo docker pull minio/minio:RELEASE.2021-08-05T22-01-19Z;

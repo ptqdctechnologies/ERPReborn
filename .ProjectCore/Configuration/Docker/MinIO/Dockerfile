@@ -2,11 +2,11 @@ FROM minio/minio
 
 RUN curl https://dl.min.io/client/mc/release/linux-amd64/mc \
   --create-dirs \
-  -o $HOME/minio-binaries/mc
+  -o /opt/minio-binaries/mc
 
-RUN chmod +x $HOME/minio-binaries/mc
+RUN chmod +x /opt/minio-binaries/mc
 
-RUN export PATH=$PATH:$HOME/minio-binaries/
+ENV export PATH=$PATH:/opt/minio-binaries/
 
 #---> Release Port
 EXPOSE 9000

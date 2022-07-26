@@ -158,13 +158,13 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::init($varUserSession, $varDiskID);
-                    if($varReturn = self::isFileExist($varUserSession, $varFilePath) == false)
+                    if(self::isDirectoryExist($varUserSession, $varFilePath) == FALSE)
                         {
-                        throw new \Exception('File is not exist');
+                        throw new \Exception('Directory is not exist');
                         }
                     self::$ObjLocalStorage->deleteDirectory($varFilePath);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
+                    $varReturn = TRUE;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -203,13 +203,13 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::init($varUserSession, $varDiskID);
-                    if($varReturn = self::isFileExist($varUserSession, $varFilePath) == false)
+                    if($varReturn = self::isFileExist($varUserSession, $varFilePath) == FALSE)
                         {
                         throw new \Exception('File is not exist');
                         }
                     self::$ObjLocalStorage->delete($varFilePath);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
-                    $varReturn = true;
+                    $varReturn = TRUE;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {
@@ -265,6 +265,151 @@ namespace App\Helpers\ZhtHelper\LocalStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFilesListOnDirectory                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Menampilkan List Sub Direktori pada suatu Direktori                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getFilesListOnDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Files List on Directory');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    self::init($varUserSession, $varDiskID);
+                    $varBasePath = self::getBasePath($varUserSession).$varFilePath;
+                    $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files();
+                    for($i=0, $iMax=count($varTempArray); $i!=$iMax; $i++)
+                        {
+                        $varReturn[$i] = [
+                            'Name' => $varTempArray[$i],
+                            'FullName' => $varBasePath.(($varFilePath) ? '/' : '').$varTempArray[$i]
+                            ];
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSubDirectoriesListOnDirectory                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Menampilkan List Sub Direktori pada suatu Direktori                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSubDirectoriesListOnDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Sub Directories List on Directory');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    self::init($varUserSession, $varDiskID);
+                    $varBasePath = self::getBasePath($varUserSession);
+                    $varTempArray = self::$ObjLocalStorage->directories($varFilePath);
+                    for($i=0, $iMax=count($varTempArray); $i!=$iMax; $i++)
+                        {
+                        $varFilePart=explode('/', $varTempArray[$i]);
+                        $varReturn[$i] = [
+                            'Name' => $varFilePart[count($varFilePart)-1],
+                            'FullName' => $varBasePath.$varTempArray[$i]
+                            ];
+                        }
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isDirectoryExist                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mengecek eksistensi objek direktori                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isDirectoryExist($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check if the file object exists');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    self::init($varUserSession, $varDiskID);
+                    if(!self::$ObjLocalStorage->exists($varFilePath)) {
+                        throw new \Exception('Directory is not exist');
+                        }
+                    //$varReturn = self::$ObjLocalStorage->exists($varFilePath);
+                    //\Illuminate\Support\Facades\Storage::disk('local')->exists
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    $varReturn = TRUE;
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }                        
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isFileExist                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -300,6 +445,6 @@ namespace App\Helpers\ZhtHelper\LocalStorage
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }            
+            }
         }
     }

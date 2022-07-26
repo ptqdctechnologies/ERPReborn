@@ -23,8 +23,8 @@ namespace App\Models\CloudStorage
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-07                                                                                           |
         | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Creation Date   : 2020-09-07                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,8 +43,8 @@ namespace App\Models\CloudStorage
         | ▪ Method Name     : createFile                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-07-21                                                                                           |
         | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Creation Date   : 2021-07-21                                                                                           |
         | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,6 +62,32 @@ namespace App\Models\CloudStorage
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varContentBase64, $varRemoteFilePath, $varBucketName);
             return $varReturn;            
             }*/
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : copyFile                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2020-09-07                                                                                           |
+        | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Description     : Menyimpan objek file                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varLocalFilePath ► Source File Path                                                                     |
+        |      ▪ (string)  varRemoteFilePath ► Destination File Path                                                               |
+        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function copyFileToCloud($varUserSession, string $varLocalFilePath, string $varRemoteFilePath, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, $varLocalFilePath, $varRemoteFilePath, $varBucketName);
+            return $varReturn;            
+            }
 
 
        /*
@@ -85,31 +111,6 @@ namespace App\Models\CloudStorage
         public static function deleteFile($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::deleteFile($varUserSession, $varRemoteFilePath, $varBucketName);
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : isFileExist                                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-07                                                                                           |
-        | ▪ Last Update     : 2020-09-07                                                                                           |
-        | ▪ Description     : Mengecek eksistensi objek file                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varLocalFilePath ► Source File Path                                                                     |
-        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (boolean) varReturn                                                                                               | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function isFileExist($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, $varRemoteFilePath, $varBucketName);
             return $varReturn;
             }
 
@@ -213,27 +214,76 @@ namespace App\Models\CloudStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : copyFile                                                                                             |
+        | ▪ Method Name     : getListSubDirectories                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Sub Direktori                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getListSubDirectories($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getListFiles                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar File                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getListFiles($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isFileExist                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Creation Date   : 2020-09-07                                                                                           |
         | ▪ Last Update     : 2020-09-07                                                                                           |
-        | ▪ Description     : Menyimpan objek file                                                                                 |
+        | ▪ Description     : Mengecek eksistensi objek file                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)   varUserSession ► User Session                                                                           |
         |      ▪ (string)  varLocalFilePath ► Source File Path                                                                     |
-        |      ▪ (string)  varRemoteFilePath ► Destination File Path                                                               |
         |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function copyFileToCloud($varUserSession, string $varLocalFilePath, string $varRemoteFilePath, string $varBucketName = null)
+        public function isFileExist($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::putFile($varUserSession, $varLocalFilePath, $varRemoteFilePath, $varBucketName);
-            return $varReturn;            
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::isFileExist($varUserSession, $varRemoteFilePath, $varBucketName);
+            return $varReturn;
             }
 
 

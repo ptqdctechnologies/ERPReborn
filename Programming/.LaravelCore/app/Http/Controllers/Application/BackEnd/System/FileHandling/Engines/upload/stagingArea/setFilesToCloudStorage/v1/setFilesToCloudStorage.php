@@ -60,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
                             $varUserSession,
                             'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
@@ -69,13 +69,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             throw new \Exception();
                             }
                         $varDataSend = [
-                            'message' => 'Folder Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' has been successfully deleted',
+                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

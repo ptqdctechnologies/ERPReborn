@@ -24,6 +24,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,6 +44,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -67,6 +69,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Membuat objek file baru berdasarkan content                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -92,6 +95,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Menghapus objek directory                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -116,6 +120,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Menghapus objek file                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -140,6 +145,7 @@ namespace App\Models\LocalStorage
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Local Storage Base Path                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -159,10 +165,61 @@ namespace App\Models\LocalStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getListSubDirectories                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Sub Direktori                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getListSubDirectories($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesListOnDirectory($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getListFiles                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar File                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getListFiles($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesListOnDirectory($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : isFileExist                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Mengecek eksistensi objek file                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
