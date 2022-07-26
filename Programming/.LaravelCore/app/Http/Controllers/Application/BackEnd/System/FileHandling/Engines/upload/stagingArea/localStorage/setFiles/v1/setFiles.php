@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToLocalStorage   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\setFiles    |
 |                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToLocalStorage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\setFiles\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFilesToLocalStorage                                                                                       |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.setFilesToLocalStorage Version 1                               |
+    | ▪ Class Name  : setFiles                                                                                                     |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.setFiles Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setFilesToLocalStorage extends \App\Http\Controllers\Controller
+    class setFiles extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

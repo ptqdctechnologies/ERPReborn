@@ -3,21 +3,20 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToCloudStorage   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage\setFiles\v1 |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToCloudStorage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage\setFiles\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFilesToCloudStorage                                                                                       |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.setFilesToCloudStorage Version 1                               |
+    | ▪ Class Name  : setFiles                                                                                                     |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.cloudStorage.setFiles Version 1                                |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setFilesToCloudStorage extends \App\Http\Controllers\Controller
+    class setFiles extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
