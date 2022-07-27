@@ -14,8 +14,8 @@
 
 clear;
 
-sudo docker exec -it php-apache-backend /bin/bash -c "composer self-update; cd /var/www/html/WebBackEnd; yes | composer update; cd -; ";
-sudo docker exec -it php-apache-frontend /bin/bash -c "composer self-update; cd /var/www/html/WebFrontEnd; yes | composer update; cd -; ";
+sudo docker exec -it php-apache-backend /bin/bash -c "composer self-update; cd /var/www/html/WebBackEnd; yes | composer update --no-interaction; cd -; ";
+sudo docker exec -it php-apache-frontend /bin/bash -c "composer self-update; cd /var/www/html/WebFrontEnd; yes | composer update --no-interaction; cd -; ";
 
 ./BashScript/Script.Docker.Reinitializing.LaravelFolderOwnership.sh;
 

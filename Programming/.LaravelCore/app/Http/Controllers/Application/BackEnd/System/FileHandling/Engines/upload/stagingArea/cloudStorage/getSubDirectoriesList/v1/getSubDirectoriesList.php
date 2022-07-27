@@ -63,10 +63,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                             $varUserSession,
-                            \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, 'StagingArea')
-                            );
+                            $this->dataProcessing($varUserSession)
+                            )))
+                            {
+                            throw new \Exception();
+                            }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -85,6 +88,56 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function dataProcessing($varUserSession)
+            {
+            $varDataList = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, 'StagingArea');
+
+            $varArrayRPKPhysicalName = '';
+            for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)
+                {
+                if(strcmp($varArrayRPKPhysicalName, '')!=0)
+                    {
+                    $varArrayRPKPhysicalName .= ',';
+                    }
+                $varArrayRPKPhysicalName .= $varDataList[$i]['Name'];
+                }
+            $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
+            
+            //--->
+            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageSubDirectoriesList(
+                $varUserSession, 
+                $varArrayRPKPhysicalName
+                );
+
+            //--->
+             for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
+                {
+                if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
+                    $varDataReturn[$i]['FullName'] = 'StagingArea/'.$varDataReturn[$i]['Name'];
+                    }
+                else {
+                    $varDataReturn[$i]['FullName'] = null;
+                    }
+                }
+            return $varDataReturn;
             }
         }
     }

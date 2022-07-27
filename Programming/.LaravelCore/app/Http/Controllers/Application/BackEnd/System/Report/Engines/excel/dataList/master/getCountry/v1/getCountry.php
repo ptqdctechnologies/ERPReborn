@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Country Data List Excel Report (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!($varDataSend = $this->dataProcessing(
                             $varUserSession,
                             $varData['outputFileName'],
@@ -116,7 +116,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\excel\d
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-01-21                                                                                           |
-        | ▪ Description     : Fungsi Utama Engine                                                                                  |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
