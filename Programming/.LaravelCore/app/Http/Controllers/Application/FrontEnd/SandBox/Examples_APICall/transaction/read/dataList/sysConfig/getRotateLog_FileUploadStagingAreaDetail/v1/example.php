@@ -24,7 +24,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-27                                                                                           |
-        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)

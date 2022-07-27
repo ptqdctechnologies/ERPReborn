@@ -22382,90 +22382,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.read.dataRecord.supplyChain.getSupplier                                                      |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getDataRecordSupplier()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataRecord.supplyChain.getSupplier', 
-                'latest', 
-                [
-                'recordID' => 126000000000001
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_getDataRecordSupplier()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo '<input type="text" id="dataInput_RecordID" value=126000000000001>';
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataRecord.supplyChain.getSupplier', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.read.dataRecord.supplyChain.getWarehouse                                                     |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_getDataRecordWarehouse()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.read.dataRecord.supplyChain.getWarehouse', 
-                'latest', 
-                [
-                'recordID' => 173000000000001
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_getDataRecordWarehouse()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo '<input type="text" id="dataInput_RecordID" value=173000000000001>';
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.read.dataRecord.supplyChain.getWarehouse', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value)'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
 
 
         /*
@@ -32262,292 +32180,43 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxTariff', 
-                'latest', 
-                [
-                'recordID' => 183000000000001,
-                'entities' => [
-                    "taxType_RefID" => 182000000000001,
-                    "validStartDateTimeTZ" => '1970-01-01 00:00:00+07',
-                    "validFinishDateTimeTZ" => '9999-12-31 23:59:59+07',
-                    "tariffMinimumRate" => 0.10,
-                    "tariffMaximumRate" => 0.10 ,
-                    "roundUnit" => 1000,
-                    "signRoundUp" => TRUE
-                    ]
-                ]
-                );
-            var_dump($varData);
+
             }
         public function APIGatewayJQuery_setDataUpdateTaxTariff()
             {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=183000000000001>';
-            echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_ValidStartDateTimeTZ" value="1970-01-01 00:00:00+07">';
-            echo '<input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07">';
-            echo '<input type="text" id="dataInput_TariffMinimumRate" value=0.10>';
-            echo '<input type="text" id="dataInput_TariffMaximumRate" value=0.10>';
-            echo '<input type="text" id="dataInput_RoundUnit" value=1000>';
-            echo '<input type="text" id="dataInput_SignRoundUp" value="true">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxTariff', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
-                        '"validStartDateTimeTZ" : document.getElementById("dataInput_ValidStartDateTimeTZ").value, '.
-                        '"validFinishDateTimeTZ" : document.getElementById("dataInput_ValidFinishDateTimeTZ").value, '.
-                        '"tariffMinimumRate" : parseFloat(document.getElementById("dataInput_TariffMinimumRate").value), '.
-                        '"tariffMaximumRate" : parseFloat(document.getElementById("dataInput_TariffMaximumRate").value), '.
-                        '"roundUnit" : parseFloat(document.getElementById("dataInput_RoundUnit").value), '.
-                        '"signRoundUp" : (document.getElementById("dataInput_SignRoundUp").value.toLowerCase() === "true")'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+
             }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.update.taxation.setTaxType                                                                   |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataUpdateTaxType()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxType', 
-                'latest', 
-                [
-                'recordID' => 182000000000001,
-                'entities' => [
-                    "name" => 'Tax Name',
-                    "annotation" => 'My Annotation',
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataUpdateTaxType()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Name" value="Tax Name">';
-            echo '<input type="text" id="dataInput_Annotation" value="My Annotation">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTaxType', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"name" : document.getElementById("dataInput_Name").value, '.
-                        '"annotation" : document.getElementById("dataInput_Annotation").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.update.taxation.                                                                   |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataUpdateTransactionTax()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTransactionTax', 
-                'latest', 
-                [
-                'recordID' => 184000000000001,
-                'entities' => [
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => [
-                                    [
-                                    "recordID" => 185000000000001,
-                                    "entities" => [
-                                        "taxType_RefID" => 182000000000001,
-                                        "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
-                                        "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 1'                                
-                                        ]
-                                    ],
-                                    [
-                                    "recordID" => 185000000000002,
-                                    "entities" => [
-                                        "taxType_RefID" => 182000000000002,
-                                        "tariffCurrency_RefID" => 62000000000001,
-                                        "tariffCurrencyValue" => 30000,
-                                        "tariffCurrencyExchangeRate" => 1,
-                                        "remarks" => 'Catatan 2'
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataUpdateTransactionTax()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=184000000000001>';
-            echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl1_RecordID" value=185000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl1_Tarif_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_Dtl1_Remarks" value="Catatan 1 Update">';
-            echo '<hr>';
-            echo '<input type="text" id="dataInput_Dtl2_RecordID" value=185000000000002>';
-            echo '<input type="text" id="dataInput_Dtl2_TaxType_RefID" value=182000000000002>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Dtl2_Tarif_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_Dtl2_Remarks" value="Catatan 2 Update">';
-            echo '<hr>';
-
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTransactionTax', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities": {'.
-                        '"additionalData": ['.
-                            '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl1_RecordID").value), '.
-                            '"entities": {'.
-                                '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl1_TaxType_RefID").value), '.
-                                '"tariffCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl1_Tarif_Currency_RefID").value), '.
-                                '"tariffCurrencyValue": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyValue").value), '.
-                                '"tariffCurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl1_Tarif_CurrencyExchangeRate").value), '.
-                                '"remarks": document.getElementById("dataInput_Dtl1_Remarks").value'.
-                                '}'.
-                            '}, '.
-                            '{'.
-                            '"recordID": parseInt(document.getElementById("dataInput_Dtl2_RecordID").value), '.
-                            '"entities": {'.
-                                '"taxType_RefID": parseInt(document.getElementById("dataInput_Dtl2_TaxType_RefID").value), '.
-                                '"tariffCurrency_RefID": parseInt(document.getElementById("dataInput_Dtl2_Tarif_Currency_RefID").value), '.
-                                '"tariffCurrencyValue": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyValue").value), '.
-                                '"tariffCurrencyExchangeRate": parseFloat(document.getElementById("dataInput_Dtl2_Tarif_CurrencyExchangeRate").value), '.
-                                '"remarks": document.getElementById("dataInput_Dtl2_Remarks").value'.
-                                '}'.
-                            '} '.
-                            ']'.
-                        '}'.
-                '}'
-                );
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
 
 
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ API Key     : transaction.update.taxation.setTransactionTaxDetail                                                      |
-        | ▪ API Version : 1                                                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function APIGateway_setDataUpdateTransactionTaxDetail()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTransactionTaxDetail', 
-                'latest', 
-                [
-                "recordID" => 185000000000001,
-                'entities' => [
-                    "transactionTax_RefID" => 184000000000001,
-                    "taxType_RefID" => 182000000000001,
-                    "tariffCurrency_RefID" => 62000000000001,
-                    "tariffCurrencyValue" => 30000,
-                    "tariffCurrencyExchangeRate" => 1,
-                    "remarks" => 'My Annotation'
-                    ]
-                ]
-                );
-            var_dump($varData);
-            }
-        public function APIGatewayJQuery_setDataUpdateTransactionTaxDetail()
-            {
-            //---Parameter Set---
-            $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
-            //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=185000000000001>';
-            echo '<input type="text" id="dataInput_TransactionTax_RefID" value=184000000000001>';
-            echo '<input type="text" id="dataInput_TaxType_RefID" value=182000000000001>';
-            echo '<input type="text" id="dataInput_Tariff_Currency_RefID" value=62000000000001>';
-            echo '<input type="text" id="dataInput_Tariff_CurrencyValue" value=30000>';
-            echo '<input type="text" id="dataInput_Tariff_CurrencyExchangeRate" value=1>';
-            echo '<input type="text" id="dataInput_Remarks" value="My Annotation">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.taxation.setTransactionTaxDetail', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"transactionTax_RefID" : parseInt(document.getElementById("dataInput_TransactionTax_RefID").value), '.
-                        '"taxType_RefID" : parseInt(document.getElementById("dataInput_TaxType_RefID").value), '.
-                        '"tariffCurrency_RefID" : parseInt(document.getElementById("dataInput_Tariff_Currency_RefID").value), '.
-                        '"tariffCurrencyValue" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyValue").value), '.
-                        '"tariffCurrencyExchangeRate" : parseFloat(document.getElementById("dataInput_Tariff_CurrencyExchangeRate").value), '.
-                        '"remarks" : document.getElementById("dataInput_Remarks").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
-            }
 
-
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ API Key     : transaction.read.master.getDataCurrencyExchangeCentralBankMiddleRateByCurrencyISOCode                    |
