@@ -50,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     transaction.read.dataRecord.production.getMaterialProductAssembly.throughAPIGatewayJQuery            |
+        |                     transaction.read.dataRecord.production.getMaterialProductAssembly.v1_throughAPIGatewayJQuery         |
         |                     ► http://172.28.0.4/                                                                                 |
         |                       transaction.read.dataRecord.production.getMaterialProductAssembly.v1_throughAPIGatewayJQuery       |
         +--------------------------------------------------------------------------------------------------------------------------+

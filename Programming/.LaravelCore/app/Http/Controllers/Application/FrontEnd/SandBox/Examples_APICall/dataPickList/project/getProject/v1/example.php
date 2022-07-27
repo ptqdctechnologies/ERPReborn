@@ -16,8 +16,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/dataPickList.project.getProject.v1_throughAPIGateway                                    |
-        |                     ► http://172.28.0.4/dataPickList.project.getProject.v1_throughAPIGateway                                 |
+        | ▪ Call URL        : http(s)://<HOST>/dataPickList.project.getProject.v1_throughAPIGateway                                |
+        |                     ► http://172.28.0.4/dataPickList.project.getProject.v1_throughAPIGateway                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-22                                                                                           |

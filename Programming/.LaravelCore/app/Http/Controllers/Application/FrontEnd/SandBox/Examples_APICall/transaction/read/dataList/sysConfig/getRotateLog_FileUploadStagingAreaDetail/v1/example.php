@@ -59,7 +59,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
         |                     transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail                         |
-        |                       .v1_throughAPIGatewayJQuery                                                                        |
+        |                     .v1_throughAPIGatewayJQuery                                                                          |
         |                     ► http://172.28.0.4/                                                                                 |
         |                       transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail                       |
         |                       .v1_throughAPIGatewayJQuery                                                                        |
