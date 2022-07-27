@@ -1481,8 +1481,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lz
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListDeliveryDestinationType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListDeliveryDestinationType', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListDeliveryOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListDeliveryOrder', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListDeliveryOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListDeliveryOrder', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListPurchaseOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListPurchaseOrder', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListPurchaseOrder', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListPurchaseOrder', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListPurchaseOrderAdditionalCostType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListPurchaseOrderAdditionalCostType', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataListPurchaseOrderAdditionalCostType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataListPurchaseOrderAdditionalCostType', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataListSupplierInvoiceBillingPurpose', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataListSupplierInvoiceBillingPurpose', 'webWithoutCSRF');
@@ -1667,17 +1665,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lz
 
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : transaction.read.dataRecord.production....                                                                       |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordBillOfMaterial', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordBillOfMaterial', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordBillOfMaterial', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordBillOfMaterial', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordBillOfMaterialDetail', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordBillOfMaterialDetail', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordBillOfMaterialDetail', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordBillOfMaterialDetail', 'webWithoutCSRF');
-
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
 | Route for API : transaction.read.dataRecord.project....                                                                          |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
@@ -1726,20 +1713,6 @@ $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lz
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordWarehouseOutboundOrderDetail', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordWarehouseOutboundOrderDetail', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordWarehouseType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordWarehouseType', 'webWithoutCSRF');
 \App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordWarehouseType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordWarehouseType', 'webWithoutCSRF');
-
-
-/*
-+----------------------------------------------------------------------------------------------------------------------------------+
-| Route for API : transaction.read.dataRecord.taxation....                                                                         |
-+----------------------------------------------------------------------------------------------------------------------------------+
-*/
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordTaxTariff', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordTaxTariff', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordTaxTariff', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordTaxTariff', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordTaxType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordTaxType', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordTaxType', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordTaxType', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGateway_getDataRecordTransactionTax', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGateway_getDataRecordTransactionTax', 'webWithoutCSRF');
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('APIGatewayJQuery_getDataRecordTransactionTax', 'get', '\App\Http\Controllers\Application\FrontEnd\SandBox\SendWSRequest@APIGatewayJQuery_getDataRecordTransactionTax', 'webWithoutCSRF');
-
 
 
 /*
