@@ -411,10 +411,11 @@ $s3Client = new \Aws\S3\S3Client([
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getFolderList                                                                                        |
+        | ▪ Method Name     : getSubDirectoriesList                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar Seluruh Folder dan Sub Folder                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -426,15 +427,37 @@ $s3Client = new \Aws\S3\S3Client([
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getFolderList($varUserSession, string $varBaseFolder = '', string $varBucketName = null)
+        public static function getSubDirectoriesList($varUserSession, string $varBaseFolder = '', string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get folder and subfolder list');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Sub Directories List On Directory');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
-                    $varReturn = self::$ObjMinIO->allDirectories($varBaseFolder);
+                    self::init($varUserSession);
+                    $varTemp = self::$ObjMinIOClient->listObjects(
+                        [
+                        'Bucket' =>  self::$varBucketName,
+                        'Prefix' => $varBaseFolder
+                        ]
+                        );
+                    $i = 0;
+                    $varTemp3 = [];
+                    foreach ($varTemp['Contents'] as $varTemp) {
+                        $varTemp2 = substr($varTemp['Key'], strlen($varBaseFolder)+1, strlen($varTemp['Key'])-strlen($varBaseFolder)-1);
+                        $varPathPart = explode('/', $varTemp2);
+                        if(!in_array($varPathPart[0], $varTemp3, true)) {
+                            array_push($varTemp3, $varPathPart[0]);
+                            }
+                        }
+                    for($i=0, $iMax=count($varTemp3); $i!=$iMax; $i++)
+                        {
+                        $varReturn[$i] = [
+                            'Name' => $varTemp3[$i],
+                            'FullName' => $varBaseFolder.'/'.$varTemp3[$i]
+                            ];
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -451,10 +474,11 @@ $s3Client = new \Aws\S3\S3Client([
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getFileList                                                                                          |
+        | ▪ Method Name     : getFilesList                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar File                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -466,19 +490,30 @@ $s3Client = new \Aws\S3\S3Client([
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getFileList($varUserSession, string $varBaseFolder = '', string $varBucketName = null)
+        public static function getFilesList($varUserSession, string $varBaseFolder = '', string $varBucketName = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set file list');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
-                    $varTemp = self::$ObjMinIO->files($varBaseFolder);
-                    for($i=0; $i!=count($varTemp); $i++)
-                        {
-                        $varFilePart=explode('/', $varTemp[$i]);
-                        $varReturn[$i]=$varFilePart[count($varFilePart)-1];
+                    self::init($varUserSession);
+                    $varTemp = self::$ObjMinIOClient->listObjects(
+                        [
+                        'Bucket' =>  self::$varBucketName
+                        ]
+                        );
+                    $i = 0;
+                    foreach ($varTemp['Contents'] as $varTemp) {
+                        if(strcmp(substr($varTemp['Key'], 0, strlen($varBaseFolder)), $varBaseFolder)==0)
+                            {
+                            $varFilePart = explode('/', $varTemp['Key']);
+                            $varReturn[$i++] = [
+                                'Name' => $varFilePart[count($varFilePart)-1],
+                                'FullName' => $varTemp['Key']
+                                ];
+                            }
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -519,7 +554,20 @@ $s3Client = new \Aws\S3\S3Client([
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
-                    $varReturn = self::$ObjMinIO->allfiles($varBaseFolder);
+                    self::init($varUserSession);
+                    $varTemp = self::$ObjMinIOClient->listObjects(
+                        [
+                        'Bucket' =>  self::$varBucketName
+                        ]
+                        );
+                    $i = 0;
+                    foreach ($varTemp['Contents'] as $varTemp) {
+                        $varFilePart = explode('/', $varTemp['Key']);
+                        $varReturn[$i++] = [
+                            'Name' => $varFilePart[count($varFilePart)-1],
+                            'FullName' => $varTemp['Key']
+                            ];
+                        }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

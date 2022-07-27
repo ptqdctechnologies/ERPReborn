@@ -15,8 +15,23 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            echo \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
-            echo "<br><br>";
+            
+            
+//            $varFilePath = 'Application/Upload/StagingArea';
+//            $varFilePath = 'Application';
+//            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesListOnDirectory($varUserSession, $varFilePath);
+/*            $x = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesListOnDirectory($varUserSession, $varFilePath);
+ */
+            
+//            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, 'StagingArea/1');
+            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesListOnDirectory($varUserSession, 'StagingArea');
+          
+            var_dump($x);
+            
+            //$x = (new \App\Models\LocalStorage\DefaultClassPrototype())->;
+
+            //echo \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession);
+            //echo "<br><br>";
             //echo \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/';
             
             
@@ -27,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
             //echo $NewValue;
             
-            var_dump(\App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System());
-            echo "xxx";
+            //var_dump(\App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System());
+            echo "~~~~~~~~~~~~~~~~~~~";
             }
 
         public function testHTMLDOM()

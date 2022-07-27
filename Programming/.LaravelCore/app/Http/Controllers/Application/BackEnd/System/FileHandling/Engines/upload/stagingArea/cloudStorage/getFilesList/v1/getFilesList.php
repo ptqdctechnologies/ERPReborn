@@ -3,28 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToCloudStorage   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage             |
+|                \getFilesList\v1                                                                                                  |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\setFilesToCloudStorage\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage\getFilesList\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFilesToCloudStorage                                                                                       |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.setFilesToCloudStorage Version 1                               |
+    | ▪ Class Name  : getFilesList                                                                                                 |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.cloudStorage.getFilesList Version 1                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setFilesToCloudStorage extends \App\Http\Controllers\Controller
+    class getFilesList extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,7 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,25 +59,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Files List (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
+                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                             $varUserSession,
-                            'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
-                            ) == FALSE)
-                            {
-                            throw new \Exception();
-                            }
-                        $varDataSend = [
-                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
-                            ];
+                            \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList(
+                                $varUserSession, 
+                                'StagingArea/'.$varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'])
+                            );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
+                        $varErrorMessage = $ex->getMessage();
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
