@@ -3,27 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getNewID\v1              |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\isFileExist |
+|                \v1                                                                                                               |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getNewID\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\isFileExist\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getNewID                                                                                                     |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.getNewID Version 1                                             |
+    | ▪ Class Name  : isFileExist                                                                                                  |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.isFileExist Version 1                             |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getNewID extends \App\Http\Controllers\Controller
+    class isFileExist extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-28                                                                                           |
+        | ▪ Creation Date   : 2022-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-28                                                                                           |
+        | ▪ Creation Date   : 2022-07-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,15 +59,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create RotateLog File Upload Staging Area Data (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check File Existation at Local Storage (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload($varUserSession, (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingArea())->setDataInsert(
-                            $varUserSession, 
-                            null,
-                            $varData['applicationKey']
-                            ))))
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                            $varUserSession,
+                            $this->dataProcessing($varUserSession, $varData['parameter']['recordPK'])
+                            )))
                             {
                             throw new \Exception();
                             }
@@ -86,6 +88,41 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-28                                                                                           |
+        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► RPK Rotate Log File Upload Staging Area (Mandatory)          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function dataProcessing($varUserSession, int $varRecordPK)
+            {
+            $varLocalStoragePath = 
+                'Application/Upload/StagingArea/'.    
+                ((new \App\Models\Database\SchSysAsset\General())->getFileEntities_StagingArea(
+                    $varUserSession, 
+                    $varRecordPK
+                )['Path']);
+
+            $varDataReturn = [
+                'SignExist' => \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist(
+                    $varUserSession, 
+                    $varLocalStoragePath
+                    )
+                ];
+            return $varDataReturn;
             }
         }
     }

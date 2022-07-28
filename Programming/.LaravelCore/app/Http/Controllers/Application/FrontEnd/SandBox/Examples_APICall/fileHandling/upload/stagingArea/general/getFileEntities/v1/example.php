@@ -3,21 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\getNewID\v1  |
-| ▪ API Key     : fileHandling.upload.stagingArea.getNewID                                                                         |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general      |
+|                 \getFileEntities\v1                                                                                              |
+| ▪ API Key     : fileHandling.upload.stagingArea.general.getFileEntities                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\getNewID\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general\getFileEntities\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.getNewID.v1_throughAPIGateway                       |
-        |                     ► http://172.28.0.4/fileHandling.upload.stagingArea.getNewID.v1_throughAPIGateway                    |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGateway        |
+        |                     ► http://172.28.0.4/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGateway     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-25                                                                                           |
@@ -34,10 +35,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.getNewID', 
+                'fileHandling.upload.stagingArea.general.getFileEntities', 
                 'latest', 
                 [
-                    'applicationKey' => $varAPIWebToken
+                    'recordPK' => 67
                 ]
                 );
             var_dump($varData);
@@ -46,8 +47,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.getNewID.v1_throughAPIGatewayJQuery                 |
-        |                     ► http://172.28.0.4/fileHandling.upload.stagingArea.getNewID.v1_throughAPIGatewayJQuery              |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGatewayJQuery  |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGatewayJQuery                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-25                                                                                           |
@@ -66,7 +68,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.getNewID', 
+                'fileHandling.upload.stagingArea.general.getFileEntities', 
                 'latest', 
                 '{'.
                     '"applicationKey" : document.getElementById("dataInput_applicationKey").value'.

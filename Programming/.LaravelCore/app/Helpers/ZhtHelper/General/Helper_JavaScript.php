@@ -219,7 +219,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                             $varUserSession, 
                                             $varAPIWebToken, 
-                                            'fileHandling.upload.stagingArea.getNewID', 
+                                            'fileHandling.upload.stagingArea.general.getNewID', 
                                             'latest', 
                                             '{'.
                                                 '"applicationKey" : "'.$varAPIWebToken.'"'.
