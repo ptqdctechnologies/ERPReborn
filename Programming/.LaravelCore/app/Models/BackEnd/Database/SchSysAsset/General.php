@@ -20,6 +20,38 @@ namespace App\Models\Database\SchSysAsset
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getCloudStorageFilesList                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar File Cloud Storage                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getCloudStorageFilesList($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, string $varArrayPhysicalName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysAsset.Func_GetDataList_CloudStorageFiles',
+                    [
+                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                        [$varArrayPhysicalName, 'varchar[]'],
+                    ]
+                    )
+                );
+            return $varReturn['Data'];
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getCloudStorageSubDirectoriesList                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -41,7 +73,7 @@ namespace App\Models\Database\SchSysAsset
                     $varUserSession,
                     'SchSysAsset.Func_GetDataList_CloudStorageSubDirectories',
                     [
-                        [$varArrayPhysicalName, 'bigint[]'],
+                        [$varArrayPhysicalName, 'varchar[]'],
                     ]
                     )
                 );

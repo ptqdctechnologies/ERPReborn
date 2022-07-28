@@ -102,7 +102,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -132,10 +131,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
                 {
                 if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
-                    $varDataReturn[$i]['FullName'] = 'StagingArea/'.$varDataReturn[$i]['Name'];
+                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varDataReturn[$i]['Sys_RPK'];
                     }
                 else {
-                    $varDataReturn[$i]['FullName'] = null;
+                    $varDataReturn[$i]['Path'] = null;
                     }
                 }
             return $varDataReturn;

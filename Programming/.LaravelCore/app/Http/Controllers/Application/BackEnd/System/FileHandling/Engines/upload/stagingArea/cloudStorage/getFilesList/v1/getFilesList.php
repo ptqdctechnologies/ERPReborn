@@ -98,12 +98,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
+        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► RPK Rotate Log File Upload Staging Area (Mandatory)          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, $varRotateLog_FileUploadStagingArea_RefRPK)
+        private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK)
             {
             $varDataList = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList(
                 $varUserSession, 
@@ -120,9 +120,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varArrayRPKPhysicalName .= $varDataList[$i]['Name'];
                 }
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
+
+            //--->
+            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
+                $varUserSession, 
+                $varRotateLog_FileUploadStagingArea_RefRPK,
+                $varArrayRPKPhysicalName
+                );
             
             //$varDataReturn = $varDataList;
-            $varDataReturn = ['xxx' => $varArrayRPKPhysicalName];
+            //$varDataReturn = ['xxx' => $varArrayRPKPhysicalName];
+
+            //--->
+             for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
+                {
+                if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
+                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varDataReturn[$i]['Sys_RPK'];
+                    }
+                else {
+                    $varDataReturn[$i]['Path'] = null;
+                    }
+                }
             return $varDataReturn;
             }
         }

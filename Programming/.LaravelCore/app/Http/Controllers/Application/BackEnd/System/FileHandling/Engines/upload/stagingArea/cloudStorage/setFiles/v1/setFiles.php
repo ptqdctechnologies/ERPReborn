@@ -60,7 +60,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
+/*                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
                             $varUserSession,
                             'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
                             ) == FALSE)
@@ -69,7 +69,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             }
                         $varDataSend = [
                             'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
-                            ];
+                            ];*/
+                        $varDataSend = ['xxx' => 'ccc'];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
