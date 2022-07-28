@@ -254,7 +254,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                         $varUserSession, 
                                                         $varAPIWebToken, 
-                                                        'fileHandling.upload.stagingArea.localStorage.setFiles', 
+                                                        'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                                                         'latest', 
                                                         '{'.
                                                             '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
@@ -266,7 +266,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                             $varUserSession, 
                                                             $varAPIWebToken, 
-                                                            'fileHandling.upload.stagingArea.cloudStorage.setFiles', 
+                                                            'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
                                                             'latest', 
                                                             '{'.
                                                                 '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.

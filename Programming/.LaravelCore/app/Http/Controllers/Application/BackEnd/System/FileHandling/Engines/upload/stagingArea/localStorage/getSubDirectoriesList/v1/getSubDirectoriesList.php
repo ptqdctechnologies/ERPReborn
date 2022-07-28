@@ -3,27 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage\setFiles\v1 |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage             |
+|                \localStorage\v1                                                                                         |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\cloudStorage\setFiles\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\getSubDirectoriesList\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setFiles                                                                                                     |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.cloudStorage.setFiles Version 1                                |
+    | ▪ Class Name  : getSubDirectoriesList                                                                                        |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.getSubDirectoriesList Version 1                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setFiles extends \App\Http\Controllers\Controller
+    class getSubDirectoriesList extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,26 +59,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Sub Directories List at Local Storage (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-/*                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                             $varUserSession,
-                            'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
-                            ) == FALSE)
+                            $this->dataProcessing($varUserSession)
+                            )))
                             {
                             throw new \Exception();
                             }
-                        $varDataSend = [
-                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
-                            ];*/
-                        $varDataSend = ['xxx' => 'ccc'];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
+                        $varErrorMessage = $ex->getMessage();
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -89,6 +88,56 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : dataProcessing                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-27                                                                                           |
+        | ▪ Creation Date   : 2022-07-27                                                                                           |
+        | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        private function dataProcessing($varUserSession)
+            {
+            $varDataList = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, 'StagingArea');
+
+            $varArrayRPKPhysicalName = '';
+            for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)
+                {
+                if(strcmp($varArrayRPKPhysicalName, '')!=0)
+                    {
+                    $varArrayRPKPhysicalName .= ',';
+                    }
+                $varArrayRPKPhysicalName .= $varDataList[$i]['Name'];
+                }
+            $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
+            
+            //--->
+            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageSubDirectoriesList(
+                $varUserSession, 
+                $varArrayRPKPhysicalName
+                );
+
+            //--->
+             for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
+                {
+                if(((bool) $varDataReturn[$i]['SignExistOnStorage']) == TRUE) {
+                    $varDataReturn[$i]['Path'] = 'StagingArea/'.$varDataReturn[$i]['Sys_RPK'];
+                    }
+                else {
+                    $varDataReturn[$i]['Path'] = null;
+                    }
+                }
+            return $varDataReturn;
             }
         }
     }
