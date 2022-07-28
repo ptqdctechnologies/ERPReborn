@@ -1,4 +1,4 @@
-FROM php:8.1.6-apache
+FROM php:8.1.8-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN printf "deb http://kambing.ui.ac.id/debian/ buster main contrib non-free" >> /etc/apt/sources.list \

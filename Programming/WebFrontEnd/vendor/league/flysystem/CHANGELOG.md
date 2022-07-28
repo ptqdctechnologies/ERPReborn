@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.2.0 - 2022-0726
+
+### Added
+
+- [AwsS3V3] Added configuration options for forwarded options, multipart upload configuration, and metadata fields.
+
+### Fixes
+
+- [ZipArchive] delete top-level directory when deleting directories.
+- [AwsS3V3] add `ChecksumAlgorithm` to forwarded options.
+- [AwsS3V3] add `ContentMD5` to forwarded options.
+- [AwsS3V3] made forwarded options and metadata fields configurable.
+- [SftpV3] upgrade minimum version, PHP 8 and the lowest version fails to authenticate.
+
 ## 3.1.1 - 2022-07-18
 
 - [AwsS3V3] Corrected exception type (#1524)

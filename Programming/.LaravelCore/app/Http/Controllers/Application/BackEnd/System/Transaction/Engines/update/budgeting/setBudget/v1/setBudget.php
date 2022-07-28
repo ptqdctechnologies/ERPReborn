@@ -59,9 +59,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Update Budget Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
-//                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget)->setDataUpdate(
-                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget)->setDataUpdate(
+                    try {
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUpdate($varUserSession, (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget)->setDataUpdate(
+//                        if(!($varDataSend = (new \App\Models\Database\SchData_OLTP_Budgeting\TblBudget)->setDataUpdate(
                             $varUserSession,
                             $varData['recordID'],
                             null,
@@ -70,12 +70,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                             $varData['entities']['name'],
                             $varData['entities']['validStartDateTimeTZ'],
                             $varData['entities']['validFinishDateTimeTZ']
-//                            ))))
-                            )))
+                            ))))
+//                            )))
                             {
                             throw new \Exception();
                             }
-$varDataSend = ['x' => $varDataSend];
+//$varDataSend = ['x' => $varDataSend];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {

@@ -219,7 +219,7 @@ namespace App\Helpers\ZhtHelper\General
                                         'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                             $varUserSession, 
                                             $varAPIWebToken, 
-                                            'fileHandling.upload.stagingArea.getNewID', 
+                                            'fileHandling.upload.stagingArea.general.getNewID', 
                                             'latest', 
                                             '{'.
                                                 '"applicationKey" : "'.$varAPIWebToken.'"'.
@@ -254,7 +254,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                         $varUserSession, 
                                                         $varAPIWebToken, 
-                                                        'fileHandling.upload.stagingArea.setFilesToLocalStorage', 
+                                                        'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                                                         'latest', 
                                                         '{'.
                                                             '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
@@ -266,7 +266,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                             $varUserSession, 
                                                             $varAPIWebToken, 
-                                                            'fileHandling.upload.stagingArea.setFilesToCloudStorage', 
+                                                            'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
                                                             'latest', 
                                                             '{'.
                                                                 '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
