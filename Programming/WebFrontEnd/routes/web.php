@@ -13,6 +13,17 @@ use App\Http\Controllers\Advance\AdvanceRequestController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
+$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTg5NjcxMDl9.pCK4mXtP8st_vop8TuPxDoEWWbd9v9ZoIkilVOwah-I';
+
+\App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
+    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+    $varAPIWebToken
+    );    
+//---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
+
+
 // LOGIN
 Route::get('/', 'Auth\LoginController@index')->name('login');
 Route::post('login', 'Auth\LoginController@login')->name('login');
@@ -284,15 +295,7 @@ Route::get('showLogError', function () {
 
 
 
-//---[ Example Code - Dynamic Route ]----------------------------------------------------[START]---
-$varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTg5Mjg2NTh9.RrqHayjODtoZg6Nwkw5S8RLbzf1b1BVDX_KZSO1oSJU';
 
-\App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
-    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-    $varAPIWebToken
-    );    
-//---[ Example Code - Dynamic Route ]----------------------------------------------------[ END ]---
     
     
     
