@@ -16,6 +16,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             
+            $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
+            var_dump($varTempArray);
+            
             
 //            $varFilePath = 'Application/Upload/StagingArea';
 //            $varFilePath = 'Application';
@@ -24,9 +27,9 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
  */
             
 //            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, 'StagingArea/1');
-            $x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesListOnDirectory($varUserSession, 'StagingArea');
+            //$x = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesListOnDirectory($varUserSession, 'StagingArea');
           
-            var_dump($x);
+            //var_dump($x);
             
             //$x = (new \App\Models\LocalStorage\DefaultClassPrototype())->;
 

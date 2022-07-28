@@ -265,7 +265,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getFilesListOnDirectory                                                                              |
+        | ▪ Method Name     : getFilesList                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-26                                                                                           |
@@ -281,7 +281,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getFilesListOnDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
+        public static function getFilesList($varUserSession, string $varFilePath, string $varDiskID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
             try {
@@ -290,12 +290,14 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::init($varUserSession, $varDiskID);
                     $varBasePath = self::getBasePath($varUserSession).$varFilePath;
-                    $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files();
+                    
+                    $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files($varFilePath);
                     for($i=0, $iMax=count($varTempArray); $i!=$iMax; $i++)
                         {
+                        $varFilePart=explode('/', $varTempArray[$i]);
                         $varReturn[$i] = [
-                            'Name' => $varTempArray[$i],
-                            'FullName' => $varBasePath.(($varFilePath) ? '/' : '').$varTempArray[$i]
+                            'Name' => $varFilePart[count($varFilePart)-1],
+                            'Path' => $varBasePath.(($varFilePath) ? '/' : '').$varTempArray[$i]
                             ];
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
@@ -314,7 +316,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSubDirectoriesListOnDirectory                                                                     |
+        | ▪ Method Name     : getSubDirectoriesList                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-26                                                                                           |
@@ -330,7 +332,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSubDirectoriesListOnDirectory($varUserSession, string $varFilePath, string $varDiskID = null)
+        public static function getSubDirectoriesList($varUserSession, string $varFilePath, string $varDiskID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, [], __CLASS__, __FUNCTION__);
             try {
@@ -345,7 +347,7 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                         $varFilePart=explode('/', $varTempArray[$i]);
                         $varReturn[$i] = [
                             'Name' => $varFilePart[count($varFilePart)-1],
-                            'FullName' => $varBasePath.$varTempArray[$i]
+                            'Path' => $varBasePath.$varTempArray[$i]
                             ];
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----

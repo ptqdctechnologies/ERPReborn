@@ -183,7 +183,7 @@ namespace App\Models\LocalStorage
         */
         public function getListSubDirectories($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesListOnDirectory($varUserSession, $varFilePath, $varDiskID);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesList($varUserSession, $varFilePath, $varDiskID);
             return $varReturn;
             }
 
@@ -208,7 +208,7 @@ namespace App\Models\LocalStorage
         */
         public function getListFiles($varUserSession, string $varFilePath, string $varDiskID = null)
             {
-            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesListOnDirectory($varUserSession, $varFilePath, $varDiskID);
+            $varReturn = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesList($varUserSession, $varFilePath, $varDiskID);
             return $varReturn;
             }
 
