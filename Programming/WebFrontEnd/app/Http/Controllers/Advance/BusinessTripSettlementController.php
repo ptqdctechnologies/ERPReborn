@@ -13,9 +13,47 @@ class BusinessTripSettlementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createBSF()
+    public function index(Request $request)
     {
-        return view('Advance.BussinesTrip.Transactions.createBSF');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataPickList.project.getProject',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+        $varData2 = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken, 
+            'transaction.read.dataList.humanResource.getWorker', 
+            'latest', 
+            [
+            'parameter' => null,
+            'SQLStatement' => [
+                'pick' => null,
+                'sort' => null,
+                'filter' => null,
+                'paging' => null
+                ]
+            ]
+        );
+
+        $var = 0;
+        if(!empty($_GET['var'])){
+           $var =  $_GET['var'];
+        }
+        
+        $compact = [
+            'dataProject' => $varDataProject['data']['data'],
+            'data2' => $varData2['data'],
+            'var' => $var,
+        ];
+        
+        return view('Advance.BussinesTrip.Transactions.createBSF', $compact);
     }
 
     public function BSFtoBRF()

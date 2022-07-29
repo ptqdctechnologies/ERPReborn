@@ -13,11 +13,11 @@ class BusinessTripRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function createBRF(Request $request)
+    public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
 
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
             $varAPIWebToken,
             'dataPickList.project.getProject',
@@ -42,11 +42,17 @@ class BusinessTripRequestController extends Controller
             ]
         );
 
+        $var = 0;
+        if(!empty($_GET['var'])){
+           $var =  $_GET['var'];
+        }
+        
         $compact = [
-            'data' => $varData['data']['data'],
+            'dataProject' => $varDataProject['data']['data'],
             'data2' => $varData2['data'],
+            'var' => $var,
         ];
-
+        
         return view('Advance.BussinesTrip.Transactions.createBRF', $compact);
     }
 

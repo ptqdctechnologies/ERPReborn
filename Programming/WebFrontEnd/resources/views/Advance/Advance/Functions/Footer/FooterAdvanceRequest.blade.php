@@ -1,18 +1,18 @@
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#detailArfList").hide();
-        $("#detailTransAvail").hide();
-        $("#sitecode2").prop("disabled", true);
-        $("#request_name2").prop("disabled", true);
-        $("#request_name").prop("readonly", true);
-        $("#showContentBOQ3").hide();
-        $("#tableShowHideBOQ3").hide();
-        $("#iconProductId2").hide();
-        $("#iconQty2").hide();
-        $("#iconUnitPrice2").hide();
-        $("#iconRemark2").hide();
-        $("#product_id2").prop("disabled", true);
-        $("#submitArf").prop("disabled", true);
+        // $("#detailArfList").hide();
+        // $("#detailTransAvail").hide();
+        // $("#sitecode2").prop("disabled", true);
+        // $("#request_name2").prop("disabled", true);
+        // $("#request_name").prop("readonly", true);
+        // $("#showContentBOQ3").hide();
+        // $("#tableShowHideBOQ3").hide();
+        // $("#iconProductId2").hide();
+        // $("#iconQty2").hide();
+        // $("#iconUnitPrice2").hide();
+        // $("#iconRemark2").hide();
+        // $("#product_id2").prop("disabled", true);
+        // $("#submitArf").prop("disabled", true);
     });
 </script>
 
@@ -34,12 +34,12 @@
             let statusProduct = $("#statusProduct").val();
             let statusEditArf = $("#statusEditArf").val();
             if (statusEditArf == "Yes") {
-                
+
                 qtyCek = $('#ValidateQuantity').val().replace(/^\s+|\s+$/g, '');
                 priceCek = $("#ValidatePrice").val().replace(/^\s+|\s+$/g, '');
                 totalArfDetails = parseFloat(qtyCek * priceCek).toFixed(2);
-                
-                
+
+
                 let html = '<tr>' +
                     '<td>' +
                     '&nbsp;<button type="button" class="btn btn-xs RemoveAdvance" data-id1="' + product_id + '"><img src="AdminLTE-master/dist/img/delete.png" width="25" alt="" title="Remove" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> ' +
@@ -170,7 +170,7 @@
                                 type: "POST",
                                 url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1"),
                             });
-                            
+
                             $("#putProductId").val($this.data("id1"));
                             $("#putProductName").val($this.data("id2"));
                             $("#qtyCek").val($this.data("id3"));
@@ -371,7 +371,8 @@
                                     if (result.value) {
                                         $("#loading").show();
                                         $(".loader").show();
-                                        location.reload();
+
+                                        window.location.href = '/AdvanceRequest?var=1';
                                     }
                                 })
                             },

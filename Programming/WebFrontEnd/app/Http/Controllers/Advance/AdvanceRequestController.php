@@ -84,10 +84,10 @@ class AdvanceRequestController extends Controller
             'entities' => [
                     "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
                     "product_RefID" => (int) $input['var_product_id'][$n],
-                    "quantity" => (int) $input['var_quantity'][$n],
+                    "quantity" => (float) $input['var_quantity'][$n],
                     "quantityUnit_RefID" => 73000000000001,
                     "productUnitPriceCurrency_RefID" => 62000000000001,
-                    "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                    "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
                     "remarks" => 'Catatan Detail'
                 ]
@@ -248,10 +248,10 @@ class AdvanceRequestController extends Controller
                     'entities' => [
                         "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
                         "product_RefID" => (int) $input['var_product_id'][$n],
-                        "quantity" => (int) $input['var_quantity'][$n],
+                        "quantity" => (float) $input['var_quantity'][$n],
                         "quantityUnit_RefID" => 73000000000001,
                         "productUnitPriceCurrency_RefID" => 62000000000001,
-                        "productUnitPriceCurrencyValue" => (int) $input['var_price'][$n],
+                        "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                         "productUnitPriceCurrencyExchangeRate" => 1,
                         "remarks" => 'Catatan'
                     ]

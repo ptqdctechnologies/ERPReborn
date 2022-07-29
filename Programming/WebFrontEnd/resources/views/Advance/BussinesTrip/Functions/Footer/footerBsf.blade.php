@@ -325,7 +325,7 @@ prop("disabled", true);
 
           $.ajax({
             type: "POST",
-            url: '{{route("ARF.tests")}}',
+            url: '{{route("AdvanceRequest.store")}}',
             data: json_object,
             contentType: "application/json",
             processData: true,

@@ -136,7 +136,7 @@
                       <tbody>
                           <td>
                             <div class="input-group">
-                              &nbsp;<input id="putProductId" style="border-radius:0;width:100px;" class="form-control" readonly>
+                              &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
                                   <a href="#" id="product_id2" data-toggle="modal" data-target="#myProductArf"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
@@ -148,19 +148,19 @@
                             <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
+                            <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
                             <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
-                            <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                            <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
-                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
+                            <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off">
                             <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td>
-                            <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                            <input id="putCurrency" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td>
                             <input id="totalArfDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
@@ -179,7 +179,7 @@
 
                       </tbody>
                     </table>
-                    <div style="padding-right:10px;">
+                    <div style="padding-right:10px;padding-top:10px;">
                       <a class="btn btn-default btn-sm float-right cancelDetailArf" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                         <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
                       </a>
