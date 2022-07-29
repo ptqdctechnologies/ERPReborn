@@ -108,10 +108,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession)
             {
-            $varDataList = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList(
-                $varUserSession, 
-                'StagingArea'
-                );
+            $varDataList = 
+                (new \App\Models\CloudStorage\System\General())->getSubDirectoriesList(
+                    $varUserSession, 
+                    'StagingArea'
+                    );
 
             $varArrayRPKPhysicalName = '';
             for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)

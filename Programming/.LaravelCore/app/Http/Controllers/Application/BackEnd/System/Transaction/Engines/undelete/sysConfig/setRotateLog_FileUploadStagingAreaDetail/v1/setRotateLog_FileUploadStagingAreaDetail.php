@@ -3,27 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getFilesList\v1          |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\sysConfig                           |
+|                \setRotateLog_FileUploadStagingAreaDetail\v1                                                                      |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\getFilesList\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\undelete\sysConfig\setRotateLog_FileUploadStagingAreaDetail\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getFilesList                                                                                                 |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.getFilesList Version 1                                         |
+    | ▪ Class Name  : setRotateLog_FileUploadStagingAreaDetail                                                                     |
+    | ▪ Description : Menangani API transaction.undelete.sysConfig.setRotateLog_FileUploadStagingAreaDetail Version 1              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getFilesList extends \App\Http\Controllers\Controller
+    class setRotateLog_FileUploadStagingAreaDetail extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-23                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -42,7 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-23                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -56,52 +59,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get File Upload Staging Area List (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Undelete Rotate Log File Upload Staging Area Detail Data (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try{
-                        $varDataBuffer =  \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
-                                $varUserSession,
-                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['APIWebToken'],
-                                'transaction.read.dataList.sysConfig.getRotateLog_FileUploadStagingAreaDetail', 
-                                'latest', 
-                                [
-                                'parameter' => [
-                                    'rotateLog_FileUploadStagingArea_RefRPK' => $varData['rotateLog_FileUploadStagingArea_RefRPK']
-                                    ],
-                                'SQLStatement' => [
-                                    'pick' => null,
-                                    'sort' => null,
-                                    'filter' => null,
-                                    'paging' => null
-                                    ]
-                                ],
-                                FALSE
-                                );
-
-                        if($varDataBuffer['metadata']['HTTPStatusCode'] != 200)
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataUndeleteByRPK($varUserSession, (new \App\Models\Database\SchSysConfig\TblRotateLog_API())->unsetDataDeleteByRPK(
+                            $varUserSession,
+                            'SchSysConfig',
+                            'TblRotateLog_FileUploadStagingAreaDetail',
+                            $varData['recordPK']
+                            ))))
                             {
-                            throw new \Exception('Data Not Found');
-                            }
-                        
-                        for($i=0; $i!=count($varDataBuffer['data']); $i++)
-                            {
-                            $varDataSend[$i] = [
-                                'name' => $varDataBuffer['data'][$i]['name'],
-                                'size' => $varDataBuffer['data'][$i]['size']                                
-                                ];                            
+                            throw new \Exception();
                             }
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        
-                        //$varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
-                            $varUserSession, 
-                            500, 
-                            $varErrorMessage
-                            );
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -116,27 +91,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : dataProcessing                                                                                       |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-26                                                                                           |
-        | ▪ Description     : Fungsi Utama Engine                                                                                  |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (array)  varDataList ► Data List (Optional)                                                                       |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        private function dataProcessing($varUserSession, array $varDataList = null)
-            {
-            $varReturn = ['c' => 'x'];
-            //dd($varDataList); die();
-            }
         }
     }
+
+?>

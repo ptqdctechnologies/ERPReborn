@@ -105,10 +105,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK)
             {
-            $varDataList = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList(
-                $varUserSession, 
-                'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
-                );
+            $varDataList = 
+                (new \App\Models\CloudStorage\System\General())->getFilesList(
+                    $varUserSession, 
+                    'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
+                    );
 
             $varArrayRPKPhysicalName = '';
             for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)

@@ -585,6 +585,43 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataDeleteByRPK                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Menghapus Data berdasarkan Record Primary Key (varRecordPK)                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (int)    varRecordPK ► Record Primary Key                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordPK)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_SetRecordDeleteByRPK',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varSchemaName, 'varchar'],
+                        [$varTableName, 'varchar'],
+                        [$varRecordPK, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataHide                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -679,6 +716,43 @@ namespace App\Models\Database\SchSysConfig
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : unsetDataDeleteByRPK                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Membatalkan penghapusan Data berdasarkan Record Primary Key (varRecordPK)                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (int)    varRecordPK ► Record Primary Key                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function unsetDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordRPK)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.FuncSys_General_UnsetRecordDeleteByRPK',
+                    [
+                        [$varUserSession, 'bigint'],
+                        [$varSchemaName, 'varchar'],
+                        [$varTableName, 'varchar'],
+                        [$varRecordRPK, 'bigint']
+                    ]
+                    )
+                );
+            return $varReturn;
+            }
+            
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : unsetDataHide                                                                                        |

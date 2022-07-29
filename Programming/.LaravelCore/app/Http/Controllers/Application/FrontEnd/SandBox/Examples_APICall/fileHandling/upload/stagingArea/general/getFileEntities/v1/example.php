@@ -38,7 +38,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'fileHandling.upload.stagingArea.general.getFileEntities', 
                 'latest', 
                 [
-                    'recordPK' => 67
+                'parameter' => [
+                    'recordPK' => 67                        
+                    ]
                 ]
                 );
             var_dump($varData);

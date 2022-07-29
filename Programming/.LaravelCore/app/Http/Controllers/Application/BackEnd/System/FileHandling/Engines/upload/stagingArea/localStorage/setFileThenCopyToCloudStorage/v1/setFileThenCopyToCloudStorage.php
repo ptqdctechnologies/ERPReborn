@@ -140,12 +140,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varFileLastModifiedUnixTimestamp
                 )['SignRecordID'];
             //---> Penyimpanan ke Local Storage Server
-            (new \App\Models\LocalStorage\DefaultClassPrototype())->createFile(
+            (new \App\Models\LocalStorage\System\General())->createFile(
                 $varUserSession, 
                 base64_decode($varFileContentBase64), 
                 'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
             //---> Pemindahan File dari Local Storage Server ke Cloud
-            (new \App\Models\CloudStorage\DefaultClassPrototype())->copyFileToCloud(
+            (new \App\Models\CloudStorage\System\General())->copyFileToCloud(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
                 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID

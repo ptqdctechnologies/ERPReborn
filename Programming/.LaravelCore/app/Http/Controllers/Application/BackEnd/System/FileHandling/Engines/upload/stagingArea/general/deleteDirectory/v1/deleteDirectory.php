@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\deleteFile  |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage             |
+|                \deleteDirectory\v1                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\deleteFile\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\deleteDirectory\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : deleteFile                                                                                              |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.deleteFile Version 1                         |
+    | ▪ Class Name  : deleteDirectory                                                                                              |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.deleteDirectory Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class deleteFile extends \App\Http\Controllers\Controller
+    class deleteDirectory extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
+                        if((new \App\Models\LocalStorage\System\General())->deleteDirectory(
                             $varUserSession,
                             'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
                             ) == FALSE)

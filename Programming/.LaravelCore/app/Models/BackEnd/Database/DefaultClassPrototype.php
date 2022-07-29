@@ -31,8 +31,8 @@ namespace App\Models\Database
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -53,8 +53,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getAllDataRecord                                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-07                                                                                           |
         | ▪ Last Update     : 2020-09-07                                                                                           |
+        | ▪ Creation Date   : 2020-09-07                                                                                           |
         | ▪ Description     : Get all Data Record                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -77,8 +77,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getFilteredDataRecord                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-10-05                                                                                           |
         | ▪ Last Update     : 2020-10-05                                                                                           |
+        | ▪ Creation Date   : 2020-10-05                                                                                           |
         | ▪ Description     : Get Filtered Data Record                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -143,8 +143,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getDataRecord                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Creation Date   : 2021-07-06                                                                                           |
         | ▪ Last Update     : 2021-07-06                                                                                           |
+        | ▪ Creation Date   : 2021-07-06                                                                                           |
         | ▪ Description     : Get Data Record specific by RecordID (varRecordID)                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -181,8 +181,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getSchemaTableName                                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : Mendapatkan Nama Skema dan Table                                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -204,8 +204,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getSchemaName                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : Mendapatkan Nama Skema                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -227,8 +227,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getSchemaTableSynchronizeName                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2021-02-18                                                                                           |
         | ▪ Last Update     : 2021-02-18                                                                                           |
+        | ▪ Creation Date   : 2021-02-18                                                                                           |
         | ▪ Description     : Mendapatkan Nama Skema dan Table Synchronize                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -251,8 +251,8 @@ namespace App\Models\Database
         | ▪ Method Name     : getTableName                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Last Update     : 2020-09-02                                                                                           |
+        | ▪ Creation Date   : 2020-09-02                                                                                           |
         | ▪ Description     : Mendapatkan Nama Table                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -274,8 +274,8 @@ namespace App\Models\Database
         | ▪ Method Name     : setDataAuthentication                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Last Update     : 2020-09-15                                                                                           |
+        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Description     : Data Authentication                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -307,8 +307,8 @@ namespace App\Models\Database
         | ▪ Method Name     : setDataDelete                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-11-10                                                                                           |
         | ▪ Last Update     : 2020-11-10                                                                                           |
+        | ▪ Creation Date   : 2020-11-10                                                                                           |
         | ▪ Description     : Data Delete                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -327,11 +327,40 @@ namespace App\Models\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setDataDeleteByRPK                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Data Delete By RPK                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varRecordPK ► Record Primary Key                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setDataDeleteByRPK($varUserSession, int $varRecordPK)
+            {
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->setDataDeleteByRPK(
+                    $varUserSession, 
+                    $this->getSchemaName($varUserSession),
+                    $this->getTableName($varUserSession),
+                    $varRecordPK
+                    );
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataHide                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2022-03-08                                                                                           |
         | ▪ Description     : Data Hide                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -353,8 +382,8 @@ namespace App\Models\Database
         | ▪ Method Name     : setEmptyTableAndResetSequence                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Last Update     : 2020-09-11                                                                                           |
+        | ▪ Creation Date   : 2020-09-11                                                                                           |
         | ▪ Description     : Menghapus seluruh record data dan mengeset ulang sequence                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -381,8 +410,8 @@ namespace App\Models\Database
         | ▪ Method Name     : unsetDataAuthentication                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Last Update     : 2020-09-15                                                                                           |
+        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Description     : Data Unauthentication                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -414,8 +443,8 @@ namespace App\Models\Database
         | ▪ Method Name     : unsetDataDelete                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Last Update     : 2020-09-15                                                                                           |
+        | ▪ Creation Date   : 2020-09-15                                                                                           |
         | ▪ Description     : Data Undelete                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -434,11 +463,36 @@ namespace App\Models\Database
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : unsetDataDeleteByRPK                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Data Delete By RPK                                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
+        |      ▪ (string) varTableName ► Table Name                                                                                |
+        |      ▪ (int)    varRecordPK ► Record Primary Key                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (void)                                                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function unsetDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordPK)
+            {
+            $varReturn = (new \App\Models\Database\SchSysConfig\General())->unsetDataDeleteByRPK($varUserSession, $varSchemaName, $varTableName, $varRecordPK);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : unsetDataHide                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Creation Date   : 2020-03-08                                                                                           |
         | ▪ Last Update     : 2022-03-08                                                                                           |
+        | ▪ Creation Date   : 2020-03-08                                                                                           |
         | ▪ Description     : Data Show                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

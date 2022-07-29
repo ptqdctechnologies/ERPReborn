@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of fileHandling.upload.stagingArea.localStorage.deleteFile (version 1)",
+"description": "JSON Request Schema of fileHandling.upload.stagingArea.general.deleteFile (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "fileHandling.upload.stagingArea.localStorage.deleteFile" ]
+                        "enum": [ "fileHandling.upload.stagingArea.general.deleteFile" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -27,13 +27,19 @@
     "data": {
         "type": "object",
         "properties": {
-            "recordPK": {
-                "type": [ "integer", "null" ],
-                "minimum": 1,
-                "maximum": 9223372036854775807
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "recordPK": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "recordPK" ]
                 }
             },
-        "required": [ "recordPK" ]
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

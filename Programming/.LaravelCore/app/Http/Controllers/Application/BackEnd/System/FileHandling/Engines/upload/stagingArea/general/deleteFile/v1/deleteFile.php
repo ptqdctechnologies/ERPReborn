@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\isFileExist |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\deleteFile       |
 |                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\isFileExist\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\deleteFile\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : isFileExist                                                                                                  |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.isFileExist Version 1                             |
+    | ▪ Class Name  : deleteFile                                                                                                   |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.deleteFile Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class isFileExist extends \App\Http\Controllers\Controller
+    class deleteFile extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,22 +59,28 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check File Existation at Local Storage (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                            $varUserSession,
-                            $this->dataProcessing($varUserSession, $varData['parameter']['recordPK'])
-                            )))
+                        $varTemp = 
+                            $this->dataProcessing(
+                                $varUserSession,
+                                $varData['parameter']['recordPK']
+                                );
+                        if(strcmp($varTemp['message'],'') == 0)
                             {
-                            throw new \Exception();
+                            throw new \Exception();                            
                             }
+
+                        $varDataSend = [
+                            'message' => $varTemp['message']
+                            ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varErrorMessage = 'file is not exist on Staging Area (Local Storage and Cloud Storage)';
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -96,32 +102,62 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► RPK Rotate Log File Upload Staging Area (Mandatory)          |
+        |      ▪ (int)    varRecordPK ► Record Primary Key (Mandatory)                                                             |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private function dataProcessing($varUserSession, int $varRecordPK)
             {
-            $varLocalStoragePath = 
-                'Application/Upload/StagingArea/'.    
-                ((new \App\Models\Database\SchSysAsset\General())->getFileEntities_StagingArea(
+            $varMessage = '';
+            $varData = 
+                (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\getFileEntities\v1\getFileEntities())->main(
+                    $varUserSession, 
+                    [
+                    'parameter' => [
+                        'recordPK' => 73 //$varRecordPK
+                        ]
+                    ]
+                    );
+            
+            if($varData['metadata']['successStatus'] == TRUE)
+                {
+                $varData = $varData['data'];
+                //---> Hapus di Local Storage
+                if($varData['signExistOnLocalStorage'] == TRUE)
+                    {
+                    (new \App\Models\LocalStorage\System\General())->deleteFile(
+                        $varUserSession, 
+                        $varData['localStoragePath']
+                        );
+                    $varMessage .= 'File on Local Storage ('.$varData['localStoragePath'].')';
+                    }
+
+                //---> Hapus di Cloud Storage
+                if($varData['signExistOnCloudStorage'] == TRUE)
+                    {
+                    (new \App\Models\CloudStorage\System\General())->deleteFile(
+                        $varUserSession, 
+                        $varData['cloudStoragePath']
+                        );
+                    $varMessage .= ((strcmp($varMessage, '')==0) ? 'File on ' : ' and ').' Cloud Storage ('.$varData['cloudStoragePath'].')';
+                    }
+
+                //---> Hapus Record di Table Database
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataDeleteByRPK(
                     $varUserSession, 
                     $varRecordPK
-                )['Path']);
-
-            $varDataReturn = [
-                'SignExist' => \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist(
-                    $varUserSession, 
-                    $varLocalStoragePath
-                    )
-                ];
+                    );
+                }
+            
+            $varMessage .= ((strcmp($varMessage, '')==0) ? '' : ' has been deleted successfully');
+            $varDataReturn = ['message' => $varMessage];
             return $varDataReturn;
             }
         }

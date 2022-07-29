@@ -152,6 +152,38 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataDeleteByRPK                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Delete By RPK                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataDeleteByRPK($varUserSession, array $varDataSend)
+            {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_SetRecordDeleteByRPK']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Data Deletion Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Deletion Failed');
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataHide                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -354,6 +386,38 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
         public static function getEngineDataSend_DataUndelete($varUserSession, array $varDataSend)
             {
             if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordDelete']) == TRUE)
+                {
+                $varReturn = [
+                    'message' => 'Cancellation of Data Delete Successful'
+                    ];
+                return $varReturn;
+                }
+            else
+                {
+                throw new \Exception('Data Undelete Failed');
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataUndeleteByRPK                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Undelete                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataUndeleteByRPK($varUserSession, array $varDataSend)
+            {
+            if(((bool)$varDataSend['Data'][0]['FuncSys_General_UnsetRecordDeleteByRPK']) == TRUE)
                 {
                 $varReturn = [
                     'message' => 'Cancellation of Data Delete Successful'
