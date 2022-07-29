@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
+                        if((new \App\Models\LocalStorage\System\General())->deleteDirectory(
                             $varUserSession,
                             'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
                             ) == FALSE)

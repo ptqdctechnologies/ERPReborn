@@ -70,11 +70,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $varData['recordPK']
                                 )
                             );
-                       
-                        
-
-//                        $varDataSend = ['x' => $varData['recordPK']   ];
-                        
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
                         } 
                     catch (\Exception $ex) {
@@ -133,25 +128,27 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 //'RotateLog_FileUploadStagingArea_RefRPK' => $varData['RotateLog_FileUploadStagingArea_RefRPK'],
                 'LocalStoragePath' => 'Application/Upload/StagingArea/'.$varData['Path'],
                 'CloudStoragePath' => 'StagingArea/'.$varData['Path'],
-                'OrderSequence' => $varData['Path']
+                'OrderSequence' => $varData['OrderSequence']
                 ];
             
-            $varDataReturn['SignExistOnLocalStorage'] = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::isFileExist(
-                $varUserSession, 
-                $varDataReturn['LocalStoragePath']
-                );
-            if($varDataReturn['SignExistOnLocalStorage'] == FALSE)
-                {
+            $varDataReturn['SignExistOnLocalStorage'] = 
+                (new \App\Models\LocalStorage\System\General())->isFileExist(
+                    $varUserSession,
+                    $varDataReturn['LocalStoragePath']
+                    );
+            if($varDataReturn['SignExistOnLocalStorage'] == FALSE) {
                 $varDataReturn['LocalStoragePath'] = NULL;
                 }
             
-            $varDataReturn['SignExistOnCloudStorage'] = FALSE; // LANJUT CODING BESOK YAKKKKKK
-            if($varDataReturn['SignExistOnCloudStorage'] == FALSE)
-                {
+            $varDataReturn['SignExistOnCloudStorage'] = //FALSE; // LANJUT CODING BESOK YAKKKKKK
+                (new \App\Models\CloudStorage\System\General())->isFileExist(
+                    $varUserSession, 
+                    $varDataReturn['CloudStoragePath'],
+                    'erp-reborn'
+                    );
+            if($varDataReturn['SignExistOnCloudStorage'] == FALSE) {
                 $varDataReturn['CloudStoragePath'] = NULL;
                 }
-            
-//            (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\isFileExist\v1\isFileExist())->
             
             return $varDataReturn;
             }
