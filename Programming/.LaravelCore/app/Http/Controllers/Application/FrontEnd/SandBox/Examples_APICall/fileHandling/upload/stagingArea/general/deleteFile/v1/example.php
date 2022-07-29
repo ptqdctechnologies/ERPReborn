@@ -3,27 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\localStorage |
-|                 \deleteDirectory\v1                                                                                              |
-| ▪ API Key     : fileHandling.upload.stagingArea.localStorage.deleteDirectory                                                     |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general      |
+|                 \deleteFile\v1                                                                                                   |
+| ▪ API Key     : fileHandling.upload.stagingArea.general.deleteFile                                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\localStorage\deleteDirectory\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general\deleteFile\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.localStorage.deleteDirectory.v1_throughAPIGateway   |
+        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.general.deleteFile.v1_throughAPIGateway             |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.upload.stagingArea.localStorage.deleteDirectory.v1_throughAPIGateway                  |
+        |                       fileHandling.upload.stagingArea.general.deleteFile.v1_throughAPIGateway                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-25                                                                                           |
-        | ▪ Creation Date   : 2022-07-25                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -36,10 +36,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
+                'fileHandling.upload.stagingArea.general.deleteFile', 
                 'latest', 
                 [
-                'rotateLog_FileUploadStagingArea_RefRPK' => 1,
+                'parameter' => [
+                    'recordPK' => 67                        
+                    ]
                 ]
                 );
             var_dump($varData);
@@ -49,13 +51,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     fileHandling.upload.stagingArea.localStorage.deleteDirectory.v1_throughAPIGatewayJQuery              |
+        |                     fileHandling.upload.stagingArea.general.deleteFile.v1_throughAPIGatewayJQuery                        |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.upload.stagingArea.localStorage.deleteDirectory.v1_throughAPIGatewayJQuery            |
+        |                       fileHandling.upload.stagingArea.general.deleteFile.v1_throughAPIGatewayJQuery                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-25                                                                                           |
-        | ▪ Creation Date   : 2022-07-25                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -70,7 +72,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
+                'fileHandling.upload.stagingArea.general.deleteDirectory', 
                 'latest', 
                 '{'.
                     '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value)'.

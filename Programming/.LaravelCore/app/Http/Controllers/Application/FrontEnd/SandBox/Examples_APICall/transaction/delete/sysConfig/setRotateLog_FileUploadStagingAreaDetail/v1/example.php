@@ -3,26 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general      |
-|                 \getFileEntities\v1                                                                                              |
-| ▪ API Key     : fileHandling.upload.stagingArea.general.getFileEntities                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\delete\sysConfig                 |
+|                 \setRotateLog_FileUploadStagingAreaDetail\v1                                                                     |
+| ▪ API Key     : transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\stagingArea\general\getFileEntities\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\delete\sysConfig\setRotateLog_FileUploadStagingAreaDetail\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGateway        |
-        |                     ► http://172.28.0.4/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGateway     |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail.v1_throughAPIGateway           |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail.v1_throughAPIGateway         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-25                                                                                           |
-        | ▪ Creation Date   : 2022-07-25                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -35,12 +37,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.general.getFileEntities', 
+                'transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail', 
                 'latest', 
                 [
-                'parameter' => [
-                    'recordPK' => 67                        
-                    ]
+                'recordPK' => 70
                 ]
                 );
             var_dump($varData);
@@ -49,13 +49,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGatewayJQuery  |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail.v1_throughAPIGatewayJQuery     |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.upload.stagingArea.general.getFileEntities.v1_throughAPIGatewayJQuery                 |
+        |                       transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail.v1_throughAPIGatewayJQuery   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-25                                                                                           |
-        | ▪ Creation Date   : 2022-07-25                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -66,16 +67,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_applicationKey" value='.$varAPIWebToken.'>';
+            echo '<input type="text" id="dataInput_RecordPK" value=70>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'fileHandling.upload.stagingArea.general.getFileEntities', 
+                'transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail', 
                 'latest', 
                 '{'.
-                    '"applicationKey" : document.getElementById("dataInput_applicationKey").value'.
+                    '"recordPK" : parseInt(document.getElementById("dataInput_RecordPK").value)'.
                 '}'
-                );            
+                ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

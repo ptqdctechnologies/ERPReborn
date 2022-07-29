@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\getFileEntities  |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\deleteFile       |
 |                \v1                                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\getFileEntities\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\deleteFile\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getFileEntities                                                                                              |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.getFileEntities Version 1                              |
+    | ▪ Class Name  : deleteFile                                                                                                   |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.deleteFile Version 1                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getFileEntities extends \App\Http\Controllers\Controller
+    class deleteFile extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,22 +59,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Files List at Cloud Storage (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Destroy Staging Files data By ID (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        $varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                        /*
+                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
                             $varUserSession,
+                            'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
+                            ) == FALSE)
+                            {
+                            throw new \Exception();
+                            }
+                         
+                         */
                             $this->dataProcessing(
                                 $varUserSession,
                                 $varData['parameter']['recordPK']
-                                )
-                            );
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
+                                );
+                                    
+                        $varDataSend = [
+                            'aaa' => 'bbb'
+///                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
+                            ];
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
@@ -96,8 +108,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2022-07-28                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2022-07-29                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -109,47 +121,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRecordPK)
             {
-            $varData = (new \App\Models\Database\SchSysAsset\General())->getFileEntities_StagingArea(
-                $varUserSession, 
-                $varRecordPK
-                );
-            
-            $varDataReturn = [
-                'Sys_RPK' => $varData['Sys_RPK'],
-                'SignExistOnLocalStorage' => NULL,
-                'SignExistOnCloudStorage' => NULL,
-                'Sequence' => $varData['Sequence'],
-                'Name' => $varData['Name'],
-                'Size' => $varData['Size'],
-                'MIME' => $varData['MIME'],
-                'Extension' => $varData['Extension'],
-                'LastModifiedDateTimeTZ' => $varData['LastModifiedDateTimeTZ'],
-                'LastModifiedUnixTimestamp' => $varData['LastModifiedUnixTimestamp'],
-                //'RotateLog_FileUploadStagingArea_RefRPK' => $varData['RotateLog_FileUploadStagingArea_RefRPK'],
-                'LocalStoragePath' => 'Application/Upload/StagingArea/'.$varData['Path'],
-                'CloudStoragePath' => 'StagingArea/'.$varData['Path'],
-                'OrderSequence' => $varData['OrderSequence']
-                ];
-            
-            $varDataReturn['SignExistOnLocalStorage'] = 
-                (new \App\Models\LocalStorage\System\General())->isFileExist(
-                    $varUserSession,
-                    $varDataReturn['LocalStoragePath']
-                    );
-            if($varDataReturn['SignExistOnLocalStorage'] == FALSE) {
-                $varDataReturn['LocalStoragePath'] = NULL;
-                }
-            
-            $varDataReturn['SignExistOnCloudStorage'] = //FALSE; // LANJUT CODING BESOK YAKKKKKK
-                (new \App\Models\CloudStorage\System\General())->isFileExist(
-                    $varUserSession, 
-                    $varDataReturn['CloudStoragePath'],
-                    'erp-reborn'
-                    );
-            if($varDataReturn['SignExistOnCloudStorage'] == FALSE) {
-                $varDataReturn['CloudStoragePath'] = NULL;
-                }
-            
+            $varDataReturn = ['xxx' => 'xxx'] ;
             return $varDataReturn;
             }
         }
