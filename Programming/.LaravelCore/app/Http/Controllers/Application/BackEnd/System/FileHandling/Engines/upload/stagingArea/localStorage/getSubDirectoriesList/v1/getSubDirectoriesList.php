@@ -108,10 +108,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession)
             {
-            $varDataList = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getSubDirectoriesList(
-                $varUserSession, 
-                'Application/Upload/StagingArea'
-                );
+            $varDataList = 
+                (new \App\Models\LocalStorage\System\General())->getSubDirectoriesList(
+                    $varUserSession, 
+                    'Application/Upload/StagingArea'
+                    );
 
             $varArrayRPKPhysicalName = '';
             for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)

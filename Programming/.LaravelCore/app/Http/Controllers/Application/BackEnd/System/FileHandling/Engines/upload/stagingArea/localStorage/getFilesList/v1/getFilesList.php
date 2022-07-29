@@ -105,10 +105,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK)
             {
-            $varDataList = \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesList(
-                $varUserSession, 
-                'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
-                );
+            $varDataList = 
+                (new \App\Models\LocalStorage\System\General())->getFilesList(
+                    //\App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesList(
+                    $varUserSession, 
+                    'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
+                    );
 
             $varArrayRPKPhysicalName = '';
             for ($i=0, $iMax=count($varDataList); $i!=$iMax; $i++)
@@ -122,11 +124,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
 
             //--->
-            $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getLocalStorageFilesList(
-                $varUserSession, 
-                $varRotateLog_FileUploadStagingArea_RefRPK,
-                $varArrayRPKPhysicalName
-                );
+            $varDataReturn = 
+                (new \App\Models\Database\SchSysAsset\General())->getLocalStorageFilesList(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varArrayRPKPhysicalName
+                    );
 
             //--->
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)

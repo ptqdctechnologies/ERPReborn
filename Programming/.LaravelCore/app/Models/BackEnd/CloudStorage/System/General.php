@@ -194,32 +194,7 @@ namespace App\Models\CloudStorage\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getListSubDirectories                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-26                                                                                           |
-        | ▪ Creation Date   : 2022-07-26                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Sub Direktori                                                                     |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
-        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
-        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)   varReturn                                                                                               | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function getListSubDirectories($varUserSession, string $varFilePath, string $varDiskID = null)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, $varFilePath, $varDiskID);
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getListFiles                                                                                         |
+        | ▪ Method Name     : getFilesList                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-26                                                                                           |
@@ -235,9 +210,34 @@ namespace App\Models\CloudStorage\System
         |      ▪ (array)   varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getListFiles($varUserSession, string $varFilePath, string $varDiskID = null)
+        public function getFilesList($varUserSession, string $varFilePath, string $varDiskID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFilesList($varUserSession, $varFilePath, $varDiskID);
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSubDirectoriesList                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Creation Date   : 2022-07-26                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Sub Direktori                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varFilePath ► File Path (Mandatory)                                                                     |
+        |      ▪ (string)  varDiskID ► Disk ID (Optional)                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getSubDirectoriesList($varUserSession, string $varFilePath, string $varDiskID = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getSubDirectoriesList($varUserSession, $varFilePath, $varDiskID);
             return $varReturn;
             }
 
