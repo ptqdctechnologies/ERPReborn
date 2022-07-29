@@ -464,9 +464,9 @@
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(
-            'pretty_version' => '2.3.4',
-            'version' => '2.3.4.0',
-            'reference' => '155ec1c95626b16fda0889cf15904d24890a60d5',
+            'pretty_version' => '2.3.5',
+            'version' => '2.3.5.0',
+            'reference' => '84d74485fdb7074f4f9dd6f02ab957b1de513257',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/commonmark',
             'aliases' => array(),
