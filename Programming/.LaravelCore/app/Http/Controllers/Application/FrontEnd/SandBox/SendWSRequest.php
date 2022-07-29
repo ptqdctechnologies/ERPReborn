@@ -30829,57 +30829,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.update.production.setMaterialProductComponent', 
-                'latest', 
-                [
-                'recordID' => 145000000000001,
-                'entities' => [
-                    'product_RefID' => 88000000000001,
-                    'productType_RefID' => 87000000000001,
-                    'quantityUnit_RefID' => 73000000000001,
-                    'validStartDateTimeTZ' => '2009-01-01 00:00:00+07',
-                    'validFinishDateTimeTZ' => '9999-12-31 23:59:59+07',
-                    'code' => '1000001'
-                    ]
-                ]
-                );
-            var_dump($varData);
+
             }
         public function APIGatewayJQuery_setDataUpdateMaterialProductComponent()
             {
             //---Parameter Set---
             $varAPIWebToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTgzNzAzMzF9.i8rJMM1FI5Tb_e2YolL673V6wpFa1CQW6bKqprdMJrE';
             //---Core---
-            echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_RecordID" value=145000000000001>';
-            echo '<input type="text" id="dataInput_Product_RefID" value=88000000000001>';
-            echo '<input type="text" id="dataInput_ProductType_RefID" value=87000000000001>';
-            echo '<input type="text" id="dataInput_QuantityUnit_RefID" value=73000000000001>';
-            echo '<input type="text" id="dataInput_ValidStartDateTimeTZ" value="2009-04-17 00:00:00+07">';
-            echo '<input type="text" id="dataInput_ValidFinishDateTimeTZ" value="9999-12-31 23:59:59+07">';
-            echo '<input type="text" id="dataInput_Code" value="1000001">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                $varAPIWebToken, 
-                'transaction.update.production.setMaterialProductComponent', 
-                'latest', 
-                '{'.
-                    '"recordID" : parseInt(document.getElementById("dataInput_RecordID").value), '.
-                    '"entities" : {'.
-                        '"product_RefID" : parseInt(document.getElementById("dataInput_Product_RefID").value), '.
-                        '"productType_RefID" : parseInt(document.getElementById("dataInput_ProductType_RefID").value), '.
-                        '"quantityUnit_RefID" : parseInt(document.getElementById("dataInput_QuantityUnit_RefID").value), '.
-                        '"validStartDateTimeTZ" : document.getElementById("dataInput_ValidStartDateTimeTZ").value, '.
-                        '"validFinishDateTimeTZ" : document.getElementById("dataInput_ValidFinishDateTimeTZ").value, '.
-                        '"code" : document.getElementById("dataInput_Code").value'.
-                        '}'.
-                '}'
-                ); 
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+
             }
 
 

@@ -140,11 +140,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varDataReturn['LocalStoragePath'] = NULL;
                 }
             
-            $varDataReturn['SignExistOnCloudStorage'] = //FALSE; // LANJUT CODING BESOK YAKKKKKK
+            $varDataReturn['SignExistOnCloudStorage'] =
                 (new \App\Models\CloudStorage\System\General())->isFileExist(
                     $varUserSession, 
-                    $varDataReturn['CloudStoragePath'],
-                    'erp-reborn'
+                    $varDataReturn['CloudStoragePath']
                     );
             if($varDataReturn['SignExistOnCloudStorage'] == FALSE) {
                 $varDataReturn['CloudStoragePath'] = NULL;

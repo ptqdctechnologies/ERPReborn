@@ -63,29 +63,23 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
-                        /*
-                        if((new \App\Models\LocalStorage\DefaultClassPrototype())->deleteDirectory(
-                            $varUserSession,
-                            'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
-                            ) == FALSE)
-                            {
-                            throw new \Exception();
-                            }
-                         
-                         */
+                        $varTemp = 
                             $this->dataProcessing(
                                 $varUserSession,
                                 $varData['parameter']['recordPK']
                                 );
-                                    
+                        if(strcmp($varTemp['message'],'') == 0)
+                            {
+                            throw new \Exception();                            
+                            }
+
                         $varDataSend = [
-                            'aaa' => 'bbb'
-///                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
+                            'message' => $varTemp['message']
                             ];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
+                        $varErrorMessage = 'file is not exist on Staging Area (Local Storage and Cloud Storage)';
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
@@ -121,7 +115,49 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varRecordPK)
             {
-            $varDataReturn = ['xxx' => 'xxx'] ;
+            $varMessage = '';
+            $varData = 
+                (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\getFileEntities\v1\getFileEntities())->main(
+                    $varUserSession, 
+                    [
+                    'parameter' => [
+                        'recordPK' => 73 //$varRecordPK
+                        ]
+                    ]
+                    );
+            
+            if($varData['metadata']['successStatus'] == TRUE)
+                {
+                $varData = $varData['data'];
+                //---> Hapus di Local Storage
+                if($varData['signExistOnLocalStorage'] == TRUE)
+                    {
+                    (new \App\Models\LocalStorage\System\General())->deleteFile(
+                        $varUserSession, 
+                        $varData['localStoragePath']
+                        );
+                    $varMessage .= 'File on Local Storage ('.$varData['localStoragePath'].')';
+                    }
+
+                //---> Hapus di Cloud Storage
+                if($varData['signExistOnCloudStorage'] == TRUE)
+                    {
+                    (new \App\Models\CloudStorage\System\General())->deleteFile(
+                        $varUserSession, 
+                        $varData['cloudStoragePath']
+                        );
+                    $varMessage .= ((strcmp($varMessage, '')==0) ? 'File on ' : ' and ').' Cloud Storage ('.$varData['cloudStoragePath'].')';
+                    }
+
+                //---> Hapus Record di Table Database
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataDeleteByRPK(
+                    $varUserSession, 
+                    $varRecordPK
+                    );
+                }
+            
+            $varMessage .= ((strcmp($varMessage, '')==0) ? '' : ' has been deleted successfully');
+            $varDataReturn = ['message' => $varMessage];
             return $varDataReturn;
             }
         }

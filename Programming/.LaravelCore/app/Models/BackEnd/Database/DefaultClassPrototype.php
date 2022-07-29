@@ -336,16 +336,20 @@ namespace App\Models\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (string) varSchemaName ► Schema Name                                                                              |
-        |      ▪ (string) varTableName ► Table Name                                                                                |
         |      ▪ (int)    varRecordPK ► Record Primary Key                                                                         |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataDeleteByRPK($varUserSession, string $varSchemaName, string $varTableName, int $varRecordPK)
+        public function setDataDeleteByRPK($varUserSession, int $varRecordPK)
             {
-            $varReturn = (new \App\Models\Database\SchSysConfig\General())->setDataDeleteByRPK($varUserSession, $varSchemaName, $varTableName, $varRecordPK);
+            $varReturn = 
+                (new \App\Models\Database\SchSysConfig\General())->setDataDeleteByRPK(
+                    $varUserSession, 
+                    $this->getSchemaName($varUserSession),
+                    $this->getTableName($varUserSession),
+                    $varRecordPK
+                    );
             return $varReturn;
             }
 
