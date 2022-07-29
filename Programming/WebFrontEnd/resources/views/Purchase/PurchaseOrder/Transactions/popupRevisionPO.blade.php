@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="modal-body">
-                    <form action="{{ route('PO.revisionPO') }}" method="post">
+                    <form action="{{ route('PurchaseOrder.RevisionPurchaseOrder') }}" method="post">
                         @csrf
                         <div class="card">
                             <div class="card-body">

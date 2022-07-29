@@ -16,7 +16,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="modal" data-target="#popUpAdvanceRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Advance Request Revision</i>
+                                        <i class="far fa-file nav-icon-sm"> Revision Advance Request</i>
                                     </a>
                                 </li>
                             </ul>

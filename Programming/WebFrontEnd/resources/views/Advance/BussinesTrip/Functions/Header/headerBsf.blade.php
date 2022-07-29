@@ -1,4 +1,3 @@
-
 <div class="card-body">
     <div class="row">
         <div class="col-md-4">
@@ -114,3 +113,10 @@
                     </div>
                 </table>
             </div>
+        </div>
+    </div>
+
+    <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
+        <i class="fa fa-times" aria-hidden="true">Reset</i>
+    </button>
+</div>

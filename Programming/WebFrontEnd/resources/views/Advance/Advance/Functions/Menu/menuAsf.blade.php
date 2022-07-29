@@ -16,7 +16,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="modal" data-target="#asfNumberPopUp" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Advance Settlement Revision</i>
+                                        <i class="far fa-file nav-icon-sm"> Revision Advance Settlement</i>
                                     </a>
                                 </li>
                             </ul>

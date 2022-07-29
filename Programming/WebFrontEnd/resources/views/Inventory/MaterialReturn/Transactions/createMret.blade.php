@@ -4,18 +4,20 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getRequester')
 @include('getFunction.getProduk')
 @include('getFunction.getDelivery')
 @include('getFunction.getReceive')
-<div class="content-wrapper">
+<div class="content-wrapper" style="position:relative;bottom:12px;">
     <section class="content">
         <div class="container-fluid">
-            <div class="card">
-                <form method="post" enctype="multipart/form-data" action="#" name="formHeaderMret">
-                    <div class="tab-content p-3" id="nav-tabContent">
-                        @include('Inventory.MaterialReturn.Functions.Header.headerMaterialReturn')
-                </form>
+            <div class="row mb-1" style="background-color:#4B586A;">
+                <div class="col-sm-6" style="height:30px;">
+                    <label style="font-size:15px;position:relative;top:7px;color:white;">Material Return</label>
+                </div>
+            </div>
+            @include('Inventory.MaterialReturn.Functions.Menu.MenuMaterialReturn')
+            @if($var == 0)MenuMaterialReturn
+            <div class="card" style="position:relative;bottom:10px;">
                 <div class="tab-pane fade show active" role="tabpanel" aria-labelledby="product-desc-tab">
                     <div class="row">
                         <div class="col-12">
@@ -136,10 +138,10 @@
                                                 <button type="reset" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
                                                     <i class="fa fa-times" aria-hidden="true" title="Cancel DOR List Cart">Cancel</i>
                                                 </button>
-                                                <button type="reset"class="btn btn-success btn-sm float-right" id="addMret" style="color:white;">
+                                                <button type="reset" class="btn btn-success btn-sm float-right" id="addMret" style="color:white;">
                                                     <i class="fa fa-plus" aria-hidden="true"></i>
                                                     Add to Material Return List Cart
-                                                    </button>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -193,6 +195,7 @@
                     </div>
                 </div>
             </div>
+            @endif
         </div>
     </section>
 </div>

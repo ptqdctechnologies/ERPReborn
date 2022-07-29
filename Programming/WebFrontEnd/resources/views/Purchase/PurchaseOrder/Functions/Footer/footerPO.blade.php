@@ -158,7 +158,7 @@
             ev.stopPropagation();
             $.ajax({
                 type: "POST",
-                url: '{!! route("PO.StoreValidatePO") !!}?putProductName=' + $('#putProductName').val(),
+                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder") !!}?putProductName=' + $('#putProductName').val(),
                 success: function(data) {
 
                     if(data == "200"){
@@ -194,7 +194,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + ProductId,
                             });
                         });
                         $("body").on("click", ".edit", function () {
@@ -212,7 +212,7 @@
 
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + id2,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + id2,
                             });
 
                             $("#putProductId").val(id1);
@@ -288,7 +288,7 @@
 
             $.ajax({
                 type: "POST",
-                url: '{!! route("PO.StoreValidatePO") !!}?putProductName=' + $("#nameMaterialHide").val(),
+                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder") !!}?putProductName=' + $("#nameMaterialHide").val(),
                 success: function(data) {
                 
                     if(data == "200"){
@@ -376,7 +376,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + ProductId,
                             });
                         });
 
@@ -386,7 +386,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + ProductId,
                             });
 
                             var id1 = $this.data("id1");
@@ -444,7 +444,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + ProductId,
                             });
                             
                         });
@@ -455,7 +455,7 @@
                             var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PO.StoreValidatePO2") !!}?putProductName=' + ProductId,
+                                url: '{!! route("PurchaseOrder.StoreValidatePurchaseOrder2") !!}?putProductName=' + ProductId,
                             });
 
                             var id1 = $this.data("id1");

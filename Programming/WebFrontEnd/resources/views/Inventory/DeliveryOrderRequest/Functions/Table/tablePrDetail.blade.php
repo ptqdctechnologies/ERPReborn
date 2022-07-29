@@ -1,4 +1,4 @@
-<div class="card-body table-responsive p-0" style="height: 265px;" id="tableShowHideDor">
+<div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideDor">
     <table class="table table-head-fixed text-nowrap table-striped tablePrDetailDor">
         <thead>
             <tr>

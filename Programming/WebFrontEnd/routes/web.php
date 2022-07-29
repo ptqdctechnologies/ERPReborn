@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Advance\AdvanceRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,14 +24,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //logout
     Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-    //MASTER DATA
-
-    Route::get('tranoType', 'masterDataTransactionNumber@indexTranoType')->name('tranoType.index');
-    Route::post('tranoTypeStore', 'masterDataTransactionNumber@storeTranoType')->name('tranoType.store');
-    Route::get('tranoNumber', 'masterDataTransactionNumber@indexTranoNumber')->name('tranoNumber.index');
-    Route::get('exchangeRate', 'masterDataExchangeRate@exchangeRate')->name('exchangeRate.index');
-    Route::get('COA', 'masterDataCoa@Coa')->name('COA.index');
-
     // Dashboard
     Route::get('projectDashboard', 'homeController@projectDashboard')->name('home.projectDashboard');
     Route::get('checkDocument', 'homeController@checkDocument')->name('home.checkDocument');
@@ -41,33 +32,49 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('approvedDocument', 'homeController@approvedDocument')->name('home.approvedDocument');
     Route::get('documentWorkflow', 'homeController@documentWorkflow')->name('home.documentWorkflow');
 
-    //Periode
-    Route::resource('Periode', 'masterDataPeriode');
-    //ProductType
-    Route::resource('ProductType', 'masterDataProductType');
-    //Religion
-    Route::resource('Religion', 'masterDataReligion');
-    //Currency
-    Route::resource('Currency', 'masterDataCurrency');
-    //Country
-    Route::resource('Country', 'masterDataCountry');
-    //CountryAdministrativeAreaLevel1
-    Route::resource('CountryAdministrativeAreaLevel1', 'masterDataCountryAdministrativeAreaLevel1');
-    //CountryAdministrativeAreaLevel2
-    Route::resource('CountryAdministrativeAreaLevel2', 'masterDataCountryAdministrativeAreaLevel2');
-    //CountryAdministrativeAreaLevel3
-    Route::resource('CountryAdministrativeAreaLevel3', 'masterDataCountryAdministrativeAreaLevel3');
-    //CountryAdministrativeAreaLevel4
-    Route::resource('CountryAdministrativeAreaLevel4', 'masterDataCountryAdministrativeAreaLevel4');
-    //BloodAglutinogenType
-    Route::resource('BloodAglutinogenType', 'masterDataBloodAglutinogenType');
-    //BusinessDocument
-    Route::resource('BusinessDocument', 'masterDataBusinessDocument');
-    //BusinessDocumentType
-    Route::resource('BusinessDocumentType', 'masterDataBusinessDocumentType');
-    //BusinessDocumentVersion
-    Route::resource('BusinessDocumentVersion', 'masterDataBusinessDocumentVersion');
+    
+    //MASTER DATA
 
+    Route::get('tranoType', 'Master\TransactionNumberController@indexTranoType')->name('tranoType.index');
+    Route::post('tranoTypeStore', 'Master\TransactionNumberController@storeTranoType')->name('tranoType.store');
+    Route::get('tranoNumber', 'Master\TransactionNumberController@indexTranoNumber')->name('tranoNumber.index');
+    Route::get('exchangeRate', 'Master\ExchangeRateController@exchangeRate')->name('exchangeRate.index');
+    Route::get('COA', 'Master\CoaController@Coa')->name('COA.index');
+    //Periode
+    Route::resource('Periode', 'Master\PeriodeController');
+    //ProductType
+    Route::resource('ProductType', 'Master\ProductTypeController');
+    //Religion
+    Route::resource('Religion', 'Master\ReligionController');
+    //Currency
+    Route::resource('Currency', 'Master\CurrencyController');
+    //Country
+    Route::resource('Country', 'Master\CountryController');
+    //CountryAdministrativeAreaLevel1
+    Route::resource('CountryAdministrativeAreaLevel1', 'Master\CountryAdministrativeAreaLevel1Controller');
+    //CountryAdministrativeAreaLevel2
+    Route::resource('CountryAdministrativeAreaLevel2', 'Master\CountryAdministrativeAreaLevel2Controller');
+    //CountryAdministrativeAreaLevel3
+    Route::resource('CountryAdministrativeAreaLevel3', 'Master\CountryAdministrativeAreaLevel3Controller');
+    //CountryAdministrativeAreaLevel4
+    Route::resource('CountryAdministrativeAreaLevel4', 'Master\CountryAdministrativeAreaLevel4Controller');
+    //BloodAglutinogenType
+    Route::resource('BloodAglutinogenType', 'Master\BloodAglutinogenTypeController');
+    //BusinessDocument
+    Route::resource('BusinessDocument', 'Master\BusinessDocumentController');
+    //BusinessDocumentType
+    Route::resource('BusinessDocumentType', 'Master\BusinessDocumentTypeController');
+    //BusinessDocumentVersion
+    Route::resource('BusinessDocumentVersion', 'Master\BusinessDocumentVersionController');
+    //Supplier
+    Route::get('Supplier', 'Master\SupplierController@supplier')->name('supplier.index');
+    Route::get('addSupplier', 'Master\SupplierController@addSupplier')->name('supplier.addSupplier');
+    Route::post('revisionSupplier', 'Master\SupplierController@revisionSupplier')->name('supplier.revisionSupplier');
+    // UOM
+    Route::get('UOM', 'Master\UomController@Uom')->name('Uom.index');
+    Route::get('addUom', 'Master\UomController@addUom')->name('addUom.index');
+    Route::get('editUom', 'Master\UomController@editUom')->name('editUom.index');
+    Route::post('revisionUom', 'Master\UomController@revisionUomIndex')->name('Uom.revisionUom');
     // Budget
     Route::resource('Budget', 'BudgetController');
     // Budget Expense
@@ -89,12 +96,21 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
 
-
     //Function
     Route::get('getProject', 'FunctionController@getProject')->name('getProject');
     Route::get('getSite', 'FunctionController@getSite')->name('getSite');
     Route::get('getWorker', 'FunctionController@getWorker')->name('getWorker');
 
+
+
+
+
+
+
+
+
+
+    
     // ARF
     Route::post('StoreValidateAdvance', 'Advance\AdvanceRequestController@StoreValidateAdvance')->name('AdvanceRequest.StoreValidateAdvance');
     Route::post('StoreValidateAdvance2', 'Advance\AdvanceRequestController@StoreValidateAdvance2')->name('AdvanceRequest.StoreValidateAdvance2');
@@ -125,6 +141,66 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('StoreValidateReimbursableExpenditure2', 'Advance\ReimbursableExpenditureController@StoreValidateReimbursableExpenditure2')->name('ReimbursableExpenditure.StoreValidateReimbursableExpenditure2');
     Route::post('RevisionReimbursableExpenditure', 'Advance\ReimbursableExpenditureController@RevisionReimbursableExpenditureIndex')->name('ReimbursableExpenditure.RevisionReimbursableExpenditure');
     Route::resource('ReimbursableExpenditure', 'Advance\ReimbursableExpenditureController');
+
+    // PR
+    Route::post('StoreValidatePurchaseRequisition', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition')->name('PurchaseRequisition.StoreValidatePurchaseRequisition');
+    Route::post('StoreValidatePurchaseRequisition2', 'Purchase\PurchaseRequisitionController@StoreValidatePurchaseRequisition2')->name('PurchaseRequisition.StoreValidatePurchaseRequisition2');
+    Route::post('RevisionPrIndex', 'Purchase\PurchaseRequisitionController@RevisionPrIndex')->name('PurchaseRequisition.RevisionPrIndex');
+    Route::post('ProcReqListCartRevision', 'Purchase\PurchaseRequisitionController@ProcReqListCartRevision')->name('PurchaseRequisition.ProcReqListCartRevision');
+    Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController');
+
+    // PO
+    Route::post('StoreValidatePurchaseOrder', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder')->name('PurchaseOrder.StoreValidatePurchaseOrder');
+    Route::post('StoreValidatePurchaseOrder2', 'Purchase\PurchaseOrderController@StoreValidatePurchaseOrder2')->name('PurchaseOrder.StoreValidatePurchaseOrder2');
+    Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrder')->name('PurchaseOrder.RevisionPurchaseOrder');
+    Route::post('addListCartPurchaseOrder', 'Purchase\PurchaseOrderController@addListCartPurchaseOrder')->name('PurchaseOrder.addListCartPurchaseOrder');
+    Route::resource('PurchaseOrder', 'Purchase\PurchaseOrderController');
+    
+    // PPM
+    Route::post('StoreValidatePieceMeal', 'HumanResource\PieceMealController@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
+    Route::post('StoreValidatePieceMeal2', 'HumanResource\PieceMealController@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');
+    Route::post('RevisionPieceMeal', 'HumanResource\PieceMealController@RevisionPieceMeal')->name('PieceMeal.RevisionPieceMeal');
+    Route::resource('PieceMeal', 'HumanResource\PieceMealController');
+
+    //Timesheet
+    Route::post('Timesheet/event', 'HumanResourckae\TimesheetController@event')->name('Timesheet.event');
+    Route::post('Timesheet/updates', 'HumanResource\TimesheetController@updates')->name('Timesheet.updates');
+    Route::post('Timesheet/storeActivity', 'HumanResource\TimesheetController@storeActivity')->name('Timesheet.storeActivity');
+    Route::resource('Timesheet', 'HumanResource\TimesheetController');
+
+    // DOR
+    Route::post('StoreValidateDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest');
+    Route::post('StoreValidateDeliveryOrderRequest2', 'Inventory\DeliveryOrderRequestController@StoreValidateDeliveryOrderRequest2')->name('DeliveryOrderRequest.StoreValidateDeliveryOrderRequest2');
+    Route::post('RevisionDeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController@RevisionDeliveryOrderRequest')->name('DeliveryOrderRequest.RevisionDeliveryOrderRequest');
+    Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
+
+    //iSupp
+    Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
+    Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
+    Route::get('iSupp', 'Inventory\iSuppController@index')->name('iSupp.index');
+
+    // MRET
+    Route::get('createMret', 'procurementTransactionMret@index')->name('MRET.index');
+    Route::post('MRET/store', 'procurementTransactionMret@store')->name('MRET.store');
+    Route::post('revisionMRETIndex', 'procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // PP
     Route::get('createPP', 'projectManagementPP@createPP')->name('PP.createPP');
@@ -162,17 +238,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('revisionMaterialReceive', 'logisticMaterialReceive@revisionMaterialReceive')->name('MR.revisionMaterialReceive');
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
-    // PPM
-    Route::post('StoreValidatePieceMeal', 'procurementTransactionPieceMeal@StoreValidatePieceMeal')->name('PieceMeal.StoreValidatePieceMeal');
-    Route::post('StoreValidatePieceMeal2', 'procurementTransactionPieceMeal@StoreValidatePieceMeal2')->name('PieceMeal.StoreValidatePieceMeal2');
-    Route::post('store2', 'procurementTransactionPieceMeal@store2')->name('PPM.store2');
-    Route::post('revisionPPM', 'procurementTransactionPieceMeal@revisionPPMIndex')->name('PPM.revisionPPM');
-    Route::resource('PieceMeal', 'procurementTransactionPieceMeal');
-    Route::get('PR2', 'procurementTransactionPieceMeal@index2')->name('PPM.index2');
-    Route::get('PPM3', 'proocurementTransactionPPM@index3')->name('PPM.index3');
-    Route::get('PPM4', 'proocurementTransactionPPM@index4')->name('PPM.index4');
-    Route::post('submitDataPPM', 'procurementTransactionPieceMeal@submitData')->name('PPM.submitData');
-
 
     // RPI
     Route::get('createRPI', 'procurementTransactionRPI@createRPI')->name('RPI.createRPI');
@@ -186,17 +251,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('createDebitNote', 'procurementTransactionRE@createDebitNote')->name('RE.createDebitNote');
     Route::get('createPaidDebitNote', 'procurementTransactionRE@createPaidDebitNote')->name('RE.createPaidDebitNote');
 
-    // PR
-    Route::post('StoreValidateProcurementRequest', 'procurementTransactionProcurementRequest@StoreValidateProcurementRequest')->name('ProcurementRequest.StoreValidateProcurementRequest');
-    Route::post('StoreValidateProcurementRequest2', 'procurementTransactionProcurementRequest@StoreValidateProcurementRequest2')->name('ProcurementRequest.StoreValidateProcurementRequest2');
-    Route::post('store2', 'procurementTransactionProcurementRequest@store2')->name('PR.store2');
-    Route::post('RevisionPrIndex', 'procurementTransactionProcurementRequest@RevisionPrIndex')->name('ProcurementRequest.RevisionPrIndex');
-    Route::post('ProcReqListCartRevision', 'procurementTransactionProcurementRequest@ProcReqListCartRevision')->name('ProcurementRequest.ProcReqListCartRevision');
-    Route::resource('ProcurementRequest', 'procurementTransactionProcurementRequest');
-    Route::get('PR2', 'procurementTransactionProcurementRequest@index2')->name('PR.index2');
-    Route::get('PR3', 'procurementTransactionProcurementRequest@index3')->name('PR.index3');
-    Route::get('PR4', 'procurementTransactionProcurementRequest@index4')->name('PR.index4');
-    Route::post('submitDataPR', 'procurementTransactionProcurementRequest@submitData')->name('PR.submitData');
 
     // URP
     Route::get('createURP', 'procurementTransactionURP@createURP')->name('URP.createURP');
@@ -205,49 +259,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('PPNRem', 'procurementTransactionPPNRem@createPPNRem')->name('PPNRem.createPPNRem');
     Route::get('PPNRemSet', 'procurementTransactionPPNRem@createPPNRemSet')->name('PPNRem.createPPNRemSet');
 
-    // PO
-    Route::get('store', 'procurementTransactionPO@indexOverhead')->name('PO.indexOverhead');
-    Route::get('createPOSales', 'procurementTransactionPO@indexSales')->name('PO.indexSales');
-    Route::post('revisionPO', 'procurementTransactionPO@revisionPOIndex')->name('PO.revisionPO');
-    Route::post('addListCartPO', 'procurementTransactionPO@addListCartPO')->name('PO.addListCartPO');
-    Route::resource('PO', 'procurementTransactionPO');
-    Route::post('submitDataPO', 'procurementTransactionPO@submitData')->name('PO.submitData');
-
-    // DOR
-    Route::post('StoreValidateDor', 'procurementTransactionDor@StoreValidateDor')->name('DOR.StoreValidateDor');
-    Route::post('StoreValidateDor2', 'procurementTransactionDor@StoreValidateDor2')->name('DOR.StoreValidateDor2');
-    Route::get('DOR', 'procurementTransactionDor@index')->name('DOR.index');
-    Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
-    Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
-
-    //iSupp
-    Route::post('StoreValidateiSupp', 'procurementTransactioniSupp@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
-    Route::post('StoreValidateiSupp2', 'procurementTransactioniSupp@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
-    Route::get('iSupp', 'procurementTransactioniSupp@index')->name('iSupp.index');
-    // Route::post('DOR/store', 'procurementTransactionDor@store')->name('DOR.store');
-    // Route::post('revisionDorIndex', 'procurementTransactionDor@revisionDorIndex')->name('DOR.revisionDor');
-
-    // MRET
-    Route::get('createMret', 'procurementTransactionMret@index')->name('MRET.index');
-    Route::post('MRET/store', 'procurementTransactionMret@store')->name('MRET.store');
-    Route::post('revisionMRETIndex', 'procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
+    
 
     //CO
 
     Route::get('CO', 'controllerSalesCo@index')->name('CO.index');
     Route::get('revisionCo', 'controllerSalesCo@revisionCo')->name('CO.revisionCo');
 
-    //Supplier
-    Route::get('Supplier', 'masterDataSupplier@supplier')->name('supplier.index');
-    Route::get('addSupplier', 'masterDataSupplier@addSupplier')->name('supplier.addSupplier');
-    Route::post('revisionSupplier', 'masterDataSupplier@revisionSupplier')->name('supplier.revisionSupplier');
-
-    // UOM
-
-    Route::get('UOM', 'masterDataUom@Uom')->name('Uom.index');
-    Route::get('addUom', 'masterDataUom@addUom')->name('addUom.index');
-    Route::get('editUom', 'masterDataUom@editUom')->name('editUom.index');
-    Route::post('revisionUom', 'masterDataUom@revisionUomIndex')->name('Uom.revisionUom');
 
     //Finance
 
@@ -261,11 +279,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('bankChargers', 'finance@bankChargers')->name('bankChargers.index');
     Route::get('editBankChargers', 'finance@editBankChargers')->name('editBankChargers.index');
 
-    //Timesheet
-    Route::post('Timesheet/event', 'TimesheetController@event')->name('Timesheet.event');
-    Route::post('Timesheet/updates', 'TimesheetController@updates')->name('Timesheet.updates');
-    Route::post('Timesheet/storeActivity', 'TimesheetController@storeActivity')->name('Timesheet.storeActivity');
-    Route::resource('Timesheet', 'TimesheetController');
 });
 
 

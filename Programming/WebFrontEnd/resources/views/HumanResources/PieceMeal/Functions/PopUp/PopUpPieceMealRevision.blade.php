@@ -4,7 +4,7 @@
             <div class="modal-header">
                 <div class="modal-body">
                     <span style="font-size: 15px;position:relative;left:32%;font-weight:bold;">PIECE MEAL REVISION</span><br><br><br>
-                    <form action="{{ route('ProcurementRequest.RevisionPrIndex') }}" method="post">
+                    <form action="{{ route('PieceMeal.RevisionPieceMeal') }}" method="post">
                         @csrf
                         <div class="card" style="margin-left: 8%;">
                             <div class="card-body">
