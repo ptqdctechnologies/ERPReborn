@@ -21,6 +21,7 @@ use Symfony\Component\VarDumper\Tests\Fixtures\NotLoadableClass;
 use Symfony\Component\VarDumper\Tests\Fixtures\ReflectionIntersectionTypeFixture;
 use Symfony\Component\VarDumper\Tests\Fixtures\ReflectionNamedTypeFixture;
 use Symfony\Component\VarDumper\Tests\Fixtures\ReflectionUnionTypeFixture;
+use Symfony\Component\VarDumper\Tests\Fixtures\ReflectionUnionTypeWithIntersectionFixture;
 
 /**
  * @author Nicolas Grekas <p@tchwork.com>
@@ -94,7 +95,7 @@ Closure($x) {
     $b: & 123
   }
   file: "%sReflectionCasterTest.php"
-  line: "87 to 87"
+  line: "88 to 88"
 }
 EOTXT
             , $var
@@ -147,7 +148,7 @@ ReflectionParameter {
   typeHint: "Symfony\Component\VarDumper\Tests\Fixtures\NotLoadableClass"
 }
 EOTXT
-                , $var
+            , $var
         );
     }
 
@@ -318,6 +319,44 @@ EOTXT
         );
     }
 
+    /**
+     * @requires PHP 8.2
+     */
+    public function testReflectionUnionTypeWithIntersection()
+    {
+        $var = (new \ReflectionProperty(ReflectionUnionTypeWithIntersectionFixture::class, 'a'))->getType();
+        $this->assertDumpMatchesFormat(
+            <<<'EOTXT'
+ReflectionUnionType {
+  allowsNull: true
+  types: array:2 [
+    0 => ReflectionIntersectionType {
+      allowsNull: false
+      types: array:2 [
+        0 => ReflectionNamedType {
+          name: "Traversable"
+          allowsNull: false
+          isBuiltin: false
+        }
+        1 => ReflectionNamedType {
+          name: "Countable"
+          allowsNull: false
+          isBuiltin: false
+        }
+      ]
+    }
+    1 => ReflectionNamedType {
+      name: "null"
+      allowsNull: true
+      isBuiltin: true
+    }
+  ]
+}
+EOTXT
+            , $var
+        );
+    }
+
     public function testExtendsReflectionType()
     {
         $var = new ExtendsReflectionTypeFixture();
@@ -333,7 +372,7 @@ EOTXT
 
     public function testReturnType()
     {
-        $f = function ():int {};
+        $f = function (): int {};
 
         $this->assertDumpMatchesFormat(
             <<<EOTXT

@@ -130,7 +130,7 @@ class NativeSessionStorageTest extends TestCase
         $storage->regenerate(false, $lifetime);
         $this->assertNotEquals($id, $storage->getId());
         $this->assertEquals(11, $storage->getBag('attributes')->get('legs'));
-        $this->assertEquals($lifetime, ini_get('session.cookie_lifetime'));
+        $this->assertEquals($lifetime, \ini_get('session.cookie_lifetime'));
     }
 
     public function testSessionGlobalIsUpToDateAfterIdRegeneration()
@@ -156,7 +156,7 @@ class NativeSessionStorageTest extends TestCase
         $this->iniSet('session.cache_limiter', 'nocache');
 
         new NativeSessionStorage();
-        $this->assertEquals('', ini_get('session.cache_limiter'));
+        $this->assertEquals('', \ini_get('session.cache_limiter'));
     }
 
     public function testExplicitSessionCacheLimiter()
@@ -164,7 +164,7 @@ class NativeSessionStorageTest extends TestCase
         $this->iniSet('session.cache_limiter', 'nocache');
 
         new NativeSessionStorage(['cache_limiter' => 'public']);
-        $this->assertEquals('public', ini_get('session.cache_limiter'));
+        $this->assertEquals('public', \ini_get('session.cache_limiter'));
     }
 
     public function testCookieOptions()
@@ -198,8 +198,8 @@ class NativeSessionStorageTest extends TestCase
 
         $this->getStorage($options);
 
-        $this->assertSame('a=href', ini_get('session.trans_sid_tags'));
-        $this->assertSame('200', ini_get('session.cache_expire'));
+        $this->assertSame('a=href', \ini_get('session.trans_sid_tags'));
+        $this->assertSame('200', \ini_get('session.cache_expire'));
     }
 
     public function testSetSaveHandler()
@@ -292,7 +292,7 @@ class NativeSessionStorageTest extends TestCase
         $started = $storage->start();
 
         $this->assertTrue($started);
-        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9,-]{22,}$/', session_id());
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9,-]{22,250}$/', session_id());
         $storage->save();
 
         $_COOKIE[session_name()] = '&~[';
@@ -301,7 +301,7 @@ class NativeSessionStorageTest extends TestCase
         $started = $storage->start();
 
         $this->assertTrue($started);
-        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9,-]{22,}$/', session_id());
+        $this->assertMatchesRegularExpression('/^[a-zA-Z0-9,-]{22,250}$/', session_id());
         $storage->save();
 
         $_COOKIE[session_name()] = '&~[';
@@ -310,5 +310,14 @@ class NativeSessionStorageTest extends TestCase
         $started = $storage->start();
         $this->assertTrue($started);
         $this->assertSame('&~[', session_id());
+    }
+
+    public function testSaveHandlesNullSessionGracefully()
+    {
+        $storage = $this->getStorage();
+        $_SESSION = null;
+        $storage->save();
+
+        $this->addToAssertionCount(1);
     }
 }

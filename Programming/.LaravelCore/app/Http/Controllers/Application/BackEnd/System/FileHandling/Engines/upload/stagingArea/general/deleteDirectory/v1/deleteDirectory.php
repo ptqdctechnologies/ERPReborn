@@ -3,18 +3,18 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage             |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general                  |
 |                \deleteDirectory\v1                                                                                               |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\localStorage\deleteDirectory\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\stagingArea\general\deleteDirectory\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : deleteDirectory                                                                                              |
-    | ▪ Description : Menangani API fileHandling.upload.stagingArea.localStorage.deleteDirectory Version 1                         |
+    | ▪ Description : Menangani API fileHandling.upload.stagingArea.general.deleteDirectory Version 1                              |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class deleteDirectory extends \App\Http\Controllers\Controller
@@ -24,8 +24,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-07-28                                                                                           |
-        | ▪ Creation Date   : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2022-07-29                                                                                           |
+        | ▪ Creation Date   : 2021-07-29                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
