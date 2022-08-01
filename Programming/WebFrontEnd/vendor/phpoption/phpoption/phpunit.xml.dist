@@ -3,9 +3,8 @@
          backupStaticAttributes="false"
          beStrictAboutTestsThatDoNotTestAnything="true"
          beStrictAboutOutputDuringTests="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="tests/bootstrap.php"
          colors="true"
-         convertDeprecationsToExceptions="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
@@ -17,13 +16,13 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Result Type Test Suite">
-            <directory suffix="Test.php">./tests</directory>
+        <testsuite name="PhpOption Type Test Suite">
+            <directory>./tests/PhpOption/</directory>
         </testsuite>
     </testsuites>
-    <coverage processUncoveredFiles="true">
-        <include>
-            <directory suffix=".php">./src</directory>
-        </include>
-    </coverage>
+    <groups>
+        <exclude>
+            <group>performance</group>
+        </exclude>
+    </groups>
 </phpunit>
