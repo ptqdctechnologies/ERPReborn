@@ -15,9 +15,22 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+//            (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert($varUserSession, $varSysDataAnnotation)
             
-            $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
-            var_dump($varTempArray);
+            /*
+            
+            $x = \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256($varUserSession, 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                    $varUserSession,
+                    base64_encode('test aja')
+                    )
+                );*/
+            $x = (new \App\Models\Database\SchSysAsset\General())->getHash_SHA256($varUserSession, 'test aja');
+            dd($x);
+            
+            //$varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
+            //var_dump($varTempArray);
             
             
 //            $varFilePath = 'Application/Upload/StagingArea';

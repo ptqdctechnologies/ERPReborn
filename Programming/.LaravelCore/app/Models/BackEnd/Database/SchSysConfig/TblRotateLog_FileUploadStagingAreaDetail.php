@@ -24,6 +24,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Creation Date   : 2021-07-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-07-28                                                                                           |
+        | ▪ Creation Date   : 2021-07-28                                                                                           |
         | ▪ Description     : Data Initialize                                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -71,7 +73,8 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2021-07-22                                                                                           |
+        | ▪ Last Update     : 2021-08-01                                                                                           |
+        | ▪ Creation Date   : 2022-07-22                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -85,6 +88,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varFileExtension ► FileExtension (Mandatory)                                                             |
         |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
         |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
+        |      ▪ (int)    varHashMethod_RefID ► Hash Method Reference ID (Mandatory)                                               |
+        |      ▪ (string) varContentHash ► Content Hash (Mandatory)                                                                |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -92,7 +97,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, 
-            int $varRotateLog_FileUploadStagingArea_RefID, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
+            int $varRotateLog_FileUploadStagingArea_RefID, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentHash)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -103,6 +108,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varUserSession, 'bigint'],
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
+
                         [$varRotateLog_FileUploadStagingArea_RefID, 'bigint'],
                         [$varFileSequence, 'smallint'],
                         [$varFileName, 'character varying'],
@@ -110,8 +116,10 @@ namespace App\Models\Database\SchSysConfig
                         [$varFileMIME, 'character varying'],
                         [$varFileExtension, 'character varying'],
                         [$varFileLastModifiedDateTimeTZ, 'character varying'],
-                        [$varFileLastModifiedUnixTimestamp, 'bigint']
-                    ],
+                        [$varFileLastModifiedUnixTimestamp, 'bigint'],
+                        [$varHashMethod_RefID, 'bigint'],
+                        [$varContentHash, 'character varying']
+                    ]
                     )
                 );
             return $varReturn['Data'][0];

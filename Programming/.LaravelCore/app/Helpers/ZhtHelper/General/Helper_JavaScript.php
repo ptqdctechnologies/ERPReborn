@@ -235,6 +235,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'if(varAccumulatedFiles != 1) {'.
                                                         'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
                                                         '}'.
+                                                    'alert(JSON.stringify(varObjCurrentFile.size));'.
                                                     'var varJSONDataBuilderNew = \'{\' + '.
                                                         'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
                                                         'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
