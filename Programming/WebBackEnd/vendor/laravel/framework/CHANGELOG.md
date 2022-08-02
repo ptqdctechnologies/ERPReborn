@@ -1,6 +1,96 @@
 # Release Notes for 9.x
 
-## [Unreleased](https://github.com/laravel/framework/compare/v9.21.0...9.x)
+## [Unreleased](https://github.com/laravel/framework/compare/v9.22.1...9.x)
+
+
+## [v9.22.1](https://github.com/laravel/framework/compare/v9.22.0...v9.22.1) - 2022-07-26
+
+### Added
+- Added unique locking to broadcast events ([#43416](https://github.com/laravel/framework/pull/43416))
+
+### Fixed
+- Fixes Artisan serve command on Windows ([#43437](https://github.com/laravel/framework/pull/43437))
+
+
+## [v9.22.0](https://github.com/laravel/framework/compare/v9.21.6...v9.22.0) - 2022-07-26
+
+### Added
+- Added ability to attach an array of files in MailMessage ([#43080](https://github.com/laravel/framework/pull/43080))
+- Added conditional lines to MailMessage ([#43387](https://github.com/laravel/framework/pull/43387))
+- Add support for multiple hash algorithms to `Illuminate/Filesystem/Filesystem::hash()` ([#43407](https://github.com/laravel/framework/pull/43407))
+
+### Fixed
+- Fixes for model:show when attribute default is an enum ([#43370](https://github.com/laravel/framework/pull/43370))
+- Fixed DynamoDB locks with 0 seconds duration ([#43365](https://github.com/laravel/framework/pull/43365))
+- Fixed overriding global locale ([#43426](https://github.com/laravel/framework/pull/43426))
+
+### Changed
+- Round milliseconds in console output runtime ([#43400](https://github.com/laravel/framework/pull/43400))
+- Improves serve Artisan command ([#43375](https://github.com/laravel/framework/pull/43375))
+
+
+## [v9.21.6](https://github.com/laravel/framework/compare/v9.21.5...v9.21.6) - 2022-07-22
+
+### Revert
+- Revert ["Protect against ambiguous columns"](https://github.com/laravel/framework/pull/43278) ([#43362](https://github.com/laravel/framework/pull/43362))
+
+### Fixed
+- Fixes default attribute value when using enums on model:show ([#43360](https://github.com/laravel/framework/pull/43360))
+
+
+## [v9.21.5](https://github.com/laravel/framework/compare/v9.21.4...v9.21.5) - 2022-07-21
+
+### Added
+- Adds fluent File validation rule ([#43271](https://github.com/laravel/framework/pull/43271))
+
+### Revert
+- Revert ["Prevent double throwing chained exception on sync queue"](https://github.com/laravel/framework/pull/42950) ([#43354](https://github.com/laravel/framework/pull/43354))
+
+
+### Changed
+- Allow section payload to be lazy in the "about" command ([#43329](https://github.com/laravel/framework/pull/43329))
+
+
+## [v9.21.4](https://github.com/laravel/framework/compare/v9.21.3...v9.21.4) - 2022-07-21
+
+### Added
+- Added `Illuminate/Filesystem/FilesystemAdapter::supportsTemporaryUrl()` ([#43317](https://github.com/laravel/framework/pull/43317))
+
+### Fixed
+- Fixes confirm component default value ([#43334](https://github.com/laravel/framework/pull/43334))
+
+### Changed
+- Improves console output when command not found ([#43323](https://github.com/laravel/framework/pull/43323))
+
+
+## [v9.21.3](https://github.com/laravel/framework/compare/v9.21.2...v9.21.3) - 2022-07-20
+
+### Fixed
+- Fixes usage of Migrator without output ([#43326](https://github.com/laravel/framework/pull/43326))
+
+
+## [v9.21.2](https://github.com/laravel/framework/compare/v9.21.1...v9.21.2) - 2022-07-20
+
+### Fixed
+- Fixes queue:monitor command dispatching QueueBusy ([#43320](https://github.com/laravel/framework/pull/43320))
+- Ensure relation names are properly "snaked" in JsonResource::whenCounted() method ([#43322](https://github.com/laravel/framework/pull/43322))
+- Fixed Bootstrap 5 pagination ([#43319](https://github.com/laravel/framework/pull/43319))
+
+
+## [v9.21.1](https://github.com/laravel/framework/compare/v9.21.0...v9.21.1) - 2022-07-20
+
+### Added
+- Added "Logs" driver to the about command ([#43307](https://github.com/laravel/framework/pull/43307))
+- Allows to install doctrine/dbal from model:show command ([#43288](https://github.com/laravel/framework/pull/43288))
+- Added to stub publish command flag that restricts to only existing files ([#43314](https://github.com/laravel/framework/pull/43314))
+
+### Fixed
+- Fixes for model:show command ([#43301](https://github.com/laravel/framework/pull/43301))
+
+### Changed
+- Handle varying composer -V output ([#43286](https://github.com/laravel/framework/pull/43286))
+- Replace resolve() with app() for Lumen compatible ([#43312](https://github.com/laravel/framework/pull/43312))
+- Allow using backed enums as route parameters ([#43294](https://github.com/laravel/framework/pull/43294))
 
 
 ## [v9.21.0](https://github.com/laravel/framework/compare/v9.20.0...v9.21.0) - 2022-07-19
