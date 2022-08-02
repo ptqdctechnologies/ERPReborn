@@ -121,7 +121,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varArrayRPKPhysicalName .= $varDataList[$i]['Name'];
                 }
             $varArrayRPKPhysicalName = '{'.$varArrayRPKPhysicalName.'}';
-
+            
             //--->
             $varDataReturn = (new \App\Models\Database\SchSysAsset\General())->getCloudStorageFilesList(
                 $varUserSession, 
@@ -131,7 +131,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             
             //$varDataReturn = $varDataList;
             //$varDataReturn = ['xxx' => $varArrayRPKPhysicalName];
-
             //--->
              for ($i=0, $iMax=count($varDataReturn); $i!=$iMax; $i++)
                 {

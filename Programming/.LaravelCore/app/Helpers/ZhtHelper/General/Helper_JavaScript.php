@@ -209,13 +209,21 @@ namespace App\Helpers\ZhtHelper\General
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'value\', varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
-                                'alert(\'varObjDOMInputMasterFileRecord belum didefinisikan\');'.
+                                //'alert(\'varObjDOMInputMasterFileRecord belum didefinisikan\');'.
                                 'varObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'type\', \'text\'); '.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'visibility\', \'visible\'); '.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'display\', \'block\'); '.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'value\', \'123456\'); '.
+                                'varObjDOMInputMasterFileRecord.setAttribute(\'value\', \'[]\'); '.
                                 '}'.
+                            
+/*                            
+                            
+                            'varObjJSONMasterFileRecord.push({\'xxx\': \'xxx\'});'.
+                            'varObjJSONMasterFileRecord.push({\'yyyxxx\': \'yyyxxx\'});'.
+*/                            
+                            
+//                            'alert(JSON.stringify(varObjJSONMasterFileRecord)); '.
                             //---> Fungsi Utama (Start)
 
 //'element.addEventListener(\'click\', function() {'.
@@ -225,6 +233,7 @@ namespace App\Helpers\ZhtHelper\General
                             
                             
             //'alert(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+
                             '(function(varObj, varReturnDOMObject) {'.
                                 'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
                                     'var varObjFileList = varObj.files; '.
@@ -238,7 +247,7 @@ namespace App\Helpers\ZhtHelper\General
 
                                             'var varAccumulatedFiles = 0; '.
                                             'var varJSONDataBuilder = \'\'; '.
-                                            //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK baru
+                                            //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
                                             'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                 $varUserSession, 
                                                 $varAPIWebToken, 
@@ -249,6 +258,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'
                                                 )).').data.recordRPK);'.
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
+                                            'var varObjJSONMasterFileRecord = JSON.parse(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                             'for(var i = 0; i < varObjFileList.length; i++)'.
                                                 '{'.
                                                 '(function(varObjCurrentFile, i) {'.
@@ -258,7 +268,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'if(varAccumulatedFiles != 1) {'.
                                                             'varJSONDataBuilder = varJSONDataBuilder + \', \'; '.
                                                             '}'.
-                                                        'alert(JSON.stringify(varObjCurrentFile.size));'.
+                                                        //'alert(JSON.stringify(varObjCurrentFile.size));'.
                                                         'var varJSONDataBuilderNew = \'{\' + '.
                                                             'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
                                                             'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
@@ -275,13 +285,22 @@ namespace App\Helpers\ZhtHelper\General
                                                         'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
                                                         //'alert((varObjDOMInputTemp.getAttribute(\'value\'))); '.
+                                                        'varObjJSONMasterFileRecord.push({'.
+                                                            '\'sequence\': (i+1), '.
+                                                            '\'signExistOnAchive\': false, '.
+                                                            '\'realFileName\': (varObjCurrentFile.name), '.
+                                                            '\'folderName\': (varRotateLog_FileUploadStagingArea_RefRPK) '.
+                                                            //'\'size\': (varObjCurrentFile.size), '.
+                                                            //'\'MIME\': ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]), '.
+                                                            //'\'extension\': (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) '.
+                                                            '});'.
                                                         'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                             $varUserSession, 
                                                             $varAPIWebToken, 
                                                             'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                                                             'latest', 
                                                             '{'.
-                                                                '"entities" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
+                                                                '"parameter" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
                                                             '}'
                                                             )).';'.
                                                         //'alert(varNothing); '.
@@ -293,7 +312,9 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'fileHandling.upload.stagingArea.localStorage.deleteDirectory', 
                                                                 'latest', 
                                                                 '{'.
-                                                                    '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                    '"parameter" : {'.
+                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                        '}'.
                                                                 '}'
                                                                 )).';'.
                                                             //'alert(varNothing); '.
@@ -302,6 +323,9 @@ namespace App\Helpers\ZhtHelper\General
                                                             'varObj.disabled = false; '.
                                                             'varReturnDOMObject.disabled = false; '.
                                                             //'alert(varObj.value); '.
+                                                            'varObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(varObjJSONMasterFileRecord))); '.
+                                                            //'alert(JSON.parse(varObjJSONMasterFileRecord)); '.
+                                                            'alert((varObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.

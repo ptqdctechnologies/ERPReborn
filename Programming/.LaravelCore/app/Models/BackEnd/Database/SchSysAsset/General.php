@@ -167,7 +167,7 @@ namespace App\Models\Database\SchSysAsset
                     'SchSysAsset.Func_GetDataList_LocalStorageFiles',
                     [
                         [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
-                        [$varArrayPhysicalName, 'varchar[]'],
+                        [$varArrayPhysicalName, 'varchar[128]'],
                     ]
                     )
                 );

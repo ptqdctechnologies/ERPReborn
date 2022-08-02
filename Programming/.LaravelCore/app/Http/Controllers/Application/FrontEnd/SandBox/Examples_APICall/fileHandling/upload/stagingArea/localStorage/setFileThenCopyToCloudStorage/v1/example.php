@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                 'latest', 
                 [
-                'entities' => [
+                'parameter' => [
                     'rotateLog_FileUploadStagingArea_RefRPK' => 1,
                     'sequence' => 1,
                     'name' => 'ContohTextFile.txt',
@@ -94,7 +94,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                 'latest', 
                 '{'.
-                    '"entities" : {'.
+                    '"parameter" : {'.
                         '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value), '.
                         '"sequence" : parseInt(document.getElementById("dataInput_sequence").value), '.
                         '"name" : document.getElementById("dataInput_name").value, '.

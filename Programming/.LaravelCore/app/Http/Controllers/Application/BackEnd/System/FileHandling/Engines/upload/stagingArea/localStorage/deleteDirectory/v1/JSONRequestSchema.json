@@ -27,13 +27,19 @@
     "data": {
         "type": "object",
         "properties": {
-            "rotateLog_FileUploadStagingArea_RefRPK": {
-                "type": [ "integer", "null" ],
-                "minimum": 1,
-                "maximum": 9223372036854775807
-                }
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "rotateLog_FileUploadStagingArea_RefRPK": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        }
+                    },
+                "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
+                }  
             },
-        "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

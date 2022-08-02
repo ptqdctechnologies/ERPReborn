@@ -63,20 +63,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
                     try {
+                        
                         if((new \App\Models\LocalStorage\System\General())->deleteDirectory(
                             $varUserSession,
-                            'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK']
+                            'Application/Upload/StagingArea/'.$varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']
                             ) == FALSE)
                             {
                             throw new \Exception();
                             }
                         $varDataSend = [
-                            'message' => 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder has been successfully deleted',
+                            'message' => 'Target folder (Application/Upload/StagingArea/'.$varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'].') has been successfully deleted',
                             ];
+                        //$varDataSend = ['x' => $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']];
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
-                        $varErrorMessage = 'Application/Upload/StagingArea/'.$varData['rotateLog_FileUploadStagingArea_RefRPK'].' folder is not exist';
+                        $varErrorMessage = 'Target folder (Application/Upload/StagingArea/'.$varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'].') is not exist';
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ''.($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----

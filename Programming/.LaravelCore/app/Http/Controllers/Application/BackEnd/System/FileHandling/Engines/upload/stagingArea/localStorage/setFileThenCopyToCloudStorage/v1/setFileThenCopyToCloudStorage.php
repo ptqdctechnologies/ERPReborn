@@ -67,15 +67,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             $varUserSession, 
                             $this->dataProcessing(
                                 $varUserSession, 
-                                $varData['entities']['rotateLog_FileUploadStagingArea_RefRPK'],
-                                $varData['entities']['sequence'],
-                                $varData['entities']['name'],
-                                $varData['entities']['size'],
-                                $varData['entities']['MIME'],
-                                $varData['entities']['extension'],
-                                $varData['entities']['contentBase64'],
-                                $varData['entities']['lastModifiedDateTimeTZ'],
-                                $varData['entities']['lastModifiedUnixTimestamp']                           
+                                $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
+                                $varData['parameter']['sequence'],
+                                $varData['parameter']['name'],
+                                $varData['parameter']['size'],
+                                $varData['parameter']['MIME'],
+                                $varData['parameter']['extension'],
+                                $varData['parameter']['contentBase64'],
+                                $varData['parameter']['lastModifiedDateTimeTZ'],
+                                $varData['parameter']['lastModifiedUnixTimestamp']                           
                                 )
                             ))
                             {

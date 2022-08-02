@@ -297,7 +297,8 @@ namespace App\Helpers\ZhtHelper\LocalStorage
                         $varFilePart=explode('/', $varTempArray[$i]);
                         $varReturn[$i] = [
                             'Name' => $varFilePart[count($varFilePart)-1],
-                            'Path' => $varBasePath.(($varFilePath) ? '/' : '').$varTempArray[$i]
+                            'Path' => $varTempArray[$i]
+                            //'Path' => $varBasePath.(($varFilePath) ? '/' : '').$varTempArray[$i]
                             ];
                         }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
