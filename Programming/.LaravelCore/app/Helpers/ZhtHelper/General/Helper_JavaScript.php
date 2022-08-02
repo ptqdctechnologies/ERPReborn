@@ -203,6 +203,9 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     
                     $varReturn = 
+                        'var varObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
+                        'varObjDOMInputMasterFileRecord.setAttribute(\'type\', \'text\'); '.
+                        'varObjDOMInputMasterFileRecord.setAttribute(\'value\', varJSONDataBuilderNew);'/*.
                         '(function(varObj, varReturnDOMObject) {'.
                             'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
                                 'var varObjFileList = varObj.files; '.
@@ -317,7 +320,7 @@ namespace App\Helpers\ZhtHelper\General
                             'else {'.
                                 'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
                                 '}'.
-                            '})(this, document.getElementById(\''.$varDOMReturnID.'\'))';
+                            '})(this, document.getElementById(\''.$varDOMReturnID.'\'))'*/;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
