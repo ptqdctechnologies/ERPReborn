@@ -215,6 +215,10 @@ namespace App\Helpers\ZhtHelper\General
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'visibility\', \'visible\'); '.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'display\', \'block\'); '.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'value\', \'[]\'); '.
+                                //--->
+                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK = document.createElement(\'INPUT\'); '.
+                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'type\', \'text\'); '.
+                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', \'\'); '.
                                 '}'.
                             
 /*                            
@@ -247,16 +251,38 @@ namespace App\Helpers\ZhtHelper\General
 
                                             'var varAccumulatedFiles = 0; '.
                                             'var varJSONDataBuilder = \'\'; '.
+
                                             //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
-                                            'var varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            'if(varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\') == \'\') {'.
+                                                'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                    $varUserSession, 
+                                                    $varAPIWebToken, 
+                                                    'fileHandling.upload.stagingArea.general.getNewID', 
+                                                    'latest', 
+                                                    '{'.
+                                                        '"applicationKey" : "'.$varAPIWebToken.'"'.
+                                                    '}'
+                                                    )).').data.recordRPK); '.
+                                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', varRotateLog_FileUploadStagingArea_RefRPK); '.
+                                                '}'.
+                                            'else {'.
+                                                'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
+                                                '}'.
+
+                                            //---> Mencari Last Sequence
+                                            'varLastSequence = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                 $varUserSession, 
                                                 $varAPIWebToken, 
-                                                'fileHandling.upload.stagingArea.general.getNewID', 
+                                                'fileHandling.upload.stagingArea.general.resetSequence', 
                                                 'latest', 
                                                 '{'.
-                                                    '"applicationKey" : "'.$varAPIWebToken.'"'.
+                                                    '"parameter" : {'.
+                                                        '"recordPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                        '}'.
                                                 '}'
-                                                )).').data.recordRPK);'.
+                                                )).').data.lastSequence); '.
+                                            'alert(varLastSequence); '.
+
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
                                             'var varObjJSONMasterFileRecord = JSON.parse(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                             'for(var i = 0; i < varObjFileList.length; i++)'.
@@ -271,7 +297,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         //'alert(JSON.stringify(varObjCurrentFile.size));'.
                                                         'var varJSONDataBuilderNew = \'{\' + '.
                                                             'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1) + \', \' + '.
+                                                            'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
                                                             'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
                                                             'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
                                                             'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
@@ -286,7 +312,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
                                                         //'alert((varObjDOMInputTemp.getAttribute(\'value\'))); '.
                                                         'varObjJSONMasterFileRecord.push({'.
-                                                            '\'sequence\': (i+1), '.
+                                                            '\'sequence\': (i+1+varLastSequence), '.
                                                             '\'signExistOnAchive\': false, '.
                                                             '\'realFileName\': (varObjCurrentFile.name), '.
                                                             '\'folderName\': (varRotateLog_FileUploadStagingArea_RefRPK) '.
