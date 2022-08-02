@@ -80,6 +80,7 @@ namespace App\Models\Database\SchSysConfig
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
+        |        ----------------------------------------                                                                          |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefID ► RotateLog_FileUploadStagingArea Reference ID (Mandatory)      |
         |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
