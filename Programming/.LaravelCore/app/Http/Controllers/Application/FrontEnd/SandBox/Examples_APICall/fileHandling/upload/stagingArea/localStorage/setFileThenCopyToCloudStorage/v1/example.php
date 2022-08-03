@@ -41,15 +41,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'rotateLog_FileUploadStagingArea_RefRPK' => 1,
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => 180,
                     'sequence' => 1,
                     'name' => 'ContohTextFile.txt',
                     'size' => 9,
                     'MIME' => 'text/plain',
                     'extension' => 'txt',
-                    'contentBase64' => 'dGVzdCBhamEK',
                     'lastModifiedDateTimeTZ' => 'Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)',
-                    'lastModifiedUnixTimestamp' => 1626667110901                    
+                    'lastModifiedUnixTimestamp' => 1626667110901,
+                    'contentBase64' => 'dGVzdCBhamEK'
                     ]
                 ]
                 );
@@ -79,15 +80,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
+            echo '<br>FileUpload_Pointer_RefID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value="">';
             echo '<br>FileUploadStagingArea_RefRPK<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=1>';
             echo '<br>Sequence<input type="text" id="dataInput_sequence" value=1>';
             echo '<br>Name<input type="text" id="dataInput_name" value="ContohTextFile.txt">';
             echo '<br>Size<input type="text" id="dataInput_size" value=9>';
             echo '<br>MIME<input type="text" id="dataInput_MIME" value="text/plain">';
             echo '<br>extension<input type="text" id="dataInput_extension" value="txt">';
-            echo '<br>contentBase64<input type="text" id="dataInput_contentBase64" value="dGVzdCBhamEK">';
             echo '<br>lastModifiedDateTimeTZ<input type="text" id="dataInput_lastModifiedDateTimeTZ" value="Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)">';
             echo '<br>lastModifiedUnixTimestamp<input type="text" id="dataInput_lastModifiedUnixTimestamp" value=1626667110901>';
+            echo '<br>contentBase64<input type="text" id="dataInput_contentBase64" value="dGVzdCBhamEK">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -95,15 +97,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 '{'.
                     '"parameter" : {'.
+                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_log_FileUpload_Pointer_RefID").value), '.
                         '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value), '.
                         '"sequence" : parseInt(document.getElementById("dataInput_sequence").value), '.
                         '"name" : document.getElementById("dataInput_name").value, '.
                         '"size" : parseInt(document.getElementById("dataInput_size").value), '.
                         '"MIME" : document.getElementById("dataInput_MIME").value, '.
                         '"extension" : document.getElementById("dataInput_extension").value, '.
-                        '"contentBase64" : document.getElementById("dataInput_contentBase64").value, '.
                         '"lastModifiedDateTimeTZ" : document.getElementById("dataInput_lastModifiedDateTimeTZ").value, '.
-                        '"lastModifiedUnixTimestamp" : parseInt(document.getElementById("dataInput_lastModifiedUnixTimestamp").value)'.
+                        '"lastModifiedUnixTimestamp" : parseInt(document.getElementById("dataInput_lastModifiedUnixTimestamp").value), '.
+                        '"contentBase64" : document.getElementById("dataInput_contentBase64").value'.
                         '}'.
                 '}'
                 );

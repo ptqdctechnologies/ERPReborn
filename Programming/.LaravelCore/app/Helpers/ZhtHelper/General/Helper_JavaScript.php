@@ -191,7 +191,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID, string $varAction = null)
+        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID, string $varDOMAction, string $varAction = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -203,7 +203,13 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     
                     $varReturn =
+                        //'var varObjDOMDivMasterFileRecord = document.createElement(\'DIV\'); '.
+                        //'varObjDOMDivMasterFileRecord.id = \'ObjDOMDivMasterFileRecord\'; '.
+                        //'varObjDOMDivMasterFileRecord.className = \'ObjDOMDivMasterFileRecord\'; '.
+                        //'varObjDOMDivMasterFileRecord.innerHTML = \'whatever\'; '.
+                        //'alert(document.getElementById(\''.$varDOMAction.'\').innerHTML); '.
                         'try {'.
+                            //--->
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
                                 'varObjDOMInputMasterFileRecord.setAttribute(\'value\', varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
@@ -221,21 +227,14 @@ namespace App\Helpers\ZhtHelper\General
                                 'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', \'\'); '.
                                 '}'.
                             
-/*                            
                             
-                            'varObjJSONMasterFileRecord.push({\'xxx\': \'xxx\'});'.
-                            'varObjJSONMasterFileRecord.push({\'yyyxxx\': \'yyyxxx\'});'.
-*/                            
                             
-//                            'alert(JSON.stringify(varObjJSONMasterFileRecord)); '.
-                            //---> Fungsi Utama (Start)
-
+//                            'varObjJSONMasterFileRecord.push({\'xxx\': \'xxx\'});'.
+//                            'varObjJSONMasterFileRecord.push({\'yyyxxx\': \'yyyxxx\'});'.
+                            
 //'element.addEventListener(\'click\', function() {'.
 //    'alert(document.getElementById(\''.$varDOMReturnID.'\'));'.
 //'});'.
-                            
-                            
-                            
             //'alert(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
 
                             '(function(varObj, varReturnDOMObject) {'.
@@ -281,7 +280,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         '}'.
                                                 '}'
                                                 )).').data.lastSequence); '.
-                                            'alert(varLastSequence); '.
+                                            //'alert(varLastSequence); '.
 
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
                                             'var varObjJSONMasterFileRecord = JSON.parse(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
@@ -296,30 +295,32 @@ namespace App\Helpers\ZhtHelper\General
                                                             '}'.
                                                         //'alert(JSON.stringify(varObjCurrentFile.size));'.
                                                         'var varJSONDataBuilderNew = \'{\' + '.
+                                                            'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
                                                             'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
                                                             'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
                                                             'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
                                                             'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
                                                             'String.fromCharCode(34) + \'MIME\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]) + String.fromCharCode(34) + \', \' + '.
                                                             'String.fromCharCode(34) + \'extension\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \', \' + '.
                                                             'String.fromCharCode(34) + \'lastModifiedDateTimeTZ\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.lastModifiedDate) + String.fromCharCode(34) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \'\' + '.
+                                                            'String.fromCharCode(34) + \'lastModifiedUnixTimestamp\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.lastModified) + \', \' + '.
+                                                            'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
                                                             '\'}\'; '.
+                                                        //'alert(varJSONDataBuilderNew); '.
                                                         'var varObjDOMInputTemp = document.createElement(\'INPUT\'); '.
                                                         'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
                                                         'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
                                                         //'alert((varObjDOMInputTemp.getAttribute(\'value\'))); '.
-                                                        'varObjJSONMasterFileRecord.push({'.
-                                                            '\'sequence\': (i+1+varLastSequence), '.
-                                                            '\'signExistOnAchive\': false, '.
-                                                            '\'realFileName\': (varObjCurrentFile.name), '.
-                                                            '\'folderName\': (varRotateLog_FileUploadStagingArea_RefRPK) '.
+                                                        //  'varObjJSONMasterFileRecord.push({'.
+                                                        //    '\'sequence\': (i+1+varLastSequence), '.
+                                                        //    '\'signExistOnAchive\': false, '.
+                                                        //    '\'realFileName\': (varObjCurrentFile.name), '.
+                                                        //    '\'folderName\': (varRotateLog_FileUploadStagingArea_RefRPK) '.
                                                             //'\'size\': (varObjCurrentFile.size), '.
                                                             //'\'MIME\': ((event.target.result.split(\',\')[0]).match(/[^:\s*]\w+\/[\w-+\d.]+(?=[;| ])/)[0]), '.
                                                             //'\'extension\': (varObjCurrentFile.name.split(\'.\').pop().toLowerCase()) '.
-                                                            '});'.
+                                                        //    '});'.
                                                         'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                             $varUserSession, 
                                                             $varAPIWebToken, 
@@ -330,6 +331,8 @@ namespace App\Helpers\ZhtHelper\General
                                                             '}'
                                                             )).';'.
                                                         //'alert(varNothing); '.
+                            
+                                                        //---> Jika semua file sudah terupload pada Staging Area
                                                         'if(varAccumulatedFiles == varObjFileList.length) '.
                                                             '{'.
                                                             'var varNothing = '.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
@@ -344,6 +347,21 @@ namespace App\Helpers\ZhtHelper\General
                                                                 '}'
                                                                 )).';'.
                                                             //'alert(varNothing); '.
+
+                                                            'varObjJSONMasterFileRecord = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"archiveRecordID" : null, '.
+                                                                        '"stagingAreaRecordPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                        '}'.
+                                                                '}'
+                                                                )).').data); '.
+
+                            
                                                             //'varReturn = varJSONDataBuilder; '.
                                                             'varReturn = varRotateLog_FileUploadStagingArea_RefRPK; '.
                                                             'varObj.disabled = false; '.
@@ -351,7 +369,8 @@ namespace App\Helpers\ZhtHelper\General
                                                             //'alert(varObj.value); '.
                                                             'varObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(varObjJSONMasterFileRecord))); '.
                                                             //'alert(JSON.parse(varObjJSONMasterFileRecord)); '.
-                                                            'alert((varObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
+                                                            //'alert((varObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
+                                                            'document.getElementById(\''.$varDOMAction.'\').innerHTML = varObjDOMInputMasterFileRecord.getAttribute(\'value\');'.
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.

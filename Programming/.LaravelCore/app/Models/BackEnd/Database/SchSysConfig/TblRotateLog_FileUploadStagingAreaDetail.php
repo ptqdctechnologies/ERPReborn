@@ -113,7 +113,8 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
         |      ▪ (string) varSysDataAnnotation ► System Data Annotation (Optional)                                                 |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefID ► RotateLog_FileUploadStagingArea Reference ID (Mandatory)      |
+        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference Primary Key    |
+        |                                                             (Mandatory)                                                  |
         |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
@@ -122,7 +123,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (string) varFileLastModifiedDateTimeTZ ► File Last Modified DateTimeTZ (Mandatory)                                |
         |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
         |      ▪ (int)    varHashMethod_RefID ► Hash Method Reference ID (Mandatory)                                               |
-        |      ▪ (string) varContentHash ► Content Hash (Mandatory)                                                                |
+        |      ▪ (string) varContentBase64Hash ► Content Base64 Hash (Mandatory)                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -130,7 +131,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, 
-            int $varRotateLog_FileUploadStagingArea_RefID, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentHash)
+            int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentBase64Hash)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -142,7 +143,7 @@ namespace App\Models\Database\SchSysConfig
                         [null, 'bigint'],
                         [$varSysDataAnnotation, 'varchar'],
 
-                        [$varRotateLog_FileUploadStagingArea_RefID, 'bigint'],
+                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
                         [$varFileSequence, 'smallint'],
                         [$varFileName, 'character varying'],
                         [$varFileSize, 'bigint'],
@@ -151,7 +152,7 @@ namespace App\Models\Database\SchSysConfig
                         [$varFileLastModifiedDateTimeTZ, 'character varying'],
                         [$varFileLastModifiedUnixTimestamp, 'bigint'],
                         [$varHashMethod_RefID, 'bigint'],
-                        [$varContentHash, 'character varying']
+                        [$varContentBase64Hash, 'character varying']
                     ]
                     )
                 );

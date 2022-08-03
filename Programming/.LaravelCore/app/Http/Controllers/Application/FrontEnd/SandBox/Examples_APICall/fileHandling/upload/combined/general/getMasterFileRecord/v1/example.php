@@ -11,7 +11,7 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\combined\general\deleteFile\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\combined\general\getMasterFileRecord\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
@@ -40,8 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'archiveRecordID' => 73,
-                    'stagingAreaRecordPK' => 73
+                    'archiveRecordID' => NULL,
+                    'stagingAreaRecordPK' => 124
                     ]
                 ]
                 );
