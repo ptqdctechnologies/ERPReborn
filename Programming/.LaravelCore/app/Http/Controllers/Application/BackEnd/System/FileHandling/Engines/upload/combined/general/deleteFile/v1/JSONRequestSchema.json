@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of fileHandling.upload.combined.general.isFileAlreadyExist (version 1)",
+"description": "JSON Request Schema of fileHandling.upload.combined.general.deleteFile (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "fileHandling.upload.combined.general.isFileAlreadyExist" ]
+                        "enum": [ "fileHandling.upload.combined.general.deleteFile" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,18 +30,21 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "archiveRecordID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                    "encryptedData": {
+                        "type": [ "string" ],
+                        "minLength": 1,
+                        "maxLength": 1024
                         },
-                    "stagingAreaRecordPK": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                    "signature": {
+                        "type": [ "string" ],
+                        "minLength": 1,
+                        "maxLength": 64
                         }
                     },
-                "required": [ "archiveRecordID", "stagingAreaRecordPK" ]
+                "required": [ 
+                    "encryptedData", 
+                    "signature"
+                    ]
                 }
             },
         "required": [ "parameter" ]
