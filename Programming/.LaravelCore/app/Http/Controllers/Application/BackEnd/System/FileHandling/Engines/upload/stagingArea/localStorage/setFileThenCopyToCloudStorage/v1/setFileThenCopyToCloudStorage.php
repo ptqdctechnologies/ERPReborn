@@ -62,20 +62,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set File on Local Storage (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         if(!$varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_FileUpload(
                             $varUserSession, 
                             $this->dataProcessing(
                                 $varUserSession, 
-                                $varData['entities']['rotateLog_FileUploadStagingArea_RefRPK'],
-                                $varData['entities']['sequence'],
-                                $varData['entities']['name'],
-                                $varData['entities']['size'],
-                                $varData['entities']['MIME'],
-                                $varData['entities']['extension'],
-                                $varData['entities']['contentBase64'],
-                                $varData['entities']['lastModifiedDateTimeTZ'],
-                                $varData['entities']['lastModifiedUnixTimestamp']                           
+                                $varData['parameter']['log_FileUpload_Pointer_RefID'],
+                                $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
+                                $varData['parameter']['sequence'],
+                                $varData['parameter']['name'],
+                                $varData['parameter']['size'],
+                                $varData['parameter']['MIME'],
+                                $varData['parameter']['extension'],
+                                $varData['parameter']['lastModifiedDateTimeTZ'],
+                                $varData['parameter']['lastModifiedUnixTimestamp'],                           
+                                $varData['parameter']['contentBase64']
                                 )
                             ))
                             {
@@ -101,17 +102,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
 
+            
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-21                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-08-03                                                                                           |
+        | ▪ Creation Date   : 2021-07-21                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log FileUpload Pointer Reference ID (Mandatory)                        |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► RotateLog FileUploadStagingArea Reference RPK (Mandatory)    |
         |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
@@ -125,37 +129,70 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileContentBase64, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp)
+        private function dataProcessing($varUserSession, int $varLog_FileUpload_Pointer_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, string $varFileContentBase64)
             {
-            $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
-                $varUserSession, 
-                null, 
-                $varRotateLog_FileUploadStagingArea_RefRPK,
-                $varFileSequence,
-                $varFileName, 
-                $varFileSize, 
-                $varFileMIME, 
-                $varFileExtension, 
-                $varFileLastModifiedDateTimeTZ, 
-                $varFileLastModifiedUnixTimestamp
-                )['SignRecordID'];
-            //---> Penyimpanan ke Local Storage Server
-            (new \App\Models\LocalStorage\System\General())->createFile(
-                $varUserSession, 
-                base64_decode($varFileContentBase64), 
-                'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
-            //---> Pemindahan File dari Local Storage Server ke Cloud
-            (new \App\Models\CloudStorage\System\General())->copyFileToCloud(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
-                'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
-                );
+            $varHashMethod_RefID = 199000000000002;
+            $varFileContentBase64Hash =  
+                \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256(
+                    $varUserSession, 
+                    $varFileContentBase64
+                    );
+
+            $varSignFileAlreadyExist = 
+                ((new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_IsFileAlreadyExist(
+                    $varUserSession, 
+                    $varLog_FileUpload_Pointer_RefID,
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    
+                    $varFileName, 
+                    $varFileSize, 
+                    $varFileMIME, 
+                    $varFileExtension, 
+                    $varFileLastModifiedUnixTimestamp,
+                    $varFileContentBase64Hash
+                    ));
+
+            if($varSignFileAlreadyExist == FALSE)
+                {
+               //---> Penyimpanan Record Baru ke TblRotateLog_FileUploadStagingAreaDetail
+                $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
+                    $varUserSession, 
+                    null, 
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varFileSequence,
+                    $varFileName, 
+                    $varFileSize, 
+                    $varFileMIME, 
+                    $varFileExtension, 
+                    $varFileLastModifiedDateTimeTZ, 
+                    $varFileLastModifiedUnixTimestamp,
+                    $varHashMethod_RefID,
+                    $varFileContentBase64Hash
+                    )['SignRecordID'];
+
+                //---> Penyimpanan ke Local Storage Server
+                (new \App\Models\LocalStorage\System\General())->createFile(
+                    $varUserSession, 
+                    base64_decode($varFileContentBase64), 
+                    'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
+
+                //---> Pemindahan File dari Local Storage Server ke Cloud
+                (new \App\Models\CloudStorage\System\General())->copyFileToCloud(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
+                    'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
+                    );
+                }
+            else
+                {
+                $varSignRecordID = NULL;
+                }
 
             $varReturn = [
                 'SignRecordID' => $varSignRecordID,
                 ];
             
             return $varReturn;
-            }
+            }            
         }
     }

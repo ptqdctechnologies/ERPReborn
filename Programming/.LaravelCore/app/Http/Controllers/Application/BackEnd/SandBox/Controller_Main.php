@@ -15,9 +15,38 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+
+            $varSignFileAlreadyExist = 
+                (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_IsFileAlreadyExist(
+                    $varUserSession, 
+                    NULL,
+                    124,
+                    
+            'ContohTextFile.txt',
+            9,
+            'text/plain',
+            'txt',
+            1626667110901,
+            '7a72456de33e0238bf52ae01fd13c068722eb557980350b0ec9c0526fa5608ae'
+            );
+            dd($varSignFileAlreadyExist);
             
-            $varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
-            var_dump($varTempArray);
+            
+//            (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert($varUserSession, $varSysDataAnnotation)
+            
+            /*
+            
+            $x = \App\Helpers\ZhtHelper\General\Helper_Hash::getSHA256($varUserSession, 
+                \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Decode(
+                    $varUserSession,
+                    base64_encode('test aja')
+                    )
+                );*/
+//            $x = (new \App\Models\Database\SchSysAsset\General())->getHash_SHA256($varUserSession, 'test aja');
+//            dd($x);
+            
+            //$varTempArray = \Illuminate\Support\Facades\Storage::disk('local')->files('Application/Upload/StagingArea/69');
+            //var_dump($varTempArray);
             
             
 //            $varFilePath = 'Application/Upload/StagingArea';

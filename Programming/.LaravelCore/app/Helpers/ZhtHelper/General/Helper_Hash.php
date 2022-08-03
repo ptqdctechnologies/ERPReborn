@@ -96,24 +96,26 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Method Name     : getSHA256                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2020-07-28                                                                                           |
+        | ▪ Last Update     : 2022-08-01                                                                                           |
+        | ▪ Creation Date   : 2020-07-28                                                                                           |
         | ▪ Description     : Mendapatkan SHA256 dari data (varData) dengan Kata Kunci (varKey)                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (string) varUserSession                                                                                           |
-        |      ▪ (string) varKey                                                                                                   |
         |      ▪ (string) varData                                                                                                  |
+        |      ▪ (string) varKey                                                                                                   |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */            
-        public static function getSHA256($varUserSession, $varKey, $varData)
+        public static function getSHA256($varUserSession, $varData, $varKey = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get SHA256 hash');
                 try {
-                    $varReturn = hash_hmac('sha256', $varData, $varKey, true);
+                    $varReturn = hash('sha256', $varData, false);
+                    //$varReturn = hash_hmac('sha256', $varKey, $varData, true);
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
                 catch (\Exception $ex) {

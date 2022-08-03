@@ -17,6 +17,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+//Route::get(
+//    'fileUploadDelete',
+//    '\App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\general\deleteFile\v1@mainByGet'
+//    );
+        //->middleware('web');
+
+\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('fileUploadDelete/{APIWebToken}/{EncryptedData}/{Signature}', 'get', '\App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\general\deleteFile\v1\deleteFile@mainByGet');
+        
+
+
+
+
+
+
+
+
 //---> Telegram Bot
 //Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 

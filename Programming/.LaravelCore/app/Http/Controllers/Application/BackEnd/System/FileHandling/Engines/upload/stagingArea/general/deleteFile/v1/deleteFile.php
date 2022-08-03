@@ -121,7 +121,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varUserSession, 
                     [
                     'parameter' => [
-                        'recordPK' => 73 //$varRecordPK
+                        'recordPK' => $varRecordPK
                         ]
                     ]
                     );

@@ -107,7 +107,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             {
             $varDataList = 
                 (new \App\Models\LocalStorage\System\General())->getFilesList(
-                    //\App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getFilesList(
                     $varUserSession, 
                     'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK
                     );

@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 3.232.0 - 2022-08-02
+
+* `Aws\LicenseManagerUserSubscriptions` - This release supports user based subscription for Microsoft Visual Studio Professional and Enterprise on EC2.
+* `Aws\Personalize` - This release adds support for incremental bulk ingestion for the Personalize CreateDatasetImportJob API.
+
+## 3.231.18 - 2022-08-01
+
+* `Aws\ConfigService` - Documentation update for PutConfigRule and PutOrganizationConfigRule
+* `Aws\WorkSpaces` - This release introduces ModifySamlProperties, a new API that allows control of SAML properties associated with a WorkSpaces directory. The DescribeWorkspaceDirectories API will now additionally return SAML properties in its responses.
+
+## 3.231.17 - 2022-07-29
+
+* `Aws\EC2` - Documentation updates for Amazon EC2.
+* `Aws\FSx` - Documentation updates for Amazon FSx
+* `Aws\Shield` - AWS Shield Advanced now supports filtering for ListProtections and ListProtectionGroups.
+
 ## 3.231.16 - 2022-07-28
 
 * `Aws\EC2` - Documentation updates for VM Import/Export.

@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                     'parameter' => [
-                        'rotateLog_FileUploadStagingArea_RefRPK' => 69
+                        'rotateLog_FileUploadStagingArea_RefRPK' => 127
                         ]
                 ]
                 );
@@ -76,7 +76,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"rotateLog_FileUploadStagingArea_RefRPK" : 1'.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : 127'.
                         '}'.
                 '}'
                 );            

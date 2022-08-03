@@ -2,6 +2,12 @@ CHANGE LOG
 ==========
 
 
+## V1.1 (30/07/2022)
+
+* Added support for PHP 8.2
+* Dropped support for PHP <7.2.5
+
+
 ## V1.0.4 (21/11/2021)
 
 * Updated package metadata
