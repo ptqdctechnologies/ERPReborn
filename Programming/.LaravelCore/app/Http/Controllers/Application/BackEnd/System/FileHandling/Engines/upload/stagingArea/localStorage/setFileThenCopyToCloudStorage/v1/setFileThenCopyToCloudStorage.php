@@ -167,7 +167,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varFileLastModifiedDateTimeTZ, 
                     $varFileLastModifiedUnixTimestamp,
                     $varHashMethod_RefID,
-                    $varFileContentBase64Hash
+                    $varFileContentBase64Hash,
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
+                        $varUserSession, 
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
+                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                        'latest', 
+                        [
+                        'parameter' => [
+                            'archiveRecordID' => NULL,
+                            'stagingAreaRecordPK' => 124
+                            ]
+                        ],
+                        NULL,
+                        TRUE
+                        )
                     )['SignRecordID'];
 
                 //---> Penyimpanan ke Local Storage Server

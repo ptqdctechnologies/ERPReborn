@@ -104,8 +104,8 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2021-08-01                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2021-08-04                                                                                           |
         | ▪ Creation Date   : 2022-07-22                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -124,6 +124,7 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varFileLastModifiedUnixTimestamp ► File Last Modified Unix Timestamp (Mandatory)                         |
         |      ▪ (int)    varHashMethod_RefID ► Hash Method Reference ID (Mandatory)                                               |
         |      ▪ (string) varContentBase64Hash ► Content Base64 Hash (Mandatory)                                                   |
+        |      ▪ (string) varURLDelete ► URL Delete (Mandatory)                                                                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -131,7 +132,7 @@ namespace App\Models\Database\SchSysConfig
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, 
-            int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentBase64Hash)
+            int $varRotateLog_FileUploadStagingArea_RefRPK, int $varFileSequence, string $varFileName, int $varFileSize, string $varFileMIME, string $varFileExtension, string $varFileLastModifiedDateTimeTZ, int $varFileLastModifiedUnixTimestamp, int $varHashMethod_RefID, string $varContentBase64Hash, string $varURLDelete)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -145,14 +146,15 @@ namespace App\Models\Database\SchSysConfig
 
                         [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
                         [$varFileSequence, 'smallint'],
-                        [$varFileName, 'character varying'],
+                        [$varFileName, 'varchar'],
                         [$varFileSize, 'bigint'],
-                        [$varFileMIME, 'character varying'],
-                        [$varFileExtension, 'character varying'],
-                        [$varFileLastModifiedDateTimeTZ, 'character varying'],
+                        [$varFileMIME, 'varchar'],
+                        [$varFileExtension, 'varchar'],
+                        [$varFileLastModifiedDateTimeTZ, 'varchar'],
                         [$varFileLastModifiedUnixTimestamp, 'bigint'],
                         [$varHashMethod_RefID, 'bigint'],
-                        [$varContentBase64Hash, 'character varying']
+                        [$varContentBase64Hash, 'varchar'],
+                        [$varURLDelete, 'varchar']
                     ]
                     )
                 );

@@ -255,6 +255,89 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
             }
 
 
+        public static function getURL_APICallByGetMethod($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion=null, array $varData=null, string $varExpiredInterval = null, bool $varSignDisplayErrorPage = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API By GET Method');
+                try {
+                    //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
+                    if(!$varAPIVersion)
+                        {
+                        $varAPIVersion = 'latest';
+                        }
+                    else
+                        {
+                        $varAPIVersion = strtolower($varAPIVersion);
+                        }
+
+                    if($varSignDisplayErrorPage === NULL)
+                        {
+                        $varSignDisplayErrorPage = TRUE;
+                        }
+
+                    if(!$varData)
+                        {
+                        $varData = [];
+                        }
+                        
+                    if($varExpiredInterval)
+                        {
+                        $varExpiredInterval = '5 minutes';
+                        }
+
+                    $varDataArray = [
+                        'header' => [
+                            'authorization' => 'Bearer'.' '.$varAPIWebToken,
+                            ],
+                        'metadata' => [
+                            'API' => [
+                                'key' => $varAPIKey,
+                                'version' => $varAPIVersion
+                                ]
+                            ],
+                        'data' => $varData
+                        ];
+
+                    $varReturn = 
+                        \App\Helpers\ZhtHelper\General\Helper_Network::getCurrentProtocol($varUserSession).
+                        \App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession).
+                        '/'.
+                        'gatewayOfGetMethod'.
+                        '/'.
+                        $varAPIWebToken.
+                        '/'.
+                        (new \App\Models\Database\SchSysConfig\TblRotateLog_APIRequestByGet_Signature())->setDataInsert(
+                            $varUserSession, 
+                            $varAPIWebToken, 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession,
+                                $varDataArray
+                                ), 
+                            $varExpiredInterval
+                            ).
+                        '/'.
+                        \App\Helpers\ZhtHelper\General\Helper_Encode::getBase64Encode(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                $varUserSession,
+                                $varDataArray
+                                )
+                            );
+                    //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    } 
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGateway                                                                                    |

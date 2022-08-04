@@ -143,6 +143,7 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-15                                                                                           |
+        | ▪ Creation Date   : 2020-12-15                                                                                           |
         | ▪ Description     : Mendapatkan User Role Privileges Menu Aplikasi                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -638,6 +639,7 @@ namespace App\Helpers\ZhtHelper\System
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-08-11                                                                                           |
+        | ▪ Creation Date   : 2020-08-11                                                                                           |
         | ▪ Description     : Mencari User Session ID of System                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -680,6 +682,79 @@ namespace App\Helpers\ZhtHelper\System
             catch (\Exception $ex) {
                 }
             return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getUserSessionID_ByAPIWebToken                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-04                                                                                           |
+        | ▪ Creation Date   : 2022-08-04                                                                                           |
+        | ▪ Description     : Mendapatkan User Session ID berdasarkan API Web Token (varAPIWebToken)                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varAPIWebToken ► API Web Token                                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string)  varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getUserSessionID_ByAPIWebToken($varUserSession, string $varAPIWebToken)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_UserSessionIDByAPIWebToken',
+                        [
+                            [$varAPIWebToken, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'][0]['Func_GetData_UserSessionIDByAPIWebToken'];
+                }
+            catch (\Exception $ex) {
+                return NULL;
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getAPIWebToken_ByUserSessionID                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-04                                                                                           |
+        | ▪ Creation Date   : 2022-08-04                                                                                           |
+        | ▪ Description     : Mendapatkan API Web Token berdasarkan User Session ID (varUserSessionID)                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string)  varReturn                                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getAPIWebToken_ByUserSessionID($varUserSession)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchSysAsset.Func_GetData_APIWebTokenByUserSessionID',
+                        [
+                            [$varUserSession, 'bigint']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'][0]['Func_GetData_APIWebTokenByUserSessionID'];
+                }
+            catch (\Exception $ex) {
+                return NULL;
+                }
             }
 
 

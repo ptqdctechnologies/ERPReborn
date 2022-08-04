@@ -30,13 +30,13 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "recordPK": {
+                    "rotateLog_FileUploadStagingArea_RefRPK": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "recordPK" ]
+                "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
                 }
             },
         "required": [ "parameter" ]

@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             $varUserSession,
                             $this->dataProcessing(
                                 $varUserSession,
-                                $varData['parameter']['recordPK']
+                                $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK']
                                 )
                             );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);                        
@@ -106,11 +106,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, int $varRecordPK)
+        private function dataProcessing($varUserSession, int $varRotateLog_FileUploadStagingArea_RefRPK)
             {
             $varData = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->resetSequence(
                 $varUserSession, 
-                $varRecordPK
+                $varRotateLog_FileUploadStagingArea_RefRPK
                 );
             
             $varDataReturn = [
