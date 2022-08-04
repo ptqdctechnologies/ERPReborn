@@ -219,6 +219,11 @@ namespace App\Helpers\ZhtHelper\Database
                                     $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::date";
                                     break;
                                     }
+                                case 'interval':
+                                    {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::interval";
+                                    break;
+                                    }
                                 case 'numeric':
                                     {
                                     if((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE))
