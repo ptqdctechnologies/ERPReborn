@@ -268,7 +268,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
                                                 '}'.
 
-                                            //---> Mencari Last Sequence
+                                            //---> Mengurutkan Ulang Sequence dan Mencari Last Sequence
                                             'varLastSequence = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                 $varUserSession, 
                                                 $varAPIWebToken, 
@@ -276,7 +276,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'latest', 
                                                 '{'.
                                                     '"parameter" : {'.
-                                                        '"recordPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
                                                         '}'.
                                                 '}'
                                                 )).').data.lastSequence); '.

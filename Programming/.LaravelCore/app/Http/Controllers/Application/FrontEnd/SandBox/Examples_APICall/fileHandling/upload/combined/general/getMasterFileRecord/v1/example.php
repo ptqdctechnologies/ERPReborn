@@ -5,7 +5,7 @@
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\combined\general         |
 |                 \getMasterFileRecord\v1                                                                                          |
-| ▪ API Key     : fileHandling.upload.stagingArea.general.getMasterFileRecord                                                      |
+| ▪ API Key     : fileHandling.upload.combined.general.getMasterFileRecord                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |

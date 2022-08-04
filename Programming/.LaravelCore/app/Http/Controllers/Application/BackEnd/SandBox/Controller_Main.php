@@ -16,6 +16,37 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
+           // \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession);
+            
+            $x = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
+                //'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTk1ODMwNzV9.ZDdmYjI0ZGM0OTJiMjAwZmE1OTQ1ZmQ3ODQzZTE5MmQ2MWEyZGU2OTliMWRiMmQwMzA3MzRlMDU3YmIyM2Y1Zg', 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                [
+                'parameter' => [
+                    'archiveRecordID' => NULL,
+                    'stagingAreaRecordPK' => 124
+                    ]
+                ],
+                NULL,
+                TRUE
+                );
+            
+/*            
+            $x = 
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_APIRequestByGet_Signature())->setDataInsert(
+                    $varUserSession, 
+                    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NTk1ODMwNzV9.ZDdmYjI0ZGM0OTJiMjAwZmE1OTQ1ZmQ3ODQzZTE5MmQ2MWEyZGU2OTliMWRiMmQwMzA3MzRlMDU3YmIyM2Y1Zg', 
+                    '{}', 
+                    '5 minutes'
+                    );
+ * 
+ */
+            dd($x);
+
+/*
             $varSignFileAlreadyExist = 
                 (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_IsFileAlreadyExist(
                     $varUserSession, 
@@ -30,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             '7a72456de33e0238bf52ae01fd13c068722eb557980350b0ec9c0526fa5608ae'
             );
             dd($varSignFileAlreadyExist);
-            
+*/            
             
 //            (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert($varUserSession, $varSysDataAnnotation)
             

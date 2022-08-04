@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'recordPK' => 124
+                    'rotateLog_FileUploadStagingArea_RefRPK' => 124
                     ]
                 ]
                 );
@@ -66,7 +66,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<input type="text" id="dataInput_recordPK" value=124>';
+            echo '<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=124>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -74,7 +74,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"recordPK" : document.getElementById("dataInput_recordPK").value'.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value'.
                         '}'.
                 '}'
                 );            

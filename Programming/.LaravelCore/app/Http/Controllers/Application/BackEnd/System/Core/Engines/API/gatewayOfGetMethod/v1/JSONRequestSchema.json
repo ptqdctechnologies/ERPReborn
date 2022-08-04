@@ -1,0 +1,5 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of core.API.gatewayOfGetMethod (version 1)",
+"type": "object"
+}
