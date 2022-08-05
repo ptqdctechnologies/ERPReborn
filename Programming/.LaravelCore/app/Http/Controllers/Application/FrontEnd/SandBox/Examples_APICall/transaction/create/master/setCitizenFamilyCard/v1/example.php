@@ -78,8 +78,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Log FileUpload Pointer RefID ► '.
                 '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
-                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_MasterFileRecord').';" />'.
+                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" '.
+                    'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_MasterFileRecord').';" />'.
                 '<div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>';
+
+
+            echo '<br>Log FileUpload Pointer RefID2 ► '.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readOnly="true">'.
+                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" '.
+                    'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload2', 'dataInput_Log_FileUpload_Pointer_RefID2', 'dataShow_MasterFileRecord2').';" />'.
+                '<div id="dataShow_MasterFileRecord2" style="border-style:solid; border-width:1px;"></div>';
+
+
+
+
+
             echo '<br>Card Number ► '.
                 '<input type="text" id="dataInput_CardNumber" value="3174091701099012">';
             echo '<br>Issued Date ► '.
