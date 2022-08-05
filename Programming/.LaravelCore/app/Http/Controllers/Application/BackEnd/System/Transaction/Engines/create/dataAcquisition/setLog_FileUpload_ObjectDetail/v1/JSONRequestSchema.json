@@ -69,9 +69,36 @@
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
+                        },
+                    "hashMethod_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "contentBase64Hash": {
+                        "type": [ "string", "null" ],
+                        "minLength": 64,
+                        "maxLength": 64
+                        },
+                    "dataCompression_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
                         }
                     },
-                "required": [ "log_FileUpload_Object_RefID", "sequence", "name", "size", "MIME", "extension", "lastModifiedDateTimeTZ", "lastModifiedUnixTimestamp" ]
+                "required": [ 
+                    "log_FileUpload_Object_RefID", 
+                    "sequence", 
+                    "name", 
+                    "size", 
+                    "MIME", 
+                    "extension", 
+                    "lastModifiedDateTimeTZ", 
+                    "lastModifiedUnixTimestamp",
+                    "hashMethod_RefID",
+                    "contentBase64Hash",
+                    "dataCompression_RefID"
+                    ]
                 }
             },
         "required": [ "entities" ]

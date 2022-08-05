@@ -84,8 +84,12 @@ namespace App\Models\Database\SchSysAsset
         |      ▪ (string) varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData_FileUpload_MasterFileRecord($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null)
+        public function getData_FileUpload_MasterFileRecord($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null, array $varDeleteCandidate_RefIDArray = null)
             {
+            if(!$varDeleteCandidate_RefIDArray) {
+                $varDeleteCandidate_RefIDArray = [];
+                }
+            
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
@@ -93,11 +97,18 @@ namespace App\Models\Database\SchSysAsset
                     'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
                     [
                         [$varArchiveRecordID, 'bigint'],
-                        [$varStagingAreaRecordPK, 'bigint']
+                        [$varStagingAreaRecordPK, 'bigint'],
+                        [
+                            \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
+                                $varUserSession, 
+                                $varDeleteCandidate_RefIDArray
+                                ),
+                            'bigint[]'
+                        ]
                     ]
                     )
                 );
-            return $varReturn['Data'];
+            return $varReturn;
             }
 
 

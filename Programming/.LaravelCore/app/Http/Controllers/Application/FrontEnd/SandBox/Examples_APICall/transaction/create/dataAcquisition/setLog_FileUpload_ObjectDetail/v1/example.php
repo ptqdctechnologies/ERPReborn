@@ -3,27 +3,25 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\combined\general         |
-|                 \getMasterFileRecord\v1                                                                                          |
-| ▪ API Key     : fileHandling.upload.combined.general.getMasterFileRecord                                                         |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setPettyCash\v1   |
+| ▪ API Key     : transaction.create.finance.setPettyCash                                                                          |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fileHandling\upload\combined\general\getMasterFileRecord\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setPettyCash\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/fileHandling.upload.combined.general.getMasterFileRecord.v1_throughAPIGateway       |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.upload.combined.general.getMasterFileRecord.v1_throughAPIGateway                      |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.dataAcquisition.setPettyCash.v1_throughAPIGateway                        |
+        |                     ► http://172.28.0.4/transaction.create.dataAcquisition.setPettyCash.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-03                                                                                           |
-        | ▪ Creation Date   : 2022-08-03                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -36,13 +34,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'transaction.create.dataAcquisition.setPettyCash', 
                 'latest', 
                 [
-                'parameter' => [
-                    'archiveRecordID' => NULL,
-                    'stagingAreaRecordPK' => 124,
-                    'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
+                'entities' => [
+                    "name" => 'New Petty Cash'
                     ]
                 ]
                 );
@@ -52,14 +48,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     fileHandling.upload.combined.general.getMasterFileRecord.v1_throughAPIGatewayJQuery                  |
-        |                     ► http://172.28.0.4/                                                                                 |
-        |                       fileHandling.upload.combined.general.getMasterFileRecord.v1_throughAPIGatewayJQuery                |
+        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setPettyCash.v1_throughAPIGatewayJQuery                  |
+        |                     ► http://172.28.0.4/transaction.create.finance.setPettyCash.v1_throughAPIGatewayJQuery               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-03                                                                                           |
-        | ▪ Creation Date   : 2022-08-03                                                                                           |
+        | ▪ Last Update     : 2022-07-21                                                                                           |
+        | ▪ Creation Date   : 2022-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -70,22 +64,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Archive Record ID<input type="text" id="dataInput_archiveRecordID" value="">';
-            echo '<br>Staging Area Record PK<input type="text" id="dataInput_stagingAreaRecordPK" value=186>';
-            echo '<br>Delete Candidate Log_FileUpload_ObjectDetail RefArrayID<input type="text" id="dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" value="[]">';
+            echo '<table border="1" style="border-collapse: collapse;">';
+            echo    '<tr><td colspan="2" bgcolor="#6666cc" align="middle"><p style="color:#ffffff">Advance Detail Main Data</p></td></tr>';
+            echo       '<tr><td>Name</td><td><input type="text" id="dataInput_Name" value="New Petty Cash"></td></tr>';
+            echo '</table><br>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'transaction.create.dataAcquisition.setPettyCash', 
                 'latest', 
                 '{'.
-                    '"parameter" : {'.
-                        '"archiveRecordID" : parseInt(document.getElementById("dataInput_archiveRecordID").value), '.
-                        '"stagingAreaRecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value), '.
-                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : document.getElementById("dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID").value'.
+                    '"entities" : {'.
+                        '"name" : document.getElementById("dataInput_Name").value'.
                         '}'.
                 '}'
-                );
+                ); 
             echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }

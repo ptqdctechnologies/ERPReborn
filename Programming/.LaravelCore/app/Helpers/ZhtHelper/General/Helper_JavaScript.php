@@ -178,20 +178,25 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2021-07-28                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2022-08-05                                                                                           |
+        | ▪ Creation Date   : 2021-07-28                                                                                           |
         | ▪ Description     : Mengambil Fungsi DOM Input File Content                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession                                                                                           |
-        |      ▪ (string) varAPIWebToken                                                                                           |
-        |      ▪ (string) varDOMReturnID                                                                                           |
-        |      ▪ (string) varAction (Optional)                                                                                     |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (string) varAPIWebToken (Mandatory) ► API Web Token                                                               |
+        |      ▪ (string) varUniqueID (Mandatory) ► Penanda Unik untuk DOM (Tidak boleh terduplikasi)                              |
+        |      ▪ (string) varDOMReturnID (Mandatory) ► DOMReturnID                                                                 |
+        |      ▪ (string) varDOMAction (Mandatory) ► DOMAction                                                                     |
+        |      ▪ (string) varAction (Optional) ► Action                                                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxFunc_DOMInputFileContent($varUserSession, string $varAPIWebToken, string $varDOMReturnID, string $varDOMAction, string $varAction = null)
+        public static function getSyntaxFunc_DOMInputFileContent(
+            $varUserSession, string $varAPIWebToken, 
+            string $varUniqueID, string $varDOMReturnID, string $varDOMAction, string $varAction = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -212,19 +217,19 @@ namespace App\Helpers\ZhtHelper\General
                             //--->
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'value\', varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
-                                //'alert(\'varObjDOMInputMasterFileRecord belum didefinisikan\');'.
-                                'varObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'type\', \'text\'); '.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'visibility\', \'visible\'); '.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'display\', \'block\'); '.
-                                'varObjDOMInputMasterFileRecord.setAttribute(\'value\', \'[]\'); '.
+                                //'alert(\'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord belum didefinisikan\');'.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'type\', \'text\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'visibility\', \'visible\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'display\', \'block\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', \'[]\'); '.
                                 //--->
-                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK = document.createElement(\'INPUT\'); '.
-                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'type\', \'text\'); '.
-                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', \'\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK = document.createElement(\'INPUT\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'type\', \'text\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', \'\'); '.
                                 '}'.
                             
                             
@@ -235,7 +240,7 @@ namespace App\Helpers\ZhtHelper\General
 //'element.addEventListener(\'click\', function() {'.
 //    'alert(document.getElementById(\''.$varDOMReturnID.'\'));'.
 //'});'.
-            //'alert(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+            //'alert(var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
 
                             '(function(varObj, varReturnDOMObject) {'.
                                 'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
@@ -252,7 +257,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'var varJSONDataBuilder = \'\'; '.
 
                                             //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
-                                            'if(varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\') == \'\') {'.
+                                            'if(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\') == \'\') {'.
                                                 'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                     $varUserSession, 
                                                     $varAPIWebToken, 
@@ -262,10 +267,10 @@ namespace App\Helpers\ZhtHelper\General
                                                         '"applicationKey" : "'.$varAPIWebToken.'"'.
                                                     '}'
                                                     )).').data.recordRPK); '.
-                                                'varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', varRotateLog_FileUploadStagingArea_RefRPK); '.
+                                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', varRotateLog_FileUploadStagingArea_RefRPK); '.
                                                 '}'.
                                             'else {'.
-                                                'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(varObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
+                                                'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
                                                 '}'.
 
                                             //---> Mengurutkan Ulang Sequence dan Mencari Last Sequence
@@ -283,7 +288,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //'alert(varLastSequence); '.
 
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
-                                            'var varObjJSONMasterFileRecord = JSON.parse(varObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+                                            'var varObjJSONMasterFileRecord = JSON.parse(var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                             'for(var i = 0; i < varObjFileList.length; i++)'.
                                                 '{'.
                                                 '(function(varObjCurrentFile, i) {'.
@@ -307,11 +312,11 @@ namespace App\Helpers\ZhtHelper\General
                                                             'String.fromCharCode(34) + \'contentBase64\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (event.target.result.substr(event.target.result.indexOf(\',\') + 1)) + String.fromCharCode(34) + \'\' + '.
                                                             '\'}\'; '.
                                                         //'alert(varJSONDataBuilderNew); '.
-                                                        'var varObjDOMInputTemp = document.createElement(\'INPUT\'); '.
-                                                        'varObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
-                                                        'varObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
+                                                        'var var'.$varUniqueID.'_ObjDOMInputTemp = document.createElement(\'INPUT\'); '.
+                                                        'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'type\', \'text\'); '.
+                                                        'var'.$varUniqueID.'_ObjDOMInputTemp.setAttribute(\'value\', varJSONDataBuilderNew);'.
                                                         'varJSONDataBuilder = varJSONDataBuilder + varJSONDataBuilderNew; '.
-                                                        //'alert((varObjDOMInputTemp.getAttribute(\'value\'))); '.
+                                                        //'alert((varObj'.$varUniqueID.'_DOMInputTemp.getAttribute(\'value\'))); '.
                                                         //  'varObjJSONMasterFileRecord.push({'.
                                                         //    '\'sequence\': (i+1+varLastSequence), '.
                                                         //    '\'signExistOnAchive\': false, '.
@@ -327,7 +332,7 @@ namespace App\Helpers\ZhtHelper\General
                                                             'fileHandling.upload.stagingArea.localStorage.setFileThenCopyToCloudStorage', 
                                                             'latest', 
                                                             '{'.
-                                                                '"parameter" : JSON.parse(varObjDOMInputTemp.getAttribute(\'value\'))'.
+                                                                '"parameter" : JSON.parse(var'.$varUniqueID.'_ObjDOMInputTemp.getAttribute(\'value\'))'.
                                                             '}'
                                                             )).';'.
                                                         //'alert(varNothing); '.
@@ -356,7 +361,8 @@ namespace App\Helpers\ZhtHelper\General
                                                                 '{'.
                                                                     '"parameter" : {'.
                                                                         '"archiveRecordID" : null, '.
-                                                                        '"stagingAreaRecordPK" : varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                        '"stagingAreaRecordPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
+                                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
                                                                         '}'.
                                                                 '}'
                                                                 )).').data); '.
@@ -367,10 +373,10 @@ namespace App\Helpers\ZhtHelper\General
                                                             'varObj.disabled = false; '.
                                                             'varReturnDOMObject.disabled = false; '.
                                                             //'alert(varObj.value); '.
-                                                            'varObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(varObjJSONMasterFileRecord))); '.
+                                                            'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(varObjJSONMasterFileRecord))); '.
                                                             //'alert(JSON.parse(varObjJSONMasterFileRecord)); '.
-                                                            //'alert((varObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
-                                                            'document.getElementById(\''.$varDOMAction.'\').innerHTML = varObjDOMInputMasterFileRecord.getAttribute(\'value\');'.
+                                                            //'alert((var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
+                                                            'document.getElementById(\''.$varDOMAction.'\').innerHTML = var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\');'.
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.

@@ -72,8 +72,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-08-01                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-08-05                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -85,6 +85,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference RPK            |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -92,7 +94,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varRotateLog_FileUploadStagingArea_RefRPK = null)
+            int $varRotateLog_FileUploadStagingArea_RefRPK = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -107,7 +110,9 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBranchRefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint']
+                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
                     )
                 );
@@ -119,8 +124,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2022-08-01                                                                                           |
+        | ▪ Version         : 1.0000.0000002                                                                                       |
+        | ▪ Last Update     : 2022-08-05                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -133,6 +138,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Log File Upload Object Reference ID                          |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -140,7 +147,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varRotateLog_FileUploadStagingArea_RefRPK = null)
+            int $varRotateLog_FileUploadStagingArea_RefRPK = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -155,7 +163,9 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBranchRefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint']
+                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ],
                     )
                 );
