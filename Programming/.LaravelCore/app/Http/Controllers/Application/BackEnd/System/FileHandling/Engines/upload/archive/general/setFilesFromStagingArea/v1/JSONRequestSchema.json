@@ -27,13 +27,30 @@
     "data": {
         "type": "object",
         "properties": {
-            "rotateLog_FileUploadStagingArea_RefRPK": {
-                "type": [ "integer", "null" ],
-                "minimum": 1,
-                "maximum": 9223372036854775807
+            "parameter": {
+                "type": "object",
+                "properties": {
+                    "archiveRecordID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "stagingAreaRecordPK": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 1,
+                        "maximum": 9223372036854775807
+                        },
+                    "deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID": {
+                        "type": "array",
+                        "items": {
+                            "type": "number"
+                            }
+                        }
+                    },
+                "required": [ "archiveRecordID", "stagingAreaRecordPK", "deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" ]
                 }
             },
-        "required": [ "rotateLog_FileUploadStagingArea_RefRPK" ]
+        "required": [ "parameter" ]
         }
     },
 "required": [ "metadata", "data" ]

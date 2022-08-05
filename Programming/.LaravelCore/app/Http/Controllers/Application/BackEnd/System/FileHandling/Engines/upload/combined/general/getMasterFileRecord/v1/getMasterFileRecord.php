@@ -69,10 +69,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $this->dataProcessing(
                                     $varUserSession,
                                     $varData['parameter']['archiveRecordID'],
-                                    $varData['parameter']['stagingAreaRecordPK']
+                                    $varData['parameter']['stagingAreaRecordPK'],
+                                    $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
                                     )
                                 );
-
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
                     catch (\Exception $ex) {
@@ -111,15 +111,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null)
+        private function dataProcessing($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null, array $varDeleteCandidate_RefIDArray = null)
             {
+            if(!$varDeleteCandidate_RefIDArray) {
+                $varDeleteCandidate_RefIDArray = [];
+                }
+
             $varData = 
                 (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_MasterFileRecord(
                     $varUserSession,
                     $varArchiveRecordID,
-                    $varStagingAreaRecordPK
+                    $varStagingAreaRecordPK,
+                    $varDeleteCandidate_RefIDArray
                     );
-            
             $varDataReturn = $varData;
             return $varDataReturn;
             }

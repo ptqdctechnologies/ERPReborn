@@ -7681,7 +7681,7 @@ return array(
     'Spatie\\LaravelIgnition\\Support\\StringComparator' => $vendorDir . '/spatie/laravel-ignition/src/Support/StringComparator.php',
     'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => $vendorDir . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
     'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => $vendorDir . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
-    'Stringable' => $vendorDir . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
+    'Stringable' => $vendorDir . '/myclabs/php-enum/stubs/Stringable.php',
     'Swaggest\\JsonDiff\\Exception' => $vendorDir . '/swaggest/json-diff/src/Exception.php',
     'Swaggest\\JsonDiff\\JsonDiff' => $vendorDir . '/swaggest/json-diff/src/JsonDiff.php',
     'Swaggest\\JsonDiff\\JsonHash' => $vendorDir . '/swaggest/json-diff/src/JsonHash.php',
