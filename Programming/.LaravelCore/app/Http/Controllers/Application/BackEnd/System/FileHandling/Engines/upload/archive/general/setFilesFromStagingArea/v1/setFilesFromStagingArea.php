@@ -247,7 +247,35 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 }
             //dd($varData);
 
+            (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_PointerHistory())->setDataInsert(
+                $varUserSession, 
+                null,
+                null,
+                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
+                $varLog_FileUpload_Object_RefID, 
+                $varDeleteCandidate_RefIDArray
+                );
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
 
 
 
