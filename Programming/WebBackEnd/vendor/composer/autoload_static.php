@@ -1725,6 +1725,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_ObjectDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_ObjectDetail.php',
         'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_Pointer' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_Pointer.php',
         'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_PointerHistory' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_PointerHistory.php',
+        'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_PointerHistoryDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_PointerHistoryDetail.php',
         'App\\Models\\Database\\SchData_OLTP_Finance\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/General.php',
         'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvance' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblAdvance.php',
         'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvanceDetail' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Finance/TblAdvanceDetail.php',

@@ -1126,6 +1126,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_ObjectDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_ObjectDetail.php',
     'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_Pointer' => $baseDir . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_Pointer.php',
     'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_PointerHistory' => $baseDir . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_PointerHistory.php',
+    'App\\Models\\Database\\SchData_OLTP_DataAcquisition\\TblLog_FileUpload_PointerHistoryDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_DataAcquisition/TblLog_FileUpload_PointerHistoryDetail.php',
     'App\\Models\\Database\\SchData_OLTP_Finance\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/General.php',
     'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvance' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblAdvance.php',
     'App\\Models\\Database\\SchData_OLTP_Finance\\TblAdvanceDetail' => $baseDir . '/app/Models/Database/SchData_OLTP_Finance/TblAdvanceDetail.php',
