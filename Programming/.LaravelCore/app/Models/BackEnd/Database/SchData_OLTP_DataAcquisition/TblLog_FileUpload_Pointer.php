@@ -72,8 +72,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-02                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-08-08                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -84,7 +84,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Reference ID                                     |
+        |      ▪ (int)    varLog_FileUpload_PointerHistory_RefID ► Log File Upload Pointer History Reference ID                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -92,7 +92,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Object_RefID = null)
+            int $varLog_FileUpload_PointerHistory_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -107,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBranchRefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varLog_FileUpload_Object_RefID, 'bigint']
+                        [$varLog_FileUpload_PointerHistory_RefID, 'bigint']
                     ]
                     )
                 );
@@ -119,8 +119,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-02                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2022-08-08                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -132,7 +132,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBranchRefID ► System Branch Reference ID                                                           |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Reference ID                                     |
+        |      ▪ (int)    varLog_FileUpload_PointerHistory_RefID ► Log File Upload Pointer History Reference ID                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -140,7 +140,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Object_RefID = null)
+            int $varLog_FileUpload_PointerHistory_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -155,7 +155,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBranchRefID, 'bigint'],
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
-                        [$varLog_FileUpload_Object_RefID, 'bigint']
+                        [$varLog_FileUpload_PointerHistory_RefID, 'bigint']
                     ],
                     )
                 );

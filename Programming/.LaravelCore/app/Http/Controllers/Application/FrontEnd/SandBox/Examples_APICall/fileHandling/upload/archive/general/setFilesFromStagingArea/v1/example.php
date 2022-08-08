@@ -40,8 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'archiveRecordID' => NULL,
-                    'stagingAreaRecordPK' => 124,
+                    'log_FileUpload_Pointer_RefID' => NULL,
+                    'stagingAreaRecordPK' => 190,
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => []
                     ]
                 ]
@@ -70,7 +70,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Archive Record ID<input type="text" id="dataInput_archiveRecordID" value=72>';
+            echo '<br>Log File Upload Pointer Reference ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value=72>';
             echo '<br>Staging Area Record PK<input type="text" id="dataInput_stagingAreaRecordPK" value=72>';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"archiveRecordID" : parseInt(document.getElementById("dataInput_archiveRecordID").value), '.
+                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_log_FileUpload_Pointer_RefID").value), '.
                         '"stagingAreaRecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value)'.
                         '}'.
                 '}'

@@ -392,6 +392,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
                                                                 '}'.
                                                             'else {'.
+                            //'alert(\'xxxx\');'.
                                                                 'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
                                                                 '}'.
                                                             //'varReturnDOMObject.value = varReturn; '.
