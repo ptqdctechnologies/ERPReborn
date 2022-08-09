@@ -30,12 +30,12 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "archiveRecordID": {
+                    "log_FileUpload_Pointer_RefID": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
                         },
-                    "stagingAreaRecordPK": {
+                    "stagingArea_RecordPK": {
                         "type": [ "integer", "null" ],
                         "minimum": 1,
                         "maximum": 9223372036854775807
@@ -47,7 +47,7 @@
                             }
                         }
                     },
-                "required": [ "archiveRecordID", "stagingAreaRecordPK", "deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" ]
+                "required": [ "log_FileUpload_Pointer_RefID", "stagingArea_RecordPK", "deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" ]
                 }
             },
         "required": [ "parameter" ]

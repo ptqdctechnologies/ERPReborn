@@ -41,7 +41,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 [
                 'parameter' => [
                     'log_FileUpload_Pointer_RefID' => NULL,
-                    'stagingAreaRecordPK' => 190,
+                    'stagingArea_RecordPK' => 190,
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => []
                     ]
                 ]
@@ -80,7 +80,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 '{'.
                     '"parameter" : {'.
                         '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_log_FileUpload_Pointer_RefID").value), '.
-                        '"stagingAreaRecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value)'.
+                        '"stagingArea_RecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value)'.
                         '}'.
                 '}'
                 );

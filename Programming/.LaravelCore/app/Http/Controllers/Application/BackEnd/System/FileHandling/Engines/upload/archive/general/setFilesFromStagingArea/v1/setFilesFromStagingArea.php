@@ -67,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $this->dataProcessing(
                                     $varUserSession,
                                     $varData['parameter']['log_FileUpload_Pointer_RefID'],
-                                    $varData['parameter']['stagingAreaRecordPK'],
+                                    $varData['parameter']['stagingArea_RecordPK'],
                                     $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
                                     )
                                 );
@@ -111,93 +111,18 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, int $varLogFileUploadPointerRefID = null, int $varStagingAreaRecordPK = null, array $varDeleteCandidate_RefIDArray = null)
             {
+            if(!$varDeleteCandidate_RefIDArray) {
+                $varDeleteCandidate_RefIDArray = [];
+                }
+
+
             //---> Penyusunan JSON dari MasterFileRecord yang berasal dari Staging Area
-            $varSQL = '
-                SELECT
-                    "SubSQL"."JSONData",
-                    "SubSQL"."FilePath"
-                FROM
-                    (
-                    SELECT
-                        JSON_BUILD_OBJECT(
-                            \'itemList\',
-                                JSON_BUILD_OBJECT(
-                                    \'items\', "SubSQL"."JSONData"
-                                    )
-                            )::json AS "JSONData",
-                        "SubSQL"."FilePath"
-                    FROM
-                        (
-                        SELECT
-                            (
-                            \'[\' || 
-                            STRING_AGG(
-                                "SubSQL"."JSONData"::varchar,
-                                \',\'
-                                ) ||
-                            \']\'
-                            )::json AS "JSONData",
-                            (
-                            \'[\' || 
-                            STRING_AGG(
-                                (\'"\' || "SubSQL"."FilePath" || \'"\')::varchar,
-                                \',\'
-                                ) ||
-                            \']\'
-                            )::json AS "FilePath"
-                        FROM
-                            (
-                            SELECT 
-                                JSON_BUILD_OBJECT(
-                                    \'recordID\', NULL,
-                                    \'entities\',
-                                        JSON_BUILD_OBJECT(
-                                            \'log_FileUpload_Object_RefID\', null,
-                                            \'rotateLog_FileUploadStagingArea_RefRPK\', "RecordReference",
-                                            \'sequence\', "Sequence",
-                                            \'name\', "Name",
-                                            \'size\', "Size",
-                                            \'MIME\', "MIME",
-                                            \'extension\', "Extension",
-                                            \'lastModifiedDateTimeTZ\', "LastModifiedDateTimeTZ",
-                                            \'lastModifiedUnixTimestamp\', "LastModifiedUnixTimestamp",
-                                            \'hashMethod_RefID\', "HashMethod_RefID",
-                                            \'contentBase64Hash\', "ContentBase64Hash",
-                                            \'dataCompression_RefID\', NULL,
-                                            \'stagingAreaFilePath\', "FilePath"
-                                            )
-                                    ) AS "JSONData",
-                                "FilePath",
-                                ROW_NUMBER () OVER (
-                                    ORDER BY
-                                        "Sequence" ASC
-                                    ) AS "OrderSequence"
-                            FROM
-                                (
-                                SELECT
-                                    *
-                                FROM
-                                    "SchSysAsset"."Func_GetData_FileUpload_MasterFileRecord"(
-                                        NULL, 
-                                        '.$varStagingAreaRecordPK.'::bigint, 
-                                        '.
-                                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
-                                            $varUserSession, 
-                                            $varDeleteCandidate_RefIDArray).
-                                        '::bigint[]
-                                        )
-                                WHERE
-                                    "SignExistOnArchive" = FALSE
-                                ) AS "SubSQL"
-                            ) AS "SubSQL"
-                        ) AS "SubSQL"
-                    ) AS "SubSQL"
-                ';
-            
-            $varJSON_Log_FileUpload_ObjectDetail = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                $varSQL
-                )['Data'][0]['JSONData'];
+            $varJSON_Log_FileUpload_ObjectDetail = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getFileUpload_DataMovementFromStagingAreaToArchieve(
+                    $varUserSession, 
+                    $varStagingAreaRecordPK,
+                    $varDeleteCandidate_RefIDArray
+                    );
             //dd($varJSON_Log_FileUpload_ObjectDetail);
 
 
@@ -216,6 +141,24 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varJSON_Log_FileUpload_ObjectDetail)
                     )['SignRecordID'];
             //dd($varSysID_Log_FileUpload_Object);
+
+
+            //---> Mencari Log_FileUpload_Object_RefID Sebelumnya
+            $varData = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistoryDetail(
+                    $varUserSession, 
+                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                    $varLogFileUploadPointerRefID
+                    );
+            $varArrayID_LogFileUploadObject = [];
+            for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
+                {
+                $varArrayID_LogFileUploadObject[$i] = $varData[$i]['Log_FileUpload_Object_RefID'];
+                }
+            //---> Menambahkan Log_FileUpload_Object_RefID Baru
+            $varArrayID_LogFileUploadObject[count($varArrayID_LogFileUploadObject)] = $varSysID_Log_FileUpload_Object;
+            //dd($varArrayID_LogFileUploadObject);
 
 
             //---> Mencari Data Path Pemindahan lalu memindahkan File dari Staging Area ke Archive Cloud
@@ -247,17 +190,68 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 }
             //dd($varData);
 
-            (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_PointerHistory())->setDataInsert(
-                $varUserSession, 
-                null,
-                null,
-                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-                $varLog_FileUpload_Object_RefID, 
-                $varDeleteCandidate_RefIDArray
-                );
+            
+            
+           
+/*
+            $varData = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadObjectDetail(
+                $varUserSession, 
+                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                 
+                $varSysID_Log_FileUpload_Object
+                );
+            //dd($varData[0]);
+            
+
+*/            
+            
+
+/*         
+            $varArray = '';
+            for($i=0, $iMax=count($varArrayID_LogFileUploadObject); $i!=$iMax; $i++)
+                {
+                if ($i!=0) {
+                    $varArray .= ',';                    
+                    }
+                $varArray .= $varArrayID_LogFileUploadObject[$i];
+                }
+            $varArray = '{'.$varArray.'}';
+            dd($varArray);*/
+
+/*                
+            $x = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getJSONAdditionalData_Log_FileUpload_PointerHistory(
+                    $varUserSession, 
+                    $varArrayID_LogFileUploadObject
+                    );
+            dd($x);
+*/
+            $varSysID_Log_FileUpload_PointerHistory = 
+                (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_PointerHistory())->setDataInsert(
+                    $varUserSession, 
+                    null,
+                    null,
+                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                    \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+
+                    $varLogFileUploadPointerRefID, 
+
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession, 
+                        (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getJSONAdditionalData_Log_FileUpload_PointerHistory(
+                            $varUserSession, 
+                            $varArrayID_LogFileUploadObject
+                            )
+                        )
+                    );
+
+
+            dd($varSysID_Log_FileUpload_PointerHistory);
+            
+            return ['xxx' => 'xxxx'];
+                
+/*
                 
                 
                 
