@@ -77,7 +77,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Log FileUpload Pointer RefID ► '.
-                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="" readOnly="true">'.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000010" readOnly="true">'.
                 '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" '.
                     'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_MasterFileRecord').';" />'.
                 '<div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>';

@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken
                         );
-            
+
             try {
                 if(!$varUserSession =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_ByAPIWebToken(
@@ -87,6 +87,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                                     $varEncryptedData
                                     )
                                 );
+                        //dd($varArrayData);
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                             $varUserSession, 
                             $varAPIWebToken, 
@@ -95,7 +96,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                             $varArrayData['data'], 
                             FALSE
                             );
-                        //var_dump($varReturn);
                         //---- ( MAIN CODE ) --------------------------------------------------------------------------- [ END POINT ] -----
                         \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                         } 

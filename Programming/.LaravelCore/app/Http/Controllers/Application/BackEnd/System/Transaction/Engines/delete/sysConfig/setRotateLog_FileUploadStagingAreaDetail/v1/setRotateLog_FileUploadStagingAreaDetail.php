@@ -67,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\de
                             $varUserSession,
                             'SchSysConfig',
                             'TblRotateLog_FileUploadStagingAreaDetail',
-                            $varData['recordPK']
+                            (int) $varData['recordPK']
                             ))))
                             {
                             throw new \Exception();

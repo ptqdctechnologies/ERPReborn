@@ -114,6 +114,21 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             if(!$varDeleteCandidate_RefIDArray) {
                 $varDeleteCandidate_RefIDArray = [];
                 }
+            
+            //---> Inisialisasi varLogFileUploadPointerRefID
+            if(!$varLogFileUploadPointerRefID) {
+                $varLogFileUploadPointerRefID =
+                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataInsert(
+                        $varUserSession, 
+                        null,
+                        null,
+                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                        \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
+                        
+                        NULL
+                        )['SignRecordID'];
+                //dd($varLogFileUploadPointerRefID);
+                }
 
 
             //---> Penyusunan JSON dari MasterFileRecord yang berasal dari Staging Area
@@ -168,7 +183,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     "ArchiveFilePath"
                 FROM 
                     "SchData-OLTP-DataAcquisition"."Func_GetDataList_Log_FileUpload_ObjectDetail"(
-                        11000000000004::bigint, 
+                        '.(\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'].'::bigint, 
                         '.$varSysID_Log_FileUpload_Object.'::bigint
                         )
                 ORDER BY
@@ -182,11 +197,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
                 {
                 //var_dump($varData[$i]);
-/*                (new \App\Models\CloudStorage\System\General())->moveFile(
+                (new \App\Models\CloudStorage\System\General())->moveFile(
                     $varUserSession, 
                     $varData[$i]['StagingAreaFilePath'], 
                     $varData[$i]['ArchiveFilePath']
-                    );*/
+                    );
                 }
             //dd($varData);
 
@@ -236,7 +251,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
                     $varLogFileUploadPointerRefID, 
-
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession, 
                         (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getJSONAdditionalData_Log_FileUpload_PointerHistory(
@@ -244,11 +258,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             $varArrayID_LogFileUploadObject
                             )
                         )
-                    );
+                    )['SignRecordID'];
+            //dd($varSysID_Log_FileUpload_PointerHistory);
 
+            (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Pointer())->setDataUpdate(
+                $varUserSession, 
+                $varLogFileUploadPointerRefID, 
+                null, 
+                null,
+                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
 
-            dd($varSysID_Log_FileUpload_PointerHistory);
-            
+                $varSysID_Log_FileUpload_PointerHistory
+                );
+
             return ['xxx' => 'xxxx'];
                 
 /*

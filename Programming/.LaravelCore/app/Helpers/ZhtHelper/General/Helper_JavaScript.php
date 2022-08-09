@@ -208,13 +208,7 @@ namespace App\Helpers\ZhtHelper\General
                         }
                     
                     $varReturn =
-                        //'var varObjDOMDivMasterFileRecord = document.createElement(\'DIV\'); '.
-                        //'varObjDOMDivMasterFileRecord.id = \'ObjDOMDivMasterFileRecord\'; '.
-                        //'varObjDOMDivMasterFileRecord.className = \'ObjDOMDivMasterFileRecord\'; '.
-                        //'varObjDOMDivMasterFileRecord.innerHTML = \'whatever\'; '.
-                        //'alert(document.getElementById(\''.$varDOMAction.'\').innerHTML); '.
                         'try {'.
-                            //--->
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
                                 'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
@@ -360,7 +354,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'latest', 
                                                                 '{'.
                                                                     '"parameter" : {'.
-                                                                        '"archiveRecordID" : null, '.
+                                                                        '"archiveRecordID" : ((varReturnDOMObject.value == null) ? null : parseInt(varReturnDOMObject.value)), '.
                                                                         '"stagingAreaRecordPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
                                                                         '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
                                                                         '}'.
