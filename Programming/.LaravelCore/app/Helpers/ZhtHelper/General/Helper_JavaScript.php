@@ -371,15 +371,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     '}'.
                                                 'var'.$varUniqueID.'_ObjDOMTable_Action.appendChild(varObjTBody); '.
                                                 'document.getElementById(\''.$varDOMActionPanel.'\').appendChild(var'.$varUniqueID.'_ObjDOMTable_Action);'.
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                                                 '}'.
-//                                            'innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, []); '.
                                             //---> Inner Function : Mendapatkan Master File Record
                                             'function innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
                                                 '{'.
