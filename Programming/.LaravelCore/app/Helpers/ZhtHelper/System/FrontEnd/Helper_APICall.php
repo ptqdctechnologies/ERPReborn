@@ -281,7 +281,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varData = [];
                         }
                         
-                    if($varExpiredInterval)
+                    if(!$varExpiredInterval)
                         {
                         $varExpiredInterval = '5 minutes';
                         }
@@ -324,6 +324,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                 $varDataArray
                                 )
                             );
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

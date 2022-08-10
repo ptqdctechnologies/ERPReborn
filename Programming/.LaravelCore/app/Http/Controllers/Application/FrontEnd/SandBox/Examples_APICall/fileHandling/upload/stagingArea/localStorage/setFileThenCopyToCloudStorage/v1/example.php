@@ -50,7 +50,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     'extension' => 'txt',
                     'lastModifiedDateTimeTZ' => 'Mon Jul 19 2021 10:58:30 GMT+0700 (Western Indonesia Time)',
                     'lastModifiedUnixTimestamp' => 1626667110901,
-                    'contentBase64' => 'dGVzdCBhamEK'
+                    'contentBase64' => 'dGVzdCBhamEKxxxxx1223456789'
                     ]
                 ]
                 );
