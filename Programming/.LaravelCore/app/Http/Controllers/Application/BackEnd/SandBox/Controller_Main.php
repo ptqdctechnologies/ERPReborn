@@ -15,9 +15,99 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
         public function testAja()
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-
-           // \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession);
+$varAPIWebToken = 'xxx';
             
+/*        $x = str_replace(
+            '"', 
+            '\\\\\\\'', 
+            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                $varUserSession, 
+                $varAPIWebToken, 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                '{'.
+                '"log_FileUpload_Pointer_RefID" : ((varLog_FileUpload_Pointer_RefID == null) ? null : parseInt(varLog_FileUpload_Pointer_RefID)), '.
+                '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
+                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
+                '}'
+                )
+            );*/
+$varUniqueID = 222;
+        $x = 
+            \App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                $varUserSession, 
+                str_replace(
+                    '"', 
+                    '\'', 
+                        
+                                        'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
+                                            'var XHR = new XMLHttpRequest(); '.
+                                            'XHR.onreadystatechange = function() {'.
+                                                'if (XHR.readyState == XMLHttpRequest.DONE) {'.
+                                                //'if (XHR.readyState == 4 && XHR.status == 200) {'.
+                                                    //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \'[]\'); '.
+                                                    'alert(\'Record has been deleted\');'.
+                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
+                                                        '\'{\''.
+                                                        ' + String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + \'123\' + \', \''.
+                                                        ' + String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + \'1234567\' + \', \''.
+                                                        ' + String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'[4567]\' + String.fromCharCode(34) + '.
+                                                        '\'}\'; '.
+                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').dispatchEvent(new Event(\'change\')); '.
+                                                    '}'.
+                                                '}; '.
+                                            'XHR.open(\'GET\', varURLDelete, true); '.
+                                            'XHR.send(null); '.
+                                            '}'
+                        
+                    /*
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                        $varUserSession, 
+                        $varAPIWebToken, 
+                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                        'latest', 
+                        '{'.
+                        '"log_FileUpload_Pointer_RefID" : ((varLog_FileUpload_Pointer_RefID == null) ? null : parseInt(varLog_FileUpload_Pointer_RefID)), '.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
+                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
+                        '}'
+                        )*/
+                    )
+                );
+        echo ($x);
+        dd($x);
+            
+/*            
+ $curl= curl_init();
+ curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+ curl_setopt($curl, CURLOPT_URL, 'http://172.28.0.3/gatewayOfGetMethod/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoic3lzYWRtaW4iLCJpYXQiOjE2NjAyNjY4MTF9.ZTQ3YTYxNjhlNDRiNmU5OGNiMzZlMGFhOTEwODRmNTcwZDM2NDI3YjAzYjQwZGFmNTEwNDY3NzIyZTgxYTAyYg/b09e77b311561ea265086901ef99d01a5c65cba369b6d210a67b569b8066a116/eyJoZWFkZXIiOnsiYXV0aG9yaXphdGlvbiI6IkJlYXJlciBleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKc2IyZG5aV1JKYmtGeklqb2ljM2x6WVdSdGFXNGlMQ0pwWVhRaU9qRTJOakF5TmpZNE1URjkuWlRRM1lUWXhOamhsTkRSaU5tVTVPR05pTXpabE1HRmhPVEV3T0RSbU5UY3daRE0yTkRJM1lqQXpZalF3WkdGbU5URXdORFkzTnpJeVpUZ3hZVEF5WWcifSwibWV0YWRhdGEiOnsiQVBJIjp7ImtleSI6InRyYW5zYWN0aW9uLmRlbGV0ZS5zeXNDb25maWcuc2V0Um90YXRlTG9nX0ZpbGVVcGxvYWRTdGFnaW5nQXJlYURldGFpbCIsInZlcnNpb24iOiJsYXRlc3QifX0sImRhdGEiOnsicmVjb3JkUEsiOjY2M319');
+ $res = curl_exec($curl);
+ curl_close($curl);
+ dd($res);
+
+ //$jo = json_decode($res);
+ echo $jo;
+*/
+
+/*
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+       // Typical action to be performed when the document is ready:
+       document.getElementById("demo").innerHTML = xhttp.responseText;
+    }
+};
+xhttp.open("GET", "filename", true);
+xhttp.send();            
+*/          
+            
+            
+            
+            
+            
+            
+           // \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession);
+/*            
             $x = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
                 $varUserSession, 
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
@@ -33,6 +123,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                 NULL,
                 TRUE
                 );
+*/
+
             
 /*            
             $x = 
@@ -44,7 +136,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
                     );
  * 
  */
-            dd($x);
+//            dd($x);
 
 /*
             $varSignFileAlreadyExist = 

@@ -215,25 +215,88 @@ namespace App\Helpers\ZhtHelper\General
                                 '}'.
                             'catch(varError) {'.
                                 //---> Penambahan Script
-                                //--->JSFunc_GetActionPanel_Reload_...
                                 'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
                                 'var ObjScript = document.createElement(\'script\'); '.
                                 'ObjScript.type = \'text/javascript\'; '.
+
+                            
+
                                 'ObjScript.text = \''.
+                                    //---> JSFunc_GetActionPanel_Reload_...
                                     'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
-                                        'var XHR = new XMLHttpRequest(); '.
+                                        'alert('.
+                                        self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                            $varUserSession,
+                                            '\'xxx\''
+                                            ).
+                                        '); '.
+/*                                        'var XHR = new XMLHttpRequest(); '.
                                         'XHR.onreadystatechange = function() {'.
                                             'if (XHR.readyState == XMLHttpRequest.DONE) {'.
                                             //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-//                                                'alert(XHR.responseText); '.
-                                                'alert(\\\'Record has been deleted\\\');'.
+                                                //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \\\'[]\\\'); '.
+                                                'alert(\\\'Record has been deleted\\\'); '.
+                                                'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').value = '.
+                                                    '\\\'{\\\''.
+                                                    ' + String.fromCharCode(34) + \\\'log_FileUpload_Pointer_RefID\\\' + String.fromCharCode(34) + \\\' : \\\' + \\\'123\\\' + \\\', \\\''.
+                                                    ' + String.fromCharCode(34) + \\\'rotateLog_FileUploadStagingArea_RefRPK\\\' + String.fromCharCode(34) + \\\' : \\\' + \\\'1234567\\\' + \\\', \\\''.
+                                                    ' + String.fromCharCode(34) + \\\'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\\\' + String.fromCharCode(34) + \\\' : \\\' + String.fromCharCode(34) + \\\'[4567]\\\' + String.fromCharCode(34) + '.
+                                                    '\\\'}\\\'; '.
+                                                'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').dispatchEvent(new Event(\\\'change\\\')); '.
                                                 '}'.
                                             '}; '.
-                                        'XHR.open(\\\'GET\\\', \\\'\\\' + varURLDelete + \\\'\\\', true); '.
-                                        'XHR.send(null); '.
-                                        //'alert(\\\'OK lah\\\' + varURLDelete); '.
+                                        'XHR.open(\\\'GET\\\', varURLDelete, true); '.
+                                        'XHR.send(null); '.*/
+                                        '}'.
+                                    //---> JSFunc_GetMasterFileRecord_Reload_...
+                                    'function JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                        'alert(\\\'varLog_FileUpload_Pointer_RefID : \\\' + varLog_FileUpload_Pointer_RefID); '.
+                                        //'varJSONData = \\\'{\\\'x\\\' : \\\'xxx\\\'}\\\'; '.
+                                        //'alert(varJSONData); '.
+                                        //'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID + \', varRotateLog_FileUploadStagingArea_RefRPK : \' + varRotateLog_FileUploadStagingArea_RefRPK + \', varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID : \' + varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
                                         '}'.
                                     '\'; '.
+                            
+
+                            
+                            
+
+                       
+                                'ObjScript.text = \''.
+                                    self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                        $varUserSession, 
+                                        (
+                                        //---> JSFunc_GetActionPanel_Reload_...
+                                        'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
+                                            'var XHR = new XMLHttpRequest(); '.
+                                            'XHR.onreadystatechange = function() {'.
+                                                'if (XHR.readyState == XMLHttpRequest.DONE) {'.
+                                                //'if (XHR.readyState == 4 && XHR.status == 200) {'.
+                                                    //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \'[]\'); '.
+                                                    'alert(\'Record has been deleted\');'.
+                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
+                                                        '\'{\''.
+                                                        ' + String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + \'123\' + \', \''.
+                                                        ' + String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + \'1234567\' + \', \''.
+                                                        ' + String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'[4567]\' + String.fromCharCode(34) + '.
+                                                        '\'}\'; '.
+                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').dispatchEvent(new Event(\'change\')); '.
+                                                    '}'.
+                                                '}; '.
+                                            'XHR.open(\'GET\', varURLDelete, true); '.
+                                            'XHR.send(null); '.
+                                            '}'.
+                                        //---> JSFunc_GetMasterFileRecord_Reload_...
+                                        'function JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                            'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID); '.
+                                            //'varJSONData = \'{\'x\' : \'xxx\'}\'; '.
+                                            //'alert(varJSONData); '.
+                                            //'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID + \', varRotateLog_FileUploadStagingArea_RefRPK : \' + varRotateLog_FileUploadStagingArea_RefRPK + \', varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID : \' + varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
+                                            '}'
+                                        )
+                                        ).
+                                    '\'; '.
+
                                 'ObjHead.appendChild(ObjScript); '.
 
 //                                'document.head.appendChild(document.createElement(\'script\').text = \'function LogIt(msg) { console.log(msg);}\' ); '.
@@ -242,25 +305,17 @@ namespace App\Helpers\ZhtHelper\General
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'type\', \'text\'); '.
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload.id = \'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\'; '.
                                 'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputSignReload); '.                          
-                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:innerFunc_GetActionPanel_Reload(\\\'varURLDelete\\\'); this.value=\\\'\\\'; \'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:'.
+                                    'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'('.
+                                        '(JSON.parse(this.value)).log_FileUpload_Pointer_RefID, '.
+                                        '(JSON.parse(this.value)).rotateLog_FileUploadStagingArea_RefRPK, '.
+                                        '(JSON.parse(this.value)).deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID'.
+                                        '); '.
+                                    //'alert(\\\'cdv\\\'); '.
+                                    '\'); '.
+//                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:innerFunc_GetActionPanel_Reload(\\\'varURLDelete\\\'); this.value=\\\'\\\'; \'); '.
 
-                            
-                            
-//                                'document.head.appendChild('.
-//                                    'document.createElement(\'script\').text = '.
-//                                        '\''.
-//                                        'function innerFunc_GetActionPanel_Reload(varURLDelete) {'.
-//                                            'alert(\\\'cccxxxx\\\'); '.
-//                                            '}'.
-//                                        '\'); '.
-
-
-
-//                                'function innerFunc_GetActionPanel_Reload(varURLDelete)'.
-//                                    '{'.
-//                                    'alert(\'cccxxxx\'); '.
-//                                    '}'.
-                            
+                                                       
 
                                 //'alert(\'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord belum didefinisikan\'); '.
                                 'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
@@ -439,6 +494,9 @@ namespace App\Helpers\ZhtHelper\General
                                                             'td.style.textAlign = \'right\'; '.
                                                             'td.appendChild(document.createTextNode(varObjectData[i][\'size\']));'.
                                                     'varObjTR.appendChild(td); '.
+//                                                        'x = \'xxx\'; '.
+//                                                        'x = x.replace(/\\/g, \'\@\'); '.
+//                                                        'alert(x); '.
                                                         'var td = document.createElement(\'td\'); '.
                                                             'td.style.backgroundColor = \'#fadbb4\'; '.
                                                             'td.style.fontFamily = \'tahoma,verdana\'; '.
@@ -448,12 +506,11 @@ namespace App\Helpers\ZhtHelper\General
                                                             'var varObjA = document.createElement(\'a\'); '.
                                                                 'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
                                                                 'varURLDelete = varObjectData[i][\'URLDelete\']; '.
-                                                                //'varObjA.href = \'#\'; '.
                                                                 'varObjA.href = \'javascript:(function(varURLDelete) {'.
                                                                     'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
                                                                     //'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').value = \\\'true\\\' + String.fromCharCode(13); '.
                                                                     //'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').dispatchEvent(new Event(\\\'change\\\')); '.
-                                                                    '})(varURLDelete);\'; '.
+                                                                    '})(\\\'\' + varURLDelete + \'\\\');\'; '.
 
 
 
@@ -839,6 +896,30 @@ namespace App\Helpers\ZhtHelper\General
                 '<script src = "js/zht-js/core.js" type="text/javascript"></script>'.
                 '<script>new zht_JSCore();</script>'.
                 '';
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setEscapeForEscapeSequenceOnSyntaxLiteral                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-12                                                                                           |
+        | ▪ Creation Date   : 2022-08-12                                                                                           |
+        | ▪ Description     : Mengeset Escape Sequence untuk Escape Sequence yang ada pada Syntax Literal                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        |      ▪ (string) varData                                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function setEscapeForEscapeSequenceOnSyntaxLiteral($varUserSession, $varData)
+            {
+            $varReturn = $varData;
+            $varReturn = implode('\\\'', (explode('\'', $varReturn)));
             return $varReturn;
             }
         }

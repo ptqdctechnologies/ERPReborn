@@ -88,6 +88,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatew
                                     )
                                 );
                         //dd($varArrayData);
+                        
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_APICall::setCallAPIGateway(
                             $varUserSession, 
                             $varAPIWebToken, 
