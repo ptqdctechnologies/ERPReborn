@@ -78,7 +78,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
             echo '<br>Log FileUpload Pointer RefID ► '.
                 '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID" value="91000000000010" readOnly="true">'.
-                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" type="file" '.
+                '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action" multiple="multiple" '.
+                    'onload="javascript:alert(\'OK\'); " '.
                     'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload', 'dataInput_Log_FileUpload_Pointer_RefID', 'dataShow_ActionPanel', 'dataShow_MasterFileRecord').';" />'.
                 '<div id="dataShow_MasterFileRecord" style="border-style:solid; border-width:1px;"></div>'.
                 '<div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;"></div>';
@@ -86,7 +87,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
             echo '<br>Log FileUpload Pointer RefID2 ► '.
                 '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readOnly="true">'.
-                '<input id="dataInput_Log_FileUpload_Pointer_RefID_Action2" multiple="multiple" type="file" '.
+                '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action2" multiple="multiple" '.
+                    'onload="javascript:alert(\'OK\'); " '.
                     'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload2', 'dataInput_Log_FileUpload_Pointer_RefID2', 'dataShow_ActionPanel2', 'dataShow_MasterFileRecord2').';" />'.
                 '<div id="dataShow_MasterFileRecord2" style="border-style:solid; border-width:1px;"></div>'.
                 '<div id="dataShow_ActionPanel2" style="border-style:solid; border-width:1px;"></div>';

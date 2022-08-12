@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.232.5",
-            "version_normalized": "3.232.5.0",
+            "version": "3.233.0",
+            "version_normalized": "3.233.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "68c15b670a5bb8bb4ebee025683a73bf7f969eee"
+                "reference": "2aabbc276b61515ae1897f037fc34ad56028d744"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/68c15b670a5bb8bb4ebee025683a73bf7f969eee",
-                "reference": "68c15b670a5bb8bb4ebee025683a73bf7f969eee",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/2aabbc276b61515ae1897f037fc34ad56028d744",
+                "reference": "2aabbc276b61515ae1897f037fc34ad56028d744",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-08-10T18:17:16+00:00",
+            "time": "2022-08-11T18:15:54+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,23 +144,23 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.232.5"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.233.0"
             },
             "install-path": "../aws/aws-sdk-php"
         },
         {
             "name": "brick/math",
-            "version": "0.10.1",
-            "version_normalized": "0.10.1.0",
+            "version": "0.10.2",
+            "version_normalized": "0.10.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/brick/math.git",
-                "reference": "de846578401f4e58f911b3afeb62ced56365ed87"
+                "reference": "459f2781e1a08d52ee56b0b1444086e038561e3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/brick/math/zipball/de846578401f4e58f911b3afeb62ced56365ed87",
-                "reference": "de846578401f4e58f911b3afeb62ced56365ed87",
+                "url": "https://api.github.com/repos/brick/math/zipball/459f2781e1a08d52ee56b0b1444086e038561e3f",
+                "reference": "459f2781e1a08d52ee56b0b1444086e038561e3f",
                 "shasum": ""
             },
             "require": {
@@ -172,7 +172,7 @@
                 "phpunit/phpunit": "^9.0",
                 "vimeo/psalm": "4.25.0"
             },
-            "time": "2022-08-01T22:54:31+00:00",
+            "time": "2022-08-10T22:54:19+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -197,7 +197,7 @@
             ],
             "support": {
                 "issues": "https://github.com/brick/math/issues",
-                "source": "https://github.com/brick/math/tree/0.10.1"
+                "source": "https://github.com/brick/math/tree/0.10.2"
             },
             "funding": [
                 {
