@@ -209,104 +209,137 @@ namespace App\Helpers\ZhtHelper\General
                     
                     $varReturn =
                         'try {'.
+                            //---> Penambahan Script
+                            'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
+                            'var ObjScript = document.createElement(\'script\'); '.
+                            'ObjScript.type = \'text/javascript\'; '.
+                            'ObjScript.text = \''.
+                                self::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                    $varUserSession, 
+                                    (
+                                    //---> JSFunc_GetActionPanel_Reload_...
+                                    'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
+                                        'var XHR = new XMLHttpRequest(); '.
+                                        'XHR.onreadystatechange = function() {'.
+                                            'if (XHR.readyState == XMLHttpRequest.DONE) {'.
+                                            //'if (XHR.readyState == 4 && XHR.status == 200) {'.
+                                                //'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(1, 1, \'[]\'); '.
+                                                'alert(\'Record has been deleted\');'.
+                                                //'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(123, 456, \'[]\'); '.
+                                                //'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
+                                                //    '\'{\''.
+                                                //    ' + String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + \'123\' + \', \''.
+                                                //    ' + String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + \'1234567\' + \', \''.
+                                                //    ' + String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'[4567]\' + String.fromCharCode(34) + '.
+                                                //    '\'}\'; '.
+                                                //'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').dispatchEvent(new Event(\'change\')); '.
+                                                '}'.
+                                            '}; '.
+                                        'XHR.open(\'GET\', varURLDelete, true); '.
+                                        'XHR.send(null); '.
+                                        '}'.
+                                    //---> OLDJSFunc_GetMasterFileRecord_OLDReload_...
+//                                        'function OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                    'function OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(varJSONData) {'.
+//                                            'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID); '.
+//                                            'alert(JSON.stringify(varJSONData)); '.
+                                        '}'.
+                                    //--->
+                                    'function JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'() {'.
+                                        'varJSONData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+/*
+                                        'varReturn = ('.
+                                            'JSON.parse('.
+                                                self::setEscapeForEscapeSequenceOnSyntaxLiteralPHP(
+                                                    $varUserSession, 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                        'latest', 
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '"log_FileUpload_Pointer_RefID" : ((varJSONData.header.log_FileUpload_Pointer_RefID == null) ? null : parseInt(varJSONData.header.log_FileUpload_Pointer_RefID)), '.
+                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : varJSONData.header.rotateLog_FileUploadStagingArea_RefRPK, '.
+                                                                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : varJSONData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID '.
+                                                                '}'.
+                                                        '}'
+                                                        )
+                                                    ).
+                                                ').data'.
+                                            '); '.
+                                        'alert(varReturn); '.
+                                        'return JSON.parse(JSON.stringify(varReturn.data));'.                            
+*/ 
+
+
+//                                            'return 0;'.
+                                        '}'.
+//                                        'function JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'()'.
+                                    //--->
+                                    'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
+                                        'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
+                                        'return varReturn; '.
+                                        '}'.
+                                    //--->
+                                    'function JSFunc_MainData_Reload_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                        'varJSONData = \'{\' + '.
+                                            'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
+                                                'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
+                                                'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? null : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + '.
+                                                '\'}, \' + '.
+                                            'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
+                                                'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
+                                                    '\'}\' + '.
+                                                '\'}\' + '.
+                                            '\'}\';'.
+//                                            'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varJSONData;'.
+                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = JSON.stringify(JSON.parse(varJSONData));'.
+
+//                                            'varJSONData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+//                                            'alert((JSON.stringify(varJSONData)).replace(\':\', \' : \')); '.
+
+                                        //'varJSONMasterFileRecord = JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'(); '.
+                                        //'alert((JSON.stringify(varJSONMasterFileRecord)).replace(\':\', \' : \')); '.
+                                        //'alert(varJSONMasterFileRecord); '.
+                                        '}'
+                                    )
+                                    ).
+                                '\'; '.
+                            'ObjHead.appendChild(ObjScript); '.
+                            
+
+
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
                                 'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
-                                //---> Penambahan Script
-                                'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
-                                'var ObjScript = document.createElement(\'script\'); '.
-                                'ObjScript.type = \'text/javascript\'; '.
-
+                                'var'.$varUniqueID.'_ObjDOMInputMainData = document.createElement(\'INPUT\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'type\', \'text\'); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMainData.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MainData\'; '.
+                                
+                                'var'.$varUniqueID.'_ObjDOMInputMainData.style.width = \'200px\'; '.
+                                'var'.$varUniqueID.'_ObjDOMInputMainData.style.height = \'100px\'; '.
+                                
                             
-
-                                'ObjScript.text = \''.
-                                    //---> JSFunc_GetActionPanel_Reload_...
-                                    'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
-                                        'alert('.
-                                        self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                            $varUserSession,
-                                            '\'xxx\''
-                                            ).
-                                        '); '.
-/*                                        'var XHR = new XMLHttpRequest(); '.
-                                        'XHR.onreadystatechange = function() {'.
-                                            'if (XHR.readyState == XMLHttpRequest.DONE) {'.
-                                            //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \\\'[]\\\'); '.
-                                                'alert(\\\'Record has been deleted\\\'); '.
-                                                'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').value = '.
-                                                    '\\\'{\\\''.
-                                                    ' + String.fromCharCode(34) + \\\'log_FileUpload_Pointer_RefID\\\' + String.fromCharCode(34) + \\\' : \\\' + \\\'123\\\' + \\\', \\\''.
-                                                    ' + String.fromCharCode(34) + \\\'rotateLog_FileUploadStagingArea_RefRPK\\\' + String.fromCharCode(34) + \\\' : \\\' + \\\'1234567\\\' + \\\', \\\''.
-                                                    ' + String.fromCharCode(34) + \\\'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\\\' + String.fromCharCode(34) + \\\' : \\\' + String.fromCharCode(34) + \\\'[4567]\\\' + String.fromCharCode(34) + '.
-                                                    '\\\'}\\\'; '.
-                                                'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').dispatchEvent(new Event(\\\'change\\\')); '.
-                                                '}'.
-                                            '}; '.
-                                        'XHR.open(\\\'GET\\\', varURLDelete, true); '.
-                                        'XHR.send(null); '.*/
-                                        '}'.
-                                    //---> JSFunc_GetMasterFileRecord_Reload_...
-                                    'function JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
-                                        'alert(\\\'varLog_FileUpload_Pointer_RefID : \\\' + varLog_FileUpload_Pointer_RefID); '.
-                                        //'varJSONData = \\\'{\\\'x\\\' : \\\'xxx\\\'}\\\'; '.
-                                        //'alert(varJSONData); '.
-                                        //'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID + \', varRotateLog_FileUploadStagingArea_RefRPK : \' + varRotateLog_FileUploadStagingArea_RefRPK + \', varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID : \' + varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-                                        '}'.
-                                    '\'; '.
                             
+                                'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputMainData); '.
 
                             
                             
-
-                       
-                                'ObjScript.text = \''.
-                                    self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                        $varUserSession, 
-                                        (
-                                        //---> JSFunc_GetActionPanel_Reload_...
-                                        'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
-                                            'var XHR = new XMLHttpRequest(); '.
-                                            'XHR.onreadystatechange = function() {'.
-                                                'if (XHR.readyState == XMLHttpRequest.DONE) {'.
-                                                //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                    //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \'[]\'); '.
-                                                    'alert(\'Record has been deleted\');'.
-                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
-                                                        '\'{\''.
-                                                        ' + String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + \'123\' + \', \''.
-                                                        ' + String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + \'1234567\' + \', \''.
-                                                        ' + String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'[4567]\' + String.fromCharCode(34) + '.
-                                                        '\'}\'; '.
-                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').dispatchEvent(new Event(\'change\')); '.
-                                                    '}'.
-                                                '}; '.
-                                            'XHR.open(\'GET\', varURLDelete, true); '.
-                                            'XHR.send(null); '.
-                                            '}'.
-                                        //---> JSFunc_GetMasterFileRecord_Reload_...
-                                        'function JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
-                                            'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID); '.
-                                            //'varJSONData = \'{\'x\' : \'xxx\'}\'; '.
-                                            //'alert(varJSONData); '.
-                                            //'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID + \', varRotateLog_FileUploadStagingArea_RefRPK : \' + varRotateLog_FileUploadStagingArea_RefRPK + \', varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID : \' + varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-                                            '}'
-                                        )
-                                        ).
-                                    '\'; '.
-
-                                'ObjHead.appendChild(ObjScript); '.
-
-//                                'document.head.appendChild(document.createElement(\'script\').text = \'function LogIt(msg) { console.log(msg);}\' ); '.
-                    
+                            
+                            
+                            
+                            
+                            
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload = document.createElement(\'INPUT\'); '.
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'type\', \'text\'); '.
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload.id = \'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\'; '.
-                                'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputSignReload); '.                          
+                                //document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputSignReload); '.                          
                                 'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:'.
-                                    'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'('.
+                                    'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'('.
                                         '(JSON.parse(this.value)).log_FileUpload_Pointer_RefID, '.
                                         '(JSON.parse(this.value)).rotateLog_FileUploadStagingArea_RefRPK, '.
                                         '(JSON.parse(this.value)).deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID'.
@@ -375,27 +408,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'var varAccumulatedFiles = 0; '.
                                             'var varJSONDataBuilder = \'\'; '.
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                                             //---> Pendefinisian Inner Function
-
-
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                             
                                             //---> Inner Function : Panel Action
 //                                            'function innerFuncGetActionPanel(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
@@ -560,6 +573,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         '}'
                                                         )).').data'.
                                                     '); '.
+                                                //'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(JSON.parse(JSON.stringify(varReturn.data))); '.
                                                 'return JSON.parse(JSON.stringify(varReturn.data));'.
                                                 '}'.
                                             //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
@@ -593,7 +607,6 @@ namespace App\Helpers\ZhtHelper\General
                                                 'return varReturn;'.
                                                 '}'.
 
-
                                             //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
                                             'if(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\') == \'\') {'.
                                                 'varRotateLog_FileUploadStagingArea_RefRPK = innerFuncGetNewID();'.
@@ -603,6 +616,8 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
                                                 '}'.
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
+
+                                            'JSFunc_MainData_Reload_'.$varUniqueID.'(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
 
                                             'var'.$varUniqueID.'_ObjJSONMasterFileRecord = innerFuncGetMasterFileRecord(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID);'.
                                             'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
@@ -919,8 +934,37 @@ namespace App\Helpers\ZhtHelper\General
         public static function setEscapeForEscapeSequenceOnSyntaxLiteral($varUserSession, $varData)
             {
             $varReturn = $varData;
-            $varReturn = implode('\\\'', (explode('\'', $varReturn)));
+            
+            //$varReturn = str_replace("@@@", "'", $varReturn);
+            //implode("'", (explode("@@@", $varReturn)));
+
+            
+            $varReturn = implode("\\'", (explode("'", $varReturn)));
+            $varReturn = implode("\\'", (explode("@@@", $varReturn)));
+
+
+            
+            
+            //$varReturn = implode('\\\'', (explode('\'', $varReturn)));
+            //$varReturn = implode('\\\'', (explode($varCustomPattern, $varReturn)));
+            //
+            //$varReturn = implode("\\\'", (explode("\'", $varReturn)));
+            //
+            //$varReturn = implode('\\\'', (explode('\\\'', $varReturn)));
             return $varReturn;
             }
+
+
+        public static function setEscapeForEscapeSequenceOnSyntaxLiteralPHP($varUserSession, $varData)
+            {
+            $varReturn = $varData;
+            //$varReturn = implode('@@@', (explode("\'", $varReturn)));
+            //$varReturn = str_replace('@@@', "\'", $varReturn);
+            //$varReturn = implode("@@@", (explode("'", $varReturn)));
+            $varReturn = implode("@@@", (explode("\"", $varReturn)));
+            //$varReturn = str_replace("@@@", "\\", $varReturn);
+            return $varReturn;
+            }
+
         }
     }

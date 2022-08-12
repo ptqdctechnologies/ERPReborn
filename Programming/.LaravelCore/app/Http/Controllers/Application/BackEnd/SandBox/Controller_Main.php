@@ -32,49 +32,51 @@ $varAPIWebToken = 'xxx';
                 '}'
                 )
             );*/
-$varUniqueID = 222;
-        $x = 
-            \App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                $varUserSession, 
-                str_replace(
-                    '"', 
-                    '\'', 
-                        
-                                        'function JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete) {'.
-                                            'var XHR = new XMLHttpRequest(); '.
-                                            'XHR.onreadystatechange = function() {'.
-                                                'if (XHR.readyState == XMLHttpRequest.DONE) {'.
-                                                //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                    //'JSFunc_GetMasterFileRecord_Reload_'.$varUniqueID.'(1, 1, \'[]\'); '.
-                                                    'alert(\'Record has been deleted\');'.
-                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
-                                                        '\'{\''.
-                                                        ' + String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + \'123\' + \', \''.
-                                                        ' + String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + \'1234567\' + \', \''.
-                                                        ' + String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + \'[4567]\' + String.fromCharCode(34) + '.
-                                                        '\'}\'; '.
-                                                    'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').dispatchEvent(new Event(\'change\')); '.
-                                                    '}'.
-                                                '}; '.
-                                            'XHR.open(\'GET\', varURLDelete, true); '.
-                                            'XHR.send(null); '.
-                                            '}'
-                        
-                    /*
-                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                        $varUserSession, 
-                        $varAPIWebToken, 
-                        'fileHandling.upload.combined.general.getMasterFileRecord', 
-                        'latest', 
-                        '{'.
-                        '"log_FileUpload_Pointer_RefID" : ((varLog_FileUpload_Pointer_RefID == null) ? null : parseInt(varLog_FileUpload_Pointer_RefID)), '.
-                        '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
-                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
-                        '}'
-                        )*/
-                    )
-                );
-        echo ($x);
+$x1 = 
+\App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
+    $varUserSession, 
+    str_replace(
+        '"', 
+        '\'', 
+        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+            $varUserSession, 
+            $varAPIWebToken, 
+            'fileHandling.upload.combined.general.getMasterFileRecord', 
+            'latest', 
+            '{'.
+                '"parameter" : {'.
+                    '"log_FileUpload_Pointer_RefID" : null, '.
+                    '"rotateLog_FileUploadStagingArea_RefRPK" : 880, '.
+                    '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
+                    '}'.
+            '}'
+            )
+        )
+    );
+
+$x = 
+                                                        \App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
+                                                            $varUserSession, 
+                                                            str_replace(
+                                                                '"', 
+                                                                '\'', 
+                                                                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                    $varUserSession, 
+                                                                    $varAPIWebToken, 
+                                                                    'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                                    'latest', 
+                                                                    '{'.
+                                                                        '"parameter" : {'.
+                                                                            '"log_FileUpload_Pointer_RefID" : ((varJSONData.header.log_FileUpload_Pointer_RefID == null) ? null : parseInt(varJSONData.header.log_FileUpload_Pointer_RefID)), '.
+                                                                            '"rotateLog_FileUploadStagingArea_RefRPK" : varJSONData.header.rotateLog_FileUploadStagingArea_RefRPK, '.
+                                                                            '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : varJSONData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID '.
+                                                                            '}'.
+                                                                    '}'
+                                                                    )
+                                                                )
+                                                            )
+;
+
         dd($x);
             
 /*            
