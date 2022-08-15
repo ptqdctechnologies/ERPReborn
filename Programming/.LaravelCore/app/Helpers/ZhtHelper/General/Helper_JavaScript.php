@@ -223,8 +223,10 @@ namespace App\Helpers\ZhtHelper\General
                                         'XHR.onreadystatechange = function() {'.
                                             'if (XHR.readyState == XMLHttpRequest.DONE) {'.
                                             //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                //'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(1, 1, \'[]\'); '.
                                                 'alert(\'Record has been deleted\');'.
+                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                            
+                            
                                                 //'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(123, 456, \'[]\'); '.
                                                 //'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\').value = '.
                                                 //    '\'{\''.
@@ -238,55 +240,16 @@ namespace App\Helpers\ZhtHelper\General
                                         'XHR.open(\'GET\', varURLDelete, true); '.
                                         'XHR.send(null); '.
                                         '}'.
+
                                     //---> OLDJSFunc_GetMasterFileRecord_OLDReload_...
 //                                        'function OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
                                     'function OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'(varJSONData) {'.
 //                                            'alert(\'varLog_FileUpload_Pointer_RefID : \' + varLog_FileUpload_Pointer_RefID); '.
 //                                            'alert(JSON.stringify(varJSONData)); '.
                                         '}'.
-                                    //--->
-                                    'function JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'() {'.
-                                        'varJSONData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-/*
-                                        'varReturn = ('.
-                                            'JSON.parse('.
-                                                self::setEscapeForEscapeSequenceOnSyntaxLiteralPHP(
-                                                    $varUserSession, 
-                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                        $varUserSession, 
-                                                        $varAPIWebToken, 
-                                                        'fileHandling.upload.combined.general.getMasterFileRecord', 
-                                                        'latest', 
-                                                        '{'.
-                                                            '"parameter" : {'.
-                                                                '"log_FileUpload_Pointer_RefID" : ((varJSONData.header.log_FileUpload_Pointer_RefID == null) ? null : parseInt(varJSONData.header.log_FileUpload_Pointer_RefID)), '.
-                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : varJSONData.header.rotateLog_FileUploadStagingArea_RefRPK, '.
-                                                                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : varJSONData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID '.
-                                                                '}'.
-                                                        '}'
-                                                        )
-                                                    ).
-                                                ').data'.
-                                            '); '.
-                                        'alert(varReturn); '.
-                                        'return JSON.parse(JSON.stringify(varReturn.data));'.                            
-*/ 
 
-
-//                                            'return 0;'.
-                                        '}'.
-//                                        'function JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'()'.
-                                    //--->
-                                    'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
-                                        'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
-                                        'return varReturn; '.
-                                        '}'.
-                                    //--->
-                                    'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
-                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
-                                        '}'.
-                                    //--->
-                                    'function JSFunc_MainData_Reload_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
+                                    //---> JSFunc_MainData_InitData_...
+                                    'function JSFunc_MainData_InitData_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
                                         'varJSONData = \'{\' + '.
                                             'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
                                                 'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
@@ -299,78 +262,224 @@ namespace App\Helpers\ZhtHelper\General
                                                 '\'}\' + '.
                                             '\'}\';'.
                                         'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
-//                                            'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varJSONData;'.
-//                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = JSON.stringify(JSON.parse(varJSONData));'.
+//                                        'alert(\'dddddddddddd\'); '.
+                                        '}'.
 
-//                                            'varJSONData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-//                                            'alert((JSON.stringify(varJSONData)).replace(\':\', \' : \')); '.
+                                    //---> JSFunc_MainData_GetData_...
+                                    'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
+                                        'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
+                                        'return varReturn; '.
+                                        '}'.
 
-                                        //'varJSONMasterFileRecord = JSFunc_MasterFileRecord_Reload_'.$varUniqueID.'(); '.
-                                        //'alert((JSON.stringify(varJSONMasterFileRecord)).replace(\':\', \' : \')); '.
-                                        //'alert(varJSONMasterFileRecord); '.
-                                        '}'
+                                    //---> JSFunc_MainData_SetData_...
+                                    'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
+                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_GetData_FileUploadPointerRefID_...
+                                    'function JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'() {'.
+                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'return varData.header.log_FileUpload_Pointer_RefID; '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_SetData_FileUploadPointerRefID_...
+                                    'function JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varDataID) {'.
+                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
+                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_
+                                    'function JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() {'.
+                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'return varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_...
+                                    'function JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(varDataRPK) {'.
+                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
+                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
+                                    'function JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() {'.
+                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'return varData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
+                                    'function JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(varDataArrayID) {'.
+                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataArrayID; '.
+                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_GetData_MasterFileRecord_...
+                                    'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
+                                        'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'return varData.data.masterFileRecord; '.
+                                        '}'.
+
+                                    //---> JSFunc_MainData_SetData_MasterFileRecord_...
+                                    'function JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord) {'.
+                                        'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                        'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
+                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                        '}'.
+                            
+                                    //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
+                                    'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
+                                        //---> Ambil varDataJSONMasterFileRecord dari database
+                                        'varDataJSONMasterFileRecord = ('.
+                                            'JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                $varUserSession, 
+                                                $varAPIWebToken, 
+                                                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                'latest', 
+                                                '{'.
+                                                    '"parameter" : {'.
+                                                        '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
+                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                        '}'.
+                                                '}'
+                                                )).').data'.
+                                            ').data; '.
+                            
+                                        //---> Update varDataJSONMasterFileRecord di Main Data
+                                        'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
+
+                                        //---> Object Table
+                                        'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
+                                            '{'.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
+                                            '}'.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'table\'); '.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\';'.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.width = \'100px\'; '.
+//                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.borderCollapse = \'collapse\'; '.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.border = \'1px solid black\'; '.
+                                        //---> Table Head
+                                        'var varObjTHead = document.createElement(\'thead\'); '.
+                                            'var varObjTTR = document.createElement(\'tr\');'.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#292630\'; '.
+                                                    'varObjTTD.style.color = \'#FFFFFF\'; '.
+                                                    'varObjTTD.style.fontFamily = \'verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'center\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(\'NO\'));'.
+                                                'varObjTTR.appendChild(varObjTTD); '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#292630\'; '.
+                                                    'varObjTTD.style.color = \'#FFFFFF\'; '.
+                                                    'varObjTTD.style.fontFamily = \'verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'center\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\'));'.
+                                                'varObjTTR.appendChild(varObjTTD); '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#292630\'; '.
+                                                    'varObjTTD.style.color = \'#FFFFFF\'; '.
+                                                    'varObjTTD.style.fontFamily = \'verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'center\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(\'SIZE\'));'.
+                                                'varObjTTR.appendChild(varObjTTD); '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#292630\'; '.
+                                                    'varObjTTD.style.color = \'#FFFFFF\'; '.
+                                                    'varObjTTD.style.fontFamily = \'verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'center\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(\'DELETE\'));'.
+                                                'varObjTTR.appendChild(varObjTTD); '.
+                                        'varObjTHead.appendChild(varObjTTR); '.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTHead); '.
+                                        //---> Table Body
+                                        'var varObjTBody = document.createElement(\'tbody\'); '.
+                                        'if(varDataJSONMasterFileRecord != null)'.
+                                            '{'.
+                                            'for(i=0; i != varDataJSONMasterFileRecord.length; i++)'.
+                                                '{'.
+                                                'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
+                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
+                                                'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
+                                                //'alert(varTRID); '.
+                                                //'window[\'varObjTR\' + varTemp] = \'xxx\'; '.
+                                                //'alert(window[\'varObjTR\' + varTemp]); '.
+                                                'var varObjTR = document.createElement(\'tr\');'.
+                                                'varObjTR.id = varTRID; '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
+                                                    'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'center\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\']));'.
+                                                'varObjTR.appendChild(varObjTTD); '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
+                                                    'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'left\'; '.
+                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\']));'.
+                                                'varObjTR.appendChild(varObjTTD); '.
+                                                'var varObjTTD = document.createElement(\'td\'); '.
+                                                    'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
+                                                    'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
+                                                    'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                    'varObjTTD.style.fontSize = \'10px\'; '.
+                                                    'varObjTTD.style.textAlign = \'right\'; '.
+                                                'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\']));'.
+                                                'varObjTR.appendChild(varObjTTD); '.
+                                                    'var varObjTTD = document.createElement(\'td\'); '.
+                                                        'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
+                                                        'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
+                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
+                                                        'varObjTTD.style.fontSize = \'10px\'; '.
+                                                        'varObjTTD.style.textAlign = \'right\'; '.
+                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                            'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
+                                                            'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
+                                                            'varObjA.href = \'javascript:(function(varURLDelete) {'.
+                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                '})(\\\'\' + varURLDelete + \'\\\');\'; '.
+                                                            'varObjA.innerHTML =  \'Delete\'; '.
+                                                    'varObjTTD.appendChild(varObjA); '.
+                                                    'varObjTR.appendChild(varObjTTD); '.
+                                                'varObjTBody.appendChild(varObjTR); '.
+                                                '}'.
+                                            '}'.
+                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTBody); '.                            
+                                        'document.getElementById(\''.$varDOMActionPanel.'\').appendChild(var'.$varUniqueID.'_ObjDOMTable_ActionPanel);'.
+                                        '}'.
+                                    ''
                                     )
                                     ).
                                 '\'; '.
                             'ObjHead.appendChild(ObjScript); '.
                             
-
+                            
 
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+                                'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
                                 'var'.$varUniqueID.'_ObjDOMInputMainData = document.createElement(\'INPUT\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'type\', \'text\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MainData\'; '.
-                                
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.style.width = \'200px\'; '.
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.style.height = \'100px\'; '.
-                                
-                            
-                            
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'type\', \'text\'); '.
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MainData\'; '.                               
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.width = \'200px\'; '.
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.height = \'100px\'; '.                            
                                 'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputMainData); '.
-
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                                'var'.$varUniqueID.'_ObjDOMInputSignReload = document.createElement(\'INPUT\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'type\', \'text\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputSignReload.id = \'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\'; '.
-                                //document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputSignReload); '.                          
-                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:'.
-                                    'OLDJSFunc_GetMasterFileRecord_OLDReload_'.$varUniqueID.'('.
-                                        '(JSON.parse(this.value)).log_FileUpload_Pointer_RefID, '.
-                                        '(JSON.parse(this.value)).rotateLog_FileUploadStagingArea_RefRPK, '.
-                                        '(JSON.parse(this.value)).deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID'.
-                                        '); '.
-                                    //'alert(\\\'cdv\\\'); '.
-                                    '\'); '.
-//                                'var'.$varUniqueID.'_ObjDOMInputSignReload.setAttribute(\'onChange\', \'javascript:innerFunc_GetActionPanel_Reload(\\\'varURLDelete\\\'); this.value=\\\'\\\'; \'); '.
-
-                                                       
-
-                                //'alert(\'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord belum didefinisikan\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord = document.createElement(\'INPUT\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'type\', \'text\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MasterFileRecord\'; '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'visibility\', \'visible\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'display\', \'block\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', \'[]\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'onChange\', \'javascript:alert(\\\'cdv\\\'); \'); '.
-
-                                'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputMasterFileRecord); '.
-                            
-                                //'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.cellData.addEventListener(\'change\', innerFuncGetActionPanelReload); '.
-                            
-                            
-                            //. 'function() {\'alert(\\\'MasterFileRecord Change\\\'); \'}; '.
-                                                        
+                                                                                    
                                 //--->
                                 'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK = document.createElement(\'INPUT\'); '.
                                 'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'type\', \'text\'); '.
@@ -390,12 +499,8 @@ namespace App\Helpers\ZhtHelper\General
                                 'var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = \'[]\'; '.
                             
                             
-//                                'alert(var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-//                            12000000000111
                                 'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
                                 'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
-
-//                                            'function innerFuncGetActionPanelReload(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
 
                                 '}'.
                             
@@ -415,151 +520,6 @@ namespace App\Helpers\ZhtHelper\General
                             
                                             //---> Pendefinisian Inner Function
                             
-                                            //---> Inner Function : Panel Action
-//                                            'function innerFuncGetActionPanel(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
-                                            'function innerFuncGetActionPanel()'.
-                                                '{'.
-//                                            'alert(\'innerFuncGetActionPanel : \' + varRotateLog_FileUploadStagingArea_RefRPK); '.
-                                                'varJSONData = var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\'); '.
-//'alert(JSON.parse(varJSONData));'.
-//'innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-//                                                'varObjectData = JSON.parse(JSON.stringify(varJSONData)); '.
-                                                'varObjectData = JSON.parse(varJSONData); '.
-
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'table\'); '.
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\';'.
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.width = \'100px\'; '.
-//                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.borderCollapse = \'collapse\'; '.
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.border = \'1px solid black\'; '.
-                                                
-
-
-                                                'var varObjTHead = document.createElement(\'thead\'); '.
-                                                    'var tr = document.createElement(\'tr\');'.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#292630\'; '.
-                                                            'td.style.color = \'#FFFFFF\'; '.
-                                                            'td.style.fontFamily = \'verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'center\'; '.
-                                                            'td.appendChild(document.createTextNode(\'NO\'));'.
-                                                    'tr.appendChild(td); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#292630\'; '.
-                                                            'td.style.color = \'#FFFFFF\'; '.
-                                                            'td.style.fontFamily = \'verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'center\'; '.
-                                                            'td.appendChild(document.createTextNode(\'FILE NAME\'));'.
-                                                    'tr.appendChild(td); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#292630\'; '.
-                                                            'td.style.color = \'#FFFFFF\'; '.
-                                                            'td.style.fontFamily = \'verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'center\'; '.
-                                                            'td.appendChild(document.createTextNode(\'SIZE\'));'.
-                                                    'tr.appendChild(td); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#292630\'; '.
-                                                            'td.style.color = \'#FFFFFF\'; '.
-                                                            'td.style.fontFamily = \'verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'center\'; '.
-                                                            'td.appendChild(document.createTextNode(\'DELETE\'));'.
-                                                    'tr.appendChild(td); '.
-                                                'varObjTHead.appendChild(tr); '.
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTHead); '.
-
-
-
-                                                'var varObjTBody = document.createElement(\'tbody\'); '.
-                                                'for(i=0; i != varObjectData.length; i++)'.
-                                                    '{'.
-                                                    'varFilePath = varObjectData[i][\'filePath\']; '.
-                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                    'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-                                                    //'alert(varTRID); '.
-                                                    //'window[\'varObjTR\' + varTemp] = \'xxx\'; '.
-                                                    //'alert(window[\'varObjTR\' + varTemp]); '.
-                                                    'var varObjTR = document.createElement(\'tr\');'.
-                                                    'varObjTR.id = varTRID; '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'td.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'center\'; '.
-                                                            'td.appendChild(document.createTextNode(varObjectData[i][\'sequence\']));'.
-                                                    'varObjTR.appendChild(td); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'td.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'left\'; '.
-                                                            'td.appendChild(document.createTextNode(varObjectData[i][\'name\']));'.
-                                                    'varObjTR.appendChild(td); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'td.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'right\'; '.
-                                                            'td.appendChild(document.createTextNode(varObjectData[i][\'size\']));'.
-                                                    'varObjTR.appendChild(td); '.
-//                                                        'x = \'xxx\'; '.
-//                                                        'x = x.replace(/\\/g, \'\@\'); '.
-//                                                        'alert(x); '.
-                                                        'var td = document.createElement(\'td\'); '.
-                                                            'td.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'td.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'td.style.whiteSpace = \'nowrap\'; '.
-                                                            'td.style.fontSize = \'10px\'; '.
-                                                            'td.style.textAlign = \'right\'; '.
-                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
-                                                                'varURLDelete = varObjectData[i][\'URLDelete\']; '.
-                                                                'varObjA.href = \'javascript:(function(varURLDelete) {'.
-                                                                    'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                    //'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').value = \\\'true\\\' + String.fromCharCode(13); '.
-                                                                    //'document.getElementById(\\\'zhtSysObjDOMText_'.$varUniqueID.'_SignReload\\\').dispatchEvent(new Event(\\\'change\\\')); '.
-                                                                    '})(\\\'\' + varURLDelete + \'\\\');\'; '.
-
-
-
-//                                                                'varObjA.onclick = \'javascript:innerFunc_GetActionPanel_Reload(\\\'xxx\\\'); return false;\'; '.
-                            
-                            
-                            
-                            
-//                                                                'alert(varURLDelete);'.
-                                                                //'varObjA.href = \'javascript:void(0);\'; '.
-                                                                //'varObjA.href = \'javascript:innerFuncGetActionPanelReload(\\\'\' + varURLDelete + \'\\\')\'; '.
-//                                                                'varObjA.href = \'javascript:'.   
-  //                                                                  'varX = (function(varURLDelete) {'.
-    //                                                                    //'alert(varObj); '.
-                                                                        //'return 123; '. 
-      //                                                                  '})(varURLDelete); '.
-        //                                                            'alert(varObj); '.
-                                                                    //'innerFuncGetActionPanelReload(); '.
-                                                                    //'alert(varX); '.
-                                                                    //'alert(\\\'HREF Klik : \\\' + varURLDelete); '.
-          //                                                          '\'; '.
-                                                                'varObjA.innerHTML =  \'Delete\'; '.
-                                                            'td.appendChild(varObjA); '.
-                                                        //'alert(varObj); '.
-                                                    'varObjTR.appendChild(td); '.
-                                                    'varObjTBody.appendChild(varObjTR); '.
-//                'innerFuncGetActionPanelReload(); '. //varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-                                                    '}'.
-                                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTBody); '.
-                                                'document.getElementById(\''.$varDOMActionPanel.'\').appendChild(var'.$varUniqueID.'_ObjDOMTable_ActionPanel);'.
-                                                '}'.
                                             //---> Inner Function : Mendapatkan Master File Record
                                             'function innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
                                                 '{'.
@@ -622,7 +582,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
                                             //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
 
-                                            'JSFunc_MainData_Reload_'.$varUniqueID.'(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
+                                            'JSFunc_MainData_InitData_'.$varUniqueID.'(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
 
                                             'var'.$varUniqueID.'_ObjJSONMasterFileRecord = innerFuncGetMasterFileRecord(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID);'.
                                             'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
@@ -631,7 +591,8 @@ namespace App\Helpers\ZhtHelper\General
                                             'varLastSequence = innerFuncGetLastSequence();'.
                                             //'alert(varLastSequence); '.
 
-                                            'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSON.parse(var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
+                                            'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+//                            . 'JSON.parse(var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\')); '.
                                             'for(var i = 0; i < varObjFileList.length; i++)'.
                                                 '{'.
                                                 '(function(varObjCurrentFile, i) {'.
@@ -712,12 +673,13 @@ namespace App\Helpers\ZhtHelper\General
                                                             'varObj.disabled = false; '.
                                                             'varReturnDOMObject.disabled = false; '.
                                                             //'alert(varObj.value); '.
-                                                            'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(var'.$varUniqueID.'_ObjJSONMasterFileRecord))); '.
+                                                            //'var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.setAttribute(\'value\', (JSON.stringify(var'.$varUniqueID.'_ObjJSONMasterFileRecord))); '.
                                                             //'alert(JSON.parse(var'.$varUniqueID.'_ObjJSONMasterFileRecord)); '.
                                                             //'alert((var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\'))); '.
-                                                            'document.getElementById(\''.$varDOMAction.'\').innerHTML = var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\');'.
+                                                            //'document.getElementById(\''.$varDOMAction.'\').innerHTML = var'.$varUniqueID.'_ObjDOMInputMasterFileRecord.getAttribute(\'value\');'.
                                                             //'alert(document.getElementById(\''.$varDOMAction.'\').innerHTML)'.
-                                                            'innerFuncGetActionPanel(); '.
+
+                                                            'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
@@ -761,6 +723,7 @@ namespace App\Helpers\ZhtHelper\General
                             '}'.
                         'catch(varError) {'.
                             '}';
+                                                   
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {
@@ -939,11 +902,9 @@ namespace App\Helpers\ZhtHelper\General
         public static function setEscapeForEscapeSequenceOnSyntaxLiteral($varUserSession, $varData)
             {
             $varReturn = $varData;
-            
-            //$varReturn = str_replace("@@@", "'", $varReturn);
-            //implode("'", (explode("@@@", $varReturn)));
-
-            
+                        
+            $varReturn = implode('\\\\', explode('\\', $varReturn));
+            $varReturn = implode('\\\n', explode('\n', $varReturn));
             $varReturn = implode("\\'", (explode("'", $varReturn)));
             $varReturn = implode("\\'", (explode("@@@", $varReturn)));
 
@@ -960,14 +921,15 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-        public static function setEscapeForEscapeSequenceOnSyntaxLiteralPHP($varUserSession, $varData)
+        public static function setEscapeForEscapeSequenceOnSyntaxLiteralTaggingPreparation($varUserSession, $varData)
             {
             $varReturn = $varData;
             //$varReturn = implode('@@@', (explode("\'", $varReturn)));
             //$varReturn = str_replace('@@@', "\'", $varReturn);
             //$varReturn = implode("@@@", (explode("'", $varReturn)));
-            $varReturn = implode("@@@", (explode("\"", $varReturn)));
             //$varReturn = str_replace("@@@", "\\", $varReturn);
+
+            $varReturn = implode("@@@", (explode("\"", $varReturn)));
             return $varReturn;
             }
 
