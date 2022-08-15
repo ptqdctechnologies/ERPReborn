@@ -282,6 +282,10 @@ namespace App\Helpers\ZhtHelper\General
                                         'return varReturn; '.
                                         '}'.
                                     //--->
+                                    'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
+                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
+                                        '}'.
+                                    //--->
                                     'function JSFunc_MainData_Reload_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
                                         'varJSONData = \'{\' + '.
                                             'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
@@ -294,8 +298,9 @@ namespace App\Helpers\ZhtHelper\General
                                                     '\'}\' + '.
                                                 '\'}\' + '.
                                             '\'}\';'.
+                                        'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
 //                                            'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varJSONData;'.
-                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = JSON.stringify(JSON.parse(varJSONData));'.
+//                                        'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = JSON.stringify(JSON.parse(varJSONData));'.
 
 //                                            'varJSONData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
 //                                            'alert((JSON.stringify(varJSONData)).replace(\':\', \' : \')); '.
