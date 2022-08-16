@@ -484,6 +484,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         'function() '.
                             '{ '.
                             'varReturn = null; '.
+                            'varReturnValue = null; '.
                             'try '.
                                 '{ '.
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
@@ -496,12 +497,14 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     '); '.
 //                                'alert(varJSONData); '.
 //                                'alert("done"); '.
+                                'varReturnValue = varReturn.value; '.
                                 '} '.
                             'catch(varError) '.
                                 '{ '.
                                 'alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")"); '.
                                 '} '.
-                            'return varReturn.value; '.
+//                            'return varReturn.value; '.
+                            'return varReturnValue; '.
                             '}()';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

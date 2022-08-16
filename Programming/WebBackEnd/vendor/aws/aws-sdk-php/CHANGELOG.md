@@ -1,5 +1,12 @@
 # CHANGELOG
 
+## 3.233.2 - 2022-08-15
+
+* `Aws\CloudFront` - Adds Http 3 support to distributions
+* `Aws\ConnectWisdomService` - This release introduces a new API PutFeedback that allows submitting feedback to Wisdom on content relevance.
+* `Aws\IdentityStore` - Documentation updates to reflect service rename - AWS IAM Identity Center (successor to AWS Single Sign-On)
+* `Aws\SSO` - Documentation updates to reflect service rename - AWS IAM Identity Center (successor to AWS Single Sign-On)
+
 ## 3.233.1 - 2022-08-12
 
 * `Aws\ChimeSDKMessaging` - The Amazon Chime SDK now supports channels with up to one million participants with elastic channels.
