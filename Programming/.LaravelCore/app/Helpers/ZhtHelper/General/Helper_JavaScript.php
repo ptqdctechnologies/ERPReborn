@@ -214,6 +214,13 @@ namespace App\Helpers\ZhtHelper\General
                                 'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
+                                'var'.$varUniqueID.'_ObjDOMInputMainData = document.createElement(\'INPUT\'); '.
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'type\', \'text\'); '.
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MainData\'; '.                               
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.width = \'200px\'; '.
+                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.height = \'100px\'; '.                            
+                                'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputMainData); '.
+
                                 //---> Penambahan Script
                                 'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
                                 'var ObjScript = document.createElement(\'script\'); '.
@@ -242,101 +249,181 @@ namespace App\Helpers\ZhtHelper\General
 
                                         //---> JSFunc_MainData_InitData_...
                                         'function JSFunc_MainData_InitData_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
-                                            'varJSONData = \'{\' + '.
-                                                'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
-                                                    'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                    'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? null : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + '.
-                                                    '\'}, \' + '.
-                                                'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
-                                                    'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
+                                            'if(JSFunc_MainData_GetData_'.$varUniqueID.'() == null) {'.
+                                                //---> Main Template
+                                                'varJSONData = \'{\' + '.
+                                                    'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
+                                                        'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + '.
+                                                        '\'}, \' + '.
+                                                    'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
+                                                        'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
+                                                            '\'}\' + '.
                                                         '\'}\' + '.
-                                                    '\'}\' + '.
-                                                '\'}\';'.
-                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
+                                                    '\'}\';'.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
+                                                //---> Update MasterFileRecord From Database
+                                                'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
+                                                '}'.
                                             '}'.
 
                                         //---> JSFunc_MainData_GetData_...
                                         'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
-                                            'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
                                             'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_MainData_SetData_...
                                         'function JSFunc_MainData_SetData_'.$varUniqueID.'(varDataJSON) {'.
-                                            'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
+                                            'try {'.
+                                                'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
                                             '}'.
 
                                         //---> JSFunc_MainData_GetData_FileUploadPointerRefID_...
                                         'function JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'() {'.
-                                            'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'return varData.header.log_FileUpload_Pointer_RefID; '.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.header.log_FileUpload_Pointer_RefID; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_MainData_SetData_FileUploadPointerRefID_...
                                         'function JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varDataID) {'.
-                                            'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
-                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                            'try {'.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
                                             '}'.
 
                                         //---> JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_
                                         'function JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() {'.
-                                            'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'return varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_...
                                         'function JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(varDataRPK) {'.
-                                            'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
-                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                            'try {'.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
                                             '}'.
 
                                         //---> JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
                                         'function JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() {'.
-                                            'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'return varData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                            'varReturn = JSON.parse(\'[]\'); '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                                'if(varReturn == null) {'.
+                                                    'varReturn = JSON.parse(\'[]\'); '.
+                                                    '}'.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
                                         'function JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(varDataArrayID) {'.
-                                            'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataArrayID; '.
-                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                            'try {'.
+//                                                'alert(\'ID : \' + varDataArrayID); '.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSONDeleteCandidate = varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
+                                                'varDataJSONDeleteCandidate.push(varDataArrayID); '.                            
+//                                                'alert(JSON.stringify(varDataJSONDeleteCandidate)  ); '.
+                                                'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
                                             '}'.
 
                                         //---> JSFunc_MainData_GetData_MasterFileRecord_...
                                         'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
-                                            'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'return varData.data.masterFileRecord; '.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.data.masterFileRecord; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_MainData_SetData_MasterFileRecord_...
                                         'function JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord) {'.
-                                            'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
-                                            'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
-                                            'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                            'try {'.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_...
+                                        'function JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'() {'.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varReturn = ('.
+                                                    'JSON.parse('.
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
+                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data'.
+                                                    ').data; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
                                         'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
                                             //---> Ambil varDataJSONMasterFileRecord dari database
-                                            'varDataJSONMasterFileRecord = ('.
-                                                'JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                    $varUserSession, 
-                                                    $varAPIWebToken, 
-                                                    'fileHandling.upload.combined.general.getMasterFileRecord', 
-                                                    'latest', 
-                                                    '{'.
-                                                        '"parameter" : {'.
-                                                            '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
-                                                            '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
-                                                            '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
-                                                            '}'.
-                                                    '}'
-                                                    )).').data'.
-                                                ').data; '.
+                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+//                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
 
                                             //---> Update varDataJSONMasterFileRecord di Main Data
                                             'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
@@ -439,10 +526,20 @@ namespace App\Helpers\ZhtHelper\General
                                                             'var varObjA = document.createElement(\'a\'); '.
                                                                 'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
                                                                 'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                'varObjA.href = \'javascript:(function(varURLDelete) {'.
-                                                                    'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                    '})(\\\'\' + varURLDelete + \'\\\');\'; '.
-                                                                'varObjA.innerHTML =  \'Delete\'; '.
+                                                                'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
+                                                                    'varObjA.href = \'javascript:'.
+                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
+                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                        '\'; '.
+                                                                    '}'.
+                                                                'else {'.
+                                                                    'varObjA.href = \'javascript:'.
+                                                                        '(function(varURLDelete) {'.
+                                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                            '})(\\\'\' + varURLDelete + \'\\\');'.
+                                                                        '\'; '.
+                                                                    '}'.
+                                                                'varObjA.innerHTML = \'Delete\'; '.
                                                             'varObjTTD.appendChild(varObjA); '.
                                                         'varObjTR.appendChild(varObjTTD); '.
                                                     'varObjTBody.appendChild(varObjTR); '.
@@ -450,51 +547,32 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
                                             'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTBody); '.                            
                                             'document.getElementById(\''.$varDOMActionPanel.'\').appendChild(var'.$varUniqueID.'_ObjDOMTable_ActionPanel);'.
-                                            '}'.
-                                        //'alert(document.getElementById(\''.$varDOMReturnID.'\').value); '.
-                                        //'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, \'\', []); '.
-                                        //'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                        //'alert(\'xxxx123\');'.
+                                            '}; '.
+                                        'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
+                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                            
                                         ''
                                         )
                                         ).
                                     '\'; '.
                                 'ObjHead.appendChild(ObjScript); '.
-
-                                'var'.$varUniqueID.'_ObjDOMInputMainData = document.createElement(\'INPUT\'); '.
-                                    'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'type\', \'text\'); '.
-                                    'var'.$varUniqueID.'_ObjDOMInputMainData.id = \'zhtSysObjDOMText_'.$varUniqueID.'_MainData\'; '.                               
-                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.width = \'200px\'; '.
-                                    'var'.$varUniqueID.'_ObjDOMInputMainData.style.height = \'100px\'; '.                            
-                                'document.body.appendChild(var'.$varUniqueID.'_ObjDOMInputMainData); '.
-                                                                                    
-                                //--->
-                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK = document.createElement(\'INPUT\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'type\', \'text\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', \'\'); '.
-                                //--->
-                                'var'.$varUniqueID.'_ObjDOMInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = document.createElement(\'INPUT\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID.setAttribute(\'type\', \'text\'); '.
-                                'var'.$varUniqueID.'_ObjDOMInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID.setAttribute(\'value\', \'[]\'); '.
-
-                                                        
-                                'var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = JSON.parse(var'.$varUniqueID.'_ObjDOMInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID.getAttribute(\'value\'));'.
-                                'var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = \'[]\'; '.
-                            
                             
                                 'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
                                 'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
-
                                 '}'.
                             
+                            //---> Main Function
                             '(function(varObj, varReturnDOMObject) {'.
                                 'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
                                     'var varObjFileList = varObj.files; '.
                                     'if(varObjFileList.length > 0)'.
                                         '{'.
                                         'try {'.
+                                            //---> Nonaktifkan Element
                                             'varObj.disabled = true; '.
                                             'varReturnDOMObject.disabled = true; '.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = true; '.
+                            
                                             'var varReturn = \'\'; '.
                                             'var varStagingTag = \''. \App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment($varUserSession, 'TAG_DATA_SEPARATOR_FILE_STAGING_AREA').$varAction.'::\'; '.
 
@@ -525,7 +603,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
 
                                             //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
-                                            'function innerFuncGetLastSequence()'.
+                                            'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
                                                 '{'.
                                                 'varReturn = (JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                     $varUserSession, 
@@ -557,22 +635,25 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
 
                                             //---> Mendapatkan RotateLog_FileUploadStagingArea_RefRPK
-                                            'if(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\') == \'\') {'.
-                                                'varRotateLog_FileUploadStagingArea_RefRPK = innerFuncGetNewID();'.
-                                                'var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.setAttribute(\'value\', varRotateLog_FileUploadStagingArea_RefRPK); '.
+                                            'if(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'() == null) {'.
+                                                'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'('.
+                                                    'innerFuncGetNewID()'.
+                                                    '); '.
                                                 '}'.
-                                            'else {'.
-                                                'varRotateLog_FileUploadStagingArea_RefRPK = parseInt(var'.$varUniqueID.'_ObjDOMInputRotateLog_FileUploadStagingArea_RefRPK.getAttribute(\'value\')); '.
-                                                '}'.
-                                            //'alert(varRotateLog_FileUploadStagingArea_RefRPK); '.
 
-                                            'JSFunc_MainData_InitData_'.$varUniqueID.'(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID); '.
-
-                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = innerFuncGetMasterFileRecord(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID);'.
+                                            'JSFunc_MainData_InitData_'.$varUniqueID.'('.
+                                                'varReturnDOMObject.value, '.
+                                                'JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                'JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                '); '.
+                            
+                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+//                                            'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
                                             'varPreviousListFileCount = ((var'.$varUniqueID.'_ObjJSONMasterFileRecord == undefined) ? 0 : Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
+                                            //'alert(varPreviousListFileCount); '.
                             
                                             //---> Mendapatkan Last sequence
-                                            'varLastSequence = innerFuncGetLastSequence();'.
+                                            'varLastSequence = innerFuncGetLastSequence(JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'());'.
                                             //'alert(varLastSequence); '.
 
                                             'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
@@ -588,7 +669,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         //'alert(JSON.stringify(varObjCurrentFile.size));'.
                                                         'var varJSONDataBuilderNew = \'{\' + '.
                                                             'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + (varReturnDOMObject.getAttribute(\'value\') == \'\' ? \'null\' : parseInt(varReturnDOMObject.getAttribute(\'value\'))) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (varRotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + (JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()) + \', \' + '.
                                                             'String.fromCharCode(34) + \'sequence\' + String.fromCharCode(34) + \' : \' + (i+1+varLastSequence) + \', \' + '.
                                                             'String.fromCharCode(34) + \'name\' + String.fromCharCode(34) + \' : \' + String.fromCharCode(34) + (varObjCurrentFile.name) + String.fromCharCode(34) + \', \' + '.
                                                             'String.fromCharCode(34) + \'size\' + String.fromCharCode(34) + \' : \' + (varObjCurrentFile.size) + \', \' + '.
@@ -625,15 +706,14 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'latest', 
                                                                 '{'.
                                                                     '"parameter" : {'.
-                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : + varRotateLog_FileUploadStagingArea_RefRPK'.
+                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : + JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'()'.
                                                                         '}'.
                                                                 '}'
                                                                 )).';'.
                                                             //'alert(varNothing); '.
                             
-                                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = innerFuncGetMasterFileRecord(varReturnDOMObject.value, varRotateLog_FileUploadStagingArea_RefRPK, var'.$varUniqueID.'_ObjInputDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID);'.
-                                                            //'alert(JSON.stringify(var'.$varUniqueID.'_ObjJSONMasterFileRecord));'.
-                                                        
+                                                            'var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'();'.
+
                                                             'if((parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) == (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)))'.
                                                                 '{'.
                                                                 'alert(\'All new file(s) uploaded successfully\'); '.
@@ -644,12 +724,18 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
                                                                 '}'.
                                                             //'alert(\'Previous List File Count : \'+ varPreviousListFileCount + \', TryUploadList : \' + varObjFileList.length + \', MFR : \' + Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
+
                             
-                                                            'varReturn = varRotateLog_FileUploadStagingArea_RefRPK; '.
-                                                            'varObj.disabled = false; '.
-                                                            'varReturnDOMObject.disabled = false; '.
+                                                            'varReturn = JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(); '.
 
                                                             'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+
+                                                            //---> Aktifasi kembali Element
+                                                            'varObj.disabled = false; '.
+                                                            'varReturnDOMObject.disabled = false; '.
+                                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
+
+                            
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.

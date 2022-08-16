@@ -32,6 +32,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+/*
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -45,7 +46,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
                     ]
                 ]
+                );*/
+                
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                [
+                'parameter' => [
+                    'log_FileUpload_Pointer_RefID' => 91000000000011,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => null,
+                    'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
+                    ]
+                ]
                 );
+
+                
             var_dump($varData);
             }
 
