@@ -155,7 +155,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             if($varSignFileAlreadyExist == FALSE)
                 {
                //---> Penyimpanan Record Baru ke TblRotateLog_FileUploadStagingAreaDetail
-                $varSignRecordID = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
+                $varRotateLog_FileUploadStagingAreaDetail_RefRPK = (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setDataInsert(
                     $varUserSession, 
                     null, 
                     $varRotateLog_FileUploadStagingArea_RefRPK,
@@ -168,42 +168,45 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varFileLastModifiedUnixTimestamp,
                     $varHashMethod_RefID,
                     $varFileContentBase64Hash,
+                    ''
+                    )['SignRecordID'];
+
+                (new \App\Models\Database\SchSysConfig\TblRotateLog_FileUploadStagingAreaDetail())->setURLDelete(
+                    $varUserSession, 
+                    $varRotateLog_FileUploadStagingAreaDetail_RefRPK, 
                     \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
                         $varUserSession, 
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
-                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                        'transaction.delete.sysConfig.setRotateLog_FileUploadStagingAreaDetail', 
                         'latest', 
                         [
-                        'parameter' => [
-                            'archiveRecordID' => NULL,
-                            'stagingAreaRecordPK' => 124
-                            ]
+                        'recordPK' => $varRotateLog_FileUploadStagingAreaDetail_RefRPK
                         ],
                         NULL,
                         TRUE
                         )
-                    )['SignRecordID'];
+                    );
 
                 //---> Penyimpanan ke Local Storage Server
                 (new \App\Models\LocalStorage\System\General())->createFile(
                     $varUserSession, 
                     base64_decode($varFileContentBase64), 
-                    'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID);
+                    'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK);
 
                 //---> Pemindahan File dari Local Storage Server ke Cloud
                 (new \App\Models\CloudStorage\System\General())->copyFileToCloud(
                     $varUserSession, 
-                    \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID, 
-                    'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varSignRecordID
+                    \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK, 
+                    'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK
                     );
                 }
             else
                 {
-                $varSignRecordID = NULL;
+                $varRotateLog_FileUploadStagingAreaDetail_RefRPK = NULL;
                 }
 
             $varReturn = [
-                'SignRecordID' => $varSignRecordID,
+                'SignRecordID' => $varRotateLog_FileUploadStagingAreaDetail_RefRPK,
                 ];
             
             return $varReturn;

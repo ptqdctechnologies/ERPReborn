@@ -269,6 +269,31 @@ namespace App\Models\CloudStorage\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : moveFile                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-08                                                                                           |
+        | ▪ Creation Date   : 2022-08-08                                                                                           |
+        | ▪ Description     : Menmindahkan File                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session (Mandatory)                                                               |
+        |      ▪ (string)  varSourceFilePath ► Source File Path (Mandatory)                                                        |
+        |      ▪ (string)  varDestinationFilePath ► Destination File Path (Mandatory)                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)   varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function moveFile($varUserSession, $varSourceFilePath, $varDestinationFilePath)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::moveFile($varUserSession, $varSourceFilePath, $varDestinationFilePath);
+            return $varReturn;            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setBucketName                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

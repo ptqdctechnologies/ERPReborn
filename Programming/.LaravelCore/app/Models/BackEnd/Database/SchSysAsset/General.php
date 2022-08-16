@@ -84,10 +84,10 @@ namespace App\Models\Database\SchSysAsset
         |      ▪ (string) varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getData_FileUpload_MasterFileRecord($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null, array $varDeleteCandidate_RefIDArray = null)
+        public function getData_FileUpload_MasterFileRecord($varUserSession, int $varLog_FileUpload_Pointer_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, array $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = null)
             {
-            if(!$varDeleteCandidate_RefIDArray) {
-                $varDeleteCandidate_RefIDArray = [];
+            if(!$varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {
+                $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
                 }
             
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -96,12 +96,12 @@ namespace App\Models\Database\SchSysAsset
                     $varUserSession,
                     'SchSysAsset.Func_GetData_FileUpload_MasterFileRecord',
                     [
-                        [$varArchiveRecordID, 'bigint'],
-                        [$varStagingAreaRecordPK, 'bigint'],
+                        [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
                         [
                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
                                 $varUserSession, 
-                                $varDeleteCandidate_RefIDArray
+                                $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
                                 ),
                             'bigint[]'
                         ]

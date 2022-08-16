@@ -341,13 +341,15 @@ namespace App\Models\Database
         |      ▪ (void)                                                                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function setDataDeleteByRPK($varUserSession, int $varRecordPK)
+        public function setDataDeleteByRPK($varUserSession, $varSchemaName, $varTableName, $varRecordPK)
             {
             $varReturn = 
                 (new \App\Models\Database\SchSysConfig\General())->setDataDeleteByRPK(
                     $varUserSession, 
-                    $this->getSchemaName($varUserSession),
-                    $this->getTableName($varUserSession),
+                    $varSchemaName,
+                    $varTableName,
+                    //$this->getSchemaName($varUserSession),
+                    //$this->getTableName($varUserSession),
                     $varRecordPK
                     );
             return $varReturn;

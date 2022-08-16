@@ -32,6 +32,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
+/*
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -40,12 +41,29 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'archiveRecordID' => NULL,
-                    'stagingAreaRecordPK' => 124,
+                    'log_FileUpload_Pointer_RefID' => 91000000000010,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => 485,
+                    'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
+                    ]
+                ]
+                );*/
+                
+            //---Core---
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                [
+                'parameter' => [
+                    'log_FileUpload_Pointer_RefID' => 91000000000011,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => null,
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
                     ]
                 ]
                 );
+
+                
             var_dump($varData);
             }
 
@@ -70,8 +88,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Archive Record ID<input type="text" id="dataInput_archiveRecordID" value="">';
-            echo '<br>Staging Area Record PK<input type="text" id="dataInput_stagingAreaRecordPK" value=186>';
+            echo '<br>Archive Record ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value="">';
+            echo '<br>Staging Area Record PK<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=186>';
             echo '<br>Delete Candidate Log_FileUpload_ObjectDetail RefArrayID<input type="text" id="dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" value="[]">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
@@ -80,8 +98,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"archiveRecordID" : parseInt(document.getElementById("dataInput_archiveRecordID").value), '.
-                        '"stagingAreaRecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value), '.
+                        '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_log_FileUpload_Pointer_RefID").value), '.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value), '.
                         '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : document.getElementById("dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID").value'.
                         '}'.
                 '}'

@@ -160,6 +160,41 @@ namespace App\Models\Database\SchSysConfig
                 );
             return $varReturn['Data'][0];
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : setURLDelete                                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-09                                                                                           |
+        | ▪ Creation Date   : 2022-08-09                                                                                           |
+        | ▪ Description     : Set URL Delete                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (int)     varRecordPK ► Record Primary Key                                                                        |
+        |      ▪ (string)  varURLDelete ► URL Delete                                                                               |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function setURLDelete($varUserSession, int $varRecordPK, string $varURLDelete)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                $varUserSession, 
+                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                    $varUserSession,
+                    'SchSysConfig.Func_TblRotateLog_FileUploadStagingAreaDetail_SetURLDelete',
+                    [
+                        [$varRecordPK, 'bigint'],
+                        [$varURLDelete, 'varchar']
+                    ]
+                    )
+                );
+            //dd($varReturn);
+            return TRUE;            
+            }
         }
     }
 

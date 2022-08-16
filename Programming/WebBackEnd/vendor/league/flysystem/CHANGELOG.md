@@ -1,6 +1,12 @@
 # Changelog
 
-## 3.2.0 - 2022-0726
+## 3.2.1 - 2022-08-14
+
+### Fixed
+
+- [ZipArchive] reverted regression introduced in [#1525](https://github.com/thephpleague/flysystem/pull/1525)
+
+## 3.2.0 - 2022-07-26
 
 ### Added
 

@@ -1310,6 +1310,12 @@
               "tags" : [ "dualstack" ]
             } ]
           },
+          "ap-northeast-3" : {
+            "variants" : [ {
+              "hostname" : "appmesh.ap-northeast-3.api.aws",
+              "tags" : [ "dualstack" ]
+            } ]
+          },
           "ap-south-1" : {
             "variants" : [ {
               "hostname" : "appmesh.ap-south-1.api.aws",
@@ -1325,6 +1331,12 @@
           "ap-southeast-2" : {
             "variants" : [ {
               "hostname" : "appmesh.ap-southeast-2.api.aws",
+              "tags" : [ "dualstack" ]
+            } ]
+          },
+          "ap-southeast-3" : {
+            "variants" : [ {
+              "hostname" : "appmesh.ap-southeast-3.api.aws",
               "tags" : [ "dualstack" ]
             } ]
           },
@@ -1742,6 +1754,14 @@
           "us-east-1" : { },
           "us-east-2" : { },
           "us-west-1" : { },
+          "us-west-2" : { }
+        }
+      },
+      "backupstorage" : {
+        "endpoints" : {
+          "eu-west-1" : { },
+          "us-east-1" : { },
+          "us-east-2" : { },
           "us-west-2" : { }
         }
       },
@@ -6079,6 +6099,19 @@
           "us-east-1" : { }
         }
       },
+      "geo" : {
+        "endpoints" : {
+          "ap-northeast-1" : { },
+          "ap-southeast-1" : { },
+          "ap-southeast-2" : { },
+          "eu-central-1" : { },
+          "eu-north-1" : { },
+          "eu-west-1" : { },
+          "us-east-1" : { },
+          "us-east-2" : { },
+          "us-west-2" : { }
+        }
+      },
       "glacier" : {
         "defaults" : {
           "protocols" : [ "http", "https" ]
@@ -7274,6 +7307,7 @@
           "ap-south-1" : { },
           "ap-southeast-1" : { },
           "ap-southeast-2" : { },
+          "ap-southeast-3" : { },
           "ca-central-1" : { },
           "eu-central-1" : { },
           "eu-north-1" : { },
@@ -17526,12 +17560,18 @@
             "variants" : [ {
               "hostname" : "lambda-fips.us-gov-east-1.amazonaws.com",
               "tags" : [ "fips" ]
+            }, {
+              "hostname" : "lambda.us-gov-east-1.api.aws",
+              "tags" : [ "dualstack" ]
             } ]
           },
           "us-gov-west-1" : {
             "variants" : [ {
               "hostname" : "lambda-fips.us-gov-west-1.amazonaws.com",
               "tags" : [ "fips" ]
+            }, {
+              "hostname" : "lambda.us-gov-west-1.api.aws",
+              "tags" : [ "dualstack" ]
             } ]
           }
         }

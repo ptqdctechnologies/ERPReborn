@@ -68,8 +68,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $varUserSession,
                                 $this->dataProcessing(
                                     $varUserSession,
-                                    $varData['parameter']['archiveRecordID'],
-                                    $varData['parameter']['stagingAreaRecordPK'],
+                                    $varData['parameter']['log_FileUpload_Pointer_RefID'],
+                                    $varData['parameter']['rotateLog_FileUploadStagingArea_RefRPK'],
                                     $varData['parameter']['deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID']
                                     )
                                 );
@@ -105,25 +105,47 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (int)    varArchiveRecordID ► Archive Record ID (Mandatory)                                                       |
-        |      ▪ (int)    varStagingAreaRecordPK ► Staging Area Record Primary Key (Mandatory)                                     |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID (Mandatory)                       |
+        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference Record Primary |
+        |                                                             Key (Mandatory)                                              |
+        |      ▪ (array)  varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID ► Delete Candidate Log File Upload Object      |
+        |                                                                             Detail Reference Array ID                    |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, int $varArchiveRecordID = null, int $varStagingAreaRecordPK = null, array $varDeleteCandidate_RefIDArray = null)
+        private function dataProcessing($varUserSession, int $varLog_FileUpload_Pointer_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, array $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = null)
             {
-            if(!$varDeleteCandidate_RefIDArray) {
-                $varDeleteCandidate_RefIDArray = [];
+            if(!$varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {
+                $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = [];
                 }
 
             $varData = 
                 (new \App\Models\Database\SchSysAsset\General())->getData_FileUpload_MasterFileRecord(
                     $varUserSession,
-                    $varArchiveRecordID,
-                    $varStagingAreaRecordPK,
-                    $varDeleteCandidate_RefIDArray
+                    $varLog_FileUpload_Pointer_RefID,
+                    $varRotateLog_FileUploadStagingArea_RefRPK,
+                    $varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID
                     );
+            for($i=0, $iMax = count($varData['Data']); $i!=$iMax; $i++)
+                {
+                if($varData['Data'][$i]['SignExistOnArchive'] == TRUE)
+                    {
+                    $varData['Data'][$i]['URLDelete'] = 
+                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::getURL_APICallByGetMethod(
+                            $varUserSession, 
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_ByUserSessionID($varUserSession),
+                            'transaction.delete.dataAcquisition.setLog_FileUpload_ObjectDetail', 
+                            'latest', 
+                            [
+                            'recordID' => $varData['Data'][$i]['RecordReference']
+                            ],
+                            NULL,
+                            TRUE
+                            );                    
+                    }
+                }
+            //dd($varData['Data']);
             $varDataReturn = $varData;
             return $varDataReturn;
             }

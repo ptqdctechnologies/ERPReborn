@@ -5,7 +5,7 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_DataAcquisition                                                                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Models\Database\SchData_OLTP_DataAcquisition
@@ -23,8 +23,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-29                                                                                           |
-        | ▪ Creation Date   : 2021-07-29                                                                                           |
+        | ▪ Last Update     : 2021-07-26                                                                                           |
+        | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -41,40 +41,11 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : setDataInitialize                                                                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2021-07-29                                                                                           |
-        | ▪ Creation Date   : 2021-07-29                                                                                           |
-        | ▪ Description     : Data Initialize                                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public function setDataInitialize($varUserSession)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                $varUserSession, 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
-                    $varUserSession,
-                    'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
-                    []
-                    )
-                );
-            return $varReturn['Data'][0];
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-02                                                                                           |
-        | ▪ Creation Date   : 2021-07-29                                                                                           |
+        | ▪ Last Update     : 2022-08-08                                                                                           |
+        | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -85,7 +56,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Reference ID                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,7 +65,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varLog_FileUpload_Object_RefID = null)
+            int $varLog_FileUpload_Pointer_RefID = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -109,7 +82,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varLog_FileUpload_Object_RefID, 'bigint']
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ]
                     )
                 );
@@ -122,8 +96,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-02                                                                                           |
-        | ▪ Creation Date   : 2021-07-29                                                                                           |
+        | ▪ Last Update     : 2022-08-08                                                                                           |
+        | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -135,7 +109,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
-        |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Reference ID                                     |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -143,7 +118,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varLog_FileUpload_Object_RefID = null)
+            int $varLog_FileUpload_Pointer_RefID = null,
+            array $varAdditionalData = [])
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -159,7 +135,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varLog_FileUpload_Pointer_RefID, 'bigint'],
-                        [$varLog_FileUpload_Object_RefID, 'bigint']
+
+                        [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                     ],
                     )
                 );
