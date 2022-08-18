@@ -55,17 +55,17 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.233.2",
-            "version_normalized": "3.233.2.0",
+            "version": "3.233.4",
+            "version_normalized": "3.233.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c804eb974240ae04b4ae5381f45003f25bbed56c"
+                "reference": "4f29c8f14e7833f6e9885d0d82ea98525f1bac1e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c804eb974240ae04b4ae5381f45003f25bbed56c",
-                "reference": "c804eb974240ae04b4ae5381f45003f25bbed56c",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4f29c8f14e7833f6e9885d0d82ea98525f1bac1e",
+                "reference": "4f29c8f14e7833f6e9885d0d82ea98525f1bac1e",
                 "shasum": ""
             },
             "require": {
@@ -103,7 +103,7 @@
                 "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
                 "ext-sockets": "To use client-side monitoring"
             },
-            "time": "2022-08-15T18:16:30+00:00",
+            "time": "2022-08-17T18:17:58+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -144,7 +144,7 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.233.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.233.4"
             },
             "install-path": "../aws/aws-sdk-php"
         },
@@ -1652,17 +1652,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.24.0",
-            "version_normalized": "9.24.0.0",
+            "version": "v9.25.1",
+            "version_normalized": "9.25.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "053840f579cf01d353d81333802afced79b1c0af"
+                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/053840f579cf01d353d81333802afced79b1c0af",
-                "reference": "053840f579cf01d353d81333802afced79b1c0af",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/e8af8c2212e3717757ea7f459a655a2e9e771109",
+                "reference": "e8af8c2212e3717757ea7f459a655a2e9e771109",
                 "shasum": ""
             },
             "require": {
@@ -1787,7 +1787,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2022-08-09T13:43:22+00:00",
+            "time": "2022-08-16T16:36:05+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -6744,17 +6744,17 @@
         },
         {
             "name": "swaggest/json-schema",
-            "version": "v0.12.39",
-            "version_normalized": "0.12.39.0",
+            "version": "v0.12.41",
+            "version_normalized": "0.12.41.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swaggest/php-json-schema.git",
-                "reference": "193ba39cce1ffa2d55ddd5445315e945a63298a2"
+                "reference": "1bb97901314f828774dd8c5b21bff889ce0b34bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swaggest/php-json-schema/zipball/193ba39cce1ffa2d55ddd5445315e945a63298a2",
-                "reference": "193ba39cce1ffa2d55ddd5445315e945a63298a2",
+                "url": "https://api.github.com/repos/swaggest/php-json-schema/zipball/1bb97901314f828774dd8c5b21bff889ce0b34bb",
+                "reference": "1bb97901314f828774dd8c5b21bff889ce0b34bb",
                 "shasum": ""
             },
             "require": {
@@ -6765,12 +6765,12 @@
                 "symfony/polyfill-mbstring": "^1.19"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8.23"
+                "phperf/phpunit": "4.8.37"
             },
             "suggest": {
                 "ext-mbstring": "For better performance"
             },
-            "time": "2021-10-15T18:12:27+00:00",
+            "time": "2022-08-17T11:21:43+00:00",
             "type": "library",
             "installation-source": "source",
             "autoload": {
@@ -6792,7 +6792,7 @@
             "support": {
                 "email": "vearutop@gmail.com",
                 "issues": "https://github.com/swaggest/php-json-schema/issues",
-                "source": "https://github.com/swaggest/php-json-schema/tree/v0.12.39"
+                "source": "https://github.com/swaggest/php-json-schema/tree/v0.12.41"
             },
             "install-path": "../swaggest/json-schema"
         },
