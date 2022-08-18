@@ -27,7 +27,6 @@ Route::get('/', function () {
 //\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('fileUploadDelete/{APIWebToken}/{EncryptedData}/{Signature}', 'get', '\App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\general\deleteFile\v1\deleteFile@mainByGet');
         
 //---[ Main System ]---(START)---
-\App\Helpers\ZhtHelper\System\Helper_LaravelRoute::setRoute('gatewayOfGetMethod/{APIWebToken}/{Signature}/{EncryptedData}', 'get', '\App\Http\Controllers\Application\BackEnd\System\Core\Engines\API\gatewayOfGetMethod\v1\gatewayOfGetMethod@main');
 //---[ Main System ]---( END )---
 
 
