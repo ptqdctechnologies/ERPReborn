@@ -40,8 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'log_FileUpload_Pointer_RefID' => NULL,
-                    'stagingArea_RecordPK' => 1088,
+                    'log_FileUpload_Pointer_RefID' => 91000000000011,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => 1160,
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => []
                     ]
                 ]
@@ -70,8 +70,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Log File Upload Pointer Reference ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value=72>';
-            echo '<br>Staging Area Record PK<input type="text" id="dataInput_stagingAreaRecordPK" value=72>';
+            echo '<br>Archive Record ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value="">';
+            echo '<br>Staging Area Record PK<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=186>';
+            echo '<br>Delete Candidate Log_FileUpload_ObjectDetail RefArrayID<input type="text" id="dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" value="[]">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
@@ -80,7 +81,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 '{'.
                     '"parameter" : {'.
                         '"log_FileUpload_Pointer_RefID" : parseInt(document.getElementById("dataInput_log_FileUpload_Pointer_RefID").value), '.
-                        '"stagingArea_RecordPK" : parseInt(document.getElementById("dataInput_stagingAreaRecordPK").value)'.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : parseInt(document.getElementById("dataInput_rotateLog_FileUploadStagingArea_RefRPK").value), '.
+                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : document.getElementById("dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID").value'.
                         '}'.
                 '}'
                 );

@@ -90,9 +90,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
 
             echo '<br>Log FileUpload Pointer RefID2 ► '.
-                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readOnly="true">'.
+                '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="91000000000023" readOnly="true">'.
                 '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action2" multiple="multiple" '.
                     'onChange="javascript:'.\App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_DOMInputFileContent(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIWebToken, 'Upload2', 'dataInput_Log_FileUpload_Pointer_RefID2', 'dataShow_ActionPanel2', 'dataShow_MasterFileRecord2').';" />'.
+//                '<script type="text/javascript">'.
+//                    'window.onload = function() {'.
+//                        'document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action2").dispatchEvent(new Event("change"));'.
+//                        '}; '.
+//                    '</script>'.
                 '<div id="dataShow_MasterFileRecord2" style="border-style:solid; border-width:1px;"></div>'.
                 '<div id="dataShow_ActionPanel2" style="border-style:solid; border-width:1px;"></div>';
 
