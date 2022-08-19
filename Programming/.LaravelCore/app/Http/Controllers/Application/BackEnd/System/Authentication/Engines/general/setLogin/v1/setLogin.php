@@ -110,6 +110,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Authentication\Engines
                         //--->
                         $varSessionIntervalInSeconds = (5*60);
                         $varSessionIntervalInSeconds = (10*60*60);
+                        $varSessionIntervalInSeconds = (24*60*60);
                         
                         $varOptionList = \App\Helpers\ZhtHelper\General\Helper_Array::getArrayKeyRename_LowerFirstCharacter($varUserSession, $this->getOptionList((new \App\Models\Database\SchSysConfig\General())->getUserIDByName($varUserSession, $varUserName)));
 

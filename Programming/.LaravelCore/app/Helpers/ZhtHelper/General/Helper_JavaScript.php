@@ -627,7 +627,8 @@ namespace App\Helpers\ZhtHelper\General
                                                 'XHR.onreadystatechange = function() {'.
                                                     'if (XHR.readyState == XMLHttpRequest.DONE) {'.
                                                     //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                        'alert(\'Record has been deleted\');'.
+                                                        'alert(\'Record has been deleted\'); '.
+                                                        //'alert(varURLDelete); '.
                                                         'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                         '}'.
                                                     '}; '.
@@ -664,7 +665,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     '); '.
                                                 //'alert(JSON.stringify(varReturn)); '.
                                                 'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
-                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
+//                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                                 'alert(\'Committed File(s) Upload Complete\'); '.
                                                 'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                 '}'.
@@ -680,7 +681,9 @@ namespace App\Helpers\ZhtHelper\General
                                                     'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
                                                         'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
                                                         'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + '.
+                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
                                                         '\'}, \' + '.
                                                     'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
                                                         'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
@@ -754,6 +757,29 @@ namespace App\Helpers\ZhtHelper\General
                                             'try {'.
                                                 'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_MainData_GetData_SignNeedToCommit_...
+                                        'function JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() {'.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.header.signNeedToCommit; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
+                                            '}'.
+
+                                        //---> JSFunc_MainData_SetData_SignNeedToCommit_...
+                                        'function JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(varStatus) {'.
+                                            'try {'.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSON.header.signNeedToCommit = varStatus; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
                                             'catch (varError) {'.
@@ -843,7 +869,7 @@ namespace App\Helpers\ZhtHelper\General
                                             '}'.
 
                                         //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
-                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
+                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.                            
                                             //---> Ambil varDataJSONMasterFileRecord dari database
                                             'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
 //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
@@ -851,6 +877,23 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> Update varDataJSONMasterFileRecord di Main Data
                                             'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
 
+                                            //---> SignNeedToCommit
+                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
+                                            'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
+                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                '}'.
+                                            'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
+                                                'if(varDataJSONMasterFileRecord != null) '.
+                                                    '{'.
+                                                    'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                        '{'.
+                                                        'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
+                                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                            '}'.
+                                                        '}'.
+                                                    '}'.
+                                                '}'.
+                            
                                             //---> Object Table
                                             'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
                                                 '{'.
@@ -969,7 +1012,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
                                                     ],
                                                     (
-                                                    'if(varDataJSONMasterFileRecord != null)'.
+                                                    'if(varDataJSONMasterFileRecord != null) '.
                                                         '{'.
                                                         'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
                                                             '{'.
@@ -1079,14 +1122,16 @@ namespace App\Helpers\ZhtHelper\General
                                                                             ),
                                                                         ],
                                                                         (
-                                                                        'var varObjA = document.createElement(\'a\'); '.
-                                                                            'varObjA.href = \'javascript:'.
-                                                                                '(function() {'.
-                                                                                        'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-                                                                                    '})();'.
-                                                                                '\'; '.
-                                                                            'varObjA.innerHTML = \'Commit\'; '.
-                                                                        'varObjTTD.appendChild(varObjA); '
+                                                                        'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                            'var varObjA = document.createElement(\'a\'); '.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function() {'.
+                                                                                            'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                                                        '})();'.
+                                                                                    '\'; '.
+                                                                                'varObjA.innerHTML = \'Commit\'; '.
+                                                                            'varObjTTD.appendChild(varObjA); '.
+                                                                            '}'
                                                                         )
                                                                         ).
                                                                     '}'.
@@ -1274,6 +1319,10 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
                                                                 'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
                                                                 '}'.
+                            
+                            //                                'if(varFailedUploadFiles == parseInt(varObjFileList.length)) {'.
+                            //                                    '}'.
+                            
                                                             //'alert(\'Previous List File Count : \'+ varPreviousListFileCount + \', TryUploadList : \' + varObjFileList.length + \', MFR : \' + Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
 
                             

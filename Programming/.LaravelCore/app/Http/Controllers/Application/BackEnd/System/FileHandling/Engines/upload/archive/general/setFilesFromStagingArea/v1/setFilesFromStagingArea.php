@@ -169,7 +169,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             //dd($varArrayID_LogFileUploadObject);
 
 
-            if(!$varStagingAreaRecordPK) {
+            //---> Jika Ada Penambahan File-File Baru dari Staging Area
+            if($varStagingAreaRecordPK) {
                //---> Penyusunan JSON dari data MasterFileRecord yang berasal dari Staging Area
                 $varJSON_Log_FileUpload_ObjectDetail = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getFileUpload_DataMovementFromStagingAreaToArchieve(
