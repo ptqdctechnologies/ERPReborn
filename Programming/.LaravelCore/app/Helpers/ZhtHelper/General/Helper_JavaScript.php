@@ -571,7 +571,8 @@ namespace App\Helpers\ZhtHelper\General
                         'try {'.
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
+                                'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
+                                //'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
                                 self::getSyntaxCreateDOM_Input(
@@ -593,7 +594,7 @@ namespace App\Helpers\ZhtHelper\General
                                     self::setEscapeForEscapeSequenceOnSyntaxLiteral(
                                         $varUserSession, 
                                         (
-                                        self::getSyntaxCreateDOM_Input(
+/*                                        self::getSyntaxCreateDOM_Input(
                                             $varUserSession, 
                                             [
                                                 'ParentID' => 'document.body',
@@ -604,7 +605,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     ['height', '100px']
                                                     ]
                                             ]
-                                            ).
+                                            ).*/
                             
                                         //---> JSFunc_LockObject_...
                                         'function JSFunc_LockObject_'.$varUniqueID.'() {'.
@@ -661,9 +662,11 @@ namespace App\Helpers\ZhtHelper\General
                                                                 '}'
                                                                 )
                                                             ).
-                                                        ')'.
+                                                        ').data.log_FileUpload_Pointer_RefID'.
                                                     '); '.
                                                 //'alert(JSON.stringify(varReturn)); '.
+                                                'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
+                                                'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
                                                 'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
 //                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                                 'alert(\'Committed File(s) Upload Complete\'); '.
@@ -877,7 +880,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> Update varDataJSONMasterFileRecord di Main Data
                                             'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
 
-                                            //---> SignNeedToCommit
+                                            //---> SignNeedToCommit Reinit
                                             'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
                                             'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
                                                 'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
@@ -1147,15 +1150,16 @@ namespace App\Helpers\ZhtHelper\General
                                             '}; '.
                                         'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                         'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                            
                                         ''
                                         )
                                         ).
                                     '\'; '.
                                 'ObjHead.appendChild(ObjScript); '.
                             
-                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
-                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
+//                                'alert(document.getElementById(\'zhtSysObjDOMText_Upload_MainData\')); '.
+                            
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
                                 '}'.
                             
                             //---> Main Function
@@ -1178,7 +1182,7 @@ namespace App\Helpers\ZhtHelper\General
                             
                                             //---> Pendefinisian Inner Function
                             
-                                            //---> Inner Function : Mendapatkan Master File Record
+/*                                            //---> Inner Function : Mendapatkan Master File Record
                                             'function innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
                                                 '{'.
                                                 'varReturn = ('.
@@ -1197,7 +1201,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         )).').data'.
                                                     '); '.
                                                 'return JSON.parse(JSON.stringify(varReturn.data));'.
-                                                '}'.
+                                                '}'.*/
 
                                             //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
                                             'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
@@ -1349,7 +1353,8 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
                                                                 '}'.
                                                             'else {'.
-                                                                'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                                //'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                                'varReturnDOMObject.value = varReturnDOMObject.value; '.
                                                                 '}'.
                                                             //'varReturnDOMObject.value = varReturn; '.
                                                             'return varReturn;'.

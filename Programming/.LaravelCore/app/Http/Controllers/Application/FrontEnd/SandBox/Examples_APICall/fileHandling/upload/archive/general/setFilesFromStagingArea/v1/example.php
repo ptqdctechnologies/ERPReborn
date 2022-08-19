@@ -40,7 +40,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 'latest', 
                 [
                 'parameter' => [
-                    'log_FileUpload_Pointer_RefID' => 91000000000011,
+//                    'log_FileUpload_Pointer_RefID' => 91000000000011,
+                    'log_FileUpload_Pointer_RefID' => null,
                     'rotateLog_FileUploadStagingArea_RefRPK' => 1160,
                     'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => []
                     ]

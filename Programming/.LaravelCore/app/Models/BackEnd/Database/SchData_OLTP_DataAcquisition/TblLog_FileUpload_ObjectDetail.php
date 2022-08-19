@@ -72,8 +72,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-08-05                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2022-08-19                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -85,8 +85,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Refeence ID (Mandatory)                          |
-        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference Primary Key    |
-        |                                                             (Mandatory)                                                  |
+        |      ▪ (int)    varRotateLog_FileUploadStagingAreaDetail_RefRPK ► Rotate Log File Upload Staging Area Detail Reference   |
+        |                                                                   Primary Key (Mandatory)                                |
         |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
@@ -104,7 +104,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varHashMethod_RefID = null, string $varContentHash = null, int $varDataCompression_RefID = null)
+            int $varLog_FileUpload_Object_RefID = null, int $varRotateLog_FileUploadStagingAreaDetail_RefRPK = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varHashMethod_RefID = null, string $varContentHash = null, int $varDataCompression_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -120,7 +120,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varLog_FileUpload_Object_RefID, 'bigint'],
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                        [$varRotateLog_FileUploadStagingAreaDetail_RefRPK, 'bigint'],
                         [$varFileSequence, 'smallint'],
                         [$varFileName, 'character varying'],
                         [$varFileSize, 'bigint'],
@@ -142,8 +142,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-08-05                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2022-08-19                                                                                           |
         | ▪ Creation Date   : 2021-07-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -156,8 +156,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
         |      ▪ (int)    varLog_FileUpload_Object_RefID ► Log File Upload Object Refeence ID (Mandatory)                          |
-        |      ▪ (int)    varRotateLog_FileUploadStagingArea_RefRPK ► Rotate Log File Upload Staging Area Reference Primary Key    |
-        |                                                             (Mandatory)                                                  |
+        |      ▪ (int)    varRotateLog_FileUploadStagingAreaDetail_RefRPK ► Rotate Log File Upload Staging Area Detail Reference   |
+        |                                                                   Primary Key (Mandatory)                                |
         |      ▪ (int)    varFileSequence ► File Sequence (Mandatory)                                                              |
         |      ▪ (string) varFileName ► File Name (Mandatory)                                                                      |
         |      ▪ (int)    varFileSize ► File Size (Mandatory)                                                                      |
@@ -175,7 +175,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         public function setDataUpdate(
             $varUserSession, 
             int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranchRefID = null, int $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Object_RefID = null, int $varRotateLog_FileUploadStagingArea_RefRPK = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varHashMethod_RefID = null, string $varContentHash = null, int $varDataCompression_RefID = null)
+            int $varLog_FileUpload_Object_RefID = null, int $varRotateLog_FileUploadStagingAreaDetail_RefRPK = null, int $varFileSequence = null, string $varFileName = null, int $varFileSize = null, string $varFileMIME = null, string $varFileExtension = null, string $varFileLastModifiedDateTimeTZ = null, int $varFileLastModifiedUnixTimestamp = null, int $varHashMethod_RefID = null, string $varContentHash = null, int $varDataCompression_RefID = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
@@ -191,7 +191,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         [$varSysBaseCurrency_RefID, 'bigint'],
 
                         [$varLog_FileUpload_Object_RefID, 'bigint'],
-                        [$varRotateLog_FileUploadStagingArea_RefRPK, 'bigint'],
+                        [$varRotateLog_FileUploadStagingAreaDetail_RefRPK, 'bigint'],
                         [$varFileSequence, 'smallint'],
                         [$varFileName, 'character varying'],
                         [$varFileSize, 'bigint'],

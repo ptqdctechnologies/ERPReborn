@@ -272,7 +272,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                                     \'entities\',
                                         JSON_BUILD_OBJECT(
                                             \'log_FileUpload_Object_RefID\', null,
-                                            \'rotateLog_FileUploadStagingArea_RefRPK\', "RecordReference",
+                                            \'rotateLog_FileUploadStagingAreaDetail_RefRPK\', "RecordReference",
                                             \'sequence\', "Sequence",
                                             \'name\', "Name",
                                             \'size\', "Size",

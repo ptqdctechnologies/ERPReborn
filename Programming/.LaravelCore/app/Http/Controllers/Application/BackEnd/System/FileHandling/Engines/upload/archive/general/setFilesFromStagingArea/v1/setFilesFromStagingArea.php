@@ -130,7 +130,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         )['SignRecordID'];
                 //dd($varLogFileUploadPointerRefID);
                 }
-                
+
+
             //---> Menghapus Data Object Detail
             for ($i=0, $iMax = count($varDeleteCandidate_RefIDArray); $i!=$iMax; $i++)
                 {
@@ -142,29 +143,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
 
 
             //---> Mencari LogFileUploadPointerHistoryRefID Sebelumnya
-            $varLogFileUploadPointerHistoryRefID = 
+            $varData = 
                 (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistory(
                     $varUserSession, 
                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
                     $varLogFileUploadPointerRefID
-                    )[0]['Sys_ID'];
+                    );
+            $varLogFileUploadPointerHistoryRefID = ((count($varData) == 0) ? NULL : $varData[0]['Sys_ID']);
             //dd($varLogFileUploadPointerHistoryRefID);
 
-                
-            //---> Mencari Log_FileUpload_Object_RefID Sebelumnya
-            $varData = 
-                (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistoryDetail(
-                    $varUserSession, 
-                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                    $varLogFileUploadPointerHistoryRefID
-                    );
-            
+            //---> Mencari Log_FileUpload_Object_RefID Sebelumnya
             $varArrayID_LogFileUploadObject = [];
-            for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
+            if($varLogFileUploadPointerHistoryRefID)
                 {
-                $varArrayID_LogFileUploadObject[$i] = $varData[$i]['Log_FileUpload_Object_RefID'];
+                $varData = 
+                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistoryDetail(
+                        $varUserSession, 
+                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                        $varLogFileUploadPointerHistoryRefID
+                        );
+
+                for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
+                    {
+                    $varArrayID_LogFileUploadObject[$i] = $varData[$i]['Log_FileUpload_Object_RefID'];
+                    }
                 }
             //dd($varArrayID_LogFileUploadObject);
 
