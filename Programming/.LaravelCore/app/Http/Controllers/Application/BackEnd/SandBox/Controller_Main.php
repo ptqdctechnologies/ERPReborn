@@ -16,7 +16,27 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 'xxx';
+
+            $MyObjMinIOClient = new \Aws\S3\S3Client([
+                'version' => 'latest',
+                'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
+                'endpoint' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_ENDPOINT'),
+                'use_path_style_endpoint' => true,
+                'credentials' => [
+                    'key'    => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_KEY'),
+                    'secret' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_SECRET'),                            
+                    ]                        
+                ]);
+            $varResult = $MyObjMinIOClient->getObject([
+                'Bucket' => 'erp-reborn',
+                'Key'    => 'Archive/92000000000097/12000000000108'
+                ]);
+            $x = (string) $varResult['Body'];
+            //$x = $varResult['Body'];
+
             
+            dd($x);
+
 /*        $x = str_replace(
             '"', 
             '\\\\\\\'', 
