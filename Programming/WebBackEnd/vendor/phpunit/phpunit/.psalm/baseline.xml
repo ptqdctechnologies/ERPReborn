@@ -1294,9 +1294,6 @@
     </MissingReturnType>
   </file>
   <file src="src/Util/ExcludeList.php">
-    <DocblockTypeContradiction occurrences="1">
-      <code>self::$directories === null</code>
-    </DocblockTypeContradiction>
     <MissingThrowsDocblock occurrences="1"/>
   </file>
   <file src="src/Util/Filter.php">
@@ -1430,11 +1427,6 @@
       <code>$stream</code>
     </PropertyNotSetInConstructor>
   </file>
-  <file src="src/Util/Reflection.php">
-    <PossiblyNullArgument occurrences="1">
-      <code>$filter</code>
-    </PossiblyNullArgument>
-  </file>
   <file src="src/Util/Test.php">
     <MissingReturnType occurrences="1">
       <code>sanitizeVersionNumber</code>
@@ -1539,9 +1531,9 @@
     </MissingThrowsDocblock>
   </file>
   <file src="src/Util/TextTestListRenderer.php">
-    <ArgumentTypeCoercion occurrences="1">
+    <InvalidArgument occurrences="1">
       <code>$suite-&gt;getIterator()</code>
-    </ArgumentTypeCoercion>
+    </InvalidArgument>
   </file>
   <file src="src/Util/VersionComparisonOperator.php">
     <MissingThrowsDocblock occurrences="1">
@@ -1570,8 +1562,8 @@
     </RedundantCast>
   </file>
   <file src="src/Util/XmlTestListRenderer.php">
-    <ArgumentTypeCoercion occurrences="1">
+    <InvalidArgument occurrences="1">
       <code>$suite-&gt;getIterator()</code>
-    </ArgumentTypeCoercion>
+    </InvalidArgument>
   </file>
 </files>

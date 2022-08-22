@@ -972,7 +972,7 @@ namespace App\Helpers\ZhtHelper\General
                                                             'ID' => 'varObjTTD',
                                                             'ParentID' => 'varObjTTR',
                                                             'Style' => $varStyle_TableActionPanelHead,
-                                                            'ColSpan' => 2
+                                                            'ColSpan' => 4
                                                             ],
                                                             'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
                                                             )
@@ -1002,6 +1002,24 @@ namespace App\Helpers\ZhtHelper\General
                                                             'Style' => $varStyle_TableActionPanelHead,
                                                             ],
                                                             'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
                                                             )
                                                         )
                                                         )
