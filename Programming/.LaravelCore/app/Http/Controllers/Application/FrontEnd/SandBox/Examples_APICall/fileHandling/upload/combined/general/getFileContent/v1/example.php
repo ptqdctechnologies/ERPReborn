@@ -32,21 +32,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-/*
-            //---Core---
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'fileHandling.upload.combined.general.getMasterFileRecord', 
-                'latest', 
-                [
-                'parameter' => [
-                    'log_FileUpload_Pointer_RefID' => 91000000000010,
-                    'rotateLog_FileUploadStagingArea_RefRPK' => 485,
-                    'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => [1,2]
-                    ]
-                ]
-                );*/
 
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(

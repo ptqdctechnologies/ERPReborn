@@ -817,6 +817,68 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
                                             '}'.
 
+                                        //---> JSFunc_FileDownload_...
+                                        'function JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName) {'.
+                                            'try {'.
+                                                'varBase64Data = ('.
+                                                    'JSON.parse('.                           
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getFileContent', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"filePath" : varFilePath'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data.contentBase64'.
+                                                    '); '.
+                                                'varObjDownloadLink = document.createElement(\'a\'); '.
+                                                'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
+                                                'varObjDownloadLink.download = varFileName; '.
+                                                'varObjDownloadLink.click(); '.
+                                                'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_FilePreview_...
+                                        'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME) {'.
+                                            'try {'.
+                                                'x = '.self::getSyntaxFunc_MaxZIndex($varUserSession).'; '.
+                                                'alert(x); '.
+//                                                'alert(varFilePath);'.
+                                                'varReturn = ('.
+                                                    'JSON.parse('.                           
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getFileContent', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"filePath" : varFilePath'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data.contentBase64'.
+                                                    '); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
                                         //---> JSFunc_MainData_GetData_MasterFileRecord_...
                                         'function JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'() {'.
                                             'varReturn = null; '.
@@ -1033,14 +1095,41 @@ namespace App\Helpers\ZhtHelper\General
                                                     'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
                                                     ],
                                                     (
+
+                                                    'if(varDataJSONMasterFileRecord == null) {'.
+                                                        'varDataJSONMasterFileRecord = ['.
+                                                            '{'.
+                                                            '\'sequence\' : \'\', '.
+                                                            '\'signExistOnArchive\' : \'\', '.
+                                                            '\'recordReference\' : \'\', '.
+                                                            '\'name\' : \'\', '.
+                                                            '\'size\' : \'\', '.
+                                                            '\'MIME\' : \'\', '.
+                                                            '\'extension\' : \'\', '.
+                                                            '\'lastModifiedDateTimeTZ\' : \'\', '.
+                                                            '\'lastModifiedUnixTimestamp\' : \'\', '.
+                                                            '\'hashMethod_RefID\' : \'\', '.
+                                                            '\'contentBase64Hash\' : \'\', '.
+                                                            '\'uploadDateTimeTZ\' : \'\', '.
+                                                            '\'filePath\' : \'\', '.
+                                                            '\'URLDelete\' : \'\' '.
+                                                            '}'.
+                                                            '];'.
+                                                        '}'.
+
                                                     'if(varDataJSONMasterFileRecord != null) '.
                                                         '{'.
+                                                        '; '.
                                                         'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
                                                             '{'.
                                                             'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
-                                                            'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                            'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-
+                                                            'if(!varFilePath) {'.
+                                                                'varTRID = null; '.
+                                                                '}'.
+                                                            'else {'.
+                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
+                                                                'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
+                                                                '}'.
                                                             self::getSyntaxCreateDOM_TableRow(
                                                                 $varUserSession, 
                                                                 [
@@ -1110,20 +1199,22 @@ namespace App\Helpers\ZhtHelper\General
                                                                     'var varObjA = document.createElement(\'a\'); '.
                                                                         'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
                                                                         'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                        'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
-                                                                            'varObjA.href = \'javascript:'.
-                                                                                'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
-                                                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                '\'; '.
+                                                                        'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
+                                                                            'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
+                                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'else {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function(varURLDelete) {'.
+                                                                                            'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                                        '})(\\\'\' + varURLDelete + \'\\\');'.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'varObjA.innerHTML = \'Delete\'; '.
                                                                             '}'.
-                                                                        'else {'.
-                                                                            'varObjA.href = \'javascript:'.
-                                                                                '(function(varURLDelete) {'.
-                                                                                        'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                                    '})(\\\'\' + varURLDelete + \'\\\');'.
-                                                                                '\'; '.
-                                                                            '}'.
-                                                                        'varObjA.innerHTML = \'Delete\'; '.
                                                                     'varObjTTD.appendChild(varObjA); '
                                                                     )
                                                                     ).
@@ -1156,6 +1247,53 @@ namespace App\Helpers\ZhtHelper\General
                                                                         )
                                                                         ).
                                                                     '}'.
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varObjA.href = \'javascript:'.
+                                                                            '(function(varFilePath, varMIME) {'.
+                                                                                    'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME); '.
+                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\');'.
+                                                                            '\'; '.
+                                                                        'varObjA.innerHTML = \'Preview\'; '.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
+                                                                        'varObjA.href = \'javascript:'.
+                                                                            '(function(varFilePath, varMIME, varFileName) {'.
+                                                                                    'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
+                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
+                                                                            '\'; '.
+                                                                        'varObjA.innerHTML = \'Download\'; '.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
                                                                 ''
                                                                 )
                                                                 ).
@@ -1275,7 +1413,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //'alert(varLastSequence); '.
 
                                             'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                            'for(var i = 0; i < varObjFileList.length; i++)'.
+                                            'for(var i = 0; i < varObjFileList.length; i++) '.
                                                 '{'.
                                                 '(function(varObjCurrentFile, i) {'.
                                                     'var varObjFileReader = new FileReader(); '.
@@ -1420,6 +1558,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-24                                                                                           |
+        | ▪ Creation Date   : 2020-12-24                                                                                           |
         | ▪ Description     : Mengambil Fungsi Sintaks MD5                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1454,10 +1593,59 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_MaxZIndex                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-22                                                                                           |
+        | ▪ Creation Date   : 2022-08-22                                                                                           |
+        | ▪ Description     : Mendapatkan Z Index Tertinggi dari Body HTML                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_MaxZIndex($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Syntax Function Client Current Date Time UTC');
+                try {
+                    $varReturn = 
+                        'function() {'.
+                            'var varMaxZIndex = 0; '.
+                            'const varAllObjElement = Array.from(document.querySelectorAll(\'body *\')); '.
+                            'varAllObjElement.map((ObjCurrentElement, varIndex) => {'.
+                                'varCurrentZIndex = (ObjCurrentElement.style.zIndex == \'\' ? 0 : ObjCurrentElement.style.zIndex); '.
+                                //'alert(varCurrentZIndex);'.   
+                                'if (varCurrentZIndex > varMaxZIndex) {'.
+                                    'varMaxZIndex = varCurrentZIndex; '.
+                                    '}'.
+                                '});'.
+                            //'alert(varMaxZIndex);'.
+                            'return varMaxZIndex; '.
+                            '}()';
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_UniqueID                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-24                                                                                           |
+        | ▪ Creation Date   : 2020-12-24                                                                                           |
         | ▪ Description     : Mengambil Fungsi Sintaks Unique ID                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

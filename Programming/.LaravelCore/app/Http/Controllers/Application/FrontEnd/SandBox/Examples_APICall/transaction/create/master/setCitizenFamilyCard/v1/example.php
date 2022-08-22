@@ -84,6 +84,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 '<div id="dataShow_ActionPanel" style="border-style:solid; border-width:1px;" onLoad="javascript:alert(\'xxx\');"></div>';
 
 //91000000000023
+echo '<div style="position: relative; z-index: 3">Hello world</div>';
             echo '<br>Log FileUpload Pointer RefID2 ► '.
                 '<input type="text" id="dataInput_Log_FileUpload_Pointer_RefID2" value="" readOnly="true">'.
                 '<input type="file" id="dataInput_Log_FileUpload_Pointer_RefID_Action2" multiple="multiple" '.
