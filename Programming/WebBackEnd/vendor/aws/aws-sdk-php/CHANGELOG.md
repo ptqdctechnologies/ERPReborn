@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## 3.233.6 - 2022-08-19
+
+* `Aws\Connect` - This release adds SearchSecurityProfiles API which can be used to search for Security Profile resources within a Connect Instance.
+* `Aws\LookoutMetrics` - This release is to make GetDataQualityMetrics API publicly available.
+* `Aws\ivschat` - Documentation Change for IVS Chat API Reference - Doc-only update to change text/description for tags field.
+* `Aws\kendra` - This release adds support for a new authentication type - Personal Access Token (PAT) for confluence server.
+
+## 3.233.5 - 2022-08-18
+
+* `Aws\ChimeSDKMediaPipelines` - The Amazon Chime SDK now supports live streaming of real-time video from the Amazon Chime SDK sessions to streaming platforms such as Amazon IVS and Amazon Elemental MediaLive. We have also added support for concatenation to create a single media capture file.
+* `Aws\CloudWatch` - Add support for managed Contributor Insights Rules
+* `Aws\CognitoIdentityProvider` - This change is being made simply to fix the public documentation based on the models. We have included the PasswordChange and ResendCode events, along with the Pass, Fail and InProgress status. We have removed the Success and Failure status which are never returned by our APIs.
+* `Aws\DynamoDB` - This release adds support for importing data from S3 into a new DynamoDB table
+* `Aws\EC2` - This release adds support for VPN log options , a new feature allowing S2S VPN connections to send IKE activity logs to CloudWatch Logs
+* `Aws\NetworkManager` - Add TransitGatewayPeeringAttachmentId property to TransitGatewayPeering Model
+
+## 3.233.4 - 2022-08-17
+
+* `Aws\AppMesh` - AWS App Mesh release to support Multiple Listener and Access Log Format feature
+* `Aws\ConnectCampaignService` - Updated exceptions for Amazon Connect Outbound Campaign api's.
+* `Aws\LakeFormation` - This release adds a new API support "AssumeDecoratedRoleWithSAML" and also release updates the corresponding documentation.
+* `Aws\Lambda` - Added support for customization of Consumer Group ID for MSK and Kafka Event Source Mappings.
+* `Aws\LexModelsV2` - This release introduces support for enhanced conversation design with the ability to define custom conversation flows with conditional branching and new bot responses.
+* `Aws\RDS` - Adds support for Internet Protocol Version 6 (IPv6) for RDS Aurora database clusters.
+* `Aws\SecretsManager` - Documentation updates for Secrets Manager.
+* `Aws\kendra` - This release adds Zendesk connector (which allows you to specify Zendesk SAAS platform as data source), Proxy Support for Sharepoint and Confluence Server (which allows you to specify the proxy configuration if proxy is required to connect to your Sharepoint/Confluence Server as data source).
+
+## 3.233.3 - 2022-08-16
+
+* `Aws\Rekognition` - This release adds APIs which support copying an Amazon Rekognition Custom Labels model and managing project policies across AWS account.
+* `Aws\ServiceCatalog` - Documentation updates for Service Catalog
+
 ## 3.233.2 - 2022-08-15
 
 * `Aws\CloudFront` - Adds Http 3 support to distributions

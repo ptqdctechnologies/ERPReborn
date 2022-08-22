@@ -3,21 +3,24 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setPettyCash\v1   |
-| ▪ API Key     : transaction.create.finance.setPettyCash                                                                          |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition           |
+|                 \setLog_FileUpload_ObjectDetail\v1                                                                               |
+| ▪ API Key     : transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail                                                |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setPettyCash\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\dataAcquisition\setLog_FileUpload_ObjectDetail\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.dataAcquisition.setPettyCash.v1_throughAPIGateway                        |
-        |                     ► http://172.28.0.4/transaction.create.dataAcquisition.setPettyCash.v1_throughAPIGateway                     |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail.v1_throughAPIGateway               |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-21                                                                                           |
@@ -48,8 +51,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.create.finance.setPettyCash.v1_throughAPIGatewayJQuery                  |
-        |                     ► http://172.28.0.4/transaction.create.finance.setPettyCash.v1_throughAPIGatewayJQuery               |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail.v1_throughAPIGatewayJQuery         |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.create.dataAcquisition.setLog_FileUpload_ObjectDetail.v1_throughAPIGatewayJQuery       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-21                                                                                           |

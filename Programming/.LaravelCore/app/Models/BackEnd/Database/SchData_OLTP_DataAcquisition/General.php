@@ -104,6 +104,58 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                 return [];
                 }
             }
+            
+            
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataList_LogFileUploadPointerHistory                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Log File Upload Pointer History                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varBranchID ► Branch ID                                                                                  |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► Log File Upload Pointer Reference ID                                   |
+        |        ----------------------------------------                                                                          |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataList_LogFileUploadPointerHistory(
+            $varUserSession, int $varBranchID, int $varLog_FileUpload_Pointer_RefID = null,
+            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-DataAcquisition.Func_GetDataList_Log_FileUpload_PointerHistory',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint' ],
+
+                            [$varPickStatement, 'varchar'],
+                            [$varSortStatement, 'varchar'],
+                            [$varFilterStatement, 'varchar'],
+                            [$varPagingStatement, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
 
 
         /*
@@ -149,7 +201,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                             [$varPagingStatement, 'varchar']
                         ]
                         )
-                    );                
+                    );
                 return $varReturn['Data'];
                 }
             catch (\Exception $ex) {
@@ -170,13 +222,14 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varLogFileUploadPointerRefID ► Log File Upload Pointer Reference ID                                      |
         |      ▪ (int)    varStagingAreaRecordPK ► Staging Area Record Primary Key                                                 |
         |      ▪ (array)  varDeleteCandidate_RefIDArray ► Array Delete Candidate Reference ID                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (mixed)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getFileUpload_DataMovementFromStagingAreaToArchieve($varUserSession, int $varStagingAreaRecordPK, $varDeleteCandidate_RefIDArray)
+        public function getFileUpload_DataMovementFromStagingAreaToArchieve($varUserSession, int $varLogFileUploadPointerRefID, int $varStagingAreaRecordPK = null, $varDeleteCandidate_RefIDArray)
             {
             $varSQL = '
                 SELECT
@@ -219,7 +272,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                                     \'entities\',
                                         JSON_BUILD_OBJECT(
                                             \'log_FileUpload_Object_RefID\', null,
-                                            \'rotateLog_FileUploadStagingArea_RefRPK\', "RecordReference",
+                                            \'rotateLog_FileUploadStagingAreaDetail_RefRPK\', "RecordReference",
                                             \'sequence\', "Sequence",
                                             \'name\', "Name",
                                             \'size\', "Size",
@@ -244,8 +297,8 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                                     *
                                 FROM
                                     "SchSysAsset"."Func_GetData_FileUpload_MasterFileRecord"(
-                                        NULL, 
-                                        '.$varStagingAreaRecordPK.'::bigint, 
+                                        '.(!$varLogFileUploadPointerRefID ? 'NULL' : $varLogFileUploadPointerRefID).'::bigint, 
+                                        '.(!$varStagingAreaRecordPK ? 'NULL' : $varStagingAreaRecordPK).'::bigint, 
                                         '.
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getSQLSyntax_Source_NumberArrayToBigIntArray(
                                             $varUserSession, 
@@ -259,7 +312,7 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
                         ) AS "SubSQL"
                     ) AS "SubSQL"
                 ';
-            
+
             $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                 $varUserSession, 
                 $varSQL

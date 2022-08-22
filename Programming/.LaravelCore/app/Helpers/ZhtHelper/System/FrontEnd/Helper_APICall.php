@@ -303,6 +303,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         \App\Helpers\ZhtHelper\General\Helper_Network::getCurrentProtocol($varUserSession).
                         \App\Helpers\ZhtHelper\General\Helper_Network::getServerIPAddress($varUserSession).
                         '/'.
+                        'api'.
+                        '/'.
                         'gatewayOfGetMethod'.
                         '/'.
                         $varAPIWebToken.

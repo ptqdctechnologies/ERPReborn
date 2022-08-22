@@ -169,6 +169,31 @@ namespace App\Models\CloudStorage\System
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getFileContent                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Creation Date   : 2022-08-22                                                                                           |
+        | ▪ Last Update     : 2022-08-22                                                                                           |
+        | ▪ Description     : Mendapatkan Content dari objek file                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)   varUserSession ► User Session                                                                           |
+        |      ▪ (string)  varRemoteFilePath ► Remote File Path                                                                    |
+        |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (boolean) varReturn                                                                                               | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getFileContent($varUserSession, string $varRemoteFilePath, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::getFileContent($varUserSession, $varRemoteFilePath, $varBucketName);
+            return $varReturn;            
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileURL                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

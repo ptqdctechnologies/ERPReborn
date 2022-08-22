@@ -198,58 +198,316 @@ namespace App\Helpers\ZhtHelper\General
             return $varReturn;
             }
 
-        public static function getSyntaxCreateDOM_Table($varUserSession, $varArrayProperties)
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Table                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Table($varUserSession, array $varArrayProperties, string $varContent)
             {
             $varReturn = '';
-            $varSignValid = \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties);
-            if ($varSignValid == TRUE)
-                {
-                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
-                    $varReturn .= 'SysObjDOM_'.$varArrayProperties['ID'].'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
-                    }
-                $varReturn = 
-                    'var SysObjDOM'.$varArrayProperties['ID'].' = document.createElement(\'table\'); '.
-                    'SysObjDOM'.$varArrayProperties['ID'].'.id = \''.$varArrayProperties['ID'].'\'; '.
-                    'SysObjDOM'.$varArrayProperties['ID'].'.setAttribute(\'type\', \'text\'); '.                    
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
-                        'SysObjDOM'.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
-                        ).
-                    $varReturn.
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
-                        $varArrayProperties['ParentID'].'.appendChild(SysObjDOM_'.$varArrayProperties['ID'].'); '
-                        );
-                }
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'table\');'.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> style
+                $varReturn.                
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                ''
+                ;
+
             return $varReturn;
             }
-            
-        public static function getSyntaxCreateDOM_TableTD($varUserSession, $varArrayProperties, $varContent)
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableHead                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table Head                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableHead($varUserSession, array $varArrayProperties, string $varContent)
             {
             $varReturn = '';
-            $varSignValid = \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties);
-            if ($varSignValid == TRUE)
-                {
-                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
-                    $varReturn .= $varArrayProperties['ID'].'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
-                    }
-                $varReturn = 
-                    'var '.$varArrayProperties['ID'].' = document.createElement(\'td\'); '.
-                    $varArrayProperties['ID'].'.id = \''.$varArrayProperties['ID'].'\'; '.
-                    $varArrayProperties['ID'].'.setAttribute(\'type\', \'text\'); '.
-                    $varArrayProperties['ID'].'.appendChild(document.createTextNode(\''.$varContent.'\')); '.
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ColSpan', $varArrayProperties) == FALSE) ? '' : 
-                        $varArrayProperties['ID'].'.colSpan = '.$varArrayProperties['ColSpan'].'; '
-                        ).
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'RowSpan', $varArrayProperties) == FALSE) ? '' : 
-                        $varArrayProperties['ID'].'.rowSpan = '.$varArrayProperties['RowSpan'].'; '
-                        ).
-                    $varReturn.
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
-                        $varArrayProperties['ParentID'].'.appendChild('.$varArrayProperties['ID'].'); '
-                        );
-                }
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'thead\');'.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> style
+                $varReturn.                
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                ''
+                ;
+
             return $varReturn;
             }
-            
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableBody                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table Body                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableBody($varUserSession, array $varArrayProperties, string $varContent)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'tbody\');'.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> style
+                $varReturn.                
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                ''
+                ;
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableRow                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table TR                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableRow($varUserSession, array $varArrayProperties, string $varContent)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'tr\');'.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> style
+                $varReturn.                
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                ''
+                ;
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableData                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-16                                                                                           |
+        | ▪ Creation Date   : 2022-08-16                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table TD                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'ColSpan' => ... ,                                                                                         |
+        |               'RowSpan' => ... ,                                                                                         |
+        |               'Style' => [                                                                                               |
+        |                     ['backgroundColor', ...],                                                                            |
+        |                     ['color', ...],                                                                                      |
+        |                     ['fontFamily', ...],                                                                                 |
+        |                     ['whiteSpace', ...],                                                                                 |
+        |                     ['fontSize', ...],                                                                                   |
+        |                     ['textAlign', ...],                                                                                  |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableData($varUserSession, array $varArrayProperties, string $varContent)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                }
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'td\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+//                $varObjectID.'.appendChild(document.createTextNode('.
+//                    $varContent.
+//                    ')); '.
+//                $varObjectID.'.appendChild(document.createTextNode(\''.$varContent.'\')); '.
+//                $varObjectID.'.appendChild(document.createTextNode('.$varContent.')); '.
+//                $varObjectID.'.appendChild(document.createTextNode('.self::setEscapeForEscapeSequenceOnSyntaxLiteral($varUserSession, $varContent).'); '.
+                //---> colspan
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ColSpan', $varArrayProperties) == FALSE) ? '' : 
+                    $varObjectID.'.colSpan = '.$varArrayProperties['ColSpan'].'; '
+                    ).
+                //---> rowspan
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'RowSpan', $varArrayProperties) == FALSE) ? '' : 
+                    $varObjectID.'.rowSpan = '.$varArrayProperties['RowSpan'].'; '
+                    ).
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
+           
+            return $varReturn;
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_DOMInputFileContent                                                                    |
@@ -282,6 +540,12 @@ namespace App\Helpers\ZhtHelper\General
                         {
                         $varAction = 'OverWrite';
                         }
+                        
+                    $varStyle_TableAction =
+                        [
+                            ['width', '100px'],
+                            ['border', '1px solid black']
+                        ];
 
                     $varStyle_TableActionPanelHead =
                         [
@@ -290,14 +554,25 @@ namespace App\Helpers\ZhtHelper\General
                             ['fontFamily', 'verdana'],
                             ['whiteSpace', 'nowrap'],
                             ['fontSize', '10px'],
-                            ['textAlign', 'center'],
+                            ['textAlign', 'center']
+                        ];
+                    
+                    $varStyle_TableActionPanelBody =
+                        [
+                            ['backgroundColor', '#FADBB4'],
+                            ['color', '#000000'],
+                            ['fontFamily', 'verdana'],
+                            ['whiteSpace', 'nowrap'],
+                            ['fontSize', '10px'],
+                            ['textAlign', 'left']
                         ];
                     
                     $varReturn =
                         'try {'.
                             //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
-                                'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
+                                'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
+                                //'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
                                 self::getSyntaxCreateDOM_Input(
@@ -319,7 +594,7 @@ namespace App\Helpers\ZhtHelper\General
                                     self::setEscapeForEscapeSequenceOnSyntaxLiteral(
                                         $varUserSession, 
                                         (
-                                        self::getSyntaxCreateDOM_Input(
+/*                                        self::getSyntaxCreateDOM_Input(
                                             $varUserSession, 
                                             [
                                                 'ParentID' => 'document.body',
@@ -330,7 +605,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     ['height', '100px']
                                                     ]
                                             ]
-                                            ).
+                                            ).*/
                             
                                         //---> JSFunc_LockObject_...
                                         'function JSFunc_LockObject_'.$varUniqueID.'() {'.
@@ -353,12 +628,49 @@ namespace App\Helpers\ZhtHelper\General
                                                 'XHR.onreadystatechange = function() {'.
                                                     'if (XHR.readyState == XMLHttpRequest.DONE) {'.
                                                     //'if (XHR.readyState == 4 && XHR.status == 200) {'.
-                                                        'alert(\'Record has been deleted\');'.
+                                                        'alert(\'Record has been deleted\'); '.
+                                                        //'alert(varURLDelete); '.
                                                         'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                         '}'.
                                                     '}; '.
                                                 'XHR.open(\'GET\', varURLDelete, true); '.
                                                 'XHR.send(null); '.
+                                                '}'.
+                                            'catch(err) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_GetActionPanel_Commit_...
+                                        'function JSFunc_GetActionPanel_Commit_'.$varUniqueID.'() {'.
+                                            'try {'.
+                                                'varReturn = ('.
+                                                    'JSON.parse('.
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.archive.general.setFilesFromStagingArea', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"log_FileUpload_Pointer_RefID" : JSFunc_MainData_GetData_FileUploadPointerRefID_'.$varUniqueID.'(), '.
+                                                                        '"rotateLog_FileUploadStagingArea_RefRPK" : JSFunc_MainData_GetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(), '.
+                                                                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'()'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data.log_FileUpload_Pointer_RefID'.
+                                                    '); '.
+                                                //'alert(JSON.stringify(varReturn)); '.
+                                                'document.getElementById(\''.$varDOMReturnID.'\').value = JSON.stringify(varReturn); '.
+                                                'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
+                                                'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
+//                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
+                                                'alert(\'Committed File(s) Upload Complete\'); '.
+                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                 '}'.
                                             'catch(err) {'.
                                                 '}'.
@@ -372,7 +684,9 @@ namespace App\Helpers\ZhtHelper\General
                                                     'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
                                                         'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
                                                         'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + '.
+                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
                                                         '\'}, \' + '.
                                                     'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
                                                         'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
@@ -452,6 +766,29 @@ namespace App\Helpers\ZhtHelper\General
                                                 '}'.
                                             '}'.
 
+                                        //---> JSFunc_MainData_GetData_SignNeedToCommit_...
+                                        'function JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() {'.
+                                            'varReturn = null; '.
+                                            'try {'.
+                                                'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varReturn = varData.header.signNeedToCommit; '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            'return varReturn; '.
+                                            '}'.
+
+                                        //---> JSFunc_MainData_SetData_SignNeedToCommit_...
+                                        'function JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(varStatus) {'.
+                                            'try {'.
+                                                'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
+                                                'varDataJSON.header.signNeedToCommit = varStatus; '.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
                                         //---> JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_...
                                         'function JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() {'.
                                             'varReturn = JSON.parse(\'[]\'); '.
@@ -475,6 +812,68 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSONDeleteCandidate.push(varDataArrayID); '.                            
                                                 'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_FileDownload_...
+                                        'function JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName) {'.
+                                            'try {'.
+                                                'varBase64Data = ('.
+                                                    'JSON.parse('.                           
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getFileContent', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"filePath" : varFilePath'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data.contentBase64'.
+                                                    '); '.
+                                                'varObjDownloadLink = document.createElement(\'a\'); '.
+                                                'varObjDownloadLink.href = \'data:text/plain;base64,\' + varBase64Data; '.
+                                                'varObjDownloadLink.download = varFileName; '.
+                                                'varObjDownloadLink.click(); '.
+                                                'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
+                                                '}'.
+                                            'catch (varError) {'.
+                                                '}'.
+                                            '}'.
+
+                                        //---> JSFunc_FilePreview_...
+                                        'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME) {'.
+                                            'try {'.
+                                                'x = '.self::getSyntaxFunc_MaxZIndex($varUserSession).'; '.
+                                                'alert(x); '.
+//                                                'alert(varFilePath);'.
+                                                'varReturn = ('.
+                                                    'JSON.parse('.                           
+                                                        str_replace(
+                                                            '"', 
+                                                            '\'', 
+                                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                                $varUserSession, 
+                                                                $varAPIWebToken, 
+                                                                'fileHandling.upload.combined.general.getFileContent', 
+                                                                'latest', 
+                                                                '{'.
+                                                                    '"parameter" : {'.
+                                                                        '"filePath" : varFilePath'.
+                                                                        '}'.
+                                                                '}'
+                                                                )
+                                                            ).
+                                                        ').data.contentBase64'.
+                                                    '); '.
                                                 '}'.
                                             'catch (varError) {'.
                                                 '}'.
@@ -535,7 +934,7 @@ namespace App\Helpers\ZhtHelper\General
                                             '}'.
 
                                         //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
-                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
+                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.                            
                                             //---> Ambil varDataJSONMasterFileRecord dari database
                                             'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
 //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
@@ -543,349 +942,380 @@ namespace App\Helpers\ZhtHelper\General
                                             //---> Update varDataJSONMasterFileRecord di Main Data
                                             'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
 
+                                            //---> SignNeedToCommit Reinit
+                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
+                                            'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
+                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                '}'.
+                                            'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
+                                                'if(varDataJSONMasterFileRecord != null) '.
+                                                    '{'.
+                                                    'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                        '{'.
+                                                        'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
+                                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                            '}'.
+                                                        '}'.
+                                                    '}'.
+                                                '}'.
+                            
                                             //---> Object Table
                                             'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
                                                 '{'.
                                                 'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
                                                 '}'.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'table\'); '.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\';'.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.width = \'100px\'; '.
-    //                                        'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.borderCollapse = \'collapse\'; '.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.style.border = \'1px solid black\'; '.
                             
-                                            'var varObjTBodySpace = document.createElement(\'tbody\'); '.
-                                                'var varObjTTRSpace = document.createElement(\'tr\');'.
-                                                    'var varObjTTDSpace = document.createElement(\'td\'); '.
-                                                        'var varObjTable = document.createElement(\'table\'); '.
-                                                        'varObjTable.style.border = \'1px solid black\'; '.
-                                                            //---[Content 1]--------------(START)---
-                                                            //---> Table Head
-                                                            'var varObjTHead = document.createElement(\'thead\'); '.
-                                                                'var varObjTTR = document.createElement(\'tr\');'.
-                                                                    self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        'RowSpan' => 2
-                                                                        ],
-                                                                        'NO'
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        'RowSpan' => 2
-                                                                        ],
-                                                                        'FILE NAME'
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        'RowSpan' => 2
-                                                                        ],
-                                                                        'SIZE'
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        'RowSpan' => 2
-                                                                        ],
-                                                                        'UPLOAD DATE & TIME'
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        'ColSpan' => 2
-                                                                        ],
-                                                                        'ACTION'
-                                                                        ).
+                                            self::getSyntaxCreateDOM_Table(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel',
+                                                'ParentID' => 'document.getElementById(\''.$varDOMActionPanel.'\')',
+                                                'Style' => $varStyle_TableAction
+                                                ],
+                                                (
+                                                //---> Table Head
+                                                self::getSyntaxCreateDOM_TableHead(
+                                                    $varUserSession, 
+                                                    [
+                                                    'ID' => 'varObjTHead',
+                                                    'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
+                                                    ],
+                                                    (
+                                                    self::getSyntaxCreateDOM_TableRow(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => 'varObjTTR',
+                                                        'ParentID' => 'varObjTHead'
+                                                        ], 
+                                                        (
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'NO\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'SIZE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATE & TIME\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'ColSpan' => 4
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
+                                                            )
+                                                        )
+                                                        ).
+                                                    self::getSyntaxCreateDOM_TableRow(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => 'varObjTTR',
+                                                        'ParentID' => 'varObjTHead'
+                                                        ], 
+                                                        (
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
+                                                            )
+                                                        )
+                                                        )
+                                                    )
+                                                    ).
+                                                //---> Table Body
+                                                self::getSyntaxCreateDOM_TableBody(
+                                                    $varUserSession, 
+                                                    [
+                                                    'ID' => 'varObjTHead',
+                                                    'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
+                                                    ],
+                                                    (
 
-                                                                'varObjTHead.appendChild(varObjTTR); '.
-                                                                'var varObjTTR = document.createElement(\'tr\');'.
-                                                                   self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        ],
-                                                                        'DELETE'
-                                                                        ).
-                                                                   self::getSyntaxCreateDOM_TableTD(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelHead,
-                                                                        ],
-                                                                        'SAVE'
-                                                                        ).
-                                                                'varObjTHead.appendChild(varObjTTR); '.
-                                                            'varObjTTDSpace.appendChild(varObjTHead); '.
-                                                            //---> Table Body
-                                                            'var varObjTBody = document.createElement(\'tbody\'); '.
-                                                            'if(varDataJSONMasterFileRecord != null)'.
-                                                                '{'.
-                                                                'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
-                                                                    '{'.
-                                                                    'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
-                                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                                    'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-                                                                    //'alert(varTRID); '.
-                                                                    //'window[\'varObjTR\' + varTemp] = \'xxx\'; '.
-                                                                    //'alert(window[\'varObjTR\' + varTemp]); '.
-                                                                    'var varObjTR = document.createElement(\'tr\');'.
-                                                                    'varObjTR.id = varTRID; '.
-                                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                                            'varObjTTD.style.textAlign = \'center\'; '.
-                                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\']));'.
-                                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                                            'varObjTTD.style.textAlign = \'left\'; '.
-                                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\']));'.
-                                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                                            'varObjTTD.style.textAlign = \'right\'; '.
-                                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\']));'.
-                                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                                            'varObjTTD.style.textAlign = \'left\'; '.
-                                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\']));'.
-                                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                                            'varObjTTD.style.textAlign = \'center\'; '.
-                                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
-                                                                                'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                                'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
-                                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'else {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varURLDelete) {'.
-                                                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                                            '})(\\\'\' + varURLDelete + \'\\\');'.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'varObjA.innerHTML = \'Delete\'; '.
-                                                                            'varObjTTD.appendChild(varObjA); '.
-                                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                                        'if(i == 0) '.
-                                                                            '{'.
-                                                                            'var varObjTTD = document.createElement(\'td\'); '.
-                                                                                'varObjTTD.rowSpan = iMax; '.
-                                                                                //'alert(varObjTTD.rowSpan);'.
-                                                                                'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                                                'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                                                'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                                                'varObjTTD.style.fontSize = \'10px\'; '.
-    ///                                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\']));'.
-                                                                                'varObjTTD.style.textAlign = \'center\'; '.
-                                                                                'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.innerHTML = \'Save\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                            'varObjTR.appendChild(varObjTTD); '.
-                                                                            '}'.
-                                                                    'varObjTBody.appendChild(varObjTR); '.
-                                                                    '}'.
+                                                    'if(varDataJSONMasterFileRecord == null) {'.
+                                                        'varDataJSONMasterFileRecord = ['.
+                                                            '{'.
+                                                            '\'sequence\' : \'\', '.
+                                                            '\'signExistOnArchive\' : \'\', '.
+                                                            '\'recordReference\' : \'\', '.
+                                                            '\'name\' : \'\', '.
+                                                            '\'size\' : \'\', '.
+                                                            '\'MIME\' : \'\', '.
+                                                            '\'extension\' : \'\', '.
+                                                            '\'lastModifiedDateTimeTZ\' : \'\', '.
+                                                            '\'lastModifiedUnixTimestamp\' : \'\', '.
+                                                            '\'hashMethod_RefID\' : \'\', '.
+                                                            '\'contentBase64Hash\' : \'\', '.
+                                                            '\'uploadDateTimeTZ\' : \'\', '.
+                                                            '\'filePath\' : \'\', '.
+                                                            '\'URLDelete\' : \'\' '.
+                                                            '}'.
+                                                            '];'.
+                                                        '}'.
+
+                                                    'if(varDataJSONMasterFileRecord != null) '.
+                                                        '{'.
+                                                        '; '.
+                                                        'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                            '{'.
+                                                            'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
+                                                            'if(!varFilePath) {'.
+                                                                'varTRID = null; '.
                                                                 '}'.
-                                                            'varObjTTDSpace.appendChild(varObjTBody); '.
-                                                            //---[Content 1]--------------( END )---
-                                                        'varObjTTDSpace.appendChild(varObjTable); '.
-                                                    'varObjTTRSpace.appendChild(varObjTTDSpace); '.
-                                                    'var varObjTTDSpace = document.createElement(\'td\'); '.
-                                                        //'var varObjTable = document.createElement(\'table\'); '.
-                                                        //'varObjTable.style.border = \'1px solid black\'; '.
-                                                            //---[Content 2]--------------(START)---
-                                                        'varObjTTDSpace.style.backgroundColor = \'#fadbb4\'; '.
-                                                        'varObjTTDSpace.style.fontFamily = \'tahoma,verdana\'; '.
-                                                        'varObjTTDSpace.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTDSpace.style.fontSize = \'10px\'; '.
-                                                        'varObjTTDSpace.style.textAlign = \'center\'; '.
-                                                        'varObjTTDSpace.appendChild(document.createTextNode(\'aaabbb\'));'.
-                                                            //---[Content 2]--------------( END )---
-                                                        //'varObjTTDSpace.appendChild(varObjTable); '.
-                                                    'varObjTTRSpace.appendChild(varObjTTDSpace); '.
-                                                'varObjTBodySpace.appendChild(varObjTTRSpace); '.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTBodySpace); '.
-/*
-                                            //---> Table Head
-                                            'var varObjTHead = document.createElement(\'thead\'); '.
-                                                'var varObjTTR = document.createElement(\'tr\');'.
-                                                    'var varObjTTD = document.createElement(\'td\'); '.
-                                                        'varObjTTD.style.backgroundColor = \'#292630\'; '.
-                                                        'varObjTTD.style.color = \'#FFFFFF\'; '.
-                                                        'varObjTTD.style.fontFamily = \'verdana\'; '.
-                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTD.style.fontSize = \'10px\'; '.
-                                                        'varObjTTD.style.textAlign = \'center\'; '.
-                                                        'varObjTTD.appendChild(document.createTextNode(\'NO\'));'.
-                                                    'varObjTTR.appendChild(varObjTTD); '.
-                                                    'var varObjTTD = document.createElement(\'td\'); '.
-                                                        'varObjTTD.style.backgroundColor = \'#292630\'; '.
-                                                        'varObjTTD.style.color = \'#FFFFFF\'; '.
-                                                        'varObjTTD.style.fontFamily = \'verdana\'; '.
-                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTD.style.fontSize = \'10px\'; '.
-                                                        'varObjTTD.style.textAlign = \'center\'; '.
-                                                        'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\'));'.
-                                                    'varObjTTR.appendChild(varObjTTD); '.
-                                                    'var varObjTTD = document.createElement(\'td\'); '.
-                                                        'varObjTTD.style.backgroundColor = \'#292630\'; '.
-                                                        'varObjTTD.style.color = \'#FFFFFF\'; '.
-                                                        'varObjTTD.style.fontFamily = \'verdana\'; '.
-                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTD.style.fontSize = \'10px\'; '.
-                                                        'varObjTTD.style.textAlign = \'center\'; '.
-                                                        'varObjTTD.appendChild(document.createTextNode(\'SIZE\'));'.
-                                                    'varObjTTR.appendChild(varObjTTD); '.
-                                                    'var varObjTTD = document.createElement(\'td\'); '.
-                                                        'varObjTTD.style.backgroundColor = \'#292630\'; '.
-                                                        'varObjTTD.style.color = \'#FFFFFF\'; '.
-                                                        'varObjTTD.style.fontFamily = \'verdana\'; '.
-                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTD.style.fontSize = \'10px\'; '.
-                                                        'varObjTTD.style.textAlign = \'center\'; '.
-                                                        'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATETIME\'));'.
-                                                    'varObjTTR.appendChild(varObjTTD); '.
-                                                    'var varObjTTD = document.createElement(\'td\'); '.
-                                                        'varObjTTD.style.backgroundColor = \'#292630\'; '.
-                                                        'varObjTTD.style.color = \'#FFFFFF\'; '.
-                                                        'varObjTTD.style.fontFamily = \'verdana\'; '.
-                                                        'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                        'varObjTTD.style.fontSize = \'10px\'; '.
-                                                        'varObjTTD.style.textAlign = \'center\'; '.
-                                                        'varObjTTD.appendChild(document.createTextNode(\'DELETE\'));'.
-                                                    'varObjTTR.appendChild(varObjTTD); '.
-                                                'varObjTHead.appendChild(varObjTTR); '.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTHead); '.
-                                            //---> Table Body
-                                            'var varObjTBody = document.createElement(\'tbody\'); '.
-                                            'if(varDataJSONMasterFileRecord != null)'.
-                                                '{'.
-                                                'for(i=0; i != varDataJSONMasterFileRecord.length; i++)'.
-                                                    '{'.
-                                                    'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
-                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                    'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-                                                    //'alert(varTRID); '.
-                                                    //'window[\'varObjTR\' + varTemp] = \'xxx\'; '.
-                                                    //'alert(window[\'varObjTR\' + varTemp]); '.
-                                                    'var varObjTR = document.createElement(\'tr\');'.
-                                                    'varObjTR.id = varTRID; '.
-                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                            'varObjTTD.style.textAlign = \'center\'; '.
-                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\']));'.
-                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                            'varObjTTD.style.textAlign = \'left\'; '.
-                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\']));'.
-                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                            'varObjTTD.style.textAlign = \'right\'; '.
-                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\']));'.
-                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                            'varObjTTD.style.textAlign = \'left\'; '.
-                                                            'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\']));'.
-                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                        'var varObjTTD = document.createElement(\'td\'); '.
-                                                            'varObjTTD.style.backgroundColor = \'#fadbb4\'; '.
-                                                            'varObjTTD.style.fontFamily = \'tahoma,verdana\'; '.
-                                                            'varObjTTD.style.whiteSpace = \'nowrap\'; '.
-                                                            'varObjTTD.style.fontSize = \'10px\'; '.
-                                                            'varObjTTD.style.textAlign = \'center\'; '.
-                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
-                                                                'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
-                                                                    'varObjA.href = \'javascript:'.
-                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
-                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                        '\'; '.
+                                                            'else {'.
+                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
+                                                                'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
+                                                                '}'.
+                                                            self::getSyntaxCreateDOM_TableRow(
+                                                                $varUserSession, 
+                                                                [
+                                                                'ID' => 'varObjTTR',
+                                                                'ParentID' => 'varObjTHead'
+                                                                ], 
+                                                                (
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => $varStyle_TableActionPanelBody,
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'right']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => $varStyle_TableActionPanelBody,
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
+                                                                        'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
+                                                                        'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
+                                                                            'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
+                                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'else {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function(varURLDelete) {'.
+                                                                                            'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                                        '})(\\\'\' + varURLDelete + \'\\\');'.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'varObjA.innerHTML = \'Delete\'; '.
+                                                                            '}'.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
+                                                                'if(i == 0) '.
+                                                                    '{'.
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'RowSpan' => 'iMax',
+                                                                        'Style' => array_merge(
+                                                                            $varStyle_TableActionPanelBody,
+                                                                            [
+                                                                                ['textAlign', 'center']
+                                                                            ]
+                                                                            ),
+                                                                        ],
+                                                                        (
+                                                                        'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                            'var varObjA = document.createElement(\'a\'); '.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function() {'.
+                                                                                            'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                                                        '})();'.
+                                                                                    '\'; '.
+                                                                                'varObjA.innerHTML = \'Commit\'; '.
+                                                                            'varObjTTD.appendChild(varObjA); '.
+                                                                            '}'
+                                                                        )
+                                                                        ).
                                                                     '}'.
-                                                                'else {'.
-                                                                    'varObjA.href = \'javascript:'.
-                                                                        '(function(varURLDelete) {'.
-                                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                            '})(\\\'\' + varURLDelete + \'\\\');'.
-                                                                        '\'; '.
-                                                                    '}'.
-                                                                'varObjA.innerHTML = \'Delete\'; '.
-                                                            'varObjTTD.appendChild(varObjA); '.
-                                                        'varObjTR.appendChild(varObjTTD); '.
-                                                    'varObjTBody.appendChild(varObjTR); '.
-                                                    '}'.
-                                                '}'.
-                                            'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.appendChild(varObjTBody); '.
-                                              */
-
-                                            'document.getElementById(\''.$varDOMActionPanel.'\').appendChild(var'.$varUniqueID.'_ObjDOMTable_ActionPanel);'.
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varObjA.href = \'javascript:'.
+                                                                            '(function(varFilePath, varMIME) {'.
+                                                                                    'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME); '.
+                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\');'.
+                                                                            '\'; '.
+                                                                        'varObjA.innerHTML = \'Preview\'; '.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
+                                                                        'varObjA.href = \'javascript:'.
+                                                                            '(function(varFilePath, varMIME, varFileName) {'.
+                                                                                    'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
+                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
+                                                                            '\'; '.
+                                                                        'varObjA.innerHTML = \'Download\'; '.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
+                                                                ''
+                                                                )
+                                                                ).
+                                                            '}'.
+                                                        '}'
+                                                    )
+                                                    )
+                                                )
+                                                ).
                                             '}; '.
                                         'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                         'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                            
                                         ''
                                         )
                                         ).
                                     '\'; '.
                                 'ObjHead.appendChild(ObjScript); '.
                             
-                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
-                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
+//                                'alert(document.getElementById(\'zhtSysObjDOMText_Upload_MainData\')); '.
+                            
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
                                 '}'.
                             
                             //---> Main Function
@@ -908,7 +1338,7 @@ namespace App\Helpers\ZhtHelper\General
                             
                                             //---> Pendefinisian Inner Function
                             
-                                            //---> Inner Function : Mendapatkan Master File Record
+/*                                            //---> Inner Function : Mendapatkan Master File Record
                                             'function innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
                                                 '{'.
                                                 'varReturn = ('.
@@ -927,7 +1357,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         )).').data'.
                                                     '); '.
                                                 'return JSON.parse(JSON.stringify(varReturn.data));'.
-                                                '}'.
+                                                '}'.*/
 
                                             //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
                                             'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
@@ -983,7 +1413,7 @@ namespace App\Helpers\ZhtHelper\General
                                             //'alert(varLastSequence); '.
 
                                             'var var'.$varUniqueID.'_ObjJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
-                                            'for(var i = 0; i < varObjFileList.length; i++)'.
+                                            'for(var i = 0; i < varObjFileList.length; i++) '.
                                                 '{'.
                                                 '(function(varObjCurrentFile, i) {'.
                                                     'var varObjFileReader = new FileReader(); '.
@@ -1049,6 +1479,10 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'varFailedUploadFiles = (parseInt(varPreviousListFileCount) + parseInt(varObjFileList.length)) - (parseInt(Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length)); '.
                                                                 'alert(varFailedUploadFiles + \' new file(s) failed to upload\'); '.
                                                                 '}'.
+                            
+                            //                                'if(varFailedUploadFiles == parseInt(varObjFileList.length)) {'.
+                            //                                    '}'.
+                            
                                                             //'alert(\'Previous List File Count : \'+ varPreviousListFileCount + \', TryUploadList : \' + varObjFileList.length + \', MFR : \' + Object.keys(var'.$varUniqueID.'_ObjJSONMasterFileRecord).length); '.
 
                             
@@ -1075,7 +1509,8 @@ namespace App\Helpers\ZhtHelper\General
                                                                 'alert(\'An internal error has occurred. Please to select file(s) again\'); '.
                                                                 '}'.
                                                             'else {'.
-                                                                'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                                //'varReturnDOMObject.value = (varReturnDOMObject.value.split(varStagingTag))[0] + varStagingTag + varReturn; '.
+                                                                'varReturnDOMObject.value = varReturnDOMObject.value; '.
                                                                 '}'.
                                                             //'varReturnDOMObject.value = varReturn; '.
                                                             'return varReturn;'.
@@ -1123,6 +1558,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-24                                                                                           |
+        | ▪ Creation Date   : 2020-12-24                                                                                           |
         | ▪ Description     : Mengambil Fungsi Sintaks MD5                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -1157,10 +1593,59 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_MaxZIndex                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-22                                                                                           |
+        | ▪ Creation Date   : 2022-08-22                                                                                           |
+        | ▪ Description     : Mendapatkan Z Index Tertinggi dari Body HTML                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_MaxZIndex($varUserSession)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
+            try {
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Set Syntax Function Client Current Date Time UTC');
+                try {
+                    $varReturn = 
+                        'function() {'.
+                            'var varMaxZIndex = 0; '.
+                            'const varAllObjElement = Array.from(document.querySelectorAll(\'body *\')); '.
+                            'varAllObjElement.map((ObjCurrentElement, varIndex) => {'.
+                                'varCurrentZIndex = (ObjCurrentElement.style.zIndex == \'\' ? 0 : ObjCurrentElement.style.zIndex); '.
+                                //'alert(varCurrentZIndex);'.   
+                                'if (varCurrentZIndex > varMaxZIndex) {'.
+                                    'varMaxZIndex = varCurrentZIndex; '.
+                                    '}'.
+                                '});'.
+                            //'alert(varMaxZIndex);'.
+                            'return varMaxZIndex; '.
+                            '}()';
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                    }
+                catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
+                    }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                } 
+            catch (\Exception $ex) {
+                }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxFunc_UniqueID                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2020-12-24                                                                                           |
+        | ▪ Creation Date   : 2020-12-24                                                                                           |
         | ▪ Description     : Mengambil Fungsi Sintaks Unique ID                                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |

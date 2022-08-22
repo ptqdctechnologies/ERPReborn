@@ -47,7 +47,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                     ]
                 ]
                 );*/
-                
+
             //---Core---
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
