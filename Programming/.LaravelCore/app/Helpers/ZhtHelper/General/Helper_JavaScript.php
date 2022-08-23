@@ -200,6 +200,152 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        public static function getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview($varUserSession, $varID)
+            {
+            $varReturn = 
+                'varObjTemp = '.
+                    'function () {'.
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_Back',
+                                'ParentID' => 'document.body',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '0px'],
+                                    ['left', '0px'],
+                                    ['height', '100%'],
+                                    ['width', '100%'],
+                                    ['background', 'rgba(255, 0, 0, 0.3)']
+                                   ]
+                            ], 
+                            ''
+                            ).
+                        'document.getElementById(\''.$varID.'_Back'.'\').style.zIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+                        'document.getElementById(\''.$varID.'_Back'.'\').style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
+                        'document.getElementById(\''.$varID.'_Back'.'\').style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+                        //---> Dialog
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_Dialog',
+                                'ParentID' =>  $varID.'_Back',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '50%'],
+                                    ['left', '50%'],
+                                    ['height', '300px'],
+                                    ['width', '300px'],
+                                    ['background', 'rgba(88, 88, 88, 1.0)']
+                                    ]
+                            ], 
+                            ''
+                            ).
+                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.zIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.transform = \'translate(-50%, -50%)\';'.
+                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.border = \'2px solid #ffff00\'; '.
+                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
+                        //---> Place Holder
+                        'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+
+                        //---> Title Place Holder
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogTitlePlcHold',
+                                'ParentID' =>  $varID.'_Dialog',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '0px'],
+                                    ['left', '0px'],
+                                    ['height', '30px'],
+                                    ['lineHeight', '30px'],
+                                    ['width', '100%'],
+                                    ['background', '#ffffff'],
+                                    ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
+                                    ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+                                    ['fontWeight', 'bold'],
+                                    ['color', '#ffffff'],
+                                    ['textShadow', '2px 2px 5px #000000']
+                                    ]
+                            ], 
+                            'FILE PREVIEW'
+                            ).
+                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').style.zIndex = varMaxZIndex; '.
+                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'display\', \'table-cell\'); '.
+                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'align\', \'center\'); '.
+                        'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
+
+                        //---> Title Content Holder
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogContentPlcHold',
+                                'ParentID' =>  $varID.'_Dialog',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '50px'],
+                                    ['left', '0px'],
+                                    ['height', '50px'],
+                                    ['width', '100%'],
+                                    ['background', 'rgba(bb, bb, 00, 1.0)']
+                                    ]
+                            ], 
+                            ''
+                            ).
+                        'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = varMaxZIndex; '.
+
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogButtonPlcHold',
+                                'ParentID' =>  $varID.'_Dialog',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '270px'],
+                                    ['left', '0px'],
+                                    ['height', '30px'],
+                                    ['inlineHeight', '30px'],
+                                    ['width', '100%'],
+                                    ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
+                                    ]
+                            ], 
+                            ''
+                            ).
+                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').style.zIndex = varMaxZIndex; '.
+//                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'display\', \'table-cell\'); '.
+                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'align\', \'center\'); '.
+//                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
+
+                    
+                    
+
+                        self::getSyntaxCreateDOM_Button(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogCloseButton',
+                                'ParentID' => $varID.'_DialogButtonPlcHold',
+                                'Style' => [
+                                    ['position', 'relative'],
+                                    ['top', '50%'],
+                                    ]
+                            ], 
+                            'Close',
+                            'function() {'.
+                                'document.getElementById(\''.$varID.'_Back'.'\').parentNode.removeChild(document.getElementById(\''.$varID.'_Back'.'\'));'.
+//                                'alert(\'xxxxxxxxxxxxx\');'.
+                                '}'
+                            ).
+                        'document.getElementById(\''.$varID.'_DialogCloseButton'.'\').style.transform = \'translateY(-50%)\'; '.
+
+
+                    
+                        '} (); '.
+                        '';
+            return $varReturn;
+            }
+        
+            
         public static function getSyntaxCreateDOM_Div($varUserSession, $varArrayProperties, string $varContent)
             {
             $varReturn = '';
@@ -219,13 +365,76 @@ namespace App\Helpers\ZhtHelper\General
                 $varObjectID.'.id = \''.$varObjectID.'\'; '.
                 //---> innerHTML
                 $varObjectID.'.innerHTML = \''.$varContent.'\'; '.
-
-                    
-                    
 //                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
 //                    ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
 //                    ).
-                    
+                   
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
+      
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Button                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-23                                                                                           |
+        | ▪ Creation Date   : 2022-08-23                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Button                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Button($varUserSession, $varArrayProperties, $varText, string $varClickEvent = null)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'button\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> innerHTML
+                $varObjectID.'.innerHTML = \''.$varText.'\'; '.
+                //---> innerHTML
+                (!$varClickEvent ? '' : 
+                    //$varObjectID.'.onclick = function(){alert(\'xxxxxxxxxxxxx\');}; '
+                    $varObjectID.'.onclick = '.$varClickEvent.'; '
+                    ).
                 //---> style
                 $varReturn.
                 //---> appendChild
@@ -653,7 +862,7 @@ namespace App\Helpers\ZhtHelper\General
                         [
                             ['backgroundColor', '#292630'],
                             ['color', '#FFFFFF'],
-                            ['fontFamily', 'verdana'],
+                            ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
                             ['fontSize', '10px'],
                             ['textAlign', 'center']
@@ -663,7 +872,7 @@ namespace App\Helpers\ZhtHelper\General
                         [
                             ['backgroundColor', '#FADBB4'],
                             ['color', '#000000'],
-                            ['fontFamily', 'verdana'],
+                            ['fontFamily', '\\\'verdana\\\''],
                             ['whiteSpace', 'nowrap'],
                             ['fontSize', '10px'],
                             ['textAlign', 'left']
@@ -941,8 +1150,6 @@ namespace App\Helpers\ZhtHelper\General
                                         //---> JSFunc_FilePreview_...
                                         'function JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME) {'.
                                             'try {'.
-                                                'x = '.self::getSyntaxFunc_MaxZIndex($varUserSession).'; '.
-                                                'alert(x); '.
 //                                                'alert(varFilePath);'.
                                                 'varReturn = ('.
                                                     'JSON.parse('.                           
@@ -963,15 +1170,10 @@ namespace App\Helpers\ZhtHelper\General
                                                             ).
                                                         ').data.contentBase64'.
                                                     '); '.
-                                                self::getSyntaxCreateDOM_Div(
-                                                    $varUserSession, 
-                                                    [
-                                                        'ParentID' => 'document.body',
-                                                        'Style' => [
-                                                            ['position', 'absolute']
-                                                            ]
-                                                    ], 
-                                                    'xxxxxxxxxx').
+                                                self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
+                                                    $varUserSession,
+                                                    'ObjDivModalBox_'.$varUniqueID
+                                                    ).
                                                 '}'.
                                             'catch (varError) {'.
                                                 '}'.
@@ -1738,6 +1940,82 @@ namespace App\Helpers\ZhtHelper\General
             catch (\Exception $ex) {
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_PageHeight                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-23                                                                                           |
+        | ▪ Creation Date   : 2022-08-23                                                                                           |
+        | ▪ Description     : Menndapatkan Tinggi Halaman                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_PageHeight($varUserSession)
+            {
+            $varReturn = 
+                'function() {'.
+                    'varPageHeight = 0; '.
+                    'if(varPageHeight < window.pageYOffset) {'.
+                        'varPageHeight = window.pageYOffset; '.
+                        '}'.
+                    'if(varPageHeight < window.innerHeight) {'.
+                        'varPageHeight = window.innerHeight; '.
+                        '}'.
+                    'if(varPageHeight < document.body.clientHeight) {'.
+                        'varPageHeight = document.body.clientHeight; '.
+                        '}'.
+                    'if(varPageHeight < document.body.offsetHeight) {'.
+                        'varPageHeight = document.body.offsetHeight; '.
+                        '}'.
+                    'return varPageHeight + \'px\'; '.
+                    '}(); ';
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxFunc_PageWidth                                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-23                                                                                           |
+        | ▪ Creation Date   : 2022-08-23                                                                                           |
+        | ▪ Description     : Menndapatkan Lebar Halaman                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxFunc_PageWidth($varUserSession)
+            {
+            $varReturn = 
+                'function() {'.
+                    'varPageWidth = 0; '.
+                    'if(varPageWidth < window.pageXOffset) {'.
+                        'varPageWidth = window.pageXOffset; '.
+                        '}'.
+                    'if(varPageWidth < window.innerWidth) {'.
+                        'varPageWidth = window.innerWidth; '.
+                        '}'.
+                    'if(varPageWidth < document.body.clientWidth) {'.
+                        'varPageWidth = document.body.clientWidth; '.
+                        '}'.
+                    'if(varPageWidth < document.body.offsetWidth) {'.
+                        'varPageWidth = document.body.offsetWidth; '.
+                        '}'.
+                    'return varPageWidth + \'px\'; '.
+                    '}(); ';
+            return $varReturn;
             }
 
 
