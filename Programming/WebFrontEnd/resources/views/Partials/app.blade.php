@@ -20,7 +20,7 @@
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
-   <!-- Theme style -->
+  <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
 
   <!-- Select2 -->
@@ -43,51 +43,55 @@
   <!-- <script>
     new zht_JSCore();
   </script> -->
-  <script src ="{{ asset('js/zht-js/core.js') }}"></script>
+  <script src="{{ asset('js/zht-js/core.js') }}"></script>
   <style>
     body {
-        font-family: "Work Sans", sans-serif;
-    
-        background: rgb(230, 230, 230);
+      font-family: "Work Sans", sans-serif;
+
+      background: rgb(230, 230, 230);
     }
-    .time { 
-      margin:100px auto;
-        background: rgb(12, 12, 12);
-        color: #fff;
-        border: 7px solid rgb(255, 252, 252);
-        box-shadow: 0 2px 10px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
-        padding: 8px;
-        text-align: center;
-        width: 500px;
+
+    .time {
+      margin: 100px auto;
+      background: rgb(12, 12, 12);
+      color: #fff;
+      border: 7px solid rgb(255, 252, 252);
+      box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+      padding: 8px;
+      text-align: center;
+      width: 500px;
     }
+
     .hms {
-        font-size: 68pt;
-        font-weight: 200;
+      font-size: 68pt;
+      font-weight: 200;
     }
+
     .ampm {
-        font-size: 22pt;
+      font-size: 22pt;
     }
+
     .date {
-        font-size: 15pt;
+      font-size: 15pt;
     }
-    </style>
+  </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
   <div class="wrapper">
     <div id="loading" style="display: none;">
-        <span class="loader"></span>
-        <div class="textLoader">
-            <center>
-                <b>Please Wait ... </b>
-            </center>
-        </div>
+      <span class="loader"></span>
+      <div class="textLoader">
+        <center>
+          <b>Please Wait ... </b>
+        </center>
+      </div>
     </div>
     @yield('main')
     <aside class="control-sidebar control-sidebar-dark"></aside>
   </div>
 
-    <!-- jQuery -->
+  <!-- jQuery -->
   <script src="{{ asset('AdminLTE-master/plugins/jquery/jquery.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
 
@@ -96,7 +100,7 @@
   <!-- <script src="{{ asset('AdminLTE-master/plugins/select2/js/select2.full.min.js') }}"></script> -->
   <!-- Bootstrap4 Duallistbox -->
   <!-- <script src="{{ asset('AdminLTE-master/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> -->
-  <!-- Input Mask --> 
+  <!-- Input Mask -->
   <script src="{{ asset('AdminLTE-master/plugins/moment/moment.min.js') }}"></script>
   <!-- <script src="{{ asset('AdminLTE-master/plugins/inputmask/jquery.inputmask.min.js') }}"></script> -->
   <!-- date-range-picker -->
@@ -133,14 +137,14 @@
   <script src="{{ asset('AdminLTE-master/plugins/summernote/summernote-bs4.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/dist/js/pages/dashboard.js') }}"></script>-->
-  <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script> 
-  
+  <script src="{{ asset('AdminLTE-master/plugins/fullcalendar/customfullcalender.js') }}"></script>
+
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
-  <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script> 
+  <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
 
   <script>
-    $(function () {
-      
+    $(function() {
+
       $("#table1").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -194,7 +198,7 @@
         "autoWidth": false,
         "paginate": false,
       });
-      
+
       $("#tableBudget2").DataTable({
         "responsive": true,
         "autoWidth": false,
@@ -325,8 +329,8 @@
         "autoWidth": false,
         "paginate": false,
       });
-      
-      $('#example2').DataTable({  
+
+      $('#example2').DataTable({
         "paging": true,
         "lengthChange": false,
         "searching": false,
@@ -338,26 +342,148 @@
     });
   </script>
   <script>
+    setInterval(customClock, 500);
 
-	   setInterval(customClock, 500);
-	   function customClock() {
-	       var time = new Date();
-         var date = time.getDate();
-         var year = time.getFullYear();
-	       var hrs = time.getHours();
-	       var min = time.getMinutes();
-	       var sec = time.getSeconds();
-         var ampm = (time.getHours() >= 12) ? "PM" : "AM";
+    function customClock() {
+      var time = new Date();
+      var date = time.getDate();
+      var year = time.getFullYear();
+      var hrs = time.getHours();
+      var min = time.getMinutes();
+      var sec = time.getSeconds();
+      var ampm = (time.getHours() >= 12) ? "PM" : "AM";
 
-          // var dow = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-          // var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-          // document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + month[time.getMonth()] + " " + date + ", " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
-          var dow = ["Minggu","Senin","Selasa","Rabu","Kamis","Jum'at","Sabtu"];
-          var month = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
-          document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " "  + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
-	       
-	       
-	   }
-	</script>
+      // var dow = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+      // var month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      // document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + month[time.getMonth()] + " " + date + ", " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
+      var dow = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
+      var month = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+      document.getElementById('clock').innerHTML = dow[time.getDay()] + ", " + date + " " + month[time.getMonth()] + " " + year + "  " + hrs + ":" + min + ":" + sec + " " + ampm;
+
+
+    }
+  </script>
+
+
+  <script>
+    window.onload = () => {
+      // (A) GET ALL IMAGES
+      let all = document.getElementsByClassName("ZoomImage");
+      // (B) CLICK TO GO FULLSCREEN
+      if (all.length > 0) {
+        for (let i of all) {
+          i.onclick = () => {
+            // (B1) EXIT FULLSCREEN
+            if (document.fullscreenElement != null || document.webkitFullscreenElement != null) {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              } else {
+                document.webkitCancelFullScreen();
+              }
+            }
+
+            // (B2) ENTER FULLSCREEN
+            else {
+              if (i.requestFullscreen) {
+                i.requestFullscreen();
+              } else {
+                i.webkitRequestFullScreen();
+              }
+            }
+          };
+        }
+      }
+    };
+  </script>
+
+  <script>
+    // Jquery Dependency
+
+    $("input[data-type='currency']").on({
+      keyup: function() {
+        formatCurrency($(this));
+      },
+      blur: function() {
+        formatCurrency($(this), "blur");
+      }
+    });
+
+
+    function formatNumber(n) {
+      // format number 1000000 to 1,234,567
+      return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    }
+
+
+    function formatCurrency(input, blur) {
+      // appends $ to value, validates decimal side
+      // and puts cursor back in right position.
+
+      // get input value
+      var input_val = input.val();
+
+      // don't validate empty input
+      if (input_val === "") {
+        return;
+      }
+
+      // original length
+      var original_len = input_val.length;
+
+      // initial caret position 
+      var caret_pos = input.prop("selectionStart");
+
+      // check for decimal
+      if (input_val.indexOf(".") >= 0) {
+
+        // get position of first decimal
+        // this prevents multiple decimals from
+        // being entered
+        var decimal_pos = input_val.indexOf(".");
+
+        // split number by decimal point
+        var left_side = input_val.substring(0, decimal_pos);
+        var right_side = input_val.substring(decimal_pos);
+
+        // add commas to left side of number
+        left_side = formatNumber(left_side);
+
+        // validate right side
+        right_side = formatNumber(right_side);
+
+        // On blur make sure 2 numbers after decimal
+        if (blur === "blur") {
+          right_side += "00";
+        }
+
+        // Limit decimal to only 2 digits
+        right_side = right_side.substring(0, 2);
+
+        // join number by .
+        input_val = left_side + "." + right_side;
+
+      } else {
+        // no decimal entered
+        // add commas to number
+        // remove all non-digits
+        input_val = formatNumber(input_val);
+        input_val = input_val;
+
+        // final formatting
+        if (blur === "blur") {
+          input_val += ".00";
+        }
+      }
+
+      // send updated string to input
+      input.val(input_val);
+
+      // put caret back in the right position
+      var updated_len = input_val.length;
+      caret_pos = updated_len - original_len + caret_pos;
+      input[0].setSelectionRange(caret_pos, caret_pos);
+    }
+  </script>
 </body>
+
 </html>

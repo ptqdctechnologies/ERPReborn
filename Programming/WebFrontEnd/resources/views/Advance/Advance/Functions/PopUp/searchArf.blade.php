@@ -2,11 +2,11 @@
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <label class="card-title">Choose ARF</label>
+                <label class="card-title">Choose Advance Request</label>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -16,8 +16,8 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
-                                            <th>BUdget Code</th>
-                                            <th>BUdget Name</th>
+                                            <th>Budget Code</th>
+                                            <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
                                             <th>Sub Budget Name</th>
                                         </tr>
@@ -26,24 +26,24 @@
 
                                         @php $no = 1 @endphp
                                         @foreach($dataAdvanceRequest as $dataAdvanceRequests)
-                                            <tr>
-                                                <td>{{ $no++ }}</td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                                <td>
-                                                    <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['documentNumber']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['documentNumber']}}" data-id4="{{$dataAdvanceRequests['documentNumber']}}" data-id5="{{$dataAdvanceRequests['documentNumber']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
-                                                </td>
-                                            </tr>
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>
+                                                <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
+                                            </td>
+                                            <td>
+                                                <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
+                                            </td>
+                                            <td>
+                                                <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
+                                            </td>
+                                            <td>
+                                                <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
+                                            </td>
+                                            <td>
+                                                <p data-dismiss="modal" class="klikSearchArf" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
+                                            </td>
+                                        </tr>
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -72,74 +72,107 @@
 
             //Batas
             $("#advance_number").prop("disabled", true);
-            $("#requester").val("requester 1");
-            $("#managerAsfUid").val("Manager 1");
-            $("#managerAsfName").val("Manager Detail 1");
-            $("#currency").val("IDR");
-            $("#currencyCode").val("IDR");
-            $("#financeArfUtableBudgetBrfid").val("finance 1");
-            $("#financeArfName").val("Finance Detail 1");
-            $("#total").val("100000");
-            $("#totalDetail").val("Rp");
+            $("#requester").val($this.data("id1"));
+            $("#tableShowHideArfDetail").show();
 
             //End batas
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
-            var trano = $("#advance_number").val();
-            var product_id = "PRO-0001";
-            var product_name = "Besi";
-            var uom = "LS";
-            var price = "1,000,000";
-            var qty = "2";
-            var total = "2,000,000";
-            var currency = "Rp";
-            var description = "Test 1";
+            var advance_RefID = $this.data("id1");
+            var advance_number = $this.data("id2");
 
-            $("#productIdHide").val(product_id);
-            $("#nameMaterialHide").val(product_name);
-            $("#uomHide").val(uom);
-            $("#descriptionHide").val(description);
+            $.ajax({
+                type: "POST",
+                url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlementRequester") !!}?RequesterId=' + $("#requester").val(),
+                success: function(data) {
+                    if (data == "200") {
+                        $.ajax({
+                            type: "POST",
+                            url: '{!! route("AdvanceRequest.AdvanceListCartRevision") !!}?advance_RefID=' + advance_RefID,
+                            success: function(data) {
+
+                                $.each(data, function(key, value) {
+                                    $("#product_id2").prop("disabled", true);
+                                    var html =
+                                        '<tr>' +
+                                        '<td style="border:1px solid #e9ecef;width:5%;">' +
+                                        '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs AddToDetailSettlement" data-dismiss="modal" data-id1="' + advance_number + '" data-id2="' + value.quantity + '" data-id3="' + value.productUnitPriceCurrencyValue + '" data-id4="' + value.priceBaseCurrencyValue + '" data-id5="' + value.priceCurrencyISOCode + '" data-id6="' + value.quantityUnitName + '" data-id7="' + value.product_RefID + '" data-id8="' + value.productName + '" data-id9="' + value.remarks + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="18" alt="" title="Add"></button> ' +
+                                        '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
+                                        '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + value.productName + '">' +
+                                        '<input type="hidden" name="var_quantity[]" value="' + value.quantity + '">' +
+                                        '<input type="hidden" name="var_uom[]" value="' + value.quantityUnitName + '">' +
+                                        '<input type="hidden" name="var_price[]" value="' + value.productUnitPriceCurrencyValue + '">' +
+                                        '<input type="hidden" name="var_currency[]" value="' + value.priceCurrencyISOCode + '">' +
+                                        '<input type="hidden" name="var_combinedBudget[]" value="' + value.combinedBudgetSectionDetail_RefID + '">' +
+                                        '<input type="hidden" name="var_recordIDDetail[]" value="' + value.sys_ID + '">' +
+                                        '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' +
+                                        '<div class="progress progress-xs" style="height: 14px;border-radius:8px;"><div class="progress-bar bg-red" style="width:50%;"></div><small><center>50 %</center></small></div>' +
+                                        '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + advance_number + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.product_RefID + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.productName + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + 'N/A' + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.quantityUnitName + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.productUnitPriceCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.priceBaseCurrencyValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.priceCurrencyISOCode + '</td>' +
+                                        '<td style="border:1px solid #e9ecef;">' + value.remarks + '</td>' +
+                                        '</tr>';
+
+                                    $('table.tableArfDetail tbody').append(html);
+                                });
+
+                                $("body").on("click", ".AddToDetailSettlement", function() {
+                                    $("#tableShowHideArfDetail").find("input,button,textarea,select").attr("disabled", true);
+                                    $("#detailASF").show();
+
+                                    var $this = $(this);
+                                    $("#arf_number").val($this.data("id1"));
+                                    $("#arf_date").val("23-02-2021");
+                                    $("#qty_expense").val($this.data("id2").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                    $("#put_qty_expense").val($this.data("id2"));
+                                    $("#TotalQty").val($this.data("id2"));
+                                    $("#qty_expense2").val($this.data("id6"));
+                                    $("#price_expense").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                    $("#put_price_expense").val($this.data("id3"));
+                                    $("#price_expense2").val($this.data("id5"));
+                                    $("#total_expense").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                    $("#total_expense2").val($this.data("id5"));
+                                    $("#qty_amount").val("0.00");
+                                    $("#qty_amount2").val($this.data("id6"));
+                                    $("#price_amount").val("0.00");
+                                    $("#price_amount2").val($this.data("id5"));
+                                    $("#total_amount").val("0.00");
+                                    $("#total_amount2").val($this.data("id5"));
+
+                                    $("#total_arf").val($this.data("id4"));
+                                    $("#total_arf2").val($this.data("id5"));
+                                    $("#total_asf").val("500000");
+                                    $("#total_asf2").val($this.data("id5"));
+                                    $("#balance").val($this.data("id4").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                    $("#balance2").val($this.data("id5"));
 
 
-            var html = '<tr>'+
-                            '<td>'+'<center><a class="btn btn-sm addToDetailSettlement" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></a>'+'</td>'+
-                            '<td>'+'N/A'+'</td>'+
-                            '<td>'+trano+'</td>'+
-                            '<td>'+product_id+'</td>'+
-                            '<td>'+product_name+'</td>'+
-                            '<td>'+uom+'</td>'+
-                            '<td>'+price+'</td>'+
-                            '<td>'+qty+'</td>'+
-                            '<td>'+total+'</td>'+
-                            '<td>'+currency+'</td>'+
-                            '<td>'+description+'</td>'+
-                        '</tr>';
-            $('table.tableArfDetail tbody').append(html);
-        });
-    });
-</script>
+                                    $("#productIdHide").val($this.data("id7"));
+                                    $("#nameMaterialHide").val($this.data("id8"));
+                                    $("#descriptionHide").val($this.data("id9"));
 
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("body").on("click", ".addToDetailSettlement", function() {
-            $("#addAsfListCart").prop("disabled", false);
-            $(".detailASF").show();
-            $("#arf_number").val($('#advance_number').val());
-            $("#arf_date").val("23-02-2021");
-            $("#cfs_code").val("x");
-            $("#total_arf").val("1000000");
-            $("#total_arf2").val("IDR");
-            $("#total_asf").val("500000");
-            $("#total_asf2").val("IDR");
-            
-            $("#balance").val("500000");
-            $("#balance2").val("IDR");
-            $("#qty_expense2").val("Ls");
-            $("#price_expense2").val("IDR");
-            $("#total_expense2").val("IDR");
-            $("#qty_amount2").val("Ls");
-            $("#price_amount2").val("IDR");
-            $("#total_amount2").val("IDR");
+                                });
+
+                            },
+                        });
+                    } else {
+                        Swal.fire("Cancelled", "Please use same requester !", "error");
+                    }
+                },
+            });
 
         });
     });
@@ -151,7 +184,6 @@
             var price_expense = $(this).val();
             var qty_expense = $('#qty_expense').val();
             var total_expense = price_expense * qty_expense;
-            // var total_expense = parseFloat(price_expense * qty_expense).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             $("#total_expense").val(total_expense);
         });
     });
@@ -162,9 +194,7 @@
         $('#price_amount').keyup(function() {
             var price_amount = $(this).val();
             var qty_amount = $('#qty_amount').val();
-
             var total_amount = price_amount * qty_amount;
-            // var total_amount = parseFloat(price_amount * qty_amount).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
             $("#total_amount").val(total_amount);
         });
     });

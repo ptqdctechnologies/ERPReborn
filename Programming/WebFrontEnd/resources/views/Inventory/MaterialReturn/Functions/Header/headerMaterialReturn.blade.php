@@ -30,12 +30,12 @@
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                                 <tr>
                                     <td><label>Warehouse</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <select class="form-control warehouseMret" name="warehouseMret">
+                                            <select class="form-control warehouseMret" name="warehouseMret" id="warehouseMret">
                                                 <option selected="selected" value="">Select Warehouse</option>
                                                 <option value="Jakarta">Jakarta</option>
                                                 <option value="Bandung">Bandung</option>
@@ -48,11 +48,11 @@
                                     <td><label>Addres</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <textarea name="" id="address" cols="30" rows="4" class="form-control" readonly></textarea>
+                                            <textarea name="" id="address" cols="30" rows="2" class="form-control" readonly></textarea>
                                         </div>
                                     </td>
                                 </tr>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -77,11 +77,11 @@
                                     <td><label>DO Number</label></td>
                                     <td>
                                         <div class="input-group">
-                                            <input id="doNumberMret" style="border-radius:0;" name="doNumberMret" class="form-control">
+                                            <input id="DoNumberMret" style="border-radius:0;" name="DoNumberMret" class="form-control">
 
                                         </div>
                                     </td>
-                                </tr>                                
+                                </tr>
                                 <tr>
                                     <td><label>Delivery By</label></td>
                                     <td>
@@ -110,10 +110,12 @@
                                 </tr>
                             </table>
                         </div>
-                        <button type="reset" class="btn btn-danger btn-sm float-right" title="Reset">
-                            <i class="fa fa-times" aria-hidden="true">Reset</i>
+                        <a onclick="ResetMaterialReturn();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/reset.png') }}" width="13" alt="" title="Reset"> Reset
+                        </a>
+                        <button class="btn btn-default btn-sm float-right" id="addToDoDetail" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add"> Add
                         </button>
-                        <a class="btn btn-success btn-sm float-right" href="javascript:validateFormHeaderMret()"><i class="fas fa-plus" aria-hidden="true">Add</i></a>
                     </div>
                 </div>
             </div>

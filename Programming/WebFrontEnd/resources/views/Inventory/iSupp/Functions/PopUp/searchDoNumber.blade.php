@@ -61,6 +61,7 @@
             // $("#remarkiSupp2").val("Tagihan Listrik Infra media dinamika bulan Mei 2022.");
             $("#headerWarehouse2").val("Head Office Jakarta");
             $("#headerWarehouse3").val("Pasar Jatinegara");
+            $("#addToPoDetail").prop("disabled", false);
         });
     });
 </script>

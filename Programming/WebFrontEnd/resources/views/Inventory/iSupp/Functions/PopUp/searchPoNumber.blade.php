@@ -79,7 +79,7 @@
             $("#supplierCodeiSupp").val("VDR2279");
             $("#supplierCodeiSupp2").val("Infra Media Dinamika");
             $("#netActiSupp").val("");
-            // $("#remarkiSupp").val("Tagihan Listrik Infra media dinamika bulan Mei 2022.");
+            $("#addToPoDetail").prop("disabled", false);
         });
     });
 </script>

@@ -45,16 +45,16 @@
             let combinedBudget = $("#combinedBudget").val();
             let statusEditPr = $("#statusEditPr").val();
             if (statusEditPr == "Yes") {
-                
+
                 qtyCek = $('#ValidateQuantity').val().replace(/^\s+|\s+$/g, '');
                 priceCek = $("#ValidatePrice").val().replace(/^\s+|\s+$/g, '');
                 totalProcReqDetails = parseFloat(qtyCek * priceCek).toFixed(2);
                 putRemark = $("#putRemark2").val();
 
                 var html = '<tr>' +
-                    '<td>' +
-                    '&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '"><img src="AdminLTE-master/dist/img/delete.png" width="25" alt="" title="Remove" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> ' +
-                    '<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> ' +
+                    '<td style="border:1px solid #e9ecef;">' +
+                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                    '&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -63,16 +63,16 @@
                     '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                     '<input type="hidden" name="var_remark[]" value="' + putRemark + '">' +
-                            '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
+                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                     '</td>' +
-                    '<td>' + product_id + '</td>' +
-                    '<td>' + putProductName + '</td>' +
-                    '<td>' + qtyCek + '</td>' +
-                    '<td>' + putUom + '</td>' +
-                    '<td>' + priceCek + '</td>' +
-                    '<td>' + totalProcReqDetails + '</td>' +
-                    '<td>' + putCurrency + '</td>' +
-                    '<td>' + putRemark + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + putRemark + '</td>' +
                     '</tr>';
                 $('table.TablePurchaseRequisition tbody').append(html);
                 $("#statusEditPr").val("No");
@@ -126,6 +126,9 @@
             $("#putRemark").attr('required', true);
             $("#putRemark").css("border", "1px solid red");
         } else {
+            
+            $("#putRemark").css("border", "1px solid #ced4da");
+
             $.ajax({
                 type: "POST",
                 url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition") !!}?putProductId=' + $('#putProductId').val(),
@@ -147,9 +150,9 @@
                         var combinedBudget = $("#combinedBudget").val();
                         var putPrice = $('#putPrice').val();
                         var html = '<tr>' +
-                            '<td>' +
-                            '&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '"><img src="AdminLTE-master/dist/img/delete.png" width="25" alt="" title="Remove" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> ' +
-                            '<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"><img src="AdminLTE-master/dist/img/edit.png" width="25" alt="" title="Edit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></button> ' +
+                            '<td style="border:1px solid #e9ecef;width:7%;">' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                             '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -160,14 +163,14 @@
                             '<input type="hidden" name="var_remark[]" value="' + putRemark + '">' +
                             '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                             '</td>' +
-                            '<td>' + product_id + '</td>' +
-                            '<td>' + putProductName + '</td>' +
-                            '<td>' + qtyCek + '</td>' +
-                            '<td>' + putUom + '</td>' +
-                            '<td>' + priceCek + '</td>' +
-                            '<td>' + totalProcReqDetails + '</td>' +
-                            '<td>' + putCurrency + '</td>' +
-                            '<td>' + putRemark + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + priceCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + putRemark + '</td>' +
                             '</tr>';
                         $('table.TablePurchaseRequisition tbody').append(html);
                         $("#statusEditPr").val("No");
@@ -271,7 +274,7 @@
                 $("#qtyCek").css("border", "1px solid red");
             } else {
                 var totalReq = parseFloat(total2);
-                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2));
+                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#qtyCek").css("border", "1px solid #ced4da");
             }
         });
@@ -300,7 +303,7 @@
                 $("#priceCek").css("border", "1px solid red");
             } else {
                 var totalReq = total;
-                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2));
+                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#priceCek").css("border", "1px solid #ced4da");
             }
 
@@ -310,95 +313,95 @@
 
 <script>
     $(function() {
-      $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
-        e.preventDefault();
+        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
+            e.preventDefault();
 
-        var action = $(this).attr("action"); //get submit action from form
-        var method = $(this).attr("method"); // get submit method
-        var form_data = new FormData($(this)[0]); // convert form into formdata 
-        var form = $(this);
+            var action = $(this).attr("action"); //get submit action from form
+            var method = $(this).attr("method"); // get submit method
+            var form_data = new FormData($(this)[0]); // convert form into formdata 
+            var form = $(this);
 
 
-        const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-        })
+            const swalWithBootstrapButtons = Swal.mixin({
+                confirmButtonClass: 'btn btn-success btn-sm',
+                cancelButtonClass: 'btn btn-danger btn-sm',
+                buttonsStyling: true,
+            })
 
-        swalWithBootstrapButtons.fire({
+            swalWithBootstrapButtons.fire({
 
-            title: 'Are you sure?',
-            text: "Save this data?",
-            type: 'question',
+                title: 'Are you sure?',
+                text: "Save this data?",
+                type: 'question',
 
-            showCancelButton: true,
-            confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
-            cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
-            confirmButtonColor: '#e9ecef',
-            cancelButtonColor: '#e9ecef',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
+                showCancelButton: true,
+                confirmButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/save.png") }}" width="13" alt=""><span style="color:black;">Yes, save it </span>',
+                cancelButtonText: '<img src="{{ asset("AdminLTE-master/dist/img/cancel.png") }}" width="13" alt=""><span style="color:black;"> No, cancel </span>',
+                confirmButtonColor: '#e9ecef',
+                cancelButtonColor: '#e9ecef',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
 
-                $("#loading").show();
-                $(".loader").show();
-                
-                $.ajax({
-                    url: action,
-                    dataType: 'json', // what to expect back from the server
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: form_data,
-                    type: method,
-                    success: function(response) {
-                        
-                        $("#loading").hide();
-                        $(".loader").hide();
+                    $("#loading").show();
+                    $(".loader").show();
 
-                        swalWithBootstrapButtons.fire({
+                    $.ajax({
+                        url: action,
+                        dataType: 'json', // what to expect back from the server
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: method,
+                        success: function(response) {
 
-                            title: 'Successful !',
-                            type: 'success',
-                            html:'Data has been saved. Your transaction number iss '+'<span style="color:red;">'+response.advnumber+'</span>',
-                            showCloseButton: false,
-                            showCancelButton: false,
-                            focusConfirm: false,
-                            confirmButtonText:'<span style="color:black;"> Ok </span>',
-                            confirmButtonColor: '#4B586A',
-                            confirmButtonColor: '#e9ecef',
-                            reverseButtons: true
+                            $("#loading").hide();
+                            $(".loader").hide();
+
+                            swalWithBootstrapButtons.fire({
+
+                                title: 'Successful !',
+                                type: 'success',
+                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                showCloseButton: false,
+                                showCancelButton: false,
+                                focusConfirm: false,
+                                confirmButtonText: '<span style="color:black;"> Ok </span>',
+                                confirmButtonColor: '#4B586A',
+                                confirmButtonColor: '#e9ecef',
+                                reverseButtons: true
                             }).then((result) => {
-                            if (result.value) {
-                                $("#loading").show();
-                                $(".loader").show();
-                                window.location.href = '/PurchaseRequisition?var=1';
-                            }
-                        })
-                    },
-                    
-                    error: function(response) { // handle the error
-                        Swal.fire("Cancelled", "Data Cancel Inputed", "error");
-                    },
+                                if (result.value) {
+                                    $("#loading").show();
+                                    $(".loader").show();
+                                    window.location.href = '/PurchaseRequisition?var=1';
+                                }
+                            })
+                        },
 
-                })
+                        error: function(response) { // handle the error
+                            Swal.fire("Cancelled", "Data Cancel Inputed", "error");
+                        },
+
+                    })
 
 
-            } else if (
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire({
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
 
-                    title: 'Cancelled',
-                    text: "Process Canceled",
-                    type: 'error',
-                    confirmButtonColor: '#e9ecef',
-                    confirmButtonText: '<span style="color:black;"> Ok </span>',
+                        title: 'Cancelled',
+                        text: "Process Canceled",
+                        type: 'error',
+                        confirmButtonColor: '#e9ecef',
+                        confirmButtonText: '<span style="color:black;"> Ok </span>',
 
-                })
-            }
-        })
-      });
+                    })
+                }
+            })
+        });
 
     });
 </script>
