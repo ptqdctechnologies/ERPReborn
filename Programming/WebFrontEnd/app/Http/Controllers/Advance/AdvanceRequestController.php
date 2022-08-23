@@ -11,8 +11,7 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
-        
-        $request->session()->forget("SessionAdvance");
+        $request->session()->forget("SessionAdvance");       
         
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -101,7 +100,7 @@ class AdvanceRequestController extends Controller
             'latest', 
             [
             'entities' => [
-                "documentDateTimeTZ" => '2022-03-07',
+                "documentDateTimeTZ" => $input['var_date'],
                 "log_FileUpload_Pointer_RefID" => 91000000000001,
                 "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
                 "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,

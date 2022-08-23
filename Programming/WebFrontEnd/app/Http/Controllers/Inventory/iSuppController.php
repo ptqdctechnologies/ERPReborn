@@ -8,11 +8,6 @@ use App\Http\Controllers\Controller;
 
 class iSuppController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
@@ -36,28 +31,26 @@ class iSuppController extends Controller
             'var' => $var,
         ];
         return view('Inventory.iSupp.Transactions.createISupp', $compact);
-
     }
 
     public function StoreValidateiSupp(Request $request)
     {
-        $tamp = 0; $status = 200;
-        $val = $request->input('productiSuppDetail2');
+        $tamp = 0;
+        $status = 200;
+        $val = $request->input('productiSuppDetail');
         $data = $request->session()->get("SessioniSupp");
-        if($request->session()->has("SessioniSupp")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+        if ($request->session()->has("SessioniSupp")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $val) {
                     $tamp = 1;
                 }
             }
-            if($tamp == 0){
+            if ($tamp == 0) {
                 $request->session()->push("SessioniSupp", $val);
-            }
-            else{
+            } else {
                 $status = 500;
             }
-        }
-        else{
+        } else {
             $request->session()->push("SessioniSupp", $val);
         }
 
@@ -67,7 +60,7 @@ class iSuppController extends Controller
     public function StoreValidateiSupp2(Request $request)
     {
         $messages = $request->session()->get("SessioniSupp");
-        $val = $request->input('productiSuppDetail2');
+        $val = $request->input('productiSuppDetail');
         if (($key = array_search($val, $messages)) !== false) {
             unset($messages[$key]);
             $newClass = array_values($messages);
@@ -75,195 +68,57 @@ class iSuppController extends Controller
         }
     }
 
-    public function arflistcancel()
-    {
-        return redirect()->back();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        $data = json_decode($request->getContent(), true);
-        $dataAll = array();
+        // $input = $request->all();
+        // $count_product = count($input['var_product_id']);
 
-        foreach ($data as $i => $v) {
+        // $varAPIWebToken = $request->session()->get('SessionLogin');
 
-            array_push($dataAll, array(
-                'filenames' => $v['filenames']
-
-            ));
-        }
-        $data2 = json_decode($request->getContent(), true);
-        $dataAll2 = array();
-
-        foreach ($data2 as $i => $v) {
-
-            array_push($dataAll2, array(
-                'origin_budget' => $v['origin_budget'],
-                'projectcode' => $v['projectcode'],
-                'projectname' => $v['projectname'],
-                'subprojectc' => $v['subprojectc'],
-                'subprojectn' => $v['subprojectn'],
-                'beneficiary' => $v['beneficiary'],
-                'bank_name' => $v['bank_name'],
-                'account_name' => $v['account_name'],
-                'account_number' => $v['account_number'],
-                'internal_notes' => $v['internal_notes'],
-                'requestNameArf' => $v['requestNameArf'],
-                'putWorkId' => $v['putWorkId'],
-                'putWorkName' => $v['putWorkName'],
-                'putProductId' => $v['putProductId'],
-                'putProductName' => $v['putProductName'],
-                'putQty' => $v['putQty'],
-                'putQtys' => $v['putQtys'],
-                'putUom' => $v['putUom'],
-                'putPrice' => $v['putPrice'],
-                'putCurrency' => $v['putCurrency'],
-                'totalArfDetails' => $v['totalArfDetails'],
-                'putRemark' => $v['putRemark'],
-
-            ));
-            break;
-        }
-        return response()->json($dataAll2);
-    }
-
-    public function teststore(Request $request)
-    {
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $username,
-            $password
-        );
-        dd($varData);
-        return response()->json($varData['data']['optionList']);
-    }
-
-    public function teststore2(Request $request)
-    {
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIAuthentication(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            $username,
-            $password
-        );
-        return response()->json($varData['data']['optionList'][0]['userRole']);
-        // if ($varData = "Array") {
-        //     return response()->json(array(
-        //         'code'      =>  404,
-        //         'message'   =>  "hayyyy"
-        //     ), 404);
-        // } else {
-        //     return response()->json($varData['data']['optionList']);
+        // $advanceDetail = [];
+        // for ($n = 0; $n < $count_product; $n++) {
+        //     $advanceDetail[$n] = [
+        //         'entities' => [
+        //             "combinedBudgetSectionDetail_RefID" => (int) $input['var_combinedBudget'][$n],
+        //             "product_RefID" => (int) $input['var_product_id'][$n],
+        //             "quantity" => (float) $input['var_quantity'][$n],
+        //             "quantityUnit_RefID" => 73000000000001,
+        //             "productUnitPriceCurrency_RefID" => 62000000000001,
+        //             "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
+        //             "productUnitPriceCurrencyExchangeRate" => 1,
+        //             "remarks" => 'Catatan Detail'
+        //         ]
+        //     ];
         // }
 
-        // $this->validate($request, [
+        // $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+        //     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        //     $varAPIWebToken,
+        //     'transaction.create.finance.setAdvance',
+        //     'latest',
+        //     [
+        //         'entities' => [
+        //             "documentDateTimeTZ" => $input['var_date'],
+        //             "log_FileUpload_Pointer_RefID" => 91000000000001,
+        //             "requesterWorkerJobsPosition_RefID" => (int)$input['var_request_name_id'],
+        //             "beneficiaryWorkerJobsPosition_RefID" => 25000000000439,
+        //             "beneficiaryBankAccount_RefID" => 167000000000001,
+        //             "internalNotes" => 'My Internal Notes',
+        //             "remarks" => $input['var_remark'],
+        //             "additionalData" => [
+        //                 "itemList" => [
+        //                     "items" => $advanceDetail
+        //                 ]
+        //             ]
+        //         ]
+        //     ]
+        // );
 
-        //     'filenames' => 'required',
+        $compact = [
+            "advnumber" => "ADV-testing-00111",
+        ];
 
-        //     'filenames.*' => 'required'
-
-        // ]);
-
-
-
-        // return back()->with('success', 'Data Your files has been successfully added');
-    }
-
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-    public function tests(Request $request)
-    {
-        $data = json_decode($request->getContent(), true);
-
-        $dataAll = array();
-
-        foreach ($data as $i => $v) {
-            if ($v['lastWorkId'] == "") {
-                continue;
-            }
-            array_push($dataAll, array(
-                'lastWorkId' => $v['lastWorkId'],
-                'lastWorkName' => $v['lastWorkName'],
-                'lastProductId' => $v['lastProductId'],
-                'lastProductName' => $v['lastProductName'],
-                'lastQty' => $v['lastQty'],
-                'lastUom' => $v['lastUom'],
-                'lastPrice' => $v['lastPrice'],
-                'lastCurrency' => $v['lastCurrency'],
-                'totalArfDetails' => $v['totalArfDetails'],
-                'lastRemark' => $v['lastRemark'],
-
-            ));
-        }
-        dd($dataAll);
-        // return view('ProcurementAndCommercial.Transactions.ARF.createARF');
+        return response()->json($compact);
     }
 
     public function revisionDorIndex(Request $request)
@@ -292,8 +147,7 @@ class iSuppController extends Controller
             $totalBoq = "200000";
             $requestTotal = "200000";
             $balance = "200000";
-        }
-        else if ($request->searchDorNumberRevision == 'Q000182') {
+        } else if ($request->searchDorNumberRevision == 'Q000182') {
             $project = "Project Code 2";
             $projectDetail = "Project Detail 2";
             $site = "Site Code 2";
@@ -317,8 +171,7 @@ class iSuppController extends Controller
             $totalBoq = "200000";
             $requestTotal = "200000";
             $balance = "200000";
-        }
-        else if ($request->searchDorNumberRevision == 'Q000183') {
+        } else if ($request->searchDorNumberRevision == 'Q000183') {
             $project = "Project Code 3";
             $projectDetail = "Project Detail 3";
             $site = "Site Code 3";
@@ -355,10 +208,10 @@ class iSuppController extends Controller
                 'parameter' => []
             ]
         );
-        
+
         $data = $varData['data'];
 
 
-        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance','data'));
+        return view('Inventory.DeliveryOrderRequest.Transactions.createDor', compact('project', 'projectDetail', 'site', 'siteDetail', 'beneficary', 'bank', 'accountNumber', 'accountName', 'internal', 'requester', 'workId', 'productId', 'workIdDetail', 'productIdDetail', 'qty', 'qtyDetail', 'unitPrice', 'unitPriceDetail', 'total', 'remark', 'totalBoq', 'requestTotal', 'balance', 'data'));
     }
 }

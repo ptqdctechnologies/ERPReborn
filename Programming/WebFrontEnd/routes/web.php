@@ -121,6 +121,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // ASF
     Route::post('StoreValidateAdvanceSettlement', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement')->name('AdvanceSettlement.StoreValidateAdvanceSettlement');
     Route::post('StoreValidateAdvanceSettlement2', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlement2')->name('AdvanceSettlement.StoreValidateAdvanceSettlement2');
+    Route::post('StoreValidateAdvanceSettlementRequester', 'Advance\AdvanceSettlementController@StoreValidateAdvanceSettlementRequester')->name('AdvanceSettlement.StoreValidateAdvanceSettlementRequester');
     Route::post('RevisionAdvanceSettlement', 'Advance\AdvanceSettlementController@RevisionAdvanceSettlementIndex')->name('AdvanceSettlement.RevisionAdvanceSettlement');
     Route::resource('AdvanceSettlement', 'Advance\AdvanceSettlementController');
 
@@ -177,13 +178,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     //iSupp
     Route::post('StoreValidateiSupp', 'Inventory\iSuppController@StoreValidateiSupp')->name('iSupp.StoreValidateiSupp');
     Route::post('StoreValidateiSupp2', 'Inventory\iSuppController@StoreValidateiSupp2')->name('iSupp.StoreValidateiSupp2');
-    Route::get('iSupp', 'Inventory\iSuppController@index')->name('iSupp.index');
+    Route::resource('iSupp', 'Inventory\iSuppController');
 
     // MRET
-    Route::get('createMret', 'procurementTransactionMret@index')->name('MRET.index');
-    Route::post('MRET/store', 'procurementTransactionMret@store')->name('MRET.store');
-    Route::post('revisionMRETIndex', 'procurementTransactionMret@revisionMret')->name('MRET.revisionMRET');
-
+    Route::post('StoreValidateiMaterialReturn', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn')->name('MaterialReturn.StoreValidateiMaterialReturn');
+    Route::post('StoreValidateiMaterialReturn2', 'Inventory\MaterialReturnController@StoreValidateiMaterialReturn2')->name('MaterialReturn.StoreValidateiMaterialReturn2');
+    Route::post('revisionMRETIndex', 'Inventory\MaterialReturnController@revisionMret')->name('MRET.revisionMRET');
+    Route::resource('MaterialReturn', 'Inventory\MaterialReturnController');
 
 
 

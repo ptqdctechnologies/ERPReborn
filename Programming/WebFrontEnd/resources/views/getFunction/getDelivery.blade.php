@@ -39,7 +39,7 @@
                                             <td>{{ $no++ }}</td>
                                             <td>
                                                 <span class="tag tag-success">
-                                                    <p data-dismiss="modal" id="klikTableDelivery" data-name="Delivery Name {{ $i }}">Delivery Name {{$i}}</p>
+                                                    <p data-dismiss="modal" class="klikTableDelivery" data-name="Delivery Name {{ $i }}">Delivery Name {{$i}}</p>
                                                 </span>
                                             </td>
                                         </tr>
@@ -59,31 +59,10 @@
     |----------------------------------------------------------------------------------|-->
 <script>
 
-    // $("#klikTableDelivery").on('click', function(e) {
-    //     e.preventDefault(); // in chase you change to a link or button
-    //     var $this = $(this);
-    //     var nama = $this.data("name");
-    //     $("#delivery").val(nama);
-    // });
-    function searchDeliveryName() {
-        // Declare variables
-        var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("name_delivery");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("tableDelivery");
-        tr = table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[1];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
+    $(".klikTableDelivery").on('click', function(e) {
+        e.preventDefault(); // in chase you change to a link or button
+        var $this = $(this);
+        var nama = $this.data("name");
+        $("#delivery").val(nama);
+    });
 </script>

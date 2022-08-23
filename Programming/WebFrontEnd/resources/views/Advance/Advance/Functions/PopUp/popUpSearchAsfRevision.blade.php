@@ -1,4 +1,4 @@
-<div id="mySearchArfRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="mySearchAsfRevision" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -28,19 +28,19 @@
                                             <tr>
                                                 <td>{{ $no++ }}</td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['documentNumber']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudget_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetName']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}</p>
                                                 </td>
                                                 <td>
-                                                    <p data-dismiss="modal" class="klikSearchArfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
+                                                    <p data-dismiss="modal" class="klikSearchAsfRevision" data-id1="{{$dataAdvanceRequests['sys_ID']}}" data-id2="{{$dataAdvanceRequests['documentNumber']}}" data-id3="{{$dataAdvanceRequests['combinedBudgetSection_RefID']}}">{{$dataAdvanceRequests['combinedBudgetSectionName']}}</p>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -54,20 +54,17 @@
         </div>
     </div>
 </div>
-<!--|----------------------------------------------------------------------------------|
-    |                            End Function My Project Code                          |
-    ----------------------------------------------------------------------------------|-->
 
 <script>
     $(function() {
-        $(".klikSearchArfRevision").on('click', function(e) {
+        $(".klikSearchAsfRevision").on('click', function(e) {
             e.preventDefault();
             var $this = $(this);
             var id = $this.data("id1");
             var code = $this.data("id2");
             var sitecode = $this.data("id3");
-            $("#searchArfNumberRevisionId").val(id);
-            $("#searchArfNumberRevisions").val(code);
+            $("#searchAsfNumberRevisionId").val(id);
+            $("#searchAsfNumberRevisions").val(code);
             
         });
     });

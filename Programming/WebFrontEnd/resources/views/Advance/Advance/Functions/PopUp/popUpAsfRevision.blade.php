@@ -1,36 +1,41 @@
-<div id="asfNumberPopUp" class="modal fade" role="dialog" style="margin-top: 250px;">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<div id="popUpAdvanceSettlementRevision" class="modal fade" role="dialog" aria-hidden="true" style="margin-top: 180px;margin-left:6px;">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content" style="width:90%;">
             <div class="modal-header">
                 <div class="modal-body">
-                    <form action="{{ route('ASF.revisionAsf') }}" method="post">
-                        @csrf
-                        <div class="card">
-                            <div class="card-body">
+                    <span style="font-size: 15px;position:relative;left:18%;font-weight:bold;">ADVANCE SETTLEMENT REVISION</span><br><br><br>
+                    <form action="{{ route('AdvanceSettlement.RevisionAdvanceSettlement') }}" method="post">
+                    @csrf
+                        <div class="card" style="margin-left: 8%;">
+                            <div class="card-body"> 
                                 <div class="form-group">
                                     <table>
                                         <tr>
-                                            <td><label style="margin-left: 85px;">ASF Number</label></td>
+                                            <td><label>Revision Number&nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input required="" id="searchAsfNumberRevision" style="border-radius:0;" name="searchArfNumberRevision" type="text" class="form-control">
+                                                    <input id="searchAsfNumberRevisionId" style="border-radius:0;" name="searchAsfNumberRevisionId" type="hidden" class="form-control">
+                                                    <input id="siteCodeRevAsfBefore" style="border-radius:0;" name="siteCodeRevArfBefore" class="form-control" type="hidden">
+                                                    <input required="" id="searchAsfNumberRevisions" style="border-radius:0;" name="searchAsfNumberRevisions" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
-                                                            <a href="#"><i data-toggle="modal" data-target="#mySearchAsf" class="fas fa-gift" style="color:grey;"></i></a>
+                                                            <a data-toggle="modal" data-target="#mySearchAsfRevision"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>
                                                         </span>
                                                     </div>
                                                 </div>
                                             </td>
+
+                                            
                                         </tr>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-outline btn-success btn-sm" style="margin-left: 180px;">
-                            <i class="fa fa-pencil" aria-hidden="true">Edit</i>
+                        <button type="submit" class="btn btn-sm" style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
                         </button>
-                        <button type="reset" class="btn btn-outline btn-danger btn-sm">
-                            <i class="fa fa-time" aria-hidden="true">cancel</i>
+                        <button type="reset" class="btn btn-sm" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                            <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Edit"> Cancel
                         </button>
                     </form>
                 </div>
@@ -39,3 +44,6 @@
         </div>
     </div>
 </div>
+<!--|----------------------------------------------------------------------------------|
+    |                            End Function Sub Project Code                         |
+    |----------------------------------------------------------------------------------|-->

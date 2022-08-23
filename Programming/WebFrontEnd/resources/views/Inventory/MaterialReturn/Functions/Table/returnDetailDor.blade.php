@@ -1,18 +1,22 @@
-<div class="card-body table-responsive p-0">
-    <table id="tableDetailDorMret" class="table table-head-fixed text-nowrap table-striped" id="arfTableDisableEnable">
+<div class="card-body table-responsive p-0" style="height: 180px;" id="tableShowHideMaterialReturn">
+    <table class="table table-head-fixed text-nowrap table-striped tableDetailDoMret">
         <thead>
             <tr>
-                <th>Action</th>
-                <th>Work Id</th>
-                <th>Work Name</th>
-                <th>Product Id</th>
-                <th>Product Name</th>
-                <th>Description</th>
-                <th>Qty</th>
-                <th>Uom</th>
-                <th>Price</th>
-                <th>Currency</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Id</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work Name</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Id</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product Name</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Uom</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Price</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Description</th>
             </tr>
         </thead>
-        </table>
-        </div>
+        <tbody>
+
+        </tbody>
+
+    </table>
+</div>

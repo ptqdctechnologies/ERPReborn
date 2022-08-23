@@ -113,27 +113,25 @@
                         </button>
                       </div>
                     </div>
-
-
                     <div class="card-body table-responsive p-0" id="detailTransAvail">
-                      <table class="table table-head-fixed text-nowrap" style="text-align: center;">
+                      <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
                         <thead>
                           <tr>
-                            <th>Product Id</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Uom</th>
-                            <th>Unit Price</th>
-                            <th>Currency</th>
-                            <th>Total</th>
-                            <th>Remark</th>
-                            <th>Balance</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:15%;border:1px solid #e9ecef;">Product Id</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:20%;border:1px solid #e9ecef;">Product Name</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Qty</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Uom</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Unit Price</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:5%;border:1px solid #e9ecef;">Currency</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Total</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Remark</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Balance</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <td>
+                          <td style="border:1px solid #e9ecef;">
                             <div class="input-group">
-                              &nbsp;<input id="putProductId" style="border-radius:0;width:100px;" class="form-control" readonly>
+                              &nbsp;<input id="putProductId" style="border-radius:0;" class="form-control" readonly>
                               <div class="input-group-append">
                                 <span style="border-radius:0;" class="input-group-text form-control">
                                   <a href="#"><i id="product_id2" data-toggle="modal" data-target="#myProductArf" class="fas fa-gift" style="color:grey;"></i></a>
@@ -141,42 +139,41 @@
                               </div>
                             </div>
                           </td>
-                          <td>
+                          <td style="border:1px solid #e9ecef;">
                             <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-                          <td>
-                            <input id="qtyCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
+                          <td style="border:1px solid #e9ecef;">
+                            <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off">
                             <span id="putQtybyId"></span>
                             <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
-                          <td>
-                            <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          <td style="border:1px solid #e9ecef;">
+                            <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-                          <td>
-                            <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off">
+                          <td style="border:1px solid #e9ecef;">
+                            <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off">
                             <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
-                          <td>
-                            <input id="putCurrency" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
+                          <td style="border:1px solid #e9ecef;">
+                            <input id="putCurrency" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-                          <td>
+                          <td style="border:1px solid #e9ecef;">
                             <input id="totalProcReqDetails" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-                          <td>
+                          <td style="border:1px solid #e9ecef;">
                             <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
                             <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
-                          <td>
+                          <td style="border:1px solid #e9ecef;">
                             <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
-                          <td>
-                            <!-- Untuk Validasi -->
-                            <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
-                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
-                          </td>
+                          <!-- Untuk Validasi -->
+                          <input id="statusEditPr" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                          <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                          <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                         </tbody>
                       </table>
+                      <br>
                       <div style="padding-right:10px;">
                         <a class="btn btn-default btn-sm float-right CancelDetailPurchaseRequisition" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
                           <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Purchase Requisition List Cart"> Cancel
@@ -207,18 +204,18 @@
                     </div>
 
                     <div class="card-body table-responsive p-0" id="detailPurchaseRequisitionList">
-                      <table class="table table-head-fixed text-nowrap TablePurchaseRequisition">
+                      <table class="table table-head-fixed text-nowrap table-sm TablePurchaseRequisition" style="text-align: center;">
                         <thead>
                           <tr>
-                            <th>&nbsp;Action</th>
-                            <th>Product Id</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Uom</th>
-                            <th>Price</th>
-                            <th>Total</th>
-                            <th>Currency</th>
-                            <th>Remark</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">&nbsp;Action</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Product Id</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Product Name</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Qty</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Uom</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Price</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Total</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Currency</th>
+                            <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;">Remark</th>
                           </tr>
                         </thead>
                         <tbody>
