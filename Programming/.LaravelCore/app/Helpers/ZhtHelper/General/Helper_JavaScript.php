@@ -174,27 +174,133 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-        public static function getSyntaxCreateDOM_Input($varUserSession, $varArrayProperties)
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Div                                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Div                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Div($varUserSession, $varArrayProperties, string $varContent)
             {
             $varReturn = '';
-            $varSignValid = \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties);
-            if ($varSignValid == TRUE)
-                {
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
                 for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
-                    $varReturn .= $varArrayProperties['ID'].'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
-                    }
-                $varReturn = 
-                    'var '.$varArrayProperties['ID'].' = document.createElement(\'input\'); '.
-                    ''.$varArrayProperties['ID'].'.id = \''.$varArrayProperties['ID'].'\'; '.
-                    ''.$varArrayProperties['ID'].'.setAttribute(\'type\', \'text\'); '.
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
-                        ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
-                        ).
-                    $varReturn.
-                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
-                        $varArrayProperties['ParentID'].'.appendChild('.$varArrayProperties['ID'].'); '
-                        );                
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }                
                 }
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'div\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> innerHTML
+                $varObjectID.'.innerHTML = \''.$varContent.'\'; '.
+
+                    
+                    
+//                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
+//                    ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
+//                    ).
+                    
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_InputText                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Input Text                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_InputText($varUserSession, $varArrayProperties)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'input\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                ''.$varArrayProperties['ID'].'.setAttribute(\'type\', \'text\'); '.
+                //---> value
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
+                    ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
+                    ).
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
+
             return $varReturn;
             }
 
@@ -236,63 +342,6 @@ namespace App\Helpers\ZhtHelper\General
 
             $varReturn = 
                 'var '.$varObjectID.' = document.createElement(\'table\');'.
-                //---> set ID
-                $varObjectID.'.id = \''.$varObjectID.'\'; '.
-                //---> content
-                $varContent.
-                //---> style
-                $varReturn.                
-                //---> appendChild
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
-                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
-                    ).
-                //---> remove ID
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
-                    $varObjectID.'.removeAttribute(\'id\'); ').
-                ''
-                ;
-
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSyntaxCreateDOM_TableHead                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-18                                                                                           |
-        | ▪ Creation Date   : 2022-08-18                                                                                           |
-        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table Head                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
-        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
-        |        Example :                                                                                                         |
-        |           ► []                                                                                                           |
-        |           ► [ 'ID' => 'MyID' ]                                                                                           |
-        |           ► [ 'ID' => 'MyID',                                                                                            |
-        |               'ParentID' => ... ,                                                                                        |
-        |               'Style' => [                                                                                               |
-        |                     ['...', ...]                                                                                         |
-        |                  ]                                                                                                       |
-        |             ]                                                                                                            |
-        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getSyntaxCreateDOM_TableHead($varUserSession, array $varArrayProperties, string $varContent)
-            {
-            $varReturn = '';
-            $varObjectID = (
-                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
-                    'TempObject' : 
-                    $varArrayProperties['ID']
-                );
-
-            $varReturn = 
-                'var '.$varObjectID.' = document.createElement(\'thead\');'.
                 //---> set ID
                 $varObjectID.'.id = \''.$varObjectID.'\'; '.
                 //---> content
@@ -372,6 +421,140 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableData                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-16                                                                                           |
+        | ▪ Creation Date   : 2022-08-16                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table TD                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'ColSpan' => ... ,                                                                                         |
+        |               'RowSpan' => ... ,                                                                                         |
+        |               'Style' => [                                                                                               |
+        |                     ['backgroundColor', ...],                                                                            |
+        |                     ['color', ...],                                                                                      |
+        |                     ['fontFamily', ...],                                                                                 |
+        |                     ['whiteSpace', ...],                                                                                 |
+        |                     ['fontSize', ...],                                                                                   |
+        |                     ['textAlign', ...],                                                                                  |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableData($varUserSession, array $varArrayProperties, string $varContent)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'td\'); '.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> colspan
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ColSpan', $varArrayProperties) == FALSE) ? '' : 
+                    $varObjectID.'.colSpan = '.$varArrayProperties['ColSpan'].'; '
+                    ).
+                //---> rowspan
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'RowSpan', $varArrayProperties) == FALSE) ? '' : 
+                    $varObjectID.'.rowSpan = '.$varArrayProperties['RowSpan'].'; '
+                    ).
+                //---> style
+                $varReturn.
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                '';
+           
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_TableHead                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-18                                                                                           |
+        | ▪ Creation Date   : 2022-08-18                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table Head                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_TableHead($varUserSession, array $varArrayProperties, string $varContent)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'var '.$varObjectID.' = document.createElement(\'thead\');'.
+                //---> set ID
+                $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                //---> content
+                $varContent.
+                //---> style
+                $varReturn.                
+                //---> appendChild
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                    ).
+                //---> remove ID
+                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                    $varObjectID.'.removeAttribute(\'id\'); ').
+                ''
+                ;
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxCreateDOM_TableRow                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -423,87 +606,6 @@ namespace App\Helpers\ZhtHelper\General
                 ''
                 ;
 
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSyntaxCreateDOM_TableData                                                                         |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-16                                                                                           |
-        | ▪ Creation Date   : 2022-08-16                                                                                           |
-        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Table TD                                                   |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
-        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
-        |        Example :                                                                                                         |
-        |           ► []                                                                                                           |
-        |           ► [ 'ID' => 'MyID' ]                                                                                           |
-        |           ► [ 'ID' => 'MyID',                                                                                            |
-        |               'ParentID' => ... ,                                                                                        |
-        |               'ColSpan' => ... ,                                                                                         |
-        |               'RowSpan' => ... ,                                                                                         |
-        |               'Style' => [                                                                                               |
-        |                     ['backgroundColor', ...],                                                                            |
-        |                     ['color', ...],                                                                                      |
-        |                     ['fontFamily', ...],                                                                                 |
-        |                     ['whiteSpace', ...],                                                                                 |
-        |                     ['fontSize', ...],                                                                                   |
-        |                     ['textAlign', ...],                                                                                  |
-        |                     ['...', ...]                                                                                         |
-        |                  ]                                                                                                       |
-        |             ]                                                                                                            |
-        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getSyntaxCreateDOM_TableData($varUserSession, array $varArrayProperties, string $varContent)
-            {
-            $varReturn = '';
-            $varObjectID = (
-                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
-                    'TempObject' : 
-                    $varArrayProperties['ID']
-                );
-
-            for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
-                $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
-                }
-            $varReturn = 
-                'var '.$varObjectID.' = document.createElement(\'td\'); '.
-                //---> set ID
-                $varObjectID.'.id = \''.$varObjectID.'\'; '.
-                //---> content
-                $varContent.
-//                $varObjectID.'.appendChild(document.createTextNode('.
-//                    $varContent.
-//                    ')); '.
-//                $varObjectID.'.appendChild(document.createTextNode(\''.$varContent.'\')); '.
-//                $varObjectID.'.appendChild(document.createTextNode('.$varContent.')); '.
-//                $varObjectID.'.appendChild(document.createTextNode('.self::setEscapeForEscapeSequenceOnSyntaxLiteral($varUserSession, $varContent).'); '.
-                //---> colspan
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ColSpan', $varArrayProperties) == FALSE) ? '' : 
-                    $varObjectID.'.colSpan = '.$varArrayProperties['ColSpan'].'; '
-                    ).
-                //---> rowspan
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'RowSpan', $varArrayProperties) == FALSE) ? '' : 
-                    $varObjectID.'.rowSpan = '.$varArrayProperties['RowSpan'].'; '
-                    ).
-                //---> style
-                $varReturn.
-                //---> appendChild
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
-                    $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
-                    ).
-                //---> remove ID
-                ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
-                    $varObjectID.'.removeAttribute(\'id\'); ').
-                '';
-           
             return $varReturn;
             }
 
@@ -575,7 +677,7 @@ namespace App\Helpers\ZhtHelper\General
                                 //'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
                                 '}'.
                             'catch(varError) {'.
-                                self::getSyntaxCreateDOM_Input(
+                                self::getSyntaxCreateDOM_InputText(
                                     $varUserSession, 
                                     [
                                         'ID' => 'zhtSysObjDOMText_'.$varUniqueID.'_MainData',
@@ -593,20 +695,7 @@ namespace App\Helpers\ZhtHelper\General
                                 'ObjScript.text = \''.
                                     self::setEscapeForEscapeSequenceOnSyntaxLiteral(
                                         $varUserSession, 
-                                        (
-/*                                        self::getSyntaxCreateDOM_Input(
-                                            $varUserSession, 
-                                            [
-                                                'ParentID' => 'document.body',
-                                                'ID' => 'MyVar',
-                                                'Value' => 'MyValue',
-                                                'Style' => [
-                                                    ['width', '100px'],
-                                                    ['height', '100px']
-                                                    ]
-                                            ]
-                                            ).*/
-                            
+                                        (                           
                                         //---> JSFunc_LockObject_...
                                         'function JSFunc_LockObject_'.$varUniqueID.'() {'.
                                             'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
@@ -874,6 +963,15 @@ namespace App\Helpers\ZhtHelper\General
                                                             ).
                                                         ').data.contentBase64'.
                                                     '); '.
+                                                self::getSyntaxCreateDOM_Div(
+                                                    $varUserSession, 
+                                                    [
+                                                        'ParentID' => 'document.body',
+                                                        'Style' => [
+                                                            ['position', 'absolute']
+                                                            ]
+                                                    ], 
+                                                    'xxxxxxxxxx').
                                                 '}'.
                                             'catch (varError) {'.
                                                 '}'.
