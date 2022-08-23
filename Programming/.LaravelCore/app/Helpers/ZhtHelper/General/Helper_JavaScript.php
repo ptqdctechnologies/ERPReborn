@@ -1260,14 +1260,16 @@ namespace App\Helpers\ZhtHelper\General
                                                                         ),
                                                                     ],
                                                                     (
-                                                                    'var varObjA = document.createElement(\'a\'); '.
-                                                                        'varObjA.href = \'javascript:'.
-                                                                            '(function(varFilePath, varMIME) {'.
-                                                                                    'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME); '.
-                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\');'.
-                                                                            '\'; '.
-                                                                        'varObjA.innerHTML = \'Preview\'; '.
-                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                                            'varObjA.href = \'javascript:'.
+                                                                                '(function(varFilePath, varMIME) {'.
+                                                                                        'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varMIME); '.
+                                                                                    '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\');'.
+                                                                                '\'; '.
+                                                                            'varObjA.innerHTML = \'Preview\'; '.
+                                                                        'varObjTTD.appendChild(varObjA); '.
+                                                                        '}'
                                                                     )
                                                                     ).
                                                                 self::getSyntaxCreateDOM_TableData(
@@ -1283,15 +1285,17 @@ namespace App\Helpers\ZhtHelper\General
                                                                         ),
                                                                     ],
                                                                     (
-                                                                    'var varObjA = document.createElement(\'a\'); '.
-                                                                        'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
-                                                                        'varObjA.href = \'javascript:'.
-                                                                            '(function(varFilePath, varMIME, varFileName) {'.
-                                                                                    'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
-                                                                                '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
-                                                                            '\'; '.
-                                                                        'varObjA.innerHTML = \'Download\'; '.
-                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                                            'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
+                                                                            'varObjA.href = \'javascript:'.
+                                                                                '(function(varFilePath, varMIME, varFileName) {'.
+                                                                                        'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
+                                                                                    '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
+                                                                                '\'; '.
+                                                                            'varObjA.innerHTML = \'Download\'; '.
+                                                                        'varObjTTD.appendChild(varObjA); '.
+                                                                        '}'
                                                                     )
                                                                     ).
                                                                 ''
