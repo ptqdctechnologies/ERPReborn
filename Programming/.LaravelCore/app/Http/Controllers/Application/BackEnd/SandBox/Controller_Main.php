@@ -14,6 +14,7 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testAja()
             {
+            echo phpinfo();
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 'xxx';
 
