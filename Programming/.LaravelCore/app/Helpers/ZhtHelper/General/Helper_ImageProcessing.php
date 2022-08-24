@@ -16,7 +16,7 @@ namespace App\Helpers\ZhtHelper\General
     | ▪ Description : Menangani Image Processing                                                                                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class Helper_Hash
+    class Helper_ImageProcessing
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -55,6 +55,60 @@ namespace App\Helpers\ZhtHelper\General
         */
         public function __destruct()
             {
+            }
+
+
+        public static function setConvertFromContent($varUserSession, $varData, int $varMaxEdgeSize = null, string $varImageFormat = null)
+            {
+            if (!$varMaxEdgeSize) {
+                $varMaxEdgeSize = 300;
+                }
+
+            if (!$varImageFormat) {
+                $varImageFormat = 'png24';
+                }
+                
+            $ObjImagick = new \Imagick();
+            $ObjImagick->readImageBlob($varData);
+
+            //---> Image Resize
+            $varOriginalWidth = $ObjImagick->getImageWidth();
+            $varOriginalHeight = $ObjImagick->getImageHeight();
+            if($varOriginalWidth > $varOriginalHeight) {
+                $varSizeCoefficient = $varMaxEdgeSize / $varOriginalWidth;
+                }
+            else {
+                $varSizeCoefficient = $varMaxEdgeSize / $varOriginalHeight;
+                }
+            $varNewWidth = $varOriginalWidth * $varSizeCoefficient;
+            $varNewHeight = $varOriginalHeight * $varSizeCoefficient;
+
+/*
+            echo '<br>'.$varOriginalWidth;
+            echo '<br>'.$varOriginalHeight;
+            echo '<br>'.$varSizeCoefficient;
+            echo '<br>'.$varNewWidth;
+            echo '<br>'.$varNewHeight;
+*/
+            
+            $ObjImagick->setResolution(300, 300);
+            $ObjImagick->scaleImage($varNewWidth, $varNewHeight);
+            $ObjImagick->setImageCompressionQuality(100);
+            
+            
+//            $varImageFormat = 'jpg';
+            $varImageFormat = 'png24';
+            $ObjImagick->setImageFormat($varImageFormat);
+            
+            $varNewData = $ObjImagick->getimageblob();
+
+//           header('Content-type: image/jpeg');
+
+            
+//           header('Content-type: image/png');
+//            echo $ObjImagick;
+
+            dd($varNewData);
             }
         }
     }
