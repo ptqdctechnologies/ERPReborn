@@ -130,6 +130,31 @@ RUN apt-get install -y \
       gd
 
 
+#---> PHP Extension : File Converter
+RUN apt-get install -y \
+   libreoffice \
+   ghostscript \
+   imagemagick \
+   build-essential \
+   libmagickwand-dev
+
+RUN pecl install imagick \
+   && docker-php-ext-enable imagick
+
+#   && docker-php-ext-install \
+#      php-imagick \
+#   && apt-get install -y \
+#      aptitude \
+#   && aptitude install -y \
+#      php-imagick \
+#   && apt-get install -y \
+#      php7-imagick \
+#   && aptitude -y install \
+#      imagemagick \
+#   && aptitude -y install \
+#      libmagickcore-dev
+
+
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
 #RUN chmod 0644 /etc/cron.d/cronLaravel \

@@ -145,7 +145,7 @@ echo '<div style="position: relative; z-index: 3">Hello world</div>';
                 '}'
                 ); 
             echo "<br><button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
-            dd($varJQueryFunction);
+            //dd($varJQueryFunction);
             }
         }
     }

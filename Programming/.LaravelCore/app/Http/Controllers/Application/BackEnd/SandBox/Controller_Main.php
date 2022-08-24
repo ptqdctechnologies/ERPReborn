@@ -14,9 +14,32 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testAja()
             {
+ //           echo phpinfo();
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 'xxx';
 
+            \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::setConvertFromContent(
+                    $varUserSession, 
+                    (new \App\Models\CloudStorage\System\General())->getFileContent(
+                        $varUserSession,
+                        'Archive/92000000000132/12000000000158'
+                        //'Archive/92000000000131/12000000000157'
+                        //'Archive/92000000000097/12000000000108'
+                        ),
+                    300,
+                    'png24'
+                    );
+
+/*
+$varDataBAse64 = (new \App\Models\CloudStorage\System\General())->getFileContent(
+    $varUserSession, 
+    'Archive/92000000000097/12000000000108'
+    );
+dd($varDataBAse64);
+*/
+
+
+/*
             $MyObjMinIOClient = new \Aws\S3\S3Client([
                 'version' => 'latest',
                 'region' => \App\Helpers\ZhtHelper\System\Helper_Environment::getLaravelEnvironment('MINIO_REGION'),
@@ -33,9 +56,9 @@ $varAPIWebToken = 'xxx';
                 ]);
             $x = (string) $varResult['Body'];
             //$x = $varResult['Body'];
-
+*/
             
-            dd($x);
+            //dd($x);
 
 /*        $x = str_replace(
             '"', 
@@ -52,6 +75,8 @@ $varAPIWebToken = 'xxx';
                 '}'
                 )
             );*/
+            
+/*
 $x1 = 
 \App\Helpers\ZhtHelper\General\Helper_JavaScript::setEscapeForEscapeSequenceOnSyntaxLiteral(
     $varUserSession, 
@@ -98,7 +123,7 @@ $x =
 ;
 
         dd($x);
-            
+*/
 /*            
  $curl= curl_init();
  curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
@@ -220,7 +245,7 @@ xhttp.send();
             //echo $NewValue;
             
             //var_dump(\App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System());
-            echo "~~~~~~~~~~~~~~~~~~~";
+ //           echo "~~~~~~~~~~~~~~~~~~~";
             }
 
         public function testHTMLDOM()
