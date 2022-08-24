@@ -829,6 +829,7 @@ return array(
     'Illuminate\\Broadcasting\\PendingBroadcast' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php',
     'Illuminate\\Broadcasting\\PresenceChannel' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/PresenceChannel.php',
     'Illuminate\\Broadcasting\\PrivateChannel' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/PrivateChannel.php',
+    'Illuminate\\Broadcasting\\UniqueBroadcastEvent' => $vendorDir . '/laravel/framework/src/Illuminate/Broadcasting/UniqueBroadcastEvent.php',
     'Illuminate\\Bus\\Batch' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/Batch.php',
     'Illuminate\\Bus\\BatchFactory' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/BatchFactory.php',
     'Illuminate\\Bus\\BatchRepository' => $vendorDir . '/laravel/framework/src/Illuminate/Bus/BatchRepository.php',

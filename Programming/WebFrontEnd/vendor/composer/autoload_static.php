@@ -1314,6 +1314,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Illuminate\\Broadcasting\\PendingBroadcast' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/PendingBroadcast.php',
         'Illuminate\\Broadcasting\\PresenceChannel' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/PresenceChannel.php',
         'Illuminate\\Broadcasting\\PrivateChannel' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/PrivateChannel.php',
+        'Illuminate\\Broadcasting\\UniqueBroadcastEvent' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Broadcasting/UniqueBroadcastEvent.php',
         'Illuminate\\Bus\\Batch' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Bus/Batch.php',
         'Illuminate\\Bus\\BatchFactory' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Bus/BatchFactory.php',
         'Illuminate\\Bus\\BatchRepository' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Bus/BatchRepository.php',
