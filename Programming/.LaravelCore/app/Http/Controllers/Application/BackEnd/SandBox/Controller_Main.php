@@ -18,7 +18,8 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 $varAPIWebToken = 'xxx';
 
-            \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::setConvertFromContent(
+/*
+            \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
                     $varUserSession, 
                     (new \App\Models\CloudStorage\System\General())->getFileContent(
                         $varUserSession,
@@ -27,8 +28,33 @@ $varAPIWebToken = 'xxx';
                         //'Archive/92000000000097/12000000000108'
                         ),
                     300,
-                    'png24'
+                    300
                     );
+*/
+            
+/*
+            \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
+                    $varUserSession, 
+                    (new \App\Models\CloudStorage\System\General())->getFileContent(
+                        $varUserSession,
+                        'Archive/92000000000133/12000000000159'
+                        //'Archive/92000000000131/12000000000157'
+                        //'Archive/92000000000097/12000000000108'
+                        ),
+                    300,
+                    300
+                    );
+*/
+
+$x = \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
+    $varUserSession,
+    (new \App\Models\CloudStorage\System\General())->getFileContent(
+        $varUserSession,
+        'Archive/92000000000134/12000000000160'
+        )
+    );
+//dd();
+
 
 /*
 $varDataBAse64 = (new \App\Models\CloudStorage\System\General())->getFileContent(
