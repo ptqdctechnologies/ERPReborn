@@ -5382,6 +5382,8 @@ return array(
     'Monolog\\Utils' => $vendorDir . '/monolog/monolog/src/Monolog/Utils.php',
     'MyCLabs\\Enum\\Enum' => $vendorDir . '/myclabs/php-enum/src/Enum.php',
     'MyCLabs\\Enum\\PHPUnit\\Comparator' => $vendorDir . '/myclabs/php-enum/src/PHPUnit/Comparator.php',
+    'NcJoes\\OfficeConverter\\OfficeConverter' => $vendorDir . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverter.php',
+    'NcJoes\\OfficeConverter\\OfficeConverterException' => $vendorDir . '/ncjoes/office-converter/src/OfficeConverter/OfficeConverterException.php',
     'Nette\\ArgumentOutOfRangeException' => $vendorDir . '/nette/utils/src/exceptions.php',
     'Nette\\DeprecatedException' => $vendorDir . '/nette/utils/src/exceptions.php',
     'Nette\\DirectoryNotFoundException' => $vendorDir . '/nette/utils/src/exceptions.php',
