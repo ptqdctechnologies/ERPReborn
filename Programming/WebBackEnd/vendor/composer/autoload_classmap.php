@@ -53,6 +53,7 @@ return array(
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+    'App\\Helpers\\ZhtHelper\\General\\Helper_ImageProcessing' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_ImageProcessing.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JQuery' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JQuery.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JSON' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JSON.php',
     'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => $baseDir . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',

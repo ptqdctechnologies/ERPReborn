@@ -508,6 +508,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPAuthentication' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_HTTPAuthentication.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_HTTPHeader' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_HTTPHeader.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Hash' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Hash.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_ImageProcessing' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_ImageProcessing.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JQuery' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JQuery.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JSON' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JSON.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
