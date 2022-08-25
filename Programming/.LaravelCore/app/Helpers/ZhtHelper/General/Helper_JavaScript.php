@@ -200,19 +200,23 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview($varUserSession, $varID)
+        public static function getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview($varUserSession, string $varAPIWebToken, $varID)
             {
             $varStyle_TableDataStyle = [
                 ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
                 ['fontWeight', 'bold'],
+                ['valign', 'top'],
                 ['color', '#ffffff'],
                 ['fontSize', '12px'],
                 ['textShadow', '2px 2px 5px #000000']
                 ];
             $varReturn = 
                 'varObjTemp = '.
-                    'function (varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                        //'alert(varName); '.
+                    'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                        'var varFilePathArray = varFilePath.split(\'/\'); '.
+                        'var varThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
+
+                        //'alert(varThumbnailsFolderPath); '.
                         'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
@@ -512,7 +516,7 @@ namespace App\Helpers\ZhtHelper\General
                                     ['left', '5px'],
                                     ['height', '400px'],
                                     ['width', '400px'],
-                                    ['background', 'blue']
+//                                    ['background', 'blue']
 //                                    ['background', 'rgba(bb, bb, 00, 1.0)']
                                     ]
                             ], 
@@ -521,16 +525,50 @@ namespace App\Helpers\ZhtHelper\General
                         'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
 
                         //---> Dialog ---> DialogPreviewPlcHod ---> DialogContentPlcHold ---> DialogContentDefaultImage
+                    
+                        'varThumbnailsFilePath = varThumbnailsFolderPath + \'/0000000000.png\'; '.
+                        'varImageSource = ('.
+                            'JSON.parse('.                           
+                                str_replace(
+                                    '"', 
+                                    '\'', 
+                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                        $varUserSession, 
+                                        $varAPIWebToken, 
+                                        'fileHandling.upload.combined.general.getFileContent', 
+                                        'latest', 
+                                        '{'.
+                                            '"parameter" : {'.
+                                                '"filePath" : varThumbnailsFilePath'.
+                                                '}'.
+                                        '}'
+                                        )
+                                    ).
+                                ').data.contentBase64'.
+                            '); '.
+                        
+                        'if(varImageSource == null) {'.
+                            'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                            '}'.
+                        'else {'.
+                            'varImageSource = \'data:image/png;base64, \' + varImageSource + \'\'; '.
+                            '}'.
                         self::getSyntaxCreateDOM_Image(
                             $varUserSession, 
                             [
-                                'ID' => $varID.'_DialogContentDefaultImage',
+                                'ID' => $varID.'_DialogContentThumbnailImage',
                                 'ParentID' =>  $varID.'_DialogContentPlcHold',
-                                'Height' => 400
+                                'Height' => 400,
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '50%'],
+                                    ['left', '50%'],
+                                    ]
                             ], 
-                            'images/Logo/AppObject_System/NoPreviewAvailable.jpg'
+                            'varImageSource'
                             ).
-                        'document.getElementById(\''.$varID.'_DialogContentDefaultImage'.'\').style.zIndex = (varMaxZIndex+5); '.
+                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+5); '.
+                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.transform = \'translate(-50%, -50%)\';'.
 
                         //---> Dialog ---> DialogPreviewPlcHod ---> DialogButtonPlcHold
                         self::getSyntaxCreateDOM_Div(
@@ -576,7 +614,7 @@ namespace App\Helpers\ZhtHelper\General
 
 
                     
-                        '} (varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                        '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
                         '';
             return $varReturn;
             }
@@ -758,7 +796,7 @@ namespace App\Helpers\ZhtHelper\General
                 $varObjectID.'.id = \''.$varObjectID.'\'; '.
                 //---> src
                 (!$varFilePath ? '' : 
-                    $varObjectID.'.src = \''.$varFilePath.'\'; '
+                    $varObjectID.'.src = '.$varFilePath.'; '
                     ).
                 //---> height
                 ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Height', $varArrayProperties) == FALSE) ? '' : 
@@ -1505,6 +1543,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     '); '.
                                                 self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
                                                     $varUserSession,
+                                                    $varAPIWebToken,
                                                     'ObjDivModalBox_'.$varUniqueID
                                                     ).
                                                 '}'.

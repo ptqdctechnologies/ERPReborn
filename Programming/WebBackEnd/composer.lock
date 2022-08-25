@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0217e004386977c673cdaa70e6e46fa4",
+    "content-hash": "0fd1cd7e33d94d89811f94597d12eb04",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.234.1",
+            "version": "3.234.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "0057dc79b832f456ed5eb20369a51f894b99a968"
+                "reference": "4e0edc577543d4c009c1a1b5d70d34f58b9f2e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/0057dc79b832f456ed5eb20369a51f894b99a968",
-                "reference": "0057dc79b832f456ed5eb20369a51f894b99a968",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/4e0edc577543d4c009c1a1b5d70d34f58b9f2e25",
+                "reference": "4e0edc577543d4c009c1a1b5d70d34f58b9f2e25",
                 "shasum": ""
             },
             "require": {
@@ -144,9 +144,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.234.2"
             },
-            "time": "2022-08-23T18:19:55+00:00"
+            "time": "2022-08-24T18:19:29+00:00"
         },
         {
             "name": "brick/math",
@@ -2724,6 +2724,55 @@
                 }
             ],
             "time": "2022-08-04T09:53:51+00:00"
+        },
+        {
+            "name": "ncjoes/office-converter",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ncjoes/office-converter.git",
+                "reference": "b0e549388380572e1cb1864283d83b819578e813"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ncjoes/office-converter/zipball/b0e549388380572e1cb1864283d83b819578e813",
+                "reference": "b0e549388380572e1cb1864283d83b819578e813",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.4"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.16",
+                "phpstan/phpstan": "^0.12.11",
+                "phpunit/phpunit": "7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "NcJoes\\OfficeConverter\\": "src/OfficeConverter"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chukwuemeka Nwobodo",
+                    "email": "jc.nwobodo@gmail.com"
+                }
+            ],
+            "description": "PHP Wrapper for LibreOffice",
+            "keywords": [
+                "converter",
+                "office"
+            ],
+            "support": {
+                "issues": "https://github.com/ncjoes/office-converter/issues",
+                "source": "https://github.com/ncjoes/office-converter/tree/v1.0.3"
+            },
+            "time": "2020-05-11T09:45:43+00:00"
         },
         {
             "name": "nesbot/carbon",

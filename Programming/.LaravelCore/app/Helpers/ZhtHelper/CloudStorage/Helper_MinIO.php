@@ -119,15 +119,15 @@ $s3Client = new \Aws\S3\S3Client([
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)   varUserSession ► User Session                                                                           |
-        |      ▪ (string)  varContentBase64 ► Content Base64                                                                       |
         |      ▪ (string)  varRemoteFilePath ► Destination File Path                                                               |
+        |      ▪ (string)  varContent ► Content Data                                                                               |
         |      ▪ (string)  varBucketName ► Bucket Name                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (boolean) varReturn                                                                                               | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function createFile($varUserSession, string $varContentBase64, string $varRemoteFilePath, string $varBucketName = null)
+        public static function createFile($varUserSession, string $varRemoteFilePath, string $varContent, string $varBucketName = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
@@ -135,24 +135,12 @@ $s3Client = new \Aws\S3\S3Client([
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
-                    echo "xxx";
-/*                    self::$ObjMinIO->putObject([
-                        'Bucket' => $varBucketName,
-                        'Key' => 'hello.txt',
-                        'Body' => "Hello World!"
-                        ]);*/
-                    $insert = self::$ObjMinIO->putObject([
-                        'Bucket' => ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)),
-                        'Key'    => 'testkey',
-                        'Body'   => 'Hello from MinIO!!'
+                    self::init($varUserSession);
+                    self::$ObjMinIOClient->putObject([
+                        'Bucket' => self::$varBucketName,
+                        'Key' => $varRemoteFilePath,
+                        'Body'   => $varContent
                         ]);
-                    echo "xxx";
-                    dd($insert);
-//                    if(self::isFileExist($varUserSession, $varRemoteFilePath) == false)
-//                        {
-//                        throw new \Exception('File is not exist');
-//                        }
-//                    self::$ObjMinIO->delete($varRemoteFilePath);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     $varReturn = true;
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
