@@ -1986,5 +1986,43 @@ namespace App\Models\Database\SchData_OLTP_Master
                 );
             return $varReturn['Data'][0]['Func_General_GetFileExtensionOfMIME'];
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getIDOfMIME                                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
+        | ▪ Creation Date   : 2022-08-26                                                                                           |
+        | ▪ Description     : Get ID Of MIME                                                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varMIME ► MIME Type                                                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getIDOfMIME($varUserSession, string $varMIME)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-Master.Func_General_GetIDOfMIME',
+                        [
+                            [$varMIME, 'varchar']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'][0]['Func_General_GetIDOfMIME'];
+                } 
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
         }
     }
