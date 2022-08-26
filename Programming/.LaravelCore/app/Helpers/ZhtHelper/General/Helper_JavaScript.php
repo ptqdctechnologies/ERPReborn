@@ -211,11 +211,131 @@ namespace App\Helpers\ZhtHelper\General
                 ['textShadow', '2px 2px 5px #000000']
                 ];
             $varReturn = 
-                'varObjTemp = '.
+//                'varObjTemp = '.
                     'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
                         'var varFilePathArray = varFilePath.split(\'/\'); '.
                         'var varThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
 
+                        //---> zhtInnerFunc_CloseDivModal
+                        'function zhtInnerFunc_CloseDivModal(varObj) {'.
+                            'varNothing = '.
+                                'function() {'.
+                                    'varObj.parentNode.removeChild(varObj);'.
+                                    '} (); '.
+                            '}; '.
+
+                        //---> zhtInnerFunc_RecreateThumbnails
+                        'function zhtInnerFunc_RecreateThumbnails(varFilePath) {'.
+                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                            'var ObjButton = document.getElementById(\''.$varID.'_DialogRecreateButton\'); '.
+                            'ObjButton.style.visibility = \'hidden\'; '.
+                            'ObjButton.style.display = \'none\'; '.
+                            'if(ObjButton.style.display === \'none\') {'.
+                                'varNothing = ('.
+                                    'JSON.parse('.                           
+                                        str_replace(
+                                            '"', 
+                                            '\'', 
+                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                $varUserSession, 
+                                                $varAPIWebToken, 
+                                                'fileHandling.upload.combined.general.thumbnails.create', 
+                                                'latest', 
+                                                '{'.
+                                                    '"parameter" : {'.
+                                                        '"filePath" : varFilePath'.
+                                                        '}'.
+                                                '}'
+                                                )
+                                            ).
+                                        ').data'.
+                                    '); '.
+                                'ObjButton.style.visibility = \'visible\'; '.
+                                'ObjButton.style.display = \'block\'; '.
+                                '}'.
+//                            'alert(\'done : \' + varFilePath); '.
+                            '}; '.
+                    
+                        //---> zhtInnerFunc_ShowThumbnails
+                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath) {'.
+                            'varThumbnailsMainData = ('.
+                                'JSON.parse('.                           
+                                    str_replace(
+                                        '"', 
+                                        '\'', 
+                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.upload.combined.general.thumbnails.isExist', 
+                                            'latest', 
+                                            '{'.
+                                                '"parameter" : {'.
+                                                    '"folderPath" : varFilePath'.
+                                                    '}'.
+                                            '}'
+                                            )
+                                        ).
+                                    ').data'.
+                                '); '.
+//                            'alert(varThumbnailsFolderPath); '.
+                            'alert(JSON.stringify(varThumbnailsMainData)); '.
+                    
+                    
+                    
+                    
+                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/0000000000.png\'; '.
+                            'varImageSource = ('.
+                                'JSON.parse('.                           
+                                    str_replace(
+                                        '"', 
+                                        '\'', 
+                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                            $varUserSession, 
+                                            $varAPIWebToken, 
+                                            'fileHandling.upload.combined.general.getFileContent', 
+                                            'latest', 
+                                            '{'.
+                                                '"parameter" : {'.
+                                                    '"filePath" : varThumbnailsFilePath'.
+                                                    '}'.
+                                            '}'
+                                            )
+                                        ).
+                                    ').data.contentBase64'.
+                                '); '.
+                            'if(varImageSource == null) {'.
+                                'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                                '}'.
+                            'else {'.
+                                'varImageSource = \'data:image/png;base64, \' + varImageSource + \'\'; '.
+                                '}'.
+                            'varObjImage = new Image(); '.
+                            'varObjImage.src = varImageSource; '.
+                            'varObjImage.onload = function() {'.
+                                'varObjImageWidth = varObjImage.naturalWidth; '.
+                                'varObjImageHeight = varObjImage.naturalHeight; '.
+                                'if(varObjImage.naturalWidth > varObjImage.naturalHeight) {'.
+                                    'varSizeFactor = 400/varObjImage.naturalWidth; '.
+                                    '}'.
+                                'else {'.
+                                    'varSizeFactor = 400/varObjImage.naturalHeight; '.
+                                    '}'.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = varSizeFactor * varObjImage.naturalWidth; '.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = varSizeFactor * varObjImage.naturalHeight; '.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
+                    
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varSizeFactor * varObjImage.naturalWidth; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varSizeFactor * varObjImage.naturalHeight; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
+                                '}; '.
+                            //'alert(varImageSource); '.
+                            '}; '.
+                    
                         //'alert(varThumbnailsFolderPath); '.
                         'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
                         self::getSyntaxCreateDOM_Div(
@@ -262,11 +382,11 @@ namespace App\Helpers\ZhtHelper\General
 //                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.border = \'2px solid #ffff00\'; '.
 //                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
 
-                        //---> Dialog ---> DialogPreviewPlcHod
+                        //---> Dialog ---> DialogPreviewPlcHold
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
                             [
-                                'ID' => $varID.'_DialogPreviewPlcHod',
+                                'ID' => $varID.'_DialogPreviewPlcHold',
                                 'ParentID' =>  $varID.'_Dialog',
                                 'Style' => [
                                     ['position', 'absolute'],
@@ -279,10 +399,10 @@ namespace App\Helpers\ZhtHelper\General
                             ], 
                             ''
                             ).
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHod'.'\').style.zIndex = (varMaxZIndex+2); '.
-//                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHod'.'\').style.transform = \'translate(-50%, -50%)\';'.
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHod'.'\').style.border = \'2px solid #ffff00\'; '.
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHod'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
+                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.zIndex = (varMaxZIndex+2); '.
+//                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.transform = \'translate(-50%, -50%)\';'.
+                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.border = \'2px solid #ffff00\'; '.
+                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
 
                         //---> Dialog ---> DialogIdentityPlcHod
                         self::getSyntaxCreateDOM_Div(
@@ -476,12 +596,12 @@ namespace App\Helpers\ZhtHelper\General
 
 
 
-                        //---> Dialog ---> DialogPreviewPlcHod ---> DialogTitlePlcHold
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogTitlePlcHold
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogTitlePlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHod',
+                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
                                 'Style' => [
                                     ['position', 'absolute'],
                                     ['top', '0px'],
@@ -504,12 +624,12 @@ namespace App\Helpers\ZhtHelper\General
                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'align\', \'center\'); '.
                         'document.getElementById(\''.$varID.'_DialogTitlePlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
 
-                        //---> Dialog ---> DialogPreviewPlcHod ---> DialogContentPlcHold
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogContentPlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHod',
+                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
                                 'Style' => [
                                     ['position', 'absolute'],
                                     ['top', '35px'],
@@ -523,41 +643,34 @@ namespace App\Helpers\ZhtHelper\General
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
-
-                        //---> Dialog ---> DialogPreviewPlcHod ---> DialogContentPlcHold ---> DialogContentDefaultImage
                     
-                        'varThumbnailsFilePath = varThumbnailsFolderPath + \'/0000000000.png\'; '.
-                        'varImageSource = ('.
-                            'JSON.parse('.                           
-                                str_replace(
-                                    '"', 
-                                    '\'', 
-                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                        $varUserSession, 
-                                        $varAPIWebToken, 
-                                        'fileHandling.upload.combined.general.getFileContent', 
-                                        'latest', 
-                                        '{'.
-                                            '"parameter" : {'.
-                                                '"filePath" : varThumbnailsFilePath'.
-                                                '}'.
-                                        '}'
-                                        )
-                                    ).
-                                ').data.contentBase64'.
-                            '); '.
-                        
-                        'if(varImageSource == null) {'.
-                            'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
-                            '}'.
-                        'else {'.
-                            'varImageSource = \'data:image/png;base64, \' + varImageSource + \'\'; '.
-                            '}'.
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack
+                        self::getSyntaxCreateDOM_Div(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogContentPlcHoldBack',
+                                'ParentID' =>  $varID.'_DialogContentPlcHold',
+                                'Style' => [
+                                    ['position', 'absolute'],
+                                    ['top', '30px'],
+                                    ['left', '30px'],
+                                    ['height', '400px'],
+                                    ['width', '400px'],
+                                    ['background', 'white']
+                                    ]
+                            ], 
+                            ''
+                            ).
+                        'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
+                    
+                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                    
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
                         self::getSyntaxCreateDOM_Image(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogContentThumbnailImage',
-                                'ParentID' =>  $varID.'_DialogContentPlcHold',
+                                'ParentID' =>  $varID.'_DialogContentPlcHoldBack',
                                 'Height' => 400,
                                 'Style' => [
                                     ['position', 'absolute'],
@@ -567,15 +680,15 @@ namespace App\Helpers\ZhtHelper\General
                             ], 
                             'varImageSource'
                             ).
-                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+5); '.
+                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+6); '.
                         'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.transform = \'translate(-50%, -50%)\';'.
 
-                        //---> Dialog ---> DialogPreviewPlcHod ---> DialogButtonPlcHold
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogButtonPlcHold',
-                                'ParentID' =>  $varID.'_DialogPreviewPlcHod',
+                                'ParentID' =>  $varID.'_DialogPreviewPlcHold',
                                 'Style' => [
                                     ['position', 'absolute'],
                                     ['top', '440px'],
@@ -589,16 +702,89 @@ namespace App\Helpers\ZhtHelper\General
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
-//                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'display\', \'table-cell\'); '.
                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'align\', \'center\'); '.
-//                        'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'vertical-align\', \'middle\'); '.
                     
-                        //---> Dialog ---> DialogPreviewPlcHod ---> DialogButtonPlcHold ---> DialogCloseButton
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogActionTable
+                        self::getSyntaxCreateDOM_Table(
+                            $varUserSession, 
+                            [
+                            'ID' => $varID.'_DialogActionTable',
+                            'ParentID' => $varID.'_DialogButtonPlcHold',
+                            'Style' => [
+                                ['position', 'relative'],
+                                ['top', '50%'],
+                                ]
+//                            'Style' => $varStyle_TableAction
+                            ],
+                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
+                                [
+                                    'ID' => $varID.'_DialogActionTableHead',
+                                    'ParentID' => $varID.'_DialogActionTable'
+                                ],
+                                ''
+                                ).
+                            self::getSyntaxCreateDOM_TableBody($varUserSession, 
+                                [
+                                    'ID' => $varID.'_DialogActionTableBody',
+                                    'ParentID' => $varID.'_DialogActionTable'
+                                ],
+                                (
+                                self::getSyntaxCreateDOM_TableRow(
+                                    $varUserSession, 
+                                    [
+                                    'ID' => 'varObjTTR',
+                                    'ParentID' => $varID.'_DialogActionTableBody'
+                                    ],
+                                    (
+                                    //---> Recreate Button
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varID.'_ObjTTDRecreateButton',
+                                        'ParentID' => 'varObjTTR',
+                                        'Style' => $varStyle_TableDataStyle,
+                                        ],
+                                        ''
+                                        ).
+                                    //---> Close Button
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varID.'_ObjTTDCloseButton',
+                                        'ParentID' => 'varObjTTR',
+                                        'Style' => $varStyle_TableDataStyle,
+                                        ],
+                                        ''
+                                        )
+                                    ))
+                                ))
+                            ).
+//                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
+                    
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
+                        self::getSyntaxCreateDOM_Button(
+                            $varUserSession, 
+                            [
+                                'ID' => $varID.'_DialogRecreateButton',
+                                'ParentID' => $varID.'_ObjTTDRecreateButton',
+                                'Style' => [
+                                    ['position', 'relative'],
+                                    ['top', '50%'],
+                                    ]
+                            ], 
+                            'Recreate',
+                            'function() {'.
+                                'zhtInnerFunc_RecreateThumbnails(varFilePath); '.
+                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                                '}'
+                            ).
+                    
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogCloseButton
                         self::getSyntaxCreateDOM_Button(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogCloseButton',
-                                'ParentID' => $varID.'_DialogButtonPlcHold',
+                                'ParentID' => $varID.'_ObjTTDCloseButton',
                                 'Style' => [
                                     ['position', 'relative'],
                                     ['top', '50%'],
@@ -606,12 +792,9 @@ namespace App\Helpers\ZhtHelper\General
                             ], 
                             'Close',
                             'function() {'.
-                                'document.getElementById(\''.$varID.'_Back'.'\').parentNode.removeChild(document.getElementById(\''.$varID.'_Back'.'\'));'.
-//                                'alert(\'xxxxxxxxxxxxx\');'.
+                                'zhtInnerFunc_CloseDivModal(document.getElementById(\''.$varID.'_Back'.'\')); '.
                                 '}'
                             ).
-                        'document.getElementById(\''.$varID.'_DialogCloseButton'.'\').style.transform = \'translateY(-50%)\'; '.
-
 
                     
                         '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
@@ -1541,11 +1724,13 @@ namespace App\Helpers\ZhtHelper\General
                                                             ).
                                                         ').data.contentBase64'.
                                                     '); '.
-                                                self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
-                                                    $varUserSession,
-                                                    $varAPIWebToken,
-                                                    'ObjDivModalBox_'.$varUniqueID
-                                                    ).
+                                                'varNothing = '.
+                                                    self::getSyntaxCreateDOM_DivCustom_ModalBox_FilePreview(
+                                                        $varUserSession,
+                                                        $varAPIWebToken,
+                                                        'ObjDivModalBox_'.$varUniqueID
+                                                        ).
+                                                    '; '.
                                                 '}'.
                                             'catch (varError) {'.
                                                 '}'.

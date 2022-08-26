@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of fileHandling.upload.combined.general.createThumbnails (version 1)",
+"description": "JSON Request Schema of fileHandling.upload.combined.general.thumbnails.isExist (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "fileHandling.upload.combined.general.createThumbnails" ]
+                        "enum": [ "fileHandling.upload.combined.general.thumbnails.isExist" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -30,14 +30,14 @@
             "parameter": {
                 "type": "object",
                 "properties": {
-                    "filePath": {
+                    "folderPath": {
                         "type": [ "string", "null" ],
                         "minLength": 1,
                         "maxLength": 256
                         }
                     },
                 "required": [ 
-                    "filePath" 
+                    "folderPath" 
                     ]
                 }
             },

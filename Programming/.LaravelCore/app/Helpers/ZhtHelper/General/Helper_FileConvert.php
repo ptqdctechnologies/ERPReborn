@@ -68,10 +68,11 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan Data Konversi Office Data ke format PDF                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
-        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varData ► Data                                                                                           |
+        |      ▪ (string) varTempFileName ► Temporary File Name                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varPath                                                                                                  |
+        |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getConvertDataContent_OfficeToPDF($varUserSession, $varData, string $varTempFileName = null)
@@ -159,7 +160,7 @@ namespace App\Helpers\ZhtHelper\General
             
             
             
-
+/*
         public static function getConvertFile_OfficeToPDF($varUserSession, $varData)
             {
             $varFolderPath = 
@@ -192,7 +193,7 @@ namespace App\Helpers\ZhtHelper\General
 //            dd($varFilePath);
             echo "xxxx";
             }
-
+*/
 
         }
     }

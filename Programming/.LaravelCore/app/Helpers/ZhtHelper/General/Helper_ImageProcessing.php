@@ -68,10 +68,12 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan Data Konversi All Image ke format PNG                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
-        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varData ► Data                                                                                           |
+        |      ▪ (int)    varMaxEdgeSize ► Max Edge Size                                                                           |
+        |      ▪ (int)    varImageResolution ► Image Resolution                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varPath                                                                                                  |
+        |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getConvertDataContent_ImageToPNG($varUserSession, $varData, int $varMaxEdgeSize = null, int $varImageResolution = null)
@@ -88,6 +90,13 @@ namespace App\Helpers\ZhtHelper\General
             //---> Data Read
             $ObjImagick = new \Imagick();
             $ObjImagick->readImageBlob($varData);
+            
+            if($ObjImagick->getImageAlphaChannel() == FALSE) {
+                $varImageFormat = 'png24';
+                }
+            else {
+                //$ObjImagick->setBackgroundColor(new \ImagickPixel('transparent'));
+                }
 
             //---> Set Image Resize
             $varOriginalWidth = $ObjImagick->getImageWidth();
@@ -98,20 +107,22 @@ namespace App\Helpers\ZhtHelper\General
             else {
                 $varSizeCoefficient = $varMaxEdgeSize / $varOriginalHeight;
                 }
-            $ObjImagick->scaleImage(
-                $varOriginalWidth * $varSizeCoefficient, 
-                $varOriginalHeight * $varSizeCoefficient
-                );
+
 
             //---> Image Processing
             $ObjImagick->setImageFormat($varImageFormat);
             $ObjImagick->setResolution($varImageResolution, $varImageResolution);
-            $ObjImagick->setImageCompressionQuality(100);
+            $ObjImagick->scaleImage(
+                (int) ($varOriginalWidth * $varSizeCoefficient), 
+                (int) ($varOriginalHeight * $varSizeCoefficient)
+                );
+            //$ObjImagick->setImageCompressionQuality(100);
             $varReturn = $ObjImagick->getImageBlob();
 
             //---> Object Destroy
             $ObjImagick->clear();
             $ObjImagick->destroy();
+            unset($ObjImagick);
 
             //header('Content-type: image/png');
             //echo $varReturn;
@@ -130,10 +141,12 @@ namespace App\Helpers\ZhtHelper\General
         | ▪ Description     : Mendapatkan Data Konversi PDF ke format PNG                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (string) varPrefix ► Prefix Path                                                                                  |
-        |      ▪ (string) varPostfix ► Postfix Path                                                                                |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (mixed)  varData ► Data                                                                                           |
+        |      ▪ (int)    varMaxEdgeSize ► Max Edge Size                                                                           |
+        |      ▪ (int)    varImageResolution ► Image Resolution                                                                    |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varPath                                                                                                  |
+        |      ▪ (mixed)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getConvertDataContent_PDFToPNG($varUserSession, $varData, int $varMaxEdgeSize = null, int $varImageResolution = null)
@@ -150,6 +163,13 @@ namespace App\Helpers\ZhtHelper\General
             $ObjImagick = new \Imagick();
             $ObjImagick->readImageBlob($varData);
 
+            if($ObjImagick->getImageAlphaChannel() == FALSE) {
+                $varImageFormat = 'png24';
+                }
+            else {
+                //$ObjImagick->setBackgroundColor(new \ImagickPixel('transparent'));
+                }
+            
             $varReturn = [];
             for($i=0, $iMax=$ObjImagick->getNumberImages(); $i!=$iMax; $i++)
                 {
@@ -163,15 +183,17 @@ namespace App\Helpers\ZhtHelper\General
                 else {
                     $varSizeCoefficient = $varMaxEdgeSize / $varOriginalHeight;
                     }
-                $ObjImagick->scaleImage(
-                    $varOriginalWidth * $varSizeCoefficient, 
-                    $varOriginalHeight * $varSizeCoefficient
-                    );
 
                 //---> Image Processing
                 $ObjImagick->setImageFormat($varImageFormat);
                 $ObjImagick->setResolution($varImageResolution, $varImageResolution);
-                $ObjImagick->setImageCompressionQuality(100);
+                $ObjImagick->scaleImage(
+                    $varOriginalWidth * $varSizeCoefficient, 
+                    $varOriginalHeight * $varSizeCoefficient,
+                    FALSE,
+                    TRUE
+                    );
+                //$ObjImagick->setImageCompressionQuality(100);
                 $varReturn[count($varReturn)] = $ObjImagick->getImageBlob();
                 }
 

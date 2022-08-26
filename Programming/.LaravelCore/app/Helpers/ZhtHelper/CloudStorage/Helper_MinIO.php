@@ -547,8 +547,8 @@ $s3Client = new \Aws\S3\S3Client([
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFilesList                                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2022-07-26                                                                                           |
+        | ▪ Version         : 1.0000.0000003                                                                                       |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
         | ▪ Creation Date   : 2021-07-22                                                                                           |
         | ▪ Description     : Mendapatkan Daftar File                                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -570,22 +570,24 @@ $s3Client = new \Aws\S3\S3Client([
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     self::setBucketName($varUserSession, ($varBucketName ? $varBucketName : self::getBucketName($varUserSession)));
                     self::init($varUserSession);
-                    $varTemp = self::$ObjMinIOClient->listObjects(
+                    
+                    $varTemp = self::$ObjMinIOClient->getIterator(
+                        'ListObjects', 
                         [
-                        'Bucket' =>  self::$varBucketName
+                            "Bucket" => self::$varBucketName,
+                            "Prefix" => $varBaseFolder
                         ]
                         );
+            
                     $i = 0;
-                    foreach ($varTemp['Contents'] as $varTemp) {
-                        if(strcmp(substr($varTemp['Key'], 0, strlen($varBaseFolder)), $varBaseFolder)==0)
-                            {
-                            $varFilePart = explode('/', $varTemp['Key']);
-                            $varReturn[$i++] = [
-                                'Name' => $varFilePart[count($varFilePart)-1],
-                                'FullName' => $varTemp['Key']
-                                ];
-                            }
+                    foreach ($varTemp as $varTemp) {
+                        $varFilePart = explode('/', $varTemp['Key']);
+                        $varReturn[$i++] = [
+                            'Name' => $varFilePart[count($varFilePart)-1],
+                            'FullName' => $varTemp['Key']
+                            ];
                         }
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 

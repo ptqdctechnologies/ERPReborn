@@ -361,5 +361,44 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isThumbnailsExist                                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
+        | ▪ Creation Date   : 2022-08-26                                                                                           |
+        | ▪ Description     : Get Existantion Thumbnails                                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varID ► Record ID                                                                                        |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                | 
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isThumbnailsExist($varUserSession, int $varLog_FileUpload_ObjectDetail_RefID)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-DataAcquisition.Func_General_IsThumbnailsExist',
+                        [
+                            [$varLog_FileUpload_ObjectDetail_RefID, 'bigint']
+                        ]
+                        )
+                    );
+                return $varReturn['Data'][0]['Func_General_IsThumbnailsExist'];
+                } 
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+
         }
     }
