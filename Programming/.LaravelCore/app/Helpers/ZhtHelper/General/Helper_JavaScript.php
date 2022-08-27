@@ -258,9 +258,9 @@ namespace App\Helpers\ZhtHelper\General
                                 '}'.
 //                            'alert(\'done : \' + varFilePath); '.
                             '}; '.
-                    
-                        //---> zhtInnerFunc_ShowThumbnails
-                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath) {'.
+
+                        //---> zhtInnerFunc_GetThumbnailsMainData
+                        'function zhtInnerFunc_GetThumbnailsMainData() {'.
                             'varThumbnailsMainData = ('.
                                 'JSON.parse('.                           
                                     str_replace(
@@ -282,11 +282,13 @@ namespace App\Helpers\ZhtHelper\General
                                 '); '.
 //                            'alert(varThumbnailsFolderPath); '.
                             'alert(JSON.stringify(varThumbnailsMainData)); '.
+                            '}; '.
+
                     
-                    
-                    
-                    
-                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/0000000000.png\'; '.
+                        //---> zhtInnerFunc_ShowThumbnails
+                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, varIndex) {'.
+                            'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
+                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
                             'varImageSource = ('.
                                 'JSON.parse('.                           
                                     str_replace(
@@ -663,7 +665,7 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
                     
-                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1); '.
                     
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
                         self::getSyntaxCreateDOM_Image(
@@ -740,6 +742,16 @@ namespace App\Helpers\ZhtHelper\General
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
+                                        'ID' => $varID.'_ObjTTDPageSelect',
+                                        'ParentID' => 'varObjTTR',
+                                        'Style' => $varStyle_TableDataStyle,
+                                        ],
+                                        ''
+                                        ).
+                                    //---> Recreate Button
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
                                         'ID' => $varID.'_ObjTTDRecreateButton',
                                         'ParentID' => 'varObjTTR',
                                         'Style' => $varStyle_TableDataStyle,
@@ -760,6 +772,37 @@ namespace App\Helpers\ZhtHelper\General
                                 ))
                             ).
 //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
+
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
+                        'varDataArrayOption = []; '.
+                        'varNothing = '.
+                            self::getSyntaxCreateDOM_Select(
+                                $varUserSession, 
+                                [
+                                    'ID' => $varID.'_DialogPageSelect',
+                                    'ParentID' => $varID.'_ObjTTDPageSelect',
+                                    'Style' => [
+                                        ['position', 'relative'],
+                                        ['top', '50%'],
+                                        ]
+                                ], 
+                                'varDataArrayOption',
+                                [
+                                    ['1', 'Page 1'],
+                                    ['2', 'Page 2']
+                                ]
+                                ).
+                            '; '.
+                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+                            '\'change\', '.
+                            'function() {'.
+//                                'alert(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').value); '.
+                                'zhtInnerFunc_ShowThumbnails('.
+                                    'varThumbnailsFolderPath, '.
+                                    'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').value'.
+                                    '); '.
+                                '}, '.
+                            'true); '.
                     
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
                         self::getSyntaxCreateDOM_Button(
@@ -775,7 +818,7 @@ namespace App\Helpers\ZhtHelper\General
                             'Recreate',
                             'function() {'.
                                 'zhtInnerFunc_RecreateThumbnails(varFilePath); '.
-                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1); '.
                                 '}'
                             ).
                     
@@ -928,6 +971,96 @@ namespace App\Helpers\ZhtHelper\General
                 ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
                     $varObjectID.'.removeAttribute(\'id\'); ').
                 '';
+      
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Select                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-27                                                                                           |
+        | ▪ Creation Date   : 2022-08-27                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Select                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Select($varUserSession, $varArrayProperties, string $varArrayOptionName = null, array $varArrayOptionPHPOverride)
+            {
+            if(!$varArrayOptionName)
+                {
+                $varArrayOptionName = 'varDataArrayOption';
+                }
+            
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }                
+                }
+
+            //---> $varReturnOpt 
+            $varReturnOpt = '';
+            if(($iMax = count($varArrayOptionPHPOverride)) > 0)
+                {
+                $varReturnOpt = ''.$varArrayOptionName.' = []; ';
+                for($i=0; $i!=$iMax; $i++)
+                    {
+                    $varReturnOpt .= 
+                        $varArrayOptionName.'.push({'.
+                            'value: \''.$varArrayOptionPHPOverride[$i][0].'\','.
+                            'text: \''.$varArrayOptionPHPOverride[$i][1].'\''.
+                            '}); ';
+                    //$varReturnOpt .= 
+                    //    'ObjOpt = document.getElementById(\''.$varObjectID.'\').appendChild(document.createElement(\'option\')); ';
+                    }
+                }
+            $varReturnOpt .= 
+                'for (let i = 0; i < '.$varArrayOptionName.'.length; i++) {'.
+                    'var ObjOpt = document.createElement(\'option\'); '.
+                    'ObjOpt.value = ('.$varArrayOptionName.'[i]).value; '.
+                    'ObjOpt.text = ('.$varArrayOptionName.'[i]).text; '.
+                    $varObjectID.'.appendChild(ObjOpt); '.
+                    '}';
+                
+            $varReturn = 
+                'function('.$varArrayOptionName.') {'.
+                    'var '.$varObjectID.' = document.createElement(\'select\'); '.
+                    //---> set ID
+                    $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                    //---> style
+                    $varReturn.
+                    $varReturnOpt.
+                    //---> appendChild
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                        $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                        ).
+                    //---> remove ID
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                        $varObjectID.'.removeAttribute(\'id\'); ').
+                    '} ('.$varArrayOptionName.') ';
       
             return $varReturn;
             }
