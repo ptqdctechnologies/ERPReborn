@@ -796,7 +796,6 @@ namespace App\Helpers\ZhtHelper\General
                         'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
                             '\'change\', '.
                             'function() {'.
-//                                'alert(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').value); '.
                                 'zhtInnerFunc_ShowThumbnails('.
                                     'varThumbnailsFolderPath, '.
                                     'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').value'.
