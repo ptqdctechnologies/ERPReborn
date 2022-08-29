@@ -3,29 +3,28 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\general\thumbnails\create   |
-|                \v1                                                                                                               |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\thumbnails\isExist\v1       |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\general\thumbnails\create\v1
+namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\thumbnails\isExist\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : create                                                                                                       |
-    | ▪ Description : Menangani API fileHandling.upload.combined.general.thumbnails.create Version 1                               |
+    | ▪ Class Name  : isExist                                                                                                      |
+    | ▪ Description : Menangani API fileHandling.upload.combined.thumbnails.isExist Version 1                                      |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class create extends \App\Http\Controllers\Controller
+    class isExist extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-25                                                                                           |
-        | ▪ Creation Date   : 2022-08-25                                                                                           |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
+        | ▪ Creation Date   : 2022-08-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +43,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-25                                                                                           |
-        | ▪ Creation Date   : 2022-08-25                                                                                           |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
+        | ▪ Creation Date   : 2022-08-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,7 +67,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                                 $varUserSession,
                                 $this->dataProcessing(
                                     $varUserSession,
-                                    $varData['parameter']['filePath']
+                                    $varData['parameter']['folderPath']
                                     )
                                 );
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
@@ -97,8 +96,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-25                                                                                           |
-        | ▪ Creation Date   : 2022-08-25                                                                                           |
+        | ▪ Last Update     : 2022-08-26                                                                                           |
+        | ▪ Creation Date   : 2022-08-26                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -110,124 +109,34 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, string $varFilePath = null)
             {
-            //$varFilePath = 'Archive/92000000000132/12000000000158';
-            //$varFilePath = 'Archive/92000000000133/12000000000159';
+            //$varFilePath = 'StagingArea/1266/1110';
             //$varFilePath = 'Archive/92000000000134/12000000000160';
-            //$varFilePath = 'StagingArea/1257/1101';
+            $varArrayFilePath = explode('/', $varFilePath);
             
+            $varFolderPath = 'Thumbnails/'.$varArrayFilePath[0].'/'.$varArrayFilePath[2];
+            $varFilePath = $varFolderPath.'/0000000000.png';
             
-            $varFileContent = (new \App\Models\CloudStorage\System\General())->getFileContent($varUserSession, $varFilePath);
+            $varStatus = FALSE;
+            if(strcmp($varArrayFilePath[0], 'Archive')==0) {
+                $varStatus = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->isThumbnailsExist($varUserSession, $varArrayFilePath[2]);
+                }
+            elseif(strcmp($varArrayFilePath[0], 'StagingArea')==0) {
+                $varStatus = (new \App\Models\CloudStorage\System\General())->isFileExist($varUserSession, $varFilePath);
+                }
+                
+            $varFilesList = [];
+            if($varStatus == TRUE)
+                {
+                $varFilesList = (new \App\Models\CloudStorage\System\General())->getFilesList($varUserSession, $varFolderPath);
+                sort($varFilesList);
+                }
             
-            $varFileMIME = explode(
-                '/', 
-                \App\Helpers\ZhtHelper\General\Helper_File::getMIMEOfFileContent($varUserSession, $varFileContent)
-                );
-            //dd($varFileMIME);
-
-            //---> Convert Data ---> Image
-            if($varFileMIME[0] == 'image')
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
-                        $varUserSession, 
-                        (new \App\Models\CloudStorage\System\General())->getFileContent(
-                            $varUserSession,
-                            $varFilePath
-                            //'Archive/92000000000132/12000000000158'
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails[] = $varDataTemp;
-                }
-            //---> Convert Data ---> PDF
-            elseif (($varFileMIME[0] == 'application') && (($varFileMIME[1] == 'pdf')))
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
-                        $varUserSession, 
-                        (new \App\Models\CloudStorage\System\General())->getFileContent(
-                            $varUserSession,
-                            $varFilePath
-                            //'Archive/92000000000133/12000000000159'
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails = $varDataTemp;
-                }
-            //---> Convert Data ---> Office Document
-            elseif (($varFileMIME[0] == 'application') && (($varFileMIME[1] == 'vnd.openxmlformats-officedocument.wordprocessingml.document')))
-                {
-                $varDataTemp = 
-                    \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
-                        $varUserSession, 
-                        \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
-                            $varUserSession,
-                            (new \App\Models\CloudStorage\System\General())->getFileContent(
-                                $varUserSession,
-                                $varFilePath
-                                //'Archive/92000000000134/12000000000160'
-                                )
-                            ),
-                        400,
-                        300
-                        );
-                $varDataThumbnails = $varDataTemp;
-                }
-            else
-                {                
-                }
-
-
-            if(count($varDataThumbnails) > 0)
-                {
-                //---> Save Data
-                $varFilePathArray = explode(
-                    '/',
-                    $varFilePath
-                    );
-                $varFolderPathThumbnails = 
-                    'Thumbnails/'.
-                    (
-                    (strcmp($varFilePathArray[0], 'Archive')==0) ? 
-                        $varFilePathArray[0].'/'.$varFilePathArray[2] : 
-                        $varFilePathArray[0].'/'.$varFilePathArray[2]
-                    );
-
-
-                for($i=0, $iMax = count($varDataThumbnails); $i != $iMax; $i++)
-                    {
-                    $varFilePathThumbnails = $varFolderPathThumbnails.'/'.str_pad($i, 10, '0', STR_PAD_LEFT).'.png';
-                    //--->
-                    (new \App\Models\CloudStorage\System\General())->createFile(
-                        $varUserSession, 
-                        $varFilePathThumbnails, 
-                        $varDataThumbnails[$i]
-                        );
-                    //--->
-                    $varDataReturn[$i] = [
-                        'FilePath' => $varFilePathThumbnails
-                        ];
-                    }
-
-                if(strcmp($varFilePathArray[0], 'Archive') == 0)
-                    {
-                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\TblLog_FileUpload_Thumbnail())->setDataInsert(
-                        $varUserSession, 
-                        null, 
-                        null, 
-                        11000000000001, 
-                        null, 
-                        $varFilePathArray[2], 
-                        (new \App\Models\Database\SchData_OLTP_Master\General())->getIDOfMIME(
-                            $varUserSession, 
-                            $varFileMIME[0].'/'.$varFileMIME[1]
-                            ), 
-                        $iMax
-                        );                    
-                    }
-                }
+            $varDataReturn = [
+                'Status' => $varStatus,
+                'ThumbnailsFolderPath' => $varFolderPath,
+                'FilesCount' => count($varFilesList),
+                'FilesList' => $varFilesList
+                ];
 
             return $varDataReturn;
             }
