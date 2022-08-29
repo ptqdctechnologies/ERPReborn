@@ -257,7 +257,6 @@ namespace App\Helpers\ZhtHelper\General
                                 'ObjButton.style.visibility = \'visible\'; '.
                                 'ObjButton.style.display = \'block\'; '.
                                 '}'.
-//                            'alert(\'done : \' + varFilePath); '.
                             '}; '.
 
 
@@ -282,8 +281,6 @@ namespace App\Helpers\ZhtHelper\General
                                         ).
                                     ').data'.
                                 '); '.
-//                            'alert(varThumbnailsFolderPath); '.
-//                            'alert(JSON.stringify(varThumbnailsMainData)); '.
                             'return varThumbnailsMainData; '.
                             '}; '.
 
@@ -314,14 +311,14 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varObjDownloadLink.click(); '.
                                                 'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
  *  */
-//                            'alert(document.getElementById(\''.$varID.'_DialogPageSelect\')); '.
+//                            'alert(document.getElementById(\''.$varID.'_DialogPageSelect\').parent); '.
                             'if(document.getElementById(\''.$varID.'_DialogPageSelect\') == null) {'.
                                 'varNothing = '.
                                     self::getSyntaxCreateDOM_Select(
                                         $varUserSession, 
                                         [
                                             'ID' => $varID.'_DialogPageSelect',
-                                            'ParentID' => $varID.'_ObjTTDPageSelect',
+                                            'ParentID' => $varID.'_DialogActionTTD',
                                             'Style' => [
                                                 ['position', 'relative'],
                                                 ['top', '50%'],
@@ -795,26 +792,63 @@ namespace App\Helpers\ZhtHelper\General
                                 self::getSyntaxCreateDOM_TableRow(
                                     $varUserSession, 
                                     [
-                                    'ID' => 'varObjTTR',
+                                    'ID' => $varID.'_DialogActionTTR',
                                     'ParentID' => $varID.'_DialogActionTableBody'
                                     ],
                                     (
-                                    //---> Recreate Button
+                                    //---> Pagination
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
-                                        'ID' => $varID.'_ObjTTDPageSelect',
-                                        'ParentID' => 'varObjTTR',
+                                        'ID' => $varID.'_DialogPaginationTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
+                                        'Style' => $varStyle_TableDataStyle,
+                                        ],
+                                        (
+                                        self::getSyntaxCreateDOM_Table(
+                                            $varUserSession, 
+                                            [
+                                            'ID' => $varID.'_DialogPaginationTable',
+                                            'ParentID' => $varID.'_DialogPaginationTTD',
+                                            'Style' => [
+                                                ['position', 'relative'],
+                                                ['top', '50%'],
+                                                ]
+                //                            'Style' => $varStyle_TableAction
+                                            ],
+                                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
+                                                [
+                                                    'ID' => $varID.'_DialogPaginationTableHead',
+                                                    'ParentID' => $varID.'_DialogPaginationTable'
+                                                ],
+                                                ''
+                                                ).
+                                            self::getSyntaxCreateDOM_TableBody($varUserSession, 
+                                                [
+                                                    'ID' => $varID.'_DialogPaginationTableBody',
+                                                    'ParentID' => $varID.'_DialogPaginationTable'
+                                                ],
+                                                ''
+                                                )
+                                            )
+                                        )
+                                        ).
+                                    //---> Page Select
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varID.'_DialogActionTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
                                         'Style' => $varStyle_TableDataStyle,
                                         ],
                                         ''
                                         ).
-                                    //---> Recreate Button
+                                    //---> Recreate Action Button
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
-                                        'ID' => $varID.'_ObjTTDRecreateButton',
-                                        'ParentID' => 'varObjTTR',
+                                        'ID' => $varID.'_DialogRecreateTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
                                         'Style' => $varStyle_TableDataStyle,
                                         ],
                                         ''
@@ -823,8 +857,8 @@ namespace App\Helpers\ZhtHelper\General
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
-                                        'ID' => $varID.'_ObjTTDCloseButton',
-                                        'ParentID' => 'varObjTTR',
+                                        'ID' => $varID.'_DialogCloseTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
                                         'Style' => $varStyle_TableDataStyle,
                                         ],
                                         ''
@@ -842,7 +876,7 @@ namespace App\Helpers\ZhtHelper\General
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogRecreateButton',
-                                'ParentID' => $varID.'_ObjTTDRecreateButton',
+                                'ParentID' => $varID.'_DialogRecreateTTD',
                                 'Style' => [
                                     ['position', 'relative'],
                                     ['top', '50%'],
@@ -860,7 +894,7 @@ namespace App\Helpers\ZhtHelper\General
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogCloseButton',
-                                'ParentID' => $varID.'_ObjTTDCloseButton',
+                                'ParentID' => $varID.'_DialogCloseTTD',
                                 'Style' => [
                                     ['position', 'relative'],
                                     ['top', '50%'],
