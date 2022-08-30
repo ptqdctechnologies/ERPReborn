@@ -138,6 +138,7 @@ final class StaticTypeTest extends TestCase
         $type = new StaticType(TypeName::fromQualifiedName(stdClass::class), false);
 
         $this->assertFalse($type->isCallable());
+        $this->assertFalse($type->isFalse());
         $this->assertFalse($type->isGenericObject());
         $this->assertFalse($type->isIntersection());
         $this->assertFalse($type->isIterable());
@@ -147,6 +148,7 @@ final class StaticTypeTest extends TestCase
         $this->assertFalse($type->isObject());
         $this->assertFalse($type->isSimple());
         $this->assertTrue($type->isStatic());
+        $this->assertFalse($type->isTrue());
         $this->assertFalse($type->isUnion());
         $this->assertFalse($type->isUnknown());
         $this->assertFalse($type->isVoid());

@@ -85,15 +85,6 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
-        'facade/ignition-contracts' => array(
-            'pretty_version' => '1.0.2',
-            'version' => '1.0.2.0',
-            'reference' => '3c921a1cdba35b68a7f0ccffc6dffc1995b18267',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../facade/ignition-contracts',
-            'aliases' => array(),
-            'dev_requirement' => false,
-        ),
         'fakerphp/faker' => array(
             'pretty_version' => 'v1.20.0',
             'version' => '1.20.0.0',
@@ -524,9 +515,9 @@
             'dev_requirement' => false,
         ),
         'nunomaduro/collision' => array(
-            'pretty_version' => 'v6.2.1',
-            'version' => '6.2.1.0',
-            'reference' => '5f058f7e39278b701e455b3c82ec5298cf001d89',
+            'pretty_version' => 'v6.3.0',
+            'version' => '6.3.0.0',
+            'reference' => '17f600e2e8872856ff2846243efb74ad4b6da531',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nunomaduro/collision',
             'aliases' => array(),

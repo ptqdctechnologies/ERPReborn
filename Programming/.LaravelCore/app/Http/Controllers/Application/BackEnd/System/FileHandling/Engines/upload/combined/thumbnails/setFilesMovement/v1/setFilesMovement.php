@@ -104,16 +104,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session (Mandatory)                                                                |
-        |      ▪ (string) varFilePath ► File Path (Mandatory)                                                                      |
+        |      ▪ (string) varSourceFolderPath ► Source Folder Path (Mandatory)                                                     |
+        |      ▪ (string) varDestinationolderPath ► Destination Folder Path (Mandatory)                                            |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        private function dataProcessing($varUserSession, string $varFilePath = null)
+        private function dataProcessing($varUserSession, string $varSourceFolderPath = null, string $varDestinationolderPath = null)
             {
+            dd($varSourceFolderPath);
             //$varFilePath = 'StagingArea/1266/1110';
             //$varFilePath = 'Archive/92000000000134/12000000000160';
-            $varArrayFilePath = explode('/', $varFilePath);
+//            $varArraySourceFolderPath = explode('/', $varSourceFolderPath);
+            
+/*
             
             $varFolderPath = 'Thumbnails/'.$varArrayFilePath[0].'/'.$varArrayFilePath[2];
             $varFilePath = $varFolderPath.'/0000000000.png';
@@ -139,7 +143,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 'FilesCount' => count($varFilesList),
                 'FilesList' => $varFilesList
                 ];
-
+*/
             return $varDataReturn;
             }
         }
