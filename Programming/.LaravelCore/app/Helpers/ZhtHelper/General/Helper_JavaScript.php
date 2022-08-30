@@ -210,6 +210,16 @@ namespace App\Helpers\ZhtHelper\General
                 ['fontSize', '12px'],
                 ['textShadow', '2px 2px 5px #000000']
                 ];
+
+            $varStyle_TableDataPagination = [
+                ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+                ['fontWeight', 'bold'],
+                ['valign', 'top'],
+                ['color', '#ffffff'],
+                ['fontSize', '12px'],
+                ['textShadow', '2px 2px 5px #000000']
+                ];
+
             $varReturn = 
 //                'varObjTemp = '.
                     'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
@@ -225,7 +235,7 @@ namespace App\Helpers\ZhtHelper\General
                             '}; '.
 
                         //---> zhtInnerFunc_RecreateThumbnails
-                        'function zhtInnerFunc_RecreateThumbnails(varFilePath) {'.
+                        'function zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath) {'.
                             'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
@@ -242,7 +252,7 @@ namespace App\Helpers\ZhtHelper\General
                                             \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                                 $varUserSession, 
                                                 $varAPIWebToken, 
-                                                'fileHandling.upload.combined.general.thumbnails.create', 
+                                                'fileHandling.upload.combined.thumbnails.create', 
                                                 'latest', 
                                                 '{'.
                                                     '"parameter" : {'.
@@ -253,14 +263,15 @@ namespace App\Helpers\ZhtHelper\General
                                             ).
                                         ').data'.
                                     '); '.
+                                'zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
                                 'ObjButton.style.visibility = \'visible\'; '.
                                 'ObjButton.style.display = \'block\'; '.
                                 '}'.
-//                            'alert(\'done : \' + varFilePath); '.
                             '}; '.
-                    
-                        //---> zhtInnerFunc_ShowThumbnails
-                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath) {'.
+
+
+                        //---> zhtInnerFunc_GetThumbnailsMainData
+                        'function zhtInnerFunc_GetThumbnailsMainData() {'.
                             'varThumbnailsMainData = ('.
                                 'JSON.parse('.                           
                                     str_replace(
@@ -269,7 +280,7 @@ namespace App\Helpers\ZhtHelper\General
                                         \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                                             $varUserSession, 
                                             $varAPIWebToken, 
-                                            'fileHandling.upload.combined.general.thumbnails.isExist', 
+                                            'fileHandling.upload.combined.thumbnails.isExist', 
                                             'latest', 
                                             '{'.
                                                 '"parameter" : {'.
@@ -280,13 +291,133 @@ namespace App\Helpers\ZhtHelper\General
                                         ).
                                     ').data'.
                                 '); '.
-//                            'alert(varThumbnailsFolderPath); '.
-                            'alert(JSON.stringify(varThumbnailsMainData)); '.
+                            'return varThumbnailsMainData; '.
+                            '}; '.
+
+
+                        //---> zhtInnerFunc_GetThumbnailsReload
+                        'function zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath) {'.
+                            'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(); '.
+                            'varDataArrayOption = []; '.
+                            'if(varThumbnailsMainData.filesCount == 0) {'.
+                                'varDataArrayOption.push({'.
+                                    'value: \'\', '.
+                                    'text: 1'.
+                                    '}); '.
+                                '}'.
+                            'else {'.
+                                'for(i=0, iMax=varThumbnailsMainData.filesCount; i!=iMax; i++) {'.
+                                    'varDataArrayOption.push({'.
+                                        'value: (varThumbnailsMainData.filesList[i]).fullName, '.
+                                        'text: i+1'.
+                                        '}); '.
+                                    '} '.
+                                '}'.
+
+                            'document.getElementById(\''.$varID.'_LabelTotalPage'.'\').innerHTML = varThumbnailsMainData.filesCount;'.
+
+                            'if(document.getElementById(\''.$varID.'_DialogPageSelect\') != null) {'.
+                                'document.getElementById(\''.$varID.'_DialogPageSelect\').parentNode.removeChild(document.getElementById(\''.$varID.'_DialogPageSelect\')); '.
+                                '}'.
+                                        
+                            'if(document.getElementById(\''.$varID.'_DialogPageSelect\') == null) {'.
+                                'varNothing = '.
+                                    self::getSyntaxCreateDOM_Select(
+                                        $varUserSession, 
+                                        [
+                                            'ID' => $varID.'_DialogPageSelect',
+                                            'ParentID' => $varID.'_DialogPageTTD',
+                                            'Style' => [
+                                                ['position', 'relative'],
+                                                ['top', '50%'],
+                                                ]
+                                        ], 
+                                        'varDataArrayOption'
+                                        ).
+                                    '; '.
+                                //---> Page Select Event
+                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+                                    '\'change\', '.
+                                    'function() {'.
+                                        'zhtInnerFunc_ShowThumbnails('.
+                                            'varThumbnailsFolderPath, '.
+                                            'parseInt(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].text), '.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].value'.
+                                            '); '.
+                                        '}, '.
+                                    'true); '.
+                                //---> Page Previous Img
+                                'ObjDOM_PreviousImg = document.getElementById(\''.$varID.'_PagePreviousImg'.'\'); '.
+                                'ObjDOM_PreviousImg.addEventListener('.
+                                    '\'mouseover\','.
+                                    'function() {'.
+                                        'ObjDOM_PreviousImg.style.transform = \'scale(1.2)\'; '.
+//                                        'ObjDOM_PreviousImg.style.backdropFilter = \'blur(1px)\'; '.
+//                                        'ObjDOM_PreviousImg.style.filter = \'blur(1px)\'; '.
+//                                        'ObjDOM_PreviousImg.style.transition = \'0.5s ease\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
+                                'ObjDOM_PreviousImg.addEventListener('.
+                                    '\'mouseout\','.
+                                    'function() {'.
+                                        'ObjDOM_PreviousImg.style.transform = \'none\'; '.
+//                                        'ObjDOM_PreviousImg.style.backdropFilter = \'none\'; '.
+//                                        'ObjDOM_PreviousImg.style.filter = \'none\'; '.
+                                        'ObjDOM_PreviousImg.style.transition = \'1.0s ease\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
+                                'ObjDOM_PreviousImg.addEventListener('.
+                                    '\'click\','.
+                                    'function() {'.
+                                        'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != 0) {'.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex - 1; '.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
+                                            '}'.
+                                        '}'.
+                                    '); '.
+                                //---> Page Next Img
+                                'ObjDOM_NextImg = document.getElementById(\''.$varID.'_PageNextImg'.'\'); '.
+                                'ObjDOM_NextImg.addEventListener('.
+                                    '\'mouseover\','.
+                                    'function() {'.
+                                        'ObjDOM_NextImg.style.transform = \'scale(1.2)\'; '.
+//                                        'ObjDOM_NextImg.style.backdropFilter = \'blur(1px)\'; '.
+//                                        'ObjDOM_NextImg.style.filter = \'blur(1px)\'; '.
+//                                        'ObjDOM_NextImg.style.transition = \'0.5s ease\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
+                                'ObjDOM_NextImg.addEventListener('.
+                                    '\'mouseout\','.
+                                    'function() {'.
+                                        'ObjDOM_NextImg.style.transform = \'none\'; '.
+//                                        'ObjDOM_NextImg.style.backdropFilter = \'none\'; '.
+//                                        'ObjDOM_NextImg.style.filter = \'none\'; '.
+                                        'ObjDOM_NextImg.style.transition = \'1.0s ease\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
+                                'ObjDOM_NextImg.addEventListener('.
+                                    '\'click\','.
+                                    'function() {'.
+                                        'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != (varThumbnailsMainData.filesCount - 1)) {'.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex = document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex + 1; '.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect\').dispatchEvent(new Event(\'change\')); '.
+                                            '}'.
+                                        '}'.
+                                    '); '.
+                                '}'.
+
+                            'return varDataArrayOption;'.
+                            '}; '.
+
                     
-                    
-                    
-                    
-                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/0000000000.png\'; '.
+                        //---> zhtInnerFunc_ShowThumbnails
+                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, varIndex, varPath) {'.
+                            'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
+                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
                             'varImageSource = ('.
                                 'JSON.parse('.                           
                                     str_replace(
@@ -368,7 +499,7 @@ namespace App\Helpers\ZhtHelper\General
                                     ['position', 'absolute'],
                                     ['top', '50%'],
                                     ['left', '50%'],
-                                    ['height', '470px'],
+                                    ['height', '480px'],
                                     ['width', '835px'],
 //                                    ['width', '410px'],
 //                                    ['background', 'rgba(88, 88, 88, 1.0)']
@@ -392,7 +523,7 @@ namespace App\Helpers\ZhtHelper\General
                                     ['position', 'absolute'],
                                     ['top', '0'],
                                     ['left', '0'],
-                                    ['height', '470px'],
+                                    ['height', '480px'],
                                     ['width', '410px'],
                                     ['background', 'rgba(88, 88, 88, 1.0)']
                                     ]
@@ -663,7 +794,7 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
                     
-                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
                     
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
                         self::getSyntaxCreateDOM_Image(
@@ -693,8 +824,8 @@ namespace App\Helpers\ZhtHelper\General
                                     ['position', 'absolute'],
                                     ['top', '440px'],
                                     ['left', '0px'],
-                                    ['height', '30px'],
-                                    ['inlineHeight', '30px'],
+                                    ['height', '40px'],
+                                    ['inlineHeight', '40px'],
                                     ['width', '100%'],
                                     ['backgroundImage', 'linear-gradient(#000108, #181d57 10%, #000108)'],
                                     ]
@@ -732,16 +863,182 @@ namespace App\Helpers\ZhtHelper\General
                                 self::getSyntaxCreateDOM_TableRow(
                                     $varUserSession, 
                                     [
-                                    'ID' => 'varObjTTR',
+                                    'ID' => $varID.'_DialogActionTTR',
                                     'ParentID' => $varID.'_DialogActionTableBody'
                                     ],
                                     (
-                                    //---> Recreate Button
+                                    //---> Pagination
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
-                                        'ID' => $varID.'_ObjTTDRecreateButton',
-                                        'ParentID' => 'varObjTTR',
+                                        'ID' => $varID.'_DialogPaginationTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
+                                        'Style' => $varStyle_TableDataStyle,
+                                        ],
+                                        (
+                                        self::getSyntaxCreateDOM_Table(
+                                            $varUserSession, 
+                                            [
+                                            'ID' => $varID.'_DialogPaginationTable',
+                                            'ParentID' => $varID.'_DialogPaginationTTD',
+                                            'Style' => [
+                                                ['position', 'relative'],
+                                                //['top', '50%'],
+                                                ['border', '1px solid'],
+                                                ['borderColor', 'black'],
+                                                ['borderSpacing', '2px'],
+                                                ['padding', '2px'],
+//                                                ['backgroundImage', 'linear-gradient(#000108, #181d57 50%, #000108)'],
+//                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 50%, #a10e03)']
+                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)']
+                                                ]
+                                            ],
+                                            self::getSyntaxCreateDOM_TableHead($varUserSession, 
+                                                [
+                                                    'ID' => $varID.'_DialogPaginationTableHead',
+                                                    'ParentID' => $varID.'_DialogPaginationTable'
+                                                ],
+                                                ''
+                                                ).
+                                            self::getSyntaxCreateDOM_TableBody(
+                                                $varUserSession, 
+                                                [
+                                                    'ID' => $varID.'_DialogPaginationTableBody',
+                                                    'ParentID' => $varID.'_DialogPaginationTable'
+                                                ],
+                                                self::getSyntaxCreateDOM_TableRow(
+                                                    $varUserSession, 
+                                                    [
+                                                    'ID' => $varID.'_DialogPaginationTTR',
+                                                    'ParentID' => $varID.'_DialogPaginationTableBody'
+                                                    ],
+                                                    
+                                                            
+                                                    //---> Page Next
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPagePreviousTTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataPagination
+                                                        ],
+                                                        ''
+                                                        ).
+                                                    self::getSyntaxCreateDOM_Image(
+                                                        $varUserSession, 
+                                                        [
+                                                            'ID' => $varID.'_PagePreviousImg',
+                                                            'ParentID' =>  $varID.'_DialogPagePreviousTTD',
+                                                            'Height' => 25,
+                                                            'Style' => [
+                                                                ['position', 'relative'],
+                                                                ['top', '50%'],
+                                                                ['left', '0'],
+                                                                ]
+                                                        ], 
+                                                        '\'images/Icon/Pagination/Previous-300-32.png\''
+                                                        ).
+                                                    //---> Pagination Label1
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPaginationLabel1TTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataPagination
+                                                        ],
+                                                        (
+                                                        self::getSyntaxCreateDOM_Label(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => $varID.'_LabelPage1',
+                                                            'ParentID' => $varID.'_DialogPaginationLabel1TTD'
+                                                            ],
+                                                            'Page '
+                                                            )
+                                                        )).
+                                                    //---> Page Select
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPageTTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataPagination
+                                                        ],
+                                                        ''
+                                                        ).
+                                                    //---> Pagination Label2
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPaginationLabel2TTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataPagination
+                                                        ],
+                                                        (
+                                                        self::getSyntaxCreateDOM_Label(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => $varID.'_LabelPage2',
+                                                            'ParentID' => $varID.'_DialogPaginationLabel2TTD'
+                                                            ],
+                                                            ' of '
+                                                            )
+                                                        )).
+                                                    //---> Pagination Label3
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPaginationLabel3TTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataStyle,
+                                                        ],
+                                                        (
+                                                        self::getSyntaxCreateDOM_Label(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => $varID.'_LabelTotalPage',
+                                                            'ParentID' => $varID.'_DialogPaginationLabel3TTD'
+                                                            ],
+                                                            ' of '
+                                                            )
+                                                        )).
+                                                    //---> Page Next
+                                                    self::getSyntaxCreateDOM_TableData(
+                                                        $varUserSession, 
+                                                        [
+                                                        'ID' => $varID.'_DialogPageNextTTD',
+                                                        'ParentID' => $varID.'_DialogPaginationTTR',
+                                                        'Style' => $varStyle_TableDataPagination
+                                                        ],
+                                                        ''
+                                                        ).
+                                                    self::getSyntaxCreateDOM_Image(
+                                                        $varUserSession, 
+                                                        [
+                                                            'ID' => $varID.'_PageNextImg',
+                                                            'ParentID' =>  $varID.'_DialogPageNextTTD',
+                                                            'Height' => 25,
+                                                            'Style' => [
+                                                                ['position', 'relative'],
+                                                                ['top', '50%'],
+                                                                ['left', '0'],
+                                                                ]
+                                                        ], 
+                                                        '\'images/Icon/Pagination/Next-300-32.png\''
+                                                        )
+
+                                                        
+                                                    )
+                                                )
+                                            )
+                                        )
+                                        ).
+                                    //---> Recreate Action Button
+                                    self::getSyntaxCreateDOM_TableData(
+                                        $varUserSession, 
+                                        [
+                                        'ID' => $varID.'_DialogRecreateTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
                                         'Style' => $varStyle_TableDataStyle,
                                         ],
                                         ''
@@ -750,8 +1047,8 @@ namespace App\Helpers\ZhtHelper\General
                                     self::getSyntaxCreateDOM_TableData(
                                         $varUserSession, 
                                         [
-                                        'ID' => $varID.'_ObjTTDCloseButton',
-                                        'ParentID' => 'varObjTTR',
+                                        'ID' => $varID.'_DialogCloseTTD',
+                                        'ParentID' => $varID.'_DialogActionTTR',
                                         'Style' => $varStyle_TableDataStyle,
                                         ],
                                         ''
@@ -759,14 +1056,24 @@ namespace App\Helpers\ZhtHelper\General
                                     ))
                                 ))
                             ).
-//                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
+                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
+//                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
+                    
+
+                    //
+
+
+
+
+                        //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
+                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
                     
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
                         self::getSyntaxCreateDOM_Button(
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogRecreateButton',
-                                'ParentID' => $varID.'_ObjTTDRecreateButton',
+                                'ParentID' => $varID.'_DialogRecreateTTD',
                                 'Style' => [
                                     ['position', 'relative'],
                                     ['top', '50%'],
@@ -774,8 +1081,8 @@ namespace App\Helpers\ZhtHelper\General
                             ], 
                             'Recreate',
                             'function() {'.
-                                'zhtInnerFunc_RecreateThumbnails(varFilePath); '.
-                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath); '.
+                                'zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath); '.
+                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
                                 '}'
                             ).
                     
@@ -784,7 +1091,7 @@ namespace App\Helpers\ZhtHelper\General
                             $varUserSession, 
                             [
                                 'ID' => $varID.'_DialogCloseButton',
-                                'ParentID' => $varID.'_ObjTTDCloseButton',
+                                'ParentID' => $varID.'_DialogCloseTTD',
                                 'Style' => [
                                     ['position', 'relative'],
                                     ['top', '50%'],
@@ -935,6 +1242,98 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Select                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-27                                                                                           |
+        | ▪ Creation Date   : 2022-08-27                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Select                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Select($varUserSession, $varArrayProperties, string $varArrayOptionName = null, array $varArrayOptionPHPOverride = null)
+            {
+            if(!$varArrayOptionName) {
+                $varArrayOptionName = 'varDataArrayOption';
+                }
+            if(!$varArrayOptionPHPOverride) {
+                $varArrayOptionPHPOverride = [];
+                }
+            
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }                
+                }
+
+            //---> $varReturnOpt 
+            $varReturnOpt = '';
+            if(($iMax = count($varArrayOptionPHPOverride)) > 0)
+                {
+                $varReturnOpt = ''.$varArrayOptionName.' = []; ';
+                for($i=0; $i!=$iMax; $i++)
+                    {
+                    $varReturnOpt .= 
+                        $varArrayOptionName.'.push({'.
+                            'value: \''.$varArrayOptionPHPOverride[$i][0].'\','.
+                            'text: \''.$varArrayOptionPHPOverride[$i][1].'\''.
+                            '}); ';
+                    //$varReturnOpt .= 
+                    //    'ObjOpt = document.getElementById(\''.$varObjectID.'\').appendChild(document.createElement(\'option\')); ';
+                    }
+                }
+            $varReturnOpt .= 
+                'for (let i = 0; i < '.$varArrayOptionName.'.length; i++) {'.
+                    'var ObjOpt = document.createElement(\'option\'); '.
+                    'ObjOpt.value = ('.$varArrayOptionName.'[i]).value; '.
+                    'ObjOpt.text = ('.$varArrayOptionName.'[i]).text; '.
+                    $varObjectID.'.appendChild(ObjOpt); '.
+                    '}';
+                
+            $varReturn = 
+                'function('.$varArrayOptionName.') {'.
+                    'var '.$varObjectID.' = document.createElement(\'select\'); '.
+                    //---> set ID
+                    $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                    //---> style
+                    $varReturn.
+                    $varReturnOpt.
+                    //---> appendChild
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                        $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                        ).
+                    //---> remove ID
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                        $varObjectID.'.removeAttribute(\'id\'); ').
+                    '} ('.$varArrayOptionName.') ';
+      
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxCreateDOM_Image                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -1070,6 +1469,71 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getSyntaxCreateDOM_Label                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-29                                                                                           |
+        | ▪ Creation Date   : 2022-08-29                                                                                           |
+        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : Label                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
+        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
+        |        Example :                                                                                                         |
+        |           ► []                                                                                                           |
+        |           ► [ 'ID' => 'MyID' ]                                                                                           |
+        |           ► [ 'ID' => 'MyID',                                                                                            |
+        |               'ParentID' => ... ,                                                                                        |
+        |               'Style' => [                                                                                               |
+        |                     ['...', ...]                                                                                         |
+        |                  ]                                                                                                       |
+        |             ]                                                                                                            |
+        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getSyntaxCreateDOM_Label($varUserSession, $varArrayProperties, string $varCaption = null)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
+            $varReturn = 
+                'varNothing = function (varCaption) {'.
+                    'var '.$varObjectID.' = document.createElement(\'label\'); '.
+                    //---> set ID
+                    $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                    //---> Caption
+                    //$varObjectID.'.innerHTML = \''.$varCaption.'\';'.
+                    $varObjectID.'.innerHTML = varCaption;'.
+                    //---> style
+                    $varReturn.
+                    //---> appendChild
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                        $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                        ).
+                    //---> remove ID
+                    ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                        $varObjectID.'.removeAttribute(\'id\'); ').
+                    '} ('.($varCaption ? '\''.$varCaption.'\'' : 'varCaption').');'.
+                    ''
+                    ;
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getSyntaxCreateDOM_Table                                                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -1102,6 +1566,12 @@ namespace App\Helpers\ZhtHelper\General
                     'TempObject' : 
                     $varArrayProperties['ID']
                 );
+
+            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
+                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
+                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
+                    }
+                }
 
             $varReturn = 
                 'var '.$varObjectID.' = document.createElement(\'table\');'.
