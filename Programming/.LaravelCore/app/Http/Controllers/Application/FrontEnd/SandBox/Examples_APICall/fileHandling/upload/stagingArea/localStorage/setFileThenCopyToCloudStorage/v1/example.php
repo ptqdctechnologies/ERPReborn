@@ -42,7 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 [
                 'parameter' => [
                     'log_FileUpload_Pointer_RefID' => null,
-                    'rotateLog_FileUploadStagingArea_RefRPK' => 180,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => 1271,
                     'sequence' => 1,
                     'name' => 'ContohTextFile.txt',
                     'size' => 9,

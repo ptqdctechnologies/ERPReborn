@@ -221,8 +221,8 @@ namespace App\Helpers\ZhtHelper\General
                 ];
 
             $varReturn = 
-//                'varObjTemp = '.
-                    'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                    'try {'.
                         'var varFilePathArray = varFilePath.split(\'/\'); '.
                         'var varThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
 
@@ -300,12 +300,16 @@ namespace App\Helpers\ZhtHelper\General
                             'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(); '.
                             'varDataArrayOption = []; '.
                             'if(varThumbnailsMainData.filesCount == 0) {'.
+                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'none\'; '.
+                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'hidden\'; '.
                                 'varDataArrayOption.push({'.
                                     'value: \'\', '.
                                     'text: 1'.
                                     '}); '.
                                 '}'.
                             'else {'.
+                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'block\'; '.
+                                'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.visibility = \'visible\'; '.
                                 'for(i=0, iMax=varThumbnailsMainData.filesCount; i!=iMax; i++) {'.
                                     'varDataArrayOption.push({'.
                                         'value: (varThumbnailsMainData.filesList[i]).fullName, '.
@@ -319,7 +323,7 @@ namespace App\Helpers\ZhtHelper\General
                             'if(document.getElementById(\''.$varID.'_DialogPageSelect\') != null) {'.
                                 'document.getElementById(\''.$varID.'_DialogPageSelect\').parentNode.removeChild(document.getElementById(\''.$varID.'_DialogPageSelect\')); '.
                                 '}'.
-                                        
+
                             'if(document.getElementById(\''.$varID.'_DialogPageSelect\') == null) {'.
                                 'varNothing = '.
                                     self::getSyntaxCreateDOM_Select(
@@ -330,31 +334,45 @@ namespace App\Helpers\ZhtHelper\General
                                             'Style' => [
                                                 ['position', 'relative'],
                                                 ['top', '50%'],
+                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
                                                 ]
                                         ], 
                                         'varDataArrayOption'
                                         ).
                                     '; '.
                                 //---> Page Select Event
-                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
+                                'ObjDOM_PageSelect = document.getElementById(\''.$varID.'_DialogPageSelect'.'\'); '.
+                                'ObjDOM_PageSelect.addEventListener('.
                                     '\'change\', '.
                                     'function() {'.
                                         'zhtInnerFunc_ShowThumbnails('.
                                             'varThumbnailsFolderPath, '.
-                                            'parseInt(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].text), '.
-                                            'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].value'.
+                                            'parseInt(ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].text), '.
+                                            'ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].value'.
                                             '); '.
                                         '}, '.
                                     'true); '.
+                                'ObjDOM_PageSelect.addEventListener('.
+                                    '\'mouseover\','.
+                                    'function() {'.
+                                        'ObjDOM_PageSelect.style.transform = \'scale(1.3)\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
+                                'ObjDOM_PageSelect.addEventListener('.
+                                    '\'mouseout\','.
+                                    'function() {'.
+                                        'ObjDOM_PageSelect.style.transform = \'none\'; '.
+                                        'ObjDOM_PageSelect.style.transition = \'1.0s ease\'; '.
+                                        '}, '.
+                                    'false'.
+                                    '); '.
                                 //---> Page Previous Img
                                 'ObjDOM_PreviousImg = document.getElementById(\''.$varID.'_PagePreviousImg'.'\'); '.
                                 'ObjDOM_PreviousImg.addEventListener('.
                                     '\'mouseover\','.
                                     'function() {'.
-                                        'ObjDOM_PreviousImg.style.transform = \'scale(1.2)\'; '.
-//                                        'ObjDOM_PreviousImg.style.backdropFilter = \'blur(1px)\'; '.
-//                                        'ObjDOM_PreviousImg.style.filter = \'blur(1px)\'; '.
-//                                        'ObjDOM_PreviousImg.style.transition = \'0.5s ease\'; '.
+                                        'ObjDOM_PreviousImg.style.transform = \'scale(1.3)\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
@@ -362,8 +380,6 @@ namespace App\Helpers\ZhtHelper\General
                                     '\'mouseout\','.
                                     'function() {'.
                                         'ObjDOM_PreviousImg.style.transform = \'none\'; '.
-//                                        'ObjDOM_PreviousImg.style.backdropFilter = \'none\'; '.
-//                                        'ObjDOM_PreviousImg.style.filter = \'none\'; '.
                                         'ObjDOM_PreviousImg.style.transition = \'1.0s ease\'; '.
                                         '}, '.
                                     'false'.
@@ -382,10 +398,7 @@ namespace App\Helpers\ZhtHelper\General
                                 'ObjDOM_NextImg.addEventListener('.
                                     '\'mouseover\','.
                                     'function() {'.
-                                        'ObjDOM_NextImg.style.transform = \'scale(1.2)\'; '.
-//                                        'ObjDOM_NextImg.style.backdropFilter = \'blur(1px)\'; '.
-//                                        'ObjDOM_NextImg.style.filter = \'blur(1px)\'; '.
-//                                        'ObjDOM_NextImg.style.transition = \'0.5s ease\'; '.
+                                        'ObjDOM_NextImg.style.transform = \'scale(1.3)\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
@@ -393,8 +406,6 @@ namespace App\Helpers\ZhtHelper\General
                                     '\'mouseout\','.
                                     'function() {'.
                                         'ObjDOM_NextImg.style.transform = \'none\'; '.
-//                                        'ObjDOM_NextImg.style.backdropFilter = \'none\'; '.
-//                                        'ObjDOM_NextImg.style.filter = \'none\'; '.
                                         'ObjDOM_NextImg.style.transition = \'1.0s ease\'; '.
                                         '}, '.
                                     'false'.
@@ -413,7 +424,7 @@ namespace App\Helpers\ZhtHelper\General
                             'return varDataArrayOption;'.
                             '}; '.
 
-                    
+
                         //---> zhtInnerFunc_ShowThumbnails
                         'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, varIndex, varPath) {'.
                             'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
@@ -459,14 +470,14 @@ namespace App\Helpers\ZhtHelper\General
                                 'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
                                 'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
                                 'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
-                    
+
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varSizeFactor * varObjImage.naturalWidth; '.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varSizeFactor * varObjImage.naturalHeight; '.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
                                 '}; '.
                             //'alert(varImageSource); '.
                             '}; '.
-                    
+
                         //'alert(varThumbnailsFolderPath); '.
                         'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
                         self::getSyntaxCreateDOM_Div(
@@ -481,7 +492,7 @@ namespace App\Helpers\ZhtHelper\General
                                     ['height', '100%'],
                                     ['width', '100%'],
                                     ['background', 'rgba(255, 0, 0, 0.3)']
-                                   ]
+                                    ]
                             ], 
                             ''
                             ).
@@ -501,17 +512,12 @@ namespace App\Helpers\ZhtHelper\General
                                     ['left', '50%'],
                                     ['height', '480px'],
                                     ['width', '835px'],
-//                                    ['width', '410px'],
-//                                    ['background', 'rgba(88, 88, 88, 1.0)']
+                                    ['transform', 'translate(-50%, -50%)']
                                     ]
                             ], 
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_Dialog'.'\').style.zIndex = (varMaxZIndex+1); '.
-                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.transform = \'translate(-50%, -50%)\';'.
-//                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.border = \'2px solid #555500\'; '.
-//                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.border = \'2px solid #ffff00\'; '.
-//                        'document.getElementById(\''.$varID.'_Dialog'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
 
                         //---> Dialog ---> DialogPreviewPlcHold
                         self::getSyntaxCreateDOM_Div(
@@ -526,15 +532,13 @@ namespace App\Helpers\ZhtHelper\General
                                     ['height', '480px'],
                                     ['width', '410px'],
                                     ['background', 'rgba(88, 88, 88, 1.0)'],
-                                    ['borderRadius', '25px']
+                                    ['border', '2px solid #ffff00'],
+                                    ['boxShadow', '10px 20px 30px #333333']
                                     ]
                             ], 
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.zIndex = (varMaxZIndex+2); '.
-//                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.transform = \'translate(-50%, -50%)\';'.
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.border = \'2px solid #ffff00\'; '.
-                        'document.getElementById(\''.$varID.'_DialogPreviewPlcHold'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
 
                         //---> Dialog ---> DialogIdentityPlcHod
                         self::getSyntaxCreateDOM_Div(
@@ -548,14 +552,14 @@ namespace App\Helpers\ZhtHelper\General
                                     ['left', '420px'],
                                     ['height', '200px'],
                                     ['width', '410px'],
-                                    ['background', 'rgba(88, 88, 88, 1.0)']
+                                    ['background', 'rgba(88, 88, 88, 1.0)'],
+                                    ['border', '2px solid #ffff00'],
+                                    ['boxShadow', '10px 20px 30px #333333']
                                     ]
                             ], 
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogIdentityPlcHod'.'\').style.zIndex = (varMaxZIndex+2); '.
-                        'document.getElementById(\''.$varID.'_DialogIdentityPlcHod'.'\').style.border = \'2px solid #ffff00\'; '.
-                        'document.getElementById(\''.$varID.'_DialogIdentityPlcHod'.'\').style.boxShadow=\'10px 20px 30px #333333\'; '.
 
                         self::getSyntaxCreateDOM_Table(
                             $varUserSession, 
@@ -725,9 +729,6 @@ namespace App\Helpers\ZhtHelper\General
                                 )
                             ).
 
-
-
-
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogTitlePlcHold
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
@@ -775,7 +776,7 @@ namespace App\Helpers\ZhtHelper\General
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
-                    
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
@@ -794,9 +795,9 @@ namespace App\Helpers\ZhtHelper\General
                             ''
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
-                    
+
                         'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
-                    
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
                         self::getSyntaxCreateDOM_Image(
                             $varUserSession, 
@@ -808,12 +809,12 @@ namespace App\Helpers\ZhtHelper\General
                                     ['position', 'absolute'],
                                     ['top', '50%'],
                                     ['left', '50%'],
+                                    ['transform', 'translate(-50%, -50%)']
                                     ]
                             ], 
                             'varImageSource'
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.zIndex = (varMaxZIndex+6); '.
-                        'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.transform = \'translate(-50%, -50%)\';'.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold
                         self::getSyntaxCreateDOM_Div(
@@ -835,7 +836,7 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').style.zIndex = (varMaxZIndex+4); '.
                         'document.getElementById(\''.$varID.'_DialogButtonPlcHold'.'\').setAttribute(\'align\', \'center\'); '.
-                    
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogActionTable
                         self::getSyntaxCreateDOM_Table(
                             $varUserSession, 
@@ -889,9 +890,8 @@ namespace App\Helpers\ZhtHelper\General
                                                 ['borderColor', 'black'],
                                                 ['borderSpacing', '2px'],
                                                 ['padding', '2px'],
-//                                                ['backgroundImage', 'linear-gradient(#000108, #181d57 50%, #000108)'],
-//                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 50%, #a10e03)']
-                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)']
+                                                ['backgroundImage', 'linear-gradient(#a10e03, #360401 30%, #a10e03)'],
+                                                ['borderRadius', '10px']
                                                 ]
                                             ],
                                             self::getSyntaxCreateDOM_TableHead($varUserSession, 
@@ -913,8 +913,8 @@ namespace App\Helpers\ZhtHelper\General
                                                     'ID' => $varID.'_DialogPaginationTTR',
                                                     'ParentID' => $varID.'_DialogPaginationTableBody'
                                                     ],
-                                                    
-                                                            
+
+
                                                     //---> Page Next
                                                     self::getSyntaxCreateDOM_TableData(
                                                         $varUserSession, 
@@ -935,6 +935,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ['position', 'relative'],
                                                                 ['top', '50%'],
                                                                 ['left', '0'],
+                                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
                                                                 ]
                                                         ], 
                                                         '\'images/Icon/Pagination/Previous-300-32.png\''
@@ -1023,12 +1024,13 @@ namespace App\Helpers\ZhtHelper\General
                                                                 ['position', 'relative'],
                                                                 ['top', '50%'],
                                                                 ['left', '0'],
+                                                                ['filter', 'drop-shadow(3px 3px 3px #000000)']
                                                                 ]
                                                         ], 
                                                         '\'images/Icon/Pagination/Next-300-32.png\''
                                                         )
 
-                                                        
+
                                                     )
                                                 )
                                             )
@@ -1059,7 +1061,7 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
 //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
-                    
+
 
                     //
 
@@ -1068,7 +1070,7 @@ namespace App\Helpers\ZhtHelper\General
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
                         'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
-                    
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
                         self::getSyntaxCreateDOM_Button(
                             $varUserSession, 
@@ -1086,7 +1088,7 @@ namespace App\Helpers\ZhtHelper\General
                                 'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
                                 '}'
                             ).
-                    
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogCloseButton
                         self::getSyntaxCreateDOM_Button(
                             $varUserSession, 
@@ -1103,10 +1105,11 @@ namespace App\Helpers\ZhtHelper\General
                                 'zhtInnerFunc_CloseDivModal(document.getElementById(\''.$varID.'_Back'.'\')); '.
                                 '}'
                             ).
-
-                    
-                        '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                        '';
+                        '}'.
+                    'catch(varError) {'.
+                        '}'.
+                    '} (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                    '';
             return $varReturn;
             }
 

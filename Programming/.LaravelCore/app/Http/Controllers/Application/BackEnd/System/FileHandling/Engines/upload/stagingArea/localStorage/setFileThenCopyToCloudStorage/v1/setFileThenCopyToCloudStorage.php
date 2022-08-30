@@ -199,6 +199,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     \App\Helpers\ZhtHelper\LocalStorage\Helper_LocalStorage::getBasePath($varUserSession).'Application/Upload/StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK, 
                     'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK
                     );
+                
+                //---> Auto Create Thumbnail For Image MIME
+                if (strcmp(explode('/', $varFileMIME)[0], 'image')==0)
+                    {
+                    $varNothing = 
+                        (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\thumbnails\create\v1\create())->main(
+                            $varUserSession, 
+                            [
+                            'parameter' => [
+                                'filePath' => 'StagingArea/'.$varRotateLog_FileUploadStagingArea_RefRPK.'/'.$varRotateLog_FileUploadStagingAreaDetail_RefRPK
+                                ]
+                            ]
+                            );
+                    }
                 }
             else
                 {
