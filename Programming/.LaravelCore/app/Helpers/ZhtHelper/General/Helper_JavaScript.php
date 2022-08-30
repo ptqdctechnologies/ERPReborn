@@ -525,7 +525,8 @@ namespace App\Helpers\ZhtHelper\General
                                     ['left', '0'],
                                     ['height', '480px'],
                                     ['width', '410px'],
-                                    ['background', 'rgba(88, 88, 88, 1.0)']
+                                    ['background', 'rgba(88, 88, 88, 1.0)'],
+                                    ['borderRadius', '25px']
                                     ]
                             ], 
                             ''
