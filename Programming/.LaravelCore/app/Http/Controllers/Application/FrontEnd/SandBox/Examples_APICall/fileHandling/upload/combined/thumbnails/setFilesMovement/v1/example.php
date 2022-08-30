@@ -21,8 +21,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
         |                     ► http://172.28.0.4/fileHandling.upload.combined.thumbnails.setFilesMovement.v1_throughAPIGateway    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-26                                                                                           |
-        | ▪ Creation Date   : 2022-08-26                                                                                           |
+        | ▪ Last Update     : 2022-08-30                                                                                           |
+        | ▪ Creation Date   : 2022-08-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
@@ -36,12 +36,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
             $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                 $varAPIWebToken, 
-                'fileHandling.upload.combined.thumbnails.isExist', 
+                'fileHandling.upload.combined.thumbnails.setFilesMovement', 
                 'latest', 
                 [
                 'parameter' => [
-                    'sourceFolderPath' => 'Archive/92000000000134/12000000000160'
-                    'destinationFolderPath' => 'StagingArea/1257/1101'
+//                    'sourceFolderPath' => 'StagingArea/1273/1117',
+//                    'destinationFolderPath' => 'Archive/92000000000133/12000000000159'
+                    'sourceFolderPath' => 'Thumbnails/StagingArea/1117',
+                    'destinationFolderPath' => 'Thumbnails/Archive/12000000000159'
                     ]
                 ]
                 );
@@ -57,8 +59,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
         |                       fileHandling.upload.combined.thumbnails.setFilesMovement.v1_throughAPIGatewayJQuery                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-26                                                                                           |
-        | ▪ Creation Date   : 2022-08-26                                                                                           |
+        | ▪ Last Update     : 2022-08-30                                                                                           |
+        | ▪ Creation Date   : 2022-08-30                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -69,15 +71,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>File Path on CLoud<input type="text" id="dataInput_filePath" value="Archive/92000000000097/12000000000108">';
+            echo '<br>Source Folder Path<input type="text" id="dataInput_sourceFolderPath" value="Thumbnails/StagingArea/1117">';
+            echo '<br>Destination Folder Path<input type="text" id="dataInput_destinationFolderPath" value="Thumbnails/Archive/12000000000159">';
             $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
-                'fileHandling.upload.combined.thumbnails.isExist', 
+                'fileHandling.upload.combined.thumbnails.setFilesMovement', 
                 'latest', 
                 '{'.
                     '"parameter" : {'.
-                        '"folderPath" : document.getElementById("dataInput_filePath").value'.
+                        '"sourceFolderPath" : document.getElementById("dataInput_sourceFolderPath").value'.
+                        '"destinationFolderPath" : document.getElementById("dataInput_destinationFolderPath").value'.
                         '}'.
                 '}'
                 );

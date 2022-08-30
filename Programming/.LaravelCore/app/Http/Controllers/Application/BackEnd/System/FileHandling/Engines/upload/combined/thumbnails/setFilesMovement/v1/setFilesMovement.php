@@ -98,8 +98,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         | ▪ Method Name     : dataProcessing                                                                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-26                                                                                           |
-        | ▪ Creation Date   : 2022-08-26                                                                                           |
+        | ▪ Last Update     : 2022-08-30                                                                                           |
+        | ▪ Creation Date   : 2022-08-30                                                                                           |
         | ▪ Description     : Fungsi Pemrosesan Data                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -112,38 +112,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
         */
         private function dataProcessing($varUserSession, string $varSourceFolderPath = null, string $varDestinationolderPath = null)
             {
-            dd($varSourceFolderPath);
-            //$varFilePath = 'StagingArea/1266/1110';
-            //$varFilePath = 'Archive/92000000000134/12000000000160';
-//            $varArraySourceFolderPath = explode('/', $varSourceFolderPath);
+            $varArrayFilesList = (new \App\Models\CloudStorage\System\General())->getFilesList(
+                $varUserSession, 
+                $varSourceFolderPath
+                );
             
-/*
-            
-            $varFolderPath = 'Thumbnails/'.$varArrayFilePath[0].'/'.$varArrayFilePath[2];
-            $varFilePath = $varFolderPath.'/0000000000.png';
-            
-            $varStatus = FALSE;
-            if(strcmp($varArrayFilePath[0], 'Archive')==0) {
-                $varStatus = (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->isThumbnailsExist($varUserSession, $varArrayFilePath[2]);
-                }
-            elseif(strcmp($varArrayFilePath[0], 'StagingArea')==0) {
-                $varStatus = (new \App\Models\CloudStorage\System\General())->isFileExist($varUserSession, $varFilePath);
-                }
-                
-            $varFilesList = [];
-            if($varStatus == TRUE)
+            for($i=0, $iMax=count($varArrayFilesList); $i!=$iMax; $i++)
                 {
-                $varFilesList = (new \App\Models\CloudStorage\System\General())->getFilesList($varUserSession, $varFolderPath);
-                sort($varFilesList);
+                $varSourceFilePath = $varArrayFilesList[$i]['FullName'];
+                $varArraySourceFilePath = explode('/', $varSourceFilePath);
+                $varDestinationFilePath = $varDestinationolderPath.'/'.$varArraySourceFilePath[count($varArraySourceFilePath)-1];
+
+                (new \App\Models\CloudStorage\System\General())->moveFile(
+                    $varUserSession, 
+                    $varSourceFilePath, 
+                    $varDestinationFilePath
+                    );
+
+                $varDataReturn[$i] = [
+                    'sourceFilePath' => $varSourceFilePath,
+                    'destinationFilePath' => $varDestinationFilePath
+                    ];
                 }
-            
-            $varDataReturn = [
-                'Status' => $varStatus,
-                'ThumbnailsFolderPath' => $varFolderPath,
-                'FilesCount' => count($varFilesList),
-                'FilesList' => $varFilesList
-                ];
-*/
+
             return $varDataReturn;
             }
         }

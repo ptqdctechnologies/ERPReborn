@@ -222,13 +222,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varSQL
                     )['Data'];
                 
+                //---> Memindahkan Thumbnails dari Staging Area ke Archive
                 for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
                     {
-                    //var_dump($varData[$i]);
-                    (new \App\Models\CloudStorage\System\General())->moveFile(
-                        $varUserSession, 
-                        $varData[$i]['StagingAreaFilePath'], 
-                        $varData[$i]['ArchiveFilePath']
+                    $varArrayStagingAreaFilePath = explode('/', $varData[$i]['StagingAreaFilePath']);
+                    $varArrayArchiveAreaFilePath = explode('/', $varData[$i]['ArchiveFilePath']);
+                    
+                    (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\thumbnails\setFilesMovement\v1\setFilesMovement())->main(
+                        $varUserSession,
+                        [
+                        'parameter' => [
+                            'sourceFolderPath' => 'Thumbnails/'.$varArrayStagingAreaFilePath[0].'/'.$varArrayStagingAreaFilePath[2],
+                            'destinationFolderPath' => 'Thumbnails/'.$varArrayArchiveAreaFilePath[0].'/'.$varArrayArchiveAreaFilePath[2]
+                            ]
+                        ]
                         );
                     }
                 //dd($varData);  
