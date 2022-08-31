@@ -461,26 +461,28 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null)
+        public static function setCallAPIGatewayJQuery($varUserSession, string $varAPIWebToken, string $varAPIKey, $varAPIVersion = null, string $varData=null, int $varTimeOut = null)
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Call Gateway API');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varAPIVersion)
-                        {
+                    if(!$varAPIVersion) {
                         $varAPIVersion = 'latest';
                         }
-                    else
-                        {
+                    else {
                         $varAPIVersion = strtolower($varAPIVersion);
                         }
-                    if(!$varData)
-                        {
+
+                    if(!$varData) {
                         $varData = '{}';
                         }
                     $varData = htmlspecialchars_decode($varData);
+                    
+                    if(!$varTimeOut) {
+                        $varTimeOut = 5000;
+                        }
                     
                     $varReturn = 
                         'function() '.
@@ -495,7 +497,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
                                     '"'.$varAPIKey.'", '.
                                     '"'.$varAPIVersion.'", '.
-                                    'varJSONData'.
+                                    'varJSONData, '.
+                                    ''.$varTimeOut.''.
                                     '); '.
 //                                'alert(varJSONData); '.
 //                                'alert("done"); '.

@@ -236,7 +236,7 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
                     async : false, 
                     type : "POST",
                     headers : {
-                        'User-Agent' : this.getUserAgent(),
+                        //'User-Agent' : this.getUserAgent(),
                         'Agent-DateTime' : this.getAgentDateTime(),
                         'Expires' : this.getAgentDateTime((10*60)),
                         'Content-MD5' : this.getBase64OfMD5(varDataJSON),
@@ -293,10 +293,10 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
 */
 class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     {
-    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
         super();
-        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject);
+        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut);
         this.value = varReturn;
         }
 
@@ -319,8 +319,11 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     |      ▪ varReturn ► Return Value (JSON)                                                                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
+        if(varTimeOut == null) {
+            varTimeOut = 5000;
+            }
         //alert(JSON.stringify(varDataJSObject));
         var varReturn = null;
         if (window.jQuery) {
@@ -371,7 +374,8 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
                         //'varAJAXReturn = "Failed"; '.
                         varReturn = JSON.stringify(varDataResponse);
-                        }
+                        },
+                    timeout: varTimeOut
                     });
                 //alert(varReturn);
                 //$("body").append(JSON.stringify(varReturn));

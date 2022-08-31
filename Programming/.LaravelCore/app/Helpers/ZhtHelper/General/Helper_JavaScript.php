@@ -174,42 +174,90 @@ namespace App\Helpers\ZhtHelper\General
             }
 
 
-        public static function getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, bool $varSignOpen, string $varMessage = null)
+        public static function getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varParentID, bool $varSignOpen, string $varMessage = null)
             {
+            if(!$varMessage) {
+                $varMessage = ' Please to wait, Process is still running ';
+                }
             $varReturn = 
                 'function (varSignOpen) {'.
                     'try {'.
-                        'if (varSignOpen == true) {'.
-                            'alert(\'open\'); '.
-                            'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+                        'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
+
+                        'if (document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\') == null) {'.
                             self::getSyntaxCreateDOM_Div(
                                 $varUserSession, 
                                 [
                                     'ID' => $varID.'_ProcessLoad_Back',
-                                    'ParentID' => 'document.body',
+                                    'ParentID' => $varParentID,
                                     'Style' => [
                                         ['position', 'absolute'],
                                         ['top', '0px'],
                                         ['left', '0px'],
                                         ['height', '100%'],
                                         ['width', '100%'],
-    //                                    ['background', 'rgba(255, 0, 0, 0.3)']
-//                                        ['background', 'rgba(0, 255, 0, 0.3)']
-                                        ['background', 'red']
+                                        ['background', 'rgba(255, 255, 0, 0.5)']
                                         ]
                                 ], 
                                 ''
                                 ).
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.zIndex = (varMaxZIndex+0); '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.display = \'block\'; '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.visibility = \'visible\'; '.
+                            self::getSyntaxCreateDOM_Div(
+                                $varUserSession, 
+                                [
+                                    'ID' => $varID.'_ProcessLoad_BackMessage',
+                                    'ParentID' => $varID.'_ProcessLoad_Back',
+                                    'Style' => [
+                                        ['position', 'absolute'],
+                                        ['top', '50%'],
+                                        ['left', '50%'],
+                                        ['background', '#0a912c'],
+                                        ['fontFamily', '\\\'Helvetica, Verdana, Arial, Tahoma, Serif\\\''],
+                                        ['fontWeight', 'bold'],
+                                        ['valign', 'top'],
+                                        ['color', '#ffffff'],
+                                        ['fontSize', '60px'],
+                                        ['textShadow', '2px 2px 5px #000000'],
+                                        ['border', '1px solid'],
+                                        ['borderColor', 'black'],
+                                        ['borderSpacing', '2px'],
+                                        ['padding', '2px'],
+                                        ['borderRadius', '10px'],
+                                        ['boxShadow', '10px 20px 30px #333333'],
+                                        ['transform', 'translate(-50%, -50%)']
+                                        ]
+                                ], 
+                                str_replace(' ', '&nbsp', $varMessage)
+                                ).
+                            '}'.
+
+                        'varObjDOM = document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\'); '.
+                        'varObjDOM.style.zIndex = (varMaxZIndex+100); '.
+                        'varObjDOM.style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
+                        'varObjDOM.style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+
+                        
+                    
+                        'function startShow() {'.
+                            'if (varObjDOM.style.display != \'block\') {'.
+                                'varObjDOM.style.display = \'block\'; '.
+                                'varObjDOM.style.visibility = \'visible\'; '.
+                                '}'.
+                            '}; '.
+
+                        'function endShow() {'.
+                            'if (varObjDOM.style.display != \'none\') {'.
+                                'varObjDOM.style.display = \'none\'; '.
+                                'varObjDOM.style.visibility = \'hidden\'; '.
+                                'varObjDOM.parent.removeNode(\''.$varID.'_ProcessLoad_Back'.'\'); '.
+//                                document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\')
+                                '}'.
+                            '}; '.
+
+                        'if (varSignOpen == true) {'.
+                            'setTimeout(startShow, 1); '.
                             '}'.
                         'else {'.
-                            'alert(\'close\'); '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.display = \'none\'; '.
-                            'document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\').style.visibility = \'hidden\'; '.
+                            'setTimeout(endShow, 1); '.
                             '}'.
                         '}'.
                     'catch(varError) {'.
@@ -308,39 +356,48 @@ namespace App\Helpers\ZhtHelper\General
 
                         //---> zhtInnerFunc_RecreateThumbnails
                         'function zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath) {'.
-                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, true).'; '.
-                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
+/*                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                            'varObjImage = new Image(); '.
+                            'varObjImage.src = varImageSource; '.
+                            'varObjImage.onload = function() {'.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                                '}; '.*/                                        
                             'var ObjButton = document.getElementById(\''.$varID.'_DialogRecreateButton\'); '.
                             'ObjButton.style.visibility = \'hidden\'; '.
                             'ObjButton.style.display = \'none\'; '.
                             'if(ObjButton.style.display === \'none\') {'.
-                                'varNothing = ('.
-                                    'JSON.parse('.                           
-                                        str_replace(
-                                            '"', 
-                                            '\'', 
-                                            \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                $varUserSession, 
-                                                $varAPIWebToken, 
-                                                'fileHandling.upload.combined.thumbnails.create', 
-                                                'latest', 
-                                                '{'.
-                                                    '"parameter" : {'.
-                                                        '"filePath" : varFilePath'.
-                                                        '}'.
-                                                '}'
-                                                )
-                                            ).
-                                        ').data'.
-                                    '); '.
+                                'setTimeout(('.
+                                    'function() {'.
+                                        'varNothing = ('.
+                                            'JSON.parse('.                           
+                                                str_replace(
+                                                    '"', 
+                                                    '\'', 
+                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'fileHandling.upload.combined.thumbnails.create', 
+                                                        'latest', 
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '"filePath" : varFilePath'.
+                                                                '}'.
+                                                        '}',
+                                                        10000
+                                                        )
+                                                    ).
+                                                ').data'.
+                                            '); '.
+                                        '}'.
+                                    '), 1); '.
                                 'zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
                                 'ObjButton.style.visibility = \'visible\'; '.
                                 'ObjButton.style.display = \'block\'; '.
-                                '}'.
-                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, false).'; '.
+                                '} '.
+                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
                             '}; '.
 
 
@@ -1180,6 +1237,8 @@ namespace App\Helpers\ZhtHelper\General
                                 'zhtInnerFunc_CloseDivModal(document.getElementById(\''.$varID.'_Back'.'\')); '.
                                 '}'
                             ).
+
+                        //'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
 
                         'if(zhtInnerFunc_CheckConvertibleStatus(varFilePath) == false) {'.
                             'document.getElementById(\''.$varID.'_DialogRecreateTTD'.'\').style.display = \'none\'; '.
