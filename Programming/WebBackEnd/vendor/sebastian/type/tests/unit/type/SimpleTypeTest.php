@@ -18,6 +18,7 @@ use stdClass;
  *
  * @uses \SebastianBergmann\Type\FalseType
  * @uses \SebastianBergmann\Type\ObjectType
+ * @uses \SebastianBergmann\Type\TrueType
  * @uses \SebastianBergmann\Type\Type
  * @uses \SebastianBergmann\Type\TypeName
  * @uses \SebastianBergmann\Type\UnknownType
@@ -117,7 +118,8 @@ final class SimpleTypeTest extends TestCase
             'not nullable to nullable'     => [new SimpleType('int', true), new SimpleType('int', false)],
             'nullable to nullable'         => [new SimpleType('int', true), new SimpleType('int', true)],
             'not nullable to not nullable' => [new SimpleType('int', false), new SimpleType('int', false)],
-            'null to not nullable'         => [new SimpleType('int', true), new NullType],
+            'null to nullable'             => [new SimpleType('int', true), new NullType],
+            'true to bool'                 => [new SimpleType('bool', false), new TrueType],
             'false to bool'                => [new SimpleType('bool', false), new FalseType],
         ];
     }
@@ -151,6 +153,7 @@ final class SimpleTypeTest extends TestCase
         $type = new SimpleType('bool', false);
 
         $this->assertFalse($type->isCallable());
+        $this->assertFalse($type->isFalse());
         $this->assertFalse($type->isGenericObject());
         $this->assertFalse($type->isIntersection());
         $this->assertFalse($type->isIterable());
@@ -160,8 +163,16 @@ final class SimpleTypeTest extends TestCase
         $this->assertFalse($type->isObject());
         $this->assertTrue($type->isSimple());
         $this->assertFalse($type->isStatic());
+        $this->assertFalse($type->isTrue());
         $this->assertFalse($type->isUnion());
         $this->assertFalse($type->isUnknown());
         $this->assertFalse($type->isVoid());
+    }
+
+    public function testNormalizesName(): void
+    {
+        $type = new SimpleType('BOOLEAN', false);
+
+        $this->assertSame('bool', $type->name());
     }
 }

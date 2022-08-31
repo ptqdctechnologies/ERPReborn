@@ -135,7 +135,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         array (
             'Fruitcake\\Cors\\' => 15,
             'Faker\\' => 6,
-            'Facade\\IgnitionContracts\\' => 25,
         ),
         'E' => 
         array (
@@ -430,10 +429,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Facade\\IgnitionContracts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/facade/ignition-contracts/src',
-        ),
         'Egulias\\EmailValidator\\' => 
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
@@ -595,6 +590,7 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\general\\getMasterFileRecord\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/general/getMasterFileRecord/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\create\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/create/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\isExist\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/isExist/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\setFilesMovement\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/setFilesMovement/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\cloudStorage\\getFilesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/cloudStorage/getFilesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\cloudStorage\\getSubDirectoriesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/cloudStorage/getSubDirectoriesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\general\\deleteFile\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/general/deleteFile/v1/example.php',
@@ -1086,12 +1082,6 @@ class ComposerStaticInitba8dd78905df56b3237571f0ff8edc85
         'Egulias\\EmailValidator\\Warning\\QuotedString' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/QuotedString.php',
         'Egulias\\EmailValidator\\Warning\\TLD' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/TLD.php',
         'Egulias\\EmailValidator\\Warning\\Warning' => __DIR__ . '/..' . '/egulias/email-validator/src/Warning/Warning.php',
-        'Facade\\IgnitionContracts\\BaseSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/BaseSolution.php',
-        'Facade\\IgnitionContracts\\HasSolutionsForThrowable' => __DIR__ . '/..' . '/facade/ignition-contracts/src/HasSolutionsForThrowable.php',
-        'Facade\\IgnitionContracts\\ProvidesSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/ProvidesSolution.php',
-        'Facade\\IgnitionContracts\\RunnableSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/RunnableSolution.php',
-        'Facade\\IgnitionContracts\\Solution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/Solution.php',
-        'Facade\\IgnitionContracts\\SolutionProviderRepository' => __DIR__ . '/..' . '/facade/ignition-contracts/src/SolutionProviderRepository.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\CorsServiceProvider' => __DIR__ . '/..' . '/fruitcake/laravel-cors/src/CorsServiceProvider.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',

@@ -161,7 +161,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         array (
             'Fruitcake\\Cors\\' => 15,
             'Faker\\' => 6,
-            'Facade\\IgnitionContracts\\' => 25,
         ),
         'E' => 
         array (
@@ -515,10 +514,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Facade\\IgnitionContracts\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/facade/ignition-contracts/src',
-        ),
         'Elibyy\\TCPDF\\' => 
         array (
             0 => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src',
@@ -741,6 +736,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\combined\\general\\getMasterFileRecord\\v1\\getMasterFileRecord' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/general/getMasterFileRecord/v1/getMasterFileRecord.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\combined\\thumbnails\\create\\v1\\create' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/thumbnails/create/v1/create.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\combined\\thumbnails\\isExist\\v1\\isExist' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/thumbnails/isExist/v1/isExist.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\combined\\thumbnails\\setFilesMovement\\v1\\setFilesMovement' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/combined/thumbnails/setFilesMovement/v1/setFilesMovement.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\stagingArea\\cloudStorage\\getFilesList\\v1\\getFilesList' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/stagingArea/cloudStorage/getFilesList/v1/getFilesList.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\stagingArea\\cloudStorage\\getSubDirectoriesList\\v1\\getSubDirectoriesList' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/stagingArea/cloudStorage/getSubDirectoriesList/v1/getSubDirectoriesList.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\FileHandling\\Engines\\upload\\stagingArea\\general\\deleteFile\\v1\\deleteFile' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/FileHandling/Engines/upload/stagingArea/general/deleteFile/v1/deleteFile.php',
@@ -1563,6 +1559,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\general\\getMasterFileRecord\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/general/getMasterFileRecord/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\create\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/create/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\isExist\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/isExist/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\combined\\thumbnails\\setFilesMovement\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/combined/thumbnails/setFilesMovement/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\cloudStorage\\getFilesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/cloudStorage/getFilesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\cloudStorage\\getSubDirectoriesList\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/cloudStorage/getSubDirectoriesList/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\fileHandling\\upload\\stagingArea\\general\\deleteFile\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/fileHandling/upload/stagingArea/general/deleteFile/v1/example.php',
@@ -3090,12 +3087,6 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Elibyy\\TCPDF\\ServiceProvider' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/ServiceProvider.php',
         'Elibyy\\TCPDF\\TCPDF' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/TCPDF.php',
         'Elibyy\\TCPDF\\TCPDFHelper' => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src/TCPDFHelper.php',
-        'Facade\\IgnitionContracts\\BaseSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/BaseSolution.php',
-        'Facade\\IgnitionContracts\\HasSolutionsForThrowable' => __DIR__ . '/..' . '/facade/ignition-contracts/src/HasSolutionsForThrowable.php',
-        'Facade\\IgnitionContracts\\ProvidesSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/ProvidesSolution.php',
-        'Facade\\IgnitionContracts\\RunnableSolution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/RunnableSolution.php',
-        'Facade\\IgnitionContracts\\Solution' => __DIR__ . '/..' . '/facade/ignition-contracts/src/Solution.php',
-        'Facade\\IgnitionContracts\\SolutionProviderRepository' => __DIR__ . '/..' . '/facade/ignition-contracts/src/SolutionProviderRepository.php',
         'Faker\\Calculator\\Ean' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Ean.php',
         'Faker\\Calculator\\Iban' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Iban.php',
         'Faker\\Calculator\\Inn' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/Calculator/Inn.php',
@@ -8048,6 +8039,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'SebastianBergmann\\Type\\RuntimeException' => __DIR__ . '/..' . '/sebastian/type/src/exception/RuntimeException.php',
         'SebastianBergmann\\Type\\SimpleType' => __DIR__ . '/..' . '/sebastian/type/src/type/SimpleType.php',
         'SebastianBergmann\\Type\\StaticType' => __DIR__ . '/..' . '/sebastian/type/src/type/StaticType.php',
+        'SebastianBergmann\\Type\\TrueType' => __DIR__ . '/..' . '/sebastian/type/src/type/TrueType.php',
         'SebastianBergmann\\Type\\Type' => __DIR__ . '/..' . '/sebastian/type/src/type/Type.php',
         'SebastianBergmann\\Type\\TypeName' => __DIR__ . '/..' . '/sebastian/type/src/TypeName.php',
         'SebastianBergmann\\Type\\UnionType' => __DIR__ . '/..' . '/sebastian/type/src/type/UnionType.php',
@@ -8218,6 +8210,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Swaggest\\JsonDiff\\JsonPointer' => __DIR__ . '/..' . '/swaggest/json-diff/src/JsonPointer.php',
         'Swaggest\\JsonDiff\\JsonValueReplace' => __DIR__ . '/..' . '/swaggest/json-diff/src/JsonValueReplace.php',
         'Swaggest\\JsonDiff\\ModifiedPathDiff' => __DIR__ . '/..' . '/swaggest/json-diff/src/ModifiedPathDiff.php',
+        'Swaggest\\JsonDiff\\PatchTestOperationFailedException' => __DIR__ . '/..' . '/swaggest/json-diff/src/PatchTestOperationFailedException.php',
         'Swaggest\\JsonSchema\\Constraint\\Constraint' => __DIR__ . '/..' . '/swaggest/json-schema/src/Constraint/Constraint.php',
         'Swaggest\\JsonSchema\\Constraint\\Content' => __DIR__ . '/..' . '/swaggest/json-schema/src/Constraint/Content.php',
         'Swaggest\\JsonSchema\\Constraint\\Format' => __DIR__ . '/..' . '/swaggest/json-schema/src/Constraint/Format.php',

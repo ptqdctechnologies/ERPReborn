@@ -14,9 +14,25 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             
         public function testAja()
             {
- //           echo phpinfo();
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-$varAPIWebToken = 'xxx';
+            $varAPIWebToken = 'xxx';
+
+//            $x = is_file('TestPDF.pdf');
+            $filename = 'TestPDF.pdf';
+            $handle = fopen($filename, "r");
+            $contents = fread($handle, filesize($filename));
+            fclose($handle);
+
+if (stristr($contents, "/Encrypt")) 
+{echo " (Suspected Enrypted PDF File !)";}
+else
+{echo " OK ";}  
+            
+            //dd($contents);
+            
+            
+            
+ //           echo phpinfo();
 
 /*
             \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_ImageToPNG(
@@ -46,6 +62,7 @@ $varAPIWebToken = 'xxx';
                     );
 */
 
+/*
 $x = \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_OfficeToPDF(
     $varUserSession,
     (new \App\Models\CloudStorage\System\General())->getFileContent(
@@ -54,7 +71,7 @@ $x = \App\Helpers\ZhtHelper\General\Helper_FileConvert::getConvertDataContent_Of
         )
     );
 //dd();
-
+*/
 
 /*
 $varDataBAse64 = (new \App\Models\CloudStorage\System\General())->getFileContent(
