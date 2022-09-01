@@ -19,25 +19,27 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                 $varServerCurrentUnixTime=\App\Helpers\ZhtHelper\General\Helper_DateTime::getUnixTime($varUserSession);
                 //---> HTTP Header Check
                 $varHTTPHeader = \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::getHeader($varUserSession, $varObjRequest);
-                
+
                 //--->---> Check Authorization on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'authorization', $varHTTPHeader) == false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'HTTP Authorization Request not found in HTTP Header']));
                     }
+
                 //--->---> Check Authorization Mode on HTTP Header  
                 if(strcmp(strtolower(substr($varHTTPHeader['authorization'], 0, 6)), 'bearer')!=0)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'HTTP Authorization Requests must be in Bearer Mode']));
                     }
+
                 //--->---> Check API Web Token Existence
                 if((new \App\Models\Cache\General\APIWebToken())->isDataExist($varUserSession, (explode(' ', $varHTTPHeader['authorization']))[1]) == false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'API Web Token does not exist']));
-                    }                    
+                    }
                 //--->---> Check API Web Token Expiry
                 else
                     {
@@ -46,7 +48,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         throw new \Exception(implode($varDataSeparatorTag, 
                             [403, 'API Web Token has been expired']));
                         }
-                    }                    
+                    }
+
 /*                //--->---> Check Date Time on HTTP Header
                 if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'agent-datetime', $varHTTPHeader)==false)
                     {
@@ -60,7 +63,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
                         [403, 'Request date and time difference between Server and Client is not within tolerance ( ±'.$varClientServerDateTimeLagTolerance.' seconds )']));                    
                     }
                 //--->---> Check Content-MD5 on HTTP Header
-                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'content-md5', $varHTTPHeader)==false)
+                if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'x-content-md5', $varHTTPHeader)==false)
                     {
                     throw new \Exception(implode($varDataSeparatorTag, 
                         [403, 'Request Content-MD5 not found on HTTP Header']));
@@ -81,8 +84,8 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
 
 /*                    throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.  
-                            "<br>HTTP MD5 Header : ".$varHTTPHeader['content-md5'].
-                            "<br>HTTP MD5 Header Raw : ".base64_decode($varHTTPHeader['content-md5']).
+                            "<br>HTTP MD5 Header : ".$varHTTPHeader['x-content-md5'].
+                            "<br>HTTP MD5 Header Raw : ".base64_decode($varHTTPHeader['x-content-md5']).
                             "<br>Data Load : ".\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)).
                                                        
                             "<br><br>".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))) .'<br><br>---> '.
@@ -93,29 +96,36 @@ namespace App\Http\Middleware\Application\BackEnd\API\Gateway
 //                                              '{"metadata":{"API":{"key":"environment.general.session.getData","version":"latest"}},"data":[]}'
                             ]));
 */
-
+                    
                 //--->---> Check Content Integrity
-                if(strcmp($varHTTPHeader['content-md5'], \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) != 0)
+                if(strcmp(
+                    $varHTTPHeader['x-content-md5'], 
+                    \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5(
+                        $varUserSession, 
+                        \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))
+                        )) != 0
+                    )
                     {
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid']));
                     /*
                     throw new \Exception(implode($varDataSeparatorTag,
                         [403, 'Content integrity is invalid ---> '.
-                        "<br>HTTP MD5 Header : ".$varHTTPHeader['content-md5'].
-                        "<br>HTTP MD5 Header Raw : ".base64_decode($varHTTPHeader['content-md5']).
+                        "<br>HTTP MD5 Header : ".$varHTTPHeader['x-content-md5'].
+                        "<br>HTTP MD5 Header Raw : ".base64_decode($varHTTPHeader['x-content-md5']).
                         "<br><br>Data Load : ".\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)).
                         "<br>".
                         "<br>Processing HTTP MD5 Header : ".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
                         "<br>Processing HTTP MD5 Header Raw : ".md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))).
-                        "<br><br>Comparison<br>".$varHTTPHeader['content-md5']."<br>".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
+                        "<br><br>Comparison<br>".$varHTTPHeader['x-content-md5']."<br>".base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))).
                         "<br><br>".
-                        "<br>Result : ".strcmp((string) $varHTTPHeader['content-md5'], (string) base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) ).
+                        "<br>Result : ".strcmp((string) $varHTTPHeader['x-content-md5'], (string) base64_encode(md5(\GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession)))) ).
                         "<br><br>".\App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, \GuzzleHttp\json_encode(\App\Helpers\ZhtHelper\System\Helper_HTTPRequest::getRequest($varUserSession))).
                         ""
                         ]));
                     */                                                
-                    }                
+                    }
+
                 $varReturn = $varObjNext($varObjRequest);
                 } 
             catch (\Exception $ex) {

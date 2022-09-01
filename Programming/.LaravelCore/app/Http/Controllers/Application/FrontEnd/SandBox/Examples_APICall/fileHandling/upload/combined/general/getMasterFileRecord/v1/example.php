@@ -63,6 +63,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 ]
                 );
 
+/*
+            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                $varAPIWebToken, 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                [
+                'parameter' => [
+                    'log_FileUpload_Pointer_RefID' => null,
+                    'rotateLog_FileUploadStagingArea_RefRPK' => null,
+                    'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID' => []
+                    ]
+                ]
+                );
+*/
                 
             var_dump($varData);
             }
@@ -88,10 +103,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                 }
             //---Core---
             echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::setLibrary(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System());
-            echo '<br>Archive Record ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value="">';
-            echo '<br>Staging Area Record PK<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=186>';
-            echo '<br>Delete Candidate Log_FileUpload_ObjectDetail RefArrayID<input type="text" id="dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" value="[]">';
-            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+            echo '<br>Archive Record ID<input type="text" id="dataInput_log_FileUpload_Pointer_RefID" value="91000000000011">';
+            echo '<br>Staging Area Record PK<input type="text" id="dataInput_rotateLog_FileUploadStagingArea_RefRPK" value=>';
+            echo '<br>Delete Candidate Log_FileUpload_ObjectDetail RefArrayID<input type="text" id="dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" value="[123]">';
+/*            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                 \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                 $varAPIWebToken, 
                 'fileHandling.upload.combined.general.getMasterFileRecord', 
@@ -103,8 +118,24 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\fil
                         '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : document.getElementById("dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID").value'.
                         '}'.
                 '}'
+                );*/
+            $varJQueryFunction = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                $varAPIWebToken, 
+                'fileHandling.upload.combined.general.getMasterFileRecord', 
+                'latest', 
+                '{'.
+                    '"parameter" : {'.
+                        '"log_FileUpload_Pointer_RefID" : 91000000000011, '.
+                        '"rotateLog_FileUploadStagingArea_RefRPK" : null, '.
+                        '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : [1,2]'.
+                        '}'.
+                '}'
                 );
-            echo "<button type='button' onclick='javascript:var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+//            echo "<button type='button' onclick='javascript:alert(JSON.stringify(JSON.parse(document.getElementById(\"dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\").value))); var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
+            echo "<button type='button' onclick='javascript:".
+                    "alert(JSON.parse(JSON.stringify(document.getElementById(\"dataInput_deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\").value))); ".
+                    "var varData = ".$varJQueryFunction."; $(\"body\").append(JSON.stringify(varData));'>Submit Data</button>";
             dd($varJQueryFunction);
             }
         }

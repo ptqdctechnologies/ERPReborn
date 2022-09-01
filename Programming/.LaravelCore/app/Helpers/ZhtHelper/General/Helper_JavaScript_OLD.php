@@ -172,24 +172,13 @@ namespace App\Helpers\ZhtHelper\General
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-/*
-        public static function getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad2($varUserSession, $varID, $varParentID, bool $varSignOpen, string $varMessage = null)
-            {
-            $varReturn = 
-                'function (varSignOpen) {'.
-//                    'alert(varSignOpen); '.
-                    'alert(varSignOpen + \' : xxxx\'); '.
-                    '} (123); ';
-            return $varReturn;
-            }
-*/            
-            
+
+
         public static function getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varParentID, bool $varSignOpen, string $varMessage = null)
             {
             if(!$varMessage) {
-                $varMessage = ' Please wait until the process is complete ';
+                $varMessage = ' Please to wait, Process is still running ';
                 }
-
             $varReturn = 
                 'function (varSignOpen) {'.
                     'try {'.
@@ -245,6 +234,8 @@ namespace App\Helpers\ZhtHelper\General
                         'varObjDOM.style.zIndex = (varMaxZIndex+100); '.
                         'varObjDOM.style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
                         'varObjDOM.style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+
+                        
                     
                         'function startShow() {'.
                             'if (varObjDOM.style.display != \'block\') {'.
@@ -1203,6 +1194,12 @@ namespace App\Helpers\ZhtHelper\General
                         'document.getElementById(\''.$varID.'_DialogActionTable'.'\').style.transform = \'translateY(-50%)\'; '.
 //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
 
+
+                    //
+
+
+
+
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
                         'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
 
@@ -1608,66 +1605,6 @@ namespace App\Helpers\ZhtHelper\General
                 ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
                     $varObjectID.'.removeAttribute(\'id\'); ').
                 '';
-
-            return $varReturn;
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getSyntaxCreateDOM_JavaScript                                                                        |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-08-29                                                                                           |
-        | ▪ Creation Date   : 2022-08-29                                                                                           |
-        | ▪ Description     : Mendapatkan Syntax Pembuatan DOM Object : JavaScript                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession (Mandatory) ► User Session                                                                |
-        |      ▪ (array)  varArrayProperties (Mandatory) ► DOM Properties                                                          |
-        |        Example :                                                                                                         |
-        |           ► []                                                                                                           |
-        |           ► [ 'ID' => 'MyID' ]                                                                                           |
-        |           ► [ 'ID' => 'MyID',                                                                                            |
-        |               'ParentID' => ... ,                                                                                        |
-        |               'Style' => [                                                                                               |
-        |                     ['...', ...]                                                                                         |
-        |                  ]                                                                                                       |
-        |             ]                                                                                                            |
-        |      ▪ (string) varContent (Mandatory) ► Content                                                                         |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (string) varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getSyntaxCreateDOM_JavaScript($varUserSession, $varArrayProperties, string $varText = null)
-            {
-            if(!$varText) {
-                $varText = '';
-                }
-
-            $varReturn = '';
-
-            if((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Style', $varArrayProperties) == TRUE)) {
-                for($i=0, $iMax=count($varArrayProperties['Style']); $i!=$iMax; $i++) {
-                    $varReturn .= $varObjectID.'.style.'.$varArrayProperties['Style'][$i][0].' = \''.$varArrayProperties['Style'][$i][1].'\'; ';
-                    }
-                }
-
-            $varReturn = 
-                'varNothing = function () {'.
-                    'try {'.
-                        'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
-                        'var ObjScript = document.createElement(\'script\'); '.
-                        'ObjScript.type = \'text/javascript\'; '.
-                        'ObjScript.text = \''.$varText.'\'; '.
-                        //'alert(\'Done yah\');'.
-                        'ObjHead.appendChild(ObjScript); '.
-                        '}'.
-                    'catch(varError) {'.
-                        'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
-                        '}'.
-                    '} ();'.
-                    '';
 
             return $varReturn;
             }
@@ -2107,14 +2044,15 @@ namespace App\Helpers\ZhtHelper\General
                             ['fontSize', '10px'],
                             ['textAlign', 'left']
                         ];
-
+                    
                     $varReturn =
                         'try {'.
+                            //---> Pendefinisian varObjDOMInputMasterFileRecord
                             'try {'.
                                 'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value; '.
-                                '} '.
+                                //'var'.$varUniqueID.'_ObjDOMInputMainData.setAttribute(\'value\', var'.$varUniqueID.'_ObjDOMInputMainData.getAttribute(\'value\')); '.
+                                '}'.
                             'catch(varError) {'.
-                                //---> Main Action (Start)
                                 self::getSyntaxCreateDOM_InputText(
                                     $varUserSession, 
                                     [
@@ -2127,34 +2065,27 @@ namespace App\Helpers\ZhtHelper\General
                                             ]
                                     ]).
                                 //---> Penambahan Script
-                                self::getSyntaxCreateDOM_JavaScript(
-                                    $varUserSession, 
-                                    [],
+                                'var ObjHead = document.getElementsByTagName(\'head\')[0]; '.
+                                'var ObjScript = document.createElement(\'script\'); '.
+                                'ObjScript.type = \'text/javascript\'; '.
+
+/*
+                                'ObjScript.text = \''.
                                     self::setEscapeForEscapeSequenceOnSyntaxLiteral(
                                         $varUserSession, 
-                                        (
+                                        (                           
                                         //---> JSFunc_LockObject_...
                                         'function JSFunc_LockObject_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'hidden\'; '.
-                                                //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'none\'; '.
-                                                '} '.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = false; '.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'hidden\'; '.
+                                            //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'none\'; '.
                                             '}'.
 
                                         //---> JSFunc_UnlockObject_...
                                         'function JSFunc_UnlockObject_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = true; '.
-                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'visible\'; '.
-                                                //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'inline\'; '.
-                                                '} '.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').disabled = true; '.
+                                            'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.visibility = \'visible\'; '.
+                                            //'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').style.display = \'inline\'; '.
                                             '}'.
 
                                         //---> JSFunc_GetActionPanel_Reload_...
@@ -2172,8 +2103,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'XHR.open(\'GET\', varURLDelete, true); '.
                                                 'XHR.send(null); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch(err) {'.
                                                 '}'.
                                             '}'.
 
@@ -2209,38 +2139,31 @@ namespace App\Helpers\ZhtHelper\General
                                                 'alert(\'Committed File(s) Upload Complete\'); '.
                                                 'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch(err) {'.
                                                 '}'.
-//                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
                                             '}'.
 
                                         //---> JSFunc_MainData_InitData_...
                                         'function JSFunc_MainData_InitData_'.$varUniqueID.'(log_FileUpload_Pointer_RefID, rotateLog_FileUploadStagingArea_RefRPK, deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) {'.
-                                            'try {'.
-                                                'if(JSFunc_MainData_GetData_'.$varUniqueID.'() == null) {'.
-                                                    //---> Main Template
-                                                    'varJSONData = \'{\' + '.
-                                                        'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
-                                                            'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
-                                                            'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
-                                                            'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
-                                                            '\'}, \' + '.
-                                                        'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
-                                                            'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
-                                                                '\'}\' + '.
-                                                           '\'}\' + '.
-                                                        '\'}\';'.
-                                                    'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
-                                                    //---> Update MasterFileRecord From Database
-                                                    'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
-                                                    'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
-                                                    '}'.
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'if(JSFunc_MainData_GetData_'.$varUniqueID.'() == null) {'.
+                                                //---> Main Template
+                                                'varJSONData = \'{\' + '.
+                                                    'String.fromCharCode(34) + \'header\' + String.fromCharCode(34) + \' : {\' + '.
+                                                        'String.fromCharCode(34) + \'log_FileUpload_Pointer_RefID\' + String.fromCharCode(34) + \' : \' + ((log_FileUpload_Pointer_RefID == \'\') ? null : log_FileUpload_Pointer_RefID) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'rotateLog_FileUploadStagingArea_RefRPK\' + String.fromCharCode(34) + \' : \' + ((rotateLog_FileUploadStagingArea_RefRPK == \'\') ? null : rotateLog_FileUploadStagingArea_RefRPK) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID\' + String.fromCharCode(34) + \' : \' + ((deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID == \'\') ? \'[]\' : deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID) + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit\' + String.fromCharCode(34) + \' : false\' + \', \' + '.
+                                                        'String.fromCharCode(34) + \'signNeedToCommit_Archive\' + String.fromCharCode(34) + \' : false\' + '.
+                                                        '\'}, \' + '.
+                                                    'String.fromCharCode(34) + \'data\' + String.fromCharCode(34) + \' : {\' + '.
+                                                        'String.fromCharCode(34) + \'masterFileRecord\' + String.fromCharCode(34) + \' : {\' + '.
+                                                            '\'}\' + '.
+                                                        '\'}\' + '.
+                                                    '\'}\';'.
+                                                'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(JSON.parse(varJSONData))); '.
+                                                //---> Update MasterFileRecord From Database
+                                                'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+                                                'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
                                                 '}'.
                                             '}'.
 
@@ -2248,12 +2171,9 @@ namespace App\Helpers\ZhtHelper\General
                                         'function JSFunc_MainData_GetData_'.$varUniqueID.'() {'.
                                             'varReturn = null; '.
                                             'try {'.
-                                                'if(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value != \'\') {'.
-                                                    'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
-                                                    '}'.
+                                                'varReturn = JSON.parse(document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2263,8 +2183,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'try {'.
                                                 'document.getElementById(\'zhtSysObjDOMText_'.$varUniqueID.'_MainData\').value = varDataJSON;'.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2275,8 +2194,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varReturn = varData.header.log_FileUpload_Pointer_RefID; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2288,8 +2206,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSON.header.log_FileUpload_Pointer_RefID = varDataID; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2300,8 +2217,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varReturn = varData.header.rotateLog_FileUploadStagingArea_RefRPK; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2313,8 +2229,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSON.header.rotateLog_FileUploadStagingArea_RefRPK = varDataRPK; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2325,8 +2240,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varReturn = varData.header.signNeedToCommit; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2338,8 +2252,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSON.header.signNeedToCommit = varStatus; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2353,8 +2266,7 @@ namespace App\Helpers\ZhtHelper\General
                                                     'varReturn = JSON.parse(\'[]\'); '.
                                                     '}'.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2368,8 +2280,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2401,8 +2312,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varObjDownloadLink.click(); '.
                                                 'varObjDownloadLink.parentNode.removeChild(varObjDownloadLink); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2437,8 +2347,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         ).
                                                     '; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2449,8 +2358,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varData = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varReturn = varData.data.masterFileRecord; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
@@ -2462,8 +2370,7 @@ namespace App\Helpers\ZhtHelper\General
                                                 'varDataJSON.data.masterFileRecord = varDataJSONMasterFileRecord; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             '}'.
 
@@ -2493,431 +2400,409 @@ namespace App\Helpers\ZhtHelper\General
                                                         ').data'.
                                                     ').data; '.
                                                 '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
+                                            'catch (varError) {'.
                                                 '}'.
                                             'return varReturn; '.
                                             '}'.
 
                                         //---> JSFunc_ObjDOMTable_ActionPanel_Show_...
-                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.
-                                            'try {'.
-                                                //---> Ambil varDataJSONMasterFileRecord dari database
-                                                'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
-    //                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
+                                        'function JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'() {'.                            
+                                            //---> Ambil varDataJSONMasterFileRecord dari database
+                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetDataFromDatabase_MasterFileRecord_'.$varUniqueID.'(); '.
+//                                            'varDataJSONMasterFileRecord = JSFunc_MainData_GetData_MasterFileRecord_'.$varUniqueID.'(); '.
 
-                                                //---> Update varDataJSONMasterFileRecord di Main Data
-                                                'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
+                                            //---> Update varDataJSONMasterFileRecord di Main Data
+                                            'JSFunc_MainData_SetData_MasterFileRecord_'.$varUniqueID.'(varDataJSONMasterFileRecord); '.
 
-                                                //---> SignNeedToCommit Reinit
-                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
-                                                'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
-                                                    'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
-                                                    '}'.
-                                                'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
-                                                    'if(varDataJSONMasterFileRecord != null) '.
+                                            //---> SignNeedToCommit Reinit
+                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(false); '.
+                                            'if((JSFunc_MainData_GetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'() == \'\') == false) { '.
+                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
+                                                '}'.
+                                            'if(JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == false) {'.
+                                                'if(varDataJSONMasterFileRecord != null) '.
+                                                    '{'.
+                                                    'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
                                                         '{'.
-                                                        'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
-                                                            '{'.
-                                                            'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
-                                                                'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
-                                                                '}'.
+                                                        'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == false) {'.
+                                                            'JSFunc_MainData_SetData_SignNeedToCommit_'.$varUniqueID.'(true); '.
                                                             '}'.
                                                         '}'.
                                                     '}'.
-
-                                                //---> Object Table
-                                                'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
-                                                    '{'.
-                                                    'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
-                                                    '}'.
-
-                                                self::getSyntaxCreateDOM_Table(
+                                                '}'.
+                            
+                                            //---> Object Table
+                                            'if(document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\') != null)'.
+                                                '{'.
+                                                'document.getElementById(\'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel\').remove(); '.
+                                                '}'.
+                            
+                                            self::getSyntaxCreateDOM_Table(
+                                                $varUserSession, 
+                                                [
+                                                'ID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel',
+                                                'ParentID' => 'document.getElementById(\''.$varDOMActionPanel.'\')',
+                                                'Style' => $varStyle_TableAction
+                                                ],
+                                                (
+                                                //---> Table Head
+                                                self::getSyntaxCreateDOM_TableHead(
                                                     $varUserSession, 
                                                     [
-                                                    'ID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel',
-                                                    'ParentID' => 'document.getElementById(\''.$varDOMActionPanel.'\')',
-                                                    'Style' => $varStyle_TableAction
+                                                    'ID' => 'varObjTHead',
+                                                    'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
                                                     ],
                                                     (
-                                                    //---> Table Head
-                                                    self::getSyntaxCreateDOM_TableHead(
+                                                    self::getSyntaxCreateDOM_TableRow(
                                                         $varUserSession, 
                                                         [
-                                                        'ID' => 'varObjTHead',
-                                                        'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
-                                                        ],
+                                                        'ID' => 'varObjTTR',
+                                                        'ParentID' => 'varObjTHead'
+                                                        ], 
                                                         (
-                                                        self::getSyntaxCreateDOM_TableRow(
+                                                        self::getSyntaxCreateDOM_TableData(
                                                             $varUserSession, 
                                                             [
-                                                            'ID' => 'varObjTTR',
-                                                            'ParentID' => 'varObjTHead'
-                                                            ], 
-                                                            (
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'NO\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'SIZE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'RowSpan' => 2
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATE & TIME\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                'ColSpan' => 4
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
-                                                                )
-                                                            )
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'NO\')); '
                                                             ).
-                                                        self::getSyntaxCreateDOM_TableRow(
+                                                        self::getSyntaxCreateDOM_TableData(
                                                             $varUserSession, 
                                                             [
-                                                            'ID' => 'varObjTTR',
-                                                            'ParentID' => 'varObjTHead'
-                                                            ], 
-                                                            (
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
-                                                                ).
-                                                            self::getSyntaxCreateDOM_TableData(
-                                                                $varUserSession, 
-                                                                [
-                                                                'ID' => 'varObjTTD',
-                                                                'ParentID' => 'varObjTTR',
-                                                                'Style' => $varStyle_TableActionPanelHead,
-                                                                ],
-                                                                'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
-                                                                )
-                                                            )
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'FILE NAME\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'SIZE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'RowSpan' => 2
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'UPLOAD DATE & TIME\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            'ColSpan' => 4
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'ACTION\')); '
                                                             )
                                                         )
                                                         ).
-                                                    //---> Table Body
-                                                    self::getSyntaxCreateDOM_TableBody(
+                                                    self::getSyntaxCreateDOM_TableRow(
                                                         $varUserSession, 
                                                         [
-                                                        'ID' => 'varObjTHead',
-                                                        'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
-                                                        ],
+                                                        'ID' => 'varObjTTR',
+                                                        'ParentID' => 'varObjTHead'
+                                                        ], 
                                                         (
-
-                                                        'if(varDataJSONMasterFileRecord == null) {'.
-                                                            'varDataJSONMasterFileRecord = ['.
-                                                                '{'.
-                                                                '\'sequence\' : \'\', '.
-                                                                '\'signExistOnArchive\' : \'\', '.
-                                                                '\'recordReference\' : \'\', '.
-                                                                '\'name\' : \'\', '.
-                                                                '\'size\' : \'\', '.
-                                                                '\'MIME\' : \'\', '.
-                                                                '\'extension\' : \'\', '.
-                                                                '\'lastModifiedDateTimeTZ\' : \'\', '.
-                                                                '\'lastModifiedUnixTimestamp\' : \'\', '.
-                                                                '\'hashMethod_RefID\' : \'\', '.
-                                                                '\'contentBase64Hash\' : \'\', '.
-                                                                '\'uploadDateTimeTZ\' : \'\', '.
-                                                                '\'filePath\' : \'\', '.
-                                                                '\'URLDelete\' : \'\' '.
-                                                                '}'.
-                                                                '];'.
-                                                            '}'.
-
-                                                        'if(varDataJSONMasterFileRecord != null) '.
-                                                            '{'.
-                                                            '; '.
-                                                            'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
-                                                                '{'.
-                                                                'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
-                                                                'if(!varFilePath) {'.
-                                                                    'varTRID = null; '.
-                                                                    '}'.
-                                                                'else {'.
-                                                                    'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
-                                                                    'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
-                                                                    '}'.
-                                                                self::getSyntaxCreateDOM_TableRow(
-                                                                    $varUserSession, 
-                                                                    [
-                                                                    'ID' => 'varObjTTR',
-                                                                    'ParentID' => 'varObjTHead'
-                                                                    ], 
-                                                                    (
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\'])); '
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelBody,
-                                                                        ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\'])); '
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'right']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\'])); '
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => $varStyle_TableActionPanelBody,
-                                                                        ],
-                                                                        'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'])); '
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        (
-                                                                        'var varObjA = document.createElement(\'a\'); '.
-                                                                            'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
-                                                                            'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
-                                                                            'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
-                                                                                'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
-                                                                                        'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'else {'.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function(varURLDelete) {'.
-                                                                                                'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
-                                                                                            '})(\\\'\' + varURLDelete + \'\\\');'.
-                                                                                        '\'; '.
-                                                                                    '}'.
-                                                                                'varObjA.innerHTML = \'Delete\'; '.
-                                                                                '}'.
-                                                                        'varObjTTD.appendChild(varObjA); '
-                                                                        )
-                                                                        ).
-                                                                    'if(i == 0) '.
-                                                                        '{'.
-                                                                        self::getSyntaxCreateDOM_TableData(
-                                                                            $varUserSession, 
-                                                                            [
-                                                                            'ID' => 'varObjTTD',
-                                                                            'ParentID' => 'varObjTTR',
-                                                                            'RowSpan' => 'iMax',
-                                                                            'Style' => array_merge(
-                                                                                $varStyle_TableActionPanelBody,
-                                                                                [
-                                                                                    ['textAlign', 'center']
-                                                                                ]
-                                                                                ),
-                                                                            ],
-                                                                            (
-                                                                            'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
-                                                                                'var varObjA = document.createElement(\'a\'); '.
-                                                                                    'varObjA.href = \'javascript:'.
-                                                                                        '(function() {'.
-                                                                                            self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                                                                                $varUserSession,
-                                                                                                (
-                                                                                                'varNothing = '.
-                                                                                                self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true)
-                                                                                                )
-                                                                                                ).
-                                                                                            'setTimeout('.
-                                                                                                '(function() {'.
-                                                                                                    'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
-                                                                                                    self::setEscapeForEscapeSequenceOnSyntaxLiteral(
-                                                                                                        $varUserSession,
-                                                                                                        (
-                                                                                                        'varNothing = '.
-                                                                                                        self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
-                                                                                                        )
-                                                                                                        ).
-                                                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
-                                                                                                    '}'.
-                                                                                                '), 50);'.
-                                                                                            '})();'.
-                                                                                        '\'; '.
-                                                                                    'varObjA.innerHTML = \'Commit\'; '.
-                                                                                'varObjTTD.appendChild(varObjA); '.
-                                                                                '}'
-                                                                            )
-                                                                            ).
-                                                                        '}'.
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        (
-                                                                        'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                            'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
-                                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                                'varObjA.href = \'javascript:'.
-                                                                                    '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
-                                                                                        'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
-                                                                                        '}) ('.
-                                                                                            '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
-                                                                                            ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
-                                                                                            ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
-                                                                                            ');'.
-                                                                                    '\'; '.
-                                                                                'varObjA.innerHTML = \'Preview\'; '.
-                                                                            'varObjTTD.appendChild(varObjA); '.
-                                                                            '}'
-                                                                        )
-                                                                        ).
-                                                                    self::getSyntaxCreateDOM_TableData(
-                                                                        $varUserSession, 
-                                                                        [
-                                                                        'ID' => 'varObjTTD',
-                                                                        'ParentID' => 'varObjTTR',
-                                                                        'Style' => array_merge(
-                                                                            $varStyle_TableActionPanelBody,
-                                                                            [
-                                                                                ['textAlign', 'center']
-                                                                            ]
-                                                                            ),
-                                                                        ],
-                                                                        (
-                                                                        'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
-                                                                            'var varObjA = document.createElement(\'a\'); '.
-                                                                                'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
-                                                                                'varObjA.href = \'javascript:'.
-                                                                                    '(function(varFilePath, varMIME, varFileName) {'.
-                                                                                            'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
-                                                                                        '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
-                                                                                    '\'; '.
-                                                                                'varObjA.innerHTML = \'Download\'; '.
-                                                                            'varObjTTD.appendChild(varObjA); '.
-                                                                            '}'
-                                                                        )
-                                                                        ).
-                                                                    ''
-                                                                    )
-                                                                    ).
-                                                                '}'.
-                                                            '}'
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'DELETE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'SAVE\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'PREVIEW\')); '
+                                                            ).
+                                                        self::getSyntaxCreateDOM_TableData(
+                                                            $varUserSession, 
+                                                            [
+                                                            'ID' => 'varObjTTD',
+                                                            'ParentID' => 'varObjTTR',
+                                                            'Style' => $varStyle_TableActionPanelHead,
+                                                            ],
+                                                            'varObjTTD.appendChild(document.createTextNode(\'DOWNLOAD\')); '
+                                                            )
                                                         )
                                                         )
                                                     )
                                                     ).
-                                                '}'.
-                                            'catch(varError) {'.
-                                                'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
-                                                '}'.
-                                            '}; '.
+                                                //---> Table Body
+                                                self::getSyntaxCreateDOM_TableBody(
+                                                    $varUserSession, 
+                                                    [
+                                                    'ID' => 'varObjTHead',
+                                                    'ParentID' => 'zhtSysObjDOMTable_'.$varUniqueID.'_ActionPanel'
+                                                    ],
+                                                    (
 
+                                                    'if(varDataJSONMasterFileRecord == null) {'.
+                                                        'varDataJSONMasterFileRecord = ['.
+                                                            '{'.
+                                                            '\'sequence\' : \'\', '.
+                                                            '\'signExistOnArchive\' : \'\', '.
+                                                            '\'recordReference\' : \'\', '.
+                                                            '\'name\' : \'\', '.
+                                                            '\'size\' : \'\', '.
+                                                            '\'MIME\' : \'\', '.
+                                                            '\'extension\' : \'\', '.
+                                                            '\'lastModifiedDateTimeTZ\' : \'\', '.
+                                                            '\'lastModifiedUnixTimestamp\' : \'\', '.
+                                                            '\'hashMethod_RefID\' : \'\', '.
+                                                            '\'contentBase64Hash\' : \'\', '.
+                                                            '\'uploadDateTimeTZ\' : \'\', '.
+                                                            '\'filePath\' : \'\', '.
+                                                            '\'URLDelete\' : \'\' '.
+                                                            '}'.
+                                                            '];'.
+                                                        '}'.
+
+                                                    'if(varDataJSONMasterFileRecord != null) '.
+                                                        '{'.
+                                                        '; '.
+                                                        'for(i=0, iMax = varDataJSONMasterFileRecord.length; i != iMax; i++)'.
+                                                            '{'.
+                                                            'varFilePath = varDataJSONMasterFileRecord[i][\'filePath\']; '.
+                                                            'if(!varFilePath) {'.
+                                                                'varTRID = null; '.
+                                                                '}'.
+                                                            'else {'.
+                                                                'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'_\'); '.
+                                                                'varTRID = \'Sys_ObjDOMTR_'.$varUniqueID.'_\' + varFilePath; '.
+                                                                '}'.
+                                                            self::getSyntaxCreateDOM_TableRow(
+                                                                $varUserSession, 
+                                                                [
+                                                                'ID' => 'varObjTTR',
+                                                                'ParentID' => 'varObjTHead'
+                                                                ], 
+                                                                (
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'sequence\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => $varStyle_TableActionPanelBody,
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'name\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'right']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'size\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => $varStyle_TableActionPanelBody,
+                                                                    ],
+                                                                    'varObjTTD.appendChild(document.createTextNode(varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'])); '
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'var varObjA = document.createElement(\'a\'); '.
+                                                                        'varFilePath = varFilePath.replace(/[^a-zA-Z0-9]/g, \'/\'); '.
+                                                                        'varURLDelete = varDataJSONMasterFileRecord[i][\'URLDelete\']; '.
+                                                                        'if(varDataJSONMasterFileRecord[i][\'sequence\'] != \'\') {'.
+                                                                            'if(varDataJSONMasterFileRecord[i][\'signExistOnArchive\'] == true) {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'(\' + varDataJSONMasterFileRecord[i][\'recordReference\'] + \'); '.
+                                                                                    'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'else {'.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function(varURLDelete) {'.
+                                                                                            'JSFunc_GetActionPanel_Reload_'.$varUniqueID.'(varURLDelete); '.
+                                                                                        '})(\\\'\' + varURLDelete + \'\\\');'.
+                                                                                    '\'; '.
+                                                                                '}'.
+                                                                            'varObjA.innerHTML = \'Delete\'; '.
+                                                                            '}'.
+                                                                    'varObjTTD.appendChild(varObjA); '
+                                                                    )
+                                                                    ).
+                                                                'if(i == 0) '.
+                                                                    '{'.
+                                                                    self::getSyntaxCreateDOM_TableData(
+                                                                        $varUserSession, 
+                                                                        [
+                                                                        'ID' => 'varObjTTD',
+                                                                        'ParentID' => 'varObjTTR',
+                                                                        'RowSpan' => 'iMax',
+                                                                        'Style' => array_merge(
+                                                                            $varStyle_TableActionPanelBody,
+                                                                            [
+                                                                                ['textAlign', 'center']
+                                                                            ]
+                                                                            ),
+                                                                        ],
+                                                                        (
+                                                                        'if (JSFunc_MainData_GetData_SignNeedToCommit_'.$varUniqueID.'() == true) {'.
+                                                                            'var varObjA = document.createElement(\'a\'); '.
+                                                                                'varObjA.href = \'javascript:'.
+                                                                                    '(function() {'.
+                                                                                            'JSFunc_GetActionPanel_Commit_'.$varUniqueID.'(); '.
+                                                                                        '})();'.
+                                                                                    '\'; '.
+                                                                                'varObjA.innerHTML = \'Commit\'; '.
+                                                                            'varObjTTD.appendChild(varObjA); '.
+                                                                            '}'
+                                                                        )
+                                                                        ).
+                                                                    '}'.
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        'var varFileName = varDataJSONMasterFileRecord[i][\'name\']; '.
+                                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                                            'varObjA.href = \'javascript:'.
+                                                                                '(function(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
+                                                                                    'JSFunc_FilePreview_'.$varUniqueID.'(varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ); '.
+                                                                                    '}) ('.
+                                                                                        '\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\','.
+                                                                                        ' \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\', '.
+                                                                                        ' \\\'\' + varDataJSONMasterFileRecord[i][\'size\'] + \'\\\', '.
+                                                                                        ' \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', '.
+                                                                                        ' \\\'\' + varDataJSONMasterFileRecord[i][\'uploadDateTimeTZ\'] + \'\\\''.
+                                                                                        ');'.
+                                                                                '\'; '.
+                                                                            'varObjA.innerHTML = \'Preview\'; '.
+                                                                        'varObjTTD.appendChild(varObjA); '.
+                                                                        '}'
+                                                                    )
+                                                                    ).
+                                                                self::getSyntaxCreateDOM_TableData(
+                                                                    $varUserSession, 
+                                                                    [
+                                                                    'ID' => 'varObjTTD',
+                                                                    'ParentID' => 'varObjTTR',
+                                                                    'Style' => array_merge(
+                                                                        $varStyle_TableActionPanelBody,
+                                                                        [
+                                                                            ['textAlign', 'center']
+                                                                        ]
+                                                                        ),
+                                                                    ],
+                                                                    (
+                                                                    'if (varDataJSONMasterFileRecord[i][\'filePath\'] != \'\') {'.
+                                                                        'var varObjA = document.createElement(\'a\'); '.
+                                                                            'varFileName = varDataJSONMasterFileRecord[i][\'name\'];'.
+                                                                            'varObjA.href = \'javascript:'.
+                                                                                '(function(varFilePath, varMIME, varFileName) {'.
+                                                                                        'JSFunc_FileDownload_'.$varUniqueID.'(varFilePath, varMIME, varFileName); '.
+                                                                                    '})(\\\'\' + varDataJSONMasterFileRecord[i][\'filePath\'] + \'\\\', \\\'\' + varDataJSONMasterFileRecord[i][\'MIME\'] + \'\\\', \\\'\' + varFileName.replace(/\'/g, \'\\\\\\\'\') + \'\\\');'.
+                                                                                '\'; '.
+                                                                            'varObjA.innerHTML = \'Download\'; '.
+                                                                        'varObjTTD.appendChild(varObjA); '.
+                                                                        '}'
+                                                                    )
+                                                                    ).
+                                                                ''
+                                                                )
+                                                                ).
+                                                            '}'.
+                                                        '}'
+                                                    )
+                                                    )
+                                                )
+                                                ).
+                                            '}; '.
                                         'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
                                         'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                         ''
                                         )
-                                        )
-                                    ).
+                                        ).
+                                    '\'; '.*/
                                 'ObjHead.appendChild(ObjScript); '.
-                                '} '.
-                                //---> Main Action (End)
-                            //---> Main Function ( Start )
+                            
+//                                'alert(document.getElementById(\'zhtSysObjDOMText_Upload_MainData\')); '.
+                            
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel = document.createElement(\'DIV\'); '.
+//                                'var'.$varUniqueID.'_ObjDOMTable_ActionPanel.id = \'zhtSysObjDOMDiv_'.$varUniqueID.'_ActionPanel\';'.
+                                '}'.
+
+                            //---> Main Function
                             '(function(varObj, varReturnDOMObject) {'.
-                                'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', true).
                                 'if ((typeof varObj != \'undefined\') && (typeof varReturnDOMObject != \'undefined\')) {'.
                                     'var varObjFileList = varObj.files; '.
                                     'if(varObjFileList.length > 0)'.
@@ -2933,7 +2818,30 @@ namespace App\Helpers\ZhtHelper\General
 
                                             'var varAccumulatedFiles = 0; '.
                                             'var varJSONDataBuilder = \'\'; '.
-
+                            
+                                            //---> Pendefinisian Inner Function
+                            
+/*                                            //---> Inner Function : Mendapatkan Master File Record
+                                            'function innerFuncGetMasterFileRecord(varLog_FileUpload_Pointer_RefID, varRotateLog_FileUploadStagingArea_RefRPK, varDeleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID)'.
+                                                '{'.
+                                                'varReturn = ('.
+                                                    'JSON.parse('.str_replace('"', '\'', \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                        $varUserSession, 
+                                                        $varAPIWebToken, 
+                                                        'fileHandling.upload.combined.general.getMasterFileRecord', 
+                                                        'latest', 
+                                                        '{'.
+                                                            '"parameter" : {'.
+                                                                '"log_FileUpload_Pointer_RefID" : ((varLog_FileUpload_Pointer_RefID == null) ? null : parseInt(varLog_FileUpload_Pointer_RefID)), '.
+                                                                '"rotateLog_FileUploadStagingArea_RefRPK" : varRotateLog_FileUploadStagingArea_RefRPK, '.
+                                                                '"deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID" : []'.
+                                                                '}'.
+                                                        '}'
+                                                        )).').data'.
+                                                    '); '.
+                                                'return JSON.parse(JSON.stringify(varReturn.data));'.
+                                                '}'.*/
+/*
                                             //---> Inner Function : Mengurutkan Ulang Sequence dan Mencari Last Sequence
                                             'function innerFuncGetLastSequence(varRotateLog_FileUploadStagingArea_RefRPK)'.
                                                 '{'.
@@ -3069,7 +2977,6 @@ namespace App\Helpers\ZhtHelper\General
                                                             'varObj.disabled = false; '.
                                                             'varReturnDOMObject.disabled = false; '.
                                                             'JSFunc_UnlockObject_'.$varUniqueID.'(); '.
-                                                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false).
                                                             '}'.
                                                         '}; '.
                                                     'varObjFileReader.readAsDataURL(varObjCurrentFile); '.
@@ -3099,7 +3006,8 @@ namespace App\Helpers\ZhtHelper\General
                                                         'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
                                                         '}'.
                                                     '}'.
-                                                '), 1);'.
+                                                '), 500);'.
+ */
                                             '}'.
                                         'catch(varError) {'.
                                             'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -3109,13 +3017,12 @@ namespace App\Helpers\ZhtHelper\General
                                 'else {'.
                                     'alert(\'ERP Reborn Error Notification\n\nInvalid DOM Objects\'); '.
                                     '}'.
-                                '}) (this, document.getElementById(\''.$varDOMReturnID.'\'))'.
-
-                            //---> Main Function ( End )
-                            //'alert(\'ocrehhhhh\'); '.
-                            '} '.
+                                '})(this, document.getElementById(\''.$varDOMReturnID.'\'))'.
+                            //---> Fungsi Utama ( End )
+                            '}'.
                         'catch(varError) {'.
                             '}';
+                                                   
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
                 catch (\Exception $ex) {

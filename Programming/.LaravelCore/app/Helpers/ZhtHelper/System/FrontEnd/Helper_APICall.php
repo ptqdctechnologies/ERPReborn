@@ -218,10 +218,10 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         'User-Agent' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientAgent($varUserSession),
                         'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
                         'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
-                            $varDataArray
-                            )),                           
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+//                        'X-Content-MD5Old' => \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, json_encode(
+//                            $varDataArray
+//                            )),
+                        'X-Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
                         'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                             ]
                         );
@@ -484,6 +484,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         $varTimeOut = 5000;
                         }
                     
+//                   dd($varData);
+//                    dd(\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY'));
                     $varReturn = 
                         'function() '.
                             '{ '.
@@ -492,6 +494,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                             'try '.
                                 '{ '.
                                 'varJSONData = JSON.parse(JSON.stringify('.$varData.')); '.
+                                //'alert(JSON.stringify(varJSONData)); '.
                                 'varReturn = new zht_JSAPIRequest_Gateway('.
                                     '"'.$varAPIWebToken.'", '.
                                     '"'.\App\Helpers\ZhtHelper\System\Helper_Environment::getFrontEndConfigEnvironment(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 'URL_BACKEND_API_GATEWAY').'", '.
@@ -511,6 +514,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
 //                            'return varReturn.value; '.
                             'return varReturnValue; '.
                             '}()';
+//                    dd($varReturn);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     } 
@@ -523,8 +527,8 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                 }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
             }
-            
-            
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setCallAPIGatewayJQuery                                                                              |
@@ -602,7 +606,7 @@ namespace App\Helpers\ZhtHelper\System\FrontEnd
                         //'User-Agent' => $_SERVER['HTTP_USER_AGENT'],
                         'Agent-DateTime' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession),
                         'Expires' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_ClientCurrentDateTimeUTC($varUserSession, (10*60)),
-                        'Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
+                        'X-Content-MD5' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_MD5($varUserSession, 'varJSONObject'),
                         'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxFunc_UniqueID($varUserSession, $varAPIWebToken),
                         //'X-Request-ID' => \App\Helpers\ZhtHelper\General\Helper_RandomNumber::getUniqueID($varUserSession)
                             ]
