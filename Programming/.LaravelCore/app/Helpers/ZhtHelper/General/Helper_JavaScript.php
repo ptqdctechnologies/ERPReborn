@@ -339,8 +339,8 @@ namespace App\Helpers\ZhtHelper\General
                             '}; '.
 
                         //---> zhtInnerFunc_CheckConvertibleStatus
-                        'function zhtInnerFunc_CheckConvertibleStatus(varFilePath) {'.
-                            'varData = ('.
+                        'function zhtInnerFunc_CheckConvertibleStatus(varLocalFilePath) {'.
+                            'let varLocalData = ('.
                                 'JSON.parse('.                           
                                     str_replace(
                                         '"', 
@@ -352,7 +352,7 @@ namespace App\Helpers\ZhtHelper\General
                                             'latest', 
                                             '{'.
                                                 '"parameter" : {'.
-                                                    '"filePath" : varFilePath'.
+                                                    '"filePath" : varLocalFilePath'.
                                                     '}'.
                                             '}'
                                             )
@@ -360,27 +360,26 @@ namespace App\Helpers\ZhtHelper\General
                                     ').data.signConvertibleStatus'.
                                 '); '.
                             //'alert(JSON.stringify(varData)); '.
-                            'return varData; '.
+                            'return varLocalData; '.
                             '} (varFilePath); '.
 
                         //---> zhtInnerFunc_RecreateThumbnails
-                        'function zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath) {'.
-                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
-                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
-                            'varObjImage = new Image(); '.
-                            'varObjImage.src = varImageSource; '.
-                            'varObjImage.onload = function() {'.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                        'function zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
+                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
+                            'let varLocalImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varLocalImageSource; '.
+                            'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = 400; '.
+                            'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = 400; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
                                 '}; '.
-                            'var ObjButton = document.getElementById(\''.$varID.'_DialogRecreateButton\'); '.
-                            'ObjButton.style.visibility = \'hidden\'; '.
-                            'ObjButton.style.display = \'none\'; '.
-                            'if(ObjButton.style.display === \'none\') {'.
+                            'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'hidden\'; '.
+                            'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'none\'; '.
+                            'if(document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display === \'none\') {'.
                                 'setTimeout(('.
                                     'function() {'.
-                                        'varNothing = ('.
+                                        'varLocalNothing = ('.
                                             'JSON.parse('.                           
                                                 str_replace(
                                                     '"', 
@@ -392,7 +391,7 @@ namespace App\Helpers\ZhtHelper\General
                                                         'latest', 
                                                         '{'.
                                                             '"parameter" : {'.
-                                                                '"filePath" : varFilePath'.
+                                                                '"filePath" : varLocalFilePath'.
                                                                 '}'.
                                                         '}',
                                                         10000
@@ -402,17 +401,17 @@ namespace App\Helpers\ZhtHelper\General
                                             '); '.
                                         '}'.
                                     '), 1); '.
-                                'zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
-                                'ObjButton.style.visibility = \'visible\'; '.
-                                'ObjButton.style.display = \'block\'; '.
+                                'zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath); '.
+                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'visible\'; '.
+                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'block\'; '.
                                 '} '.
-                            'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
                             '}; '.
 
 
                         //---> zhtInnerFunc_GetThumbnailsMainData
-                        'function zhtInnerFunc_GetThumbnailsMainData() {'.
-                            'varThumbnailsMainData = ('.
+                        'function zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath) {'.
+                            'varLocalThumbnailsMainData = ('.
                                 'JSON.parse('.                           
                                     str_replace(
                                         '"', 
@@ -424,20 +423,20 @@ namespace App\Helpers\ZhtHelper\General
                                             'latest', 
                                             '{'.
                                                 '"parameter" : {'.
-                                                    '"folderPath" : varFilePath'.
+                                                    '"folderPath" : varLocalFilePath'.
                                                     '}'.
                                             '}'
                                             )
                                         ).
                                     ').data'.
                                 '); '.
-                            'return varThumbnailsMainData; '.
+                            'return varLocalThumbnailsMainData; '.
                             '}; '.
 
 
                         //---> zhtInnerFunc_GetThumbnailsReload
-                        'function zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath) {'.
-                            'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(); '.
+                        'function zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath, varLocalFilePath) {'.
+                            'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath); '.
                             'varDataArrayOption = []; '.
                             'if(varThumbnailsMainData.filesCount == 0) {'.
                                 'document.getElementById(\''.$varID.'_DialogPaginationTTD'.'\').style.display = \'none\'; '.
@@ -1205,7 +1204,7 @@ namespace App\Helpers\ZhtHelper\General
 //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
-                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath); '.
+                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath, varFilePath); '.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
                         self::getSyntaxCreateDOM_Button(

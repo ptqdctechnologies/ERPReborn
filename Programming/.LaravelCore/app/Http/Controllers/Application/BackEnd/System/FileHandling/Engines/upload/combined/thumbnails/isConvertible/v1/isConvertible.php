@@ -126,44 +126,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varFileContent
                         );
                 }
-
-            switch($varMIME) {
-                //---> PDF
-                case 'application/pdf':
-                    {
-                    $varSignStatus = 
-                        !(\App\Helpers\ZhtHelper\General\Helper_FileSecurity::isFileProtectedWithPassword_PDF(
-                            $varUserSession, 
-                            $varFileContent
-                            ));
-                    break;
+                
+            $varSignStatus = FALSE;
+            if(\App\Helpers\ZhtHelper\General\Helper_FileConvert::isConvertible_ToPDF($varUserSession, $varMIME) == TRUE) {
+                switch($varMIME) {
+                    //---> PDF
+                    case 'application/pdf':
+                        {
+                        //---> Cek Apakah PDF diproteksi dengan password
+                        $varSignStatus = 
+                            !(\App\Helpers\ZhtHelper\General\Helper_FileSecurity::isFileProtectedWithPassword_PDF(
+                                $varUserSession, 
+                                $varFileContent
+                                ));
+                        break;
+                        }
+                    default:
+                        {
+                        $varSignStatus = TRUE;
+                        }
                     }
-                //---> RTF
-                case 'application/rtf':
-                //---> DOC, DOCX
-                case 'application/msword':
-                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                //---> XLS, XLSX, XLSB, XLSM 
-                case 'application/vnd.ms-excel':
-                case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                case 'application/vnd.ms-excel.sheet.binary.macroEnabled.12':
-                case 'application/vnd.ms-excel.sheet.macroEnabled.12':
-                //---> PPT, PPTX, PPTM
-                case 'application/vnd.ms-powerpoint':
-                case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-                case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
-                //---> ODT, ODS, ODP
-                case 'application/vnd.oasis.opendocument.text':
-                case 'application/vnd.oasis.opendocument.spreadsheet':
-                case 'application/vnd.oasis.opendocument.presentation':
-                    {
-                    $varSignStatus = TRUE;
-                    break;
-                    }    
-                default:
-                    {
-                    $varSignStatus = FALSE;
-                    }    
                 }
 
             $varDataReturn = [
