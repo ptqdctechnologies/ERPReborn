@@ -178,7 +178,7 @@
     });
 </script>
 
-<script>
+<!-- <script>
     $('document').ready(function() {
         $('#price_expense').keyup(function() {
             var price_expense = $(this).val();
@@ -198,4 +198,4 @@
             $("#total_amount").val(total_amount);
         });
     });
-</script>
+</script> -->

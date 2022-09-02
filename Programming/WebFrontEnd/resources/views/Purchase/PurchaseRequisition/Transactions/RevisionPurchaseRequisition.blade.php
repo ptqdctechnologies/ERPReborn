@@ -149,7 +149,7 @@
                             <input id="putProductName" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td style="border:1px solid #e9ecef;">
-                            <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" value="0">
+                            <input id="qtyCek" style="border-radius:0;" type="text" class="form-control ChangeQty quantity" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                             <span id="putQtybyId"></span>
                             <input id="putQty" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
@@ -157,7 +157,7 @@
                             <input id="putUom" style="border-radius:0;" type="text" class="form-control" readonly="">
                           </td>
                           <td style="border:1px solid #e9ecef;">
-                            <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                            <input id="priceCek" style="border-radius:0;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                             <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td style="border:1px solid #e9ecef;">
@@ -168,7 +168,6 @@
                           </td>
                           <td style="border:1px solid #e9ecef;">
                             <textarea id="putRemark" rows="1" cols="30" class="form-control"></textarea>
-                            <input id="putRemark2" style="border-radius:0;" type="hidden" class="form-control">
                           </td>
                           <td style="border:1px solid #e9ecef;">
                             <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
@@ -181,6 +180,7 @@
                           <input id="recordIDDetail" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                           <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control">
 
                         </tbody>
                       </table>

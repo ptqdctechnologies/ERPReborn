@@ -12,7 +12,7 @@
                                             <td><label>Worker &nbsp;</label></td>
                                             <td>
                                                 <div class="input-group">
-                                                    <input id="popUpWorkerId" style="border-radius:0;" name="popUpWorkerId" type="text" class="form-control" required>
+                                                    <input id="popUpWorkerId" style="border-radius:0;" name="popUpWorkerId" type="text" class="form-control" required readonly>
                                                     <div class="input-group-append">
                                                         <span style="border-radius:0;" class="input-group-text form-control">
                                                             <a data-toggle="modal" data-target="#myWorker"><img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt=""></a>

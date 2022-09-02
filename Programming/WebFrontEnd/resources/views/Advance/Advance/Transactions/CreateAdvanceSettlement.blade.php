@@ -205,6 +205,10 @@
                         </td>
                         <input id="statusEditAsf" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
                         <input id="TotalQty" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateQuantityAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidatePriceAmount" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidateQuantityExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                        <input id="ValidatePriceExpense" style="border-radius:0;" type="hidden" class="form-control" readonly="">
                   </div>
 
                   </tbody>

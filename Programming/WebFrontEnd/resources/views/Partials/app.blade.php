@@ -44,6 +44,7 @@
     new zht_JSCore();
   </script> -->
   <script src="{{ asset('js/zht-js/core.js') }}"></script>
+
   <style>
     body {
       font-family: "Work Sans", sans-serif;
@@ -141,6 +142,12 @@
 
   <script src="{{ asset('AdminLTE-master/dist/js/adminlte.js') }}"></script>
   <script src="{{ asset('AdminLTE-master/dist/js/demo.js') }}"></script>
+
+  <script type="text/javascript">
+    window.onload = function() {
+      document.getElementById("dataInput_Log_FileUpload_Pointer_RefID_Action").dispatchEvent(new Event("change"));
+    }
+  </script>
 
   <script>
     $(function() {
@@ -366,37 +373,6 @@
 
 
   <script>
-    window.onload = () => {
-      // (A) GET ALL IMAGES
-      let all = document.getElementsByClassName("ZoomImage");
-      // (B) CLICK TO GO FULLSCREEN
-      if (all.length > 0) {
-        for (let i of all) {
-          i.onclick = () => {
-            // (B1) EXIT FULLSCREEN
-            if (document.fullscreenElement != null || document.webkitFullscreenElement != null) {
-              if (document.exitFullscreen) {
-                document.exitFullscreen();
-              } else {
-                document.webkitCancelFullScreen();
-              }
-            }
-
-            // (B2) ENTER FULLSCREEN
-            else {
-              if (i.requestFullscreen) {
-                i.requestFullscreen();
-              } else {
-                i.webkitRequestFullScreen();
-              }
-            }
-          };
-        }
-      }
-    };
-  </script>
-
-  <script>
     // Jquery Dependency
 
     $("input[data-type='currency']").on({
@@ -484,6 +460,8 @@
       input[0].setSelectionRange(caret_pos, caret_pos);
     }
   </script>
+
+
 </body>
 
 </html>

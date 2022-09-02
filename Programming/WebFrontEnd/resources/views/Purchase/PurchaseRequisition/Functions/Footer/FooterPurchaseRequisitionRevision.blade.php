@@ -32,29 +32,30 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $(".CancelDetailPurchaseRequisition").click(function() {
-            var product_id = $("#putProductId").val();
-            var putProductName = $("#putProductName").val();
-            var qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-            var putUom = $("#putUom").val();
-            var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
-            var putCurrency = $("#putCurrency").val();
-            var totalProcReqDetails = $("#totalProcReqDetails").val().replace(/^\s+|\s+$/g, '');
-            var putRemark = $("#putRemark").val();
-            var totalBalance = $("#totalBalance").val();
-            var putPrice = $('#putPrice').val();
-            var combinedBudget = $("#combinedBudget").val();
-            var recordIDDetail = $("#recordIDDetail").val();
-            var statusEditProcReqRevision = $("#statusEditProcReqRevision").val();
+            let product_id = $("#putProductId").val();
+            let putProductName = $("#putProductName").val();
+            let qtyCek = $('#qtyCek').val();
+            let putUom = $("#putUom").val();
+            let priceCek = $("#priceCek").val();
+            let putCurrency = $("#putCurrency").val();
+            let totalProcReqDetails = $("#totalProcReqDetails").val();
+            let putRemark = $("#putRemark").val();
+            let totalBalance = $("#totalBalance").val();
+            let putPrice = $('#putPrice').val();
+            let combinedBudget = $("#combinedBudget").val();
+            let recordIDDetail = $("#recordIDDetail").val();
+            let statusEditProcReqRevision = $("#statusEditProcReqRevision").val();
+
             if (statusEditProcReqRevision == "Yes") {
 
-                var qtyCek = $('#putQty').val().replace(/^\s+|\s+$/g, '');
-                var priceCek = $("#putPrice").val().replace(/^\s+|\s+$/g, '');
-                var totalProcReqDetails = parseFloat(qtyCek * priceCek).toFixed(2);
-                var putRemark = $("#putRemark2").val();
+                qtyCek = $('#ValidateQuantity').val();
+                priceCek = $('#ValidatePrice').val();
+                totalProcReqDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
+                putRemark = $("#ValidateRemark").val();
 
                 var html = '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:5%;">' +
-                    '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="18" alt="" title="Edit"></button> ' +
+                    '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="18" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -68,10 +69,10 @@
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + priceCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putRemark + '</td>' +
                     '</tr>';
@@ -101,14 +102,14 @@
         var valQty = $("#qtyCek").val();
         var valPrice = $("#priceCek").val();
         var valRemark = $("#putRemark").val();
-        var totalPo = $("#totalPo").val();
-        var totalProcReqDetails = $("#totalProcReqDetails").val();
+        var totalPo = parseFloat($("#totalPo").val().replace(/,/g, ''));
+        var totalProcReqDetails = parseFloat($("#totalProcReqDetails").val().replace(/,/g, ''));
         $("#putProductId").css("border", "1px solid #ced4da");
         $("#qtyCek").css("border", "1px solid #ced4da");
         $("#priceCek").css("border", "1px solid #ced4da");
         $("#putRemark").css("border", "1px solid #ced4da");
-        
-        
+        console.log(totalPo);
+        console.log(totalProcReqDetails);
         if (valProductId === "") {
             $("#putProductId").focus();
             $("#putProductId").attr('required', true);
@@ -192,36 +193,29 @@
                         });
                         $("body").on("click", ".EditPurchaseRequisition", function() {
                             var $this = $(this);
-                            var id1 = $this.data("id1");
-                            var id2 = $this.data("id2");
-                            var id3 = $this.data("id3");
-                            var id4 = $this.data("id4");
-                            var id5 = $this.data("id5");
-                            var id6 = $this.data("id6");
-                            var id7 = $this.data("id7");
-                            var id8 = $this.data("id8");
-                            var id9 = $this.data("id9");
-                            var id10 = $this.data("id10");
 
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + id1,
+                                url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + $this.data("id1"),
                             });
 
-                            $("#putProductId").val(id1);
-                            $("#putProductName").val(id2);
-                            $('#qtyCek').val(id3);
-                            $("#putUom").val(id4);
-                            $("#priceCek").val(id5);
-                            $("#putCurrency").val(id6);
-                            $("#totalProcReqDetails").val(id7);
-                            $("#putRemark").val(id8);
-                            $("#totalBalance").val(id9);
+                            $("#putProductId").val($this.data("id1"));
+                            $("#putProductName").val($this.data("id2"));
+                            $('#qtyCek').val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#putUom").val($this.data("id4"));
+                            $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#putCurrency").val($this.data("id6"));
+                            $("#totalProcReqDetails").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#putRemark").val($this.data("id8"));
+                            $("#totalBalance").val($this.data("id9"));
+                            $("#ValidateQuantity").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#ValidatePrice").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                            $("#ValidateRemark").val($this.data("id8"));
                             $("#statusEditProcReqRevision").val("Yes");
 
                             $(this).closest("tr").remove();
 
-                            if (id10 == "Yes") {
+                            if ($this.data("id10") == "Yes") {
                                 $("#product_id2").prop("disabled", false);
                             } else {
                                 $("#product_id2").prop("disabled", true);
@@ -277,13 +271,12 @@
         type: "POST",
         url: '{!! route("PurchaseRequisition.ProcReqListCartRevision") !!}?ProcReqRefID=' + ProcReqRefID,
         success: function(data) {
-
             $.each(data, function(key, value) {
                 $("#product_id2").prop("disabled", true);
                 var statusProduct = $("#statusProduct").val();
                 var html = '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:5%;">' +
-                    '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs EditProcReqListCart" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceCurrencyISOCode + '" data-id7="' + value.remarks + '" data-id8="' + value.priceBaseCurrencyValue + '" data-id9="' + statusProduct + '" data-id10="' + value.combinedBudgetSectionDetail_RefID + '" data-id11="' + value.sys_ID + '" data-id12="' + value.combinedBudget_Quantity + '" data-id13="' + value.combinedBudget_UnitPriceBaseCurrencyValue + '" data-id14="' + value.combinedBudget_PriceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="18" alt="" title="Edit"></button> ' +
+                    '&nbsp;&nbsp;&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisitionCart" data-dismiss="modal" data-id1="' + value.product_RefID + '" data-id2="' + value.productName + '" data-id3="' + value.quantity + '" data-id4="' + value.quantityUnitName + '" data-id5="' + value.productUnitPriceCurrencyValue + '" data-id6="' + value.priceCurrencyISOCode + '" data-id7="' + value.remarks + '" data-id8="' + value.priceBaseCurrencyValue + '" data-id9="' + statusProduct + '" data-id10="' + value.combinedBudgetSectionDetail_RefID + '" data-id11="' + value.sys_ID + '" data-id12="' + value.combinedBudget_Quantity + '" data-id13="' + value.combinedBudget_UnitPriceBaseCurrencyValue + '" data-id14="' + value.combinedBudget_PriceBaseCurrencyValue + '" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="18" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + value.product_RefID + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + value.productName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + value.quantity + '">' +
@@ -309,9 +302,9 @@
                 $('table.TablePurchaseRequisition tbody').append(html);
             });
 
-            $("body").on("click", ".EditProcReqListCart", function() {
+            $("body").on("click", ".EditPurchaseRequisitionCart", function() {
+                alert("D");
                 var $this = $(this);
-
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -325,21 +318,21 @@
 
                 $("#putProductId").val($this.data("id1"));
                 $("#putProductName").val($this.data("id2"));
-                $('#qtyCek').val($this.data("id3"));
-                $('#putQty').val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $('#qtyCek').val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $('#putQty').val($this.data("id3"));
                 $("#putUom").val($this.data("id4"));
-                $("#priceCek").val($this.data("id5"));
+                $("#priceCek").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#putPrice").val($this.data("id5"));
                 $("#putCurrency").val($this.data("id6"));
                 $("#putRemark").val($this.data("id7"));
-                $("#putRemark2").val($this.data("id7"));
                 $("#totalProcReqDetails").val($this.data("id8").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#totalBalance").val($this.data("id14").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#totalPayment").val("0");
                 $("#combinedBudget").val($this.data("id10"));
                 $("#recordIDDetail").val($this.data("id11"));
-                $("#ValidateQuantity").val($this.data("id12"));
-                $("#ValidatePrice").val($this.data("id13"));
+                $("#ValidateQuantity").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#ValidatePrice").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#ValidateRemark").val($this.data("id7"));
                 $("#statusEditProcReqRevision").val("Yes");
 
 
@@ -419,6 +412,7 @@
                 var productName = $this.data("id5");
                 var uom = $this.data("id6");
                 var currency = $this.data("id7");
+                var total = parseFloat(qty.replace(/,/g, '') * price.replace(/,/g, ''));
 
                 if (productName == "Unspecified Product") {
                     $("#product_id2").prop("disabled", false);
@@ -433,12 +427,14 @@
                 }
                 $("#putProductId").val(putProductId);
                 $("#putProductName").val(putProductName);
-                $("#putQty").val(qty.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#qtyCek").val(qty);
+                $("#putQty").val(qty);
                 $("#putUom").val(uom);
-                $("#putPrice").val(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#putPrice").val(price);
                 $("#priceCek").val(price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#putCurrency").val(currency);
-                $("#totalBalance").val(parseFloat(qty * price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#totalBalance").val(total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $("#totalProcReqDetails").val(total.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#combinedBudget").val(combinedBudget);
                 $("#totalPayment").val("0");
 
@@ -460,38 +456,30 @@
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-            
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
 
-            var productId = $('#putProductId').val();
-            var qtyProduct = $('#qtyCek').val();
-            var priceProduct = $('#priceCek').val();
-            
-            var qtyProduct2 = $('#ValidateQuantity').val();
-            var priceProduct2 = $('#ValidatePrice').val();
-            var total = qtyProduct * priceProduct;
-            var total2 = qtyProduct2 * priceProduct2;
-            
-            if (parseFloat(qtyProduct) == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
+            var qtyReq = $(this).val();
+            var putQty = $('#putQty').val();
+            var priceCek = parseFloat($('#priceCek').val().replace(/,/g, ''));
+            var total = putQty * priceCek;
+            var total2 = qtyReq * priceCek;
+
+            if (parseFloat(qtyReq) == '') {
                 $('#totalProcReqDetails').val(0);
-            } else if (parseFloat(qtyProduct) > parseFloat(qtyProduct2)) {
+                $("#qtyCek").css("border", "1px solid red");
+            } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
                 Swal.fire("Error !", "Your Quantity Request is Over", "error");
-                $("#qtyCek").val('');
-                $('#totalProcReqDetails').val('');
-                $("#addFromDetailtoCart").prop("disabled", true);
-            } else if (parseFloat(total) > parseFloat(total2)) {
+                $("#qtyCek").val(0);
+                $('#totalProcReqDetails').val(0);
+                $("#qtyCek").css("border", "1px solid red");
+            } else if (parseFloat(total2) > parseFloat(total)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $('#totalProcReqDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
+
+                $("#qtyCek").css("border", "1px solid red");
             } else {
-                var totalReq = parseFloat(total);
+                var totalReq = parseFloat(total2);
                 $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                $("#addFromDetailtoCart").prop("disabled", false);
+                $("#qtyCek").css("border", "1px solid #ced4da");
             }
 
         });
@@ -502,38 +490,25 @@
     $('document').ready(function() {
         $('.ChangePrice').keyup(function() {
 
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var productId = $('#putProductId').val();
-            var qtyProduct = $('#qtyCek').val();
-            var priceProduct = $('#priceCek').val();
+            var priceReq = parseFloat($(this).val().replace(/,/g, ''));
+            var qtyCek = $('#qtyCek').val();
+            var putPrice = parseFloat($('#putPrice').val().replace(/,/g, ''));
+            var total = qtyCek * priceReq;
+            var total2 = qtyCek * putPrice;
             var totalBalance = $("#totalBalance").val();
 
-            var qtyProduct2 = $('#ValidateQuantity').val();
-            var priceProduct2 = $('#ValidatePrice').val();
-            var total = qtyProduct * priceProduct;
-            var total2 = qtyProduct2 * priceProduct2;
-            if (parseFloat(priceProduct) == '') {
-                $("#addFromDetailtoCart").prop("disabled", true);
+            if (priceReq == '') {
                 $('#totalProcReqDetails').val(0);
-            } else if (parseFloat(priceProduct) > parseFloat(priceProduct2)) {
-                Swal.fire("Error !", "Your Price Request is Over", "error");
-                $("#priceCek").val("");
-                $('#totalProcReqDetails').val('');
-                $("#addFromDetailtoCart").prop("disabled", true);
+                $("#priceCek").css("border", "1px solid red");
             } else if (parseFloat(total) > parseFloat(total2)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $("#priceCek").val("");
+                $("#priceCek").val(0);
                 $('#totalProcReqDetails').val(0);
-                $("#addFromDetailtoCart").prop("disabled", true);
+                $("#priceCek").css("border", "1px solid red");
             } else {
-                var totalReq = parseFloat(total);
+                var totalReq = total;
                 $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                $("#addFromDetailtoCart").prop("disabled", false);
+                $("#priceCek").css("border", "1px solid #ced4da");
             }
 
         });
@@ -628,22 +603,6 @@
             })
         });
 
-    });
-</script>
-
-<script>
-    $('#qtyCek').on('blur', function() {
-        var amount = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
-        if (($('#qtyCek').val() != '') && (!amount.match(/^$/))) {
-            $('#qtyCek').val(parseFloat(amount).toFixed(2));
-        }
-    });
-
-    $('#priceCek').on('blur', function() {
-        var price = $('#priceCek').val().replace(/^\s+|\s+$/g, '');
-        if (($('#priceCek').val() != '') && (!price.match(/^$/))) {
-            $('#priceCek').val(parseFloat(price).toFixed(2));
-        }
     });
 </script>
 

@@ -70,6 +70,7 @@
 
             $("#ProductId").val($this.data("id1"));
             $("#ProductName").val($this.data("id5"));
+            $("#Quantity").val($this.data("id2"));
             $("#QuantityHide").val($this.data("id2"));
             $("#Uom").val($this.data("id6"));
             $("#Price").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));

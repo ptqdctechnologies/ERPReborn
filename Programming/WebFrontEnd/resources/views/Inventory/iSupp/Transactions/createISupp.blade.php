@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="card-body table-responsive p-0" id="DetailiSupp">
-                                        <table class="table text-nowrap table-sm" style="text-align: center;">
+                                        <table class="table table-head-fixed text-nowrap table-sm" style="text-align: center;">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;width:10%;border:1px solid #e9ecef;">Product Id</th>
@@ -164,7 +164,7 @@
                                     </div>
 
                                     <div class="card-body table-responsive p-0" id="iSuppCart">
-                                        <table class="table text-nowrap table-striped tableiSuppCart">
+                                        <table class="table table-head-fixed text-nowrap table-striped tableiSuppCart">
                                             <thead>
                                                 <tr>
                                                     <th style="padding-bottom: 10px;padding-top: 10px;border:1px solid #e9ecef;text-align: center;">Action</th>

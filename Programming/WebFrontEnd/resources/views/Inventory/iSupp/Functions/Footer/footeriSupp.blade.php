@@ -125,6 +125,7 @@
                         $("#productiSuppDetail").val($this.data("id1"));
                         $("#productiSuppDetail2").val($this.data("id2"));
                         $("#balanceiSupp").val($this.data("id5").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                        $("#qtyiSuppChange").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#qtyiSupp").val($this.data("id3").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                         $("#UomiSupp").val($this.data("id7"));
                         $("#workIdiSuppDetail").val($this.data("id6"));

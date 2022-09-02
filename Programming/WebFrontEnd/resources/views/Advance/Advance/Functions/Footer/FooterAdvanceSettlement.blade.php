@@ -42,37 +42,42 @@
             var total_amount2 = $('#total_amount2').val();
             var description = $("#descriptionHide").val();
             var statusEditAsf = $("#statusEditAsf").val();
+
+
             if (statusEditAsf == "Yes") {
 
-                var qty_expense = $("#put_qty_expense").val();
-                var price_expense = $("#put_price_expense").val();
-                var qty_amount = $("#put_qty_amount").val();
-                var price_amount = $("#put_price_amount").val();
-                var total_amount = parseFloat(qty_amount * price_amount).toFixed(2);
-                var total_expense = parseFloat(qty_expense * price_expense).toFixed(2);
+                var qty_expense = $("#ValidateQuantityExpense").val();
+                var price_expense = $("#ValidatePriceExpense").val();
+                var qty_amount = $("#ValidateQuantityAmount").val();
+                var price_amount = $("#ValidatePriceAmount").val();
+                var total_amount = parseFloat(qty_amount.replace(/,/g, '') * price_amount.replace(/,/g, ''));
+                var total_expense = parseFloat(qty_expense.replace(/,/g, '') * price_expense.replace(/,/g, ''));
 
+                console.log(qty_expense);
+                console.log(price_expense);
+                
 
                 if (total_amount != "") {
                     var html = '<tr>' +
-                        '<td style="border:1px solid #e9ecef;width:7%;">' +
-                        '&nbsp;&nbsp;<button type="button" class="btn btn-xs remove_amount"  data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                        '&nbsp;<button type="button" class="btn btn-xs edit_amount" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + total_arf + '" data-id4="' + total_arf2 + '" data-id5="' + total_asf + '" data-id6="' + total_asf2 + '" data-id7="' + balance + '" data-id8="' + balance2 + '" data-id9="' + qty_expense + '" data-id10="' + qty_expense2 + '" data-id11="' + price_expense + '" data-id12="' + price_expense2 + '" data-id13="' + total_expense + '" data-id14="' + total_expense2 + '" data-id15="' + qty_amount + '" data-id16="' + qty_amount2 + '" data-id17="' + price_amount + '" data-id18="' + price_amount2 + '" data-id19="' + total_amount + '" data-id20="' + total_amount2 + '" data-id21="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
-                        '<input type="hidden" name="var_trano[]" value="' + trano + '">' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                        '&nbsp;&nbsp;<button type="button" class="btn btn-xs remove_amount" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                        '&nbsp;<button type="button" class="btn btn-xs edit_amount" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + total_arf + '" data-id4="' + total_arf2 + '" data-id5="' + total_asf + '" data-id6="' + total_asf2 + '" data-id7="' + balance + '" data-id8="' + balance2 + '" data-id9="' + qty_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id10="' + qty_expense2 + '" data-id11="' + price_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id12="' + price_expense2 + '" data-id13="' + total_expense.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id14="' + total_expense2 + '" data-id15="' + qty_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id16="' + qty_amount2 + '" data-id17="' + price_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id18="' + price_amount2 + '" data-id19="' + total_amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id20="' + total_amount2 + '" data-id21="' + trano + '" data-id22="' + product_name + '" data-id23="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                        '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                         '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                         '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
                         '<input type="hidden" name="var_uom[]" value="' + qty_amount2 + '">' +
                         '<input type="hidden" name="var_price_amount[]" value="' + price_amount + '">' +
                         '<input type="hidden" name="var_qty_amount[]" value="' + qty_amount + '">' +
                         '<input type="hidden" name="var_total_amount[]" value="' + total_amount + '">' +
-                        '<input type="hidden" name="var_description[]" id="var_description[]" value="' + description + '">' +
+                        '<input type="hidden" name="var_description[]" value="' + description + '">' +
                         '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + trano + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + qty_amount2 + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + qty_amount + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + price_amount + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + total_amount + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + price_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + total_amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                         '</tr>';
 
@@ -82,7 +87,7 @@
                     var html2 = '<tr>' +
                         '<td style="border:1px solid #e9ecef;width:7%;">' +
                         '&nbsp;&nbsp;<button type="button" class="btn btn-xs remove_expense" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                        '&nbsp;<button type="button" class="btn btn-xs edit_expense" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + total_arf + '" data-id4="' + total_arf2 + '" data-id5="' + total_asf + '" data-id6="' + total_asf2 + '" data-id7="' + balance + '" data-id8="' + balance2 + '" data-id9="' + qty_expense + '" data-id10="' + qty_expense2 + '" data-id11="' + price_expense + '" data-id12="' + price_expense2 + '" data-id13="' + total_expense + '" data-id14="' + total_expense2 + '" data-id15="' + qty_amount + '" data-id16="' + qty_amount2 + '" data-id17="' + price_amount + '" data-id18="' + price_amount2 + '" data-id19="' + total_amount + '" data-id20="' + total_amount2 + '" data-id21="' + trano + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                        '&nbsp;<button type="button" class="btn btn-xs edit_expense" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + arf_date + '" data-id3="' + total_arf + '" data-id4="' + total_arf2 + '" data-id5="' + total_asf + '" data-id6="' + total_asf2 + '" data-id7="' + balance + '" data-id8="' + balance2 + '" data-id9="' + qty_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id10="' + qty_expense2 + '" data-id11="' + price_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id12="' + price_expense2 + '" data-id13="' + total_expense.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id14="' + total_expense2 + '" data-id15="' + qty_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id16="' + qty_amount2 + '" data-id17="' + price_amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id18="' + price_amount2 + '" data-id19="' + total_amount.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id20="' + total_amount2 + '" data-id21="' + trano + '" data-id22="' + product_name + '" data-id23="' + description + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                         '<input type="hidden" id="var_tranox" name="var_trano[]" value="' + trano + '">' +
                         '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                         '<input type="hidden" name="var_product_name[]" value="' + product_name + '">' +
@@ -97,8 +102,8 @@
                         '<td style="border:1px solid #e9ecef;">' + product_name + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + qty_expense2 + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + qty_expense + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + price_expense + '</td>' +
-                        '<td style="border:1px solid #e9ecef;">' + total_expense + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + price_expense.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                        '<td style="border:1px solid #e9ecef;">' + total_expense.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                         '<td style="border:1px solid #e9ecef;">' + description + '</td>' +
                         '</tr>';
 
@@ -152,10 +157,10 @@
             $("#arf_number").attr('required', true);
             $("#arf_number").css("border", "1px solid red");
         } else {
-            var balance = $('#balance').val();
+            var balance = parseFloat($('#balance').val().replace(/,/g, ''));
             var productIdHide = $('#productIdHide').val();
-            var total_expense = $('#total_expense').val();
-            var total_amount = $('#total_amount').val();
+            var total_expense = parseFloat($('#total_expense').val().replace(/,/g, ''));
+            var total_amount = parseFloat($('#total_amount').val().replace(/,/g, ''));
             var totalExpenseAmount = +total_expense + +total_amount;
             if (totalExpenseAmount <= balance) {
                 $.ajax({
@@ -187,6 +192,8 @@
                             var total_amount = $('#total_amount').val();
                             var total_amount2 = $('#total_amount2').val();
                             var description = $("#descriptionHide").val();
+
+                            console.log(product_name);
 
                             // if (total_amount != "") {
                             var html = '<tr>' +
@@ -265,59 +272,35 @@
                                     url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
                                 });
 
-                                var id1 = $this.data("id1");
-                                var id2 = $this.data("id2");
-                                var id3 = $this.data("id3");
-                                var id4 = $this.data("id4");
-                                var id5 = $this.data("id5");
-                                var id6 = $this.data("id6");
-                                var id7 = $this.data("id7");
-                                var id8 = $this.data("id8");
-                                var id9 = $this.data("id9");
-                                var id10 = $this.data("id10");
-                                var id11 = $this.data("id11");
-                                var id12 = $this.data("id12");
-                                var id13 = $this.data("id13");
-                                var id14 = $this.data("id14");
-                                var id15 = $this.data("id15");
-                                var id16 = $this.data("id16");
-                                var id17 = $this.data("id17");
-                                var id18 = $this.data("id18");
-                                var id19 = $this.data("id19");
-                                var id20 = $this.data("id20");
-                                var id21 = $this.data("id21");
-                                var id22 = $this.data("id22");
-                                var id23 = $this.data("id23");
-
-                                $("#productIdHide").val(id1);
-                                $("#nameMaterialHide").val(id22);
-                                $("#descriptionHide").val(id23);
-                                $("#arf_number").val(id21);
-                                $("#arf_date").val(id2);
-                                $('#total_arf').val(id3);
-                                $("#total_arf2").val(id4);
-                                $("#total_asf").val(id5);
-                                $("#total_asf2").val(id6);
-                                $("#balance").val(id7.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                                $("#balance2").val(id8);
-                                $("#qty_expense").val(id9);
-                                $("#qty_expense2").val(id10);
-                                $("#price_expense").val(id11);
-                                $("#price_expense2").val(id12);
-                                $("#total_expense").val(id13);
-                                $("#total_expense2").val(id14);
-                                $("#qty_amount").val(id15);
-                                $("#qty_amount2").val(id16);
-                                $("#price_amount").val(id17);
-                                $("#price_amount2").val(id18);
-                                $("#total_amount").val(id19);
-                                $("#total_amount2").val(id20);
+                                $("#productIdHide").val($this.data("id1"));
+                                $("#nameMaterialHide").val($this.data("id22"));
+                                $("#descriptionHide").val($this.data("id23"));
+                                $("#arf_number").val($this.data("id21"));
+                                $("#arf_date").val($this.data("id2"));
+                                $('#total_arf').val($this.data("id3"));
+                                $("#total_arf2").val($this.data("id4"));
+                                $("#total_asf").val($this.data("id5"));
+                                $("#total_asf2").val($this.data("id6"));
+                                $("#balance").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                $("#balance2").val($this.data("id8"));
+                                $("#qty_expense").val($this.data("id9"));
+                                $("#qty_expense2").val($this.data("id10"));
+                                $("#price_expense").val($this.data("id11"));
+                                $("#price_expense2").val($this.data("id12"));
+                                $("#total_expense").val($this.data("id13"));
+                                $("#total_expense2").val($this.data("id14"));
+                                $("#qty_amount").val($this.data("id15"));
+                                $("#qty_amount2").val($this.data("id16"));
+                                $("#price_amount").val($this.data("id17"));
+                                $("#price_amount2").val($this.data("id18"));
+                                $("#total_amount").val($this.data("id19"));
+                                $("#total_amount2").val($this.data("id20"));
                                 $("#statusEditAsf").val("Yes");
 
-                                $("put_qty_expense").val(id9);
-                                $("put_price_expense").val(id11);
-                                $("put_qty_amount").val(id15);
-                                $("put_price_amount").val(id17);
+                                $("#ValidateQuantityExpense").val($this.data("id9"));
+                                $("#ValidatePriceExpense").val($this.data("id11"));
+                                $("#ValidateQuantityAmount").val($this.data("id15"));
+                                $("#ValidatePriceAmount").val($this.data("id17"));
 
 
                                 $(this).closest("tr").remove();
@@ -342,60 +325,36 @@
                                     type: "POST",
                                     url: '{!! route("AdvanceSettlement.StoreValidateAdvanceSettlement2") !!}?putProductId=' + ProductId,
                                 });
-
-                                var id1 = $this.data("id1");
-                                var id2 = $this.data("id2");
-                                var id3 = $this.data("id3");
-                                var id4 = $this.data("id4");
-                                var id5 = $this.data("id5");
-                                var id6 = $this.data("id6");
-                                var id7 = $this.data("id7");
-                                var id8 = $this.data("id8");
-                                var id9 = $this.data("id9");
-                                var id10 = $this.data("id10");
-                                var id11 = $this.data("id11");
-                                var id12 = $this.data("id12");
-                                var id13 = $this.data("id13");
-                                var id14 = $this.data("id14");
-                                var id15 = $this.data("id15");
-                                var id16 = $this.data("id16");
-                                var id17 = $this.data("id17");
-                                var id18 = $this.data("id18");
-                                var id19 = $this.data("id19");
-                                var id20 = $this.data("id20");
-                                var id21 = $this.data("id21");
-                                var id22 = $this.data("id22");
-                                var id23 = $this.data("id23");
-
-                                $("#productIdHide").val(id1);
-                                $("#nameMaterialHide").val(id22);
-                                $("#descriptionHide").val(id23);
-                                $("#arf_number").val(id21);
-                                $("#arf_date").val(id2);
-                                $('#total_arf').val(id3);
-                                $("#total_arf2").val(id4);
-                                $("#total_asf").val(id5);
-                                $("#total_asf2").val(id6);
-                                $("#balance").val(id7.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
-                                $("#balance2").val(id8);
-                                $("#qty_expense").val(id9);
-                                $("#qty_expense2").val(id10);
-                                $("#price_expense").val(id11);
-                                $("#price_expense2").val(id12);
-                                $("#total_expense").val(id13);
-                                $("#total_expense2").val(id14);
-                                $("#qty_amount").val(id15);
-                                $("#qty_amount2").val(id16);
-                                $("#price_amount").val(id17);
-                                $("#price_amount2").val(id18);
-                                $("#total_amount").val(id19);
-                                $("#total_amount2").val(id20);
+                                
+                                $("#productIdHide").val($this.data("id1"));
+                                $("#nameMaterialHide").val($this.data("id22"));
+                                $("#descriptionHide").val($this.data("id23"));
+                                $("#arf_number").val($this.data("id21"));
+                                $("#arf_date").val($this.data("id2"));
+                                $('#total_arf').val($this.data("id3"));
+                                $("#total_arf2").val($this.data("id4"));
+                                $("#total_asf").val($this.data("id5"));
+                                $("#total_asf2").val($this.data("id6"));
+                                $("#balance").val($this.data("id7").toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                                $("#balance2").val($this.data("id8"));
+                                $("#qty_expense").val($this.data("id9"));
+                                $("#qty_expense2").val($this.data("id10"));
+                                $("#price_expense").val($this.data("id11"));
+                                $("#price_expense2").val($this.data("id12"));
+                                $("#total_expense").val($this.data("id13"));
+                                $("#total_expense2").val($this.data("id14"));
+                                $("#qty_amount").val($this.data("id15"));
+                                $("#qty_amount2").val($this.data("id16"));
+                                $("#price_amount").val($this.data("id17"));
+                                $("#price_amount2").val($this.data("id18"));
+                                $("#total_amount").val($this.data("id19"));
+                                $("#total_amount2").val($this.data("id20"));
                                 $("#statusEditAsf").val("Yes");
 
-                                $("put_qty_expense").val(id9);
-                                $("put_price_expense").val(id11);
-                                $("put_qty_amount").val(id15);
-                                $("put_price_amount").val(id17);
+                                $("#ValidateQuantityExpense").val($this.data("id9"));
+                                $("#ValidatePriceExpense").val($this.data("id11"));
+                                $("#ValidateQuantityAmount").val($this.data("id15"));
+                                $("#ValidatePriceAmount").val($this.data("id17"));
 
                                 $(this).closest("tr").remove();
                             });
@@ -448,34 +407,34 @@
 <script>
     $('document').ready(function() {
         $('#qty_expense').keyup(function() {
-            var qty_expense = $(this).val();
+            var qty_expense = parseFloat($(this).val().replace(/,/g, ''));
             var qty_amount = $('#qty_amount').val();
             var price_expense = parseFloat($('#price_expense').val().replace(/,/g, ''));
             var total_expense = qty_expense * price_expense;
             var TotalQty = $('#TotalQty').val();
             var TotalQty2 = +qty_expense + +qty_amount;
-            if (qty_expense == '') {
-                $('#total_expense').val("");
+            if (qty_expense == 0) {
+                $('#total_expense').val("0.00");
             } else if (parseFloat(TotalQty2) > parseFloat(TotalQty)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#qty_expense").css("border", "1px solid red");
                 $('#qty_expense').val("");
                 $('#total_expense').val("");
-            } else {
+            }  else {
                 $("#qty_expense").css("border", "1px solid #ced4da");
                 $('#total_expense').val(parseFloat(total_expense).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
             }
         });
 
         $('#qty_amount').keyup(function() {
-            var qty_amount = $(this).val();
+            var qty_amount = parseFloat($(this).val().replace(/,/g, ''));
             var qty_expense = $('#qty_expense').val();
             var price_amount = parseFloat($('#price_amount').val().replace(/,/g, ''));
             var total_amount = qty_amount * price_amount;
             var TotalQty = $('#TotalQty').val();
             var TotalQty2 = +qty_expense + +qty_amount;
-            if (qty_amount == '') {
-                $('#total_amount').val("");
+            if (qty_amount == 0) {
+                $('#total_amount').val("0.00");
             } else if (parseFloat(TotalQty2) > parseFloat(TotalQty)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#qty_amount").css("border", "1px solid red");
@@ -488,13 +447,12 @@
         });
 
         $('#price_expense').keyup(function() {
-            var price_expense = $(this).val();
+            var price_expense = parseFloat($(this).val().replace(/,/g, ''));
             var qty_expense = $('#qty_expense').val();
-            var put_price_expense = $('#put_price_expense').val();
+            var put_price_expense = parseFloat($('#put_price_expense').val().replace(/,/g, ''));
             var total_expense = price_expense * qty_expense;
-
-            if (price_expense == '') {
-                $('#total_expense').val("");
+            if (price_expense == 0) {
+                $('#total_expense').val("0.00");
             } else if (parseFloat(price_expense) > parseFloat(put_price_expense)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#price_expense").css("border", "1px solid red");
@@ -507,12 +465,12 @@
         });
 
         $('#price_amount').keyup(function() {
-            var price_amount = $(this).val();
+            var price_amount = parseFloat($(this).val().replace(/,/g, ''));
             var qty_amount = $('#qty_amount').val();
-            var put_price_expense = $('#put_price_expense').val();
+            var put_price_expense = parseFloat($('#put_price_expense').val().replace(/,/g, ''));
             var total_amount = price_amount * qty_amount;
-            if (price_amount == '') {
-                $('#total_amount').val("");
+            if (price_amount == 0) {
+                $('#total_amount').val("0.00");
             } else if (parseFloat(price_amount) > parseFloat(put_price_expense)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#price_amount").css("border", "1px solid red");
