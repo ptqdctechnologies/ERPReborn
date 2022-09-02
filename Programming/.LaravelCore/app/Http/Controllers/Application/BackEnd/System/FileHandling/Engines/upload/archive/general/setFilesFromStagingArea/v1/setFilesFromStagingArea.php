@@ -158,8 +158,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
             $varArrayID_LogFileUploadObject = [];
             if ($varLogFileUploadPointerHistoryRefID)
                 {
+                /*
                 $varData = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistoryDetail(
+                        $varUserSession, 
+                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                        $varLogFileUploadPointerHistoryRefID
+                        );
+                */
+                $varData = 
+                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getList_LogFileUploadObjectByExistantion(
                         $varUserSession, 
                         (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
@@ -201,7 +210,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                             $varUserSession, 
                             $varJSON_Log_FileUpload_ObjectDetail)
                         )['SignRecordID'];
-                //dd($varSysID_Log_FileUpload_Object);
+                ($varSysID_Log_FileUpload_Object);
 
 
                 //---> Mencari Data Path Pemindahan lalu memindahkan File dari Staging Area ke Archive Cloud
@@ -221,10 +230,22 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varUserSession, 
                     $varSQL
                     )['Data'];
-                
-                //---> Memindahkan Thumbnails dari Staging Area ke Archive
+//                dd($varData);
+
+//                for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
+//                    {
+//                    }
+              
                 for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
                     {
+                    //---> Memindahkan File dari Staging Area ke Archive
+                    (new \App\Models\CloudStorage\System\General())->moveFile(
+                        $varUserSession, 
+                        $varData[$i]['StagingAreaFilePath'], 
+                        $varData[$i]['ArchiveFilePath']
+                        );
+
+                    //---> Memindahkan Thumbnails dari Staging Area ke Archive
                     $varArrayStagingAreaFilePath = explode('/', $varData[$i]['StagingAreaFilePath']);
                     $varArrayArchiveAreaFilePath = explode('/', $varData[$i]['ArchiveFilePath']);
                     

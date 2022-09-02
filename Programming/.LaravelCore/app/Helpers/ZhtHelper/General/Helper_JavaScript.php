@@ -366,14 +366,14 @@ namespace App\Helpers\ZhtHelper\General
                         //---> zhtInnerFunc_RecreateThumbnails
                         'function zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath) {'.
                             'varNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
-/*                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
+                            'var varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
                             'varObjImage = new Image(); '.
                             'varObjImage.src = varImageSource; '.
                             'varObjImage.onload = function() {'.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
-                                '}; '.*/                                        
+                                '}; '.
                             'var ObjButton = document.getElementById(\''.$varID.'_DialogRecreateButton\'); '.
                             'ObjButton.style.visibility = \'hidden\'; '.
                             'ObjButton.style.display = \'none\'; '.
@@ -588,6 +588,7 @@ namespace App\Helpers\ZhtHelper\General
                                         ).
                                     ').data.contentBase64'.
                                 '); '.
+                            //'alert(varImageSource); '.
                             'if(varImageSource == null) {'.
                                 'varImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
                                 '}'.
@@ -2206,8 +2207,8 @@ namespace App\Helpers\ZhtHelper\General
                                                 'JSFunc_MainData_SetData_FileUploadPointerRefID_'.$varUniqueID.'(varReturn); '.
                                                 'JSFunc_MainData_SetData_FileUploadStagingAreaRefRPK_'.$varUniqueID.'(null); '.
 //                                                'JSFunc_MainData_InitData_'.$varUniqueID.'(document.getElementById(\''.$varDOMReturnID.'\').value, null, []); '.
-                                                'alert(\'Committed File(s) Upload Complete\'); '.
-                                                'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
+                                                //'alert(\'Committed File(s) Upload Complete\'); '.
+                                                'varNothing = JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                 '}'.
                                             'catch(varError) {'.
                                                 'alert(\'ERP Reborn Error Notification\n\nInvalid Process\n(\' + varError + \')\'); '.
@@ -2364,7 +2365,12 @@ namespace App\Helpers\ZhtHelper\General
                                             'try {'.
                                                 'varDataJSON = JSFunc_MainData_GetData_'.$varUniqueID.'(); '.
                                                 'varDataJSONDeleteCandidate = varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID; '.
-                                                'varDataJSONDeleteCandidate.push(varDataArrayID); '.                            
+                                                'if (varDataArrayID === undefined || varDataArrayID.length == 0) {'.
+                                                    'varDataJSONDeleteCandidate = []; '. //JSON.parse(\'[]\'); '.
+                                                    '}'.
+                                                'else {'.
+                                                    'varDataJSONDeleteCandidate.push(varDataArrayID); '.
+                                                    '}'.
                                                 'varDataJSON.header.deleteCandidate_Log_FileUpload_ObjectDetail_RefArrayID = varDataJSONDeleteCandidate; '.
                                                 'JSFunc_MainData_SetData_'.$varUniqueID.'(JSON.stringify(varDataJSON)); '.
                                                 '}'.
@@ -2822,6 +2828,7 @@ namespace App\Helpers\ZhtHelper\General
                                                                                                         self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varUniqueID, 'document.body', false)
                                                                                                         )
                                                                                                         ).
+                                                                                                    'JSFunc_MainData_SetData_DeleteCandidateFileUploadObjectDetailRefArrayID_'.$varUniqueID.'([]); '.
                                                                                                     'JSFunc_ObjDOMTable_ActionPanel_Show_'.$varUniqueID.'(); '.
                                                                                                     '}'.
                                                                                                 '), 50);'.

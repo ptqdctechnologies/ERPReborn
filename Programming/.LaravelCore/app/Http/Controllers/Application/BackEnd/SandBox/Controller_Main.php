@@ -17,6 +17,17 @@ namespace App\Http\Controllers\Application\BackEnd\SandBox
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
             $varAPIWebToken = 'xxx';
 
+                $varData = 
+                    (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getList_LogFileUploadObjectByExistantion(
+                        $varUserSession, 
+                        11000000000004,
+//                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+
+                        94000000000107
+                        );
+                dd($varData);
+
+/*
 //            $x = is_file('TestPDF.pdf');
             $filename = 'TestPDF.pdf';
             $handle = fopen($filename, "r");
@@ -27,7 +38,7 @@ if (stristr($contents, "/Encrypt"))
 {echo " (Suspected Enrypted PDF File !)";}
 else
 {echo " OK ";}  
-            
+*/            
             //dd($contents);
             
             
