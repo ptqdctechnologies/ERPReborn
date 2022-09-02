@@ -42,6 +42,11 @@ namespace App\Models\CloudStorage\System
             $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varContentBase64, $varRemoteFilePath, $varBucketName);
             return $varReturn;            
             }*/
+        public static function createFile($varUserSession, string $varRemoteFilePath, string $varContent, string $varBucketName = null)
+            {
+            $varReturn = \App\Helpers\ZhtHelper\CloudStorage\Helper_MinIO::createFile($varUserSession, $varRemoteFilePath, $varContent, $varBucketName);
+            return $varReturn;            
+            }
 
 
         /*

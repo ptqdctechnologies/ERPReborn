@@ -79,6 +79,7 @@ final class NullTypeTest extends TestCase
     public function testCanBeQueriedForType(): void
     {
         $this->assertFalse($this->type->isCallable());
+        $this->assertFalse($this->type->isFalse());
         $this->assertFalse($this->type->isGenericObject());
         $this->assertFalse($this->type->isIntersection());
         $this->assertFalse($this->type->isIterable());
@@ -88,6 +89,7 @@ final class NullTypeTest extends TestCase
         $this->assertFalse($this->type->isObject());
         $this->assertFalse($this->type->isSimple());
         $this->assertFalse($this->type->isStatic());
+        $this->assertFalse($this->type->isTrue());
         $this->assertFalse($this->type->isUnion());
         $this->assertFalse($this->type->isUnknown());
         $this->assertFalse($this->type->isVoid());

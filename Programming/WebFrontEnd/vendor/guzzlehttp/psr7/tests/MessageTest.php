@@ -277,8 +277,16 @@ class MessageTest extends TestCase
         self::assertNull(Psr7\Message::bodySummary($message));
     }
 
+    public function testMessageBodySummaryNotInitiallyRewound(): void
+    {
+        $message = new Psr7\Response(200, [], 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+        $message->getBody()->read(10);
+        self::assertSame('Lorem ipsu (truncated...)', Psr7\Message::bodySummary($message, 10));
+    }
+
     public function testGetResponseBodySummaryOfNonReadableStream(): void
     {
-        self::assertNull(Psr7\Message::bodySummary(new Psr7\Response(500, [], new ReadSeekOnlyStream())));
+        $message = new Psr7\Response(500, [], new ReadSeekOnlyStream());
+        self::assertNull(Psr7\Message::bodySummary($message));
     }
 }

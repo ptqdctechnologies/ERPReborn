@@ -143,6 +143,7 @@ carriageReturn="
     )
 
     tests=(
+        'Support/Enums.php'
         'Support/SupportCollectionTest.php'
         'Support/SupportArrTest.php'
         'Support/SupportMacroableTest.php'
@@ -150,7 +151,6 @@ carriageReturn="
         'Support/SupportLazyCollectionIsLazyTest.php'
         'Support/Concerns/CountsEnumerations.php'
     )
-
     testSupportClasses=(
         'Support/Carbon'
         'Support/HigherOrderTapProxy'
@@ -366,7 +366,7 @@ function getCurrentVersionFromGitHub()
     echo Getting current version from $repository...
 
     if [ -z "$requestedVersion" ]; then
-        collectionVersion=$(git ls-remote $repository --tags  v8\* | grep tags/ | grep -v {} | cut -d \/ -f 3 | cut -d v -f 2  | grep -v RC | grep -vi beta | sort -t. -k 1,1n -k 2,2n -k 3,3n| tail -1)
+        collectionVersion=$(git ls-remote $repository --tags  v8.83.18\* | grep tags/ | grep -v {} | cut -d \/ -f 3 | cut -d v -f 2  | grep -v RC | grep -vi beta | sort -t. -k 1,1n -k 2,2n -k 3,3n| tail -1)
     else
         collectionVersion=$requestedVersion
     fi

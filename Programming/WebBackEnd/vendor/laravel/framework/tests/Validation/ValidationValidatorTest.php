@@ -27,6 +27,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\Validator;
 use InvalidArgumentException;
 use Mockery as m;
+use Mockery\MockInterface;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use stdClass;
@@ -2359,6 +2360,32 @@ class ValidationValidatorTest extends TestCase
 
         $v = new Validator($trans, ['foo' => '+12.3'], ['foo' => 'digits_between:1,6']);
         $this->assertFalse($v->passes());
+
+        $trans = $this->getIlluminateArrayTranslator();
+        $v = new Validator($trans, ['foo' => '12345'], ['foo' => 'min_digits:1']);
+        $this->assertTrue($v->passes());
+
+        $v = new Validator($trans, ['foo' => 'bar'], ['foo' => 'min_digits:1']);
+        $this->assertFalse($v->passes());
+
+        $v = new Validator($trans, ['foo' => '123'], ['foo' => 'min_digits:4']);
+        $this->assertFalse($v->passes());
+
+        $v = new Validator($trans, ['foo' => '+12.3'], ['foo' => 'min_digits:1']);
+        $this->assertFalse($v->passes());
+
+        $trans = $this->getIlluminateArrayTranslator();
+        $v = new Validator($trans, ['foo' => '12345'], ['foo' => 'max_digits:6']);
+        $this->assertTrue($v->passes());
+
+        $v = new Validator($trans, ['foo' => 'bar'], ['foo' => 'max_digits:10']);
+        $this->assertFalse($v->passes());
+
+        $v = new Validator($trans, ['foo' => '123'], ['foo' => 'max_digits:2']);
+        $this->assertFalse($v->passes());
+
+        $v = new Validator($trans, ['foo' => '+12.3'], ['foo' => 'max_digits:6']);
+        $this->assertFalse($v->passes());
     }
 
     public function testValidateSize()
@@ -3533,23 +3560,50 @@ class ValidationValidatorTest extends TestCase
         ];
     }
 
-    public function testValidateActiveUrl()
+    /**
+     * @dataProvider activeUrlDataProvider
+     */
+    public function testValidateActiveUrl($data, $outcome)
     {
         $trans = $this->getIlluminateArrayTranslator();
-        $v = new Validator($trans, ['x' => 'aslsdlks'], ['x' => 'active_url']);
-        $this->assertFalse($v->passes());
+        $v = m::mock(
+            new Validator($trans, $data, ['x' => 'active_url']),
+            function (MockInterface $mock) {
+                $mock
+                    ->shouldAllowMockingProtectedMethods()
+                    ->shouldReceive('getDnsRecords')
+                    ->withAnyArgs()
+                    ->zeroOrMoreTimes()
+                    ->andReturn(['hit']);
+            }
+        );
+        $this->assertEquals($outcome, $v->passes());
+    }
 
-        $v = new Validator($trans, ['x' => ['fdsfs', 'fdsfds']], ['x' => 'active_url']);
-        $this->assertFalse($v->passes());
-
-        $v = new Validator($trans, ['x' => 'http://google.com'], ['x' => 'active_url']);
-        $this->assertTrue($v->passes());
-
-        $v = new Validator($trans, ['x' => 'http://www.google.com'], ['x' => 'active_url']);
-        $this->assertTrue($v->passes());
-
-        $v = new Validator($trans, ['x' => 'http://www.google.com/about'], ['x' => 'active_url']);
-        $this->assertTrue($v->passes());
+    public function activeUrlDataProvider()
+    {
+        return [
+            'Invalid Url' => [
+                ['x' => 'aslsdlks'],
+                false,
+            ],
+            'Invalid Urls' => [
+                ['x' => 'fdsfs', 'fdsfds'],
+                false,
+            ],
+            'Google Without Subdomain' => [
+                ['x' => 'http://google.com'],
+                true,
+            ],
+            'Google With Subdomain' => [
+                ['x' => 'http://www.google.com'],
+                true,
+            ],
+            'Google With Subdomain About Page' => [
+                ['x' => 'http://www.google.com/about'],
+                true,
+            ],
+        ];
     }
 
     public function testValidateImage()

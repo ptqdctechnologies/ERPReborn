@@ -73,6 +73,7 @@ final class MixedTypeTest extends TestCase
         $type = new MixedType;
 
         $this->assertFalse($type->isCallable());
+        $this->assertFalse($type->isFalse());
         $this->assertFalse($type->isGenericObject());
         $this->assertFalse($type->isIntersection());
         $this->assertFalse($type->isIterable());
@@ -82,6 +83,7 @@ final class MixedTypeTest extends TestCase
         $this->assertFalse($type->isObject());
         $this->assertFalse($type->isSimple());
         $this->assertFalse($type->isStatic());
+        $this->assertFalse($type->isTrue());
         $this->assertFalse($type->isUnion());
         $this->assertFalse($type->isUnknown());
         $this->assertFalse($type->isVoid());

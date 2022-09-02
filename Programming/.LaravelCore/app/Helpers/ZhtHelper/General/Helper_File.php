@@ -93,6 +93,7 @@ namespace App\Helpers\ZhtHelper\General
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000002                                                                                       |
         | ▪ Last Update     : 2020-08-04                                                                                           |
+        | ▪ Creation Date   : 2020-08-04                                                                                           |
         | ▪ Description     : Mencari posisi file path varPostfix relatif terhadap varPrefix                                       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -422,6 +423,31 @@ namespace App\Helpers\ZhtHelper\General
             {
             return include($varFilePath.'*');
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getMIMEOfFileContent                                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-08-25                                                                                           |
+        | ▪ Creation Date   : 2022-08-25                                                                                           |
+        | ▪ Description     : Mendapatkan Tipe MIME dari File Content                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varData ► Data                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (string) varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getMIMEOfFileContent($varUserSession, $varData)
+            {
+            $ObjFileOriginal = finfo_open();
+            $varReturn = finfo_buffer($ObjFileOriginal, $varData, FILEINFO_MIME_TYPE);
+            return $varReturn;
+            }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

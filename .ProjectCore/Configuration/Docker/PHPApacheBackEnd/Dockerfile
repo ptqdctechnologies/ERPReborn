@@ -1,4 +1,4 @@
-FROM php:8.1.8-apache
+FROM php:8.1.9-apache
 ENV DEBIAN_FRONTEND=noninteractive
 
 #    && add-apt-repository ppa:ondrej/php \
@@ -130,6 +130,31 @@ RUN apt-get install -y \
       gd
 
 
+#---> PHP Extension : File Converter
+RUN apt-get install -y \
+   libreoffice \
+   ghostscript \
+   imagemagick \
+   build-essential \
+   libmagickwand-dev
+
+RUN pecl install imagick \
+   && docker-php-ext-enable imagick
+
+#   && docker-php-ext-install \
+#      php-imagick \
+#   && apt-get install -y \
+#      aptitude \
+#   && aptitude install -y \
+#      php-imagick \
+#   && apt-get install -y \
+#      php7-imagick \
+#   && aptitude -y install \
+#      imagemagick \
+#   && aptitude -y install \
+#      libmagickcore-dev
+
+
 #ADD .ProjectCore/Configuration/Docker/PHPApacheBackEnd/crontab /etc/cron.d/cronLaravel
 
 #RUN chmod 0644 /etc/cron.d/cronLaravel \
@@ -166,6 +191,8 @@ RUN cd /usr/local/etc/php/conf.d/ \
 #COPY . /var/www/html/
 COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/vhost.conf /etc/apache2/sites-available/000-default.conf
 #RUN cd .. && cp ./../.ZhtConf/Docker/PHP/vhost.conf /etc/apache2/sites-available/000-default.conf & cd -
+#---> Imagick Convertion for PDF
+COPY ./.ProjectCore/Configuration/Docker/PHPApacheBackEnd/System/etc/ImageMagick-6/policy.xml /etc/ImageMagick-6/policy.xml
 
 #---> Set Ulang Kepemilikan File
 RUN chown -R www-data:www-data /var/www \

@@ -156,7 +156,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
 
             //---> Mencari Log_FileUpload_Object_RefID Sebelumnya
             $varArrayID_LogFileUploadObject = [];
-            if($varLogFileUploadPointerHistoryRefID)
+            if ($varLogFileUploadPointerHistoryRefID)
                 {
                 $varData = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getDataList_LogFileUploadPointerHistoryDetail(
@@ -175,7 +175,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
 
 
             //---> Jika Ada Penambahan File-File Baru dari Staging Area
-            if($varStagingAreaRecordPK) {
+            if ($varStagingAreaRecordPK) {
                //---> Penyusunan JSON dari data MasterFileRecord yang berasal dari Staging Area
                 $varJSON_Log_FileUpload_ObjectDetail = 
                     (new \App\Models\Database\SchData_OLTP_DataAcquisition\General())->getFileUpload_DataMovementFromStagingAreaToArchieve(
@@ -222,13 +222,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                     $varSQL
                     )['Data'];
                 
+                //---> Memindahkan Thumbnails dari Staging Area ke Archive
                 for($i=0, $iMax=count($varData); $i!=$iMax; $i++)
                     {
-                    //var_dump($varData[$i]);
-                    (new \App\Models\CloudStorage\System\General())->moveFile(
-                        $varUserSession, 
-                        $varData[$i]['StagingAreaFilePath'], 
-                        $varData[$i]['ArchiveFilePath']
+                    $varArrayStagingAreaFilePath = explode('/', $varData[$i]['StagingAreaFilePath']);
+                    $varArrayArchiveAreaFilePath = explode('/', $varData[$i]['ArchiveFilePath']);
+                    
+                    (new \App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\upload\combined\thumbnails\setFilesMovement\v1\setFilesMovement())->main(
+                        $varUserSession,
+                        [
+                        'parameter' => [
+                            'sourceFolderPath' => 'Thumbnails/'.$varArrayStagingAreaFilePath[0].'/'.$varArrayStagingAreaFilePath[2],
+                            'destinationFolderPath' => 'Thumbnails/'.$varArrayArchiveAreaFilePath[0].'/'.$varArrayArchiveAreaFilePath[2]
+                            ]
+                        ]
                         );
                     }
                 //dd($varData);  
