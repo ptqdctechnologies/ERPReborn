@@ -51,22 +51,28 @@ class zht_JSAPIRequest
     getXRequestID(varAPIWebToken, varURL)
         {
         var varAJAXUniqIDReturn = null;
-        $.ajax({
-            //'url: "ajax.aspx?ajaxid=4&UserID=" + UserID + "&EmailAddress=" + encodeURIComponent(EmailAddress),'.
-            url: varURL,
-            async : false,
-            type : "POST",
-            headers : {
-                "Authorization" : this.getJSONWebTokens(varAPIWebToken)
-                },
-            success: function(varDataResponse) {
-                varAJAXUniqIDReturn = JSON.stringify(varDataResponse);
-                },
-            error: function(varDataResponse, varTextStatus) {
-                varAJAXUniqIDReturn = JSON.stringify(varDataResponse);
-                }
-            });
-        varAJAXUniqIDReturn = '';
+        /*alert(varURL);
+        try {
+            $.ajax({
+                //'url: "ajax.aspx?ajaxid=4&UserID=" + UserID + "&EmailAddress=" + encodeURIComponent(EmailAddress),'.
+                url: varURL,
+                async : false,
+                type : "POST",
+                headers : {
+                    "Authorization" : this.getJSONWebTokens(varAPIWebToken)
+                    },
+                success: function(varDataResponse) {
+                    varAJAXUniqIDReturn = JSON.stringify(varDataResponse);
+                    },
+                error: function(varDataResponse, varTextStatus) {
+                    varAJAXUniqIDReturn = JSON.stringify(varDataResponse);
+                    }
+                });
+            }
+        catch(varError) {
+            //alert("ERP Reborn Error Notification\n\nInvalid Data Request\n(" + varError + ")");
+            varAJAXUniqIDReturn = '';
+            }*/ 
         return varAJAXUniqIDReturn;
         }
 
@@ -239,7 +245,7 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
                         'User-Agent' : this.getUserAgent(),
                         'Agent-DateTime' : this.getAgentDateTime(),
                         'Expires' : this.getAgentDateTime((10*60)),
-                        'Content-MD5' : this.getBase64OfMD5(varDataJSON),
+                        'X-Content-MD5' : this.getBase64OfMD5(varDataJSON),
                         'X-Request-ID' : this.getXRequestID('', varURL)
                         },
                     data : varDataJSON,
@@ -293,10 +299,10 @@ class zht_JSAPIRequest_Authentication extends zht_JSAPIRequest
 */
 class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     {
-    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    constructor(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
         super();
-        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject);
+        var varReturn = this.main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut);
         this.value = varReturn;
         }
 
@@ -319,8 +325,11 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
     |      ▪ varReturn ► Return Value (JSON)                                                                                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject)
+    main(varAPIWebToken, varURL, varAPIKey, varAPIVersion, varDataJSObject, varTimeOut)
         {
+        if(varTimeOut == null) {
+            varTimeOut = 5000;
+            }
         //alert(JSON.stringify(varDataJSObject));
         var varReturn = null;
         if (window.jQuery) {
@@ -342,14 +351,18 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                 $.ajax(varURL, {
                     async : false, 
                     type : "POST",
+                    beforeSend: function(varObjXHR) {
+                        varObjXHR.setRequestHeader('X-Test-Header', 'test-value');
+                        },
                     headers : {
                         'Authorization' : this.getJSONWebTokens(varAPIWebToken),
-                        'User-Agent' : this.getUserAgent(),
+//                        'User-Agent' : this.getUserAgent(),
                         'Agent-DateTime' : this.getAgentDateTime(),
                         'Expires' : this.getAgentDateTime((10*60)),
-                        'Content-MD5' : this.getBase64OfMD5(varDataJSON),
-                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL)
+                        'X-Content-MD5' : this.getBase64OfMD5(varDataJSON),
+//                        'X-Request-ID' : this.getXRequestID(varAPIWebToken, varURL),
                         },
+                    dataType: "json",
                     data : varDataJSON,
                     contentType : "application/json",
                     success : function(varDataResponse, varTextStatus, varObjXHR)
@@ -371,7 +384,8 @@ class zht_JSAPIRequest_Gateway extends zht_JSAPIRequest
                         //'alert("Failed, Error " + JSON.stringify(varDataResponse));  '.
                         //'varAJAXReturn = "Failed"; '.
                         varReturn = JSON.stringify(varDataResponse);
-                        }
+                        },
+                    timeout: varTimeOut
                     });
                 //alert(varReturn);
                 //$("body").append(JSON.stringify(varReturn));

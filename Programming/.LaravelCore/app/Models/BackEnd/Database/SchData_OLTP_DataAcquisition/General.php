@@ -210,6 +210,29 @@ namespace App\Models\Database\SchData_OLTP_DataAcquisition
             }
 
 
+        public function getList_LogFileUploadObjectByExistantion(
+            $varUserSession, int $varBranchID, int $varLog_FileUpload_PointerHistory_RefID = null)
+            {
+            try {
+                $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession, 
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                        $varUserSession,
+                        'SchData-OLTP-DataAcquisition.Func_General_ListLogFileUploadObjectByExistantion',
+                        [
+                            [$varBranchID, 'bigint' ],
+                            [$varLog_FileUpload_PointerHistory_RefID, 'bigint' ]
+                        ]
+                        )
+                    );
+                return $varReturn['Data'];
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getFileUpload_DataMovementFromStagingAreaToArchieve                                                  |

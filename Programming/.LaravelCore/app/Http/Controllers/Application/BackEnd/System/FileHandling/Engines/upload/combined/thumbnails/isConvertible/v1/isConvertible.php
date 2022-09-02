@@ -126,15 +126,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         $varFileContent
                         );
                 }
-
+                
             $varSignStatus = FALSE;
-            if(strcmp($varMIME, 'application/pdf')==0)
-                {
-                $varSignStatus = 
-                    !(\App\Helpers\ZhtHelper\General\Helper_FileSecurity::isFileProtectedWithPassword_PDF(
-                        $varUserSession, 
-                        $varFileContent
-                        ));
+            if(\App\Helpers\ZhtHelper\General\Helper_FileConvert::isConvertible_ToPDF($varUserSession, $varMIME) == TRUE) {
+                switch($varMIME) {
+                    //---> PDF
+                    case 'application/pdf':
+                        {
+                        //---> Cek Apakah PDF diproteksi dengan password
+                        $varSignStatus = 
+                            !(\App\Helpers\ZhtHelper\General\Helper_FileSecurity::isFileProtectedWithPassword_PDF(
+                                $varUserSession, 
+                                $varFileContent
+                                ));
+                        break;
+                        }
+                    default:
+                        {
+                        $varSignStatus = TRUE;
+                        }
+                    }
                 }
 
             $varDataReturn = [

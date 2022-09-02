@@ -57,7 +57,7 @@ namespace App\Helpers\ZhtHelper\General
             {
             }
 
-
+            
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getConvertDataContent_OfficeToPDF                                                                    |
@@ -157,7 +157,100 @@ namespace App\Helpers\ZhtHelper\General
             return $varReturn;
             }
 
-            
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isConvertible_OfficeToPDF                                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-09-02                                                                                           |
+        | ▪ Creation Date   : 2022-09-02                                                                                           |
+        | ▪ Description     : Mengecek apakah data dapat dikonversi ke format PDF berdasarkan MIME nya                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varMIME ► MIME                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isConvertible_ToPDF($varUserSession, string $varMIME = null)
+            {
+            switch($varMIME) {
+                //---> PDF
+                case 'application/pdf':
+                    {
+                    $varReturn = TRUE;
+                    break;
+                    }
+                //---> Other Data
+                default:
+                    {
+                    //---> Other Data ---> Office Document
+                    if(self::isOfficeDocument($varUserSession, $varMIME) == true) {
+                        $varReturn = TRUE;                        
+                        }
+                    //---> Other Data ---> Others
+                    else {
+                        $varReturn = FALSE;
+                        }
+                    break;
+                    }
+                }
+
+            return $varReturn;
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isOfficeDocument                                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2022-09-02                                                                                           |
+        | ▪ Creation Date   : 2022-09-02                                                                                           |
+        | ▪ Description     : Mengecek apakah data termasuk Dokumen Office berdasarkan MIME nya                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (string) varMIME ► MIME                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (bool)   varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function isOfficeDocument($varUserSession, string $varMIME = null)
+            {
+            switch($varMIME) {
+                //---> RTF
+                case 'application/rtf':
+                //---> DOC, DOCX
+                case 'application/msword':
+                case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+                //---> XLS, XLSX, XLSB, XLSM 
+                case 'application/vnd.ms-excel':
+                case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+                case 'application/vnd.ms-excel.sheet.binary.macroEnabled.12':
+                case 'application/vnd.ms-excel.sheet.macroEnabled.12':
+                //---> PPT, PPTX, PPTM
+                case 'application/vnd.ms-powerpoint':
+                case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
+                case 'application/vnd.ms-powerpoint.presentation.macroEnabled.12':
+                //---> ODT, ODS, ODP
+                case 'application/vnd.oasis.opendocument.text':
+                case 'application/vnd.oasis.opendocument.spreadsheet':
+                case 'application/vnd.oasis.opendocument.presentation':
+                    {
+                    $varReturn = TRUE;
+                    break;
+                    }    
+                default:
+                    {
+                    $varReturn = FALSE;
+                    }
+                }
+
+            return $varReturn;
+            }
             
             
 /*

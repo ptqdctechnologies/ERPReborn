@@ -156,7 +156,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varDataThumbnails = $varDataTemp;
                 }
             //---> Convert Data ---> Office Document
-            elseif (($varFileMIME[0] == 'application') && (($varFileMIME[1] == 'vnd.openxmlformats-officedocument.wordprocessingml.document')))
+            elseif (\App\Helpers\ZhtHelper\General\Helper_FileConvert::isOfficeDocument($varUserSession, $varFileMIME[0].'/'.$varFileMIME[1]) == TRUE)
                 {
                 $varDataTemp = 
                     \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
@@ -174,6 +174,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                         );
                 $varDataThumbnails = $varDataTemp;
                 }
+            //---> Convert Data ---> Other Data
             else
                 {                
                 }

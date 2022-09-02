@@ -12,7 +12,7 @@ namespace App\Http\Middleware\Application\BackEnd\API\Authentication
         private function CheckAllStage($varResponse)
             {
             $varUserSession = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-            $varResponse->header('Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponse->getContent()));
+            $varResponse->header('X-Content-MD5', \App\Helpers\ZhtHelper\General\Helper_HTTPHeader::generateContentMD5($varUserSession, $varResponse->getContent()));
 
             return $varResponse;
             }
