@@ -11,6 +11,7 @@ class AdvanceRequestController extends Controller
     public function index(Request $request)
     {
         $varAPIWebToken = $request->session()->get('SessionLogin');
+        // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");       
         
         $varDataProject = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
@@ -65,6 +66,7 @@ class AdvanceRequestController extends Controller
             'dataWorker' => $varDataWorker['data'],
             'dataAdvanceRequest' => $varDataAdvanceRequest['data'],
             'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken
         ];
         return view('Advance.Advance.Transactions.CreateAdvanceRequest', $compact);
 
@@ -88,7 +90,7 @@ class AdvanceRequestController extends Controller
                     "productUnitPriceCurrency_RefID" => 62000000000001,
                     "productUnitPriceCurrencyValue" => (float) $input['var_price'][$n],
                     "productUnitPriceCurrencyExchangeRate" => 1,
-                    "remarks" => 'Catatan Detail'
+                    "remarks" => 'test jumat'
                 ]
             ];
         }

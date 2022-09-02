@@ -114,7 +114,7 @@
                       </div>
                     </div>
 
-                    <div class="card-body" id="detailTransAvail">
+                    <div class="card-body table-responsive p-0" id="detailTransAvail">
                       <div class="row">
                         <table class="table table-head-fixed text-nowrap">
                           <thead>
@@ -153,7 +153,7 @@
                               <input id="putUom" style="border-radius:0;width:40px;" type="text" class="form-control" readonly="">
                             </td>
                             <td>
-                              <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" value="0" autocomplete="off">
+                              <input id="priceCek" style="border-radius:0;width:100px;" type="text" class="form-control ChangePrice" autocomplete="off" pattern="^\$\d{1,3}(,\d{3})*(\.\d+)?$" data-type="currency">
                               <input id="putPrice" style="border-radius:0;" type="hidden" class="form-control">
                             </td>
                             <td>
@@ -168,6 +168,11 @@
                             <td>
                               <input id="totalBalance" style="border-radius:0;" type="text" class="form-control" readonly="">
                             </td>
+                            <input id="statusEditPieceMeal" style="border-radius:0;" type="hidden" class="form-control" readonly="" value="No">
+                            <input id="ValidateQuantity" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidatePrice" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+                            <input id="ValidateRemark" style="border-radius:0;" type="hidden" class="form-control" readonly="">
+
                           </tbody>
                         </table>
                       </div>

@@ -1,7 +1,7 @@
 <!--  SHOW HIDE AVAILABEL -->
 <script type="text/javascript">
     $(document).ready(function() {
-        $("#detailPurchaseRequisitionList").hide();
+        $("#detailPieceMealList").hide();
         $("#detailTransAvail").hide();
         $("#sitecode2").prop("disabled", true);
         $("#request_name2").prop("disabled", true);
@@ -31,30 +31,29 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
-        $(".CancelDetailPurchaseRequisition").click(function() {
+        $(".CancelDetailPieceMeal").click(function() {
             let product_id = $("#putProductId").val();
             let putProductName = $("#putProductName").val();
             let qtyCek = $('#qtyCek').val().replace(/^\s+|\s+$/g, '');
             let putUom = $("#putUom").val();
             let priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
             let putCurrency = $("#putCurrency").val();
-            let totalProcReqDetails = $("#totalProcReqDetails").val().replace(/^\s+|\s+$/g, '');
+            let totalPieceMealDetails = $("#totalPieceMealDetails").val().replace(/^\s+|\s+$/g, '');
             let putRemark = $("#putRemark").val();
             let totalBalance = $("#totalBalance").val();
             let putPrice = $('#putPrice').val();
-            let combinedBudget = $("#combinedBudget").val();
-            let statusEditPr = $("#statusEditPr").val();
-            if (statusEditPr == "Yes") {
+            let statusEditPieceMeal = $("#statusEditPieceMeal").val();
+            if (statusEditPieceMeal == "Yes") {
 
                 qtyCek = $('#ValidateQuantity').val();
                 priceCek = $('#ValidatePrice').val();
-                totalProcReqDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
-                putRemark = $("#ValidateRemark").val();
+                putRemark = $('#ValidateRemark').val();
+                totalPieceMealDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
 
                 var html = '<tr>' +
-                    '<td style="border:1px solid #e9ecef;">' +
-                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                    '&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                    '<td style="border:1px solid #e9ecef;width:7%;">' +
+                    '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePieceMeal" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                    '&nbsp;<button type="button" class="btn btn-xs EditPieceMeal" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalPieceMealDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -63,19 +62,18 @@
                     '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                     '<input type="hidden" name="var_remark[]" value="' + putRemark + '">' +
-                    '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + totalPieceMealDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putRemark + '</td>' +
                     '</tr>';
-                $('table.TablePurchaseRequisition tbody').append(html);
-                $("#statusEditPr").val("No");
+                $('table.tablePieceMeal tbody').append(html);
+                $("#statusEditPieceMeal").val("No");
             }
             $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
             $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
@@ -88,11 +86,12 @@
             $("#priceCek").val("");
             $("#putCurrency").val("");
             $("#totalBalance").val("");
-            $("#totalProcReqDetails").val("");
+            $("#totalPieceMealDetails").val("");
             $("#putRemark").val("");
         });
     });
 </script>
+
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {
@@ -105,9 +104,10 @@
         var valProductId = $("#putProductId").val();
         var valQty = $("#qtyCek").val();
         var valPrice = $("#priceCek").val();
-        var valRemark = $("#putRemark").val();
+        var valPutRemark = $("#putRemark").val();
 
         $("#putProductId").css("border", "1px solid #ced4da");
+        $("#putRemark").css("border", "1px solid #ced4da");
 
         if (valProductId === "") {
             $("#putProductId").focus();
@@ -121,17 +121,14 @@
             $("#priceCek").focus();
             $("#priceCek").attr('required', true);
             $("#priceCek").css("border", "1px solid red");
-        } else if (valRemark === "") {
+        } else if (valPutRemark === "") {
             $("#putRemark").focus();
             $("#putRemark").attr('required', true);
             $("#putRemark").css("border", "1px solid red");
         } else {
-            
-            $("#putRemark").css("border", "1px solid #ced4da");
-
             $.ajax({
                 type: "POST",
-                url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition") !!}?putProductId=' + $('#putProductId').val(),
+                url: '{!! route("PieceMeal.StoreValidatePieceMeal") !!}?putProductId=' + $('#putProductId').val(),
                 success: function(data) {
 
                     if (data == "200") {
@@ -144,15 +141,14 @@
                         var putUom = $("#putUom").val();
                         var priceCek = $("#priceCek").val().replace(/^\s+|\s+$/g, '');
                         var putCurrency = $("#putCurrency").val();
-                        var totalProcReqDetails = $("#totalProcReqDetails").val().replace(/^\s+|\s+$/g, '');
+                        var totalPieceMealDetails = $("#totalPieceMealDetails").val().replace(/^\s+|\s+$/g, '');
                         var putRemark = $("#putRemark").val();
                         var totalBalance = $("#totalBalance").val();
-                        var combinedBudget = $("#combinedBudget").val();
                         var putPrice = $('#putPrice').val();
                         var html = '<tr>' +
                             '<td style="border:1px solid #e9ecef;width:7%;">' +
-                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePurchaseRequisition" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                            '&nbsp;<button type="button" class="btn btn-xs EditPurchaseRequisition" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalProcReqDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                            '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemovePieceMeal" data-id1="' + product_id + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
+                            '&nbsp;<button type="button" class="btn btn-xs EditPieceMeal" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalPieceMealDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                             '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
@@ -161,48 +157,47 @@
                             '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
                             '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                             '<input type="hidden" name="var_remark[]" value="' + putRemark + '">' +
-                            '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
                             '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + priceCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                            '<td style="border:1px solid #e9ecef;">' + totalProcReqDetails.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                            '<td style="border:1px solid #e9ecef;">' + totalPieceMealDetails + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
                             '<td style="border:1px solid #e9ecef;">' + putRemark + '</td>' +
                             '</tr>';
-                        $('table.TablePurchaseRequisition tbody').append(html);
-                        $("#statusEditPr").val("No");
+                        $('table.tablePieceMeal tbody').append(html);
+                        $("#statusEditPieceMeal").val("No");
 
-                        $("body").on("click", ".RemovePurchaseRequisition", function() {
+                        $("body").on("click", ".RemovePieceMeal", function() {
                             $(this).closest("tr").remove();
-                            var ProductId = $(this).data("id1");
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + ProductId,
+                                url: '{!! route("PieceMeal.StoreValidatePieceMeal2") !!}?putProductId=' + $(this).data("id1"),
                             });
                         });
-                        $("body").on("click", ".EditPurchaseRequisition", function() {
+                        $("body").on("click", ".EditPieceMeal", function() {
                             var $this = $(this);
 
                             $.ajax({
                                 type: "POST",
-                                url: '{!! route("PurchaseRequisition.StoreValidatePurchaseRequisition2") !!}?putProductId=' + $this.data("id1"),
+                                url: '{!! route("PieceMeal.StoreValidatePieceMeal2") !!}?putProductId=' + $this.data("id1"),
                             });
 
                             $("#putProductId").val($this.data("id1"));
                             $("#putProductName").val($this.data("id2"));
-                            $("#qtyCek").val($this.data("id3"));
+                            $('#qtyCek').val($this.data("id3"));
                             $("#putUom").val($this.data("id4"));
                             $("#priceCek").val($this.data("id5"));
                             $("#putCurrency").val($this.data("id6"));
+                            $("#totalPieceMealDetails").val($this.data("id7"));
                             $("#putRemark").val($this.data("id8"));
-                            $("#ValidateRemark").val($this.data("id8"));
-                            $("#totalProcReqDetails").val($this.data("id7"));
                             $("#totalBalance").val($this.data("id9"));
-                            $("#statusEditPr").val("Yes");
+
+                            $("#statusEditPieceMeal").val("Yes");
                             $("#ValidateQuantity").val($this.data("id3"));
+                            $("#ValidateRemark").val($this.data("id8"));
                             $("#ValidatePrice").val($this.data("id5"));
 
                             $(this).closest("tr").remove();
@@ -221,7 +216,7 @@
                         $("#priceCek").val("");
                         $("#putCurrency").val("");
                         $("#putRemark").val("");
-                        $("#totalProcReqDetails").val("");
+                        $("#totalPieceMealDetails").val("");
                         $("#totalBalance").val("");
 
                         $("#iconProductId").hide();
@@ -230,11 +225,13 @@
                         $("#iconProductId2").hide();
                         $("#iconQty2").hide();
                         $("#iconRemark2").hide();
+
+                        $("#saveArfList").prop("disabled", false);
                         $("#submitPR").prop("disabled", false);
 
                         $("#tableShowHideBOQ1").find("input,button,textarea,select").attr("disabled", false);
                         $("#tableShowHideBOQ3").find("input,button,textarea,select").attr("disabled", false);
-                        $("#detailPurchaseRequisitionList").show();
+                        $("#detailPieceMealList").show();
 
                         $("#qtyCek").attr('required', false);
                         $("#putProductId").attr('required', false);
@@ -248,12 +245,9 @@
     }
 </script>
 
-
-
 <script>
     $('document').ready(function() {
         $('.ChangeQty').keyup(function() {
-
             var qtyReq = $(this).val();
             var putQty = $('#putQty').val();
             var priceCek = parseFloat($('#priceCek').val().replace(/,/g, ''));
@@ -261,21 +255,21 @@
             var total2 = qtyReq * priceCek;
 
             if (parseFloat(qtyReq) == '') {
-                $('#totalProcReqDetails').val(0);
+                $('#totalPieceMealDetails').val(0);
                 $("#qtyCek").css("border", "1px solid red");
             } else if (parseFloat(qtyReq) > parseFloat(putQty)) {
                 Swal.fire("Error !", "Your Quantity Request is Over", "error");
                 $("#qtyCek").val(0);
-                $('#totalProcReqDetails').val(0);
+                $('#totalPieceMealDetails').val(0);
                 $("#qtyCek").css("border", "1px solid red");
             } else if (parseFloat(total2) > parseFloat(total)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
-                $('#totalProcReqDetails').val(0);
+                $('#totalPieceMealDetails').val(0);
 
                 $("#qtyCek").css("border", "1px solid red");
             } else {
                 var totalReq = parseFloat(total2);
-                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $('#totalPieceMealDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#qtyCek").css("border", "1px solid #ced4da");
             }
         });
@@ -285,6 +279,7 @@
 <script>
     $('document').ready(function() {
         $('.ChangePrice').keyup(function() {
+
             var priceReq = parseFloat($(this).val().replace(/,/g, ''));
             var qtyCek = $('#qtyCek').val();
             var putPrice = parseFloat($('#putPrice').val().replace(/,/g, ''));
@@ -293,25 +288,27 @@
             var totalBalance = $("#totalBalance").val();
 
             if (priceReq == '') {
-                $('#totalProcReqDetails').val(0);
+                $('#totalPieceMealDetails').val(0);
                 $("#priceCek").css("border", "1px solid red");
             } else if (parseFloat(total) > parseFloat(total2)) {
                 Swal.fire("Error !", "Your Request Is Over Budget", "error");
                 $("#priceCek").val(0);
-                $('#totalProcReqDetails').val(0);
+                $('#totalPieceMealDetails').val(0);
+
                 $("#priceCek").css("border", "1px solid red");
             } else {
                 var totalReq = total;
-                $('#totalProcReqDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+                $('#totalPieceMealDetails').val(parseFloat(totalReq).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
                 $("#priceCek").css("border", "1px solid #ced4da");
             }
+
         });
     });
 </script>
 
 <script>
     $(function() {
-        $("#FormSubmitProcReq").on("submit", function(e) { //id of form 
+        $("#FormSubmitPieceMeal").on("submit", function(e) { //id of form 
             e.preventDefault();
 
             var action = $(this).attr("action"); //get submit action from form
@@ -361,7 +358,7 @@
 
                                 title: 'Successful !',
                                 type: 'success',
-                                html: 'Data has been saved. Your transaction number iss ' + '<span style="color:red;">' + response.advnumber + '</span>',
+                                html: 'Data has been saved. Your transaction number is ' + '<span style="color:red;">' + response.advnumber + '</span>',
                                 showCloseButton: false,
                                 showCancelButton: false,
                                 focusConfirm: false,
@@ -373,7 +370,7 @@
                                 if (result.value) {
                                     $("#loading").show();
                                     $(".loader").show();
-                                    window.location.href = '/PurchaseRequisition?var=1';
+                                    location.reload();
                                 }
                             })
                         },
@@ -405,7 +402,7 @@
 </script>
 
 <script type="text/javascript">
-    function CancelPurchaseRequisition() {
+    function CancelPieceMeal() {
         $("#loading").show();
         $(".loader").show();
         location.reload();

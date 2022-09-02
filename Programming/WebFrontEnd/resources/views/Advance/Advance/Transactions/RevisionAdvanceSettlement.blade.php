@@ -13,7 +13,7 @@
     <div class="container-fluid">
       <div class="row mb-1" style="background-color:#4B586A;">
         <div class="col-sm-6" style="height:30px;">
-          <label style="font-size:15px;position:relative;top:7px;color:white;">Advance Settlement</label>
+          <label style="font-size:15px;position:relative;top:7px;color:white;">Revision Advance Settlement</label>
         </div>
       </div>
       @include('Advance.Advance.Functions.Menu.MenuAdvanceSettlement')
@@ -22,7 +22,6 @@
           @csrf
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
-              @csrf
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">

@@ -33,33 +33,32 @@
             let combinedBudget = $("#combinedBudget").val();
             let statusProduct = $("#statusProduct").val();
             let statusEditArf = $("#statusEditArf").val();
+
             if (statusEditArf == "Yes") {
 
-                qtyCek = parseFloat($('#ValidateQuantity').val().replace(/,/g, ''));
-                priceCek = parseFloat($('#ValidatePrice').val().replace(/,/g, ''));
-                
-                totalArfDetails = parseFloat(qtyCek * priceCek);
+                qtyCek = $('#ValidateQuantity').val();
+                priceCek = $('#ValidatePrice').val();
+                totalArfDetails = parseFloat(qtyCek.replace(/,/g, '') * priceCek.replace(/,/g, ''));
 
                 let html = '<tr>' +
                     '<td style="border:1px solid #e9ecef;width:7%;">' +
                     '&nbsp;&nbsp;<button type="button" class="btn btn-xs RemoveAdvance" data-id1="' + product_id + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/delete.png" width="18" alt="" title="Remove"></button> ' +
-                    '&nbsp;<button type="button" class="btn btn-xs EditAdvance" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
+                    '&nbsp;<button type="button" class="btn btn-xs EditAdvance" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '" style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                     '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                     '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
                     '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
                     '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
                     '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
-                    '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
                     '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                     '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
-                    '<input type="hidden" name="var_statusProduct[]" value="' + statusProduct + '">' +
+                    '<input type="hidden" name="var_statusProduct[]" value="kamu' + statusProduct + '">' +
                     '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + product_id + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putProductName + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + qtyCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + qtyCek + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putUom + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + priceCek.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
-                    '<td style="border:1px solid #e9ecef;">' + totalArfDetails.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + priceCek + '</td>' +
+                    '<td style="border:1px solid #e9ecef;">' + totalArfDetails.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '</td>' +
                     '<td style="border:1px solid #e9ecef;">' + putCurrency + '</td>' +
                     '</tr>';
                 $('table.TableAdvance tbody').append(html);
@@ -136,10 +135,9 @@
                             '&nbsp;<button type="button" class="btn btn-xs EditAdvance" data-dismiss="modal" data-id1="' + product_id + '" data-id2="' + putProductName + '" data-id3="' + qtyCek + '" data-id4="' + putUom + '" data-id5="' + priceCek + '" data-id6="' + putCurrency + '" data-id7="' + totalArfDetails + '" data-id8="' + putRemark + '" data-id9="' + totalBalance + '"  style="border: 1px solid #ced4da;padding-left:2px;padding-right:2px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/edit.png" width="17" alt="" title="Edit"></button> ' +
                             '<input type="hidden" name="var_product_id[]" value="' + product_id + '">' +
                             '<input type="hidden" name="var_product_name[]" id="var_product_name" value="' + putProductName + '">' +
-                            '<input type="hidden" name="var_quantity[]" value="' + qtyCek + '">' +
+                            '<input type="hidden" name="var_quantity[]" value="' + parseFloat(qtyCek.replace(/,/g, '')) + '">' +
                             '<input type="hidden" name="var_uom[]" value="' + putUom + '">' +
-                            '<input type="hidden" name="var_price[]" value="' + priceCek + '">' +
-                            '<input type="hidden" name="var_totalPrice[]" value="' + (priceCek * qtyCek) + '">' +
+                            '<input type="hidden" name="var_price[]" value="' + parseFloat(priceCek.replace(/,/g, '')) + '">' +
                             '<input type="hidden" name="var_currency[]" value="' + putCurrency + '">' +
                             '<input type="hidden" name="var_date" value="' + date + '">' +
                             '<input type="hidden" name="var_combinedBudget[]" value="' + combinedBudget + '">' +
@@ -166,7 +164,7 @@
                         });
                         $("body").on("click", ".EditAdvance", function() {
                             var $this = $(this);
-                            alert('s');
+
                             $.ajax({
                                 type: "POST",
                                 url: '{!! route("AdvanceRequest.StoreValidateAdvance2") !!}?putProductId=' + $this.data("id1"),
