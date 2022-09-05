@@ -8257,13 +8257,15 @@
       "type":"structure",
       "members":{
         "SecurityGroupIds":{"shape":"DomainSecurityGroupIds"},
-        "RStudioServerProDomainSettings":{"shape":"RStudioServerProDomainSettings"}
+        "RStudioServerProDomainSettings":{"shape":"RStudioServerProDomainSettings"},
+        "ExecutionRoleIdentityConfig":{"shape":"ExecutionRoleIdentityConfig"}
       }
     },
     "DomainSettingsForUpdate":{
       "type":"structure",
       "members":{
-        "RStudioServerProDomainSettingsForUpdate":{"shape":"RStudioServerProDomainSettingsForUpdate"}
+        "RStudioServerProDomainSettingsForUpdate":{"shape":"RStudioServerProDomainSettingsForUpdate"},
+        "ExecutionRoleIdentityConfig":{"shape":"ExecutionRoleIdentityConfig"}
       }
     },
     "DomainStatus":{
@@ -8783,6 +8785,13 @@
       "type":"string",
       "max":1024,
       "pattern":"[\\S\\s]*"
+    },
+    "ExecutionRoleIdentityConfig":{
+      "type":"string",
+      "enum":[
+        "USER_PROFILE_NAME",
+        "DISABLED"
+      ]
     },
     "ExecutionStatus":{
       "type":"string",
@@ -14639,6 +14648,18 @@
         "S3OutputUri":{"shape":"S3Uri"}
       }
     },
+    "RecommendationJobContainerConfig":{
+      "type":"structure",
+      "members":{
+        "Domain":{"shape":"String"},
+        "Task":{"shape":"String"},
+        "Framework":{"shape":"String"},
+        "FrameworkVersion":{"shape":"String"},
+        "PayloadConfig":{"shape":"RecommendationJobPayloadConfig"},
+        "NearestModelName":{"shape":"String"},
+        "SupportedInstanceTypes":{"shape":"RecommendationJobSupportedInstanceTypes"}
+      }
+    },
     "RecommendationJobDescription":{
       "type":"string",
       "max":128
@@ -14652,7 +14673,8 @@
         "TrafficPattern":{"shape":"TrafficPattern"},
         "ResourceLimit":{"shape":"RecommendationJobResourceLimit"},
         "EndpointConfigurations":{"shape":"EndpointInputConfigurations"},
-        "VolumeKmsKeyId":{"shape":"KmsKeyId"}
+        "VolumeKmsKeyId":{"shape":"KmsKeyId"},
+        "ContainerConfig":{"shape":"RecommendationJobContainerConfig"}
       }
     },
     "RecommendationJobName":{
@@ -14666,6 +14688,13 @@
       "members":{
         "KmsKeyId":{"shape":"KmsKeyId"},
         "CompiledOutputConfig":{"shape":"RecommendationJobCompiledOutputConfig"}
+      }
+    },
+    "RecommendationJobPayloadConfig":{
+      "type":"structure",
+      "members":{
+        "SamplePayloadUrl":{"shape":"String"},
+        "SupportedContentTypes":{"shape":"RecommendationJobSupportedContentTypes"}
       }
     },
     "RecommendationJobResourceLimit":{
@@ -14692,6 +14721,14 @@
         "MaxInvocations":{"shape":"Integer"},
         "ModelLatencyThresholds":{"shape":"ModelLatencyThresholds"}
       }
+    },
+    "RecommendationJobSupportedContentTypes":{
+      "type":"list",
+      "member":{"shape":"String"}
+    },
+    "RecommendationJobSupportedInstanceTypes":{
+      "type":"list",
+      "member":{"shape":"String"}
     },
     "RecommendationJobType":{
       "type":"string",

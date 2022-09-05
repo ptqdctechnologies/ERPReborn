@@ -1240,6 +1240,7 @@ return array(
     'Illuminate\\Database\\Query\\Processors\\SqlServerProcessor' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Query/Processors/SqlServerProcessor.php',
     'Illuminate\\Database\\RecordsNotFoundException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/RecordsNotFoundException.php',
     'Illuminate\\Database\\SQLiteConnection' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SQLiteConnection.php',
+    'Illuminate\\Database\\SQLiteDatabaseDoesNotExistException' => $vendorDir . '/laravel/framework/src/Illuminate/Database/SQLiteDatabaseDoesNotExistException.php',
     'Illuminate\\Database\\Schema\\Blueprint' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Blueprint.php',
     'Illuminate\\Database\\Schema\\Builder' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/Builder.php',
     'Illuminate\\Database\\Schema\\ColumnDefinition' => $vendorDir . '/laravel/framework/src/Illuminate/Database/Schema/ColumnDefinition.php',

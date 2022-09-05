@@ -328,7 +328,7 @@ namespace App\Helpers\ZhtHelper\General
                 'function (varFilePath, varName, varSize, varMIME, varUploadDateTimeTZ) {'.
                     'try {'.
                         'var varFilePathArray = varFilePath.split(\'/\'); '.
-                        'var varThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
+                        'var varLocalThumbnailsFolderPath = \'Thumbnails/\' + varFilePathArray[0] + \'/\' + varFilePathArray[2]; '.
 
                         //---> zhtInnerFunc_CloseDivModal
                         'function zhtInnerFunc_CloseDivModal(varObj) {'.
@@ -435,7 +435,7 @@ namespace App\Helpers\ZhtHelper\General
 
 
                         //---> zhtInnerFunc_GetThumbnailsReload
-                        'function zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath, varLocalFilePath) {'.
+                        'function zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath) {'.
                             'varThumbnailsMainData = zhtInnerFunc_GetThumbnailsMainData(varLocalFilePath); '.
                             'varDataArrayOption = []; '.
                             'if(varThumbnailsMainData.filesCount == 0) {'.
@@ -485,7 +485,7 @@ namespace App\Helpers\ZhtHelper\General
                                     '\'change\', '.
                                     'function() {'.
                                         'zhtInnerFunc_ShowThumbnails('.
-                                            'varThumbnailsFolderPath, '.
+                                            'varLocalThumbnailsFolderPath, '.
                                             'parseInt(ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].text), '.
                                             'ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].value'.
                                             '); '.
@@ -565,9 +565,9 @@ namespace App\Helpers\ZhtHelper\General
 
 
                         //---> zhtInnerFunc_ShowThumbnails
-                        'function zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, varIndex, varPath) {'.
+                        'function zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, varIndex, varPath) {'.
                             'varThumbnailsFileName = String(varIndex-1).padStart(10, \'0\') + \'.png\'; '.
-                            'varThumbnailsFilePath = varThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
+                            'varThumbnailsFilePath = varLocalThumbnailsFolderPath + \'/\' + varThumbnailsFileName; '.
                             'varImageSource = ('.
                                 'JSON.parse('.                           
                                     str_replace(
@@ -619,7 +619,7 @@ namespace App\Helpers\ZhtHelper\General
                             '}; '.
 
                         //---> Main Code
-                        //'alert(varThumbnailsFolderPath); '.
+                        //'alert(varLocalThumbnailsFolderPath); '.
                         'varMaxZIndex = (parseInt('.self::getSyntaxFunc_MaxZIndex($varUserSession).') + 1); '.
                         self::getSyntaxCreateDOM_Div(
                             $varUserSession, 
@@ -937,7 +937,7 @@ namespace App\Helpers\ZhtHelper\General
                             ).
                         'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.zIndex = (varMaxZIndex+5); '.
 
-                        'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
+                        'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogContentPlcHold ---> DialogContentPlcHoldBack ---> DialogContentThumbnailImage
                         self::getSyntaxCreateDOM_Image(
@@ -1204,7 +1204,7 @@ namespace App\Helpers\ZhtHelper\General
 //                        'document.getElementById(\''.$varID.'_DialogActionTable'.'\').onclick = function() {alert(\'xxx\');}(); '.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogPageSelect
-                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varThumbnailsFolderPath, varFilePath); '.
+                        'varDataArrayOption = zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varFilePath); '.
 
                         //---> Dialog ---> DialogPreviewPlcHold ---> DialogButtonPlcHold ---> DialogRecreateButton
                         self::getSyntaxCreateDOM_Button(
@@ -1219,8 +1219,8 @@ namespace App\Helpers\ZhtHelper\General
                             ], 
                             'Recreate',
                             'function() {'.
-                                'zhtInnerFunc_RecreateThumbnails(varThumbnailsFolderPath, varFilePath); '.
-                                'zhtInnerFunc_ShowThumbnails(varThumbnailsFolderPath, 1, \'\'); '.
+                                'zhtInnerFunc_RecreateThumbnails(varLocalThumbnailsFolderPath, varFilePath); '.
+                                'zhtInnerFunc_ShowThumbnails(varLocalThumbnailsFolderPath, 1, \'\'); '.
                                 '}'
                             ).
 
