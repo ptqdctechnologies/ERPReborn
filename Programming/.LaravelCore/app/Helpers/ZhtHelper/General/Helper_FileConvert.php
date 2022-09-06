@@ -160,7 +160,7 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : isConvertible_OfficeToPDF                                                                            |
+        | ▪ Method Name     : isConvertible_ToPDF                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-02                                                                                           |
@@ -187,7 +187,7 @@ namespace App\Helpers\ZhtHelper\General
                 default:
                     {
                     //---> Other Data ---> Office Document
-                    if(self::isOfficeDocument($varUserSession, $varMIME) == true) {
+                    if(self::isConvertible_OfficeDocumentToPDF($varUserSession, $varMIME) == true) {
                         $varReturn = TRUE;                        
                         }
                     //---> Other Data ---> Others
@@ -204,12 +204,12 @@ namespace App\Helpers\ZhtHelper\General
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : isOfficeDocument                                                                                     |
+        | ▪ Method Name     : isConvertible_OfficeDocumentToPDF                                                                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-02                                                                                           |
         | ▪ Creation Date   : 2022-09-02                                                                                           |
-        | ▪ Description     : Mengecek apakah data termasuk Dokumen Office berdasarkan MIME nya                                    |
+        | ▪ Description     : Mengecek apakah data office  dapat dikonversi ke format PDF berdasarkan MIME nya                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
@@ -218,7 +218,7 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (bool)   varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public static function isOfficeDocument($varUserSession, string $varMIME = null)
+        public static function isConvertible_OfficeDocumentToPDF($varUserSession, string $varMIME = null)
             {
             switch($varMIME) {
                 //---> RTF

@@ -643,6 +643,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Helpers\\ZhtHelper\\General\\Helper_JQuery' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JQuery.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JSON' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JSON.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScript.php',
+        'App\\Helpers\\ZhtHelper\\General\\Helper_JavaScript_OLD' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_JavaScript_OLD.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_LDAP' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_LDAP.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_Network' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_Network.php',
         'App\\Helpers\\ZhtHelper\\General\\Helper_PHPObject' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/General/Helper_PHPObject.php',

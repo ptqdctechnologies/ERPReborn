@@ -212,6 +212,26 @@ namespace App\Helpers\ZhtHelper\General
                                 ], 
                                 ''
                                 ).
+                            self::getSyntaxCreateDOM_InputHidden(
+                                $varUserSession, 
+                                $varID.'_ProcessLoad_DataSignShow',
+                                $varID.'_ProcessLoad_Back',
+                                'OK',
+                                [
+                                    'ID' => $varID.'_ProcessLoad_DataSignShow',
+                                    'ParentID' => $varID.'_ProcessLoad_Back',
+                                ]
+                                ).
+                            self::getSyntaxCreateDOM_InputHidden(
+                                $varUserSession, 
+                                $varID.'_ProcessLoad_DataMessage',
+                                $varID.'_ProcessLoad_Back',
+                                'Oye',
+                                [
+                                    'ID' => $varID.'_ProcessLoad_DataMessage',
+                                    'ParentID' => $varID.'_ProcessLoad_Back',
+                                ]
+                                ).
                             self::getSyntaxCreateDOM_Div(
                                 $varUserSession, 
                                 [
@@ -245,6 +265,8 @@ namespace App\Helpers\ZhtHelper\General
                         'varObjDOM.style.zIndex = (varMaxZIndex+100); '.
                         'varObjDOM.style.height = '.self::getSyntaxFunc_PageHeight($varUserSession).'; '.
                         'varObjDOM.style.width = '.self::getSyntaxFunc_PageWidth($varUserSession).'; '.
+
+                        'varObjDOM.childNodes.item(\''.$varID.'_ProcessLoad_DataSignShow'.'\').value = varSignOpen; '.
                     
                         'function startShow() {'.
                             'if (varObjDOM.style.display != \'block\') {'.
@@ -257,7 +279,7 @@ namespace App\Helpers\ZhtHelper\General
                             'if (varObjDOM.style.display != \'none\') {'.
                                 'varObjDOM.style.display = \'none\'; '.
                                 'varObjDOM.style.visibility = \'hidden\'; '.
-                                'varObjDOM.parent.removeNode(\''.$varID.'_ProcessLoad_Back'.'\'); '.
+//                                'varObjDOM.parent.removeNode(\''.$varID.'_ProcessLoad_Back'.'\'); '.
 //                                document.getElementById(\''.$varID.'_ProcessLoad_Back'.'\')
                                 '}'.
                             '}; '.
@@ -368,44 +390,79 @@ namespace App\Helpers\ZhtHelper\General
                             'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', true).
                             'let varLocalImageSource = \'images/Logo/AppObject_System/NoPreviewAvailable.jpg\'; '.
                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varLocalImageSource; '.
-                            'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = 400; '.
-                            'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = 400; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
-                            'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                            'let varSignProcessFinish = false; '.
                             'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = 400; '.
+                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = 400; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = 400; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = 400; '.
+                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'hidden\'; '.
+                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'none\'; '.
+//                                'if(document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display === \'none\') {'.
+                                    'setTimeout(('.
+                                        'function() {'.
+                                            'varLocalNothing = ('.
+                                                'JSON.parse('.                           
+                                                    str_replace(
+                                                        '"', 
+                                                        '\'', 
+                                                        \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
+                                                            $varUserSession, 
+                                                            $varAPIWebToken, 
+                                                            'fileHandling.upload.combined.thumbnails.create', 
+                                                            'latest', 
+                                                            '{'.
+                                                                '"parameter" : {'.
+                                                                    '"filePath" : varLocalFilePath'.
+                                                                    '}'.
+                                                            '}',
+                                                            10000
+                                                            )
+                                                        ).
+                                                    ').data'.
+                                                '); '.
+                                            'varSignProcessFinish = true; '.
+//                                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+                                            '}'.
+                                        '), 1); '.
+                    
+                    
+/*                    
+                                    'function zhtInnerFunc_WaitFinishProcess() {'.
+                                        'alert(\'xxxxxxxxxxxxx\'); '.
+//                                        'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+                                        '}; '.
+                                    'var ObjTimer = setInterval(zhtInnerFunc_WaitFinishProcess, 500); '.
+*/                    
+
+
+                                    
+                    
+                    
+                    
+                                    'zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath); '.
+                                    'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'visible\'; '.
+                                    'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'block\'; '.
+//                                    '} '.
                                 '}; '.
-                            'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'hidden\'; '.
-                            'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'none\'; '.
-                            'if(document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display === \'none\') {'.
-                                'setTimeout(('.
-                                    'function() {'.
-                                        'varLocalNothing = ('.
-                                            'JSON.parse('.                           
-                                                str_replace(
-                                                    '"', 
-                                                    '\'', 
-                                                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
-                                                        $varUserSession, 
-                                                        $varAPIWebToken, 
-                                                        'fileHandling.upload.combined.thumbnails.create', 
-                                                        'latest', 
-                                                        '{'.
-                                                            '"parameter" : {'.
-                                                                '"filePath" : varLocalFilePath'.
-                                                                '}'.
-                                                        '}',
-                                                        10000
-                                                        )
-                                                    ).
-                                                ').data'.
-                                            '); '.
+
+                    
+                            
+/*                    
+                            'ObjTimer = setInterval(('.
+                                'function () {'.
+                                    'if (varSignProcessFinish != true) {'.
+                                        'alert(\'xxxxxxxxxxxxxxx\'); '.
                                         '}'.
-                                    '), 1); '.
-                                'zhtInnerFunc_GetThumbnailsReload(varLocalThumbnailsFolderPath, varLocalFilePath); '.
-                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.visibility = \'visible\'; '.
-                                'document.getElementById(\''.$varID.'_DialogRecreateButton\').style.display = \'block\'; '.
-                                '} '.
-                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+                                    'else {'.
+                                        'clearInterval(ObjTimer); '.
+                                        'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
+                                        '}'.
+                                    '}'.
+                                '), 2000); '.
+*/                    
+                    
+//                            'varLocalNothing = '.self::getSyntaxCreateDOM_DivCustom_ModalBox_ProcessLoad($varUserSession, $varID, $varID.'_Back', false).'; '.
                             '}; '.
 
 
@@ -480,50 +537,48 @@ namespace App\Helpers\ZhtHelper\General
                                         ).
                                     '; '.
                                 //---> Page Select Event
-                                'ObjDOM_PageSelect = document.getElementById(\''.$varID.'_DialogPageSelect'.'\'); '.
-                                'ObjDOM_PageSelect.addEventListener('.
+                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
                                     '\'change\', '.
                                     'function() {'.
                                         'zhtInnerFunc_ShowThumbnails('.
                                             'varLocalThumbnailsFolderPath, '.
-                                            'parseInt(ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].text), '.
-                                            'ObjDOM_PageSelect.options[ObjDOM_PageSelect.selectedIndex].value'.
+                                            'parseInt(document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].text), '.
+                                            'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').options[document.getElementById(\''.$varID.'_DialogPageSelect'.'\').selectedIndex].value'.
                                             '); '.
                                         '}, '.
                                     'true); '.
-                                'ObjDOM_PageSelect.addEventListener('.
+                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
                                     '\'mouseover\','.
                                     'function() {'.
-                                        'ObjDOM_PageSelect.style.transform = \'scale(1.3)\'; '.
+                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'scale(1.3)\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
-                                'ObjDOM_PageSelect.addEventListener('.
+                                'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').addEventListener('.
                                     '\'mouseout\','.
                                     'function() {'.
-                                        'ObjDOM_PageSelect.style.transform = \'none\'; '.
-                                        'ObjDOM_PageSelect.style.transition = \'1.0s ease\'; '.
+                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transform = \'none\'; '.
+                                        'document.getElementById(\''.$varID.'_DialogPageSelect'.'\').style.transition = \'1.0s ease\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
                                 //---> Page Previous Img
-                                'ObjDOM_PreviousImg = document.getElementById(\''.$varID.'_PagePreviousImg'.'\'); '.
-                                'ObjDOM_PreviousImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
                                     '\'mouseover\','.
                                     'function() {'.
-                                        'ObjDOM_PreviousImg.style.transform = \'scale(1.3)\'; '.
+                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'scale(1.3)\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
-                                'ObjDOM_PreviousImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
                                     '\'mouseout\','.
                                     'function() {'.
-                                        'ObjDOM_PreviousImg.style.transform = \'none\'; '.
-                                        'ObjDOM_PreviousImg.style.transition = \'1.0s ease\'; '.
+                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transform = \'none\'; '.
+                                        'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').style.transition = \'1.0s ease\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
-                                'ObjDOM_PreviousImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PagePreviousImg'.'\').addEventListener('.
                                     '\'click\','.
                                     'function() {'.
                                         'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != 0) {'.
@@ -533,23 +588,22 @@ namespace App\Helpers\ZhtHelper\General
                                         '}'.
                                     '); '.
                                 //---> Page Next Img
-                                'ObjDOM_NextImg = document.getElementById(\''.$varID.'_PageNextImg'.'\'); '.
-                                'ObjDOM_NextImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
                                     '\'mouseover\','.
                                     'function() {'.
-                                        'ObjDOM_NextImg.style.transform = \'scale(1.3)\'; '.
+                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'scale(1.3)\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
-                                'ObjDOM_NextImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
                                     '\'mouseout\','.
                                     'function() {'.
-                                        'ObjDOM_NextImg.style.transform = \'none\'; '.
-                                        'ObjDOM_NextImg.style.transition = \'1.0s ease\'; '.
+                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transform = \'none\'; '.
+                                        'document.getElementById(\''.$varID.'_PageNextImg'.'\').style.transition = \'1.0s ease\'; '.
                                         '}, '.
                                     'false'.
                                     '); '.
-                                'ObjDOM_NextImg.addEventListener('.
+                                'document.getElementById(\''.$varID.'_PageNextImg'.'\').addEventListener('.
                                     '\'click\','.
                                     'function() {'.
                                         'if(document.getElementById(\''.$varID.'_DialogPageSelect\').selectedIndex != (varThumbnailsMainData.filesCount - 1)) {'.
@@ -597,23 +651,28 @@ namespace App\Helpers\ZhtHelper\General
                             'varObjImage = new Image(); '.
                             'varObjImage.src = varImageSource; '.
                             'varObjImage.onload = function() {'.
-                                'varObjImageWidth = varObjImage.naturalWidth; '.
-                                'varObjImageHeight = varObjImage.naturalHeight; '.
-                                'if(varObjImage.naturalWidth > varObjImage.naturalHeight) {'.
-                                    'varSizeFactor = 400/varObjImage.naturalWidth; '.
+                                'let varObjImageWidth = varObjImage.naturalWidth; '.
+                                'let varObjImageHeight = varObjImage.naturalHeight; '.
+                                'if(varObjImageWidth > varObjImageHeight) {'.
+                                    'varSizeFactor = 400/varObjImageWidth; '.
                                     '}'.
                                 'else {'.
-                                    'varSizeFactor = 400/varObjImage.naturalHeight; '.
+                                    'varSizeFactor = 400/varObjImageHeight; '.
                                     '}'.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = varSizeFactor * varObjImage.naturalWidth; '.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = varSizeFactor * varObjImage.naturalHeight; '.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
-                                'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
+                                'varObjImageWidth = varObjImageWidth * varSizeFactor; '.
+                                'varObjImageHeight = varObjImageHeight * varSizeFactor; '.
 
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varSizeFactor * varObjImage.naturalWidth; '.
-                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varSizeFactor * varObjImage.naturalHeight; '.
                                 'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').src = varImageSource; '.
+                                'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').onload = function() {'.
+                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.top = \'50%\'; '.
+                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.left = \'50%\'; '.
+                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.transform = \'translate(-50%, -50%)\';'.
+                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.width = varObjImageWidth; '.
+                                    'document.getElementById(\''.$varID.'_DialogContentPlcHoldBack'.'\').style.height = varObjImageHeight; '.
+
+                                    'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.width = varObjImageWidth; '.
+                                    'document.getElementById(\''.$varID.'_DialogContentThumbnailImage'.'\').style.height = varObjImageHeight; '.
+                                    '}; '.
                                 '}; '.
                             //'alert(varImageSource); '.
                             '}; '.
@@ -1575,6 +1634,53 @@ namespace App\Helpers\ZhtHelper\General
         |      ▪ (string) varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
+        public static function getSyntaxCreateDOM_InputHidden($varUserSession, $varID, $varParentID, $varValue, $varArrayProperties)
+            {
+            $varReturn = '';
+            $varObjectID = (
+                (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == FALSE) ? 
+                    'TempObject' : 
+                    $varArrayProperties['ID']
+                );
+
+            $varReturn = 
+                'varNothing = function (varLocalID, varLocalParentID, varLocalValue) {'.
+                    'try {'.
+                        'var '.$varObjectID.' = document.createElement(\'input\'); '.
+                        //---> set ID
+                        $varObjectID.'.id = \''.$varObjectID.'\'; '.
+                        ''.$varArrayProperties['ID'].'.setAttribute(\'type\', \'text\'); '.
+                        //---> value
+                        ''.$varID.'.setAttribute(\'value\', \''.$varValue.'\'); '.
+                    
+//                        ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'Value', $varArrayProperties) == FALSE) ? '' : 
+//                            ''.$varArrayProperties['ID'].'.setAttribute(\'value\', \''.$varArrayProperties['Value'].'\'); '
+//                            ).
+                        //---> style
+                        $varReturn.
+                        //---> appendChild
+                        ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ParentID', $varArrayProperties) == FALSE) ? '' : 
+                            $varArrayProperties['ParentID'].'.appendChild('.$varObjectID.'); '
+                            ).
+                        //---> remove ID
+                        ((\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'ID', $varArrayProperties) == TRUE) ? '' : 
+                            $varObjectID.'.removeAttribute(\'id\'); ').
+                        '}'.
+                    'catch(varError) {'.
+                        'alert(\'ERP Reborn Error Notification\n\nInvalid Object\n(\' + varError + \')\'); '.
+                        '}'.
+                    '} ('.
+                        ($varID ? '\''.$varID.'\'' : 'varID').
+                        ', '.
+                        ($varParentID ? '\''.$varParentID.'\'' : 'varParentID').
+                        ', '.
+                        ($varValue ? '\''.$varValue.'\'' : 'varValue').
+                        ');'.
+                    '';
+
+            return $varReturn;
+            }
+
         public static function getSyntaxCreateDOM_InputText($varUserSession, $varArrayProperties)
             {
             $varReturn = '';

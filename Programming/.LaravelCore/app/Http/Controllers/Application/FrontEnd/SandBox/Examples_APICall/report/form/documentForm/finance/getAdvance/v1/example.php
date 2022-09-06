@@ -17,8 +17,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.finance.getAdvance.v1_throughAPIGateway                                |
-        |                     ► http://172.28.0.4/report.form.documentForm.finance.getAdvance.v1_throughAPIGateway                             |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.documentForm.finance.getAdvance.v1_throughAPIGateway                    |
+        |                     ► http://172.28.0.4/report.form.documentForm.finance.getAdvance.v1_throughAPIGateway                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-07-21                                                                                           |

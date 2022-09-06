@@ -156,7 +156,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\FileHandling\Engines\u
                 $varDataThumbnails = $varDataTemp;
                 }
             //---> Convert Data ---> Office Document
-            elseif (\App\Helpers\ZhtHelper\General\Helper_FileConvert::isOfficeDocument($varUserSession, $varFileMIME[0].'/'.$varFileMIME[1]) == TRUE)
+            elseif (\App\Helpers\ZhtHelper\General\Helper_FileConvert::isConvertible_OfficeDocumentToPDF($varUserSession, $varFileMIME[0].'/'.$varFileMIME[1]) == TRUE)
                 {
                 $varDataTemp = 
                     \App\Helpers\ZhtHelper\General\Helper_ImageProcessing::getConvertDataContent_PDFToPNG(
