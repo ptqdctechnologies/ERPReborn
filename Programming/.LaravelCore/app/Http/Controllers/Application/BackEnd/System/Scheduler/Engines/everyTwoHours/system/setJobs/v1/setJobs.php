@@ -33,6 +33,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Creation Date   : 2021-01-26                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -57,6 +58,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Creation Date   : 2021-01-26                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -100,6 +102,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Scheduler\Engines\ever
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-26                                                                                           |
+        | ▪ Creation Date   : 2021-01-26                                                                                           |
         | ▪ Description     : loadAllJobs                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
