@@ -1275,17 +1275,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v9.27.0",
-            "version_normalized": "9.27.0.0",
+            "version": "v9.28.0",
+            "version_normalized": "9.28.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "27572f45120fd3977d92651a71d8c711a9aaa790"
+                "reference": "396a89e1f3654123d1c7f56306051212e5c75bc0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/27572f45120fd3977d92651a71d8c711a9aaa790",
-                "reference": "27572f45120fd3977d92651a71d8c711a9aaa790",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/396a89e1f3654123d1c7f56306051212e5c75bc0",
+                "reference": "396a89e1f3654123d1c7f56306051212e5c75bc0",
                 "shasum": ""
             },
             "require": {
@@ -1410,7 +1410,7 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^6.0).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^2.0)."
             },
-            "time": "2022-08-30T13:34:43+00:00",
+            "time": "2022-09-06T14:57:01+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
