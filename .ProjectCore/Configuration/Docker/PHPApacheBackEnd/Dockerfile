@@ -131,15 +131,42 @@ RUN apt-get install -y \
 
 
 #---> PHP Extension : File Converter
+#RUN apt-get install -y \
+#   libreoffice \
+#   ghostscript \
+#   imagemagick \
+#   build-essential \
+#   libmagickwand-dev
+
+#RUN pecl install imagick \
+#   && docker-php-ext-enable imagick
+
 RUN apt-get install -y \
    libreoffice \
-   ghostscript \
-   imagemagick \
-   build-essential \
-   libmagickwand-dev
+   ghostscript
 
-RUN pecl install imagick \
-   && docker-php-ext-enable imagick
+RUN apt-get install -y \
+      build-essential \
+      libmagickwand-dev \
+   && git clone https://github.com/Imagick/imagick \
+      && cd ./imagick/ \
+         && phpize \
+         && ./configure \
+         && make \
+         && make install \
+      && cd - \
+      && rm -rf ./imagick
+#         && make test \
+
+RUN docker-php-ext-enable imagick
+
+
+
+
+
+
+
+
 
 #   && docker-php-ext-install \
 #      php-imagick \
