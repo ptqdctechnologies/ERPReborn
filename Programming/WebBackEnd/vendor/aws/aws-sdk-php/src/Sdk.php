@@ -160,6 +160,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnectParticipant(array $args = [])
  * @method \Aws\ConnectWisdomService\ConnectWisdomServiceClient createConnectWisdomService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectWisdomService(array $args = [])
+ * @method \Aws\ControlTower\ControlTowerClient createControlTower(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionControlTower(array $args = [])
  * @method \Aws\CostExplorer\CostExplorerClient createCostExplorer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCostExplorer(array $args = [])
  * @method \Aws\CostandUsageReportService\CostandUsageReportServiceClient createCostandUsageReportService(array $args = [])
@@ -633,7 +635,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.234.5';
+    const VERSION = '3.235.2';
 
     /** @var array Arguments for creating clients */
     private $args;

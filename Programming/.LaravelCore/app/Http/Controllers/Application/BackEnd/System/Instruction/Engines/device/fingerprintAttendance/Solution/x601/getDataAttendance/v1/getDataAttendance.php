@@ -25,6 +25,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Creation Date   : 2021-01-12                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,6 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2021-01-12                                                                                           |
+        | ▪ Creation Date   : 2021-01-12                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -60,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Instruction\Engines\de
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Attendance Data From Solution x601 Machine (version 1)');
                 try {
                     //---- ( MAIN CODE ) ------------------------------------------------------------------------- [ START POINT ] -----
-                    try{
+                    try {
                         $varDataSend = (new \zhtSDK\Device\Solution\FingerprintAttendance\x601\zhtSDK(
                             $varUserSession, 
                             $varData['entities']['IPAddress'],

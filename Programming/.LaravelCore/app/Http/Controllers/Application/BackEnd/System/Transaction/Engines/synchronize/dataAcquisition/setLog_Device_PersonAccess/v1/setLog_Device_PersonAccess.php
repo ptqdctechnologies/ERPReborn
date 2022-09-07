@@ -117,7 +117,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                 $varAPIWebToken = (new \App\Models\Database\SchSysConfig\General())->getAPIWebToken_SysEngine($varUserSession);
                 
                 $varList = [
-                        //---> Finger Print HO Ruang Server
+                        //---> Finger Print : HO Ruang Server
                         [
                         'GoodsIdentity_RefID' => 17000000000003,
                         'Device' => 'ALBox_FP800',
@@ -126,7 +126,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'SerialNumber' => '2065682450035',
                         'TimeZoneOffset' => '+07'
                         ],
-                        //---> Finger Print PJO Medan
+                        //---> Finger Print : PJO Medan
                         [
                         'GoodsIdentity_RefID' => 17000000000005,
                         'Device' => 'ALBox_FP800',
@@ -135,7 +135,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'SerialNumber' => '0011142201014',
                         'TimeZoneOffset' => '+07'
                         ],
-                        //---> Finger Print HO Lantai 4
+                        //---> Finger Print : HO Lantai 4
                         [
                         'GoodsIdentity_RefID' => 17000000000006,
                         'Device' => 'Solution.x601',
@@ -144,7 +144,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'SerialNumber' => 'AEYU202860040',
                         'TimeZoneOffset' => '+07'
                         ],
-                        //---> Finger Print HO Lantai 3
+                        //---> Finger Print : HO Lantai 3
                         [
                         'GoodsIdentity_RefID' => 17000000000007,
                         'Device' => 'Solution.x601',
@@ -152,8 +152,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\sy
                         'HostPort' => 4370,
                         'SerialNumber' => 'AEYU202860056',
                         'TimeZoneOffset' => '+07'
+                        ],
+                        //---> Finger Print : Gudang Tiga Raksa
+                        [
+                        'GoodsIdentity_RefID' => 17000000000009,
+                        'Device' => 'Solution.x601',
+                        'HostIP' => '192.168.20.5',
+                        'HostPort' => 4370,
+                        'SerialNumber' => 'AEYU221060096',
+                        'TimeZoneOffset' => '+07'
                         ]/*,
-                        //---> Swing Barrier Gate Lantai 1
+                        //---> Swing Barrier Gate : HO Lantai 1
                         [
                         'GoodsIdentity_RefID' => 17000000000008,
                         'Device' => 'Goodwin.ServoSW01',
