@@ -4,10 +4,9 @@
 @include('Partials.sidebar')
 @include('getFunction.getSite')
 @include('getFunction.getProduk')
-@include('Advance.Advance.Functions.PopUp.popUpArfRevision')
-@include('Advance.Advance.Functions.PopUp.popUpSearchArfRevision')
+@include('Advance.Advance.Functions.PopUp.PopUpAdvanceRevision')
 @include('getFunction.getProject')
-@include('Advance.Advance.Functions.PopUp.popUpRequesterArf')
+@include('Advance.Advance.Functions.PopUp.PopUpRequesterAdvance')
 @include('getFunction.getWorker')
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">

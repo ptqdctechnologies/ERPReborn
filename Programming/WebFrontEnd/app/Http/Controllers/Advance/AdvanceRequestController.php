@@ -10,6 +10,7 @@ class AdvanceRequestController extends Controller
 {
     public function index(Request $request)
     {
+
         $varAPIWebToken = $request->session()->get('SessionLogin');
         // dd($varAPIWebToken);
         $request->session()->forget("SessionAdvance");       

@@ -10,13 +10,13 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a href="{{ route('AdvanceRequest.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Create Advance Request</i>
+                                    <a href="{{ route('DeliveryOrder.index') }}" class="nav-link" style="color:white;padding-bottom:10px;">
+                                        <i class="far fa-file nav-icon-sm"> Create Delivery Order </i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#myPopUpArfRevision" style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Advance Request</i>
+                                    <a class="nav-link" data-toggle="modal" data-target="#PopUpDoRevision" style="color:white;padding-bottom:10px;">
+                                        <i class="far fa-file nav-icon-sm"> Revision Delivery Order </i>
                                     </a>
                                 </li>
                             </ul>

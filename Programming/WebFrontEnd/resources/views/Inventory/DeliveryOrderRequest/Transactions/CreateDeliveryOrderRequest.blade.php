@@ -4,11 +4,10 @@
 @include('Partials.sidebar')
 @include('getFunction.getProject')
 @include('getFunction.getSite')
-@include('getFunction.getPr')
+@include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpDorRevision')
 @include('getFunction.getWarehouse')
 @include('getFunction.getWarehouse2')
 @include('getFunction.getWarehouse3')
-@include('Inventory.DeliveryOrderRequest.Functions.PopUp.PopUpRevisionDor')
 
 
 <div class="content-wrapper" style="position:relative;bottom:12px;">
@@ -214,12 +213,15 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <button type="reset" class="btn btn-outline btn-danger btn-sm float-right CancelDor">
-                                                    <i class="fa fa-times" aria-hidden="true" title="Cancel to Add DOR List Cart">Cancel</i>
-                                                </button>
-                                                <a class="btn btn-outline btn-success btn-sm float-right" id="addFromDetailDortoCart" style="margin-right: 5px;">
-                                                    <i class="fa fa-plus" aria-hidden="true" title="Add to Advance List" style="color: white;">Add to List Cart</i>
-                                                </a>
+                                                <div style="padding-right:10px;padding-top:5px;">
+                                                    <a class="btn btn-default btn-sm float-right CancelDor" style="background-color:#e9ecef;border:1px solid #ced4da;margin-right: 5px;">
+                                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel to Add Advance List Cart"> Cancel
+                                                    </a>
+                                                    <a class="btn btn-default btn-sm float-right" onclick="addFromDetailDortoCart();" id="addFromDetailDortoCart" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                                        <img src="{{ asset('AdminLTE-master/dist/img/add.png') }}" width="13" alt="" title="Add to Advance List"> Add
+                                                    </a>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -260,14 +262,12 @@
                                     </table>
                                 </div>
                             </div>
-                            <a href="{{ url('arflist/cancel/') }}" class="btn btn-outline btn-danger btn-sm float-right remove-arf-list">
-                                <i class="fa fa-times" aria-hidden="true" title="Cancel DOR List Cart">Cancel</i>
+                            <a onclick="cancelAdvance();" class="btn btn-default btn-sm float-right" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel Advance List Cart"> Cancel
                             </a>
-                            <a class="btn btn-success btn-sm float-right" href="javascript:buttonSubmitDor()" style="color:white;">
-                                <i class="fa fa-save" aria-hidden="true"></i>
-                                Submit DOR
-                            </a>
-
+                            <button class="btn btn-default btn-sm float-right" type="submit" id="buttonSubmitDor" style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" title="Submit to Advance"> Submit
+                            </button>
                         </div>
                     </div>
                 </div>

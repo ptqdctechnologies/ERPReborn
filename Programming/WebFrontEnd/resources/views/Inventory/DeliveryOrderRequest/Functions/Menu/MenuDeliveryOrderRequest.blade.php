@@ -15,7 +15,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="modal" data-target="#popUpAdvanceRevision" style="color:white;padding-bottom:10px;">
+                                    <a class="nav-link" data-toggle="modal" data-target="#PopUpDorRevision" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Delivery Order Request</i>
                                     </a>
                                 </li>

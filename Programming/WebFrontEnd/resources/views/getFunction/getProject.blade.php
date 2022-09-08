@@ -165,7 +165,7 @@
                                 $.each(data, function(key, val2) {
                                     var html = '<tr>' +
                                         '<td style="border:1px solid #e9ecef;width:5%;">' +
-                                        '&nbsp;&nbsp;<button type="reset" class="btn btn-outline-success btn-sm klikBudgetPr" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" data-id5="' + code + '" title="Submit" style="border-radius: 100px;"><i class="fas fa-plus" aria-hidden="true"></i></button>' +
+                                        '&nbsp;&nbsp;<button type="reset" class="btn btn-outline-success btn-sm klikBudgetPr" data-id1="' + val2.name + '" data-id2="' + val2.quantity + '" data-id3="' + val2.unitPriceBaseCurrencyValue + '" data-id4="' + val2.priceBaseCurrencyValue + '" data-id5="' + code + '" title="Submit" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"><img src="AdminLTE-master/dist/img/add.png" width="15" alt="" title="Add to Detail"></button>' +
                                         '</td>' +
                                         '<td style="border:1px solid #e9ecef;">' + '<span id="getTranoDor">' + code + '</span>' + '</td>' +
                                         '<td style="border:1px solid #e9ecef;">' + '<span id="getProjectDor">' + 'N/A' + '</span>' + '</td>' +
